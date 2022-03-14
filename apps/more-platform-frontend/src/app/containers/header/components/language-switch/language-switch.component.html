@@ -1,0 +1,16 @@
+<div class="relative" reactorRoomClickOutside (outside)="onOutsideLanguageSwitcher($event)">
+  <div class="flex items-center justify-center w-10 h-10 bg-white border border-gray-100 rounded-lg cursor-pointer md:w-12 md:h-12 custom-shadow" (click)="onToggleStatus()">
+    <img class="w-6 h-6 md:w-8 md:h-8" [src]="currentLanguage.imgUrl" [alt]="currentLanguage.title" />
+  </div>
+  <div [@fadeInOutYAnimation] *ngIf="toggleStatus" class="absolute top-0 z-10 grid gap-4 p-2 bg-white rounded-lg mt-14 custom-shadow">
+    <ng-container *ngFor="let languageSwitchItem of languageSwitch; trackBy: trackByIndex; let languageSwitchIndex = index">
+      <img
+        *ngIf="!languageSwitchItem.activeStatus"
+        class="cursor-pointer"
+        [src]="languageSwitchItem.imgUrl"
+        [alt]="languageSwitchItem.title"
+        (click)="onSelectCurrentLanguage(languageSwitchIndex)"
+      />
+    </ng-container>
+  </div>
+</div>

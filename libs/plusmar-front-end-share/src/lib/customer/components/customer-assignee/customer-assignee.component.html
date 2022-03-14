@@ -1,0 +1,62 @@
+<div class="customer-assignee-container">
+  <div class="flex justify-between">
+    <div class="label">{{ 'Assignee' | translate }}</div>
+  </div>
+  <div class="customer-assignee-content flex">
+    <!--  -->
+    <!-- <input class="assginee-name" placeholder="Select an assignee" (click)="toggleSelectUser(); getUserLists()" /> -->
+    <div class="assginee-name" (click)="toggleSelectUser()" [ngClass]="{ assigned: assigneeId }" [@slideInOut]>
+      <ng-container *ngIf="!assigneeId">
+        <input class="interactive-input" [(ngModel)]="searchText" placeholder="{{ 'Select an assignee' | translate }}" (keydown)="searchTextDeboucee.next(null)" />
+      </ng-container>
+      <ng-container *ngIf="assigneeId">
+        <div class="assginee-detail" *ngIf="currentAssignee">
+          <img src="{{ currentAssignee.userImage }}" />
+          <div class="assginee-person">
+            <div>
+              {{ currentAssignee.userName }}
+              <ng-container *ngIf="currentAssignee.userAlias !== null">({{ currentAssignee.userAlias }})</ng-container>
+            </div>
+            <div (click)="unassignUser()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L7.20711 6.5L12.8536 0.853554C13.0488 0.658291 13.0488 0.341709 12.8536 0.146446C12.6583 -0.0488155 12.3417 -0.0488155 12.1464 0.146446L6.5 5.79289L0.853553 0.146448C0.658291 -0.0488143 0.341709 -0.0488143 0.146447 0.146448C-0.0488155 0.34171 -0.0488155 0.658293 0.146447 0.853555L5.79289 6.5L0.146447 12.1464C-0.0488155 12.3417 -0.0488155 12.6583 0.146447 12.8536C0.341709 13.0488 0.658291 13.0488 0.853553 12.8536L6.5 7.20711L12.1464 12.8536Z"
+                  fill="#8394A4"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="isShow && users">
+      <div class="user-list-container" reactorRoomClickOutside (outside)="closeDialog($event)" [@slideInOut]>
+        <div class="user-list-top">
+          <div class="user-size">{{ users.length }} {{ 'ASSIGNEE_MEMBER' | translate }}{{ users.length > 0 ? ('ASSIGNEE_MORE_MEMBER' | translate) : '' }}</div>
+          <div class="user-search">
+            <!-- <input placeholder="Search..." /> -->
+          </div>
+        </div>
+        <div class="user-detail-list">
+          <!-- <div class="user-detail" (click)="unassignUser()">
+            <img src="assets/img/customer/customer_error.svg" />
+            <div>Unassigned</div>
+          </div> -->
+          <ng-container *ngFor="let user of users">
+            <div class="user-detail" (click)="assignUser(user)">
+              <img src="{{ user.userImage }}" />
+              <div class="user-person">
+                <div>
+                  {{ user.userName }} <ng-container *ngIf="user.userAlias !== null">({{ user.userAlias }})</ng-container>
+                </div>
+                <div>{{ user.userRole | translate }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

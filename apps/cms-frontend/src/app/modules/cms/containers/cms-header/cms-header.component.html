@@ -1,0 +1,96 @@
+<section class="flex items-center w-full h-16 bg-itopplus-100 text-white">
+  <div class="flex-shrink-0 px-6 transition w-96" [ngClass]="{ 'w-auto': isPreviewMode }"><img src="assets/shared/logo.svg" alt="iTopplus" /></div>
+  <ng-container *ngIf="sidebarMode !== EsidebarMode.CONTENT_MANAGE && sidebarMode !== EsidebarMode.CONTENT_MANAGE_MEDIA">
+    <div [ngClass]="{ hidden: isPreviewMode }">
+      <cms-next-cms-language-switch></cms-next-cms-language-switch>
+    </div>
+    <div class="flex items-center justify-between w-full px-6">
+      <div>
+        <div [ngClass]="{ hidden: isPreviewMode }">
+          <cms-next-cms-page-selection
+            *ngIf="
+              sidebarMode === EsidebarMode.SITE_MANAGE ||
+              sidebarMode === EsidebarMode.SITE_SETTING ||
+              sidebarMode === EsidebarMode.LAYOUT_SETTING ||
+              sidebarMode === EsidebarMode.MENU_CUSTOM ||
+              sidebarMode === EsidebarMode.TEMPLATE_SETTING ||
+              sidebarMode === EsidebarMode.MEDIA_GALLERY_ITEM
+            "
+          ></cms-next-cms-page-selection>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center mx-4">
+          <div class="mr-2 text-sm font-light whitespace-nowrap">Dark Mode</div>
+          <div>
+            <input [formControl]="darkModeFormControl" type="checkbox" #isDarkMode class="hidden" />
+            <button
+              (click)="isDarkMode.click()"
+              class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+              [ngClass]="{ 'bg-green-500 border-green-500': darkModeFormControl.value }"
+            >
+              <div
+                class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+                [ngClass]="{ 'bg-gray-300': !darkModeFormControl.value, 'bg-white right-0 mr-2': darkModeFormControl.value }"
+              ></div>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="landingMode" class="pr-6 mr-6 border-r border-gray-300 focus:outline-none">
+          <button (click)="onBackToEditor()" class="hover:underline focus:outline-none">Back to Editor</button>
+        </div>
+        <div *ngIf="!isPreviewMode" class="pr-6 mr-6 border-r border-gray-300 focus:outline-none">
+          <button
+            *ngIf="
+              sidebarMode === EsidebarMode.SITE_MANAGE ||
+              sidebarMode === EsidebarMode.SITE_SETTING ||
+              sidebarMode === EsidebarMode.LAYOUT_SETTING ||
+              sidebarMode === EsidebarMode.MENU_CUSTOM ||
+              sidebarMode === EsidebarMode.TEMPLATE_SETTING ||
+              sidebarMode === EsidebarMode.MEDIA_GALLERY_ITEM
+            "
+            [routerLink]="['/' + RouteLinkEnum.DASHBOARD]"
+            class="hover:underline focus:outline-none"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+        <cms-next-cms-redo-undo *ngIf="!isPreviewMode"></cms-next-cms-redo-undo>
+        <cms-next-cms-preview
+          *ngIf="
+            sidebarMode === EsidebarMode.SITE_MANAGE ||
+            sidebarMode === EsidebarMode.SITE_SETTING ||
+            sidebarMode === EsidebarMode.LAYOUT_SETTING ||
+            sidebarMode === EsidebarMode.MENU_CUSTOM ||
+            sidebarMode === EsidebarMode.TEMPLATE_SETTING ||
+            sidebarMode === EsidebarMode.MEDIA_GALLERY_ITEM
+          "
+        ></cms-next-cms-preview>
+        <cms-next-cms-action></cms-next-cms-action>
+      </div>
+    </div>
+  </ng-container>
+  <div *ngIf="sidebarMode === EsidebarMode.CONTENT_MANAGE || sidebarMode === EsidebarMode.CONTENT_MANAGE_MEDIA" class="flex items-center justify-end w-full px-6">
+    <div class="flex items-center">
+      <div class="mr-2 text-sm font-light whitespace-nowrap">Dark Mode</div>
+      <div>
+        <input [formControl]="darkModeFormControl" type="checkbox" #isDarkMode class="hidden" />
+        <button
+          (click)="isDarkMode.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': darkModeFormControl.value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{ 'bg-gray-300': !darkModeFormControl.value, 'bg-white right-0 mr-2': darkModeFormControl.value }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <button [routerLink]="['/' + RouteLinkEnum.DASHBOARD + '/' + RouteLinkEnum.SHORTCUT_CONTENT_MANAGEMENT]" class="px-6 ml-6 border-l hover:underline focus:outline-none">
+      Back to List
+    </button>
+    <cms-next-cms-action [isFromContent]="true" [isSaveAsDraft]="true"></cms-next-cms-action>
+    <cms-next-cms-action [isFromContent]="true"></cms-next-cms-action>
+  </div>
+</section>

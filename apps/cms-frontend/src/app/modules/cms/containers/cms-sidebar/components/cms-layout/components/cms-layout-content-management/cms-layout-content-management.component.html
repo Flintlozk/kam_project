@@ -1,0 +1,26 @@
+<section class="grid gap-4" [formGroup]="contentManagementForm">
+  <ng-container *ngFor="let toggleItem of toggleData; let toggleIndex = index">
+    <button (click)="onToggleItem(toggleItem.title)" class="flex items-center justify-between px-4 py-3 bg-gray-400 rounded focus:outline-none">
+      <span class="font-light text-white">{{ toggleItem.title }}</span>
+      <svg class="transition transform" [ngClass]="{ ' -rotate-90': toggleItem.status }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container *ngTemplateOutlet="toggleContent; context: { selector: toggleItem.title, status: toggleItem.status }"> </ng-container>
+  </ng-container>
+  <ng-template #toggleContent let-status="status" let-selector="selector">
+    <div [ngClass]="{ hidden: !status }">
+      <ng-container *ngIf="selector === ESidebarElement.CONTENT_MANAGE_GENERAL">
+        <cms-next-cms-layout-content-manage-general></cms-next-cms-layout-content-manage-general>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.CONTENT_MANAGE_CONTENTS">
+        <cms-next-cms-layout-content-manage-contents></cms-next-cms-layout-content-manage-contents>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.CONTENT_MANAGE_LANDING">
+        <cms-next-cms-layout-content-manage-landing></cms-next-cms-layout-content-manage-landing>
+      </ng-container>
+    </div>
+  </ng-template>
+</section>

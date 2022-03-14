@@ -1,0 +1,54 @@
+<div class="order-lazada-details">
+  <reactor-room-loader block="true" [text]="loadingText" *ngIf="isLoading"></reactor-room-loader>
+  <reactor-room-heading [headingTitle]="headingTitle" [Route]="routeTitle">
+    <div class="heading-content">
+      <button class="btn btn-cancel" (click)="goToOrderList()">{{ 'Back' | translate }}</button>
+    </div>
+  </reactor-room-heading>
+
+  <div class="order-detail">
+    <div class="order-number">
+      <div>{{ 'Order No' | translate }}</div>
+      <div class="order-id">{{ marketPlaceOrder.marketPlaceOrderID }}</div>
+      <div class="sub">Created Order : {{ marketPlaceOrder.createdAt | timeAgo: 'utc' }}</div>
+    </div>
+    <div class="order-info">
+      <div>Order Info</div>
+      <div class="pt-15">{{ 'Customer' | translate }} {{ 'Name' | translate }} : {{ marketPlaceOrder.customerName }}</div>
+      <div>Status : {{ marketPlaceOrder.status }} ({{ marketPlaceOrder.marketOrderStatus }})</div>
+    </div>
+    <div class="payment-info">
+      <div>Payment Info</div>
+      <div class="pt-15">{{ 'Payment Method' | translate }} : {{ marketPlaceOrder.paymentMethod }}</div>
+      <div>{{ 'Total Items' | translate }} : {{ marketPlaceOrder.itemCount }}</div>
+      <div>{{ 'Total' | translate }} {{ 'Amount' | translate }} : ฿ {{ marketPlaceOrder.totalPrice }}</div>
+      <div>{{ 'Shipping' | translate }} : ฿ {{ marketPlaceOrder.shippingFee }}</div>
+    </div>
+  </div>
+
+  <div class="mt-10 mb-10">
+    <reactor-room-toggler [toggleInput]="togglerInput" (toggleEvent)="onToggle($event)"></reactor-room-toggler>
+
+    <div class="orders-items" *ngIf="this.marketPlaceOrderItems?.length && this.togglerInput.toggleStatus">
+      <reactor-room-custom-table [tableHeader]="orderItemsTableHeader" [tableData]="marketPlaceOrderItems" [tableColSpan]="orderHeaderTableColSpan">
+        <ng-container *ngFor="let orderItem of marketPlaceOrderItems; let i = index" class="table-content">
+          <tr>
+            <td>
+              <img class="avatar" [src]="orderItem.productImage" [alt]="orderItem.name" />
+            </td>
+            <td>
+              <div [matTooltip]="orderItem.name" class="text-ellipsis max-w-300">{{ orderItem.name }}</div>
+            </td>
+            <td>฿ {{ orderItem.unitPrice }}</td>
+            <td>฿ {{ orderItem.discount }}</td>
+            <td>{{ orderItem.quantity }}</td>
+            <td>{{ orderItem.sku }}</td>
+            <td>
+              <img class="cursor-pointer" (click)="showProductAtLazada(orderItem.productMarketLink)" [src]="lazadaIcon" alt="lazada" />
+            </td>
+          </tr>
+        </ng-container>
+      </reactor-room-custom-table>
+    </div>
+  </div>
+</div>

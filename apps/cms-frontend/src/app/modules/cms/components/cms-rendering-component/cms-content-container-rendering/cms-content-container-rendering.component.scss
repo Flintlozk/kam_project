@@ -1,0 +1,8 @@
+@layer components {
+  :host {
+    @apply flex flex-col h-full flex-1;
+  }
+}
+.min-h-100 {
+  min-height: 100px;
+}

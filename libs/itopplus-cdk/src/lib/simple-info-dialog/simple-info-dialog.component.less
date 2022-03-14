@@ -1,0 +1,42 @@
+@import '../assets/styles/properties';
+@import '../assets/styles/scrollbar';
+
+.simple-info-dialog {
+  font-family: @font-family;
+  background: white;
+  border-radius: 8px;
+  color: @text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .head {
+    font-size: 1.2em;
+    padding: 15px;
+    border-bottom: @default-border;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .extra-buttons {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+    }
+  }
+  .content {
+    padding: 15px;
+  }
+  @media @mobilemax {
+    .container {
+      height: 100vh;
+      .content {
+        max-height: calc(100% - 90px);
+      }
+    }
+  }
+}

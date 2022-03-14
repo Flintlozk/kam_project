@@ -1,0 +1,99 @@
+@mobilemax: ~'screen and (max-width: 768px)';
+.container {
+  a {
+    text-decoration: none;
+  }
+  position: relative;
+  .icon-toggle {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+    @media @mobilemax {
+      width: 30px;
+      height: 30px;
+    }
+    cursor: pointer;
+    transition: all ease-in-out 0.1s;
+    svg {
+      fill: #0186ff;
+      transition: all ease-in-out 0.1s;
+    }
+    &.active {
+      background-color: #0091ff;
+      box-shadow: none;
+      svg {
+        fill: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  .product-container {
+    z-index: 99999;
+    position: absolute;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    &.right {
+      right: 0px;
+    }
+    &.left {
+      left: 0px;
+    }
+    .back-to {
+      padding-bottom: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: gray;
+      font-weight: 100;
+      svg {
+        margin-right: 10px;
+      }
+    }
+    .product-items {
+      display: grid;
+      grid-template-columns: repeat(3, 33.3333333333%);
+      .product-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        &.active {
+          background-color: #e5e5e5;
+        }
+        .product-item-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 40px;
+          height: 40px;
+          max-width: 40px;
+          min-width: 40px;
+          border-radius: 10px;
+        }
+        span {
+          padding-top: 5px;
+          color: #414042;
+          font-weight: 300;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  &.dark {
+    .icon-toggle {
+      background-color: #1e242a;
+      &.active {
+        background-color: #0091ff;
+      }
+    }
+  }
+}

@@ -1,0 +1,239 @@
+<div class="customer-service-issue-info">
+  <reactor-room-heading [headingTitle]="'Issue Info'" [Route]="'Customer Service / Issue Info'">
+    <div class="heading-content">
+      <button class="btn-cancel">{{ 'Cancel' | translate }}</button>
+      <button class="btn-reject" *ngIf="issueData.status == 1">
+        <img src="assets/img/reject-icon.svg" alt="Reject" />
+        {{ 'Reject' | translate }}
+      </button>
+      <button class="btn-next" *ngIf="issueData.status == 1">
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+            fill="white"
+          />
+        </svg>
+
+        <span>{{ 'In Progress' | translate }}</span>
+      </button>
+      <button class="btn-next" *ngIf="issueData.status == 2">
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+            fill="white"
+          />
+        </svg>
+
+        <span>{{ 'Done' | translate }}</span>
+      </button>
+      <button class="btn-reopen" *ngIf="issueData.status == 3 || issueData.status == 4">
+        <img src="assets/img/re-icon.png" alt="Re - Open" />
+        <span>{{ 'Reopen' | translate }}</span>
+      </button>
+    </div>
+  </reactor-room-heading>
+  <div class="status-bar">
+    <div class="bar" *ngFor="let item of navBarData" [ngClass]="{ active: item.active, passed: item.passed }">
+      <div class="num" *ngIf="!item.passed">{{ item.step }}</div>
+      <div class="check" *ngIf="item.passed">
+        <img src="assets/img/check-icon-white.png" alt="Completed" />
+      </div>
+      <span>{{ item.label }}</span>
+    </div>
+  </div>
+  <div class="container">
+    <reactor-room-card [height]="'calc(100% - 40px)'">
+      <div class="card-content">
+        <div class="head-info">
+          <div class="title">
+            <div class="text">{{ issueData.issue }}</div>
+            <div class="date-status">
+              <div class="date">
+                <span>{{ 'Latest date' | translate }}: </span>{{ issueData.date }}
+              </div>
+              <div class="status">
+                <div
+                  class="round"
+                  [ngClass]="{
+                    open: issueData.status == 1,
+                    progress: issueData.status == 2,
+                    done: issueData.status == 3,
+                    reject: issueData.status == 4
+                  }"
+                ></div>
+                <span *ngIf="issueData.status == 1">{{ 'Open' | translate }}</span>
+                <span *ngIf="issueData.status == 2">{{ 'In progress' | translate }}</span>
+                <span *ngIf="issueData.status == 3">{{ 'Done' | translate }}</span>
+                <span *ngIf="issueData.status == 4">{{ 'Reject' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="func">
+            <div class="label low" *ngIf="issueData.priorityId == 1">{{ 'Low' | translate }}</div>
+            <div class="label medium" *ngIf="issueData.priorityId == 2">{{ 'Medium' | translate }}</div>
+            <div class="label high" *ngIf="issueData.priorityId == 3">{{ 'High' | translate }}</div>
+            <div class="tooltip" (click)="openSendEmailDialog()">
+              <img src="assets/img/customer-service/email.svg" alt="Email" />
+              <span class="tooltiptext">{{ 'Email' | translate }}</span>
+            </div>
+            <div class="tooltip" (click)="openCopyLinkSuccessDialog()">
+              <img src="assets/img/customer-service/copy.png" alt="Copy" />
+              <span class="tooltiptext">{{ 'Copy' | translate }}</span>
+            </div>
+            <div class="tooltip">
+              <img src="assets/img/customer-service/edit.png" alt="Edit" />
+              <span class="tooltiptext">{{ 'Edit' | translate }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail-item">
+            <div class="label">
+              <img src="assets/img/customer-service/info/id.png" alt="ID" />
+              {{ 'ID' | translate }}
+            </div>
+            <div class="value">{{ issueData.id }}</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">
+              <img src="assets/img/customer-service/info/type.png" alt="ID" />
+              {{ 'Issue Type' | translate }}
+            </div>
+            <div class="value">{{ issueData.issueType }}</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">
+              <img src="assets/img/customer-service/info/customer.png" alt="ID" />
+              {{ 'Customer' | translate }}
+            </div>
+            <div class="value">{{ issueData.customer }}</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">
+              <img src="assets/img/customer-service/info/assignee.png" alt="ID" />
+              {{ 'Assignee' | translate }}
+            </div>
+            <div class="value">{{ issueData.assignee }}</div>
+          </div>
+        </div>
+        <div class="desc">
+          <div class="label">{{ 'Description' | translate }}</div>
+          <textarea rows="4" [placeholder]="'Write a description' | translate"></textarea>
+        </div>
+        <div class="attach">
+          <div class="item-upload" *ngFor="let item of fileAttatchData">
+            <div class="left">
+              <img [src]="item.imgUrl" [alt]="item.title" />
+              <div class="title">{{ item.title }}</div>
+            </div>
+            <div class="right">
+              <div class="size">{{ item.size }}</div>
+              <img src="assets/img/customer-service/download-icon.png" alt="Download File" />
+            </div>
+          </div>
+        </div>
+        <div class="note-history">
+          <mat-tab-group class="mat-tab-setting">
+            <mat-tab label="Note">
+              <textarea rows="4" [placeholder]="'Write a comment' | translate"></textarea>
+              <div class="func">
+                <div class="add">
+                  <div class="tooltip">
+                    <img src="assets/img/customer-service/@.png" alt="tag" />
+                    <span class="tooltiptext">{{ 'Mention' | translate }}</span>
+                  </div>
+                  <div class="tooltip">
+                    <img src="assets/img/customer-service/icon_attach.png" alt="Attach" />
+                    <span class="tooltiptext">{{ 'Attach' | translate }}</span>
+                  </div>
+                </div>
+                <div class="btn-send">{{ 'Send' | translate }}</div>
+              </div>
+            </mat-tab>
+            <mat-tab label="History">
+              <div class="history-item" *ngFor="let item of historyData">
+                <img [src]="item.profileImgUrl" [alt]="item.profileName" />
+                <div class="info">
+                  <div class="name">{{ item.profileName }}</div>
+                  <div class="time">{{ item.time }}</div>
+                  <div class="step">
+                    <div class="begin open" *ngIf="item.beginStatus == 1">{{ 'Open' | translate }}</div>
+                    <div class="begin progress" *ngIf="item.beginStatus == 2">{{ 'In progress' | translate }}</div>
+                    <div class="begin done" *ngIf="item.beginStatus == 3">{{ 'Done' | translate }}</div>
+                    <div class="begin reject" *ngIf="item.beginStatus == 4">{{ 'Reject' | translate }}</div>
+                    <div class="arrow"></div>
+                    <div class="to open" *ngIf="item.endStatus == 1">{{ 'Open' | translate }}</div>
+                    <div class="to progress" *ngIf="item.endStatus == 2">{{ 'In progress' | translate }}</div>
+                    <div class="to done" *ngIf="item.endStatus == 3">{{ 'Done' | translate }}</div>
+                    <div class="to reject" *ngIf="item.endStatus == 4">{{ 'Reject' | translate }}</div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </reactor-room-card>
+    <div class="chat-box">
+      <div class="head">
+        <img src="assets/img/sample-account.png" alt="" />
+        <div class="txt">
+          {{ 'Ken Edwards' | translate }}
+        </div>
+      </div>
+      <div class="content">
+        <div class="date">
+          <span>Tue 26 May 2020</span>
+        </div>
+        <div class="chat-content left">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+        <div class="chat-content right">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+        <div class="date current">
+          <span>Today</span>
+        </div>
+        <div class="chat-content left">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+        <div class="chat-content right">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+        <div class="date current">
+          <span>Today</span>
+        </div>
+        <div class="chat-content left">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+        <div class="chat-content right">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="time">10:43</span>
+        </div>
+      </div>
+      <div class="foot" *ngIf="issueData.status == 1 || issueData.status == 2">
+        <textarea name="" id="" [placeholder]="'Write a reply...' | translate"></textarea>
+        <div class="btns">
+          <div class="btn btn-img">
+            <img src="assets/img/image-icon.svg" alt="" />
+          </div>
+          <div class="btn btn-attatch">
+            <img src="assets/img/attach-icon.svg" alt="" />
+          </div>
+          <div class="btn btn-send">
+            <img src="assets/img/send-icon.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

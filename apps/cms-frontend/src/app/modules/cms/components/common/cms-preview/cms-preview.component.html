@@ -1,0 +1,31 @@
+<section class="flex items-center mx-6">
+  <div class="pl-6 border-l border-gray-300">
+    <div (click)="onActivePreviewMode()" class="focus:outline-none">
+      <button class="focus:outline-none hover:underline" *ngIf="!isPreviewMode">Preview</button>
+    </div>
+  </div>
+
+  <div class="flex items-center" *ngIf="isPreviewMode">
+    <div>
+      <div class="flex items-end">
+        <ng-container *ngFor="let previewMode of previewModes; trackBy: trackByIndex; let previewModeIndex = index">
+          <div class="mr-4 focus:outline-none last:mr-0">
+            <button
+              (click)="onSetPreviewMode(previewMode.mode)"
+              [disabled]="currentPreviewMode === previewMode.mode"
+              class="focus:outline-none"
+              [ngClass]="{ 'cursor-not-allowed': currentPreviewMode === previewMode.mode }"
+            >
+              <img [src]="currentPreviewMode === previewMode.mode ? previewMode.imgActiveUrl : previewMode.imgUrl" [alt]="previewMode.mode" />
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="pl-6 ml-6 border-l border-gray-300">
+      <div (click)="onInactivePreviewMode()" class="focus:outline-none" [routerLink]="[RouteLinkCmsEnum.CMS_EDIT_MODE]">
+        <button class="focus:outline-none hover:underline">Back to Editor</button>
+      </div>
+    </div>
+  </div>
+</section>

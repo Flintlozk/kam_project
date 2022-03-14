@@ -1,0 +1,60 @@
+<mat-drawer-container>
+  <mat-drawer position="end" #drawer style="background-color: #f2f2f2" (closed)="setDefaultRoute()">
+    <reactor-room-task-detail
+      [cardDetailInput]="cardDetail"
+      [taskDepartment]="departmentTeam"
+      [tagTask]="tagTask"
+      [typeOfAction]="typeOfAction"
+      (inActiveTask)="onInActiveTask($event)"
+      [disableEditContact]="disableEditContact"
+      (addAssignInCard)="addAssigneeCallBack($event)"
+      (changeTitle)="changeTitleCallBack($event)"
+      (addTag)="addTagCallBack($event)"
+    ></reactor-room-task-detail>
+  </mat-drawer>
+  <mat-drawer-content>
+    <reactor-room-sidebar-nav></reactor-room-sidebar-nav>
+    <div class="container-row">
+      <div class="container-column" style="margin-left: 70px">
+        <reactor-room-top-tool-bar-component
+          [headerName]="headerName"
+          [viewType]="viewType"
+          [memberFlow]="memberFlow"
+          (onViewTask)="onChangeView($event)"
+        ></reactor-room-top-tool-bar-component>
+        <mat-tab-group>
+          <mat-tab label="Card">
+            <div class="container-row" style="padding-left: 20px" *ngIf="viewTask === 'CARD_VIEW'">
+              <div class="container-flow-task" *ngFor="let task of flowTask; let i = index; trackBy: i" [ngStyle]="{ 'min-width': 'calc(100% / ' + flowcount + ' - 140px)' }">
+                <div class="example-container">
+                  <div
+                    cdkDropList
+                    id="{{ task.id }}"
+                    [cdkDropListData]="task.taskCard"
+                    [cdkDropListConnectedTo]="connectedTo"
+                    class="item-list"
+                    (cdkDropListDropped)="dropTask($event)"
+                  >
+                    <div class="state-title">
+                      <div style="vertical-align: middle">
+                        {{ task.statename }}
+                      </div>
+                    </div>
+                    <div *ngFor="let taskItem of task.taskCard; let j = index; trackBy: j" cdkDrag style="cursor: pointer">
+                      <reactor-room-task-card (click)="task.click(taskItem)" [taskItem]="taskItem" [flowcount]="flowTask.length"></reactor-room-task-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="List">
+            <div class="view-task-list-table">
+              <reactor-room-task-list [taskItem]="flowTask" (openToggleEvent)="openToggle($event)"> </reactor-room-task-list>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

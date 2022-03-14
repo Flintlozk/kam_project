@@ -1,0 +1,332 @@
+//define properties
+$main-color: #54b1ff;
+$text-light-color: #8f9295;
+$border-color: #dddfea;
+$transition: all ease-in-out 0.3s;
+$tabletmin: 'screen and (min-width: 992px)';
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis {
+  @include text-ellipsis();
+}
+
+@mixin no-scroll-bar() {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  }
+}
+
+.no-scroll-bar {
+  @include no-scroll-bar();
+}
+
+@mixin custom-scroll-bar() {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: whitesmoke;
+    border-radius: 8px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #dddfea;
+    border-radius: 8px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-light-color;
+  }
+}
+
+.custom-scroll-bar {
+  @include custom-scroll-bar();
+}
+
+@mixin background-gradient() {
+  background: rgb(84, 177, 255);
+  background: -moz-linear-gradient(90deg, rgba(96, 232, 255, 1) 0%, rgba(84, 177, 255, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(96, 232, 255, 1) 0%, rgba(84, 177, 255, 1) 100%);
+  background: linear-gradient(90deg, rgba(96, 232, 255, 1) 0%, rgba(84, 177, 255, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#60E8FF", endColorstr="#54B1FF", GradientType=1);
+}
+
+.background-gradient {
+  @include background-gradient();
+}
+
+$padding: 20px;
+.shop-page-container {
+  &.cms-theme {
+    .owner {
+      background: unset;
+
+      &.active {
+        .icon {
+          .text {
+            color: #22c55e;
+          }
+        }
+      }
+    }
+
+    .page-list {
+      .page-list-item.active {
+        background: #d8ffe6;
+        color: #22c55e;
+      }
+    }
+  }
+  &.social-theme {
+    .owner {
+      background: #f2f5f9;
+
+      &.active {
+        .icon {
+          .text {
+            color: #54b1ff;
+          }
+        }
+      }
+    }
+
+    .page-list {
+      .page-list-item.active {
+        background: #e2f1ff;
+        color: #54b1ff;
+      }
+    }
+  }
+
+  .owner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: $transition;
+    // background: #f2f5f9;
+
+    .icon-invert,
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .round {
+        background: $main-color;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+
+        max-height: calc(100vh - 360px);
+        @include no-scroll-bar();
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .text {
+        color: $text-light-color;
+        font-size: 14px;
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 140px;
+        word-wrap: break-word;
+        max-width: 110px;
+        @include text-ellipsis();
+      }
+    }
+
+    .toogle {
+      height: 14px;
+      transition: $transition;
+    }
+
+    &.active {
+      .icon-invert,
+      .icon {
+        .text {
+          color: $main-color;
+        }
+      }
+
+      .toogle {
+        transform: scaleY(-1);
+      }
+    }
+  }
+  .page-list {
+    border-bottom: 1px solid $border-color;
+    @extend .custom-scroll-bar;
+
+    @media #{$tabletmin} {
+      background: white;
+      position: absolute;
+      // width: 100%;
+      border-radius: 5px;
+      // overflow: hidden;
+      overflow: auto;
+      max-height: calc(100vh - 360px);
+      left: 20px;
+      box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+      min-width: 250px;
+      z-index: 99;
+      border-bottom: 0px;
+    }
+
+    .page-list-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: 300;
+      transition: $transition;
+
+      .active {
+        background-color: rgba(83, 177, 255, 1);
+      }
+
+      &:hover {
+        background-color: rgba(83, 177, 255, 1);
+      }
+
+      img {
+        width: 16px;
+      }
+
+      .img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+      .icon-invert,
+      .icon {
+        width: 15px;
+        margin-right: 20px;
+
+        img {
+          width: 16px;
+        }
+      }
+
+      .title {
+        padding-left: 20px;
+        font-size: 14px;
+        max-width: 140px;
+        @include text-ellipsis();
+
+        .noti {
+          color: #fff;
+          font-size: 14px;
+          margin: 0 5px;
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          right: 0;
+          background: #ef5350;
+          border-radius: 50%;
+          text-align: center;
+        }
+      }
+
+      &:hover {
+        background: rgb(242, 242, 242);
+      }
+
+      &.active {
+        background: #e2f1ff;
+        color: $main-color;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .create {
+    display: flex;
+    align-items: center;
+    padding: $padding;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    color: $main-color;
+    transition: $transition;
+    .icon-invert,
+    .icon {
+      display: flex;
+      align-items: center;
+      padding-right: 15px;
+
+      img {
+        width: 20px;
+      }
+    }
+
+    &:hover,
+    &.active {
+      background: #e2f1ff;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+  svg.warning-icon {
+    padding-top: 5px;
+    margin-right: -5px;
+  }
+}
+
+.shop-page-container {
+  &.inactive {
+    .owner {
+      min-width: auto;
+      transform: $transition;
+      padding: 20px 10px !important;
+
+      .icon {
+        .text {
+          display: none;
+        }
+        .round {
+          img {
+            justify-content: center;
+            padding: 20px 10px;
+            width: 35px;
+            flex-shrink: 0;
+          }
+        }
+      }
+      .toogle {
+        display: none;
+      }
+    }
+  }
+}

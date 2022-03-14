@@ -1,0 +1,33 @@
+.invalid-inputs {
+  .label {
+    color: #ea6161 !important;
+  }
+  input {
+    border-color: #ea6161 !important;
+    & {
+      background-image: url('../images/danger-icon.png');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+    }
+  }
+  .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-color: #ea6161 !important;
+    & {
+      background-image: url('../images/danger-icon.png');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+      background-position-y: 15px;
+    }
+  }
+  mat-error {
+    font-size: 10px;
+    font-weight: 300;
+    color: #ea6161 !important;
+    padding-top: 5px;
+    display: block;
+  }
+}

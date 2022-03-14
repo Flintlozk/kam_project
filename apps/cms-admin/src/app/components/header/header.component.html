@@ -1,0 +1,19 @@
+<div class="header-container grid-container">
+  <h1 class="item-1">{{ Topic.topicName }}</h1>
+  <button *ngIf="Topic.topicName !== 'Hosting'" class="invite-btn" (click)="childHanlder($event)">
+    <div class="inside-btn">
+      <div class="plus-icon">
+        <reactor-room-plus-icon [color]="'#FFFFFF'"></reactor-room-plus-icon>
+      </div>
+      <div>{{ Topic.buttonName }}</div>
+    </div>
+  </button>
+  <div class="grid-1-2">
+    <div class="flex-container center">
+      <input type="text" class="search" [placeholder]="'Search'" />
+      <div>
+        <reactor-room-search-icon></reactor-room-search-icon>
+      </div>
+    </div>
+  </div>
+</div>

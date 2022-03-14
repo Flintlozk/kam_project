@@ -1,0 +1,17 @@
+<reactor-room-ui-block-loader [toggle]="toggleLoader"></reactor-room-ui-block-loader>
+<reactor-room-pwa-install-card></reactor-room-pwa-install-card>
+<div class="layout">
+  <div class="layout-menu" *ngIf="!focusModeStatus && !wizardModeStatus">
+    <reactor-room-menu></reactor-room-menu>
+  </div>
+
+  <div class="layout-content-container" [ngClass]="{ collapsed: !menuStatus, wizard: wizardModeStatus }">
+    <nav class="layout-nav">
+      <reactor-room-nav *ngIf="!wizardModeStatus"> </reactor-room-nav>
+      <reactor-room-wizard-nav *ngIf="wizardModeStatus"> </reactor-room-wizard-nav>
+    </nav>
+    <div [ngClass]="!wizardModeStatus ? 'layout-content' : ''">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

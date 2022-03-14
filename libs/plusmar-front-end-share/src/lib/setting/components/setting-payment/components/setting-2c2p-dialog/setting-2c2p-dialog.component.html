@@ -1,0 +1,38 @@
+<div class="setting-paypal-dialog">
+  <form [formGroup]="paymentForm" (keydown.enter)="$event.preventDefault()">
+    <reactor-room-custom-dialog>
+      <div class="head">
+        {{ 'Edit Pay online using credit/debit card through 2C2P' | translate }}
+      </div>
+      <div class="content">
+        <div class="inputs">
+          <div class="item">
+            <div class="label">{{ '2C2P Merchant ID' | translate }}*</div>
+            <input id="2c2p-merchant-id" type="text" formControlName="merchantID" style="max-width: 286px" (keyup)="eventLookUpOnFocus('merchantID')" />
+            <mat-error *ngIf="!paymentForm.get('merchantID').valid" [innerHTML]="merchantIDValidationMessage"> </mat-error>
+          </div>
+          <div class="item">
+            <div class="label">{{ 'Secret Key' | translate }}*</div>
+            <input id="2c2p-merchant-key" type="text" formControlName="secretKey" style="max-width: 286px" (keyup)="eventLookUpOnFocus('secretKey')" />
+            <mat-error *ngIf="!paymentForm.get('secretKey').valid" [innerHTML]="secretKeyValidationMessage"> </mat-error>
+          </div>
+        </div>
+        <div class="item">
+          <div class="text">{{ 'The data can be found in 2C2P dashboard. URL:' | translate }} <a>https://my.2c2p.com/Login</a></div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button class="btn-cancel" id="2c2p-cancel-button" (click)="onCancel()">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button class="btn-save" id="2c2p-save-button" (click)="onSubmit()">
+            <img src="assets/img/connection-icon.png" alt="Connect Paypal" />
+            {{ 'Connect 2C2P' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

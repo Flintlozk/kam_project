@@ -1,0 +1,179 @@
+<div class="flex h-full">
+  <div class="w-60 h-full bg-green-50 flex-shrink-0 flex-initial">
+    <button (click)="mediaUpload.click()" class="bg-green-500 font-light py-2 flex justify-center items-center focus:outline-none hover:bg-green-600 transition w-full text-white">
+      + Upload Media
+    </button>
+    <input class="hidden" type="file" accept="image/*, video/*" #mediaUpload multiple (change)="onUploadNewMedia($event.target)" />
+    <div class="pt-8 grid gap-2">
+      <div class="text-sm pl-4 pb-2">MEDIA ON SITE</div>
+      <ng-container *ngFor="let button of mediaButtonActionOnSite; let index = index">
+        <button
+          (click)="onMediaButtonAction(index, 'onsite')"
+          [ngClass]="{ 'text-green-500 bg-green-200': button.status, 'hover:bg-green-100': !button.status }"
+          class="py-2 pl-4 focus:outline-none w-full font-light text-left text-gray-400"
+        >
+          {{ button.title }}
+        </button>
+      </ng-container>
+    </div>
+    <div class="pt-12 grid gap-2">
+      <div class="text-sm pl-4 pb-2">MEDIA FROM OTHERS</div>
+      <ng-container *ngFor="let button of mediaButtonActionOffSite; let index = index">
+        <button
+          (click)="onMediaButtonAction(index, 'offsite')"
+          [ngClass]="{ 'text-green-500 bg-green-200': button.status, 'hover:bg-green-100': !button.status }"
+          class="py-2 pl-4 focus:outline-none w-full font-light text-left text-gray-400"
+        >
+          {{ button.title }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="pl-8 w-full h-full" style="height: calc(100vh - 300px)">
+    <div class="pb-8 flex items-center justify-between">
+      <div class="relative flex items-center">
+        <input
+          autofocus
+          class="pl-4 pr-10 py-2 rounded-md border font-light focus:outline-none focus:border-gray-300"
+          placeholder="Search Media Name..."
+          type="text"
+          [formControl]="searchMediaInput"
+        />
+        <svg class="absolute right-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+            fill="#BCC4D6"
+          />
+        </svg>
+      </div>
+      <div class="flex items-center pl-10">
+        <div class="border-r-2 pr-4 mr-2 flex items-center">
+          <ng-container *ngIf="isSelectedMediaList && currentMediaSource !== EMediaSources.DELETED">
+            <button (click)="onTrashFiles()" class="rounded text-sm text-white font-light px-2 py-1 bg-red-500">Delete Media</button>
+          </ng-container>
+          <ng-container *ngIf="isSelectedMediaList && currentMediaSource === EMediaSources.DELETED">
+            <button (click)="onRecoverFiles()" class="rounded text-sm text-white font-light px-2 py-1 bg-green-700">Recover Media</button>
+            <button (click)="onDeleteFiles()" class="rounded text-sm text-white font-light px-2 py-1 bg-red-500 ml-2">Delete Pernamantly</button>
+          </ng-container>
+          <ng-container *ngIf="currentMediaSource === EMediaSources.DELETED && mediaList.length">
+            <button (click)="onEmptyFiles()" class="rounded text-sm text-white font-light px-2 py-1 bg-red-500 ml-2">Empty Trash</button>
+          </ng-container>
+        </div>
+        <button class="focus:outline-none mr-2" [matMenuTriggerFor]="matMenuFilter">
+          <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.6523 0H0.652342C0.519734 0 0.392558 0.0536566 0.29879 0.149166C0.205022 0.244675 0.152344 0.374213 0.152344 0.509284V1.35979C0.152437 1.48007 0.175901 1.59915 0.221382 1.71016C0.266863 1.82117 0.333463 1.92191 0.417343 2.00658L6.15232 7.93464V13.1293L7.15232 13.5164V7.63926C7.1527 7.57223 7.14009 7.50579 7.11521 7.44374C7.09032 7.38169 7.05366 7.32525 7.00732 7.27767L1.15234 1.31905V1.01857H15.1523V1.32923L9.31731 7.27767C9.26734 7.32353 9.22698 7.3792 9.19863 7.44133C9.17027 7.50346 9.15452 7.57078 9.15231 7.63926V14.3669L10.1523 14.7692V7.8939L15.8873 2.03714C15.9725 1.95032 16.0399 1.84703 16.0854 1.73334C16.1309 1.61964 16.1536 1.49784 16.1523 1.37507V0.509284C16.1523 0.374213 16.0996 0.244675 16.0058 0.149166C15.9121 0.0536566 15.7849 0 15.6523 0Z"
+              fill="#484B52"
+            />
+          </svg>
+        </button>
+        <mat-menu #matMenuFilter="matMenu">
+          <button class="focus:outline-none" mat-menu-item>Sort by Name (A - Z)</button>
+          <button class="focus:outline-none" mat-menu-item>Sort by Name (Z - A)</button>
+          <button class="focus:outline-none" mat-menu-item>Show Only Videos</button>
+          <button class="focus:outline-none" mat-menu-item>Show Only Images</button>
+        </mat-menu>
+        <button class="focus:outline-none" (click)="onToggleListView()">
+          <svg
+            [ngClass]="{ 'text-green-500': isListView, 'text-gray-700': !isListView }"
+            class="fill-current"
+            width="16"
+            height="13"
+            viewBox="0 0 16 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0.921875 12.5382H5.84495V10.4869H0.921875V12.5382ZM0.921875 0.230469V2.28175H15.6911V0.230469H0.921875ZM0.921875 7.40996H10.768V5.35867H0.921875V7.40996Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div (scroll)="onElementScroll($event)" class="overflow-y-auto" [ngStyle]="containerStyle">
+      <div class="grid gap-4 content-start" [ngClass]="{ 'grid-cols-5': !isListView, 'grid-cols-3': isListView }">
+        <div
+          (click)="isSingleAction ? onSelectedMediaListItem(index) : onSelectedMediaList(index)"
+          class="flex items-center group cursor-pointer"
+          *ngFor="let media of mediaList$ | async; let index = index; trackBy: trackByIndex"
+        >
+          <div [ngClass]="{ 'border-green-500': media.status }" class="border-white border-2 rounded-md overflow-hidden">
+            <div [ngClass]="{ 'h-52 w-52': !isListView, 'w-20 h-20': isListView }" class="relative flex items-center justify-center bg-gray-700 overflow-hidden">
+              <img *ngIf="media.extension | fileExtension: 'image'" class="w-full absolute" [src]="media.thumbnail" [alt]="media.name" loading="lazy" />
+              <video class="w-full absolute" *ngIf="media.extension | fileExtension: 'video' && !isSingleAction" muted>
+                <source [src]="media.path" type="video/mp4" [title]="media.name" />
+                Your browser does not support the video tag.
+              </video>
+              <div *ngIf="media.status" class="w-full h-full absolute bg-green-500 bg-opacity-30"></div>
+              <div *ngIf="!isListView" class="absolute right-2 top-2 flex">
+                <button
+                  *ngIf="currentMediaSource !== EMediaSources.DELETED"
+                  (click)="onEditFile(index)"
+                  class="items-center justify-center w-6 h-6 rounded-md bg-white hidden group-hover:flex focus:outline-none"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+                      fill="#AAB2C2"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div *ngIf="!isListView" class="hidden group-hover:flex absolute bottom-0 left-0 w-full px-2 py-2 bg-gray-900 bg-opacity-50 text-white font-light whitespace-normal">
+                {{ media.name }}
+              </div>
+              <div class="absolute left-2 top-2">
+                <svg *ngIf="media.extension | fileExtension: 'image'" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11.6667 1H2.33333C1.59695 1 1 1.59695 1 2.33333V11.6667C1 12.403 1.59695 13 2.33333 13H11.6667C12.403 13 13 12.403 13 11.6667V2.33333C13 1.59695 12.403 1 11.6667 1Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4.66797 5.66602C5.22025 5.66602 5.66797 5.2183 5.66797 4.66602C5.66797 4.11373 5.22025 3.66602 4.66797 3.66602C4.11568 3.66602 3.66797 4.11373 3.66797 4.66602C3.66797 5.2183 4.11568 5.66602 4.66797 5.66602Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M12.9987 8.99935L9.66536 5.66602L2.33203 12.9993" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <svg *ngIf="media.extension | fileExtension: 'video'" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13 4.99865L17.553 2.72265C17.7054 2.64649 17.8748 2.61053 18.045 2.6182C18.2152 2.62587 18.3806 2.6769 18.5256 2.76646C18.6706 2.85602 18.7902 2.98113 18.8733 3.12993C18.9563 3.27872 18.9999 3.44626 19 3.61665V10.3807C18.9999 10.551 18.9563 10.7186 18.8733 10.8674C18.7902 11.0162 18.6706 11.1413 18.5256 11.2308C18.3806 11.3204 18.2152 11.3714 18.045 11.3791C17.8748 11.3868 17.7054 11.3508 17.553 11.2747L13 8.99865V4.99865Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M11 1H3C1.89543 1 1 1.89543 1 3V11C1 12.1046 1.89543 13 3 13H11C12.1046 13 13 12.1046 13 11V3C13 1.89543 12.1046 1 11 1Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isListView" class="flex justify-between pl-4 w-full">
+            <div [ngClass]="{ 'text-green-500': media.status }" class="text-lg font-light pr-4 group-hover:text-green-500">{{ media.name }}</div>
+            <div class="flex items-center w-20">
+              <button (click)="onEditFile(index)" class="items-center justify-center w-6 h-6 rounded-md bg-white hidden group-hover:flex focus:outline-none">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+                    fill="#AAB2C2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

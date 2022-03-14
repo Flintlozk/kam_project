@@ -1,0 +1,132 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    },
+    "@ngneat/spectator:spectator-component": {
+      "jest": true
+    }
+  },
+  "root": "apps/plusmar-front-end",
+  "sourceRoot": "apps/plusmar-front-end/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "allowedCommonJsDependencies": [
+          "xlsx",
+          "lodash",
+          "zen-observable",
+          "chart.js",
+          "graphql-tag",
+          "joi-date-dayjs",
+          "dayjs/locale/th",
+          "subscriptions-transport-ws",
+          "file-saver"
+        ],
+        "outputPath": "dist/apps/plusmar-front-end",
+        "index": "apps/plusmar-front-end/src/index.html",
+        "main": "apps/plusmar-front-end/src/main.ts",
+        "polyfills": "apps/plusmar-front-end/src/polyfills.ts",
+        "tsConfig": "apps/plusmar-front-end/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/plusmar-front-end/src/favicon.ico",
+          "apps/plusmar-front-end/src/assets",
+          "apps/plusmar-front-end/src/manifest.webmanifest",
+          {
+            "glob": "**/*",
+            "input": "./libs/shared-assets/",
+            "output": "./assets"
+          }
+        ],
+        "styles": ["apps/plusmar-front-end/src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/plusmar-front-end-share/src/assets/base"]
+        }
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-front-end/src/environments/environment.ts",
+              "with": "apps/plusmar-front-end/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "8mb",
+              "maximumError": "15mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "85kb",
+              "maximumError": "100kb"
+            }
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "apps/plusmar-front-end/ngsw-config.json"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "plusmar-front-end:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "plusmar-front-end:build:production"
+        },
+        "development": {
+          "browserTarget": "plusmar-front-end:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "plusmar-front-end:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-front-end/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-front-end/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "analyze": {
+      "executor": "@ngx-builders/analyze:analyze",
+      "options": {
+        "outputPath": "dist/apps/plusmar-front-end"
+      }
+    }
+  },
+  "tags": []
+}

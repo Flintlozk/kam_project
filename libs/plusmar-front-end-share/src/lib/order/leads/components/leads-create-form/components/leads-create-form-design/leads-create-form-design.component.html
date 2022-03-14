@@ -1,0 +1,306 @@
+<div class="lead-create-form-design">
+  <reactor-room-card [height]="'100%'" [padding]="'0px'">
+    <div class="card-content">
+      <mat-tab-group class="mat-tab">
+        <mat-tab label="Add">
+          <form [formGroup]="leadDesignForm">
+            <div class="form" cdkDropList (cdkDropListDropped)="dragDropEvent($event)">
+              <ng-container formArrayName="fieldArray">
+                <div *ngFor="let templateItem of fieldFormArray.controls; let i = index">
+                  <div [ngClass]="{ 'has-control': templateItem.get('formValue').value && !templateItem.get('default').value }">
+                    <div class="field-item" [ngClass]="{ default: templateItem.get('default').value, 'empty-value': !templateItem.get('formLabel').value }" [formGroupName]="i">
+                      <div class="control">
+                        <img cdkDrag src="assets/img/leads/drag-icon.svg" class="drag" alt="Drag & Drop" />
+                        <input
+                          formControlName="formLabel"
+                          type="text"
+                          [placeholder]="'Input field' | translate"
+                          [attr.disabled]="templateItem.get('default').value || templateItem.get('formType').value == 'paragraph' ? '' : null"
+                        />
+                      </div>
+                      <div class="func">
+                        <div class="required">
+                          <button
+                            [attr.disabled]="templateItem.get('default').value ? '' : null"
+                            (click)="setRequiredFromFieldStatus(i)"
+                            [ngClass]="{ required: templateItem.get('required').value }"
+                            *ngIf="!templateItem.get('info').value"
+                          >
+                            {{ 'Required' | translate }}
+                          </button>
+                        </div>
+                        <div class="select" *ngIf="templateItem.get('formType').value; let formType">
+                          <img [src]="getTemplateImage(formType)" [alt]="templateItem.get('formType').value" />
+                          <img src="assets/img/down-icon.svg" class="down" alt="Down Icon" [matMenuTriggerFor]="optionSelect" *ngIf="!templateItem.get('default').value" />
+                          <mat-menu #optionSelect="matMenu" yPosition="below">
+                            <ng-container *ngFor="let templateItem of template; let j = index">
+                              <button mat-menu-item (click)="setSelectTemplateItemToForm(i, j)">
+                                <div class="option-select-item">
+                                  <img [src]="templateItem.fieldImgUrl" [alt]="templateItem.fieldTitle" />
+                                  <span>{{ templateItem.fieldTitle }}</span>
+                                </div>
+                              </button>
+                            </ng-container>
+                          </mat-menu>
+                        </div>
+                        <div class="trash">
+                          <img
+                            src="assets/img/trash-icon.svg"
+                            class="trash"
+                            alt="Trash Icon"
+                            (click)="removeLeadDesignFieldFormArray(i)"
+                            *ngIf="!templateItem.get('default').value"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-item-control" *ngIf="templateItem.get('formValue').value">
+                    <form class="calendar" *ngIf="templateItem.get('formType').value === 'calendar'" [formGroup]="calendarFormGroup">
+                      <label class="mode-toggle">
+                        <input type="checkbox" formControlName="dateRangeStatus" (change)="setDateRangeStatusToForm(i)" />
+                        <span class="slider round"></span>
+                      </label>
+                      <div class="text">{{ 'Date range' | translate }}</div>
+                    </form>
+                    <form class="checkbox" *ngIf="templateItem.get('formType').value === 'checkbox'" [formGroup]="checkboxFormGroup">
+                      <div class="list" cdkDropList (cdkDropListDropped)="dragDropCheckBoxEvent($event, i)">
+                        <div class="checkbox-item" *ngFor="let checkboxItem of checkboxFormArray.controls; let checkboxItemIndex = index">
+                          <img src="assets/img/leads/drag-icon.svg" class="drag" alt="Drag & Drop" cdkDrag />
+                          <label class="custom-checkbox">
+                            <input type="checkbox" disabled />
+                            <span class="checkmark"></span>
+                          </label>
+                          <!-- TODO: translate placeholder -->
+                          <input type="text" [formControl]="checkboxItem" (change)="setCheckboxFromToForm(i)" placeholder="Input option {{ checkboxItemIndex + 1 }} ..." />
+                          <img src="assets/img/remove-icon.svg" class="remove" alt="Remove Checkbox Item" (click)="removecheckboxFormArray(i, checkboxItemIndex)" />
+                        </div>
+                        <div class="btn-add" (click)="addcheckboxFormArray(i)">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z"
+                              fill="#53B1FF"
+                            />
+                          </svg>
+
+                          {{ 'Option' | translate }}
+                        </div>
+                      </div>
+                      <div class="other">
+                        <label class="custom-checkbox">
+                          <input type="checkbox" formControlName="otherCheckbox" (change)="setCheckboxFromToForm(i)" />
+                          <span class="checkmark"></span>
+                        </label>
+                        {{ 'Other' | translate }}
+                      </div>
+                    </form>
+                    <form class="radio" *ngIf="templateItem.get('formType').value === 'radio'" [formGroup]="radioFormGroup">
+                      <div class="list" cdkDropList (cdkDropListDropped)="dragDropRadioEvent($event, i)">
+                        <div class="radio-item" *ngFor="let radioItem of radioFormArray.controls; let radioItemIndex = index">
+                          <img src="assets/img/leads/drag-icon.svg" class="drag" alt="Drag & Drop" cdkDrag />
+                          <label class="radio-button">
+                            <input type="radio" name="radio" disabled />
+                            <span class="checkmark"></span>
+                          </label>
+                          <!-- TODO: translate placeholder -->
+                          <input type="text" [formControl]="radioItem" (change)="setRadioFromToForm(i)" placeholder="Input option {{ radioItemIndex + 1 }} ..." />
+                          <img src="assets/img/remove-icon.svg" class="remove" alt="Remove Radio Item" (click)="removeRadioFormArray(i, radioItemIndex)" />
+                        </div>
+                        <div class="btn-add" (click)="addRadioFormArray(i)">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z"
+                              fill="#53B1FF"
+                            />
+                          </svg>
+
+                          {{ 'Option' | translate }}
+                        </div>
+                      </div>
+                      <div class="other">
+                        <label class="custom-checkbox">
+                          <input type="checkbox" formControlName="otherRadio" (change)="setRadioFromToForm(i)" />
+                          <span class="checkmark"></span>
+                        </label>
+                        {{ 'Other' | translate }}
+                      </div>
+                    </form>
+                    <form class="dropdown" *ngIf="templateItem.get('formType').value === 'dropdown'" [formGroup]="dropdownFormGroup">
+                      <div class="list" cdkDropList (cdkDropListDropped)="dragDropDropdownEvent($event, i)">
+                        <div class="dropdown-item" *ngFor="let dropdownItem of dropdownFormArray.controls; let dropdownItemIndex = index">
+                          <img src="assets/img/leads/drag-icon.svg" class="drag" alt="Drag & Drop" cdkDrag />
+                          <!-- TODO: translate placeholder -->
+                          <input type="text" [formControl]="dropdownItem" (change)="setDropdownFromToForm(i)" placeholder="Input option {{ dropdownItemIndex + 1 }} ..." />
+                          <img src="assets/img/remove-icon.svg" class="remove" alt="Remove Radio Item" (click)="removeDropdownFormArray(i, dropdownItemIndex)" />
+                        </div>
+                        <div class="btn-add" (click)="addDropdownFormArray(i)">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z"
+                              fill="#53B1FF"
+                            />
+                          </svg>
+
+                          {{ 'Option' | translate }}
+                        </div>
+                      </div>
+                    </form>
+                    <form class="title" *ngIf="templateItem.get('formType').value === 'title'" [formGroup]="titleFormGroup">
+                      <textarea formControlName="title" (change)="setTitleFormToForm(i)" rows="2" [placeholder]="'Description (optional)' | translate"></textarea>
+                    </form>
+                    <form class="paragraph" *ngIf="templateItem.get('formType').value === 'paragraph'" [formGroup]="paragraphFormGroup">
+                      <textarea formControlName="paragraph" (change)="setParagraphFormToForm(i)" rows="5" [placeholder]="'Description (optional)' | translate"></textarea>
+                    </form>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="btn-add" (click)="addLeadDesignFieldFormArray()">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z" fill="#53B1FF" />
+                </svg>
+
+                {{ 'Add' | translate }}
+              </div>
+              <textarea formControlName="endingMessage" rows="10" class="ending-message" [placeholder]="'Write ending message' | translate"></textarea>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Setting">
+          <form [formGroup]="leadDesignForm">
+            <div class="setting">
+              <div class="grid" *ngFor="let settingItem of settingToggleMenu; let settingItemIndex = index">
+                <div class="setting-item" (click)="toggleSettingMenu(settingItemIndex)" [ngClass]="{ active: settingItem.status }">
+                  {{ settingItem.title }}
+                  <div class="toogle" [ngClass]="{ active: settingItem.status }">
+                    <img src="assets/img/down-button.svg" alt="Toogle Button" />
+                  </div>
+                </div>
+                <div class="setting-item-info design-sections" *ngIf="settingItem.status && settingItemIndex == 0">
+                  <ng-container formArrayName="fieldArray">
+                    <form [formGroup]="leadDesignForm.get('designSections')">
+                      <div class="custom-section">
+                        <div class="grid-2">
+                          <div class="label">{{ 'Font' | translate }}</div>
+                          <div class="select-option">
+                            <mat-form-field>
+                              <mat-select formControlName="fontFamily">
+                                <mat-option *ngFor="let fontFamily of fontFamilyData" [value]="fontFamily.value">
+                                  {{ fontFamily.viewValue }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="grid-2 line">
+                          <div class="label">{{ 'Color' | translate }}</div>
+                          <div class="color-picker">
+                            <input type="color" formControlName="color" />
+                            {{ leadDesignForm.get('designSections').value.color }}
+                          </div>
+                        </div>
+                        <div class="grid-2">
+                          <div class="label">{{ 'Visibility' | translate }}</div>
+                          <div class="border-option">
+                            <ng-container *ngFor="let visibilityItem of visibilityData; let visibilityItemIndex = index">
+                              <div class="option" [ngClass]="{ active: visibilityItem.status }" (click)="setVisibilityStatus(visibilityItemIndex)">
+                                <img [src]="visibilityItem.imgUrl" [alt]="visibilityItem.title" *ngIf="!visibilityItem.status" />
+                                <img [src]="visibilityItem.imgActiveUrl" [alt]="visibilityItem.title" *ngIf="visibilityItem.status" />
+                                {{ visibilityItem.title }}
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="grid-2">
+                          <div class="label">{{ 'Border' | translate }}</div>
+                          <div class="color-picker">
+                            <input type="color" formControlName="borderColor" />
+                            {{ leadDesignForm.get('designSections').value.borderColor }}
+                          </div>
+                        </div>
+                        <div class="grid-2">
+                          <div class="label">{{ 'Fill' | translate }}</div>
+                          <div class="color-picker">
+                            <input type="color" formControlName="fillColor" />
+                            {{ leadDesignForm.get('designSections').value.fillColor }}
+                          </div>
+                        </div>
+                        <div class="reset-icon" (click)="resetDesignSectionStyle()">
+                          <img src="assets/img/reset_icon.svg" alt="Reset Style" />
+                          {{ 'Reset Style' | translate }}
+                        </div>
+                      </div>
+                    </form>
+                    <div class="control">
+                      <div class="setting-control-list" *ngFor="let templateItem of fieldFormArray.controls; let i = index">
+                        <ng-container [formGroupName]="i">
+                          <div class="label">
+                            <div class="img" *ngIf="templateItem.get('formType').value; let formType">
+                              <img [src]="getTemplateImage(formType)" [alt]="templateItem.get('formType').value" />
+                            </div>
+                            <span *ngIf="templateItem.get('formLabel').value">{{ templateItem.get('formLabel').value }}</span>
+                            <span *ngIf="!templateItem.get('formLabel').value">{{ 'Input Field' | translate }}...</span>
+                          </div>
+                          <label class="custom-checkbox">
+                            <input type="checkbox" formControlName="designSectionsStatus" />
+                            <span class="checkmark"></span>
+                          </label>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="setting-item-info message-box" formGroupName="messageBox" *ngIf="settingItem.status && settingItemIndex == 1">
+                  <input type="text" formControlName="greetingMessage" [placeholder]="'Greet' | translate" />
+                  <div class="message-info">
+                    <div class="title">{{ 'Please enter your Contact Info' | translate }}</div>
+                    <img src="assets/img/message-box.png" alt="Message Box" />
+                    <div class="section">{{ 'Enter Contact Info' | translate }}</div>
+                    <div class="warn">{{ 'You can edit message box in setting menu' | translate }}</div>
+                  </div>
+                  <input type="text" formControlName="thankMessage" [placeholder]="'Give thanks' | translate" />
+                </div>
+                <div class="setting-item-info term-condition" *ngIf="settingItem.status && settingItemIndex == 2">
+                  <div class="head">
+                    <label class="custom-checkbox">
+                      <input type="checkbox" formControlName="termConditionStatus" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="text">
+                      {{ 'Show Terms and condition' | translate }}
+                      <div class="warn">{{ 'You can edit information in setting menu' | translate }}</div>
+                    </div>
+                  </div>
+                  <div class="content">
+                    <div class="content-info">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo
+                      commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus
+                      pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.<br />
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo
+                      commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus
+                      pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.<br />
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo
+                      commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus
+                      pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.<br />
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo
+                      commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus
+                      pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.<br />
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo
+                      commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus
+                      pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </reactor-room-card>
+</div>

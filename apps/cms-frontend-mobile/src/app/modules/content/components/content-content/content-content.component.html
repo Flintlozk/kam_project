@@ -1,0 +1,45 @@
+<div class="px-4 pb-2 bg-white">
+  <div class="relative w-full">
+    <input
+      autofocus
+      type="text"
+      placeholder="{{ 'Search' | translate }}..."
+      class="w-full py-2 pl-10 pr-3 font-light text-gray-700 transition duration-300 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-200"
+    />
+    <svg class="absolute bottom-0 left-0 mb-3 ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.7065 14.3705L11.3259 9.98816C12.1112 8.91718 12.5318 7.62239 12.5259 6.29441C12.511 2.82792 9.7072 0.0200853 6.24074 6.36781e-05C4.58184 -0.00744187 2.98885 0.64882 1.81662 1.82265C0.6444 2.99649 -0.00967429 4.59038 0.000108173 6.24926C0.0150908 9.71606 2.81911 12.5242 6.28588 12.5442C7.61928 12.55 8.91879 12.1244 9.99049 11.331L9.99506 11.3276L14.3717 15.7065C14.6083 15.9547 14.9609 16.0552 15.2928 15.969C15.6248 15.8828 15.8839 15.6234 15.9698 15.2914C16.0558 14.9594 15.955 14.6069 15.7065 14.3705ZM6.28122 11.2893C3.50795 11.2734 1.26478 9.02711 1.2526 6.25383C1.24512 4.92689 1.76842 3.65203 2.70602 2.71304C3.64362 1.77404 4.9177 1.24884 6.24465 1.25435C9.01792 1.27031 11.2611 3.51654 11.2733 6.28983C11.2808 7.61676 10.7574 8.89162 9.81985 9.83062C8.88225 10.7696 7.60816 11.2948 6.28122 11.2893Z"
+        fill="#9799A5"
+      />
+    </svg>
+  </div>
+</div>
+<div class="grid grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-4">
+  <ng-container *ngFor="let contentContentDataItem of contentContentData; trackBy: trackByIndex">
+    <section class="w-full overflow-hidden rounded-lg">
+      <div class="relative overflow-hidden">
+        <img class="w-full" [src]="contentContentDataItem.imgUrl" [alt]="contentContentDataItem.title" onerror="this.src='assets/images/shared/no-image.svg'" />
+        <button
+          [routerLink]="['edit']"
+          class="absolute bottom-0 right-0 flex items-center justify-center w-10 h-10 mb-2 mr-2 bg-opacity-75 rounded-full bg-green-500 focus:outline-none"
+        >
+          <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.0871 3.80166L12.7123 0.426879C12.524 0.238566 12.2189 0.238566 12.0306 0.426879L0.942003 11.5155C0.851605 11.6059 0.800752 11.7283 0.800752 11.8564L0.799805 15.2321C0.799805 15.3597 0.850657 15.4826 0.941055 15.573C1.03145 15.6634 1.15432 15.7142 1.28193 15.7142L4.65766 15.7133C4.7857 15.7133 4.90813 15.6624 4.99853 15.572L16.0871 4.4834C16.2755 4.29509 16.2755 3.99001 16.0871 3.80166ZM9.7841 4.05309L12.4609 6.72992L4.55399 14.6369L1.87622 14.6378L1.87716 11.96L9.7841 4.05309Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="p-3 bg-white">
+        <h3 class="text-xl font-light text-gray-700 text-ellipsis">{{ contentContentDataItem.title }}</h3>
+        <div class="font-light text-gray-500">{{ contentContentDataItem.category }}</div>
+        <div class="font-light text-gray-500">{{ contentContentDataItem.createdDate }}</div>
+        <div class="font-light text-gray-700">{{ 'Status' | translate }}: {{ contentContentDataItem.status | translate }}</div>
+      </div>
+    </section>
+  </ng-container>
+</div>
+<div class="w-full px-4 py-5 pt-1 text-lg font-light text-center text-gray-700">{{ 'Total' | translate }} : {{ contentContentData.length }} {{ 'Contents' | translate }}</div>

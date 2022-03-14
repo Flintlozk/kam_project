@@ -1,0 +1,189 @@
+<section class="bg-white" [formGroup]="search">
+  <div class="px-8 py-8">
+    <cms-next-title-underline [title]="'Search'"></cms-next-title-underline>
+    <div>
+      <div class="flex mb-2">
+        <div class="flex-1 sm:flex-2 pr-4">
+          <small>Maximum search results</small>
+          <form [formGroup]="formGroup.get('search.maximun_search_results')">
+            <div class="w-48 grid grid-cols-2">
+              <ng-container *ngFor="let item of formGroup.get('search.maximun_search_results.maximum_results').value">
+                <label class="radio">
+                  <input type="radio" formControlName="selected_maximum_result" name="selected_maximum_result" [id]="'item-' + item" class="hidden" id="" [value]="item" />
+                  <span class="radio-item"></span>
+                  {{ item }}
+                </label>
+              </ng-container>
+            </div>
+          </form>
+        </div>
+
+        <div class="flex-1 sm:flex-2">
+          <small>Define search score</small>
+          <input type="number" formControlName="define_search_score" min="0" max="10" placeholder="10" class="w-32 py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md" />
+          <div>
+            <small class="text-red-500"><i>***Search results will vary based on the give score. The maximum score can be set to 10.</i></small>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 pt-4">
+        <p>
+          <small><strong>Search Pattern</strong></small>
+        </p>
+        <small><i>Show search function in mobile & Tablet</i></small>
+      </div>
+      <div class="px-4">
+        <div class="flex justify-between">
+          <small>Search Pattern A</small>
+          <a href="#" class="underline self-end"><small>Setting</small></a>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-full" height="60" viewBox="0 0 392 60" fill="none">
+          <rect width="392" height="60" fill="url(#paint0_linear_214_7798)" />
+          <rect x="17.5" y="15.5" width="354" height="29" rx="3.5" fill="white" stroke="white" />
+          <path
+            d="M39.424 34.18C38.96 34.18 38.512 34.14 38.08 34.06C37.648 33.98 37.304 33.872 37.048 33.736L37.24 32.848C37.92 33.176 38.692 33.34 39.556 33.34C40.276 33.34 40.828 33.228 41.212 33.004C41.604 32.772 41.852 32.42 41.956 31.948C41.988 31.756 42.004 31.632 42.004 31.576C42.004 31.352 41.94 31.164 41.812 31.012C41.684 30.852 41.504 30.712 41.272 30.592C41.04 30.464 40.672 30.292 40.168 30.076C39.576 29.82 39.132 29.532 38.836 29.212C38.54 28.892 38.392 28.512 38.392 28.072C38.392 27.904 38.408 27.744 38.44 27.592C38.584 26.928 38.932 26.404 39.484 26.02C40.044 25.628 40.764 25.432 41.644 25.432C42.444 25.432 43.164 25.576 43.804 25.864L43.624 26.716C43.016 26.42 42.34 26.272 41.596 26.272C40.3 26.272 39.56 26.712 39.376 27.592C39.352 27.72 39.34 27.836 39.34 27.94C39.34 28.26 39.464 28.524 39.712 28.732C39.968 28.94 40.412 29.172 41.044 29.428C41.492 29.612 41.848 29.788 42.112 29.956C42.384 30.116 42.592 30.308 42.736 30.532C42.888 30.756 42.964 31.032 42.964 31.36C42.964 31.536 42.94 31.732 42.892 31.948C42.732 32.684 42.38 33.24 41.836 33.616C41.3 33.992 40.496 34.18 39.424 34.18ZM46.9443 34.18C46.0803 34.18 45.4003 33.98 44.9043 33.58C44.4163 33.18 44.1723 32.616 44.1723 31.888C44.1723 31.632 44.2003 31.38 44.2563 31.132C44.4643 30.18 44.8803 29.432 45.5043 28.888C46.1363 28.336 46.9563 28.06 47.9643 28.06C48.7883 28.06 49.4123 28.256 49.8363 28.648C50.2603 29.04 50.4723 29.568 50.4723 30.232C50.4723 30.48 50.4443 30.728 50.3883 30.976L50.2803 31.48H45.0483C45.0243 31.632 45.0123 31.78 45.0123 31.924C45.0123 32.94 45.7403 33.448 47.1963 33.448C47.5723 33.448 47.9483 33.416 48.3243 33.352C48.7083 33.28 49.0563 33.184 49.3683 33.064L49.2003 33.844C48.9443 33.94 48.6003 34.02 48.1683 34.084C47.7443 34.148 47.3363 34.18 46.9443 34.18ZM49.5603 30.82C49.6003 30.604 49.6203 30.42 49.6203 30.268C49.6203 29.292 49.0123 28.804 47.7963 28.804C47.0763 28.804 46.4963 28.988 46.0563 29.356C45.6243 29.724 45.3363 30.212 45.1923 30.82H49.5603ZM53.921 34.18C53.185 34.18 52.593 33.976 52.145 33.568C51.697 33.152 51.473 32.592 51.473 31.888C51.473 31.632 51.501 31.38 51.557 31.132C51.685 30.532 51.929 30 52.289 29.536C52.657 29.064 53.097 28.7 53.609 28.444C54.121 28.188 54.661 28.06 55.229 28.06C55.781 28.06 56.245 28.16 56.621 28.36C57.005 28.56 57.289 28.844 57.473 29.212L57.689 28.24H58.613L57.389 34H56.489L56.681 33.1C56.305 33.492 55.901 33.772 55.469 33.94C55.045 34.1 54.529 34.18 53.921 34.18ZM54.269 33.448C54.821 33.448 55.333 33.308 55.805 33.028C56.277 32.74 56.649 32.348 56.921 31.852L57.221 30.412C57.181 29.908 56.993 29.516 56.657 29.236C56.321 28.948 55.857 28.804 55.265 28.804C54.841 28.804 54.433 28.904 54.041 29.104C53.657 29.296 53.325 29.568 53.045 29.92C52.765 30.272 52.577 30.676 52.481 31.132C52.441 31.292 52.421 31.48 52.421 31.696C52.421 32.232 52.589 32.66 52.925 32.98C53.269 33.292 53.717 33.448 54.269 33.448ZM60.2374 28.24H61.1374L60.8974 29.368C61.5134 28.616 62.4614 28.24 63.7414 28.24L63.5734 28.984C62.1894 28.984 61.2334 29.444 60.7054 30.364L59.9374 34H59.0134L60.2374 28.24ZM66.5461 34.18C65.7701 34.18 65.1381 33.972 64.6501 33.556C64.1701 33.14 63.9301 32.572 63.9301 31.852C63.9301 31.604 63.9581 31.364 64.0141 31.132C64.1501 30.508 64.4021 29.964 64.7701 29.5C65.1381 29.036 65.5901 28.68 66.1261 28.432C66.6621 28.184 67.2501 28.06 67.8901 28.06C68.7061 28.06 69.3581 28.228 69.8461 28.564L69.6781 29.344C69.2541 28.984 68.6341 28.804 67.8181 28.804C67.3861 28.804 66.9701 28.896 66.5701 29.08C66.1701 29.256 65.8221 29.52 65.5261 29.872C65.2381 30.224 65.0421 30.644 64.9381 31.132C64.8821 31.364 64.8541 31.6 64.8541 31.84C64.8541 32.368 65.0181 32.768 65.3461 33.04C65.6741 33.312 66.1541 33.448 66.7861 33.448C67.2101 33.448 67.6021 33.4 67.9621 33.304C68.3221 33.208 68.6741 33.06 69.0181 32.86L68.8501 33.64C68.5301 33.832 68.1861 33.968 67.8181 34.048C67.4501 34.136 67.0261 34.18 66.5461 34.18ZM72.1006 25.132H73.0246L72.1846 29.08C72.8726 28.4 73.7086 28.06 74.6926 28.06C75.3166 28.06 75.7806 28.204 76.0846 28.492C76.3886 28.772 76.5406 29.164 76.5406 29.668C76.5406 29.9 76.5206 30.1 76.4806 30.268L75.6886 34H74.7646L75.5326 30.352C75.5806 30.12 75.6046 29.92 75.6046 29.752C75.6046 29.424 75.5086 29.184 75.3166 29.032C75.1246 28.88 74.8046 28.804 74.3566 28.804C73.4606 28.804 72.6686 29.204 71.9806 30.004L71.1406 34H70.2166L72.1006 25.132Z"
+            fill="#CC9D82"
+          />
+          <path
+            d="M352 37.165L347.529 32.6705C348.598 31.3809 349.129 29.7291 349.012 28.0582C348.895 26.3873 348.138 24.8258 346.9 23.698C345.662 22.5702 344.036 21.9627 342.362 22.0018C340.687 22.0409 339.092 22.7235 337.908 23.9079C336.723 25.0922 336.041 26.6874 336.002 28.3619C335.963 30.0364 336.57 31.6616 337.698 32.8999C338.826 34.1383 340.387 34.8946 342.058 35.0118C343.729 35.1289 345.381 34.598 346.67 33.5291L351.165 38L352 37.165ZM337.196 28.5253C337.196 27.4712 337.508 26.4408 338.094 25.5644C338.68 24.6879 339.512 24.0048 340.486 23.6015C341.46 23.1981 342.531 23.0925 343.565 23.2982C344.599 23.5038 345.548 24.0114 346.294 24.7568C347.039 25.5021 347.547 26.4517 347.752 27.4856C347.958 28.5194 347.853 29.591 347.449 30.5648C347.046 31.5387 346.363 32.371 345.486 32.9566C344.61 33.5422 343.579 33.8548 342.525 33.8548C341.112 33.8548 339.756 33.2933 338.757 32.2938C337.757 31.2944 337.196 29.9388 337.196 28.5253Z"
+            fill="#CC9D82"
+          />
+          <defs>
+            <linearGradient id="paint0_linear_214_7798" x1="196" y1="0" x2="196" y2="60" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#CC9D82" />
+              <stop offset="1" stop-color="#FFE5D5" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="p-4">
+        <small>Search Landing Page</small>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-full" height="204" viewBox="0 0 284 204" fill="none">
+          <g filter="url(#filter0_d_186_6579)">
+            <rect x="4" y="4" width="276" height="196" rx="4" fill="white" />
+            <rect x="4.5" y="4.5" width="275" height="195" rx="3.5" stroke="white" />
+          </g>
+          <defs>
+            <filter id="filter0_d_186_6579" x="0" y="0" width="284" height="204" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+              <feOffset />
+              <feGaussianBlur stdDeviation="2" />
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_186_6579" />
+              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_186_6579" result="shape" />
+            </filter>
+          </defs>
+        </svg>
+        <div class="flex justify-end">
+          <a (click)="isLandingPage = !isLandingPage" *ngIf="!isLandingPage" class="underline text-green-500 right cursor-pointer select-none"
+            ><small>Change Landing Page</small></a
+          >
+        </div>
+        <div class="px-10" *ngIf="isLandingPage">
+          <div class="flex justify-between">
+            <small class="text-gray-500 pb-2">Change Pattern</small>
+            <span class="text-green-500 right cursor-pointer select-none" (click)="isLandingPage = false">X</span>
+          </div>
+          <!-- <ng-container *ngFor=""></ng-container> -->
+          <div class="px-2">
+            <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="140" height="102" viewBox="0 0 140 102" fill="none">
+              <g filter="url(#filter0_d_186_8915)">
+                <rect x="4" y="4" width="132.367" height="94" rx="4" fill="white" />
+              </g>
+              <defs>
+                <filter id="filter0_d_186_8915" x="0" y="0" width="140.367" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_186_8915" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_186_8915" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+
+            <svg class="inline" class="inline" xmlns="http://www.w3.org/2000/svg" width="140" height="102" viewBox="0 0 140 102" fill="none">
+              <g filter="url(#filter0_d_186_8915)">
+                <rect x="4" y="4" width="132.367" height="94" rx="4" fill="white" />
+              </g>
+              <defs>
+                <filter id="filter0_d_186_8915" x="0" y="0" width="140.367" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_186_8915" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_186_8915" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+
+            <svg class="inline" class="inline" xmlns="http://www.w3.org/2000/svg" width="140" height="102" viewBox="0 0 140 102" fill="none">
+              <g filter="url(#filter0_d_186_8915)">
+                <rect x="4" y="4" width="132.367" height="94" rx="4" fill="white" />
+              </g>
+              <defs>
+                <filter id="filter0_d_186_8915" x="0" y="0" width="140.367" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_186_8915" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_186_8915" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+
+            <svg class="inline" class="inline" xmlns="http://www.w3.org/2000/svg" width="140" height="102" viewBox="0 0 140 102" fill="none">
+              <g filter="url(#filter0_d_186_8915)">
+                <rect x="4" y="4" width="132.367" height="94" rx="4" fill="white" />
+              </g>
+              <defs>
+                <filter id="filter0_d_186_8915" x="0" y="0" width="140.367" height="102" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_186_8915" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_186_8915" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="p-4" [formGroup]="search.get('search_type')">
+        <small>Search Type</small>
+
+        <div class="flex flex-wrap gap-2 mt-2 sm:justify-center md:justify-start">
+          <ng-container *ngFor="let webType of formGroup.get('search.search_type.search_types').value; let webtypeIndex = index">
+            <label for="search-{{ webtypeIndex }}" class="text-center">
+              <input class="hidden" type="radio" id="search-{{ webtypeIndex }}" formControlName="default_search_type" name="default_search_type" id="" [value]="webType" />
+              <div [class]="{ 'bg-green-500': this.getSearchType.value === webType }" class="search-type-item inline-block border border-grey rounded cursor-pointer">
+                <div class="search-type-image" *ngIf="webtypeIndex === 0">
+                  <img src="assets/cms/setting/website/general/general-website.svg" alt="" />
+                </div>
+                <div class="search-type-image" *ngIf="webtypeIndex === 1">
+                  <img *ngIf="this.getSearchType.value !== webType" src="assets/cms/setting/website/general/content-system.svg" alt="" />
+                  <img *ngIf="this.getSearchType.value === webType" src="assets/cms/setting/website/general/content-system-selected.svg" alt="" />
+                </div>
+                <div class="search-type-image" *ngIf="webtypeIndex === 2">
+                  <img *ngIf="this.getSearchType.value !== webType" src="assets/cms/setting/website/general/shopping-cart.svg" alt="" />
+                  <img *ngIf="this.getSearchType.value === webType" src="assets/cms/setting/website/general/shopping-cart-selected.svg" alt="" />
+                </div>
+              </div>
+              <br />
+              <small class="search-type-text">{{ webType }}</small>
+            </label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

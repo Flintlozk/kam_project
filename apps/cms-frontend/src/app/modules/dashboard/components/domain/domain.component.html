@@ -1,0 +1,20 @@
+<section class="bg-white border border-gray-200 rounded-md">
+  <div class="flex justify-between p-4 font-medium text-lg shadow-md">Domain</div>
+  <cms-next-table-theme (changedParams)="filterData($event)" [tableHeader]="tableHeader" [tableData]="data">
+    <ng-container class="table-content">
+      <ng-container *ngFor="let domainDataItem of dataToShow; trackBy: trackByIndex">
+        <tr>
+          <td class="p-4 font-light">
+            {{ domainDataItem.no }}
+          </td>
+          <td class="p-4 font-light">
+            {{ domainDataItem.domain }}
+          </td>
+          <td class="p-4 font-light">
+            {{ domainDataItem.totalVisitor }}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </cms-next-table-theme>
+</section>

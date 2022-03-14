@@ -1,0 +1,57 @@
+<div class="setting-logistic-per-item">
+  <form [formGroup]="logisticPerItemForm">
+    <div class="left">
+      <div class="item">
+        <div class="label">Purchase less than*</div>
+        <input type="text" formControlName="purchaseFirst" />
+      </div>
+      <div class="item">
+        <div class="label">Delivery Fee*</div>
+        <input type="text" formControlName="feePerItemFirst" />
+      </div>
+      <div class="item on-line purchase-between" *ngIf="purchaseBetweenStatus">
+        <div class="content" *ngFor="let item of purchaseBetweenArray.controls; let i = index" formArrayName="purchaseBetweenArray">
+          <div class="first">
+            <div class="label">Purchase between*</div>
+            <div class="form">
+              <input type="text" />
+              <div class="text">to</div>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="second">
+            <div class="label">Delivery Fee*</div>
+            <input type="text" />
+            <div class="func">
+              <img src="assets/img/trash-icon.svg" alt="" (click)="removePurchaseBetweenArray(i)" *ngIf="i != 0" />
+              <div class="add-icon" (click)="addPurchaseBetweenArray(i)">
+                <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="label">Purchase more than*</div>
+        <input type="text" formControlName="purchaseMoreThan" />
+      </div>
+      <div class="item">
+        <div class="label">Delivery Fee*</div>
+        <input type="text" formControlName="feePerItemMore" />
+      </div>
+    </div>
+    <div class="right">
+      <div class="label">Purchase Between</div>
+      <label class="mode-toggle">
+        <input type="checkbox" (change)="setPurchaseBetweenStatus($event)" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </form>
+  <div class="decoration">Baht</div>
+</div>

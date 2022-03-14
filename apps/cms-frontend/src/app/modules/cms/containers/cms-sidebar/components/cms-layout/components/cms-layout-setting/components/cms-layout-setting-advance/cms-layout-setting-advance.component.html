@@ -1,0 +1,256 @@
+<section class="grid gap-4" [formGroup]="layoutSettingAdvanceForm">
+  <div class="flex justify-center">
+    <div class="relative flex items-center justify-center p-4 bg-green-100 border border-green-500 border-dashed rounded">
+      <div class="absolute left-0 w-2 h-2 -ml-1 bg-green-500 rounded-full" *ngIf="guideLine.marginLeft"></div>
+      <div class="absolute top-0 w-2 h-2 -mt-1 bg-green-500 rounded-full" *ngIf="guideLine.marginTop"></div>
+      <div class="absolute right-0 w-2 h-2 -mr-1 bg-green-500 rounded-full" *ngIf="guideLine.marginRight"></div>
+      <div class="absolute bottom-0 w-2 h-2 -mb-1 bg-green-500 rounded-full" *ngIf="guideLine.marginBottom"></div>
+      <div class="relative flex items-center justify-center p-4 bg-red-100 border border-red-500 border-dashed rounded-md">
+        <div class="absolute left-0 w-2 h-2 -ml-1 bg-red-500 rounded-full" *ngIf="guideLine.paddingLeft"></div>
+        <div class="absolute top-0 w-2 h-2 -mt-1 bg-red-500 rounded-full" *ngIf="guideLine.paddingTop"></div>
+        <div class="absolute right-0 w-2 h-2 -mr-1 bg-red-500 rounded-full" *ngIf="guideLine.paddingRight"></div>
+        <div class="absolute bottom-0 w-2 h-2 -mb-1 bg-red-500 rounded-full" *ngIf="guideLine.paddingBottom"></div>
+        <div class="flex items-center justify-center w-20 h-20 p-4 text-sm text-center bg-white border border-gray-100 rounded-md">Content box</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid w-10/12 gap-2">
+    <div class="flex items-center">
+      <div class="w-4 h-4 bg-green-100 border border-green-500 border-dashed rounded"></div>
+      <span class="ml-2 text-sm font-light">Margin (px)</span>
+    </div>
+    <div class="grid items-center grid-cols-5 gap-2" formGroupName="margin">
+      <input
+        (keyup)="onMarginChange($event.target.value)"
+        (mouseover)="onLayoutGuide('marginLeft')"
+        (mouseout)="offLayoutGuide('marginLeft')"
+        value="0"
+        [ngClass]="{ 'border-green-500': isLinkedMargin }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-green-500"
+        type="number"
+        formControlName="left"
+      />
+      <input
+        (keyup)="onMarginChange($event.target.value)"
+        (mouseover)="onLayoutGuide('marginTop')"
+        (mouseout)="offLayoutGuide('marginTop')"
+        value="0"
+        [ngClass]="{ 'border-green-500': isLinkedMargin }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-green-500"
+        type="number"
+        formControlName="top"
+      />
+      <input
+        (keyup)="onMarginChange($event.target.value)"
+        (mouseover)="onLayoutGuide('marginRight')"
+        (mouseout)="offLayoutGuide('marginRight')"
+        value="0"
+        [ngClass]="{ 'border-green-500': isLinkedMargin }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-green-500"
+        type="number"
+        formControlName="right"
+      />
+      <input
+        (keyup)="onMarginChange($event.target.value)"
+        (mouseover)="onLayoutGuide('marginBottom')"
+        (mouseout)="offLayoutGuide('marginBottom')"
+        value="0"
+        [ngClass]="{ 'border-green-500': isLinkedMargin }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-green-500"
+        type="number"
+        formControlName="bottom"
+      />
+      <button [ngClass]="{ ' bg-green-500 rounded-full': isLinkedMargin }" (click)="onToggleLinkedMargin()" class="flex items-center justify-center w-6 h-6 focus:outline-none">
+        <svg
+          [ngClass]="{ 'text-white': isLinkedMargin, 'text-gray-300': !isLinkedMargin }"
+          class="fill-current"
+          width="7"
+          height="16"
+          viewBox="0 0 7 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M6 9.84595V12.5C6 13.8807 4.88071 15 3.5 15C2.11929 15 1 13.8807 1 12.5V9.84595H0V12.5C0 14.433 1.567 16 3.5 16C5.433 16 7 14.433 7 12.5V9.84595H6ZM6 6.15365H7V3.5C7 1.567 5.433 0 3.5 0C1.567 0 0 1.567 0 3.5V6.15365H1V3.5C1 2.11929 2.11929 1 3.5 1C4.88071 1 6 2.11929 6 3.5V6.15365Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="grid w-10/12 gap-2">
+    <div class="flex items-center">
+      <div class="w-4 h-4 bg-red-100 border border-red-500 border-dashed rounded"></div>
+      <span class="ml-2 text-sm font-light">Padding (px)</span>
+    </div>
+    <div class="grid items-center grid-cols-5 gap-2" formGroupName="padding">
+      <input
+        (keyup)="onPaddingChange($event.target.value)"
+        (mouseover)="onLayoutGuide('paddingLeft')"
+        (mouseout)="offLayoutGuide('paddingLeft')"
+        value="0"
+        [ngClass]="{ 'border-red-500': isLinkedPadding }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-red-500"
+        type="number"
+        formControlName="left"
+      />
+      <input
+        (keyup)="onPaddingChange($event.target.value)"
+        (mouseover)="onLayoutGuide('paddingTop')"
+        (mouseout)="offLayoutGuide('paddingTop')"
+        value="0"
+        [ngClass]="{ 'border-red-500': isLinkedPadding }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-red-500"
+        type="number"
+        formControlName="top"
+      />
+      <input
+        (keyup)="onPaddingChange($event.target.value)"
+        (mouseover)="onLayoutGuide('paddingRight')"
+        (mouseout)="offLayoutGuide('paddingRight')"
+        value="0"
+        [ngClass]="{ 'border-red-500': isLinkedPadding }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-red-500"
+        type="number"
+        formControlName="right"
+      />
+      <input
+        (keyup)="onPaddingChange($event.target.value)"
+        (mouseover)="onLayoutGuide('paddingBottom')"
+        (mouseout)="offLayoutGuide('paddingBottom')"
+        value="0"
+        [ngClass]="{ 'border-red-500': isLinkedPadding }"
+        class="w-10 h-10 text-center border border-gray-300 rounded-md focus:outline-none hover:border-red-500"
+        type="number"
+        formControlName="bottom"
+      />
+      <button [ngClass]="{ ' bg-red-500 rounded-full': isLinkedPadding }" (click)="onToggleLinkedPadding()" class="flex items-center justify-center w-6 h-6 focus:outline-none">
+        <svg
+          [ngClass]="{ 'text-white': isLinkedPadding, 'text-gray-300': !isLinkedPadding }"
+          class="fill-current"
+          width="7"
+          height="16"
+          viewBox="0 0 7 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M6 9.84595V12.5C6 13.8807 4.88071 15 3.5 15C2.11929 15 1 13.8807 1 12.5V9.84595H0V12.5C0 14.433 1.567 16 3.5 16C5.433 16 7 14.433 7 12.5V9.84595H6ZM6 6.15365H7V3.5C7 1.567 5.433 0 3.5 0C1.567 0 0 1.567 0 3.5V6.15365H1V3.5C1 2.11929 2.11929 1 3.5 1C4.88071 1 6 2.11929 6 3.5V6.15365Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="grid gap-1">
+    <div class="text-sm font-light">Position</div>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="flex items-center">
+        <ng-container *ngFor="let position of horizontalData; let index = index">
+          <button
+            (click)="onHorizontal(index)"
+            [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+            class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+          >
+            <svg
+              *ngIf="position.value === EPosition.LEFT"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="20"
+              height="22"
+              viewBox="0 0 20 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1 1V21" stroke-linecap="round" fill="none" />
+              <rect x="4" y="7" width="16" height="3" rx="1.5" stroke="none" />
+              <rect x="4" y="13" width="10" height="3" rx="1.5" stroke="none" />
+            </svg>
+            <svg
+              *ngIf="position.value === EPosition.JUSTIFY_CENTER"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="16"
+              height="22"
+              viewBox="0 0 16 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 1V21" stroke-linecap="round" fill="none" />
+              <rect y="7" width="16" height="3" rx="1.5" stroke="none" />
+              <rect x="3" y="13" width="10" height="3" rx="1.5" stroke="none" />
+            </svg>
+            <svg
+              *ngIf="position.value === EPosition.RIGHT"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="20"
+              height="22"
+              viewBox="0 0 20 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M19 1V21" stroke-linecap="round" fill="none" />
+              <rect y="7" width="16" height="3" rx="1.5" stroke="none" />
+              <rect x="6" y="13" width="10" height="3" rx="1.5" stroke="none" />
+            </svg>
+          </button>
+        </ng-container>
+      </div>
+      <div class="flex items-center">
+        <ng-container *ngFor="let position of verticalData; let index = index">
+          <button
+            (click)="onVertical(index)"
+            [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+            class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+          >
+            <svg
+              *ngIf="position.value === EPosition.TOP"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M20.5 0.5L0.499999 0.5" stroke-linecap="round" fill="none" />
+              <rect x="14.5" y="3.5" width="16" height="3" rx="1.5" transform="rotate(90 14.5 3.5)" stroke="none" />
+              <rect x="8.5" y="3.5" width="10" height="3" rx="1.5" transform="rotate(90 8.5 3.5)" stroke="none" />
+            </svg>
+            <svg
+              *ngIf="position.value === EPosition.ITEM_CENTER"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="22"
+              height="16"
+              viewBox="0 0 22 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1 8L21 8" fill="none" stroke-linecap="round" />
+              <rect x="7" y="16" width="16" height="3" rx="1.5" transform="rotate(-90 7 16)" stroke="none" />
+              <rect x="13" y="13" width="10" height="3" rx="1.5" transform="rotate(-90 13 13)" stroke="none" />
+            </svg>
+            <svg
+              *ngIf="position.value === EPosition.BOTTOM"
+              [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+              class="fill-current stroke-current"
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M20.5 19.5L0.5 19.5" fill="none" stroke-linecap="round" />
+              <rect x="14.5" y="0.5" width="16" height="3" rx="1.5" transform="rotate(90 14.5 0.5)" stroke="none" />
+              <rect x="8.5" y="6.5" width="10" height="3" rx="1.5" transform="rotate(90 8.5 6.5)" stroke="none" />
+            </svg>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+<div class="w-full">
+  <form [formGroup]="contentContentForm">
+    <div
+      [ngClass]="{
+        'invalid-validation': contentContentForm['controls']['contentContentData'].invalid && formErrorMessageObj?.contentContentDataErrorMessage
+      }"
+    >
+      <div class="invalid-message">
+        {{ formErrorMessageObj?.contentContentDataErrorMessage | translate }}
+      </div>
+      <div class="px-2 py-4 mb-4 overflow-scroll border border-gray-200 rounded-md invalid-input min-w-56 min-h-56 max-h-64 no-scroll-bar">
+        <quill-editor formControlName="contentContentData">
+          <div quill-editor-toolbar class="toolbar">
+            <div class="ql-formats style-expand">
+              <select class="ql-font">
+                <option selected></option>
+                <option value="serif"></option>
+                <option value="monospace"></option>
+              </select>
+              <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+              </select>
+              <span class="ql-formats">
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <select class="ql-align">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+              </span>
+            </div>
+          </div>
+        </quill-editor>
+      </div>
+    </div>
+    <button (click)="onConfirmDialog()" class="w-full py-3 mt-2 text-xl text-white rounded-md bg-green-500 focus:outline-none">{{ 'Confirm' | translate }}</button>
+    <button (click)="onCloseDialog()" class="w-full pt-3 text-xl font-light text-gray-500 bg-white rounded-md focus:outline-none">{{ 'Close' | translate }}</button>
+  </form>
+</div>

@@ -1,0 +1,36 @@
+<div class="histories-pipeline-container">
+  <ng-container *ngIf="histories.length">
+    <div class="history-item" *ngFor="let history of histories">
+      <img [src]="history.customerPic" [alt]="history.customerName" onerror="src='assets/img/logo-small.svg';" />
+      <div class="info">
+        <div class="title">{{ history.customerName }}</div>
+        <div class="time">{{ history.created_at | timeAgo: 'utc' }}</div>
+        <div class="time">{{ 'By' | translate }} - {{ history.action_by | translate }}</div>
+        <div class="steps" *ngIf="history.previous_domain !== null">
+          <div class="step from" [ngStyle]="{ background: history.startColor }">
+            {{ history.previous_domain | audienceHistoryType: history.previous_status }}
+          </div>
+          <div class="arrow"></div>
+          <div class="step to" [ngStyle]="{ background: history.endColor }">
+            {{ history.domain | audienceHistoryType: history.status }}
+          </div>
+        </div>
+        <div class="steps" *ngIf="history.previous_domain === null">
+          <div class="step from" [ngStyle]="{ background: history.startColor }">
+            {{ history.domain | audienceHistoryType: history.status }}
+          </div>
+        </div>
+        <div class="reason" *ngIf="history.status === 'CLOSED' && history.previous_status === 'FOLLOW' && history.previous_domain === 'AUDIENCE'">
+          <div class="type">
+            <span>{{ 'Reason Type' | translate }} :</span> {{ history.reason ? history.reason : '-' }}
+          </div>
+          <div class="description">
+            {{ history.closeDescription }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-text">*{{ 'latest to oldest order' | translate }}</div>
+  </ng-container>
+  <ng-container *ngIf="!histories.length"> <div class="no-data">No data avaliable</div></ng-container>
+</div>

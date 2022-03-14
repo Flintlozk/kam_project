@@ -1,0 +1,52 @@
+.same-size-column {
+  display: grid;
+  grid-template-areas: 'column1 column2 column3 column4';
+}
+.one-column {
+  display: grid;
+  grid-template-areas: 'column1';
+}
+.two-column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.three-column {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.four-column {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.template6-4 {
+  grid-template-columns: 6fr 4fr;
+}
+.template1-2-2 {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+.template1-1-1 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ql-font-racing {
+  font-family: 'Racing Sans One';
+}
+
+.ql-font-prompt {
+  font-family: 'Prompt';
+}
+
+.ql-font-quantico {
+  font-family: 'Quantico';
+}
+
+.ql-font-colombo {
+  font-family: 'Post No Bills Colombo';
+}
+
+.ql-font-neucha {
+  font-family: 'Neucha';
+}
+a {
+  text-decoration: none;
+}

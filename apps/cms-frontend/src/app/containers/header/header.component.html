@@ -1,0 +1,12 @@
+<section class="flex items-center w-full py-2 bg-white">
+  <div class="flex-shrink-0 w-72 px-6"><img src="assets/shared/logo.svg" alt="iTopplus" /></div>
+  <div class="flex items-center justify-between w-full px-6">
+    <h3 class="font-light text-gray-700">Welcome to content management system</h3>
+    <div class="flex items-center">
+      <cms-next-language-switch class="mr-4"></cms-next-language-switch>
+      <cms-next-notification class="mr-4"></cms-next-notification>
+      <reactor-room-ecosystem class="mr-4" [currentApp]="currentApp" (handleRedirect)="handleRedirect($event)"></reactor-room-ecosystem>
+      <cms-next-account></cms-next-account>
+    </div>
+  </div>
+</section>

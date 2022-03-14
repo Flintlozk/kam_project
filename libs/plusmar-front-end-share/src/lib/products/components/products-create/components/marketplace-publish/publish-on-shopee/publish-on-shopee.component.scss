@@ -1,0 +1,200 @@
+@import 'base';
+@import 'buttons';
+@import 'utils';
+@import 'custom-checkbox';
+
+$shopee-bg: #ff3c13;
+.product-create-shopee {
+  .heading-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn-cancel {
+      margin-right: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+
+    .btn-shopee {
+      background-color: $shopee-bg;
+      color: white;
+      margin-right: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      img {
+        height: 30px;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .product-details {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    grid-template-columns: 32px auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    display: grid;
+    margin-bottom: 20px;
+    .divider {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      border-bottom: 0.5px solid $border-color;
+    }
+    .product-icon {
+      margin-right: 5px;
+      img {
+        width: 32px;
+      }
+    }
+    .product-title {
+      font-weight: 400;
+    }
+    .product-value {
+      font-weight: 300;
+    }
+  }
+
+  .content-container {
+    border-top: 5px solid $shopee-bg;
+    border-radius: 12px;
+    background-color: white;
+  }
+
+  .label {
+    color: #576f83;
+    padding-bottom: 10px !important;
+    font-weight: 300;
+    font-size: 12px;
+  }
+}
+
+.attribute-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .attribute-item {
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: white;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    &:nth-child(5n + 1) {
+      background: #f9813d;
+    }
+
+    &:nth-child(5n + 2) {
+      background: #f7685b;
+    }
+
+    &:nth-child(5n + 3) {
+      background: #534fdb;
+    }
+
+    &:nth-child(5n + 4) {
+      background: #89a5bb;
+    }
+
+    &:nth-child(5n + 5) {
+      background: #577083;
+    }
+  }
+}
+
+.disable-item {
+  opacity: 0.5;
+}
+
+input {
+  display: flex;
+  padding: 0px 15px;
+  height: 35px;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+  width: calc(100% - 35px);
+
+  &:focus {
+    outline: none;
+    border-color: $text-darker-color;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.date-picker {
+  .mat-form-field {
+    font-size: 1em;
+    min-width: 100px;
+    max-width: 100%;
+    &.ng-invalid {
+      .mat-icon-button {
+        top: -10px;
+      }
+    }
+    &.ng-valid {
+      .mat-form-field-wrapper {
+        .mat-form-field-infix {
+          .mat-form-field-label-wrapper {
+            display: none;
+          }
+        }
+      }
+    }
+    .mat-form-field-wrapper {
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 0px 15px;
+      outline: none;
+      background: white;
+      display: flex;
+      align-items: center;
+      height: 35px;
+      .mat-form-field-underline {
+        display: none;
+      }
+      .mat-form-field-infix {
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        width: 100%;
+        display: flex;
+        input {
+          margin: 0px;
+          border: 0px;
+          padding: 0px;
+          width: 100%;
+          &.mat-input-element {
+            &:disabled {
+              color: $border-color;
+            }
+          }
+          &:disabled {
+            color: black !important;
+          }
+        }
+        .mat-form-field-label-wrapper {
+          padding-top: 0px;
+          top: -6px;
+          line-height: 20px;
+        }
+      }
+      .mat-datepicker-toggle {
+        mat-icon {
+          img {
+            width: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.date-picker-form-field {
+  width: 100%;
+}

@@ -1,0 +1,167 @@
+@import 'base';
+
+.login-container {
+  display: flex;
+  overflow: auto;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  font-family: 'DM Sans';
+  .language-switcher {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  }
+
+  .login {
+    width: 100%;
+    background: #fff;
+
+    .content {
+      text-align: center;
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+
+      .button-wrapper {
+        cursor: pointer;
+        position: absolute;
+        top: 80px;
+        left: 80px;
+
+        .back {
+          font-size: 18px;
+          font-weight: bold;
+          color: #89a5bb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 30px;
+
+          width: 186px;
+          height: 44px;
+          background-color: #e6eff5;
+
+          .arrow {
+            margin: 3px 5px 0 5px;
+            width: 18px;
+
+            @media #{$mobilemax} {
+              width: 14px;
+            }
+          }
+
+          @media #{$mobilemax} {
+            font-size: 0.8em;
+            width: 137px;
+            height: 34px;
+          }
+        }
+
+        @media #{$mobilemax} {
+          top: 20px;
+          left: 20px;
+        }
+      }
+
+      .action-wrapper {
+        height: auto;
+        margin: auto;
+
+        .err {
+          padding-bottom: 10px;
+          font-weight: 300;
+          font-size: 22px;
+          padding-bottom: 10px;
+          text-align: center;
+          font-weight: 500;
+
+          .not-match {
+            color: #ea6161 !important;
+          }
+        }
+
+        .info {
+          padding-top: 10px;
+          font-size: 12px;
+
+          .click {
+            color: #27a2ff;
+            text-decoration: none;
+          }
+        }
+
+        .logo {
+          width: 222px;
+          height: 77px;
+          margin: auto;
+          padding-bottom: 50px;
+        }
+
+        .text {
+          color: #484b52;
+          padding-bottom: 50px;
+
+          .email {
+            color: #27a2ff;
+          }
+
+          .login {
+            color: #ea6161;
+          }
+
+          p {
+            margin: 0px;
+          }
+        }
+
+        .facebook-login-wrapper {
+          display: flex;
+          flex-flow: column;
+          text-align: center;
+          width: 100%;
+          padding-bottom: 50px;
+        }
+
+        .troubleshoots {
+          color: #89a5bb;
+          display: flex;
+          flex-flow: row;
+          font-size: 14px;
+
+          span {
+            padding: 4px;
+          }
+
+          .t-dialog {
+            color: #27a2ff;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+          padding-bottom: 50px;
+        }
+
+        .terms {
+          span {
+            padding: 8px;
+          }
+
+          display: flex;
+          flex-flow: column;
+          font-size: 14px;
+          color: #89a5bb;
+
+          a {
+            color: #27a2ff;
+            font-weight: bold;
+            text-decoration: none;
+          }
+
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+}

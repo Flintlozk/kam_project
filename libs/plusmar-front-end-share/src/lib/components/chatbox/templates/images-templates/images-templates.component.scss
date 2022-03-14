@@ -1,0 +1,182 @@
+@import 'base';
+
+.images-template-input-container {
+  input {
+    border: 1px solid $border-color;
+    padding: 0px 15px;
+    height: 35px;
+    border-radius: 8px;
+  }
+}
+.images-template-progress-container {
+  ::ng-deep .mat-progress-bar-buffer {
+    background-color: #87c9ff !important;
+  }
+  ::ng-deep .mat-progress-bar-fill::after {
+    background-color: #53b1ff !important;
+  }
+}
+
+.table-full-height {
+  min-height: calc(100vh - 280px);
+  max-height: calc(100vh - 280px);
+}
+.shortcut input {
+  padding-left: 20px;
+}
+
+.shortcut:after {
+  content: ':/';
+  position: absolute;
+  left: 11px;
+  top: 6px;
+
+  @media #{$mobilemax} {
+    top: 16px;
+  }
+}
+
+:host ::ng-deep .custom-table table,
+:host ::ng-deep .table-content-group table {
+  border-collapse: collapse !important;
+}
+
+::ng-deep .cdk-overlay-container {
+  overflow: auto !important;
+}
+
+::ng-deep .cdk-overlay-backdrop {
+  position: fixed !important;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  @media #{$mobilemax} {
+    position: relative !important;
+  }
+}
+
+:host ::ng-deep .custom-table tr td,
+:host ::ng-deep .custom-table tr th {
+  border-radius: 0 !important;
+}
+
+:host ::ng-deep .custom-table tr {
+  border-top: 1px solid #ebecf1;
+}
+
+:host ::ng-deep .custom-table tr:first-child {
+  border-top: 1px solid transparent;
+}
+
+:host ::ng-deep .custom-table tr {
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .custom-table tr th {
+  background-color: #e2f2ff;
+}
+:host ::ng-deep .custom-table tr td {
+  padding: 10px;
+}
+
+::ng-deep .mat-menu-item {
+  display: flex !important;
+  align-items: center !important;
+}
+
+:host ::ng-deep .custom-table tr th:first-child {
+  border-top-left-radius: 10px !important;
+}
+
+:host ::ng-deep .custom-table tr th:last-child {
+  border-top-right-radius: 10px !important;
+}
+
+.images-set {
+  @media #{$mobilemax} {
+    overflow-y: hidden;
+    overflow-x: auto;
+    max-width: calc(100vw - 360px);
+  }
+
+  @media #{$tetrismax} {
+    max-width: calc(100vw - 280px);
+  }
+}
+
+.image-shortcut {
+  padding: 15px;
+
+  @media #{$tetrismax} {
+    max-width: 60px;
+    padding: 0px;
+  }
+}
+
+.image-actions {
+  @media #{$tetrismax} {
+    padding: 0px;
+  }
+}
+
+.preview {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+}
+
+.thumbnail img,
+.mobile-preview img {
+  max-width: 300px;
+}
+
+.mobile-preview {
+  display: none;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 10px;
+  left: 0;
+  right: 0;
+
+  @media #{$mobilemax} {
+    display: flex;
+  }
+}
+
+.thumbnail .preview *,
+.thumbnail .remove-image {
+  transition: transform 0.2s ease;
+  transition-delay: 0.3s;
+}
+
+.thumbnail .preview {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+.thumbnail .preview *,
+.mobile-preview {
+  transform-origin: top left;
+  transform: scale(0) translate(0, 0);
+}
+
+.thumbnail:hover .preview * {
+  transform: scale(1) translate(45px, -50%);
+}
+
+.thumbnail:hover ~ .mobile-preview {
+  @media #{$mobilemax} {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.thumbnail .remove-image {
+  transform-origin: center;
+  transform: scale(0);
+}
+
+.thumbnail:hover .remove-image {
+  transform: scale(1);
+}

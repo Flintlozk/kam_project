@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce | Omise Checkout</title>
+    <%- include ("../../partials/head") %>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/step3omise.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+      var enableConfirm = false;
+      var omiseInit = false;
+    </script>
+    <%if (payload.enableOmise) { %>
+    <script defer type="text/javascript" src="javascript/step2omise.js"></script>
+    <%}%>
+  </head>
+
+  <body x-data="{psid:payloadData.psid,customer:payloadData.customer}">
+    <div id="payment-success" class="wrapper-success" style="display: none"><%- include ("../payment/success.ejs") %></div>
+
+    <div id="payment-process" class="wrapper-success" style="display: none"><%- include ("../payment/process.ejs") %></div>
+
+    <div id="payment-omise-failed" class="wrapper-failed" style="display: none"><%- include ("../payment/omise-failed.ejs") %></div>
+
+    <div id="pipeline-step2-container" style="display: block">
+      <% var payments = payload.payments; var accounts = payload.accounts; var logisticSystem = payload.logisticSystem %> <%- include ("../step2/step2-loader.ejs")%>
+      <div class="wrapper" id="container">
+        <input type="hidden" name="psid" id="psid" x-model="psid" />
+        <b>Omise Checkout</b>
+        <div style="margin-top: 12px">
+          <div>- ชำระเงินผ่านช่องทาง <a href="https://www.omise.co/" target="_blank">Omise</a></div>
+          <div>- กรุณาดำเนินการชำระเงิน โดยเลือกการชำระเงินจากปุ่มด้านล่าง</div>
+        </div>
+      </div>
+      <div class="separator"></div>
+      <%- include ("../step2/step2-summary") %>
+    </div>
+
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %> <%}%>
+  </body>
+</html>

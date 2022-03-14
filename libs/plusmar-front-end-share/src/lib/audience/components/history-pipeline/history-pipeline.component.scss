@@ -1,0 +1,102 @@
+@import 'base';
+
+.histories-pipeline-container {
+  .no-data {
+    width: 100%;
+    color: #576f83;
+    text-align: centers;
+  }
+
+  .order-text {
+    font-size: 12px;
+    color: #576f83;
+    width: 100%;
+    text-align: end;
+  }
+  .history-item {
+    display: flex;
+    padding-bottom: 15px;
+
+    //comment
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 100%;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .info {
+      .time {
+        font-size: 12px;
+        font-weight: 300;
+        color: #adb0b2;
+      }
+      .steps {
+        display: flex;
+        align-items: center;
+        .step {
+          background: white;
+          border: 1px solid #f2f5f9;
+          font-weight: 300;
+          padding: 5px 10px;
+          border-radius: 5px;
+
+          //   &.first {
+          //     background: #f2f5f9;
+          //     border-color: #e3e6eb;
+          //   }
+          //   &.second {
+          //     background: #fde8bd;
+          //     border-color: #fbdda3;
+          //   }
+          //   &.third {
+          //     background: #c8e5fe;
+          //     border-color: #aed7fc;
+          //   }
+          //   &.forth {
+          //     background: #fde7dd;
+          //     border-color: #fddacc;
+          //   }
+          //   &.fifth {
+          //     background: #d7f6da;
+          //     border-color: #a7f29d;
+          //   }
+        }
+        .from {
+          margin-right: 5px;
+        }
+        .to {
+          margin-left: 18px;
+        }
+        .arrow {
+          width: 30px;
+          border-top: 1px dotted $border-color;
+          position: relative;
+          &:after {
+            content: ' ';
+            position: absolute;
+            top: -10px;
+            left: 100%;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent transparent #e5eaf1;
+            z-index: 2;
+          }
+        }
+      }
+      .reason {
+        .type {
+          margin: 10px 0;
+          span {
+            color: #576f83;
+          }
+        }
+        .description {
+          margin: 10px 0;
+          font-size: 14px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}

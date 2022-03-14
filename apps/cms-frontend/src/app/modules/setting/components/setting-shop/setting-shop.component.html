@@ -1,0 +1,49 @@
+<section class="px-6 py-8">
+  <cms-next-heading [heading]="heading"></cms-next-heading>
+  <mat-tab-group class="general-tab" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab [label]="'Shop Owner' | translate">
+      <reactor-room-setting-shop-owner [theme]="theme" *matTabContent></reactor-room-setting-shop-owner>
+    </mat-tab>
+    <mat-tab [label]="'Payments' | translate" #payment>
+      <reactor-room-setting-payment [theme]="theme" [role]="role" *matTabContent></reactor-room-setting-payment>
+    </mat-tab>
+    <mat-tab [label]="'Logistic' | translate">
+      <reactor-room-setting-logistic [theme]="theme" [role]="role" *matTabContent></reactor-room-setting-logistic>
+    </mat-tab>
+    <mat-tab [label]="'Advanced Settings' | translate">
+      <!-- <div class="bg-white flex items-center shadow-md m-4 p-8">
+        <span>
+          <svg width="38" height="35" viewBox="0 0 38 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.3795 5.19796L17.4406 4.91695L17.2285 4.72281L15.5678 3.20309L17.7431 2.99701L18.0441 2.9685L18.1586 2.68872L19 0.634012L19.8413 2.6887L19.9559 2.96849L20.2569 2.99701L22.4324 3.20315L20.7718 4.72245L20.5596 4.9166L20.6208 5.19764L21.1036 7.41707L19.2645 6.27025L18.9999 6.10523L18.7353 6.27032L16.8966 7.41754L17.3795 5.19796Z" fill="#8591AA" stroke="#8591AA"/>
+            <path d="M28.9068 8.92504L28.9679 8.64403L28.7557 8.44989L27.718 7.5002L29.0691 7.3722L29.3701 7.34369L29.4847 7.06391L30 5.80538L30.5153 7.06389L30.6299 7.34368L30.9309 7.3722L32.2821 7.50024L31.2445 8.44962L31.0323 8.64376L31.0934 8.9248L31.3926 10.3001L30.2645 9.59662L29.9999 9.4316L29.7353 9.59669L28.6076 10.3003L28.9068 8.92504Z" fill="#8591AA" stroke="#8591AA"/>
+            <path d="M6.90676 8.92504L6.96789 8.64403L6.75574 8.44989L5.71796 7.5002L7.0691 7.3722L7.37008 7.34369L7.48465 7.06391L8.00002 5.80538L8.5153 7.06389L8.62986 7.34368L8.93085 7.3722L10.2821 7.50024L9.24449 8.44962L9.03229 8.64376L9.09343 8.9248L9.39264 10.3001L8.26455 9.59662L7.99991 9.4316L7.73531 9.59669L6.60756 10.3003L6.90676 8.92504Z" fill="#8591AA" stroke="#8591AA"/>
+            <path d="M24 17.5C24 16.1667 24.6 13.3 27 12.5" stroke="#8591AA" stroke-width="0.7" stroke-linecap="round" stroke-dasharray="2 2"/>
+            <path d="M13 18C13 16.6667 12.4 13.8 10 13" stroke="#8591AA" stroke-width="0.7" stroke-linecap="round" stroke-dasharray="2 2"/>
+            <path d="M19 34V16H30.6471V34H19Z" fill="#D6DBE3" stroke="white"/>
+            <path d="M7.35303 34V16H19.0001V34H7.35303Z" fill="#D6DBE3" stroke="white"/>
+            <path d="M23.8483 20.9909L19 16H31.8571L36.5055 20.7851C36.6903 20.9753 36.5555 21.2941 36.2903 21.2941H24.5656C24.2953 21.2941 24.0366 21.1847 23.8483 20.9909Z" fill="#D6DBE3" stroke="white"/>
+            <path d="M14.1517 20.9909L19 16H6.14286L1.49449 20.7851C1.30972 20.9753 1.44449 21.2941 1.70967 21.2941H13.4344C13.7047 21.2941 13.9634 21.1847 14.1517 20.9909Z" fill="#D6DBE3" stroke="white"/>
+            <path d="M19 15.5V8" stroke="#8591AA" stroke-width="0.7" stroke-linecap="round" stroke-dasharray="2 2"/>
+            </svg>
+        </span>
+        <div class="flex flex-col m-2">
+          <span> New Product</span>
+          <span class="italic"> The duration of the new products 1 month after the created date</span>
+        </div>
+        <label>
+          <input type="checkbox" #data_is_active class="hidden" id=""  />
+          <button
+            type="checkbox"
+            class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+            [ngClass]="{ 'bg-green-500 border-green-500': true }"
+          >
+            <div
+              class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+              [ngClass]="{ 'bg-gray-300': false, 'bg-white right-0 mr-2': true}"
+            ></div>
+          </button>
+        </label>
+      </div>    -->
+    </mat-tab>
+  </mat-tab-group>
+</section>

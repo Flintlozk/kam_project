@@ -1,0 +1,64 @@
+<div
+  class="setting-shop-line-setting-dialog"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <form [formGroup]="lineSettingForm">
+    <reactor-room-custom-dialog>
+      <div class="head">
+        {{ 'Connect LINE Official Account' | translate }}
+      </div>
+      <div class="content">
+        <div class="guide-connect-line">
+          How to connect line official account <span (click)="openDialogHowtoConnectLine()"><u>Click here</u></span>
+        </div>
+        <div class="content-form-two-column">
+          <div class="item" [ngClass]="{ invalid: !lineSettingForm.get('basicid').valid && lineSettingErrorMessages['basicidValidationMessage'] }">
+            <div class="label">Basic ID*</div>
+            <input type="text" formControlName="basicid" (keyup)="eventLookUpOnFocus('basicid')" />
+            <mat-error *ngIf="!lineSettingForm.get('basicid').valid" [innerHTML]="lineSettingErrorMessages['basicidValidationMessage']"> </mat-error>
+          </div>
+          <div class="item" [ngClass]="{ invalid: !lineSettingForm.get('channelid').valid && lineSettingErrorMessages['channelidValidationMessage'] }">
+            <div class="label">Channel ID*</div>
+            <input type="text" formControlName="channelid" (keyup)="eventLookUpOnFocus('channelid')" />
+            <mat-error *ngIf="!lineSettingForm.get('channelid').valid" [innerHTML]="lineSettingErrorMessages['channelidValidationMessage']"> </mat-error>
+          </div>
+          <div class="item" [ngClass]="{ invalid: !lineSettingForm.get('channelsecret').valid && lineSettingErrorMessages['channelsecretValidationMessage'] }">
+            <div class="label">Channel Secret*</div>
+            <input type="text" formControlName="channelsecret" (keyup)="eventLookUpOnFocus('channelsecret')" />
+            <mat-error *ngIf="!lineSettingForm.get('channelsecret').valid" [innerHTML]="lineSettingErrorMessages['channelsecretValidationMessage']"> </mat-error>
+          </div>
+          <div class="item">
+            <div class="label">Webhooks</div>
+            <div class="webhook-content">
+              <div class="webhook-link">{{ webhookUrl }}</div>
+              <div class="webhook-copy-link">
+                <span (click)="CopyLink()" class="copy whitespace-nowrap cursor-pointer"> {{ 'Copy link' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content-form-row">
+          <div class="item" [ngClass]="{ invalid: !lineSettingForm.get('channeltoken').valid && lineSettingErrorMessages['channeltokenValidationMessage'] }">
+            <div class="label">Channel Access Token*</div>
+            <input type="text" formControlName="channeltoken" (keyup)="eventLookUpOnFocus('channeltoken')" />
+            <mat-error *ngIf="!lineSettingForm.get('channeltoken').valid" [innerHTML]="lineSettingErrorMessages['channeltokenValidationMessage']"> </mat-error>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button class="btn-cancel" type="reset" (click)="onNoClick()">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button class="btn-save" (click)="connectLine()">
+            <img src="assets/img/confirm-icon.png" />
+            {{ 'Confirm' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>

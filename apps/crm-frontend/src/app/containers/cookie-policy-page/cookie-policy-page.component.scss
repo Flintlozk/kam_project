@@ -1,0 +1,39 @@
+.backgroundColor {
+  padding: 100px;
+  background-color: white;
+  padding-top: -79px;
+  color: #153342;
+}
+
+.mainBackground {
+  background-color: white;
+  color: #153342;
+
+  .mainContainer {
+    padding: 50px 0px 40px 0px;
+    position: relative;
+    // text-align: center;
+    width: 80%;
+    font-weight: 300;
+    margin: 0 auto;
+    line-height: 2.5;
+
+    .titleFont {
+      font-weight: 500;
+      font-size: 1.1vw;
+      padding-bottom: 1rem;
+    }
+
+    .contentFont {
+      font-size: 0.9vw;
+    }
+
+    .contentBorder {
+      border-bottom: 1px solid;
+      width: 100%;
+      margin: 0 auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

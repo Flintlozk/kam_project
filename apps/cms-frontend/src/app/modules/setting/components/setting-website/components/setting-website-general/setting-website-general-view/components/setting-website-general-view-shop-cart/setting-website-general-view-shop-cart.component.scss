@@ -1,0 +1,23 @@
+.shop-cart-icon {
+  input[name='shopcart_icon'] {
+    display: none;
+  }
+}
+
+.selected-shop-cart {
+  border-color: #2ec639;
+  background-color: #13f52256;
+  .selected-mark {
+    padding: 0;
+  }
+}
+
+.percentage-container {
+  text-align: center;
+  padding-top: 0.5rem;
+  width: 25%;
+  margin-left: 0.5rem;
+  input {
+    width: 35%;
+  }
+}

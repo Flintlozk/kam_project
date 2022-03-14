@@ -1,0 +1,62 @@
+<ng-container *ngIf="selector === 'HEADER'">
+  <reactor-room-heading [headingTitle]="'Leads' | translate" [Route]="('Leads' | translate) + ' / ' + (title | translate)">
+    <div class="heading-content action-group" [ngStyle]="{ 'grid-template-columns': 'repeat(' + gridAlign + ', 1fr)' }">
+      <button class="btn-cancel" (click)="onClickCancel()" id="lead-action-close-button">{{ 'Cancel' | translate }}</button>
+
+      <ng-container *ngIf="!this.isAudienceFinished">
+        <button class="btn-reject" *ngIf="audience$ && !leadsFormService.isCustomerFilled" (click)="rejectAudience()">
+          <img src="assets/img/reject-icon.svg" alt="" />
+          {{ 'Reject' | translate }}
+        </button>
+      </ng-container>
+
+      <button
+        class="btn-save"
+        [ngClass]="{ disabled: !leadsFormService.isManualInput || leadsFormService.leadForm.invalid }"
+        type="submit"
+        [disabled]="!leadsFormService.isManualInput"
+        (click)="onSave()"
+        *ngIf="audience$ && !leadsFormService.isCustomerFilled"
+      >
+        <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M15.5882 2.67522L13.3249 0.411875C13.0593 0.14625 12.7061 0 12.3305 0C12.0512 0 4.55525 0 4.21881 0H1.40631C0.630905 0 6.10352e-05 0.630844 6.10352e-05 1.40625V14.5938C6.10352e-05 15.3692 0.630905 16 1.40631 16C2.09906 16 14.0495 16 14.5938 16C15.3692 16 16.0001 15.3692 16.0001 14.5938V3.66956C16.0001 3.29397 15.8538 2.94081 15.5882 2.67522ZM4.68756 0.9375H9.43756V3.65625C9.43756 3.91513 9.64744 4.125 9.90631 4.125C10.1652 4.125 10.3751 3.91513 10.3751 3.65625V0.9375H11.3126V4.59375C11.3126 4.85222 11.1023 5.0625 10.8438 5.0625H5.15631C4.89784 5.0625 4.68756 4.85222 4.68756 4.59375V0.9375ZM12.2501 15.0625H3.75006V11H12.2501V15.0625ZM12.2501 10.0625H3.75006V8.5C3.75006 8.24153 3.96034 8.03125 4.21881 8.03125H11.7813C12.0398 8.03125 12.2501 8.24153 12.2501 8.5V10.0625ZM15.0626 14.5938C15.0626 14.8522 14.8523 15.0625 14.5938 15.0625H13.1876V8.5C13.1876 7.72459 12.5567 7.09375 11.7813 7.09375H4.21881C3.4434 7.09375 2.81256 7.72459 2.81256 8.5V15.0625H1.40631C1.14784 15.0625 0.937561 14.8522 0.937561 14.5938V1.40625C0.937561 1.14778 1.14784 0.9375 1.40631 0.9375H3.75006V4.59375C3.75006 5.36916 4.3809 6 5.15631 6H10.8438C11.6192 6 12.2501 5.36916 12.2501 4.59375V0.9375H12.3305C12.4557 0.9375 12.5734 0.98625 12.6619 1.07478L14.9252 3.33813C15.0138 3.42666 15.0626 3.54438 15.0626 3.66956V14.5938Z"
+          />
+        </svg>
+        {{ 'Save' | translate }}
+      </button>
+
+      <button class="btn-close-follow" *ngIf="originRoute !== 'LEAD' && leadsFormService.isCustomerFilled" (click)="backToFollows()">
+        <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9.28601" cy="9" r="9" fill="#2EC639" />
+          <path
+            d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+            fill="white"
+          />
+        </svg>
+
+        <span class="ml-5"> </span>
+        {{ 'Acknowledge' | translate }}
+      </button>
+    </div>
+  </reactor-room-heading>
+</ng-container>
+
+<ng-container class="buttons" *ngIf="selector === 'BUTTON'">
+  <div class="btn-item round" (click)="onSave()" *ngIf="originRoute !== 'LEAD' && leadsFormService.isCustomerFilled" type="submit">
+    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9.28601" cy="9" r="9" fill="#2EC639" />
+      <path
+        d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+        fill="white"
+      />
+    </svg>
+    <span>{{ 'Acknowledge' | translate }}</span>
+  </div>
+  <div class="btn-item round" (click)="onSave()" *ngIf="audience$ && !leadsFormService.isCustomerFilled" type="submit">
+    <span>{{ 'Save' | translate }}</span>
+  </div>
+  <div class="btn-item danger" (click)="rejectAudience()" *ngIf="audience$ && !leadsFormService.isCustomerFilled">
+    <span>{{ 'Reject' | translate }}</span>
+  </div>
+</ng-container>

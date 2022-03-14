@@ -1,0 +1,14 @@
+<div class="purchase-order">
+  <reactor-room-heading [headingTitle]="'Order History' | translate" [Route]="'Order History' | translate">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <mat-tab-group class="mat-tab-setting" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab [label]="maximumLabel">
+      <reactor-room-order *matTabContent></reactor-room-order>
+    </mat-tab>
+    <!-- <mat-tab disabled label="Refund">
+      <reactor-room-refund *matTabContent></reactor-room-refund>
+    </mat-tab> -->
+  </mat-tab-group>
+</div>
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

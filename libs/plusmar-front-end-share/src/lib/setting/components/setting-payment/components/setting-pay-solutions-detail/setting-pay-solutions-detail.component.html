@@ -1,0 +1,111 @@
+<div class="setting-pay-solutions-detail">
+  <reactor-room-card>
+    <div class="card-content">
+      <div class="content">
+        <div class="line">
+          <div class="text">{{ 'Merchant ID' | translate }}</div>
+          <div class="calc">{{ merchantID }}</div>
+        </div>
+        <div class="line">
+          <div class="text">{{ 'Additional fee' | translate }}</div>
+          <div class="calc">
+            {{ feePercent }}%
+            <img src="assets/img/plus-calc.png" alt="Plus" />
+            ฿{{ feeValue }}
+          </div>
+        </div>
+        <div class="line">
+          <div class="text">{{ 'Minimum payment accepted' | translate }}*</div>
+          <div class="calc">฿{{ minimumValue }}</div>
+        </div>
+        <svg (click)="openDialog()" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.9659 0.294462L0.0532027 13.2001C0.0532027 13.2001 0.00482531 17.5185 0.000120317 17.6926C-0.00458468 17.8668 0.129237 18.0056 0.307501 17.9998C0.422936 17.9961 1.53125 17.9837 2.77895 17.9698C3.45806 17.9622 4.17846 17.9541 4.80254 17.9468L17.7011 5.05531C18.1391 4.61752 18.0637 4.21697 17.6822 3.83567L14.1214 0.276834C13.7823 -0.0621027 13.3992 -0.127579 12.9659 0.294462ZM1.10666 16.8939L1.14488 13.6596L10.4788 4.33071L13.6768 7.52686L4.34278 16.8557L1.10666 16.8939Z"
+            fill="url(#edit)"
+          />
+          <defs>
+            <linearGradient id="edit" x1="0.0857386" y1="17.9143" x2="15.9184" y2="2.07288" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#55B2FF" />
+              <stop offset="1" stop-color="#87D6FF" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="description">
+        <div class="title">
+          {{ 'Description' | translate }}
+          <div class="border"></div>
+        </div>
+        <table>
+          <tr>
+            <td>ค่าใช้จ่าย</td>
+            <td>295 บาท / เดือน</td>
+          </tr>
+          <tr>
+            <td>รูปแบบธุรกิจ</td>
+            <td>
+              - นิติบุคคล / คณะบุคคล / ห้างหุ้นส่วนจำกัด<br />
+              - บุคคลธรรมดา
+            </td>
+          </tr>
+          <tr>
+            <td>
+              ค่าธรรมเนียมการชำระเงิน<br />
+              (ยังไม่รวม Vat 7%)
+            </td>
+            <td>
+              - บัตร VISA, MasterCard, Japan Credit Bureau, China Unionpay 4%<br />
+              - บัตร American Express 4.75%<br />
+              - PayPal 4.75%
+            </td>
+          </tr>
+          <tr>
+            <td>อกสารประกอบการสมัคร</td>
+            <td>
+              นิติบุคคล<br />
+              - หนังสือรับรองบริษัท<br />
+              - ภ.พ.20<br />
+              - สำเนาบัตรประชาชนกรรมการ<br />
+              - สำเนาหน้าสมุดบัญชีธนาคารพร้อม Statement ย้อนหลัง 3 เดือน<br /><br />
+              บุคคลธรรมดา<br />
+              - สำเนาบัตรประชาชน<br />
+              - สำเนาทะเบียนบ้าน<br />
+              - สำเนาหน้าสมุดบัญชีธนาคาร<br />
+              - ภาพ และหลักฐานการเป็นเจ้าของเว็บไซต์
+            </td>
+          </tr>
+          <tr>
+            <td>ระยะเวลาในการอนุมัติ</td>
+            <td>3 วันทำการ</td>
+          </tr>
+          <tr>
+            <td>วงเงินการชำระสูงสุด</td>
+            <td>ไม่เกิน 2,000,000 บาท/รายการ</td>
+          </tr>
+          <tr>
+            <td>ระยะเวลาการถอนเงิน</td>
+            <td>ทุกวันที่ 10 ของเดือนถัดไป</td>
+          </tr>
+          <tr>
+            <td>ค่าธรรมเนียมในการถอนเงินต่อครั้ง</td>
+            <td>คิดอัตราตายตัว 12 บาท</td>
+          </tr>
+          <tr>
+            <td>การแจ้งผลการชำระเงิน</td>
+            <td>ระบบ BentoWeb ส่งอีเมลใบเสร็จรับเงินให้ผู้ชำระอัตโนมัติหากมีการชำระเงินแล้ว ตามข้อมูลใบสั่งซื้อ</td>
+          </tr>
+          <tr>
+            <td>รายละเอียด</td>
+            <td>
+              - ต้องการสมัครเป็นร้านค้าที่รับชำระเงินผ่าน ThaiePay <a>Click ที่นี่เพื่อทำการสมัคร</a><br />
+              - รายละเอียดเพิ่มเติม สามารถดูได้ที่ <a>www.thaiepay.com</a> หรือปรึกษาที่ Call Center 02-541-4100 กด 2 <br />
+              - เมื่อทำการสมัครเรียบร้อยให้นำ Merchant ID เข้ามากรอกในระบบ
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </reactor-room-card>
+</div>

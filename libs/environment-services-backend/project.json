@@ -1,0 +1,23 @@
+{
+  "root": "libs/environment-services-backend",
+  "sourceRoot": "libs/environment-services-backend/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/environment-services-backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/environment-services-backend"],
+      "options": {
+        "jestConfig": "libs/environment-services-backend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

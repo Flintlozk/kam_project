@@ -1,0 +1,7 @@
+<section [formGroup]="layoutSettingCustomizeForm" #monacoContainer>
+  <div class="font-light pb-2 text-sm">
+    Add custom styles with the following ID:<br />
+    #{{ this.layoutSettingCustomizeForm['controls']['elementId'].value }}
+  </div>
+  <ngx-monaco-editor *ngIf="status" [options]="editorOptions" formControlName="cssStyle"></ngx-monaco-editor>
+</section>

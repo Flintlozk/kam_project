@@ -1,0 +1,40 @@
+.facebook-login-button-container {
+  img {
+    height: 40px;
+    border-radius: 3px;
+  }
+}
+
+.facebook-login-button {
+  cursor: pointer;
+  margin: auto;
+  background: #1877f2;
+  display: flex;
+  outline: none;
+  border: none;
+  max-width: 272px;
+  border-radius: 20px;
+  align-items: center;
+  height: 40px;
+
+  .logo {
+    margin-left: 4px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .text {
+    margin: 0 12px 0 0px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+  }
+  &.disabled {
+    background: #d7d8df;
+    cursor: none;
+  }
+}

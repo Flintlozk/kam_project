@@ -1,0 +1,153 @@
+@import 'base';
+// $new-color: #5eb9ff;
+// $old-color: #a7dafe;
+// .card-content {
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+//   .title{
+//     display: none;
+//     @media #{$mobilemax}{
+//       display: flex;
+//       font-weight: 300;
+//       padding-top: 5px;
+//       margin-bottom: -5px;
+//     }
+//   }
+//   .donut-chart {
+//     padding: 20px;
+//     position: relative;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100%;
+//     min-height: 100px;
+//     @media #{$mobilemax}{
+//       padding: 10px;
+//     }
+//     canvas {
+//       z-index: 1;
+//     }
+//     .donut-chart-info {
+//       position: absolute;
+//       width: 100px;
+//       height: 100px;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+//       align-items: center;
+//       text-align: center;
+//       background: white;
+//       border-radius: 100%;
+//       overflow: hidden;
+//       .label {
+//         font-weight: 300;
+//         line-height: 1.2em;
+//         @media #{$mobilemax}{
+//           display: none;
+//         }
+//       }
+//       .value {
+//         font-size: 1.3em;
+//       }
+//     }
+//   }
+//   .info {
+//     display: grid;
+//     grid-template-columns: repeat(2, 1fr);
+//     width: 100%;
+//     text-align: center;
+//     .label {
+//       font-weight: 300;
+//       @media #{$mobilemax}{
+//         font-size: 12px;
+//       }
+//     }
+//     .info-item {
+//       padding: 15px;
+//       border-top: 1px solid #f2f5f9;
+//       position: relative;
+//       cursor: pointer;
+//       transition: all ease-in-out 0.3s;
+//       @media #{$mobilemax}{
+//         padding: 5px;
+//       }
+//       .value {
+//         font-size: 1.3em;
+//         @media #{$mobilemax}{
+//           font-size: 1.2em;
+//           line-height: 1.2em;
+//         }
+//       }
+//       &:hover {
+//         &::after {
+//           border-color: $new-color $new-color transparent transparent;
+//         }
+//       }
+//       &::after {
+//         content: ' ';
+//         position: absolute;
+//         top: 0;
+//         right: 0;
+//         border-width: 7px;
+//         border-style: solid;
+//         border-color: #b5b7ba #b5b7ba transparent transparent;
+//       }
+//       &.new {
+//         border-right: 1px solid #f2f5f9;
+//         .value {
+//           color: $new-color;
+//         }
+//       }
+//       &.old {
+//         .value {
+//           color: $old-color;
+//         }
+//       }
+//     }
+//   }
+// }
+.card-content {
+  height: 100%;
+  // width: calc(100% - 40px);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  @media #{$mobilemax} {
+    padding: 0px;
+  }
+  svg {
+    padding-top: 30px;
+    max-width: 68px;
+    height: 68px;
+    @media #{$mobilemax} {
+      padding-top: 5px;
+      max-width: 20px;
+      height: 30px;
+    }
+  }
+  .title {
+    font-weight: 300;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @media #{$mobilemax} {
+      padding-top: 0px;
+      padding-bottom: 5px;
+    }
+    .val {
+      font-weight: 400;
+      font-size: 2.5em;
+      @media #{$mobilemax} {
+        font-size: 1.2em;
+      }
+    }
+  }
+}

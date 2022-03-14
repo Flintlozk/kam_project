@@ -1,0 +1,31 @@
+<div class="admin-dashboard">
+  <reactor-room-heading [headingTitle]="'Organization Dashboard' | translate" [Route]="'Organization Dashboard' | translate">
+    <div class="heading-content">
+      <div class="select-option">
+        <mat-form-field>
+          <mat-select [(value)]="currentPageID" (valueChange)="doChangePage($event)">
+            <mat-option [value]="-1"> {{ 'ALL_PAGE_TAG' | translate }}</mat-option>
+            <mat-option [value]="-2"> {{ 'ALL_PAGE_ASSIGNEE' | translate }}</mat-option>
+            <ng-container *ngFor="let page of facebookPageData">
+              <mat-option [value]="page.pageID">
+                <div style="display: flex; align-items: center">
+                  <img style="height: 25px; width: 25px; border-radius: 50%" class="page-pic" [src]="page.pageImgUrl" onerror="src='assets/img/logo-small.png'" />
+                  <div style="margin-left: 6px">
+                    {{ page.pageTitle }}
+                    <ng-container *ngIf="page.pageMessageMode === EPageMessageTrackMode.TRACK_BY_TAG">({{ 'Tags' | translate }})</ng-container>
+                    <ng-container *ngIf="page.pageMessageMode === EPageMessageTrackMode.TRACK_BY_ASSIGNEE">({{ 'Assignee' | translate }})</ng-container>
+                  </div>
+                </div>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </reactor-room-heading>
+  <div class="content" *ngIf="isReady">
+    <reactor-room-admin-sla-statistic [pageID]="currentPageID" [trackMode]="trackMode"></reactor-room-admin-sla-statistic>
+    <reactor-room-admin-sla-all-staff [pageID]="currentPageID" [trackMode]="trackMode"></reactor-room-admin-sla-all-staff>
+    <reactor-room-admin-reasons-closed-case [pageID]="currentPageID" [trackMode]="trackMode"></reactor-room-admin-reasons-closed-case>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="setting-setting-message-track-mode-container">
+  <mat-accordion>
+    <mat-expansion-panel style="border-radius: 15px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="card-content">
+            <div class="content">
+              <div class="icon">
+                <!-- <img src="../../../../../../../assets/img/setting/workhour.svg" /> -->
+              </div>
+              <div class="ml-15">{{ 'Message Tracking Mode' | translate }}</div>
+            </div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div class="toggle-contianer">
+            <label class="mode-toggle">
+              <!-- <input type="checkbox" [disabled]="!isAllowed" [(ngModel)]="isEnabled" (change)="toggleFeature()" /> -->
+              <!-- <span class="slider round" [ngClass]="'active'"> </span> -->
+            </label>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="setting-setting-message-track-mode-content">
+        <!-- <div class="title">This change will affect <span>Orgnaization Dashboard</span> and <span>SLA Dashboard</span></div> -->
+        <div class="title">
+          {{ 'MSG_TRACKING_DESC_1' | translate }}<span>{{ 'MSG_TRACKING_DESC_2' | translate }}</span> {{ 'MSG_TRACKING_DESC_3' | translate }}
+          <span>{{ 'MSG_TRACKING_DESC_4' | translate }}</span>
+        </div>
+        <form class="form-group" [formGroup]="messageTrackModeForm" *ngIf="messageTrackModeForm">
+          <div
+            class="toggle-mode-contianer active"
+            (click)="setValue(EPageMessageTrackMode.TRACK_BY_TAG)"
+            [ngClass]="{ active: messageTrackModeForm.value.trackMode === EPageMessageTrackMode.TRACK_BY_TAG }"
+          >
+            <div class="square">
+              <img class="icon" src="assets/img/assignee/icon_tags.svg" />
+            </div>
+            <div class="text-label">{{ 'Tag' | translate }}</div>
+          </div>
+          <div
+            class="toggle-mode-contianer"
+            (click)="setValue(EPageMessageTrackMode.TRACK_BY_ASSIGNEE)"
+            [ngClass]="{ active: messageTrackModeForm.value.trackMode === EPageMessageTrackMode.TRACK_BY_ASSIGNEE }"
+          >
+            <div class="square">
+              <img class="icon" src="assets/img/assignee/icon_leads.svg" />
+            </div>
+            <div class="text-label">{{ 'Assignee' | translate }}</div>
+          </div>
+        </form>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

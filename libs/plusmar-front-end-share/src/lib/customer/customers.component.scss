@@ -1,0 +1,11 @@
+@import 'base';
+
+.customers {
+  .mat-tab-customers {
+    @extend .custom-tabs;
+
+    .mat-tab-body {
+      min-height: calc(100vh - 260px);
+    }
+  }
+}

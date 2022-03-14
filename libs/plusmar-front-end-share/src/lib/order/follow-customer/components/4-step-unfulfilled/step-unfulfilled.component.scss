@@ -1,0 +1,136 @@
+@import 'base';
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  //padding: 20px 0px;
+  color: $text-darker-color;
+  font-size: 1em;
+
+  .info {
+    padding: 10px 0px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    width: 100%;
+
+    input {
+      box-shadow: none;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 0px 15px;
+      height: 35px;
+
+      @media #{$mobilemax} {
+        width: 100%;
+      }
+
+      &::placeholder {
+        font-style: italic;
+      }
+    }
+
+    .btn-rejected {
+      margin-left: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $border-color;
+      padding: 10px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: $transition;
+
+      img {
+        width: 25px;
+        padding-right: 10px;
+      }
+
+      &:hover {
+        background: #d8d8d8;
+      }
+    }
+  }
+}
+
+.paid-filter {
+  display: flex;
+  border-bottom: 1px solid #e8e8e8;
+
+  .type {
+    height: 46px;
+    min-width: 136px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+
+    &.all {
+      color: #353434;
+
+      span {
+        color: #fff;
+        // padding: 10px 30px;
+        height: 25px;
+        min-width: 60px;
+        border-radius: 15px;
+        margin: 5px;
+        background: #353434;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      border-bottom: 2px solid #353434;
+    }
+
+    &.paid {
+      color: #53b1ff;
+
+      span {
+        color: #fff;
+        // padding: 10px 30px;
+        height: 25px;
+        min-width: 60px;
+        border-radius: 15px;
+        margin: 5px;
+        background: #53b1ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      border-bottom: 2px solid #53b1ff;
+    }
+
+    &.unpaid {
+      color: #dc493d;
+
+      span {
+        color: #fff;
+        // padding: 10px 30px;
+        height: 25px;
+        min-width: 60px;
+        border-radius: 15px;
+        margin: 5px;
+        background: #dc493d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      border-bottom: 2px solid #dc493d;
+    }
+  }
+}
+
+img.img_dec {
+  width: 30px;
+  height: 30px;
+}

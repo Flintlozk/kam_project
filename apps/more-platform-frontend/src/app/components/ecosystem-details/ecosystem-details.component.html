@@ -1,0 +1,16 @@
+<section class="flex items-center justify-center pb-6 md:justify-start">
+  <ng-container *ngFor="let ecosystemProduct of ecosystemProducts; trackBy: trackByIndex">
+    <a [href]="ecosystemProduct.route" class="relative w-full h-full p-4 mr-2 rounded-lg md:mr-6 md:w-44 md:h-44 last:mr-0" [ngStyle]="{ background: ecosystemProduct.colorCode }">
+      <div class="absolute top-0 left-0">
+        <img [src]="ecosystemProduct.backgroundImg" [alt]="ecosystemProduct.title" />
+      </div>
+      <div class="grid font-light text-white">
+        <div class="text-lg font-normal leading-tight">{{ ecosystemProduct.title }}</div>
+        <div class="pt-1 pb-4">Remaining days</div>
+        <div class="flex items-center justify-center w-12 h-12 bg-white rounded-lg md:w-16 md:h-16">
+          <img class="w-8 md:w-auto" [src]="ecosystemProduct.icon" [alt]="ecosystemProduct.title" />
+        </div>
+      </div>
+    </a>
+  </ng-container>
+</section>

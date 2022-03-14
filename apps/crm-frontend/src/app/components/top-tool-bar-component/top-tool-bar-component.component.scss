@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  font-family: prompt;
+  height: 100px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  .header_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-tab-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .header-menu {
+    margin-block: auto;
+    padding-right: 30px;
+    .img-profile-picture {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+    }
+    .profile-member-container {
+      display: flex;
+      flex-direction: row;
+      .member-individual {
+        margin-left: -20px;
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  }
+
+  .header-menu.profile-icon {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .header-button-view {
+    margin: auto;
+  }
+}
+.img-more-assignee {
+  width: 32px;
+  height: 32px;
+  border-radius: 14px;
+  background-color: #e3edf2;
+  .count-more-assignee {
+    cursor: pointer;
+    font-size: 12px;
+    padding-top: 8px;
+    padding-left: 8px;
+  }
+}

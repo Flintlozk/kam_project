@@ -1,0 +1,26 @@
+<div class="customer-container">
+  <div class="search">
+    <input autofocus type="text" placeholder="Search" [formControl]="searchField" />
+  </div>
+
+  <reactor-room-custom-table *ngIf="customerList" [isLoading]="false" [tableColSpan]="4" [tableData]="customerList" [isNoVerticalScroll]="true" [tableHeader]="tableHeader">
+    <tr *ngFor="let customer of customerList; trackBy: trackBy" class="table-content" #tableContent>
+      <td>
+        <div>{{ customer.name }} <br />{{ customer.email }} <br />{{ customer.tel }}</div>
+      </td>
+      <td>
+        <div>
+          <span>{{ customer.subscriptionID }} </span><br />
+          <span style="font-size: 12px">Created At : {{ customer.createdAt | timeAgo: 'utc' }}</span
+          ><br />
+          <span style="font-size: 12px">Expires At : {{ customer.expiredAt | timeAgo: 'utc' }}</span>
+        </div>
+      </td>
+      <td class="package">{{ this.planNameArray[customer.planID - 1] }}</td>
+      <td class="balance">{{ customer.currentBalance | currency: 'TH' }}</td>
+    </tr>
+  </reactor-room-custom-table>
+  <div>
+    <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="total" (changePage)="changePage($event)"> </reactor-room-pagination>
+  </div>
+</div>

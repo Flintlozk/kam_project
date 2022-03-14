@@ -1,0 +1,125 @@
+@import 'base';
+.setting-logistic-postal-code {
+  margin: 0px -15px;
+  padding: 20px;
+  background: #f9fbfd;
+  position: relative;
+  .label {
+    color: #576f83;
+    font-weight: 200;
+    font-size: 12px;
+    padding-bottom: 10px;
+  }
+  input {
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    text-align: right;
+    padding: 10px 15px;
+    width: calc(100% - 30px);
+  }
+  .func {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: calc(100% + 10px);
+    bottom: 10px;
+    img {
+      margin-right: 10px;
+      width: 15px;
+      cursor: pointer;
+    }
+
+    .add-icon {
+      background: $main-color;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      margin-right: 10px;
+      cursor: pointer;
+
+      img {
+        margin: 0px;
+        width: 10px;
+      }
+    }
+  }
+  form {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 20px;
+    .main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      max-width: calc(50%);
+      @media #{$mobilemax} {
+        max-width: calc(100% - 50px);
+      }
+      .btn-collapse {
+        border: 1px solid $main-color;
+        border-radius: 5px;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 10px;
+        cursor: pointer;
+        color: $main-color;
+        line-height: 20px;
+      }
+      .func {
+        bottom: 8px;
+      }
+    }
+    .sub {
+      padding-top: 20px;
+      padding-left: 60px;
+      max-width: calc(50%);
+      @media #{$mobilemax} {
+        max-width: calc(100% - 120px);
+      }
+      .label-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        position: relative;
+        &::before {
+          content: '';
+          width: 10px;
+          height: 1px;
+          display: block;
+          background: $border-color;
+          position: absolute;
+          right: calc(100% + 5px);
+          top: 7px;
+        }
+        &::after {
+          content: '';
+          width: 1px;
+          height: 28px;
+          display: block;
+          background: $border-color;
+          position: absolute;
+          right: calc(100% + 15px);
+          bottom: 21px;
+        }
+      }
+      .input-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        position: relative;
+        padding-bottom: 10px;
+        .func {
+          bottom: 20px;
+        }
+      }
+    }
+  }
+}

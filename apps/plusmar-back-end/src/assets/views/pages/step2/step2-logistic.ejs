@@ -1,0 +1,47 @@
+<div
+  class="content"
+  id="logistic"
+  x-data="{shippingCost:payloadData.shippingCost,logisticSystem:payloadData.logisticSystem,logistics:payloadData.logistics,selectedLogistic:payloadData.logisticID}"
+>
+  <div class="title-group">
+    <div class="title-number"><span>2</span></div>
+    <div class="title-label">ช่องทางการจัดส่ง</div>
+    <!-- <div class="title-label">Select a Logistic</div> -->
+  </div>
+  <template x-if="logisticSystem === true">
+    <div class="logistic-group">
+      <label x-bind:class="'carrier'"> Delivery fee (ค่าจัดส่ง) </label>
+      <span x-bind:class="'cod'">&nbsp;+฿<span x-text="shippingCost"> </span> </span>
+    </div>
+  </template>
+  <template x-if="logisticSystem === false">
+    <template x-for="logistic in logistics" :key="logistic">
+      <div class="logistic-group" x-on:click="selectLogisticMethod(logistic.id,logistic.flatRate,logistic.deliveryFee,logistic.isCOD,logistic.hash)">
+        <input
+          x-on:change="selectLogisticMethod(logistic.id,logistic.flatRate,logistic.deliveryFee,logistic.isCOD,logistic.hash)"
+          x-bind:id="'logis'+logistic.id"
+          x-bind:model="logistic.id"
+          x-bind:type="'radio'"
+          x-bind:name="'logisticMethod'"
+          x-bind:checked="selectedLogistic === logistic.id"
+        />
+
+        <img x-show="logistic.type === 'EMS_THAILAND'" x-bind:class="'logistic-icon'" x-bind:src="'./images/logistic/ems_logo.png'" />
+        <img x-show="logistic.type === 'THAILAND_POST'" x-bind:class="'logistic-icon'" x-bind:src="'./images/logistic/thailandpost_logo.png'" />
+        <img x-show="logistic.type === 'FLASH_EXPRESS'" x-bind:class="'logistic-icon'" x-bind:src="'./images/logistic/flashexpress_logo.png'" />
+        <img x-show="logistic.type === 'J_AND_T'" x-bind:class="'logistic-icon'" x-bind:src="'./images/logistic/J&T_logo.png'" />
+        <img
+          x-show="logistic.type !=='EMS_THAILAND' && logistic.type !=='THAILAND_POST' && logistic.type !== 'FLASH_EXPRESS' && logistic.type !== 'J_AND_T'"
+          x-bind:class="'logistic-icon'"
+          x-bind:src="'./images/logistic/custom-image.png'"
+        />
+
+        <label x-bind:class="'carrier'" x-bind:for="'logis' + logistic.id" x-text="logistic.name"> </label>
+
+        <span x-show="logistic.flatRate" x-bind:class="'cod'">&nbsp;+฿<span x-text="logistic.deliveryFee"></span> </span>
+        <span x-show="logistic.isCOD" x-bind:class="'cod'">&nbsp; เก็บปลายทางได้</span>
+        <!-- x-bind:class="'cod'">&nbsp; COD avaliable</span> -->
+      </div>
+    </template>
+  </template>
+</div>

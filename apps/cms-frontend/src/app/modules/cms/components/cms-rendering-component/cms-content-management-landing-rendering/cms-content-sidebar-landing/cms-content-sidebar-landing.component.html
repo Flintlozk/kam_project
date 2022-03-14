@@ -1,0 +1,13 @@
+<ng-container *ngIf="contentManagementLanding?.option?.isRightContent">
+  <div class="grid gap-4">
+    <div class="text-2xl">{{ contentManagementLanding?.option?.rightContent?.title }}</div>
+    <div class="grid gap-4">
+      <ng-container *ngFor="let content of contentEditors">
+        <cms-next-cms-content-right-content [content]="content" [rightContentType]="contentManagementLanding?.option?.rightContent?.type"></cms-next-cms-content-right-content>
+      </ng-container>
+    </div>
+    <div *ngIf="contentManagementLanding?.option?.rightContent?.isMaxItem">
+      <button class="bg-green-500 px-4 py-1 text-center w-full text-white rounded">{{ contentManagementLanding?.option?.rightContent?.moreTitle }}</button>
+    </div>
+  </div>
+</ng-container>

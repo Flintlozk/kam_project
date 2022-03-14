@@ -1,0 +1,14 @@
+<cms-next-pwa-card></cms-next-pwa-card>
+<div class="h-full cms-next-layout">
+  <div class="fixed flex flex-col justify-between w-full h-full bg-gray-100">
+    <div class="cms-next-header" *ngIf="!fullLayout && !noHeaderLayout">
+      <cms-next-header></cms-next-header>
+    </div>
+    <div class="h-full overflow-scroll no-scroll-bar cms-next-layout-content" [@routeAnimation]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+    <nav class="cms-next-layout-footer" *ngIf="!fullLayout">
+      <cms-next-footer></cms-next-footer>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.errormodal {
+  font-family: Prompt;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  width: 100%;
+  height: 100%;
+  color: #153342;
+  background: #f9f9f9;
+}
+::ng-deep.mat-dialog-container {
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+button {
+  background: #f2f2f2;
+  border-radius: 8px;
+  font-family: Prompt;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #153342;
+  width: 100%;
+}

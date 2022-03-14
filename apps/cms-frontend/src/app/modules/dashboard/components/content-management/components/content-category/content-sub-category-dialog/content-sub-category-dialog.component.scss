@@ -1,0 +1,12 @@
+.content-categories-dialog {
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 600px;
+  margin: auto;
+  .footer {
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

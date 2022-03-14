@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%- JSON.stringify(payload); %>
+          <% } %>
+    </script>
+    <style>
+      body {
+        background: #fff;
+        max-width: 590px;
+        margin: 15px auto;
+      }
+
+      select {
+            cursor:pointer;
+            background:#FFF;
+            width:240px;
+            border: 1px solid rgba(219, 218, 221, 1);
+        }
+
+        button {
+            height: 40px;
+            border: none;
+            background-color: #53b1ff ;
+            color: white;
+        }
+
+        button span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+      input,
+        textarea {
+            color: #333333;
+            border: 1px solid rgba(219, 218, 221, 1);
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            border-radius: 4px;
+
+        }
+      .productimage {
+        width: 90px;
+        height: 90px;
+        border-radius: 100%;
+        overflow: hidden;
+        margin: auto;
+        text-align: center;
+        clear: both;
+        margin-bottom: 20px;
+      }
+
+      .wrapper {
+        border: 1px solid rgba(227, 230, 234, 1);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .productimage img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .add-to-cart {
+            background-color: #53b1ff;
+            color: #FFF;
+            cursor:pointer;
+            width: 100%;
+        }
+
+      .product-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #343d46;
+        display: flex;
+        justify-content: flex-start;
+        border: none;
+        padding: 0;
+        margin-bottom: 5px;
+      }
+
+      .product-price-range {
+        color: #53b1ff;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .font-weight {
+        font-weight: bold;
+      }
+
+      .quantity {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+        }
+
+      .quantity .picker .click{
+            display:flex
+        }
+        .quantity .picker .click .button{
+            background:#F3F5F9;
+            color:#89898A;   
+            height: 36px;
+            margin: 0;
+            width: 30px;
+            cursor:pointer;
+            font-size:18px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        .quantity .picker .click input {
+            display: inline-flex;
+            text-align: end;
+        }
+
+        .total {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .total div {
+            font-weight: bold;
+            font-size: 24px;
+            color: #514B4B;
+        }
+
+        .select-variants {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .variants {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .variant-select-option{
+            width: 210px;
+            height: 40px;
+        }
+        .error-msg{
+          color: red;
+          margin-top: 10px;
+          text-align: center;
+        }
+        .mt-10{
+          margin-top: 10px;
+        }
+
+        .cart-count {
+          position: absolute;
+          background-color: #54b1ff;
+          padding: 4px;
+          width: 16px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          color: white;
+          right: 10px;
+          top: 8px;
+      }
+
+      .back {
+        color: #54b1ff;
+        border: unset;
+        background: unset;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      .back-group{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+    </style>
+    <script>
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
+      var paramJSON = {};
+
+      for (let [key, value] of params) {
+        paramJSON[key] = value;
+      }
+
+      var sessionParams = {
+        catalogID :paramJSON.catalogID,
+        psid :paramJSON.psid,
+        auth :paramJSON.auth,
+        view :paramJSON.view,
+        audienceId :paramJSON.audienceId,
+      }
+      function isArrayEqual (first, second) {
+        return first.every((e)=> second.includes(e)) && second.every((e)=> first.includes(e))
+      }
+      function initProductVariants() {
+        return {
+          cartCount: 0,
+          quantity: 1,
+          variants: payloadData.variants,
+          attributes: payloadData.attributes,
+          product: payloadData.product,
+          productID: payloadData.product.id,
+          variantID: null,
+          productName: payloadData.product.name,
+          productPrice: `฿${payloadData.product.minPrice} - ฿${payloadData.product.maxPrice}`,
+          productImage: payloadData.product.imageURL,
+          price: null,
+          isVariantSelected: false,
+          totalPrice: null,
+          isNoVariant: false,
+          isShowVariantErrorMsg: false,
+          backURL: null,
+          isAvailableCatalogData: true,
+          currentVariant: null,
+          quantityNotNumber: false,
+          quantityNotInRange: false,
+          quantityNotEnough: false,
+          quantityNotInRangeMessage: '',
+          decreaseVariantQuantity() {
+            if(this.quantity > 1) this.quantity--
+            this.totalPrice = `฿${this.quantity * this.price}`;
+          },
+          increaseVariantQuantity() {
+            if(!this.currentVariant?.variantID) {
+              this.isShowVariantErrorMsg = true;
+            }
+            else {
+              const currentInventory =  this.currentVariant.variantInventory;
+              this.isShowVariantErrorMsg = false;
+              if(this.quantity < currentInventory){
+                this.quantity++
+              }
+            this.totalPrice = `฿${this.quantity * this.price}`;
+            }
+          
+          },
+          setVariantDetails(attrArray) {
+            const variant = payloadData.variants.find(variant => isArrayEqual(variant.variantAttributeIDs, attrArray));
+              if(variant?.variantID){
+                this.isVariantSelected = true;
+                this.productID = payloadData.product.id;
+                this.variantID = variant.variantID;
+                this.productName = variant.variantAttributes;
+                this.productPrice = `฿${variant.variantUnitPrice}`;
+                this.price = variant.variantUnitPrice;
+                this.productImage = variant.imageURL;
+                this.totalPrice = `฿${this.quantity * variant.variantUnitPrice}`;
+              }else{
+                this.isVariantSelected = false
+                this.productID =  payloadData.product.id;
+                this.variantID =  variant.variantID;
+                this.productName =  payloadData.product.name;
+                this.productPrice =  `฿${payloadData.product.minPrice} - ฿${payloadData.product.maxPrice}`;
+                this.productImage =  payloadData.product.imageURL;
+                this.totalPrice = null;
+              }
+              this.currentVariant = variant;
+          },  
+          onChangeVariant() {
+            const attribute0 = document.getElementById("attribute0").value;
+            let attribute1 = -1;
+            if(this.attributes?.length > 1) {
+              attribute1 = document.getElementById("attribute1").value;
+              const attrArray = [+attribute0, +attribute1];
+              this.setVariantDetails(attrArray);
+            }
+            else {
+              const attrArray = [+attribute0];
+              this.setVariantDetails(attrArray);
+            }
+          },
+          async setCartItem(payload){
+            const filter = payload.filter;
+            const cart = payload.cart;
+            const catalogLS = JSON.stringify({
+              cart,filter, startPoint: this.backURL
+            });
+            await this.setSession(catalogLS);
+          },
+          back() {
+            window.location = this.backURL;
+          },
+          async setSession(body) {
+            const newQueryString = new URLSearchParams(sessionParams).toString();
+            const sessionSetPath = `session/set?${newQueryString}`;
+            await fetch(sessionSetPath, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: body,
+            })
+              .then((result) => {
+                result.json().then((result) => {
+                  if(!result?.status === 200){
+                    this.isAvailableCatalogData = false;
+                  }
+                });
+              })
+              .catch((err) => {
+                this.isAvailableCatalogData = false;
+                console.log('error in session', err);
+              });
+          },
+          async getSession() {
+            try {
+              const newQueryString = new URLSearchParams(sessionParams).toString();
+              const sessionGetPath = `session/get?${newQueryString}`;
+              const response = await (await fetch(sessionGetPath)).json();
+              if(!Object.keys(response || {}).length > 0){
+                this.isAvailableCatalogData = false;
+              }
+              return response;
+            } catch (error) {
+              this.isAvailableCatalogData = false;
+              console.log('variant :>> ', error);
+            }
+          },
+          validateQuantity(localStorageCart) {
+            const cartItemQuantity = localStorageCart.cart.length ? localStorageCart.cart[0].quantity : 0;
+            const isQuantityNumber = Number.isInteger(+this.quantity);
+            const currentInventory =  +this.currentVariant.variantInventory;
+            this.quantityNotEnough =  currentInventory < 1 ? true : false;
+            if(this.quantityNotEnough) {
+              this.quantity = 0;
+              return false;
+            }
+            if (isQuantityNumber){
+              this.quantityNotNumber = false;
+            }
+            else {
+              this.quantityNotNumber = true;
+              return;
+            }
+            if(+this.quantity + +cartItemQuantity > currentInventory || +this.quantity === 0){
+              this.quantityNotInRange = true;
+              this.quantityNotInRangeMessage = 'Quantity should be greater than 0 and less than or equal to ' + currentInventory + '.';
+              this.quantityNotInRangeMessage += ' You already have '+  cartItemQuantity + ' items in cart.';
+            }
+            else{
+              this.quantityNotInRange = false;
+              this.quantityNotInRangeMessage = '';
+            }
+          },
+          async onAddToCart() {
+            let localStorageCart = await this.getSession();
+            if(this.isVariantSelected){
+              this.validateQuantity(localStorageCart);
+              if(!this.quantityNotInRange && !this.quantityNotNumber && !this.quantityNotEnough){
+                this.isShowVariantErrorMsg = false;
+                const cartItem = localStorageCart.cart?.find(variant => variant.variantID === this.variantID && variant.productID === this.productID);
+                if(Object.keys(cartItem || {}).length > 0) {
+                  cartItem.productID = this.productID,
+                  cartItem.variantID = this.variantID;
+                  cartItem.quantity = +this.quantity + +cartItem.quantity;
+                  await this.setCartItem(localStorageCart);
+                }
+                else{
+                  localStorageCart.cart.push({
+                    productID: this.productID,
+                    variantID:this.variantID,
+                    quantity:this.quantity}
+                  )
+                  await this.setCartItem(localStorageCart);
+                }
+                const snackBarElement = document.getElementById("snackbar");
+                snackBarElement.className = "show";
+                setTimeout(function(){ 
+                  snackBarElement.className = snackBarElement.className.replace("show", ""); 
+                }, 3000);
+                this.back()
+              }
+            }
+            else{
+              this.isShowVariantErrorMsg = true;
+            }
+          },
+          async initBackURL() {
+           const catalogLS = await this.getSession();
+           this.backURL = catalogLS.startPoint;
+          },
+          checkVariantAttribute() {
+            const variants = payloadData.variants;
+            const variant = variants[0];
+            if(variant?.variantAttributeIDs[0] === -1){
+              this.isNoVariant = true;
+              this.productID = payloadData.product.id;
+              this.variantID = variant.variantID;
+              this.productName = variant.variantAttributes;
+              this.productPrice = `฿${variant.variantUnitPrice}`;
+              this.price = variant.variantUnitPrice;
+              this.productImage = variant.imageURL;
+              this.totalPrice = `฿${this.quantity * variant.variantUnitPrice}`;
+              this.isVariantSelected = true;
+              this.currentVariant = variant;
+            }
+          }  
+        };
+      }
+    </script>
+  </head>
+  <body>
+    <div id="snackbar">Product added to cart successfully!</div>
+    <div class="wrapper" x-data="initProductVariants()" x-init="checkVariantAttribute(), initBackURL()">
+       <div>
+          <template x-if="!isAvailableCatalogData">
+             <div>Some thing went wrong, please try again later</div>
+          </template>
+       </template>
+          <template x-if="isAvailableCatalogData">
+             <div>
+                <div class="productimage">
+                   <img :src="productImage" alt="image" />
+                </div>
+                <div class="product-name" x-text="productName"></div>
+                <div class="product-price-range" x-text="productPrice"></div>
+
+                <div class="quantity">
+                   <span>Quantity</span>
+                    <div class="picker">
+                      <div class="click">
+                         <div class="button" @click="decreaseVariantQuantity()" >-</div>
+                         <input  x-model="quantity" name="quantity" id="quantity" ></span>
+                         <div class="button" @click="increaseVariantQuantity()">+</div>
+                      </div>
+                   </div>
+                  </div>
+
+                <template x-if="!isNoVariant">
+                   <div class="variants">
+                      <template x-for="(attribute,index) of attributes" :key="attribute.attributeID">
+                         <div class="select-variants">
+                            <div class="fwb" x-text="attribute.attributeName"></div>
+                            <select x-on:change="onChangeVariant()" class="variant-select-option" :id="'attribute'+index">
+                               <option value="-1">Select Variant</option>
+                               <template x-for="(subAttribute,index) of attribute.subAttributes" :key="subAttribute.subAttributeID">
+                                  <option :value="subAttribute.subAttributeID" x-text="subAttribute.subAttributeName"></option>
+                               </template>
+                            </select>
+                         </div>
+                      </template>
+                   </div>
+                </template>
+                <div class="total mt-10">
+                   <div>Total</div>
+                   <div id="total" x-text="totalPrice"></div>
+                </div>
+                <div class="button-group" id="add-button">
+                   <button id="add-to-cart-button" class="add-to-cart" @click="onAddToCart()" > 
+                   Add to cart
+                   </button>
+                </div>
+                <div class="back-group">
+                   <button class="back" @click="back()">Back</button>
+                </div>
+                <template x-if="isShowVariantErrorMsg">
+                   <div class="error-msg">Please select variant attribute first</div>
+                </template>
+             </div>
+          </template>
+
+          <template x-if="quantityNotNumber">
+            <div  class="error-msg">Quanity is not a number, please check quantity</div>
+         </template>
+         <template x-if="quantityNotInRange">
+          <div  class="error-msg" x-text="quantityNotInRangeMessage"></div>
+          </template>
+
+          <template x-if="quantityNotEnough">
+            <div  class="error-msg">Out of stock, This product cannot be selected.</div>
+          </template>
+       </div>
+    </div>
+ </body>
+</html>

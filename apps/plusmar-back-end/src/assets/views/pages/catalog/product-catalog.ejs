@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%- JSON.stringify(payload); %>
+      <% } %>
+    </script>
+    <script>
+      var page = 1;
+      var more = [];
+      var body = document.getElementById('catalog-body');
+      var html = document.documentElement;
+      var path = '';
+      var isStopProductRequest = false;
+      var currentURL = window.location.href;
+      var currentEndPoint = window.location.pathname;
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
+      var categoryIDs = '';
+      var tagIDs = '';
+      var search = '';
+      var lastClick = 0;
+      var delay = 500;
+      var paramJSON = {
+        categoryIDs,
+        tagIDs,
+        search,
+        ...params,
+      };
+      var catalogLS = JSON.stringify({
+        cart: [],
+        filter: {},
+        startPoint: currentURL,
+      });
+      for (let [key, value] of params) {
+        paramJSON[key] = value;
+      }
+      function initProductCatalog() {
+        return {
+          cartCount: 0,
+          filterCount: 0,
+          products: payloadData.products,
+          scrollEnded: false,
+          counter: 0,
+          psid: payloadData.psid,
+          isAvailableCatalogData: true,
+          async reactOnScroll(flag) {
+            const isScrollEnd = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+            if (isScrollEnd) {
+              this.scrollEnded = true;
+            } else {
+              this.scrollEnded = false;
+            }
+            if (this.scrollEnded && flag) {
+              if (lastClick >= Date.now() - delay) return;
+              lastClick = Date.now();
+              page++;
+              paramJSON.page = page;
+
+              await this.setFilterCount();
+              const isFilter = this.filterCount ? true : false;
+              if (isFilter) {
+                await this.executeFilter();
+              } else {
+                await this.executePagesAndFilter(paramJSON, isFilter);
+              }
+            }
+          },
+          async setSession(body) {
+            const newQueryString = new URLSearchParams(params).toString();
+            const sessionSetPath = `session/set?${newQueryString}`;
+            await fetch(sessionSetPath, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: body,
+            })
+              .then((result) => {
+                result.json().then((result) => {
+                  if (!result?.status === 200) {
+                    this.isAvailableCatalogData = false;
+                  }
+                });
+              })
+              .catch((err) => {
+                this.isAvailableCatalogData = false;
+                console.log('error in session', err);
+              });
+          },
+          async getSession() {
+            try {
+              const newQueryString = new URLSearchParams(params).toString();
+              const sessionGetPath = `session/get?${newQueryString}`;
+              const response = await (await fetch(sessionGetPath)).json();
+              return response;
+            } catch (error) {
+              this.isAvailableCatalogData = false;
+            }
+          },
+          async executePagesAndFilter(params, filterflag = false) {
+            const newQueryString = new URLSearchParams(params).toString();
+            path = `${currentEndPoint}/catalog?${newQueryString}`;
+            if (!isStopProductRequest) {
+              let response = await (await fetch(path)).json();
+              if (response?.length && !filterflag) {
+                this.products.push(...response);
+              } else if (filterflag) {
+                if (response?.length) {
+                  this.products = [];
+                  this.products = response;
+                  isStopProductRequest = true;
+                } else {
+                  this.products = [];
+                  isStopProductRequest = true;
+                }
+              } else {
+                isStopProductRequest = true;
+              }
+            }
+          },
+          async openVariants(productID) {
+            const type = 'SEND_PRODUCT_CATALOG_VARIANT';
+            const variantParamInit = JSON.parse(JSON.stringify(paramJSON));
+            const variantParamsJSON = { ...variantParamInit, type, productID };
+            const variantQueryString = new URLSearchParams(variantParamsJSON).toString();
+            const variantPath = `${currentEndPoint}?${variantQueryString}`;
+            window.location = variantPath;
+          },
+
+          openFilters() {
+            const type = 'SEND_PRODUCT_CATALOG_FILTER';
+            const filterParamInit = JSON.parse(JSON.stringify(paramJSON));
+            const filterParamsJSON = { ...filterParamInit, type, categoryIDs, tagIDs, search };
+            const filterQueryString = new URLSearchParams(filterParamsJSON).toString();
+            const filterPath = `${currentEndPoint}?${filterQueryString}`;
+            window.location = filterPath;
+          },
+          openCart() {
+            const type = 'SEND_PRODUCT_CATALOG_CART';
+            const filterParamInit = JSON.parse(JSON.stringify(paramJSON));
+            const filterParamsJSON = { ...filterParamInit, type };
+            const filterQueryString = new URLSearchParams(filterParamsJSON).toString();
+            const filterPath = `${currentEndPoint}?${filterQueryString}`;
+            window.location = filterPath;
+          },
+          async executeFilter() {
+            const localStorageData = await this.getSession();
+            const { categoryIds, tagIds, searchString } = localStorageData.filter;
+            categoryIDs = categoryIds || '';
+            tagIDs = tagIds || '';
+            search = searchString || '';
+            let filterFlag = false;
+            if (categoryIDs?.length || tagIDs?.length || search) {
+              filterFlag = true;
+              let filterJSON = JSON.parse(JSON.stringify(paramJSON));
+              filterJSON = { ...filterJSON, categoryIDs, tagIDs, search, page: 1 };
+              await this.executePagesAndFilter(filterJSON, filterFlag);
+            } else {
+              isStopProductRequest = false;
+              let filterJSON = JSON.parse(JSON.stringify(paramJSON));
+              filterJSON = { ...filterJSON, categoryIDs: '', tagIDs: '', search: '', page: 1 };
+              this.products = [];
+              await this.executePagesAndFilter(filterJSON, filterFlag);
+            }
+          },
+          async setFilterCount() {
+            const localStorageData = await this.getSession();
+            if (Object.keys(localStorageData?.filter || {}).length > 0) {
+              const categoryLength = localStorageData?.filter?.categoryIds?.length || 0;
+              const tagLength = localStorageData?.filter?.tagIds?.length || 0;
+              const searchLength = localStorageData?.filter?.searchString ? 1 : 0;
+              this.filterCount = categoryLength + tagLength + searchLength;
+            } else {
+              this.filterCount = 0;
+            }
+          },
+          async initSession() {
+            let localStorageData = await this.getSession();
+            if (localStorageData?.cart?.length && Object.keys(localStorageData?.filter || {}).length > 0) {
+              this.cartCount = localStorageData.cart.length || 0;
+              await this.executeFilter();
+            } else if (localStorageData?.cart?.length) {
+              this.cartCount = localStorageData.cart.length || 0;
+            } else if (Object.keys(localStorageData?.filter || {}).length > 0) {
+              await this.executeFilter();
+              isStopProductRequest = true;
+            } else {
+              await this.setSession(catalogLS);
+            }
+          },
+          async clearFilter() {
+            isStopProductRequest = false;
+            const catalogLS = await this.getSession();
+            const cart = catalogLS.cart;
+            const filter = {};
+            const payload = {
+              cart,
+              filter,
+              startPoint: currentURL,
+            };
+            await this.setSession(JSON.stringify(payload));
+            await this.executeFilter();
+            await this.setFilterCount();
+          },
+        };
+      }
+    </script>
+    <style>
+      .product-main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+
+      .font-14 {
+        font-size: 14px;
+      }
+
+      .product {
+        padding: 10px;
+        border: 1px solid #dddfea;
+        border-radius: 10px;
+        margin: 10px;
+        background-color: #f2f5f9;
+        width: 140px;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .product-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #484b52;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+
+      .variant-count {
+        color: #8f9295;
+        font-size: 12px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .product-btn {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .open-variants {
+        background-color: #54b1ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        border-radius: 40px;
+        min-width: 133px;
+        height: 40px;
+        cursor: pointer;
+        border: none;
+        color: white;
+      }
+
+      .header {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+
+      .icon {
+        width: 36px;
+      }
+
+      .cart-count {
+        position: absolute;
+        background-color: #54b1ff;
+        padding: 4px;
+        width: 16px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        color: white;
+        right: 10px;
+        top: 8px;
+      }
+
+      .filter-count {
+        position: absolute;
+        background-color: #54b1ff;
+        padding: 4px;
+        width: 16px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        color: white;
+        right: 55px;
+        top: 8px;
+      }
+
+      .cursor-pointer {
+        cursor: pointer;
+      }
+
+      .mr-10 {
+        margin-right: 10px;
+      }
+
+      .clear {
+        color: #54b1ff;
+        border: unset;
+        background: unset;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <body id="catalog-body" x-data="initProductCatalog()" x-init="reactOnScroll(false), initSession(), setFilterCount()">
+      <input type="hidden" name="psid" id="psid" x-model="psid" />
+
+      <template x-if="!isAvailableCatalogData">
+        <div>Some thing went wrong, please try again later</div>
+      </template>
+      <template x-if="isAvailableCatalogData">
+        <div id="catalogBodyID" @scroll.window="reactOnScroll(true)">
+          <div class="header">
+            <template x-if="filterCount">
+              <button class="clear" @click="clearFilter()">Clear Filter</button>
+            </template>
+            <div class="mr-10 cursor-pointer" @click="openFilters()">
+              <div x-text="filterCount" class="filter-count"></div>
+              <img class="icon cursor-pointer" src="images/filter.png" alt="" />
+            </div>
+            <div class="mr-10 cursor-pointer" @click="openCart()">
+              <div x-text="cartCount" class="cart-count"></div>
+              <img class="icon" src="images/addtocart.png" alt="" />
+            </div>
+          </div>
+          <div class="product-main">
+            <template x-if="!products?.length">
+              <div>No products to show</div>
+            </template>
+            <template x-for="(product,index) of products" :key="product.id">
+              <div class="product">
+                <img class="product-image" x-bind:src="product.imageURL" />
+                <div class="product-name" x-text="product.name"></div>
+                <div class="font-14"><span x-text="'฿' + product.minPrice"></span> - <span x-text="'฿' + product.maxPrice"></span></div>
+                <div class="variant-count" x-text="'Variants: ' + product.variantCount"></div>
+                <div class="product-btn">
+                  <button class="open-variants" @click="openVariants(product.id)">Show Variants</button>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+      <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %> <%}%>
+    </body>
+  </head>
+</html>

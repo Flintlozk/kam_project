@@ -1,0 +1,11 @@
+<table class="w-full font-light text-gray-600">
+  <tr class="even:bg-gray-200" *ngFor="let orderInformPaymentDataItem of orderInformPaymentData; trackBy: trackByIndex">
+    <td class="p-2">{{ orderInformPaymentDataItem.orderCode }}</td>
+    <td class="p-2">{{ orderInformPaymentDataItem.orderName }}</td>
+    <td class="p-2 text-right text-gray-700">{{ orderInformPaymentDataItem.price | currency }}</td>
+  </tr>
+</table>
+<div class="w-full py-4 text-2xl text-right text-green-500">{{ total | currency }}</div>
+<button (click)="openOrderInformPaymentDialog()" class="w-full py-3 text-xl font-light text-white bg-gray-700 rounded-md focus:outline-none">
+  {{ 'Inform Payment' | translate }}
+</button>

@@ -1,0 +1,22 @@
+<section class="flex-shrink-0 h-full px-6 py-8 border-r w-72">
+  <div class="font-normal text-green-600 text-lg">{{ 'Shop' }}</div>
+  <reactor-room-shop-page-switcher
+    *ngIf="userContext"
+    [theme]="theme"
+    [menuStatus]="true"
+    [enableCreateShop]="false"
+    [userContext]="userContext"
+    [facebookPageData]="facebookPageData"
+    [pageTitleActive]="pageTitleActive"
+    [pageImgUrlActive]="pageImgUrlActive"
+    [isOwner]="true"
+    (pageListClicked)="fetchAllPageNotification($event)"
+    (pageDataClicked)="selectPageByIndex($event)"
+    (createPageClicked)="createPage()"
+    class="ml-4 p-20"
+  >
+  </reactor-room-shop-page-switcher>
+  <cms-next-site-info></cms-next-site-info>
+  <cms-next-main-menu></cms-next-main-menu>
+  <cms-next-storage-drive></cms-next-storage-drive>
+</section>

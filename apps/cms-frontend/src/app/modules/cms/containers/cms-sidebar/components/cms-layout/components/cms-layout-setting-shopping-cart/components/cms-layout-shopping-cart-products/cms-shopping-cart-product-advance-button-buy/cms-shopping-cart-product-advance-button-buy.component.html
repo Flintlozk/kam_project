@@ -1,0 +1,108 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content" [formGroup]="buyButtonForm">
+    <section class="grid gap-4">
+      <div class="grid gap-2">
+        <div class="layout-label">Buy button</div>
+        <div>
+          <input type="checkbox" formControlName="buyButton" #onBuyButton class="hidden" />
+          <button
+            (click)="onBuyButton.click()"
+            class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+            [ngClass]="{ 'bg-green-500 border-green-500': buyButtonForm['controls']['buyButton'].value }"
+          >
+            <div
+              class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+              [ngClass]="{
+                'bg-gray-300': !buyButtonForm['controls']['buyButton'].value,
+                'bg-white right-0 mr-2': buyButtonForm['controls']['buyButton'].value
+              }"
+            ></div>
+          </button>
+        </div>
+      </div>
+
+      <section>
+        <div class="layout-label">Button Name*</div>
+        <input type="text" formControlName="name" class="input-border w-full p-2" />
+      </section>
+
+      <section>
+        <div class="layout-label">Style</div>
+        <div class="gap-2 grid grid-cols-3">
+          <div *ngFor="let buttonStyle of productBuyButtonStyleList; let index = index">
+            <img class="p-2 cursor-pointer" (click)="onBuyButtonStyle(index)" [ngClass]="{ hidden: buttonStyle.selected }" [src]="buttonStyle.imgURL" alt="style" />
+            <img class="p-2" [ngClass]="{ hidden: !buttonStyle.selected }" (click)="onBuyButtonStyle(index)" [src]="buttonStyle.activeImageURL" alt="style-active" />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="layout-label">Icon</div>
+        <div class="gap-2 grid grid-cols-3">
+          <div *ngFor="let buttonIcon of productBuyButtonIconList; let index = index">
+            <img class="p-2 cursor-pointer" (click)="onBuyButtonIcon(index)" [ngClass]="{ hidden: buttonIcon.selected }" [src]="buttonIcon.imgURL" alt="style" />
+            <img class="p-2" [ngClass]="{ hidden: !buttonIcon.selected }" (click)="onBuyButtonIcon(index)" [src]="buttonIcon.activeImageURL" alt="style-active" />
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section>
+      <mat-tab-group>
+        <mat-tab label="Normal">
+          <div class="mt-5">
+            <ng-container *ngTemplateOutlet="colorForm; context: { formName: 'normal' }"> </ng-container>
+          </div>
+        </mat-tab>
+        <mat-tab label="Hover">
+          <ng-container *ngTemplateOutlet="colorForm; context: { formName: 'hover' }"> </ng-container>
+        </mat-tab>
+        <mat-tab label="Active">
+          <ng-container *ngTemplateOutlet="colorForm; context: { formName: 'active' }"> </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+      <ng-template #colorForm let-formName="formName">
+        <div class="grid gap-2" [formGroupName]="formName">
+          <div class="grid w-10/12 gap-2" formGroupName="icon">
+            <div class="flex items-center">
+              <div class="text-sm font-light">Icon Color</div>
+            </div>
+            <div class="flex items-center">
+              <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="color" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ buyButtonForm['controls']['normal']['controls']['icon']['controls']['color'].value }}</span>
+              </div>
+              <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity" />
+            </div>
+          </div>
+
+          <div class="grid w-10/12 gap-2" formGroupName="text">
+            <div class="flex items-center">
+              <div class="text-sm font-light">Text Color</div>
+            </div>
+            <div class="flex items-center">
+              <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="color" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ buyButtonForm['controls']['normal']['controls']['text']['controls']['color'].value }}</span>
+              </div>
+              <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity" />
+            </div>
+          </div>
+
+          <div class="grid w-10/12 gap-2" formGroupName="button">
+            <div class="flex items-center">
+              <div class="text-sm font-light">Button Color</div>
+            </div>
+            <div class="flex items-center">
+              <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="color" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ buyButtonForm['controls']['normal']['controls']['button']['controls']['color'].value }}</span>
+              </div>
+              <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity" />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </section>
+  </ng-container>
+</cms-next-cms-popover-layout>

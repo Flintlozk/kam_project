@@ -1,0 +1,27 @@
+@import 'base';
+@import 'buttons';
+@import 'animation';
+.language {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  @media #{$mobilemax} {
+    width: 25px;
+    height: 25px;
+  }
+  .invisible {
+    z-index: 0;
+  }
+  .visible {
+    z-index: 1;
+  }
+  svg {
+    position: absolute;
+    @media #{$mobilemax} {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

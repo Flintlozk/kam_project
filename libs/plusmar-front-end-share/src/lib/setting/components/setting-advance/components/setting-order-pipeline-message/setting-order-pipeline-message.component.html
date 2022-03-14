@@ -1,0 +1,416 @@
+<form class="setting-order-direct-messages" [formGroup]="messagePipeline">
+  <mat-accordion>
+    <mat-expansion-panel style="border-radius: 15px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="card-content">
+            <div class="content">
+              <img src="/assets/setting/u27.png" style="max-width: 46px" />
+              <div class="ml-15">{{ 'Direct Message for Orders' | translate }}</div>
+            </div>
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="pipeline-messsge-defined-container">
+        <div *ngIf="isAllowed" class="edit-message">
+          <div class="text-edit-message">* {{ 'Edit message' | translate }}</div>
+          <div class="save-button">
+            <button type="submit" id="order-pipeline-message-save" class="btn-save" [ngClass]="{ disabled: messagePipeline.pristine }" (click)="savePageMessage()">
+              <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+                  [ngStyle]="{ fill: messagePipeline.pristine || !messagePipeline.valid ? '#d7d8df' : '#FFF' }"
+                  fill="white"
+                />
+              </svg>
+              <span>{{ 'Save' | translate }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="message-table">
+          <table style="width: 100%">
+            <ng-container *ngFor="let data of tableData; let i = index" class="table-content">
+              <tr>
+                <td>
+                  <div class="attribute" (click)="toggleExpand(i)" [id]="'order-pipeline-message-toggle-' + i">
+                    <button class="expand">
+                      <svg *ngIf="!data.status" width="5" height="5" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2 3L2 5H3V3H5V2H3V0H2L2 2H0V3H2Z" fill="#53B1FF" />
+                      </svg>
+                      <img *ngIf="data.status" src="assets/img/minus-icon.svg" alt="Expand" />
+                    </button>
+                    {{ data.category | translate }}
+                  </div>
+                  <div class="sub-attribute" [ngClass]="!data.status ? 'collapse' : ''">
+                    <div
+                      *ngFor="let subItem of data.subCategories"
+                      [ngClass]="{ 'sub-attr-item': subItem.isLastChild === false, 'sub-attr-item-last': subItem.isLastChild === true }"
+                      id="{{ subItem.title }}"
+                    >
+                      <div class="sub-header">
+                        <div class="sub-title-item">
+                          <span class="text">
+                            {{ subItem.title }}
+                          </span>
+                        </div>
+                        <div *ngIf="isAllowed" class="sub-default-value" [id]="'order-pipeline-message-reset-' + i" (click)="reset(i, subItem.id)">
+                          <svg width="18" height="19" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M5.582 3.08249C8.3331 1.95623 11.5618 3.008 13.0895 5.65408C14.7563 8.54108 13.7671 12.2327 10.8801 13.8995C7.99312 15.5663 4.30152 14.5771 2.63471 11.6901C1.66766 10.0151 1.59422 8.06971 2.26796 6.40424C2.36961 6.15297 2.24831 5.86687 1.99704 5.76522C1.74576 5.66357 1.45966 5.78487 1.35801 6.03614C0.575792 7.96979 0.66004 10.2331 1.78464 12.1809C3.7225 15.5374 8.01443 16.6874 11.3709 14.7496C14.7274 12.8117 15.8774 8.51977 13.9395 5.16329C12.1404 2.04708 8.31218 0.832747 5.08729 2.22563L4.20123 0.690918L3.14999 3.85615L6.41678 4.52837L5.582 3.08249Z"
+                              fill="#53B1FF"
+                            />
+                          </svg>
+                          <span class="text">Default value</span>
+                        </div>
+                      </div>
+                      <div class="sub-header-content">
+                        <div *ngIf="subItem.id === 1" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message1').valid && (messagePipeline.get('message1').touched || messagePipeline.get('message1').dirty)
+                                }"
+                                formControlName="message1"
+                                [id]="'order-pipeline-message-1'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message2').valid && (messagePipeline.get('message2').touched || messagePipeline.get('message2').dirty)
+                                }"
+                                formControlName="message2"
+                                [id]="'order-pipeline-message-2'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 2" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message3').valid && (messagePipeline.get('message3').touched || messagePipeline.get('message3').dirty)
+                                }"
+                                formControlName="message3"
+                                [id]="'order-pipeline-message-3'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message4').valid && (messagePipeline.get('message4').touched || messagePipeline.get('message4').dirty)
+                                }"
+                                formControlName="message4"
+                                [id]="'order-pipeline-message-4'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 3" class="main-body-detail">
+                          <div class="body-inside last-child">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message5').valid && (messagePipeline.get('message5').touched || messagePipeline.get('message5').dirty)
+                                }"
+                                formControlName="message5"
+                                [id]="'order-pipeline-message-5'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 4" class="main-body-detail">
+                          <div class="body-inside last-child">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message6').valid && (messagePipeline.get('message6').touched || messagePipeline.get('message6').dirty)
+                                }"
+                                formControlName="message6"
+                                [id]="'order-pipeline-message-6'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 5" class="main-body-detail">
+                          <div class="body-inside last-child">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message7').valid && (messagePipeline.get('message7').touched || messagePipeline.get('message7').dirty)
+                                }"
+                                formControlName="message7"
+                                [id]="'order-pipeline-message-7'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 7" class="main-body-detail">
+                          <div class="body-inside last-child">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message9').valid && (messagePipeline.get('message9').touched || messagePipeline.get('message9').dirty)
+                                }"
+                                formControlName="message9"
+                                [id]="'order-pipeline-message-9'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.id === 6" class="main-body-detail">
+                          <div class="body-inside last-child">
+                            <div class="sub-body-inside">
+                              <input
+                                type="text"
+                                class="input-setting-message last-child"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message8').valid && (messagePipeline.get('message8').touched || messagePipeline.get('message8').dirty)
+                                }"
+                                formControlName="message8"
+                                [id]="'order-pipeline-message-8'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Received Order'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message2').valid && (messagePipeline.get('message2').touched || messagePipeline.get('message2').dirty)
+                                }"
+                                formControlName="message2"
+                                [id]="'order-pipeline-message-2'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Logistic'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message3').valid && (messagePipeline.get('message3').touched || messagePipeline.get('message3').dirty)
+                                }"
+                                formControlName="message3"
+                                [id]="'order-pipeline-message-3'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                class="input-button-lang"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message4').valid && (messagePipeline.get('message4').touched || messagePipeline.get('message4').dirty)
+                                }"
+                                formControlName="message4"
+                                [id]="'order-pipeline-message-4'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Payment'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message5').valid && (messagePipeline.get('message5').touched || messagePipeline.get('message5').dirty)
+                                }"
+                                formControlName="message5"
+                                [id]="'order-pipeline-message-5'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message14').valid && (messagePipeline.get('message14').touched || messagePipeline.get('message14').dirty)
+                                }"
+                                formControlName="message14"
+                                [id]="'order-pipeline-message-14'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Bank Transfer'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message6').valid && (messagePipeline.get('message6').touched || messagePipeline.get('message6').dirty)
+                                }"
+                                formControlName="message6"
+                                [id]="'order-pipeline-message-6'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message7').valid && (messagePipeline.get('message7').touched || messagePipeline.get('message7').dirty)
+                                }"
+                                formControlName="message7"
+                                [id]="'order-pipeline-message-7'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Received Customer payment'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message8').valid && (messagePipeline.get('message8').touched || messagePipeline.get('message8').dirty)
+                                }"
+                                formControlName="message8"
+                                [id]="'order-pipeline-message-8'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Order Confirmed' && subItem.order === '1'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message9').valid && (messagePipeline.get('message9').touched || messagePipeline.get('message9').dirty)
+                                }"
+                                formControlName="message9"
+                                [id]="'order-pipeline-message-9'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Shipping Address form'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message10').valid && (messagePipeline.get('message10').touched || messagePipeline.get('message10').dirty)
+                                }"
+                                formControlName="message10"
+                                [id]="'order-pipeline-message-10'"
+                              />
+                            </div>
+                          </div>
+                          <div class="body-inside-button">
+                            <div class="sub-body-inside">
+                              <div class="button-inside">Button - TH</div>
+                              <input
+                                type="text"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message11').valid && (messagePipeline.get('message11').touched || messagePipeline.get('message11').dirty)
+                                }"
+                                formControlName="message11"
+                                [id]="'order-pipeline-message-11'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Order Confirmed' && subItem.order === '2'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message12').valid && (messagePipeline.get('message12').touched || messagePipeline.get('message12').dirty)
+                                }"
+                                formControlName="message12"
+                                [id]="'order-pipeline-message-12'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="subItem.title === 'Shipped'" class="main-body-detail">
+                          <div class="body-inside">
+                            <div class="sub-body-inside">
+                              <img class="img-flag" src="assets/img/flag/th.svg" />
+                              <input
+                                type="text"
+                                class="input-setting-message"
+                                [ngClass]="{
+                                  invalid: !messagePipeline.get('message13').valid && (messagePipeline.get('message13').touched || messagePipeline.get('message13').dirty)
+                                }"
+                                formControlName="message13"
+                                [id]="'order-pipeline-message-13'"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seperator"></div>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+
+        <div class="toggle-expand">
+          <div class="toggle-btn" *ngIf="!expandToggle" (click)="expandAll(true)" [id]="'order-pipeline-message-expand-all'">Expand all</div>
+          <div class="toggle-btn" *ngIf="expandToggle" (click)="expandAll(false)" [id]="'order-pipeline-message-collapse-all'">Collapse all</div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>

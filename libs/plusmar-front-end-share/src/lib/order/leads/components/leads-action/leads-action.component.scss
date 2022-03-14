@@ -1,0 +1,45 @@
+@import 'base';
+@import 'buttons';
+@import 'radio-button';
+
+.heading-content {
+  //gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .btn-cancel {
+    @extend .btn-inactive;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+
+  .btn-copy,
+  .btn-reject,
+  .btn-save,
+  .btn-finished {
+    @include btn-active();
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    &.disabled {
+      @extend .btn-disabled;
+    }
+  }
+
+  .btn-reject {
+    color: #dc493d;
+    background: #fde8df;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    &:hover {
+      background: rgb(230, 208, 199);
+    }
+  }
+
+  @media #{$mobilemax} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

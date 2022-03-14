@@ -1,0 +1,42 @@
+@import 'base';
+
+.caution {
+  display: flex;
+  height: auto;
+  padding: 8px;
+  background: #fde8df;
+  color: #dc493d;
+  // border: 1px solid #dc493d;
+
+  .wrapper-text {
+    width: 100%;
+    margin: auto 0;
+    display: flex;
+    align-self: center;
+
+    .message-container {
+      padding-left: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .text,
+      .button {
+        color: #dc493d;
+        .send {
+          user-select: none;
+          margin: 0px 4px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @media #{$mobilemax} {
+    & {
+      height: auto;
+    }
+  }
+
+  // &.rejected {}
+}

@@ -1,0 +1,11 @@
+<section class="middle">
+  <button [ngClass]="{ unClickButton: currentPage === 1 }" class="button" (click)="onFirstPage()">First</button>
+  <button [ngClass]="{ unClickButton: currentPage === 1 }" class="button" (click)="onPreviousPage()">Previous</button>
+  <div class="flex items-center mr-4">
+    <input type="number" class="number" (input)="onSetPage($event?.target?.value)" disabled [value]="currentPage" />&nbsp;/&nbsp;<span class="font-light">{{
+      allPagesNumber
+    }}</span>
+  </div>
+  <button [ngClass]="{ unClickButton: currentPage === allPagesNumber }" class="button" (click)="onNextPage()">Next</button>
+  <button [ngClass]="{ unClickButton: currentPage === allPagesNumber }" class="lastButton" (click)="onLastPage()">Last</button>
+</section>

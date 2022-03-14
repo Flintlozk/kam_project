@@ -1,0 +1,15 @@
+@layer components {
+  .previous:hover {
+    svg,
+    span {
+      @apply text-red-600;
+    }
+  }
+  .container {
+    &:hover {
+      .button-group {
+        @apply flex;
+      }
+    }
+  }
+}

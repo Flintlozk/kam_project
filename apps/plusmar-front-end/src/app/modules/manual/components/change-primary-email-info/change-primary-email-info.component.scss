@@ -1,0 +1,118 @@
+@import 'base';
+@import 'buttons';
+
+.set-primary-email-info-dialog {
+  padding: 60px;
+  max-width: 1440px;
+  margin: auto;
+
+  @media #{$mobilemax} {
+    padding: 20px;
+  }
+
+  .container {
+    .head {
+      margin: 0px;
+      font-weight: 500;
+      font-size: 40px;
+      padding-bottom: 20px;
+      text-align: center;
+      color: $main-color !important;
+    }
+
+    .content {
+      font-weight: 200;
+      padding-top: 1rem;
+      max-width: 50%;
+      margin: auto;
+      @media #{$mobilemax} {
+        padding-top: 0px;
+        max-width: 90%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .container {
+        padding-bottom: 40px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #dddfea;
+      }
+
+      .text {
+        font-size: 14px;
+        font-weight: 200;
+      }
+
+      .title {
+        font-weight: 400;
+        font-size: 20px;
+      }
+
+      .img-container {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 16px;
+        padding-top: 16px;
+
+        img {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+
+        .img-small {
+          width: 50%;
+          height: 100%;
+        }
+
+        .img-big {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .info {
+        align-items: center;
+      }
+
+      @media #{$mobilemax} {
+        .img-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          img {
+            margin-left: 0px;
+            margin-right: 0px;
+          }
+
+          .img-small {
+            padding-top: 16px;
+            width: 100%;
+            height: 100%;
+          }
+
+          .img-big {
+            padding-top: 16px;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .blue-text {
+      color: $main-color;
+    }
+
+    .light-gray-text {
+      color: #bfbfbf;
+      padding-left: 24px;
+    }
+
+    .gray-text {
+      color: #6a7f8e;
+    }
+  }
+}

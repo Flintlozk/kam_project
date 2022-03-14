@@ -1,0 +1,45 @@
+<div class="wizard-container">
+  <div class="content">
+    <div class="container">
+      <div class="right">
+        <div class="step-detail">
+          <div class="">
+            <div class="step-img">
+              <img class="details-img" src="assets/img/wizard/step-success.png" alt="step-1" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="left">
+        <div class="topic">Welcome to More-Commerce</div>
+
+        <div class="steps-content">
+          <ng-container *ngFor="let step of steps">
+            <div class="step">
+              <div>
+                <img class="logo" [src]="step.imgUrl" />
+              </div>
+              <div class="label">
+                <div class="title">
+                  {{ step.title }}
+                </div>
+                <div class="details">
+                  {{ step.details }}
+                </div>
+              </div>
+              <div class="check-img">
+                <img src="assets/img/wizard/check.png" />
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="button">
+      <button class="btn-save" (click)="onStart()">
+        <span class="ml-5"> Start Now </span>
+      </button>
+    </div>
+  </div>
+</div>

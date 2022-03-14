@@ -1,0 +1,177 @@
+<section class="grid gap-4" [formGroup]="contentManagementContentsForm">
+  <cms-next-cms-category-setting
+    (categoryIdsEvent$)="categoryIdsEvent($event)"
+    [categoryIds]="contentManagementContentsForm['controls']['categoryIds'].value"
+  ></cms-next-cms-category-setting>
+  <div class="grid gap-1">
+    <div class="font-light text-sm">Sort by</div>
+    <div class="select-options text">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="contentSortBy">
+          <mat-option *ngFor="let sortBy of contentSortByData" [value]="sortBy.value">
+            {{ sortBy.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <button *ngIf="!toggleAdvanceSetting" class="flex items-center justify-center w-full py-3 bg-gray-100 rounded text-gray-700" (click)="onToggleAdvanceSetting()">
+    <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+        fill="#797F8C"
+      />
+      <path
+        d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+        fill="white"
+      />
+    </svg>
+    Advance Setting
+  </button>
+  <div *ngIf="toggleAdvanceSetting" class="flex items-center justify-between py-3">
+    <div class="flex items-center">
+      <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+          fill="#797F8C"
+        />
+        <path
+          d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+          fill="white"
+        />
+      </svg>
+      Advance Setting
+    </div>
+    <button (click)="onToggleAdvanceSetting()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div [ngClass]="{ hidden: !toggleAdvanceSetting }" class="grid gap-4">
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Pin Content First</div>
+      <div>
+        <input type="checkbox" formControlName="isPinContentFirst" #isPinContentFirst class="hidden" />
+        <button
+          (click)="isPinContentFirst.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none cursor-pointer"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManagementContentsForm['controls']['isPinContentFirst'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !contentManagementContentsForm['controls']['isPinContentFirst'].value,
+              'bg-white right-0 mr-2': contentManagementContentsForm['controls']['isPinContentFirst'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Short Description</div>
+      <div>
+        <input type="checkbox" formControlName="isShortDescription" #isShortDescription class="hidden" />
+        <button
+          (click)="isShortDescription.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none cursor-pointer"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManagementContentsForm['controls']['isShortDescription'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !contentManagementContentsForm['controls']['isShortDescription'].value,
+              'bg-white right-0 mr-2': contentManagementContentsForm['controls']['isShortDescription'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Share Content</div>
+      <div>
+        <input type="checkbox" formControlName="isShare" #isShare class="hidden" />
+        <button
+          (click)="isShare.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none cursor-pointer"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManagementContentsForm['controls']['isShare'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !contentManagementContentsForm['controls']['isShare'].value,
+              'bg-white right-0 mr-2': contentManagementContentsForm['controls']['isShare'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Option</div>
+      <div class="grid gap-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" formControlName="isPublishedDate" #isPublishedDate class="hidden" />
+            <button class="pr-4 cursor-move">
+              <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="1.25" cy="1.25" r="1.25" fill="#B2B9C7" />
+                <circle cx="1.25" cy="5" r="1.25" fill="#B2B9C7" />
+                <circle cx="5" cy="1.25" r="1.25" fill="#B2B9C7" />
+                <circle cx="5" cy="5" r="1.25" fill="#B2B9C7" />
+              </svg>
+            </button>
+            <button class="pr-4" (click)="isPublishedDate.click()">
+              <svg
+                *ngIf="contentManagementContentsForm['controls']['isPublishedDate'].value"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+                <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg
+                *ngIf="!contentManagementContentsForm['controls']['isPublishedDate'].value"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              </svg>
+            </button>
+            <div>Published Date</div>
+          </div>
+          <div class="font-light underline">Settings</div>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" formControlName="isView" #isView class="hidden" />
+            <button class="pr-4 cursor-move">
+              <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="1.25" cy="1.25" r="1.25" fill="#B2B9C7" />
+                <circle cx="1.25" cy="5" r="1.25" fill="#B2B9C7" />
+                <circle cx="5" cy="1.25" r="1.25" fill="#B2B9C7" />
+                <circle cx="5" cy="5" r="1.25" fill="#B2B9C7" />
+              </svg>
+            </button>
+            <button class="pr-4" (click)="isView.click()">
+              <svg *ngIf="contentManagementContentsForm['controls']['isView'].value" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+                <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg *ngIf="!contentManagementContentsForm['controls']['isView'].value" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              </svg>
+            </button>
+            <div>View</div>
+          </div>
+          <div class="font-light underline">Settings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

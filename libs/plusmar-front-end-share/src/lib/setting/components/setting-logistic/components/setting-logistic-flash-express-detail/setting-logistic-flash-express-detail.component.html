@@ -1,0 +1,30 @@
+<div
+  class="setting-logistic-flat-shipping"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  Use Tracking No.
+  <div class="tracking-type-content">
+    <div *ngFor="let item of trackingTypes">
+      <div class="item" (click)="onUpdateTrackingType(item.trackingType)" [id]="'flash' + item.trackingType">
+        <img [src]="item.trackingType !== logisticTrackingType ? getUnactiveImageUrl(item.trackingType) : getActiveImageUrl(item.trackingType)" [alt]="item.title" />
+        <div>{{ item.title }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <form *ngIf="logisticTrackingType !== 'MANUAL'" [formGroup]="flashExpressForm">
+      <div class="label">Merchant ID *</div>
+      <div
+        class="item"
+        [ngClass]="{ invalid: !flashExpressForm.get('merchantID').valid && (flashExpressForm.get('merchantID').touched || flashExpressForm.get('merchantID').valid || initForm) }"
+      >
+        <input id="flash-merchant-id" type="text" formControlName="merchantID" (keyup)="eventLookUpOnFocus('merchantID')" placeholder="Ex. AA1234" />
+      </div>
+      <mat-error *ngIf="!flashExpressForm.get('merchantID').valid" [innerHTML]="merchantIDValidationMessage"> </mat-error>
+    </form>
+  </div>
+</div>
+<div></div>

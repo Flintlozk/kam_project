@@ -1,0 +1,97 @@
+@import 'base';
+@import 'buttons';
+
+.setting-webhook-pattern-dialog {
+  position: relative;
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+
+    .item {
+      .label {
+        font-size: 12px;
+        color: #798c9b;
+        padding-bottom: 10px;
+      }
+
+      .select {
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 15px;
+        height: 35px;
+        cursor: pointer;
+
+        &.active {
+          border-color: $text-darker-color;
+
+          img {
+            transform: scaleY(-1);
+          }
+        }
+
+        .text {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-right: 10px;
+            transform: scaleY(1) !important;
+          }
+
+          .title {
+            @media #{$mobilemax} {
+              @include text-ellipsis();
+              max-width: 100px;
+            }
+          }
+        }
+      }
+
+      input {
+        width: calc(100% - 30px);
+        height: 35px;
+        padding: 0px 15px;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+
+        &:focus {
+          outline: none;
+          border-color: $text-darker-color;
+        }
+      }
+
+      .alert {
+        color: #dc493d;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+      }
+
+      .save-active {
+        @include btn-active();
+      }
+    }
+  }
+}

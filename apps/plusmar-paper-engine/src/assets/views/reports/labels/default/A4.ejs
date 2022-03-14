@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/stylesheet.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="/javascript/jsbarcode.min.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      window.onload = function () {
+        const option = {displayValue: false,format:'CODE39'};
+        JsBarcode('#orderID', payloadData.aliasOrderID , option);
+      };
+    </script>
+  </head>
+  <body x-data="{payloadData:payloadData}">
+    <page size="A4">
+      <div class="grid-2-col">
+        <div class="shop-info">
+          <p class="instruction">* กรณีจัดส่งสินค้าไม่สำเร็จ กรุณาส่งคืน...</p>
+          <p class="description">ชื่อที่อยู่ผู้ส่ง</p>
+          <p class="title" x-text="payloadData.pageName">#pageName</p>
+          <p class="shop-details">
+            <span
+              x-text="payloadData.sourceLocation.address + ' ' +
+              payloadData.customerLocation.district +' ' +
+              payloadData.customerLocation.city +' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+            >
+              #address + #district + #city + #province + #post_code</span
+            ><br />
+            <span>เบอร์โทร: <span x-text="payloadData.pagePhoneNumber">#pagePhoneNumber</span></span>
+          </p>
+        </div>
+        <div class="logo">
+          <!-- <img src="/images/thaipost.png" alt="Logo" /> -->
+        </div>
+      </div>
+      <div class="delivery-tracking single">
+        <div class="container">
+          <div class="label">Delivery</div>
+          <div class="details delivery">
+            <div class="info">
+              <div class="name" x-text="payloadData.customerName">#customerName</div>
+              <div
+                x-text="
+              payloadData.customerLocation.address + ' ' +
+              payloadData.customerLocation.district + ' ' +
+              payloadData.customerLocation.city + ' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+              >
+                #address + #district + #city + #province + #post_code
+              </div>
+              <div>เบอร์โทร: <span x-text="payloadData.customerPhoneNumber">#customerPhoneNumber</span></div>
+            </div>
+            <div class="postal">
+              <div class="postal-code">
+                <div x-text="payloadData.customerLocation.post_code[0]">0</div>
+                <div x-text="payloadData.customerLocation.post_code[1]">1</div>
+                <div x-text="payloadData.customerLocation.post_code[2]">2</div>
+                <div x-text="payloadData.customerLocation.post_code[3]">3</div>
+                <div x-text="payloadData.customerLocation.post_code[4]">4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="barcode">
+        <img class="barcode-img" id="orderID" alt="barcode" />
+        <div class="details">
+          <div>เลขที่ใบสั่งซื้อ</div>
+          <div x-text="payloadData.aliasOrderID">#aliasOrderID</div>
+        </div>
+        </div>
+      </div>
+      <div class="order-detail">
+        <div class="title">**หากต้องการเปลี่ยนหรือคืนสินค้า กรุณาติดต่อบริษัทที่ท่านสั่งซื้อโดยตรง</div>
+        <table cellspacing="0">
+          <tr>
+            <th>#</th>
+            <th>รายการ</th>
+            <th>ตัวเลือก</th>
+            <th>จำนวน</th>
+          </tr>
+          <template x-for="product in payloadData.products" :key="product">
+            <tr>
+              <td x-text="product.index">#index</td>
+              <td x-text="product.productName">#product</td>
+              <td x-text="product.attributes">#attributes</td>
+              <td x-text="product.quantity">#quantity</td>
+            </tr>
+          </template>
+        </table>
+      </div>
+    </page>
+  </body>
+</html>

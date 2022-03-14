@@ -1,0 +1,41 @@
+<div class="flex flex-col px-10">
+  <div class="flex items-center justify-between pb-20">
+    <span class="text-sm counter">{{ totalRows }} {{ 'Forms' | translate }}</span>
+
+    <div [formGroup]="filterForm" *ngIf="filterForm" class="pb-0 search">
+      <input autofocus type="text" id="Search" name="Search" [placeholder]="'Search' | translate" formControlName="search" />
+    </div>
+  </div>
+
+  <reactor-room-custom-table
+    class="table-full-height"
+    [isLoading]="false"
+    [tableColSpan]="7"
+    [tableData]="forms"
+    [tableHeader]="tableHeader"
+    [isNoVerticalScroll]="true"
+    [orderMethod]="tableFilters.orderMethod"
+    [currentIndex]="1"
+    (sortTableMetaData)="sortTableData($event)"
+  >
+    <tr *ngFor="let data of forms; trackBy: trackBy" class="border border-t border-b table-content">
+      <td style="padding: 15px" class="form-name">
+        <span class="form-name-label truncate block pr-25 text-sm font-light">
+          <img (click)="selectForm(data.id)" src="assets/img/form-template.svg" class="form-image" />
+          <span class="form-name-label label">
+            {{ data.name }}
+          </span>
+        </span>
+      </td>
+
+      <td class="action">
+        <button (click)="selectForm(data.id)" class="flex items-center border-none btn-secondary transparent small">
+          <span [matTooltip]="'Select and send' | translate">
+            {{ 'Select' | translate }}
+          </span>
+        </button>
+      </td>
+    </tr>
+  </reactor-room-custom-table>
+  <reactor-room-pagination #paginator [pageSize]="10" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>
+</div>

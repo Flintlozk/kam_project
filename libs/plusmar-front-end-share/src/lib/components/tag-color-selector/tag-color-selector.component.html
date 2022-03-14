@@ -1,0 +1,27 @@
+<reactor-room-card [boxShadow]="'0 0px 6px 0 rgba(32, 33, 36, 0.28)'">
+  <div [id]="'tag-select-color-' + currentIndex" class="card-content">
+    <div class="title">Select a color</div>
+    <div class="color-container">
+      <ng-container *ngFor="let color of tagColorArray; let index = index">
+        <div [id]="'tag-select-color-' + currentIndex + '-' + index" class="color cursor-pointer" (click)="selectColorCode(color)" [ngStyle]="{ 'background-color': color.value }">
+          <svg
+            width="18"
+            [ngStyle]="{ display: color.displaySelected ? 'block' : 'none' }"
+            [id]="color.key"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18ZM14.6433 5.52936C14.8657 5.30691 14.8657 4.94625 14.6433 4.7238C14.4208 4.50135 14.0602 4.50135 13.8377 4.7238L6.83544 11.7261L4.04835 8.93899C3.8259 8.71654 3.46524 8.71654 3.24279 8.93899C3.02034 9.16144 3.02034 9.5221 3.24279 9.74455L6.43266 12.9344C6.65511 13.1569 7.01578 13.1569 7.23823 12.9344L14.6433 5.52936Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</reactor-room-card>

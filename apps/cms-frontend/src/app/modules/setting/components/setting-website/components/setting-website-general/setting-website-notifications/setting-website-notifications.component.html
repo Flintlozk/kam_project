@@ -1,0 +1,110 @@
+<div class="sm:px-8 md:px-8 py-16" [formGroup]="notification">
+  <cms-next-title-underline [title]="'Notifications'"></cms-next-title-underline>
+
+  <div class="md:px-2 flex flex-wrap" [formGroup]="notification.get('push_notifications')">
+    <div class="sm:hidden md:block md:w-auto">
+      <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="74" height="49" viewBox="0 0 74 49" fill="none">
+        <rect x="0.5" y="0.5" width="73" height="48" rx="1.5" stroke="#D6DBE3" />
+        <path d="M18 8C18 6.89543 18.8954 6 20 6H53C54.1046 6 55 6.89543 55 8V40C55 41.6569 53.6569 43 52 43H20C18.8954 43 18 42.1046 18 41V8Z" fill="#8591AA" />
+        <path
+          d="M43.6864 19H29.3137C28.5893 19 28 19.555 28 20.2372V29.7628C28 30.445 28.5893 31 29.3137 31H43.6863C44.4107 31 45 30.445 45 29.7628V20.2372C45 19.555 44.4107 19 43.6864 19ZM38.9815 25L44.4114 19.8861C44.4691 19.9914 44.502 20.1107 44.502 20.2372V29.7628C44.502 29.8893 44.4691 30.0086 44.4114 30.1139L38.9815 25ZM43.6864 19.4691C43.8207 19.4691 43.9474 19.5 44.0593 19.5544L38.206 25.0671C37.2653 25.953 35.7347 25.953 34.794 25.0671L33.9773 24.2979C33.8801 24.2063 33.7224 24.2063 33.6252 24.2979C33.5279 24.3894 33.5279 24.538 33.6252 24.6295L34.0186 25L28.5886 30.114C28.5309 30.0086 28.498 29.8893 28.498 29.7628V20.2372C28.498 20.1107 28.5309 19.9914 28.5886 19.8861L32.8304 23.881C32.879 23.9269 32.9428 23.9497 33.0065 23.9497C33.0702 23.9497 33.134 23.9269 33.1826 23.881C33.2798 23.7894 33.2798 23.6409 33.1826 23.5494L28.9408 19.5544C29.0526 19.5 29.1794 19.469 29.3137 19.469H43.6864V19.4691ZM29.3137 30.531C29.1793 30.531 29.0526 30.5 28.9408 30.4456L34.3707 25.3317L34.4419 25.3987C35.0093 25.9331 35.7547 26.2003 36.5 26.2003C37.2454 26.2003 37.9907 25.9331 38.5582 25.3987L38.6293 25.3317L44.0592 30.4456C43.9474 30.5 43.8207 30.531 43.6863 30.531H29.3137Z"
+          fill="white"
+          stroke="white"
+          stroke-width="0.5"
+        />
+        <circle cx="45.5" cy="18.5" r="2.5" fill="white" />
+      </svg>
+    </div>
+
+    <div class="sm:w-full md:flex-1 md:ml-4">
+      <small>Push Notification</small>
+      <!-- LINE NOTIFY -->
+      <div class="pt-4 flex" formGroupName="line_notify">
+        <div class="w-8 mr-4">Line</div>
+        <input #linetoken formControlName="is_active" class="hidden" type="checkbox" />
+        <button
+          (click)="linetoken.click()"
+          type="checkbox"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': this.notification.get('push_notifications.line_notify.is_active').value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !this.notification.get('push_notifications.line_notify.is_active').value,
+              'bg-white right-0 mr-2': this.notification.get('push_notifications.line_notify.is_active').value
+            }"
+          ></div>
+        </button>
+        <input
+          class="w-full mx-4 py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400"
+          type="text"
+          [attr.disabled]="this.notification.get('push_notifications.line_notify.is_active').value === true ? null : true"
+          formControlName="line_notify_token"
+          placeholder="Line notify token"
+        />
+      </div>
+
+      <!-- EMAIL -->
+      <div class="py-2 flex" formGroupName="email">
+        <div class="w-8 mr-4">Email</div>
+        <input #em name="" class="hidden" formControlName="is_active" type="checkbox" />
+        <button
+          (click)="em.click()"
+          type="checkbox"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': this.notification.get('push_notifications.email.is_active').value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !this.notification.get('push_notifications.email.is_active').value,
+              'bg-white right-0 mr-2': this.notification.get('push_notifications.email.is_active').value
+            }"
+          ></div>
+        </button>
+
+        <reactor-room-custom-chip
+          class="w-full mx-4"
+          [inputControl]="this.getEmails"
+          [formField]="getEmailField"
+          [is_readonly]="!this.notification.get('push_notifications.email.is_active').value"
+        ></reactor-room-custom-chip>
+      </div>
+
+      <small class="pb-2">Activity Notifications</small>
+      <div class="px-8 grid sm:grid-cols-1 md:grid-cols-3" [formGroup]="notification.get('activity')">
+        <div>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="new_order" />
+            <span class="checkmark"></span>New Order
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="new_comments" />
+            <span class="checkmark"></span>New Comments
+          </label>
+        </div>
+        <div>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="new_messages" />
+            <span class="checkmark"></span>New Messages
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="submit_form" />
+            <span class="checkmark"></span>Customer submit form
+          </label>
+        </div>
+        <div>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="reject_order" />
+            <span class="checkmark"></span>Reject Order
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="field_update" />
+            <span class="checkmark"></span>Field update
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

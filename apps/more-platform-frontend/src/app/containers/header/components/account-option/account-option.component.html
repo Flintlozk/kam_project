@@ -1,0 +1,20 @@
+<section class="relative" reactorRoomClickOutside (outside)="onOutsideProfileBox($event)">
+  <div class="flex items-center cursor-pointer" (click)="onToggleStatus()">
+    <img
+      class="w-8 h-8 rounded-full md:w-10 md:h-10 custom-shadow md:shadow-none"
+      [src]="currentAccount.imgUrl"
+      [alt]="currentAccount.name"
+      onerror="this.src='assets/img/sample-profile.svg'"
+    />
+    <div class="hidden px-2 md:block">
+      <div class="text-lg font-medium text-gray-700 max-w-32 leading-0 text-ellipsis">{{ currentAccount.name }}</div>
+      <div class="font-light leading-tight">{{ currentAccount.role }}</div>
+    </div>
+    <div class="hidden transition-all duration-300 ease-in-out transform md:block" [ngClass]="{ '-scale-y-100': toggleStatus }">
+      <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5 5L9 1" stroke="#4AA8FF" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div [@fadeBoxAnimation] *ngIf="toggleStatus" class="absolute right-0 z-10 p-4 mt-2 bg-white rounded-lg custom-shadow">THIS WILL BE SOMETHING</div>
+</section>

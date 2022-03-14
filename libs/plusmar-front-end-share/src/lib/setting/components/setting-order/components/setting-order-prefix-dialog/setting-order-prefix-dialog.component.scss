@@ -1,0 +1,80 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.setting-order-prefix-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    margin: -15px;
+    .head {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      background: $main-color;
+      background-image: url('/assets/img/head-decoration.png');
+      background-repeat: no-repeat;
+      background-size: auto 100px;
+      background-position: right top;
+      img {
+        width: 60px;
+        padding-right: 15px;
+      }
+      .text {
+        color: white;
+        .label {
+          padding-bottom: 3px;
+          font-size: 12px;
+          font-weight: 200;
+        }
+        .status {
+          font-size: 1.2em;
+        }
+      }
+    }
+    .pre {
+      padding: 20px;
+      font-weight: 300;
+      .label {
+        font-weight: 200;
+        font-size: 12px;
+        padding-bottom: 5px;
+        color: #6d8292;
+      }
+      .func {
+        display: grid;
+        grid-template-columns: 60px 60px 100px;
+        grid-gap: 15px;
+        .radio-button {
+          @extend .custom-radio-button;
+          margin-bottom: 0px;
+          margin-top: 13px;
+        }
+        input {
+          padding: 15px 10px;
+          border-radius: 8px;
+          border: 1px solid $border-color;
+          &:disabled {
+            background: #f2f5f9;
+            color: #b0b0b0;
+          }
+          &:focus {
+            outline: none;
+            border: 1px solid $main-color;
+          }
+        }
+      }
+    }
+  }
+}

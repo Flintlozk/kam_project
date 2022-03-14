@@ -1,0 +1,58 @@
+export enum PaypemntProviderUserAgent {
+  AGENT_2C2P = '2C2P Service Agent',
+  OMISE = 'Omise/',
+}
+
+export enum CRUD_MODE {
+  ADD = 'ADD',
+  EDIT = 'EDIT',
+  CREATE = 'CREATE',
+  INSERT = 'INSERT',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
+  REMOVE = 'REMOVE',
+  IMPORT = 'IMPORT',
+}
+
+export enum ENV_TYPE {
+  PRODUCTION = 'production',
+  STAGING = 'staging',
+}
+
+export enum EnumGenericRecursiveStatus {
+  PENDING = 'PENDING',
+  RUNNING = 'RUNNING',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+}
+
+export enum GenericRecursiveMessageType {
+  // TEST
+  RETRY_PROCESS = 'RETRY_PROCESS',
+  // INVENTORY
+  CHECKUP = 'CHECKUP',
+  UPDATE_CART = 'UPDATE_CART',
+  RESERVED = 'RESERVED',
+  SUBTRACT = 'SUBTRACT',
+  UPDATE_INVENTORY = 'UPDATE_INVENTORY', // ? MAYBE STOP USING THIS
+  UPDATE_INVENTORY_V2 = 'UPDATE_INVENTORY_V2', // ? MAYBE STOP USING THIS
+  SYNC_MARKETPLACE_INVENTORY = 'SYNC_MARKETPLACE_INVENTORY',
+  // PAYMENT
+  BANK_ACCOUNT = 'BANK_ACCOUNT',
+  CASH_ON_DELIVERY = 'CASH_ON_DELIVERY',
+  QR_PAYMENT_KBANK = 'QR_PAYMENT_KBANK',
+  PAYPAL = 'PAYPAL',
+  PAYMENT_2C2P = 'PAYMENT_2C2P',
+  PAY_SOLUTION = 'PAY_SOLUTION',
+  OMISE = 'OMISE',
+  // THAIPOST
+  REQUEST = 'REQUEST',
+}
+
+export enum ExpressJSDynamicHandlerType {
+  REDIRECT = 'REDIRECT',
+  RENDER = 'RENDER',
+  SEND = 'SEND',
+  JSON = 'JSON',
+  SEND_STATUS = 'SEND_STATUS',
+}

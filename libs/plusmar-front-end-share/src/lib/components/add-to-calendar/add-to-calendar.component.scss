@@ -1,0 +1,114 @@
+@import 'base';
+@import 'buttons';
+@import 'custom-checkbox';
+
+$text-color: #484b52;
+
+input[type='text'],
+textarea {
+  border: $default-border;
+  padding: 0px 4px;
+  height: 35px;
+  border-radius: 8px;
+}
+
+.calendar {
+  &.collapsecontent {
+    width: calc(100% - 40px) !important;
+    height: calc(100% - 140px) !important;
+  }
+
+  padding: 20px;
+  background: white;
+  min-height: calc(100vh - 402px);
+
+  .timepicker {
+    border: 1px solid #dddfea;
+    border-radius: 8px;
+
+    input[type='text'],
+    input[type='time'] {
+      border: none;
+      border-radius: 10px;
+
+      &:focus {
+        border: none !important;
+        outline: none;
+      }
+    }
+  }
+
+  ::ng-deep .mat-form-field {
+    width: 100%;
+    min-width: 100px;
+    border: $default-border;
+    border-radius: 8px;
+    height: 35px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    background: white;
+
+    .mat-form-field-wrapper {
+      padding: 0px 10px;
+      width: 100%;
+
+      .mat-form-field-flex {
+        align-items: center;
+
+        .mat-form-field-infix {
+          padding: 0px;
+          width: auto;
+          border: 0px;
+
+          .mat-select-value {
+            // padding: 0px 15px;
+            color: $text-color;
+            font-family: $font-family;
+            font-size: 14px;
+            font-weight: 300;
+          }
+
+          input[type='text'] {
+            border: none;
+            padding: 0;
+
+            &:focus {
+              border: none !important;
+            }
+          }
+        }
+
+        .mat-form-field-label-wrapper {
+          mat-label {
+            color: $text-color;
+          }
+
+          .mat-placeholder-required {
+            display: none;
+          }
+        }
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+  }
+
+  .date-pickers .date-pickup.custom .mat-form-field-wrapper .datepicker-icon {
+    fill: #54b1ff;
+    transition: all ease-in-out 0.3s;
+  }
+
+  textarea.mat-input-element {
+    border: 1px solid #dddfea;
+    min-height: 35px;
+    padding: 6px 3px;
+  }
+}
+
+.detail-textarea {
+  max-height: 300px;
+  @include custom-scroll-bar();
+}

@@ -1,0 +1,132 @@
+<div class="calendar">
+  <div class="flex items-center justify-between">
+    <span>
+      {{ 'Add to Calendar' | translate }}
+    </span>
+    <button (click)="openDefaultSidebar()" class="btn-icon-close flex items-center justify-center transparent border-none cursor-pointer">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="10.5" fill="#DDDFEA" stroke="#DDDFEA" />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M16.2555 16.9137C16.4373 17.0954 16.7319 17.0954 16.9137 16.9137C17.0954 16.7319 17.0954 16.4373 16.9137 16.2555L11.6582 11L16.9137 5.74447C17.0954 5.56273 17.0954 5.26806 16.9137 5.08632C16.7319 4.90458 16.4373 4.90458 16.2555 5.08632L11 10.3419L5.74447 5.08633C5.56273 4.90459 5.26806 4.90459 5.08632 5.08633C4.90458 5.26808 4.90458 5.56274 5.08632 5.74449L10.3419 11L5.08632 16.2556C4.90458 16.4373 4.90458 16.732 5.08632 16.9137C5.26806 17.0955 5.56273 17.0955 5.74447 16.9137L11 11.6582L16.2555 16.9137Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <ng-container *ngIf="calendarForm">
+    <form [formGroup]="calendarForm">
+      <div class="my-10 item" [ngClass]="{ invalid: !calendarForm.get('title').valid && calendarForm.get('title').touched }">
+        <div class="label mb-5">{{ 'Title' | translate }}*</div>
+        <input class="w-full" type="text" formControlName="title" />
+        <mat-error *ngIf="title.errors?.required && (title.dirty || title.touched)">{{ 'Title is required' | translate }}</mat-error>
+      </div>
+
+      <div class="my-10 item">
+        <div class="label mb-5">{{ 'Date' | translate }}*</div>
+
+        <div class="date-pickers flex">
+          <div class="date-pickup custom item w-1/2 mr-10" [ngClass]="{ invalid: date.errors?.required && (date.dirty || date.touched) }">
+            <!--  -->
+            <mat-form-field class="example-full-width" [matTooltip]="'Start date' | translate">
+              <input class="w-full" matInput [min]="minDate" readonly [matDatepicker]="datepicker" type="text" formControlName="date" />
+              <mat-datepicker-toggle matSuffix [for]="datepicker">
+                <mat-icon matDatepickerToggleIcon>
+                  <svg class="datepicker-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M3.85718 4C3.62061 4 3.42859 3.776 3.42859 3.5V2.42212H1.83337C1.37402 2.42212 1 2.79358 1 3.24994V5.42859H15V3.24994C15 2.79358 14.626 2.42212 14.1666 2.42212H12.5714V3.5C12.5714 3.776 12.3795 4 12.1429 4C11.9063 4 11.7143 3.776 11.7143 3.5V2.42212H4.28571V3.5C4.28571 3.776 4.09375 4 3.85718 4ZM11.7143 1.42859H4.28571V0.5C4.28571 0.223999 4.09375 0 3.85718 0C3.62061 0 3.42859 0.223999 3.42859 0.5V1.42859H1.83337C0.822021 1.42859 0 2.24518 0 3.24994V5.85718V14.1785C0 15.1833 0.822021 16 1.83337 16H14.1666C15.178 16 16 15.1833 16 14.1785V5.85718V3.24994C16 2.24518 15.178 1.42859 14.1666 1.42859H12.5714V0.5C12.5714 0.223999 12.3795 0 12.1429 0C11.9063 0 11.7143 0.223999 11.7143 0.5V1.42859ZM1 6.28571H15V14.1785C15 14.6349 14.626 15.0065 14.1666 15.0065H1.83337C1.37402 15.0065 1 14.6349 1 14.1785V6.28571Z"
+                    />
+                  </svg>
+                </mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="date.errors?.required && (date.dirty || date.touched)">{{ 'Date is required' | translate }}</mat-error>
+          </div>
+
+          <div
+            class="item w-1/2"
+            [ngClass]="{
+              invalid: (time_start.errors?.required && (time_start.dirty || time_start.touched)) || (time_end.errors?.required && (time_end.dirty || time_end.touched))
+            }"
+          >
+            <ng-container *ngIf="window.safari"> safari timer picker </ng-container>
+            <ng-container *ngIf="!window.safari">
+              <div class="timepicker flex items-center">
+                <input placeholder="00:00" min="06:00" max="22:00" class="w-full border-none p-5" type="time" formControlName="time_start" />
+                <input placeholder="00:00" [min]="calendarForm.get('time_start').value" max="22:00" class="w-full border-none p-5" type="time" formControlName="time_end" />
+              </div>
+            </ng-container>
+            <mat-error *ngIf="time_start.errors?.required && (time_start.dirty || time_start.touched)">{{ 'Start time is required' | translate }}</mat-error>
+            <mat-error *ngIf="time_start.errors?.timeStartIsBefore && (time_start.dirty || time_start.touched)"
+              >{{ 'Start time cant be earlier than end time' | translate }}
+            </mat-error>
+            <mat-error *ngIf="time_end.errors?.required && (time_end.dirty || time_end.touched)">{{ 'End time is required' | translate }}</mat-error>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-10 item" [ngClass]="{ invalid: customer.errors?.required && (customer.dirty || customer.touched) }">
+        <div class="label mb-5">{{ 'Customer' | translate }} *</div>
+        <input class="w-full" [attr.disabled]="true" type="text" formControlName="customer" />
+        <mat-error *ngIf="customer.errors?.required && (customer.dirty || customer.touched)">{{ 'Customer is required' | translate }}</mat-error>
+      </div>
+
+      <div class="my-10 item">
+        <div class="label mb-5">{{ 'Details' | translate }}</div>
+        <textarea class="detail-textarea" autofocus #chatInput matInput row="6" [placeholder]="'Details' | translate" formControlName="details" cdkTextareaAutosize></textarea>
+      </div>
+
+      <div class="flex flex-wrap mt-20">
+        <button (click)="addToGoogle()" class="btn-inactive mb-10 mr-10">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.8947 7.10529H7.10526V22.8948H22.8947V7.10529Z" fill="white" />
+            <path d="M22.8947 30L30 22.8947H22.8947V30Z" fill="#EA4335" />
+            <path d="M30 7.10529H22.8947V22.8948H30V7.10529Z" fill="#FBBC04" />
+            <path d="M22.8947 22.8947H7.10526V30H22.8947V22.8947Z" fill="#34A853" />
+            <path d="M0 22.8947V27.6316C0 28.9401 1.05987 30 2.36842 30H7.10526V22.8947H0Z" fill="#188038" />
+            <path d="M30 7.10526V2.36842C30 1.05987 28.9401 0 27.6316 0H22.8947V7.10526H30Z" fill="#1967D2" />
+            <path d="M22.8947 0H2.36842C1.05987 0 0 1.05987 0 2.36842V22.8947H7.10526V7.10526H22.8947V0Z" fill="#4285F4" />
+            <path
+              d="M10.3441 19.3539C9.75395 18.9553 9.3454 18.373 9.12238 17.6033L10.4921 17.0388C10.6165 17.5125 10.8336 17.8796 11.1434 18.1401C11.4513 18.4007 11.8263 18.5289 12.2645 18.5289C12.7125 18.5289 13.0974 18.3928 13.4191 18.1204C13.7408 17.848 13.9026 17.5007 13.9026 17.0803C13.9026 16.65 13.7329 16.2987 13.3934 16.0263C13.054 15.7539 12.6276 15.6178 12.1184 15.6178H11.327V14.2618H12.0375C12.4757 14.2618 12.8447 14.1434 13.1447 13.9066C13.4447 13.6697 13.5947 13.3461 13.5947 12.9336C13.5947 12.5664 13.4605 12.2743 13.1921 12.0553C12.9237 11.8362 12.5842 11.7257 12.1717 11.7257C11.7691 11.7257 11.4493 11.8322 11.2125 12.0474C10.9758 12.2631 10.7979 12.5354 10.6954 12.8388L9.33948 12.2743C9.51909 11.7651 9.84869 11.3151 10.3322 10.9263C10.8158 10.5375 11.4336 10.3421 12.1836 10.3421C12.7382 10.3421 13.2375 10.4487 13.6796 10.6638C14.1217 10.8789 14.4691 11.177 14.7197 11.5559C14.9704 11.9368 15.0947 12.3632 15.0947 12.8368C15.0947 13.3204 14.9783 13.7289 14.7454 14.0645C14.5125 14.4 14.2263 14.6566 13.8868 14.8362V14.9171C14.3252 15.0978 14.706 15.3947 14.9882 15.7757C15.2743 16.1605 15.4184 16.6204 15.4184 17.1572C15.4184 17.6941 15.2822 18.1737 15.0099 18.5941C14.7375 19.0145 14.3605 19.3461 13.8829 19.5868C13.4033 19.8276 12.8645 19.95 12.2665 19.95C11.5737 19.952 10.9342 19.7526 10.3441 19.3539V19.3539ZM18.7579 12.5566L17.254 13.6441L16.502 12.5033L19.2 10.5572H20.2342V19.7368H18.7579V12.5566Z"
+              fill="#4285F4"
+            />
+          </svg>
+          <span class="ml-10">
+            {{ 'Google Calendar' | translate }}
+          </span>
+        </button>
+        <button class="btn-inactive mb-10 mr-10" (click)="addAsICS()">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0 26.338V3.38028L17.6578 0V30L0 26.338ZM8.8961 20.1983C10.0968 20.1983 11.0697 19.7115 11.8159 18.7403C12.5621 17.769 12.9357 16.489 12.9346 14.9014C12.9346 13.3566 12.5746 12.1127 11.8546 11.1685C11.1358 10.2242 10.1925 9.75324 9.02711 9.75324C7.79335 9.75324 6.80223 10.2468 6.05377 11.2327C5.30531 12.2186 4.93165 13.5099 4.93165 15.1065C4.93165 16.6186 5.30075 17.8445 6.03668 18.7865C6.77375 19.7273 7.72613 20.1983 8.8961 20.1983ZM18.7742 12.2288V6.3606H28.9599C29.3347 6.3606 29.9989 6.86538 29.9989 7.56961L21.0754 13.52C21.0207 13.5369 20.9023 13.5358 20.8476 13.52L18.7742 12.2288ZM20.6664 15.7037L18.7742 14.418H18.7731V22.3932H28.3857C29.2401 22.3932 30 21.9008 30 20.7268V9.94141C30 9.94141 21.2018 15.7216 21.2462 15.7083C21.1947 15.7365 20.9081 15.8793 20.6664 15.7037ZM8.97699 11.7126C8.3322 11.7126 7.81842 12.0124 7.43906 12.6107C7.0597 13.209 6.86945 14.0011 6.86945 14.987C6.86945 15.9876 7.0597 16.7786 7.43906 17.36C7.81842 17.9425 8.31625 18.2321 8.93143 18.2321C9.56597 18.2321 10.0695 17.9493 10.4409 17.3836C10.8123 16.818 10.9991 16.0326 10.9991 15.0287C10.9991 13.9819 10.8191 13.1673 10.458 12.5848C10.0968 12.0034 9.60356 11.7126 8.97699 11.7126Z"
+              fill="#0072C6"
+            />
+          </svg>
+
+          <span class="ml-10">
+            {{ 'Outlook Calendar' | translate }}
+          </span>
+        </button>
+        <button class="btn-inactive" (click)="addAsICS()">
+          <svg class="relative -top-2" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M26.74 23.3791C26.2863 24.4272 25.7493 25.392 25.1271 26.279C24.279 27.4882 23.5845 28.3253 23.0494 28.7901C22.2198 29.553 21.3309 29.9437 20.3791 29.9659C19.6958 29.9659 18.8717 29.7715 17.9125 29.3771C16.9501 28.9845 16.0657 28.7901 15.257 28.7901C14.4089 28.7901 13.4993 28.9845 12.5263 29.3771C11.5519 29.7715 10.767 29.9771 10.1668 29.9974C9.25404 30.0363 8.34425 29.6345 7.43613 28.7901C6.85652 28.2845 6.13154 27.4179 5.26305 26.1901C4.33123 24.8791 3.56514 23.3587 2.96497 21.6255C2.32221 19.7533 2 17.9404 2 16.1853C2 14.1748 2.43443 12.4407 3.30459 10.9876C3.98846 9.82045 4.89825 8.89973 6.03691 8.22383C7.17558 7.54792 8.40592 7.20349 9.73088 7.18145C10.4559 7.18145 11.4066 7.40571 12.588 7.84643C13.7661 8.28864 14.5226 8.51289 14.8542 8.51289C15.1022 8.51289 15.9425 8.25068 17.3671 7.72792C18.7143 7.24312 19.8513 7.04238 20.7828 7.12145C23.3068 7.32515 25.203 8.32012 26.4641 10.1127C24.2067 11.4804 23.0901 13.3961 23.1123 15.8536C23.1327 17.7678 23.8271 19.3607 25.1919 20.6255C25.8104 21.2125 26.5011 21.6662 27.2696 21.9884C27.1029 22.4717 26.927 22.9347 26.74 23.3791V23.3791ZM20.9513 0.600171C20.9513 2.10051 20.4031 3.50138 19.3106 4.79801C17.9921 6.33944 16.3973 7.23015 14.6679 7.0896C14.6459 6.90961 14.6331 6.72017 14.6331 6.5211C14.6331 5.08078 15.2602 3.53934 16.3736 2.27901C16.9295 1.64088 17.6366 1.11028 18.4939 0.687019C19.3495 0.270069 20.1587 0.0394863 20.9198 0C20.942 0.200572 20.9513 0.401157 20.9513 0.600151V0.600171Z"
+              fill="black"
+            />
+          </svg>
+
+          <span class="ml-10">
+            {{ 'Apple Calendar' | translate }}
+          </span>
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</div>

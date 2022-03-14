@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "root": "libs/cms-frontend-helpers-lib",
+  "sourceRoot": "libs/cms-frontend-helpers-lib/src",
+  "prefix": "cms-next",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/cms-frontend-helpers-lib/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/cms-frontend-helpers-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

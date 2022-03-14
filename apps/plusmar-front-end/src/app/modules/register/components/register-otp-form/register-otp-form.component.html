@@ -1,0 +1,27 @@
+<div class="details">
+  <div class="form">
+    <form class="otp-from" (keydown.enter)="$event.preventDefault()" [formGroup]="OTPForm">
+      <div class="row">
+        <div [ngClass]="isInvalid ? 'invalid' : ''" formArrayName="items" *ngFor="let item of OTPForm.get('items')['controls']; let i = index">
+          <div [formGroupName]="i">
+            <input #formRow type="text" formControlName="otp" class="form-control" maxlength="1" (keyup)="keyUpEvent($event, i)" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="isInvalid" class="err">
+    <img src="assets/img/reject-icon.svg" />
+    <span>{{ 'invalid otp' | translate }}</span>
+  </div>
+
+  <div class="resend">Did’t receive the verification OTP? <span (click)="resend()"> Resend again</span></div>
+
+  <div class="buttons">
+    <div class="resend-button clickable" (click)="!isDisabled ? back() : ''">
+      {{ 'Change phone' | translate }}
+    </div>
+    <button class="btn-create" (click)="onSubmit()" [ngClass]="[OTPForm.valid ? 'active' : 'disabled']" [disabled]="!OTPForm.valid">Submit</button>
+  </div>
+</div>

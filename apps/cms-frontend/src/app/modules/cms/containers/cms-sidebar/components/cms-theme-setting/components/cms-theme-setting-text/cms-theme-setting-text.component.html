@@ -1,0 +1,91 @@
+<section class="grid gap-4" [formGroup]="themeSettingTextForm" *ngIf="themeSettingTextForm['controls']['font'] as fontFormArray">
+  <ng-container formArrayName="font">
+    <ng-container *ngFor="let fontItem of fontFormArray['controls']; let index = index">
+      <ng-container [formGroupName]="index">
+        <div class="grid gap-2">
+          <div class="flex items-center justify-between">
+            <div class="font-light text-sm">{{ fontItem['controls']['type'].value }}</div>
+            <input type="checkbox" formControlName="status" #status class="hidden" />
+            <div
+              [ngClass]="{ 'bg-white': !fontItem['controls']['status'].value, 'bg-itopplus-300': fontItem['controls']['status'].value }"
+              (click)="status.click()"
+              class="w-10 h-10 flex items-center justify-center rounded"
+            >
+              <svg *ngIf="!fontItem['controls']['status'].value" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19.3661 12C18.6794 12 18.0985 12.4913 17.985 13.1685L17.856 13.933C17.6521 14.005 17.4496 14.0884 17.25 14.1827L16.6048 13.7231C16.3692 13.5536 16.0884 13.4631 15.7948 13.4631C15.422 13.4631 15.0707 13.6091 14.8057 13.8741L13.8681 14.8119C13.3814 15.2938 13.3172 16.0524 13.717 16.614L14.1764 17.2568C14.0896 17.4413 14.0112 17.631 13.9417 17.8243L13.1614 17.9567C12.4803 18.0714 11.9925 18.653 12.0001 19.3403V20.6624C12.0001 21.349 12.4915 21.9298 13.1685 22.0435L13.9477 22.1733C14.0154 22.3618 14.0942 22.5514 14.1833 22.7401L13.7233 23.386C13.3255 23.9448 13.389 24.7028 13.8744 25.1881L14.8121 26.1259C15.0771 26.3909 15.4284 26.5369 15.8011 26.5369C16.0968 26.5369 16.3787 26.4464 16.6163 26.2754L17.257 25.8174C17.4414 25.9042 17.6311 25.9827 17.8245 26.0521L17.9568 26.8325C18.0702 27.5087 18.6512 28 19.3378 28H20.6656C21.3522 28 21.933 27.5087 22.0467 26.8317L22.1767 26.0515C22.3601 25.9855 22.5388 25.9121 22.7112 25.832L23.3672 26.299C23.6027 26.4684 23.8834 26.5588 24.177 26.5588C24.5498 26.5588 24.9011 26.4128 25.1661 26.1478L26.1038 25.2101C26.5905 24.7283 26.6547 23.9696 26.2549 23.408L25.8003 22.7756C25.8889 22.5908 25.9685 22.4019 26.0385 22.2102L26.8329 22.0747C27.5087 21.9613 28 21.3805 28 20.6938V19.3691C28 18.6825 27.5087 18.1017 26.8317 17.988L26.067 17.859C25.9987 17.6646 25.9213 17.474 25.8352 17.2888L26.3021 16.6328C26.7 16.074 26.6364 15.316 26.151 14.8307L25.2112 13.8939C24.9491 13.6283 24.5977 13.4821 24.2212 13.4821C23.9254 13.4821 23.6436 13.5724 23.406 13.7434L22.7725 14.1997C22.5875 14.111 22.3987 14.0315 22.2072 13.9615L22.0716 13.1671C21.9583 12.4913 21.3775 12 20.6908 12H19.3661Z"
+                  fill="#AAB2C2"
+                />
+                <path
+                  d="M20 16.5C21.9299 16.5 23.5 18.0701 23.5 20C23.5 21.9299 21.9299 23.5 20 23.5C18.0701 23.5 16.5 21.9299 16.5 20C16.5 18.0701 18.0701 16.5 20 16.5ZM20 22.4452C21.3483 22.4452 22.4452 21.3483 22.4452 20C22.4452 18.6517 21.3483 17.5548 20 17.5548C18.6517 17.5548 17.5548 18.6517 17.5548 20C17.5548 21.3483 18.6517 22.4452 20 22.4452Z"
+                  fill="white"
+                />
+              </svg>
+              <svg *ngIf="fontItem['controls']['status'].value" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19.3661 12C18.6794 12 18.0985 12.4913 17.985 13.1685L17.856 13.933C17.6521 14.005 17.4496 14.0884 17.25 14.1827L16.6048 13.7231C16.3692 13.5536 16.0884 13.4631 15.7948 13.4631C15.422 13.4631 15.0707 13.6091 14.8057 13.8741L13.8681 14.8119C13.3814 15.2938 13.3172 16.0524 13.717 16.614L14.1764 17.2568C14.0896 17.4413 14.0112 17.631 13.9417 17.8243L13.1614 17.9567C12.4803 18.0714 11.9925 18.653 12.0001 19.3403V20.6624C12.0001 21.349 12.4915 21.9298 13.1685 22.0435L13.9477 22.1733C14.0154 22.3618 14.0942 22.5514 14.1833 22.7401L13.7233 23.386C13.3255 23.9448 13.389 24.7028 13.8744 25.1881L14.8121 26.1259C15.0771 26.3909 15.4284 26.5369 15.8011 26.5369C16.0968 26.5369 16.3787 26.4464 16.6163 26.2754L17.257 25.8174C17.4414 25.9042 17.6311 25.9827 17.8245 26.0521L17.9568 26.8325C18.0702 27.5087 18.6512 28 19.3378 28H20.6656C21.3522 28 21.933 27.5087 22.0467 26.8317L22.1767 26.0515C22.3601 25.9855 22.5388 25.9121 22.7112 25.832L23.3672 26.299C23.6027 26.4684 23.8834 26.5588 24.177 26.5588C24.5498 26.5588 24.9011 26.4128 25.1661 26.1478L26.1038 25.2101C26.5905 24.7283 26.6547 23.9696 26.2549 23.408L25.8003 22.7756C25.8889 22.5908 25.9685 22.4019 26.0385 22.2102L26.8329 22.0747C27.5087 21.9613 28 21.3805 28 20.6938V19.3691C28 18.6825 27.5087 18.1017 26.8317 17.988L26.067 17.859C25.9987 17.6646 25.9213 17.474 25.8352 17.2888L26.3021 16.6328C26.7 16.074 26.6364 15.316 26.151 14.8307L25.2112 13.8939C24.9491 13.6283 24.5977 13.4821 24.2212 13.4821C23.9254 13.4821 23.6436 13.5724 23.406 13.7434L22.7725 14.1997C22.5875 14.111 22.3987 14.0315 22.2072 13.9615L22.0716 13.1671C21.9583 12.4913 21.3775 12 20.6908 12H19.3661Z"
+                  fill="white"
+                />
+                <path
+                  d="M20 16.5C21.9299 16.5 23.5 18.0701 23.5 20C23.5 21.9299 21.9299 23.5 20 23.5C18.0701 23.5 16.5 21.9299 16.5 20C16.5 18.0701 18.0701 16.5 20 16.5ZM20 22.4452C21.3483 22.4452 22.4452 21.3483 22.4452 20C22.4452 18.6517 21.3483 17.5548 20 17.5548C18.6517 17.5548 17.5548 18.6517 17.5548 20C17.5548 21.3483 18.6517 22.4452 20 22.4452Z"
+                  fill="#AAB2C2"
+                />
+              </svg>
+            </div>
+          </div>
+          <div *ngIf="fontItem['controls']['status'].value" class="bg-itopplus-300 rounded p-4 grid gap-4">
+            <div class="grid gap-1">
+              <div class="font-light text-sm">Font Family</div>
+              <div matAutocompleteOrigin #fontFamilyOrigin="matAutocompleteOrigin">
+                <input
+                  (click)="onFontFamilyValueChange(index)"
+                  onClick="this.setSelectionRange(0, this.value.length)"
+                  placeholder="Search Font..."
+                  class="focus:outline-none border-white bg-transparent rounded h-12 px-4 border w-full"
+                  formControlName="familyCode"
+                  [matAutocomplete]="fontFamily"
+                  [matAutocompleteConnectedTo]="fontFamilyOrigin"
+                />
+              </div>
+              <mat-autocomplete #fontFamily="matAutocomplete">
+                <mat-option *ngFor="let fontFamily of filterFontFamilyData | async" [value]="fontFamily.value">{{ fontFamily.title }}</mat-option>
+              </mat-autocomplete>
+            </div>
+            <div class="grid gap-2 grid-cols-2">
+              <div class="select-options text">
+                <mat-form-field appearance="fill">
+                  <mat-select formControlName="style" [(value)]="fontItem['controls']['style'].value">
+                    <mat-option *ngFor="let fontStyle of fontStyleData" [value]="fontStyle.value">
+                      {{ fontStyle.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="flex items-center">
+                <input type="number" class="border border-white px-2 h-12 focus:outline-none w-full bg-transparent" formControlName="size" />
+                <div
+                  (click)="onSwitchUnit(index)"
+                  [ngClass]="{ 'opacity-10': fontItem['controls']['unit'].value !== unitData.EM }"
+                  class="w-10 h-12 bg-white flex items-center justify-center text-black flex-shrink-0 cursor-pointer transition-all"
+                >
+                  em
+                </div>
+                <div
+                  (click)="onSwitchUnit(index)"
+                  [ngClass]="{ 'opacity-10': fontItem['controls']['unit'].value !== unitData.PX }"
+                  class="w-10 h-12 bg-white flex items-center justify-center text-black flex-shrink-0 cursor-pointer transition-all"
+                >
+                  px
+                </div>
+              </div>
+            </div>
+            <div class="grid gap-2 grid-cols-2">
+              <input type="text" class="h-12 px-4 border border-white rounded bg-transparent focus:outline-none" formControlName="lineHeight" />
+              <input type="text" class="h-12 px-4 border border-white rounded bg-transparent focus:outline-none" formControlName="letterSpacing" />
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</section>

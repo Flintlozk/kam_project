@@ -1,0 +1,77 @@
+<div class="customer-service-close-list">
+  <div class="head">
+    <div class="label">Step 2: {{ tableData?.length }} Issues</div>
+  </div>
+  <div class="filter">
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="issueType[0].id">
+          <mat-option *ngFor="let data of issueType" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="priorityData[0].id">
+          <mat-option *ngFor="let data of priorityData" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="status[0].id">
+          <mat-option *ngFor="let data of status" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <input autofocus type="text" [placeholder]="'Search' | translate" />
+  </div>
+  <div class="table">
+    <reactor-room-custom-table [isLoading]="false" [tableColSpan]="false" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader">
+      <tr *ngFor="let data of tableData; trackBy: trackBy; let i = index" class="table-content">
+        <td>{{ data.id }}</td>
+        <td>{{ data.issue }}</td>
+        <td>{{ data.date }}</td>
+        <td>{{ data.customer }}</td>
+        <td>{{ data.assignee }}</td>
+        <td>
+          <div class="status">
+            <div class="round" [ngClass]="{ done: data.status == 3, reject: data.status == 4 }"></div>
+            <span *ngIf="data.status == 3">Done</span>
+            <span *ngIf="data.status == 4">Reject</span>
+          </div>
+        </td>
+        <td>
+          <div class="action">
+            <div class="tooltip">
+              <img src="assets/img/customer-service/manage-icon.png" alt="Manage" (click)="openIssueInfo(i)" />
+              <span class="tooltiptext">Manage</span>
+            </div>
+            <div class="more">
+              <div class="img" (click)="clickMoreEvent(i)">
+                <img src="assets/img/more.svg" alt="More" *ngIf="!data.actionMoreStatus" />
+                <img src="assets/img/more-active.svg" alt="More" *ngIf="data.actionMoreStatus" />
+              </div>
+              <div class="more-menu" *ngIf="data.actionMoreStatus">
+                <div class="item" (click)="openSendEmailDialog(i)">
+                  <img src="assets/img/customer-service/email-icon.svg" alt="Send Email" />
+                  <span>Send Email</span>
+                </div>
+                <div class="item">
+                  <img src="assets/img/trash-icon.svg" alt="Delete" />
+                  <span>Delete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+  </div>
+</div>

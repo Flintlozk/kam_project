@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/jql.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/autocomplete.js"></script>
+    <script defer type="text/javascript" src="javascript/step2js.js"></script>
+    <script defer>
+      <%if (payload) { %>
+        var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      var enableConfirm = false;
+      var copy = false;
+      var paypalInit = false;
+      var nextFunc;
+      var omiseInit = false;
+      var paypalObject = {};
+      var filteredOptions = [];
+      var search = {z: "", d: "", a: "", p: ""};
+
+      <%
+        var logistics = payload.logistics;
+        var payments = payload.payments;
+        var productList = payload.productList;
+        var omiseOption = payload.omiseOption;
+        var accounts = payload.accounts;
+        var logisticSystem = payload.logisticSystem
+        var logisticID = payload.logisticID
+        var paymentID = payload.paymentID
+        var bankAccountID = payload.bankAccountID
+        var payment2C2PRedirectApi = payload.payment2C2PRedirectApi
+        var aliasOrderId = payload.aliasOrderId
+
+        function splitDigit(accountId){
+            if(accountId.length === 10){
+                return accountId.substring(0,3) + '-' +accountId.substring(3,6) +'-' + accountId.substring(6,10)
+            }else{
+                return accountId
+            }
+        }
+      %>
+    </script>
+    <%if (payload.enablePaypal) { %>
+    <script defer type="text/javascript" src="javascript/step2paypal.js"></script>
+    <%}%> <%if (payload.enableOmise) { %>
+    <script defer type="text/javascript" src="javascript/step2omise.js"></script>
+    <%}%>
+  </head>
+
+  <body x-data="{psid:payloadData.psid,customer:payloadData.customer,orderId:payloadData.aliasOrderId}">
+    <div id="payment-process" class="wrapper-success" style="display: none"><%- include ("../payment/process.ejs") %></div>
+    <div id="payment-success" class="wrapper-success" style="display: none"><%- include ("../payment/success.ejs") %></div>
+
+    <div id="payment-failed" class="wrapper-success" style="display: none"><%- include ("../payment/failed.ejs") %></div>
+    <div id="payment-omise-failed" class="wrapper-success" style="display: none"><%- include ("../payment/omise-failed.ejs") %></div>
+    <div id="payment-pending-bank" class="wrapper-success" style="display: none"><%- include ("../payment/success-on-bank.ejs") %></div>
+    <div id="payment-pending-cod" class="wrapper-success" style="display: none"><%- include ("../payment/success-on-cod.ejs") %></div>
+
+    <div id="submit-failed" class="wrapper-success" style="display: none"><%- include ("../payment/submit-fail.ejs") %></div>
+
+    <div id="pipeline-step2-container" style="display: block">
+      <%- include ("./step2-loader.ejs")%>
+      <div class="wrapper" id="container">
+        <div class="order-id-container">
+          <div x-text="orderId"></div>
+        </div>
+        <input type="hidden" name="psid" id="psid" x-model="psid" />
+        <%- include ("./step2-products.ejs",{productList:productList}) %>
+        <div class="arrange"></div>
+        <%- include ("./step2-address.ejs") %>
+        <div class="arrange"></div>
+        <%- include ("./step2-logistic") %>
+        <div class="arrange"></div>
+        <%- include ("./step2-payment",{ payments:payments, paymentID:paymentID, omiseOption:omiseOption, accounts:accounts, bankAccountID:bankAccountID,
+        payment2C2PRedirectApi:payment2C2PRedirectApi, aliasOrderId: aliasOrderId, logistics:logistics, logisticID:logisticID, }) %>
+      </div>
+      <div class="separator"></div>
+      <%- include ("./step2-summary") %>
+    </div>
+    <input type="hidden" id="viewtype" name="viewtype" value="<%=payload.view%>" />
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %> <%}%>
+
+    <div id="snackbar"></div>
+
+    <%- include ("../pdpa/pdpamodal") %>
+  </body>
+</html>

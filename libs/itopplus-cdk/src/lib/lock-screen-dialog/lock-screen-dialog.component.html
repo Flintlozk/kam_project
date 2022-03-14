@@ -1,0 +1,7 @@
+<div class="lock-screen-dialog error">
+  <div class="container">
+    <div class="title" *ngIf="data?.title" [innerHTML]="data?.title | translate"></div>
+    <div class="content" *ngIf="data?.text" [innerHTML]="data?.text | translate"></div>
+  </div>
+  <div class="footer"></div>
+</div>

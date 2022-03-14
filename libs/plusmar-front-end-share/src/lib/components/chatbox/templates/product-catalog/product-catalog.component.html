@@ -1,0 +1,7 @@
+<div class="product-catalog">
+  <ng-container *ngFor="let catalog of catalogList">
+    <div class="catalog cursor-pointer" (click)="sendCatalogToChatBox(catalog)">
+      <div class="title">{{ catalog.title }}</div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,13 @@
+<div class="customer-log">
+  <reactor-room-filter [yesterdayActive]="false" [customActive]="true"></reactor-room-filter>
+  <div class="func">
+    <input autofocus type="text" [placeholder]="'Search' | translate" />
+  </div>
+  <reactor-room-custom-table [isLoading]="false" [tableColSpan]="0" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader">
+    <tr *ngFor="let data of tableData; trackBy: trackBy" class="table-content">
+      <td>{{ data.Item }}</td>
+      <td>{{ data.Event }}</td>
+      <td>{{ data.Date }}</td>
+    </tr>
+  </reactor-room-custom-table>
+</div>

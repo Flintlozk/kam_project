@@ -1,0 +1,318 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'utils';
+@import 'breakpoints';
+@import 'variables';
+@import 'custom-checkbox';
+@import 'base';
+@import 'buttons';
+@import 'menu';
+@import 'inputs';
+@import 'radio-button';
+// @import 'dropdown';
+@import 'switch';
+@import 'animation';
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-layout,
+  .print-layout * {
+    visibility: visible;
+  }
+  .print-layout {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  // for scale 125%
+  * {
+    zoom: 0.99 !important;
+  }
+}
+// @media (-webkit-device-pixel-ratio: 1.5) {
+//   // for scale 150%
+//   * {
+//     zoom: 0.6 !important;
+//   }
+// }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: #f2f5f9;
+  @include custom-scroll-bar();
+}
+
+* {
+  font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+}
+
+.content-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  .stretch {
+    justify-content: space-between;
+  }
+
+  .center {
+    align-items: center;
+    align-content: center;
+  }
+}
+
+//Dialog Global Style
+.cdk-overlay-container {
+  .cdk-overlay-dark-backdrop {
+    background: rgba(77, 77, 77, 0.9);
+
+    & ~ .cdk-global-overlay-wrapper .cdk-overlay-pane {
+      max-width: 80%;
+      width: 100%;
+      @media #{$mobilemax} {
+        max-width: 100% !important;
+      }
+    }
+  }
+
+  .mat-dialog-container {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 0px;
+    background: none;
+  }
+}
+
+.hint {
+  font-size: 12px;
+  color: lightgray;
+  padding-top: 4px;
+}
+
+svg {
+  fill: currentColor;
+}
+
+.common-chips {
+  font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+  width: 100%;
+
+  .mat-chip-list-wrapper {
+    border: 1px solid #dddfea;
+    border-radius: 8px;
+    min-height: 40px;
+    transition: all ease-in-out 0.3s;
+    padding: 0px 4px;
+
+    .mat-chip.mat-standard-chip {
+      background: #54b1ff;
+      color: white;
+      border-radius: 8px;
+
+      img {
+        width: 10px;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-color: #54b1ff;
+    }
+
+    input.mat-input-element {
+      outline: none;
+      border: 0px !important;
+      padding: 0px !important;
+
+      &.no-pointer {
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0px;
+
+    .mat-form-field-infix {
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+    }
+
+    .mat-form-field-label-wrapper {
+      left: 15px;
+    }
+  }
+
+  &.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none;
+  }
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+
+.mat-form-field-type-mat-select {
+  .mat-form-field-label {
+    padding-left: 17px;
+  }
+}
+
+.custom-checkbox .checkmark {
+  top: -11px;
+}
+
+.mat-calendar-body-selected {
+  background: $main-color;
+}
+
+.invalid {
+  .label {
+    color: #ea6161 !important;
+  }
+
+  input {
+    border-color: #ea6161 !important;
+
+    & {
+      background-image: url('/assets/img/danger-icon.svg');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+    }
+  }
+
+  input[type='time'] {
+    background-position-x: calc(100% - 25px);
+  }
+
+  .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-color: #ea6161 !important;
+
+    & {
+      background-image: url('/assets/img/danger-icon.png');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+      background-position-y: 15px;
+    }
+  }
+}
+
+mat-error {
+  font-size: 10px;
+  font-weight: 300;
+  color: #ea6161 !important;
+  padding-top: 5px;
+  display: block;
+}
+
+.toast-success {
+  background-color: #0091ff !important;
+  color: white !important;
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: 14px;
+  box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+  .toast-title {
+    font-weight: 500 !important;
+  }
+}
+.toast-warning {
+  background-color: #fea934 !important;
+  color: white $main-color !important;
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: 14px;
+  box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+  .toast-title {
+    font-weight: 500 !important;
+  }
+}
+.toast-error {
+  background-color: #ee4447 !important;
+  color: white $main-color !important;
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: 14px;
+  box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+  .toast-title {
+    font-weight: 500 !important;
+  }
+}
+.more {
+  .mat-icon-button {
+    .mat-button-wrapper {
+      line-height: 0px;
+    }
+  }
+}
+.disable-pointer {
+  cursor: default;
+}
+.audience-guests {
+  .custom-table {
+    overflow: unset;
+    @media #{$mobilemax} {
+      overflow: auto;
+      .js-dropdown {
+        position: fixed;
+        top: 343px;
+        right: 20px;
+        z-index: 99;
+        width: 280px;
+      }
+    }
+  }
+}
+
+//PWA CSS
+@media all and (display-mode: standalone) {
+  // .pwa-install-card{
+  //   display: none;
+  //   &-overlay{
+  //     display: none;
+  //   }
+  // }
+}
+.mat-paginator {
+  border-radius: 8px;
+}
+
+.no-data {
+  color: #576f83;
+  padding-bottom: 10px;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.cdk-global-scrollblock {
+  position: static !important;
+  width: initial !important;
+  overflow-y: inherit !important;
+}

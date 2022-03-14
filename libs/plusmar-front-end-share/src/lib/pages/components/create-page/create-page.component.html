@@ -1,0 +1,148 @@
+<div class="customer-new">
+  <form [formGroup]="createPageForm" (ngSubmit)="save()">
+    <reactor-room-heading *ngIf="true" [headingTitle]="headingTitle" [Route]="'Shop / Create New Shop'">
+      <div class="heading-content">
+        <div class="buttons">
+          <div class="cancel" (click)="cancelCreateAction()">{{ 'Cancel' | translate }}</div>
+          <button type="submit" form="customerFormID" [ngClass]="[createPageForm.valid ? 'save-active' : 'btn-inactive ']" [disabled]="!createPageForm.valid">
+            <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.5882 2.67522L13.3249 0.411875C13.0593 0.14625 12.7061 0 12.3305 0C12.0512 0 4.55525 0 4.21881 0H1.40631C0.630905 0 6.10352e-05 0.630844 6.10352e-05 1.40625V14.5938C6.10352e-05 15.3692 0.630905 16 1.40631 16C2.09906 16 14.0495 16 14.5938 16C15.3692 16 16.0001 15.3692 16.0001 14.5938V3.66956C16.0001 3.29397 15.8538 2.94081 15.5882 2.67522ZM4.68756 0.9375H9.43756V3.65625C9.43756 3.91513 9.64744 4.125 9.90631 4.125C10.1652 4.125 10.3751 3.91513 10.3751 3.65625V0.9375H11.3126V4.59375C11.3126 4.85222 11.1023 5.0625 10.8438 5.0625H5.15631C4.89784 5.0625 4.68756 4.85222 4.68756 4.59375V0.9375ZM12.2501 15.0625H3.75006V11H12.2501V15.0625ZM12.2501 10.0625H3.75006V8.5C3.75006 8.24153 3.96034 8.03125 4.21881 8.03125H11.7813C12.0398 8.03125 12.2501 8.24153 12.2501 8.5V10.0625ZM15.0626 14.5938C15.0626 14.8522 14.8523 15.0625 14.5938 15.0625H13.1876V8.5C13.1876 7.72459 12.5567 7.09375 11.7813 7.09375H4.21881C3.4434 7.09375 2.81256 7.72459 2.81256 8.5V15.0625H1.40631C1.14784 15.0625 0.937561 14.8522 0.937561 14.5938V1.40625C0.937561 1.14778 1.14784 0.9375 1.40631 0.9375H3.75006V4.59375C3.75006 5.36916 4.3809 6 5.15631 6H10.8438C11.6192 6 12.2501 5.36916 12.2501 4.59375V0.9375H12.3305C12.4557 0.9375 12.5734 0.98625 12.6619 1.07478L14.9252 3.33813C15.0138 3.42666 15.0626 3.54438 15.0626 3.66956V14.5938Z"
+              />
+            </svg>
+
+            {{ 'Save' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-heading>
+    <div class="container">
+      <reactor-room-card class="main">
+        <div class="card-content">
+          <div class="form">
+            <div class="form-item one-line profile">
+              <div class="img">
+                <img [src]="imagePath" alt="" (click)="onClickUpload()" style="cursor: pointer" />
+                <div class="icon-dismiss" (click)="clearProfilePic()">
+                  <img src="assets/img/dismiss-blank-icon.svg" alt="Dismiss" />
+                </div>
+              </div>
+            </div>
+            <input type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" style="display: none" />
+            <div class="form-item">
+              <div class="label">{{ 'Name' | translate }}*</div>
+              <input type="text" formControlName="name" [placeholder]="'Name' | translate" />
+              <mat-error *ngIf="!createPageForm.get('name').valid" [innerHTML]="nameValidationMessage"> </mat-error>
+            </div>
+            <div class="form-item" formGroupName="Facebook">
+              <div class="label">Facebook {{ 'Name' | translate }}*</div>
+              <input type="text" formControlName="nickname" [placeholder]="'Facebook Name' | translate" />
+              <mat-error *ngIf="!createPageForm.get('Facebook.nickname').valid" [innerHTML]="faceBookNickNameValidationMessage"></mat-error>
+            </div>
+            <div class="form-item">
+              <div class="label">{{ 'Email' | translate }}*</div>
+              <input type="text" formControlName="email" [placeholder]="'Email' | translate" />
+              <mat-error *ngIf="!createPageForm.get('email').valid" [innerHTML]="emailValidationMessage"> </mat-error>
+            </div>
+            <div class="form-item one-line">
+              <div class="label">{{ 'Address' | translate }}*</div>
+              <input type="text" formControlName="address" [placeholder]="'Address' | translate" />
+              <mat-error *ngIf="!createPageForm.get('address').valid" [innerHTML]="addressValidationMessage"></mat-error>
+            </div>
+            <div class="form-item">
+              <div class="label">{{ 'District' | translate }}*</div>
+              <div class="select-option">
+                <mat-form-field>
+                  <mat-select formControlName="district">
+                    <mat-option *ngFor="let data of districtData" [value]="data.value">
+                      {{ data.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="!createPageForm.get('district').valid" [innerHTML]="districtValidationMessage"> </mat-error>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label">{{ 'Province' | translate }}*</div>
+              <div class="select-option">
+                <mat-form-field>
+                  <mat-select formControlName="province">
+                    <mat-option *ngFor="let data of districtData" [value]="data.value">
+                      {{ data.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="!createPageForm.get('province').valid" [innerHTML]="provinceValidationMessage"> </mat-error>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label">{{ 'Post Code' | translate }}*</div>
+              <input type="text" [placeholder]="'Post Code' | translate" formControlName="postalCode" />
+              <mat-error *ngIf="!createPageForm.get('postalCode').valid" [innerHTML]="postalCodeValidationMessage"> </mat-error>
+            </div>
+            <div class="form-item">
+              <div class="label">{{ 'Country' | translate }}*</div>
+              <div class="select-option">
+                <mat-form-field>
+                  <mat-select formControlName="country">
+                    <mat-option *ngFor="let data of districtData" [value]="data.value">
+                      {{ data.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!createPageForm.get('country').valid" [innerHTML]="countryValidationMessage"> </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </reactor-room-card>
+
+      <div class="sidebar">
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="page-list">
+              <img src="assets/img/page/u46.png" alt="" />
+              <div class="info">
+                <div class="header">
+                  <span>{{ 'Facebook Page-s' | translate }}</span>
+                </div>
+                <div class="warning">
+                  <span>{{ 'No Pages Added' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connect">
+            <button>
+              <span>{{ 'Connect' | translate }} >></span>
+            </button>
+          </div>
+        </reactor-room-card>
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="social">
+              <div class="item">
+                <div class="label">{{ 'Currency' | translate }}</div>
+                <div class="btn" (click)="openDialog()">{{ 'Edit' | translate }}</div>
+              </div>
+            </div>
+          </div>
+        </reactor-room-card>
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="note">
+              <div class="label">{{ 'Languages' | translate }}</div>
+            </div>
+          </div>
+        </reactor-room-card>
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="note">
+              <div class="label">{{ 'Time Zone' | translate }}: Thailand</div>
+            </div>
+          </div>
+        </reactor-room-card>
+      </div>
+    </div>
+  </form>
+</div>

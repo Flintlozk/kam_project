@@ -1,0 +1,35 @@
+<div class="title-company-name">Assignees</div>
+<div class="assignee-add">
+  <div *ngFor="let assignee of groupAssignee; let i = index; trackBy: trackByIndex" class="group-assignee">
+    <img class="img-assignee" draggable="false" [src]="[assignee.profilePic]" [matTooltip]="[assignee.name]" />
+  </div>
+  <div class="add-group-assignee">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" [matMenuTriggerFor]="addAssign">
+      <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+      <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+    </svg>
+  </div>
+</div>
+<mat-menu #addAssign="matMenu" yPosition="below" xPosition="after" class="mat-menu-search-tag">
+  <mat-form-field class="form-search-assignee">
+    <mat-label>User or Email</mat-label>
+    <input
+      type="text"
+      placeholder="Type User or Email ..."
+      aria-label="Assignee"
+      (click)="$event.stopPropagation()"
+      (keyup.enter)="onAddAssignee()"
+      (click)="onChangeInput()"
+      matInput
+      [formControl]="assignOption"
+      [matAutocomplete]="autoAssignee"
+      (change)="onChangeInput()"
+      class="input-auto-complete-assignee"
+    />
+    <mat-autocomplete #autoAssignee="matAutocomplete">
+      <mat-option *ngFor="let option of filteredAssigneeOptions | async; let i = index" [value]="option" (click)="onAddAssignee()" class="option-search-assignee">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-menu>

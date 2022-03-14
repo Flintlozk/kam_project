@@ -1,0 +1,47 @@
+<div class="workhour-notify-list-container">
+  <div class="flex justify-between">
+    <div class="label">{{ 'Add Email' | translate }}</div>
+  </div>
+  <div class="workhour-notify-list-content flex">
+    <div
+      class="assginee-name"
+      [@slideInOut]
+      [ngClass]="{ invalid: !notifyForm.get('notifyEmail').valid && (notifyForm.get('notifyEmail').touched || notifyForm.get('notifyEmail').dirty) }"
+    >
+      <ng-container [formGroup]="notifyForm">
+        <input
+          formControlName="notifyEmail"
+          (click)="toggleSelectUser()"
+          class="interactive-input"
+          placeholder="{{ 'Input email' | translate }}"
+          (keyup.enter)="onAddUser()"
+          (keydown)="searchTextDeboucee.next(null)"
+        />
+      </ng-container>
+      <img src="./assets/setting/u348.png" (click)="onAddUser()" />
+    </div>
+    <ng-container *ngIf="isShow && users">
+      <div class="user-list-container" reactorRoomClickOutside (outside)="closeDialog($event)" [@slideInOut]>
+        <div class="user-list-top">
+          <div class="user-size">{{ users.length }} Member{{ users.length > 0 ? 's' : '' }}</div>
+          <div class="user-search"></div>
+        </div>
+        <div class="user-detail-list">
+          <ng-container *ngFor="let user of users">
+            <div class="user-detail" (click)="selectUser(user)">
+              <img src="{{ user.userImage }}" />
+              <div class="user-person">
+                <div>
+                  {{ user.userName }}
+                  <ng-container *ngIf="user.userNotifyEmail || user.userEmail"> ({{ user.userNotifyEmail || user.userEmail }}) </ng-container>
+                  <ng-container *ngIf="!(user.userNotifyEmail || user.userEmail)"> <i>(email not set)</i> </ng-container>
+                </div>
+                <div>{{ user.userRole }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

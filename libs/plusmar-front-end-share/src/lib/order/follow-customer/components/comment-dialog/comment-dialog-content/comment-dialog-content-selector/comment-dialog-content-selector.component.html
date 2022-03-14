@@ -1,0 +1,20 @@
+<div class="reply reply-text" *ngIf="Selector == 'reply-text'">
+  <ng-content select=".reply-text"></ng-content>
+  <div class="date" *ngIf="Date">{{ Date }}</div>
+</div>
+<div class="reply reply-box" *ngIf="Selector == 'reply-box'">
+  <ng-content select=".reply-box"></ng-content>
+  <div class="date" *ngIf="Date">{{ Date }}</div>
+</div>
+<div class="reply reply-content" *ngIf="Selector == 'reply-content'">
+  <ng-content select=".reply-content"></ng-content>
+  <div class="date" *ngIf="Date">{{ Date }}</div>
+</div>
+<div class="receive receive-text" *ngIf="Selector == 'receive-text'">
+  <ng-content select=".receive-text"></ng-content>
+  <div class="date" *ngIf="Date">{{ Date }}</div>
+</div>
+<div class="receive receive-content" *ngIf="Selector == 'receive-content'">
+  <ng-content select=".receive-content"></ng-content>
+  <div class="date" *ngIf="Date">{{ Date }}</div>
+</div>

@@ -1,0 +1,39 @@
+function getMenuJsSettingSticky() {
+  const mainElement = document.getElementById('<%=id%>');
+  const navContainerElement = mainElement.getElementsByClassName('nav-container')[0];
+  const scrollContainer = document.getElementById('scroll-container');
+  const scrollContainerMobile = document.getElementById('scroll-container-mobile');
+  const scrollContainerTablet = document.getElementById('scroll-container-tablet');
+  const sticky = mainElement.offsetTop;
+  navContainerElement?.classList.remove('smart');
+  navContainerElement?.classList.remove('fixed');
+  scrollContainer?.addEventListener('scroll', () => {
+    if (scrollContainer?.scrollTop >= sticky) {
+      navContainerElement?.classList.add('auto');
+    } else {
+      navContainerElement?.classList.remove('auto');
+    }
+  });
+  scrollContainerMobile?.addEventListener('scroll', () => {
+    if (scrollContainerMobile?.scrollTop >= sticky) {
+      navContainerElement?.classList.add('auto');
+    } else {
+      navContainerElement?.classList.remove('auto');
+    }
+  });
+  scrollContainerTablet?.addEventListener('scroll', () => {
+    if (scrollContainerTablet?.scrollTop >= sticky) {
+      navContainerElement?.classList.add('auto');
+    } else {
+      navContainerElement?.classList.remove('auto');
+    }
+  });
+  window.onscroll = function () {
+    if (window.pageYOffset >= sticky) {
+      navContainerElement?.classList.add('auto');
+    } else {
+      navContainerElement?.classList.remove('auto');
+    }
+  };
+}
+getMenuJsSettingSticky();

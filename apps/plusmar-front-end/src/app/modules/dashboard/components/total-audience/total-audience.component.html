@@ -1,0 +1,43 @@
+<reactor-room-card [withTitle]="true" [paddingBottom]="padding" [padding]="padding">
+  <div class="card-title">
+    {{ 'Audience' | translate }}
+  </div>
+  <div class="card-content">
+    <div class="total-customers">
+      <div class="cards">
+        <!-- -->
+        <div class="cards-total guest outline-none text-white cursor-pointer" [routerLink]="'/follows/list/all/1'">
+          <div class="heading">
+            <h4 class="text-gray-900">
+              {{ 'Guest' | translate }}
+            </h4>
+            <div class="flex justify-between items-center info">
+              <h3 class="text-gray-900">
+                {{ audienceTotal }}
+              </h3>
+              <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.36691 0.10791H0L10.1439 10.3597L0 21.1511H6.36691L16.7266 10.3597L6.36691 0.10791Z" fill="white" fill-opacity="0.6" />
+                <path d="M19.3061 0H12.7338L23.2049 10.3044L12.7338 21.1511H19.3061L30 10.3044L19.3061 0Z" fill="white" />
+              </svg>
+            </div>
+          </div>
+          <div class="cards-detail audience-card" *ngFor="let item of audienceSteps; let i = index" (click)="selectSubTab($event, 'new', item?.route)">
+            <span class="grid cards-label-wrapper">
+              <svg class="cards-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="5" cy="5" r="4.5" attr.fill="{{ item.color }}" stroke="white" />
+              </svg>
+
+              <h6 class="cards-label">
+                {{ item.label | translate }}
+              </h6>
+            </span>
+
+            <span class="cards-amount">
+              {{ item.total }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</reactor-room-card>

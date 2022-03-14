@@ -1,0 +1,267 @@
+<div class="chat-layout" [ngClass]="{ 'show-list': contactListLayoutStatus }">
+  <div class="chat-list-layout">
+    <reactor-room-audience-contact-filter
+      *ngIf="loadReady"
+      [triggerReady]="triggerReady"
+      [enableLocalStorage]="filterFeature.enableLocalStorage"
+      [enabledOfftime]="filterFeature.enabledOfftime"
+      [enabledFilter]="filterFeature.enabledFilter"
+      [enabledSearch]="filterFeature.enabledSearch"
+      [enabledTagFilter]="filterFeature.enabledTagFilter"
+      [enabledStatusFilter]="filterFeature.enabledStatusFilter"
+      [showOfftime]="showOfftime"
+      [forceGetLocal]="true"
+      [filters]="filters"
+      (filtersSubmit)="onFilterSubmit($event)"
+      (toggleOfftimeOutput)="toggleOfftime($event)"
+    ></reactor-room-audience-contact-filter>
+
+    <div class="chat-list-layout-items" #contacts (scroll)="listScrolling($event)">
+      <ng-container *ngIf="!contactList.length">
+        <div class="no-data">No data avaliable</div>
+      </ng-container>
+      <ng-container *ngIf="showOfftime">
+        <ng-container *ngFor="let contact of contactList; let index = index">
+          <div
+            #audienceElemOffTimes
+            class="list-item"
+            [ngClass]="{
+              'off-time': contact.is_offtime,
+              active: contact.id === audience.id,
+              unread: contact?.notify_status === 'UNREAD' || false
+            }"
+            *ngIf="contact.is_offtime"
+            (click)="onSelectAudience(contact)"
+          >
+            <!--  -->
+            <div class="list-item-account">
+              <div class="relative profile">
+                <img [src]="contact?.profile_pic" class="image" onerror="src='assets/img/customer/customer_error.svg'" />
+                <div class="status">
+                  {{ contact.status | translate | status: 'status-shorthand' }}
+                </div>
+                <svg
+                  *ngIf="contact?.platform !== EAudiencePlatformType.LINEOA"
+                  alt="facebook-icon"
+                  class="absolute bottom-0 right-0 z-10"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#0075FB" />
+                  <path
+                    d="M9.84372 4.39307H10.8475V2.67584C10.6743 2.65244 10.0787 2.59979 9.38511 2.59979C6.20919 2.59979 7.07327 6.13236 6.94682 6.64987H5.34924V8.5696H6.94636V13.4H8.9045V8.57005H10.437L10.6803 6.65032H8.90405C8.99018 5.37949 8.55539 4.39307 9.84372 4.39307Z"
+                    fill="white"
+                  />
+                </svg>
+                <svg
+                  *ngIf="contact?.platform === EAudiencePlatformType.LINEOA"
+                  alt="line-icon"
+                  class="absolute bottom-0 right-0 z-10"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#00B900" />
+                  <path
+                    d="M8.00001 3.79102C5.28272 3.79102 3.07068 5.59195 3.07068 7.80524C3.07068 9.78758 4.8247 11.4485 7.19284 11.7642C7.35345 11.7982 7.57198 11.8706 7.62744 12.0074C7.67673 12.1315 7.65989 12.3231 7.64305 12.4525L7.57568 12.8727C7.5572 12.9967 7.47709 13.3612 8.00659 13.1384C8.5369 12.9165 10.8475 11.4579 11.8827 10.2642C12.5909 9.48619 12.9294 8.68892 12.9294 7.80524C12.9294 5.59195 10.7173 3.79102 8.00001 3.79102ZM6.07059 9.12134H5.09047C4.94876 9.12134 4.83168 9.00381 4.83168 8.86213V6.89617C4.83168 6.75408 4.94876 6.63656 5.09047 6.63656C5.23342 6.63656 5.34926 6.75408 5.34926 6.89617V8.60251H6.07059C6.21354 8.60251 6.32897 8.71922 6.32897 8.86213C6.32897 9.00381 6.21313 9.12134 6.07059 9.12134ZM7.08357 8.86213C7.08357 9.00381 6.96773 9.12134 6.82437 9.12134C6.68265 9.12134 6.56681 9.00381 6.56681 8.86213V6.89617C6.56681 6.75408 6.68265 6.63656 6.8256 6.63656C6.96773 6.63656 7.08357 6.75408 7.08357 6.89617V8.86213ZM9.44185 8.86213C9.44185 8.97351 9.37037 9.0722 9.26439 9.10782C9.2381 9.11642 9.20976 9.12052 9.18264 9.12052C9.09597 9.12052 9.02203 9.08325 8.97315 9.01733L7.96962 7.65045V8.86172C7.96962 9.0034 7.85501 9.12093 7.71042 9.12093C7.56829 9.12093 7.45327 9.0034 7.45327 8.86172V6.89617C7.45327 6.78479 7.52433 6.6861 7.6299 6.65089C7.65455 6.64147 7.68577 6.63738 7.70959 6.63738C7.7897 6.63738 7.86364 6.68037 7.91293 6.7422L8.92427 8.1144V6.89617C8.92427 6.75408 9.0401 6.63656 9.18306 6.63656C9.32477 6.63656 9.44185 6.75408 9.44185 6.89617V8.86213ZM11.0254 7.61933C11.1688 7.61933 11.2842 7.73685 11.2842 7.87936C11.2842 8.02145 11.1688 8.13897 11.0254 8.13897H10.3045V8.60251H11.0254C11.1688 8.60251 11.2842 8.71922 11.2842 8.86213C11.2842 9.00381 11.1688 9.12134 11.0254 9.12134H10.0453C9.90356 9.12134 9.78772 9.00381 9.78772 8.86213V6.89617C9.78772 6.75408 9.90356 6.63656 10.0465 6.63656H11.0266C11.1688 6.63656 11.2842 6.75408 11.2842 6.89617C11.2842 7.0399 11.1688 7.15579 11.0254 7.15579H10.3045V7.61933H11.0254Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              <div class="list-item-name">
+                <div class="name" *ngIf="contact?.platform === EAudiencePlatformType.LINEOA">
+                  {{ contact.first_name + ' ' + (contact.aliases !== null ? contact.aliases : '') | textTrim: 50 }}
+                </div>
+                <div class="name" *ngIf="contact?.platform === EAudiencePlatformType.FACEBOOKFANPAGE">
+                  {{ contact.first_name + ' ' + (contact.last_name !== null ? contact.last_name : '') + ' ' + (contact.aliases !== null ? contact.aliases : '') | textTrim: 50 }}
+                </div>
+                <div class="tags">
+                  <ng-container *ngFor="let tag of contact?.tags; let tagIndex = index">
+                    <div class="bubble" *ngIf="tagIndex <= 2">
+                      <div class="tag-color" [ngStyle]="{ background: customerTagEnum[tag.color] }"></div>
+                      <div class="tooltip">{{ tag.name }}</div>
+                    </div>
+                  </ng-container>
+                  <div *ngIf="contact?.tags?.length - 3 > 0">
+                    <div class="text flex">{{ contact?.tags?.length - 3 }}+ Tag<span *ngIf="contact?.tags?.length - 3 > 1">s</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item-date">
+                <div class="time">
+                  {{ contact?.last_platform_activity_date | timeAgo }}
+                </div>
+                <div class="user-action">
+                  <div class="agent-list">
+                    <div class="plus-agent" *ngIf="agentList[contact.id] && agentList[contact.id].length > 3">+{{ agentList[contact.id].length - 3 }}</div>
+                    <div *ngFor="let agent of agentList[contact.id]; let i = index; trackBy: trackByAudienceId">
+                      <img *ngIf="i < 3" [src]="agent.picture" [matTooltip]="agent.name" />
+                    </div>
+                    <img *ngIf="!agentList[contact.id]" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" />
+                  </div>
+                  <div class="repiled" *ngIf="!contact.is_notify">
+                    <svg
+                      _ngcontent-jrr-c432=""
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="min-width: 15px"
+                      class="ng-star-inserted"
+                    >
+                      <path
+                        _ngcontent-jrr-c432=""
+                        d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+                        fill="#C4C4C4"
+                      ></path>
+                      <path
+                        _ngcontent-jrr-c432=""
+                        d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+                        fill="#C4C4C4"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div *ngIf="showOfftime" class="offtime-seperator"></div>
+      <ng-container *ngFor="let contact of contactList; let index = index">
+        <div
+          #audienceElem
+          class="list-item"
+          [ngClass]="{
+            'off-time': contact.is_offtime,
+            active: contact.id === audience.id,
+            unread: contact?.notify_status === 'UNREAD' || false
+          }"
+          *ngIf="showOfftime ? (!contact.is_offtime ? true : false) : true"
+          (click)="onSelectAudience(contact)"
+        >
+          <!--  -->
+          <div class="list-item-account">
+            <div class="relative profile">
+              <div class="status">
+                {{ contact.status | translate | status: 'status-shorthand' }}
+              </div>
+              <img [src]="contact?.profile_pic" class="image" onerror="src='assets/img/customer/customer_error.svg'" />
+              <svg
+                *ngIf="contact?.platform !== EAudiencePlatformType.LINEOA"
+                alt="facebook-icon"
+                class="absolute bottom-0 right-0 z-10"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#0075FB" />
+                <path
+                  d="M9.84372 4.39307H10.8475V2.67584C10.6743 2.65244 10.0787 2.59979 9.38511 2.59979C6.20919 2.59979 7.07327 6.13236 6.94682 6.64987H5.34924V8.5696H6.94636V13.4H8.9045V8.57005H10.437L10.6803 6.65032H8.90405C8.99018 5.37949 8.55539 4.39307 9.84372 4.39307Z"
+                  fill="white"
+                />
+              </svg>
+              <svg
+                *ngIf="contact?.platform === EAudiencePlatformType.LINEOA"
+                alt="line-icon"
+                class="absolute bottom-0 right-0 z-10"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#00B900" />
+                <path
+                  d="M8.00001 3.79102C5.28272 3.79102 3.07068 5.59195 3.07068 7.80524C3.07068 9.78758 4.8247 11.4485 7.19284 11.7642C7.35345 11.7982 7.57198 11.8706 7.62744 12.0074C7.67673 12.1315 7.65989 12.3231 7.64305 12.4525L7.57568 12.8727C7.5572 12.9967 7.47709 13.3612 8.00659 13.1384C8.5369 12.9165 10.8475 11.4579 11.8827 10.2642C12.5909 9.48619 12.9294 8.68892 12.9294 7.80524C12.9294 5.59195 10.7173 3.79102 8.00001 3.79102ZM6.07059 9.12134H5.09047C4.94876 9.12134 4.83168 9.00381 4.83168 8.86213V6.89617C4.83168 6.75408 4.94876 6.63656 5.09047 6.63656C5.23342 6.63656 5.34926 6.75408 5.34926 6.89617V8.60251H6.07059C6.21354 8.60251 6.32897 8.71922 6.32897 8.86213C6.32897 9.00381 6.21313 9.12134 6.07059 9.12134ZM7.08357 8.86213C7.08357 9.00381 6.96773 9.12134 6.82437 9.12134C6.68265 9.12134 6.56681 9.00381 6.56681 8.86213V6.89617C6.56681 6.75408 6.68265 6.63656 6.8256 6.63656C6.96773 6.63656 7.08357 6.75408 7.08357 6.89617V8.86213ZM9.44185 8.86213C9.44185 8.97351 9.37037 9.0722 9.26439 9.10782C9.2381 9.11642 9.20976 9.12052 9.18264 9.12052C9.09597 9.12052 9.02203 9.08325 8.97315 9.01733L7.96962 7.65045V8.86172C7.96962 9.0034 7.85501 9.12093 7.71042 9.12093C7.56829 9.12093 7.45327 9.0034 7.45327 8.86172V6.89617C7.45327 6.78479 7.52433 6.6861 7.6299 6.65089C7.65455 6.64147 7.68577 6.63738 7.70959 6.63738C7.7897 6.63738 7.86364 6.68037 7.91293 6.7422L8.92427 8.1144V6.89617C8.92427 6.75408 9.0401 6.63656 9.18306 6.63656C9.32477 6.63656 9.44185 6.75408 9.44185 6.89617V8.86213ZM11.0254 7.61933C11.1688 7.61933 11.2842 7.73685 11.2842 7.87936C11.2842 8.02145 11.1688 8.13897 11.0254 8.13897H10.3045V8.60251H11.0254C11.1688 8.60251 11.2842 8.71922 11.2842 8.86213C11.2842 9.00381 11.1688 9.12134 11.0254 9.12134H10.0453C9.90356 9.12134 9.78772 9.00381 9.78772 8.86213V6.89617C9.78772 6.75408 9.90356 6.63656 10.0465 6.63656H11.0266C11.1688 6.63656 11.2842 6.75408 11.2842 6.89617C11.2842 7.0399 11.1688 7.15579 11.0254 7.15579H10.3045V7.61933H11.0254Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <div class="list-item-name">
+              <div class="name" *ngIf="contact?.platform === EAudiencePlatformType.LINEOA">
+                {{ contact.first_name + ' ' + (contact.aliases !== null ? contact.aliases : '') | textTrim: 50 }}
+              </div>
+              <div class="name" *ngIf="contact?.platform === EAudiencePlatformType.FACEBOOKFANPAGE">
+                {{ contact.first_name + ' ' + (contact.last_name !== null ? contact.last_name : '') + ' ' + (contact.aliases !== null ? contact.aliases : '') | textTrim: 50 }}
+              </div>
+              <div class="tags">
+                <ng-container *ngFor="let tag of contact?.tags; let tagIndex = index">
+                  <div class="bubble" *ngIf="tagIndex <= 2">
+                    <div class="tag-color" [ngStyle]="{ background: customerTagEnum[tag.color] }"></div>
+                    <div class="tooltip">{{ tag.name }}</div>
+                  </div>
+                </ng-container>
+                <div *ngIf="contact?.tags?.length - 3 > 0">
+                  <div class="text flex">{{ contact?.tags?.length - 3 }}+ Tag<span *ngIf="contact?.tags?.length - 3 > 1">s</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="list-item-date">
+              <div class="time">
+                {{ contact?.last_platform_activity_date | timeAgo }}
+              </div>
+              <div class="user-action">
+                <div class="agent-list">
+                  <div class="plus-agent" *ngIf="agentList[contact.id] && agentList[contact.id].length > 3">+{{ agentList[contact.id].length - 3 }}</div>
+                  <div *ngFor="let agent of agentList[contact.id]; let i = index; trackBy: trackByAudienceId">
+                    <img *ngIf="i < 3" [src]="agent.picture" [matTooltip]="agent.name" />
+                  </div>
+                  <img *ngIf="!agentList[contact.id]" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" />
+                </div>
+                <div class="repiled" *ngIf="!contact.is_notify">
+                  <svg
+                    _ngcontent-jrr-c432=""
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="min-width: 15px"
+                    class="ng-star-inserted"
+                  >
+                    <path
+                      _ngcontent-jrr-c432=""
+                      d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+                      fill="#C4C4C4"
+                    ></path>
+                    <path
+                      _ngcontent-jrr-c432=""
+                      d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+                      fill="#C4C4C4"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="load-more" *ngIf="loadMore" (click)="loadMoreList()">Load more</div>
+    </div>
+  </div>
+  <button class="chat-list-toggle" (click)="onContactListLayoutStatusToggle()">
+    <svg [ngClass]="{ flip: !contactListLayoutStatus }" width="15" height="21" viewBox="0 0 15 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M10.9356 0.875004C11.2285 1.1679 11.2285 1.64277 10.9356 1.93566L2.46593 10.4053L10.9356 18.875C11.2285 19.1679 11.2285 19.6428 10.9356 19.9357C10.6427 20.2286 10.1678 20.2286 9.87494 19.9357L0.344613 10.4053L9.87494 0.875004C10.1678 0.582111 10.6427 0.582111 10.9356 0.875004Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M14.591 1.21967C14.8839 1.51256 14.8839 1.98744 14.591 2.28033L6.12133 10.75L14.591 19.2197C14.8839 19.5126 14.8839 19.9874 14.591 20.2803C14.2981 20.5732 13.8232 20.5732 13.5303 20.2803L4.00001 10.75L13.5303 1.21967C13.8232 0.926777 14.2981 0.926777 14.591 1.21967Z"
+        fill="white"
+      />
+    </svg>
+  </button>
+</div>

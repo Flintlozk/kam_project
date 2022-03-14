@@ -1,0 +1,29 @@
+<section [attr.id]="contentManagementValue.general.pattern._id" class="itp-content-pattern">
+  <ng-container *ngFor="let contentItem of contentCategoryDataChuck; trackBy: trackByIndex">
+    <section class="main-container" [ngStyle]="layoutStyle.container">
+      <ng-contaner *ngIf="contentItem[0] as primaryArray">
+        <ng-container *ngIf="primaryArray.length">
+          <div class="primary-container itp-detail-true" [ngStyle]="layoutStyle.primary">
+            <ng-container *ngFor="let primaryArrayItem of primaryArray; trackBy: trackByIndex">
+              <div class="primary-content">
+                <cms-next-cms-content-manage-layout-item [contentSetting]="contentSetting" [content]="primaryArrayItem"></cms-next-cms-content-manage-layout-item>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-contaner>
+      <ng-contaner *ngIf="contentItem[1] as secondaryArray">
+        <ng-container *ngIf="secondaryArray.length">
+          <div class="secondary-container itp-sub-detail-true" [ngStyle]="layoutStyle.secondary">
+            <ng-container *ngFor="let secondaryArrayItem of secondaryArray; trackBy: trackByIndex">
+              <div class="secondary-content">
+                <cms-next-cms-content-manage-layout-item [contentSetting]="contentSetting" [content]="secondaryArrayItem"></cms-next-cms-content-manage-layout-item>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-contaner>
+    </section>
+  </ng-container>
+</section>
+<section [innerHTML]="safeCSS"></section>

@@ -1,0 +1,48 @@
+<section>
+  <div
+    (click)="onActivateChildContainer()"
+    [ngClass]="{ 'bg-green-100 hover:bg-green-100': pageDesignMenu.isActive }"
+    class="flex items-center justify-between px-4 py-2 transition bg-itopplus-300 rounded cursor-pointer design-section hover:bg-gray-200 hover:text-itopplus-200 text-white"
+  >
+    <div class="flex items-center">
+      <div class="flex items-center justify-center h-10 mr-4 w-14">
+        <img [src]="pageDesignMenu.isActive ? pageDesignMenu.activeIcon : pageDesignMenu.icon" [alt]="pageDesignMenu.title" />
+      </div>
+      <div class="font-base">{{ pageDesignMenu.title }}</div>
+    </div>
+    <div class="transition transform stroke-current icon-toggle" [ngClass]="{ 'text-gray-300': !pageDesignMenu.isActive, 'text-green-500 -rotate-90': pageDesignMenu.isActive }">
+      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 11L6 6L1 1" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div [@fadeBoxAnimation] [ngClass]="{ hidden: !pageDesignMenu.isActive }" class="grid gap-2 pt-2 pb-4">
+    <div #text1 class="p-4 bg-white border border-gray-100 rounded-md hover:bg-green-100 group cursor-move">
+      <p class="ql-font-prompt" style="font-size: 18px">Loream</p>
+      <p class="ql-font-prompt" style="font-size: 14px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id accumsan, id vitae amet, varius. Id amet aliquam penatibus eget pellentesque est
+      </p>
+    </div>
+    <div #text2 class="p-4 bg-white border border-gray-100 rounded-md hover:bg-green-100 group cursor-move">
+      <p class="ql-font-racing" style="font-size: 18px">Loream</p>
+      <p class="ql-font-racing" style="font-size: 14px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id accumsan, id vitae amet, varius. Id amet aliquam penatibus eget pellentesque est
+      </p>
+    </div>
+    <div #text3 class="p-4 bg-white border border-gray-100 rounded-md hover:bg-green-100 group cursor-move">
+      <p class="ql-font-quantico" style="font-size: 14px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id accumsan, id vitae amet, varius. Id amet aliquam penatibus eget pellentesque est
+      </p>
+    </div>
+    <div #text4 class="p-4 bg-white border border-gray-100 rounded-md hover:bg-green-100 group cursor-move">
+      <p class="ql-font-colombo" style="font-size: 14px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id accumsan, id vitae amet, varius. Id amet aliquam penatibus eget pellentesque est
+      </p>
+    </div>
+    <div #text5 class="p-4 bg-white border border-gray-100 rounded-md hover:bg-green-100 group cursor-move">
+      <p class="ql-font-neucha" style="font-size: 14px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id accumsan, id vitae amet, varius. Id amet aliquam penatibus eget pellentesque est enim nam tristique.
+      </p>
+    </div>
+  </div>
+</section>

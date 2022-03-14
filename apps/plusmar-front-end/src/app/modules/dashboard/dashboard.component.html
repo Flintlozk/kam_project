@@ -1,0 +1,44 @@
+<div class="dashboard">
+  <reactor-room-heading [headingTitle]="'Dashboard' | translate" [Route]="'Dashboard' | translate">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <reactor-room-filter [isExportAvailable]="false" [isOnlyExportAll]="true" [yesterdayActive]="false" [searchActive]="false" [customActive]="true"></reactor-room-filter>
+
+  <ng-container *ngIf="ready && isCommerceLayout">
+    <div class="container">
+      <div class="grid-4" [ngClass]="{ 'grid-3': featureControl.SLA === false, 'grid-4': featureControl.SLA === true }">
+        <reactor-room-total-revenue [total]="widgetsData?.total_revenue"></reactor-room-total-revenue>
+        <reactor-room-total-customer-sla *ngIf="featureControl.SLA === true" [data]="widgetsData"></reactor-room-total-customer-sla>
+        <reactor-room-total-leads [data]="widgetsData"></reactor-room-total-leads>
+        <reactor-room-total-potential-customers [data]="widgetsData"></reactor-room-total-potential-customers>
+      </div>
+      <div class="grid-2">
+        <reactor-room-dashboard-customers [data]="customersData" [isLoading]="isCustomerDashboardLoading"></reactor-room-dashboard-customers>
+        <reactor-room-dashboard-audience [data]="audienceData" [isLoading]="isAudienceDashboardLoading"></reactor-room-dashboard-audience>
+      </div>
+      <div class="grid">
+        <reactor-room-dashboard-lead-steps [data]="widgetsData"></reactor-room-dashboard-lead-steps>
+      </div>
+      <div class="grid">
+        <reactor-room-total-customers [data]="ordersData"></reactor-room-total-customers>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="ready && !isCommerceLayout">
+    <div class="container">
+      <div class="grid-2">
+        <reactor-room-total-leads [data]="widgetsData"></reactor-room-total-leads>
+        <reactor-room-total-potential-customers [data]="widgetsData"></reactor-room-total-potential-customers>
+      </div>
+      <div class="grid-2">
+        <!-- <reactor-room-dashboard-customer-service [businessDashboard]="true"></reactor-room-dashboard-customer-service>  -->
+        <reactor-room-dashboard-customers [data]="customersData" [isLoading]="isCustomerDashboardLoading"></reactor-room-dashboard-customers>
+        <reactor-room-dashboard-audience [data]="audienceData" [isLoading]="isAudienceDashboardLoading"></reactor-room-dashboard-audience>
+      </div>
+      <div class="grid">
+        <reactor-room-dashboard-leads [customersData]="leadsData" [widgetsData]="widgetsData"> </reactor-room-dashboard-leads>
+      </div>
+    </div>
+  </ng-container>
+</div>

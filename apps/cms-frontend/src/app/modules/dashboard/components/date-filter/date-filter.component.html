@@ -1,0 +1,33 @@
+<section class="flex items-center p-6 bg-white border border-gray-200 rounded-md">
+  <div class="select-options">
+    <mat-form-field appearance="fill">
+      <mat-select [(value)]="selectedOption" (selectionChange)="optionSelected($event)">
+        <mat-option *ngFor="let datePickerItem of datePicker" [value]="datePickerItem.key">
+          {{ datePickerItem.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="ml-4 date-range">
+    <mat-form-field appearance="fill">
+      <mat-date-range-input [formGroup]="dateRangeForm" [rangePicker]="dateRangePicker" [min]="minDatePicker" [max]="datePicker[0].values.startDate">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="dateRangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker (closed)="listenOnDateChange()" #dateRangePicker></mat-date-range-picker>
+      <button (click)="dateRangePicker.open()" class="focus:outline-none">
+        <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="19" height="17.6667" rx="2.5" fill="#BCC4D6" stroke="#BCC4D6" />
+          <path d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H17C18.3807 0.5 19.5 1.61929 19.5 3V4.83333H0.5V3Z" fill="white" fill-opacity="0.7" stroke="#BCC4D6" />
+          <rect x="4" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+          <rect x="8.5" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+          <rect x="13" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+          <rect x="4" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+          <rect x="8.5" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+          <rect x="13" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+        </svg>
+      </button>
+    </mat-form-field>
+  </div>
+</section>

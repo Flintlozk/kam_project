@@ -1,0 +1,82 @@
+@import 'base';
+@import 'buttons';
+.customer-service-issue-type-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    padding-top: 20px;
+    .labels {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      .label {
+        color: #576f83;
+        font-size: 12px;
+        font-weight: 300;
+        padding-bottom: 10px;
+      }
+    }
+    .inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      padding-bottom: 10px;
+      input {
+        width: calc(100% - 30px);
+        padding: 0px 15px;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+      }
+      .select {
+        position: relative;
+        .select-options {
+          @extend .select-option;
+          width: calc(100% - 60px);
+        }
+        .func {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          right: 0px;
+          bottom: 10px;
+          width: 50px;
+          img {
+            margin-right: 10px;
+            width: 15px;
+            cursor: pointer;
+          }
+
+          .add-icon {
+            background: $main-color;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 50%;
+            margin-right: 10px;
+            cursor: pointer;
+
+            img {
+              margin: 0px;
+              width: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

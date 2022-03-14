@@ -1,0 +1,191 @@
+@import 'base';
+@import 'buttons';
+
+.adding-note-container {
+  // box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 5%);
+  .note-label {
+    display: flex;
+    padding: 10px 30px;
+    font-weight: 300;
+    color: #577083;
+  }
+  .note-wrapper {
+    display: flex;
+    align-items: flex-start;
+    padding: 0px 30px 15px 30px;
+
+    input {
+      box-shadow: none;
+      border: 1px solid #dddfea;
+      border-radius: 8px;
+      padding: 0px 15px;
+      width: 100%;
+      height: 35px;
+      outline: none;
+
+      ::placeholder {
+        font-size: italic;
+        color: #d8dadd;
+      }
+    }
+
+    textarea {
+      box-shadow: none;
+      border: 1px solid #dddfea;
+      border-radius: 8px;
+      padding: 0px 15px;
+      width: 100%;
+      height: 35px;
+      outline: none;
+      max-height: 120px;
+      @include custom-scroll-bar();
+      ::placeholder {
+        font-size: italic;
+        color: #d8dadd;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      @include btn-active();
+
+      height: 40px;
+      min-width: 87px !important;
+      padding: 0px;
+      margin-left: 10px;
+      .text {
+        margin-left: 4px;
+      }
+    }
+  }
+}
+
+.saved-note-container {
+  padding: 15px 30px 30px 30px;
+
+  @media #{$mobilemax} {
+    padding: 15px;
+  }
+
+  .header-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    .title {
+      font-weight: 300;
+      color: #577083;
+    }
+    .search {
+      input {
+        box-shadow: none;
+        border: 1px solid #dddfea;
+        border-radius: 8px;
+        padding: 0px 15px;
+        width: 100%;
+        height: 35px;
+        outline: none;
+      }
+    }
+  }
+
+  .content-wrapper {
+    margin: 10px;
+    min-height: 100px;
+    overflow: auto;
+    @include custom-scroll-bar();
+
+    .note-wrapper {
+      margin: 15px 0;
+      border-bottom: 1px solid #dddfea;
+      .saved-not-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        padding: 0 15px;
+        .note-item {
+          display: flex;
+          flex-direction: column;
+
+          .note {
+            cursor: pointer;
+            display: flex;
+            word-break: break-all;
+            margin-right: 5%;
+            white-space: pre-wrap;
+            .edit-on-hover {
+              margin-left: 4px;
+              opacity: 0;
+              top: 4px;
+              transition-property: opacity;
+              transition-duration: 0.2s;
+              transition-delay: 0.1s;
+            }
+
+            &:hover > {
+              .edit-on-hover {
+                opacity: 1;
+              }
+            }
+          }
+          .detail {
+            display: flex;
+            font-weight: 300;
+            font-size: 12px;
+            color: #aaa;
+          }
+
+          .edit-note {
+            display: none;
+            box-shadow: none;
+            border: 1px solid #dddfea;
+            border-radius: 8px;
+            padding: 0px 8px;
+            width: 100%;
+            height: 80px;
+            outline: none;
+            resize: none;
+            min-height: 40px;
+            @include custom-scroll-bar();
+          }
+          .edit-note-action {
+            display: none;
+            font-size: 13px;
+            font-weight: 100;
+
+            .save {
+              font-weight: 400;
+              color: $main-color;
+              cursor: pointer;
+            }
+
+            .cancel {
+              font-weight: 400;
+              color: $error-color;
+              cursor: pointer;
+            }
+            span {
+              margin: 4px;
+            }
+          }
+
+          &.edit {
+            .note {
+              display: none;
+            }
+            .edit-note {
+              display: block;
+            }
+            .edit-note-action {
+              display: flex;
+            }
+          }
+        }
+        .delete {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

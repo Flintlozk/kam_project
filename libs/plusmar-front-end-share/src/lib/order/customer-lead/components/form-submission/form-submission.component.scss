@@ -1,0 +1,332 @@
+@import 'base';
+@import 'buttons';
+
+.leads-new-form {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  min-height: 700px;
+
+  .heading-content {
+    justify-content: flex-end;
+    margin-bottom: 8px;
+
+    .btns {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      //gap: 10px;
+      .btn-back {
+        @extend .btn-inactive;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+
+      .btn-select-form {
+        @include btn-active();
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .head {
+    padding: 15px 20px;
+    background-color: white;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    grid-gap: 20px;
+    background: white;
+
+    @media #{$mobilemax} {
+      grid-template-columns: auto;
+
+      reactor-room-chatbox {
+        grid-row-start: 1;
+      }
+    }
+
+    .content {
+      .card-content {
+        .title {
+          padding: 10px 20px;
+          font-size: 1em;
+          border-bottom: 1px solid $border-color;
+
+          span:nth-of-type(1) {
+            color: $main-color;
+          }
+
+          span:nth-of-type(2) {
+            color: $text-dark-color;
+          }
+        }
+
+        .form-render {
+          padding: 20px;
+        }
+      }
+    }
+
+    input {
+      width: calc(100% - 30px);
+      border-radius: 8px;
+      padding: 11.5px 15px;
+      border: 1px solid $border-color;
+
+      &:disabled {
+        background-color: rgba(243, 245, 249, 1);
+      }
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0px 15px;
+      height: 35px;
+
+      .func {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: calc(100% + 10px);
+        width: 100%;
+
+        img {
+          margin-right: 10px;
+          width: 15px;
+          cursor: pointer;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        .add-icon {
+          background: $main-color;
+          width: 15px;
+          height: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          border-radius: 50%;
+          margin-right: 10px;
+          cursor: pointer;
+
+          img {
+            margin: 0px;
+            width: 10px;
+            image-rendering: -webkit-optimize-contrast;
+          }
+        }
+      }
+    }
+
+    .label {
+      color: #576f83;
+      padding-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .names {
+      display: inherit;
+      padding: 30px;
+      min-height: calc(100vh - 390px);
+      .item {
+        margin-bottom: 30px;
+
+        input {
+          max-width: 558px;
+        }
+
+        // input[type='tel'] {
+        //     width: 70%;
+        // }
+      }
+    }
+
+    .footer {
+      width: 100%;
+
+      button {
+        width: 100%;
+        height: 33px;
+        color: white;
+        border: none;
+        background-color: #54b1ff;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .editor {
+      padding-top: 20px;
+    }
+  }
+}
+
+.lead-form-action-btn {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 10px;
+}
+
+.container-close {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+  color: $text-darker-color;
+
+  @media #{$mobilemax} {
+    grid-template-columns: auto;
+
+    reactor-room-chatbox {
+      grid-row-start: 1;
+    }
+  }
+
+  .alert {
+    color: #dc493d;
+    font-size: 12px;
+  }
+
+  .form {
+    border-radius: 8px;
+    background: white;
+
+    .head {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgb(221, 223, 234);
+
+      span:nth-of-type(1) {
+        font-size: 18px;
+      }
+
+      .change-form {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 18px;
+          height: 18px;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        span {
+          font-weight: 200;
+          font-size: 14px;
+          color: #484b52;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    input {
+      width: calc(100% - 30px);
+      border-radius: 8px;
+      padding: 11.5px 15px;
+      border: 1px solid $border-color;
+
+      &:disabled {
+        background-color: rgba(243, 245, 249, 1);
+      }
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0px 15px;
+      height: 35px;
+
+      .func {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: calc(100% + 10px);
+        width: 100%;
+
+        img {
+          margin-right: 10px;
+          width: 15px;
+          cursor: pointer;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        .add-icon {
+          background: $main-color;
+          width: 15px;
+          height: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          border-radius: 50%;
+          margin-right: 10px;
+          cursor: pointer;
+
+          img {
+            margin: 0px;
+            width: 10px;
+            image-rendering: -webkit-optimize-contrast;
+          }
+        }
+      }
+    }
+
+    .label {
+      color: #576f83;
+      padding-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .names {
+      display: inherit;
+      padding: 30px;
+      min-height: calc(100vh - 390px);
+      .item {
+        margin-bottom: 30px;
+
+        input {
+          max-width: 558px;
+        }
+
+        // input[type='tel'] {
+        //     width: 70%;
+        // }
+      }
+    }
+
+    .footer {
+      width: 100%;
+
+      button {
+        width: 100%;
+        height: 33px;
+        color: white;
+        border: none;
+        background-color: #54b1ff;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .editor {
+      padding-top: 20px;
+    }
+  }
+
+  .chat-box {
+    min-height: 726px;
+  }
+}

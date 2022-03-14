@@ -1,0 +1,99 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/crm-frontend",
+  "sourceRoot": "apps/crm-frontend/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/crm-frontend",
+        "index": "apps/crm-frontend/src/index.html",
+        "allowedCommonJsDependencies": ["lodash", "zen-observable", "chart.js", "graphql-tag", "joi-date-dayjs", "dayjs/locale/th", "subscriptions-transport-ws"],
+        "main": "apps/crm-frontend/src/main.ts",
+        "polyfills": "apps/crm-frontend/src/polyfills.ts",
+        "tsConfig": "apps/crm-frontend/tsconfig.app.json",
+        "aot": true,
+        "assets": ["apps/crm-frontend/src/favicon.ico", "apps/crm-frontend/src/assets"],
+        "styles": ["apps/crm-frontend/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/crm-frontend/src/environments/environment.ts",
+              "with": "apps/crm-frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "5mb",
+              "maximumError": "10mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "20kb",
+              "maximumError": "50kb"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "crm-frontend:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "crm-frontend:build:production"
+        },
+        "development": {
+          "browserTarget": "crm-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "crm-frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/crm-frontend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/crm-frontend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,23 @@
+{
+  "Product Categories": "หมวดหมู่สินค้า",
+  "Amount": "จำนวน",
+  "Attribute(s)": "แอตทริบิวต์",
+  "Product Name": "ชื่อผลิตภัณฑ์",
+  "Discount": "ส่วนลด",
+  "Price": "ราคา",
+  "Select Status": "เลือกสถานะ",
+  "In Stock": "มีสินค้า",
+  "Out of Stock": "สินค้าหมด",
+  "Member Price": "ราคาสมาชิก",
+  "After Discount": "หลังหักส่วนลด",
+  "Open Photo Library": "เปิดคลังรูปภาพ",
+  "Select From File Manage": "เลือกจากจัดการไฟล์",
+  "Product Price is required": "ต้องระบุราคาสินค้า",
+  "Product Discount is required": "จำเป็นต้องมีส่วนลดสินค้า",
+  "Product Amount is required": "ต้องระบุจำนวนสินค้า",
+  "Original Price is required": "ต้องระบุราคาเดิม",
+  "Sale Price is required": "ต้องระบุราคาขาย",
+  "Delete Confirm": "ลบยืนยัน",
+  "Are you sure to delete this image?": "แน่ใจหรือว่าจะลบภาพนี้?",
+  "Withhold": "สินค้าติดจอง"
+}

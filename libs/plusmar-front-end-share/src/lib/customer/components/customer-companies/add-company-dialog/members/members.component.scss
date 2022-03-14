@@ -1,0 +1,7 @@
+@import 'base';
+.overflow-on-mobile {
+  @media #{$mobilemax} {
+    overflow: auto;
+    max-height: calc(100vh - 300px);
+  }
+}

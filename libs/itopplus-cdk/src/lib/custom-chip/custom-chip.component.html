@@ -1,0 +1,20 @@
+<div class="chips-container border border-gray-400">
+  <mat-form-field appearance="none">
+    <mat-chip-list #chipList>
+      <mat-chip class="custom-chips" *ngFor="let item of inputControl.value">
+        {{ item }}
+        <button (click)="removeItem(item)">
+          <span class="custom-chips-cancel">X</span>
+        </button>
+      </mat-chip>
+      <input
+        [formControl]="formField"
+        [readonly]="is_readonly"
+        (keyup.enter)="addItem()"
+        class="w-full font-light border border-gray-200"
+        [matChipInputFor]="chipList"
+        type="text"
+      />
+    </mat-chip-list>
+  </mat-form-field>
+</div>

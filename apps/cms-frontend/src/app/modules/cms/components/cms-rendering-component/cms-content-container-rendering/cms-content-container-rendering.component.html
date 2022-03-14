@@ -1,0 +1,7 @@
+<div class="w-full flex-1 h-full relative min-h-100" #contentContainerDropZone>
+  <div class="guideline absolute right-full top-0 bg-green-500 h-full mr-2 w-8 rounded-l-md flex items-center justify-center">
+    <div class="text-white font-light transform uppercase" style="transform: rotate(270deg)">Content</div>
+  </div>
+  <ng-container #contentContainerInsertPoint></ng-container>
+  <ng-content></ng-content>
+</div>

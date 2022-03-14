@@ -1,0 +1,204 @@
+@import 'base';
+
+.admin-sla-all-staff-container {
+  display: flex;
+  // row-gap: 10px;
+  // column-gap: 10px;
+
+  border-radius: 10px;
+  min-height: 100px;
+  background: #fff;
+  flex-flow: column;
+  padding: 20px 30px;
+  margin-bottom: 10px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+      font-size: 20px;
+      .red {
+        color: #ea6161;
+      }
+    }
+
+    .zoom {
+      font-size: 14px;
+
+      ::ng-deep.mat-accent .mat-slider-track-fill {
+        background-color: $main-color !important;
+      }
+
+      ::ng-deep.mat-slider-thumb-label {
+        background-color: $main-color !important;
+      }
+
+      ::ng-deep.mat-slider-thumb {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .content {
+    // margin-top: 15px;
+    display: flex;
+    // row-gap: 10px; // !
+    // column-gap: 10px; // !
+    flex-wrap: wrap;
+
+    .card-container {
+      margin: 5px;
+      display: flex;
+      flex-flow: column;
+
+      box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+      background: #fff;
+      min-height: 150px;
+      min-width: 410px; // expanded
+      // min-width: 360px; // collpased
+
+      .card-top {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+
+        .card-top-left {
+          padding: 16px;
+          display: flex;
+          flex-flow: row;
+          .users-profile {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            img {
+              position: absolute;
+              left: 0;
+              width: 25px;
+              height: 25px;
+              border-radius: 50%;
+            }
+
+            img:nth-child(0) {
+              z-index: 10;
+            }
+            img:nth-child(1) {
+              z-index: 9;
+            }
+            img:nth-child(2) {
+              z-index: 8;
+            }
+            img:nth-child(3) {
+              z-index: 7;
+            }
+            img:nth-child(4) {
+              z-index: 6;
+            }
+            img:nth-child(5) {
+              z-index: 5;
+            }
+            img:nth-child(6) {
+              z-index: 4;
+            }
+            img:nth-child(7) {
+              z-index: 3;
+            }
+            img:nth-child(8) {
+              z-index: 2;
+            }
+            img:nth-child(9) {
+              z-index: 1;
+            }
+            img:nth-child(10) {
+              z-index: 0;
+            }
+          }
+          .tag-name {
+            font-size: 22px;
+            color: #000;
+          }
+        }
+        .card-top-right {
+          padding: 16px;
+          color: #000;
+          display: flex;
+          text-align: right;
+          flex-flow: column;
+
+          .score {
+            font-size: 24px;
+          }
+          .title {
+            font-size: 12px;
+            font-weight: 200;
+          }
+        }
+      }
+      .card-bottom {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+
+        border-top: 1px solid #e5e8ee;
+
+        .card-score {
+          text-align: center;
+          display: flex;
+          flex-flow: column;
+          padding: 12px;
+          width: 100%;
+
+          .title {
+            font-size: 12px;
+            font-weight: 300;
+            white-space: nowrap;
+          }
+
+          .score {
+            font-size: 30px;
+          }
+
+          &.process {
+            background: #fff;
+            border: 1px solid #e5e8ee;
+          }
+          &.almost {
+            background: #fff;
+            border: 1px solid #e5e8ee;
+          }
+          &.over {
+            background: #fff;
+            border: 1px solid #e5e8ee;
+          }
+        }
+
+        &.almost {
+          border-top: 1px solid #dc9f3d;
+          .card-score {
+            &.almost {
+              border: none;
+              background: #dc9f3d;
+              color: #fff;
+            }
+          }
+        }
+        &.over {
+          border-top: 1px solid #ea6161;
+          .card-score {
+            &.over {
+              border: none;
+              background: #ea6161;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .no-data {
+      margin: 20px auto;
+    }
+  }
+}

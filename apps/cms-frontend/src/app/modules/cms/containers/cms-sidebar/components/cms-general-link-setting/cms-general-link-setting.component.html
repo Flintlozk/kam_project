@@ -1,0 +1,82 @@
+<div class="grid gap-2" [formGroup]="generalLinkSettingForm">
+  <div class="text-sm font-light">Link Type</div>
+  <div class="select-options" *ngIf="generalLinkSettingForm['controls']['linkType'] as linkTypeForm">
+    <mat-form-field appearance="fill">
+      <mat-select (selectionChange)="onLinkTypeChange($event)" formControlName="linkType" [(value)]="linkTypeForm.value">
+        <mat-option *ngFor="let linkType of linkTypeData" [value]="linkType.value">
+          {{ linkType.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <ng-container *ngIf="currentLinkType === ElinkType.URL">
+    <input placeholder="Enter URL..." type="text" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.PAGE">
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select A Page" formControlName="linkValue">
+          <mat-option *ngFor="let page of pageData" [value]="page.value">
+            {{ page.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.PRODUCT">
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select A Product Page" formControlName="linkValue">
+          <mat-option *ngFor="let page of productPageData" [value]="page.value">
+            {{ page.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.CONTENT">
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select A Content" formControlName="linkValue">
+          <mat-option *ngFor="let page of contentPageData" [value]="page.value">
+            {{ page.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.POPUP">
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select A Popup" formControlName="linkValue">
+          <mat-option *ngFor="let page of popupPageData" [value]="page.value">
+            {{ page.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.ANCHOR">
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select A Page" formControlName="parentID">
+          <mat-option *ngFor="let page of pageData" [value]="page.value">
+            {{ page.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Select An Anchor" formControlName="linkValue">
+          <mat-option *ngFor="let anchor of anchorData" [value]="anchor.value">
+            {{ anchor.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentLinkType === ElinkType.EMAIL">
+    <input placeholder="Enter Email..." type="email" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+  </ng-container>
+</div>

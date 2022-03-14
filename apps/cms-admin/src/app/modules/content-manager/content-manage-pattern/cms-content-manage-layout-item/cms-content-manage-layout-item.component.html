@@ -1,0 +1,37 @@
+<section [attr.id]="content?._id" class="content">
+  <div class="content-image">
+    <img [src]="content?.coverImage" [alt]="content[0]?.title" onerror="src='assets/shared/no-image.svg'" />
+  </div>
+  <div class="content-info">
+    <div class="content-title">
+      {{ content.language[0]?.title }}
+    </div>
+    <div class="content-sub-title">
+      {{ content.language[0]?.subTitle }}
+    </div>
+    <div class="content-date-view">
+      <div class="content-date">
+        <svg class="stroke-current" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.85" y="0.85" width="18.3" height="16.9667" rx="2.15" stroke-width="1.7" />
+          <path d="M0.85 3C0.85 1.81259 1.81259 0.85 3 0.85H17C18.1874 0.85 19.15 1.81259 19.15 3V4.48333H0.85V3Z" stroke-width="1.7" />
+        </svg>
+        {{ content?.startDate }}
+      </div>
+      <div class="content-view">
+        <svg class="fill-current" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.237851 5.92375C2.94886 2.03771 6.46397 0 9.98548 0C14.1213 0 17.684 2.69438 19.786 5.94077L19.7869 5.9423C19.926 6.15842 20 6.41001 20 6.66703C20 6.92358 19.9263 7.17472 19.7877 7.39058C17.6876 10.6788 14.1479 13.3328 9.98548 13.3328C5.7787 13.3328 2.30729 10.6843 0.21234 7.40568C0.0699908 7.18464 -0.00384073 6.92644 0.000153936 6.66353C0.00415853 6.39997 0.0861975 6.14351 0.235904 5.92655L0.237851 5.92375ZM1.33329 6.68379L1.33513 6.68666C3.2701 9.71556 6.37142 11.9995 9.98548 11.9995C13.559 11.9995 16.7272 9.70586 18.6645 6.67218L18.6658 6.67019C18.6664 6.66924 18.6667 6.66815 18.6667 6.66703C18.6667 6.66656 18.6667 6.66609 18.6666 6.66564C18.6664 6.66507 18.6662 6.66451 18.6659 6.66401C16.7212 3.66132 13.5271 1.33328 9.98548 1.33328C7.01301 1.33328 3.86674 3.05371 1.33329 6.68379Z"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9.99966 3.99985C8.52696 3.99985 7.3331 5.19371 7.3331 6.66641C7.3331 8.13911 8.52696 9.33297 9.99966 9.33297C11.4724 9.33297 12.6662 8.13911 12.6662 6.66641C12.6662 5.19371 11.4724 3.99985 9.99966 3.99985ZM5.99982 6.66641C5.99982 4.45736 7.79061 2.66656 9.99966 2.66656C12.2087 2.66656 13.9995 4.45736 13.9995 6.66641C13.9995 8.87546 12.2087 10.6662 9.99966 10.6662C7.79061 10.6662 5.99982 8.87546 5.99982 6.66641Z"
+          />
+        </svg>
+        {{ content?.views ? content?.views : 0 }}
+      </div>
+    </div>
+  </div>
+</section>

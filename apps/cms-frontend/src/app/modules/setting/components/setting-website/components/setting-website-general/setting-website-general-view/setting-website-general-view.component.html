@@ -1,0 +1,248 @@
+<section class="bg-white p-8 col-span-3 shadow-sm">
+  <cms-next-title-underline [title]="'General View'"></cms-next-title-underline>
+  <div class="grid p-8 gap-3 md:grid-cols-3">
+    <div class="grid grid-flow-col gap-3">
+      <div>
+        <svg class="sm:hidden md:block" xmlns="http://www.w3.org/2000/svg" width="74" height="45" viewBox="0 0 74 45" fill="none">
+          <rect x="0.5" y="13.3574" width="73" height="31.1429" rx="1.5" stroke="#D6DBE3" />
+          <path d="M0 2C0 0.895429 0.895431 0 2 0H72C73.1046 0 74 0.895431 74 2V11.0204H0V2Z" fill="#8591AA" />
+        </svg>
+      </div>
+      <div>
+        <small>Header</small>
+        <form [formGroup]="generalHeaderSettingView">
+          <label class="checkbox">
+            <input type="checkbox" class="" formControlName="language_flag" />
+            <span class="checkmark"></span>Language flag
+          </label>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" id="fixed_top_menu" formControlName="fixed_top_menu" />
+                <span class="checkmark"></span>
+                <span class="block"> Fixed top menu&nbsp; </span>
+              </label>
+              <!-- fixed top menu -->
+              <cms-next-setting-website-general-view-fixed-top-menu [dialogForm]="fixed_top_menu"></cms-next-setting-website-general-view-fixed-top-menu>
+              <!-- fixed top menu -->
+              <div class="w-full"></div>
+              <h6>
+                <small class="pl-6 text-gray-500 font-light"><i>this function will display only desktop</i></small>
+              </h6>
+            </div>
+          </div>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="shop_cart" />
+                <span class="checkmark"></span>Shop cart &nbsp;
+              </label>
+              <!-- DIALOG SHOP CART -->
+              <cms-next-setting-website-general-view-shop-cart [dialogForm]="shop_cart"></cms-next-setting-website-general-view-shop-cart>
+              <!-- DIALOG SHOP CART -->
+            </div>
+          </div>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="currency_converter" />
+                <span class="checkmark"></span>Currency Converter &nbsp;
+              </label>
+
+              <!-- currentcy converter -->
+              <cms-next-setting-website-general-view-currency-converter [dialogForm]="currency_converter"></cms-next-setting-website-general-view-currency-converter>
+              <!-- currentcy converter -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="grid grid-flow-col auto-cols-max gap-3">
+      <div>
+        <svg class="sm:hidden md:block" xmlns="http://www.w3.org/2000/svg" width="74" height="49" viewBox="0 0 74 49" fill="none">
+          <rect x="0.5" y="14.5" width="73" height="34" rx="1.5" fill="#8591AA" stroke="#8591AA" />
+          <path d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H72C72.8284 0.5 73.5 1.17157 73.5 2V11.5H0.5V2Z" stroke="#D6DBE3" />
+        </svg>
+      </div>
+      <div>
+        <small>Content</small>
+        <form [formGroup]="generalContentSettingView">
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="scrollbar" />
+            <span class="checkmark"></span>Scrollbar
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="disable_right_click" />
+            <span class="checkmark"></span>Disable Right Click
+          </label>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="back_to_top_button" />
+                <span class="checkmark"></span>Back to top button &nbsp;
+              </label>
+              <!-- Back to top button -->
+              <cms-next-setting-website-general-view-back-to-top [dialogForm]="back_to_top"></cms-next-setting-website-general-view-back-to-top>
+
+              <!-- Back to top button -->
+            </div>
+          </div>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="facebook_comment_tab" />
+                <span class="checkmark"></span>Facebook comment tabs &nbsp;
+              </label>
+              <!-- facebook comment -->
+              <cms-next-setting-website-general-view-facebook-comment [dialogForm]="facebook_comment_tab"></cms-next-setting-website-general-view-facebook-comment>
+              <!-- facebook comment -->
+            </div>
+          </div>
+
+          <div class="mt-2 flex">
+            <div class="flex flex-wrap w-full">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="advertising_display" />
+                <span class="checkmark"></span>Advertising Image Display / Youtube &nbsp;
+              </label>
+
+              <!-- advert -->
+              <cms-next-setting-website-general-view-advert-display [dialogForm]="advertising_display"></cms-next-setting-website-general-view-advert-display>
+              <!-- advert -->
+            </div>
+          </div>
+
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="webp_format_system" />
+            <span class="checkmark"></span>WEBP format system (for pictures)
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="printer" />
+            <span class="checkmark"></span>Printer
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="preview_custom_form" />
+            <span class="checkmark"></span>Preview Custom Form
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <form [formGroup]="loginFormGroup">
+        <div class="grid grid-flow-col auto-cols-max gap-3 mb-8">
+          <div>
+            <svg class="sm:hidden md:block" xmlns="http://www.w3.org/2000/svg" width="74" height="49" viewBox="0 0 74 49" fill="none">
+              <rect x="0.5" y="0.5" width="73" height="48" rx="1.5" stroke="#D6DBE3" />
+              <path d="M18 8C18 6.89543 18.8954 6 20 6H53C54.1046 6 55 6.89543 55 8V40C55 41.6569 53.6569 43 52 43H20C18.8954 43 18 42.1046 18 41V8Z" fill="#8591AA" />
+              <circle cx="30.55" cy="31.55" r="2.55" fill="white" />
+              <circle cx="36.5002" cy="31.55" r="2.55" fill="white" />
+              <circle cx="42.4494" cy="31.55" r="2.55" fill="white" />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M38.4608 18.6914L38.4642 18.7199L39.2947 18.7715C39.8167 18.8039 40.2308 19.2388 40.2308 19.7695V25.0003C40.2308 25.5526 39.7831 26.0003 39.2308 26.0003H34C33.4477 26.0003 33 25.5526 33 25.0003V19.7695C33 19.2389 33.4138 18.8042 33.9357 18.7715L34.7657 18.7196L34.7691 18.6914H38.4608ZM39.3842 17.7753V17.6914H39.3457C39.1257 16.1639 37.9868 15 36.6149 15C35.2431 15 34.1042 16.1639 33.8841 17.6914H33.8457V17.7754C32.8132 17.8542 32 18.7169 32 19.7695V25.0003C32 26.1049 32.8954 27.0003 34 27.0003H39.2308C40.3353 27.0003 41.2308 26.1049 41.2308 25.0003V19.7695C41.2308 18.7166 40.4171 17.8537 39.3842 17.7753ZM34.8979 17.6914C35.1075 16.6195 35.8899 16 36.6149 16C37.3399 16 38.1223 16.6195 38.3319 17.6914H34.8979Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div>
+            <small>Login</small>
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="social_login" />
+              <span class="checkmark"></span>Social Login
+            </label>
+            <div class="pl-6">
+              <small class="text-gray-500 font-light"><i>Ex. facebook, Google, Line</i></small>
+            </div>
+          </div>
+        </div>
+      </form>
+      <form [formGroup]="notificationFormGroup">
+        <div class="grid grid-flow-col auto-cols-max gap-3">
+          <div>
+            <svg class="sm:hidden md:block" xmlns="http://www.w3.org/2000/svg" width="74" height="49" viewBox="0 0 74 49" fill="none">
+              <rect x="0.5" y="0.5" width="73" height="48" rx="1.5" stroke="#D6DBE3" />
+              <path d="M18 8C18 6.89543 18.8954 6 20 6H53C54.1046 6 55 6.89543 55 8V40C55 41.6569 53.6569 43 52 43H20C18.8954 43 18 42.1046 18 41V8Z" fill="#8591AA" />
+              <path
+                d="M43.6864 19H29.3137C28.5893 19 28 19.555 28 20.2372V29.7628C28 30.445 28.5893 31 29.3137 31H43.6863C44.4107 31 45 30.445 45 29.7628V20.2372C45 19.555 44.4107 19 43.6864 19ZM38.9815 25L44.4114 19.8861C44.4691 19.9914 44.502 20.1107 44.502 20.2372V29.7628C44.502 29.8893 44.4691 30.0086 44.4114 30.1139L38.9815 25ZM43.6864 19.4691C43.8207 19.4691 43.9474 19.5 44.0593 19.5544L38.206 25.0671C37.2653 25.953 35.7347 25.953 34.794 25.0671L33.9773 24.2979C33.8801 24.2063 33.7224 24.2063 33.6252 24.2979C33.5279 24.3894 33.5279 24.538 33.6252 24.6295L34.0186 25L28.5886 30.114C28.5309 30.0086 28.498 29.8893 28.498 29.7628V20.2372C28.498 20.1107 28.5309 19.9914 28.5886 19.8861L32.8304 23.881C32.879 23.9269 32.9428 23.9497 33.0065 23.9497C33.0702 23.9497 33.134 23.9269 33.1826 23.881C33.2798 23.7894 33.2798 23.6409 33.1826 23.5494L28.9408 19.5544C29.0526 19.5 29.1794 19.469 29.3137 19.469H43.6864V19.4691ZM29.3137 30.531C29.1793 30.531 29.0526 30.5 28.9408 30.4456L34.3707 25.3317L34.4419 25.3987C35.0093 25.9331 35.7547 26.2003 36.5 26.2003C37.2454 26.2003 37.9907 25.9331 38.5582 25.3987L38.6293 25.3317L44.0592 30.4456C43.9474 30.5 43.8207 30.531 43.6863 30.531H29.3137Z"
+                fill="white"
+                stroke="white"
+                stroke-width="0.5"
+              />
+              <circle cx="45.5" cy="18.5" r="2.5" fill="white" />
+            </svg>
+          </div>
+          <div>
+            <small>Notification</small>
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="show_as_modal" />
+              <span class="checkmark"></span>Change style to modal style
+            </label>
+          </div>
+        </div>
+      </form>
+      <div class="grid grid-flow-col auto-cols-max gap-3 mt-8">
+        <div>
+          <svg class="sm:hidden md:block" xmlns="http://www.w3.org/2000/svg" width="74" height="49" viewBox="0 0 74 49" fill="none">
+            <rect x="0.5" y="0.5" width="73" height="48" rx="1.5" stroke="#D6DBE3" />
+            <path
+              d="M9.5 11C9.5 10.1716 10.1716 9.5 11 9.5H27C27.8284 9.5 28.5 10.1716 28.5 11V39C28.5 40.3807 27.3807 41.5 26 41.5H11C10.1716 41.5 9.5 40.8284 9.5 40V11Z"
+              fill="#8591AA"
+              stroke="#8591AA"
+            />
+            <path
+              d="M63 22.5C63.8284 22.5 64.5 23.1716 64.5 24L64.5 40C64.5 40.8284 63.8284 41.5 63 41.5L35 41.5C33.6193 41.5 32.5 40.3807 32.5 39L32.5 24C32.5 23.1716 33.1716 22.5 34 22.5L63 22.5Z"
+              fill="#8591AA"
+              stroke="#8591AA"
+            />
+            <path d="M34 12H41C41.5523 12 42 12.4477 42 13V19" stroke="#8591AA" stroke-linecap="round" />
+            <path d="M42 20L40.2679 17.75L43.7321 17.75L42 20Z" fill="#8591AA" />
+            <rect x="13" y="25" width="12" height="2" fill="white" />
+            <rect x="13" y="22" width="12" height="2" fill="white" />
+            <rect x="13" y="28" width="12" height="2" fill="white" />
+            <rect x="43" y="31" width="12" height="2" fill="white" />
+            <rect x="43" y="28" width="12" height="2" fill="white" />
+            <rect x="43" y="34" width="12" height="2" fill="white" />
+          </svg>
+        </div>
+        <div>
+          <small>View</small>
+          <form [formGroup]="viewFormGroup">
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="support_responsive" />
+              <span class="checkmark"></span>Support Responsive
+            </label>
+
+            <div class="flex mt-2">
+              <div class="flex flex-wrap w-full">
+                <label class="checkbox">
+                  <input type="checkbox" formControlName="picture_display" />
+                  <span class="checkmark"></span>
+                  <span class="block"> Picture display &nbsp; </span>
+                </label>
+                <!-- picture display -->
+                <cms-next-setting-website-general-view-picture-display [dialogForm]="picture_display"></cms-next-setting-website-general-view-picture-display>
+                <!-- picture display -->
+                <div class="w-full"></div>
+                <div class="pl-6">
+                  <small class="text-gray-500 font-light"><i>When opening the website modal</i></small>
+                </div>
+              </div>
+            </div>
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="shortened_url_display" />
+              <span class="checkmark"></span>Display Shortened URL
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

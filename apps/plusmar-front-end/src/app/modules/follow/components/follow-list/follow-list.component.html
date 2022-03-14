@@ -1,0 +1,171 @@
+<div class="follow-list">
+  <div class="follow-list-header">
+    <div class="bubble">
+      <ng-container *ngIf="totalOfftimes > 0">
+        <div [@slideInOut] class="item-group off-time" (click)="toMessageWithOffTime()">
+          <div class="main">
+            {{ 'Off time' | translate }} : {{ totalOfftimes >= 2 ? ('Customers has sent message to you' | translate) : ('Customer has sent message to you' | translate) }}
+          </div>
+          <div class="sub">{{ totalOfftimes }}</div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="func">
+      <reactor-room-audience-contact-filter
+        [triggerReady]="triggerReady"
+        [enableLocalStorage]="true"
+        [enabledFilter]="true"
+        [enabledSearch]="true"
+        [enabledTagFilter]="true"
+        [enabledStatusFilter]="false"
+        (filtersSubmit)="onFilterSubmit($event)"
+      ></reactor-room-audience-contact-filter>
+    </div>
+  </div>
+
+  <reactor-room-custom-table
+    [isLoading]="false"
+    [tableHeader]="tableHeader"
+    [isNoVerticalScroll]="true"
+    [currentIndex]="1"
+    (sortTableMetaData)="sortTableData($event)"
+    [orderMethod]="tableFilters.orderMethod"
+    [tableColSpan]="8"
+    [tableData]="audienceListWithStatus"
+    (selectAll)="selectAllHandler()"
+    [isAllchecked]="isAllchecked"
+    [additionHead]="true"
+  >
+    <ng-container class="table-content" *ngIf="audienceListWithStatus">
+      <ng-container *ngFor="let audience of audienceListWithStatus; let index = index; trackBy: trackBy">
+        <tr [ngClass]="{ unread: audience.notify_status === 'UNREAD' }" [@slideInOut]>
+          <td [ngClass]="{ 'off-time': audience.is_offtime }"></td>
+          <td style="max-width: 350px" (click)="onRouteChange(audience)">
+            <ng-container *ngIf="!isMobile">
+              <reactor-room-custom-table-content
+                [style.cursor]="'pointer'"
+                [Selector]="'comment-by'"
+                [firstName]="audience?.first_name"
+                [lastName]="audience?.last_name"
+                [aliases]="audience?.aliases"
+                [platform]="audience?.platform"
+                [image]="audience.profile_pic"
+                [platformImg]="platformImgsObj[audience?.platform]"
+                [audience]="audience"
+              >
+              </reactor-room-custom-table-content>
+            </ng-container>
+            <ng-container *ngIf="isMobile">
+              <reactor-room-custom-table-content
+                [style.cursor]="'pointer'"
+                [Selector]="'follow-list-mobile'"
+                [firstName]="audience?.first_name"
+                [lastName]="audience?.last_name"
+                [aliases]="audience?.aliases"
+                [platform]="audience?.platform"
+                [image]="audience.profile_pic"
+                [platformImg]="platformImgsObj[audience?.platform]"
+                [audience]="audience"
+              >
+              </reactor-room-custom-table-content>
+            </ng-container>
+          </td>
+          <td class="whitespace-nowrap" (click)="onRouteChange(audience)" *ngIf="!isMobile">
+            {{ audience.last_platform_activity_date | timeAgo }}
+          </td>
+          <td (click)="onRouteChange(audience)" *ngIf="!isMobile">
+            <div class="flex items-center status whitespace-nowrap" [style.cursor]="'pointer'" *ngIf="audience?.latestComment || audience?.latestMessage" style="max-width: 300px">
+              <svg
+                style="min-width: 15px"
+                *ngIf="audience?.displayLatestActivity?.sentBy === 'PAGE'"
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+                  fill="#C4C4C4"
+                />
+                <path
+                  d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+                  fill="#C4C4C4"
+                />
+              </svg>
+
+              <div class="ml-5 truncate">
+                {{ audience?.displayLatestActivity?.text }}
+              </div>
+            </div>
+          </td>
+          <td (click)="onRouteChange(audience)" *ngIf="!isMobile">
+            <span class="flex items-center">
+              <progress
+                [value]="audience.score"
+                [attr.title]="audience.score"
+                style="border-radius: 50%"
+                max="100"
+                [ngClass]="{
+                  block: audience.score > 0 && audience.score < 21,
+                  negative: audience.score > 20 && audience.score < 41,
+                  normal: audience.score > 40 && audience.score < 61,
+                  moderate: audience.score > 60 && audience.score < 81,
+                  high: audience.score > 80 && audience.score < 101
+                }"
+              ></progress>
+              <span class="ml-5">
+                {{ audience.score }}
+              </span>
+            </span>
+          </td>
+          <td (click)="onRouteChange(audience)" *ngIf="!isMobile">
+            <span class="flex items-center">
+              <span class="ml-5" *ngIf="audience.domain !== audienceDomainType.AUDIENCE">
+                {{ audience.domain | translate | status: 'domain' }} {{ audience.status | translate | status: 'status' }}
+              </span>
+              <span class="ml-5" *ngIf="audience.domain === audienceDomainType.AUDIENCE">
+                {{
+                  audience.status === audienceDomainStatus.LEAD
+                    ? 'Lead : Follow'
+                    : audience.status === audienceDomainStatus.FOLLOW
+                    ? 'Follow'
+                    : audience.status === audienceDomainStatus.INBOX
+                    ? 'New Inbox'
+                    : 'New Comment'
+                }}
+              </span>
+            </span>
+          </td>
+          <td (click)="onRouteChange(audience)" *ngIf="!isMobile">
+            <reactor-room-custom-table-content [id]="'audience-button-' + index" (click)="onRouteChange(audience)" [Selector]="'detail'"> </reactor-room-custom-table-content>
+          </td>
+          <td style="width: 50px" *ngIf="!isMobile">
+            <div style="text-align: center" [id]="'peekbox-button-' + index" (click)="onMouseEnter(null); viewChat(audience)">
+              <svg
+                *ngIf="!isMobile"
+                (mouseenter)="onMouseEnter(audience)"
+                (mouseleave)="onMouseLeave()"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M10 1C4.48608 1 0 5.40796 0 10.8258C0 12.057 0.230408 13.2615 0.685791 14.4082C1.03973 15.2891 1.50861 16.0983 2.08252 16.8202L0.719238 19.9609C0.609863 20.2126 0.649658 20.5027 0.82251 20.7172C0.968079 20.8978 1.18835 21 1.41772 21C1.44263 21 1.46771 20.9989 1.49286 20.9965C1.51135 20.9946 1.52991 20.9921 1.54834 20.9888L6.71313 20.1031C7.74756 20.4674 8.85217 20.6517 10 20.6517C10.5843 20.6517 11.1571 20.6023 11.7142 20.5073C12.9545 21.2841 14.4254 21.734 16 21.734C16.8826 21.734 17.7362 21.5974 18.5404 21.3257L22.3904 21.9858L22.3914 21.986C22.4471 21.9958 22.5016 22 22.5538 22C22.8362 22 23.1095 21.8743 23.2914 21.6486C23.5078 21.3802 23.5583 21.0151 23.4207 20.6981L22.4663 18.4993C22.8745 17.9792 23.3726 17.2019 23.6358 16.5468L23.6364 16.5454C24.0008 15.6279 24.0004 14.855 24 13.957V13.8671C24 10.5748 21.9355 7.75427 19.0181 6.5813C17.4034 3.28247 13.9678 1 10 1ZM16 21.0067C14.8425 21.0067 13.7481 20.7401 12.7766 20.2665C16.9441 19.0812 20 15.2975 20 10.8258C20 9.68762 19.8021 8.59412 19.4382 7.57666C21.7206 8.78406 23.2727 11.1537 23.2727 13.8671V13.9253C23.2728 14.8376 23.2729 15.4897 22.9607 16.2764C22.7131 16.8922 22.2036 17.662 21.7614 18.2181L21.6256 18.389L22.7535 20.9877C22.7828 21.0551 22.7728 21.1331 22.7252 21.1921C22.6847 21.2423 22.6216 21.2727 22.5538 21.2727C22.5401 21.2727 22.528 21.2716 22.5176 21.2698L22.5154 21.2694L18.4783 20.5771L18.3892 20.6085C17.6398 20.8723 16.8373 21.0067 16 21.0067ZM5.88232 8H14.1177C14.605 8 15 8.44763 15 9C15 9.55237 14.605 10 14.1177 10H5.88232C5.39496 10 5 9.55237 5 9C5 8.44763 5.39496 8 5.88232 8ZM5.88232 12H14.1177C14.605 12 15 12.4476 15 13C15 13.5524 14.605 14 14.1177 14H5.88232C5.39496 14 5 13.5524 5 13C5 12.4476 5.39496 12 5.88232 12Z"
+                  fill="#53B1FF"
+                />
+              </svg>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </reactor-room-custom-table>
+  <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="total" [pageSizeOptions]="[10, 50, 100]" (changePage)="changePage($event)">
+  </reactor-room-pagination>
+</div>

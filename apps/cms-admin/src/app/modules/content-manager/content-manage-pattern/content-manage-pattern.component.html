@@ -1,0 +1,139 @@
+<section class="grid-3-7" [formGroup]="patternForm">
+  <div class="grid-item">
+    <div class="grid-item-item">
+      <div class="title">Pattern Info*</div>
+      <input type="text" formControlName="patternName" />
+      <img class="w-full" (click)="thumbnail.click()" [src]="patternForm['controls']['patternUrl'].value" onerror="src='assets/images/no-image.svg'" />
+      <input #thumbnail type="file" (change)="readURL($event)" />
+    </div>
+    <ng-container formGroupName="patternStyle">
+      <div class="grid-item-item" formGroupName="container">
+        <div class="title">Pattern Container*</div>
+        <div>
+          <div class="small-title">gridTemplateColumns Samples</div>
+          <div class="flex items-center flex-wrap">
+            <ng-container *ngFor="let template of gridTemplateColumns">
+              <div (click)="onSetGridTemplateColumns(template, 'container')" class="template mr-5 mb-5">{{ template }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <div>
+          <div class="small-title">gridTemplateColumns*</div>
+          <input type="text" formControlName="gridTemplateColumns" />
+        </div>
+        <div>
+          <div class="small-title">gridTemplateRows</div>
+          <input type="text" formControlName="gridTemplateRows" />
+        </div>
+        <div>
+          <div class="small-title">gridGap*</div>
+          <input type="text" formControlName="gridGap" />
+        </div>
+      </div>
+      <div class="grid-item-item" formGroupName="primary">
+        <div class="title">Primary Pattern*</div>
+        <div>
+          <div class="small-title">Max Content*</div>
+          <div class="flex items-center">
+            <input type="number" formControlName="maxContent" />
+            <button class="control" (click)="onSetMaxContent('primary', 'minus')">-</button>
+            <button class="control" (click)="onSetMaxContent('primary', 'add')">+</button>
+          </div>
+        </div>
+        <ng-container formGroupName="grid">
+          <div>
+            <div class="small-title">gridTemplateColumns Samples</div>
+            <div class="flex items-center flex-wrap">
+              <ng-container *ngFor="let template of gridTemplateColumns">
+                <div (click)="onSetGridTemplateColumns(template, 'primary')" class="template mr-5 mb-5">{{ template }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <div>
+            <div class="small-title">gridTemplateColumns*</div>
+            <input type="text" formControlName="gridTemplateColumns" />
+          </div>
+          <div>
+            <div class="small-title">gridTemplateRows</div>
+            <input type="text" formControlName="gridTemplateRows" />
+          </div>
+          <div>
+            <div class="small-title">gridGap*</div>
+            <input type="text" formControlName="gridGap" />
+          </div>
+        </ng-container>
+      </div>
+      <div class="grid-item-item" formGroupName="secondary">
+        <div class="flex items-center pb-10">
+          <div class="pr-10">Secondary Pattern?</div>
+          <label class="switch">
+            <input type="checkbox" formControlName="status" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <ng-container *ngIf="patternForm['controls']['patternStyle']['controls']['secondary']['controls']['status'].value">
+          <div class="title">Secondary Pattern</div>
+          <div>
+            <div class="small-title">Max Content*</div>
+            <div class="flex items-center">
+              <input type="number" formControlName="maxContent" />
+              <button class="control" (click)="onSetMaxContent('secondary', 'minus')">-</button>
+              <button class="control" (click)="onSetMaxContent('secondary', 'add')">+</button>
+            </div>
+          </div>
+          <ng-container formGroupName="grid">
+            <div>
+              <div class="small-title">gridTemplateColumns Samples</div>
+              <div class="flex items-center flex-wrap">
+                <ng-container *ngFor="let template of gridTemplateColumns">
+                  <div (click)="onSetGridTemplateColumns(template, 'secondary')" class="template mr-5 mb-5">{{ template }}</div>
+                </ng-container>
+              </div>
+            </div>
+            <div>
+              <div class="small-title">gridTemplateColumns*</div>
+              <input type="text" formControlName="gridTemplateColumns" />
+            </div>
+            <div>
+              <div class="small-title">gridTemplateRows</div>
+              <input type="text" formControlName="gridTemplateRows" />
+            </div>
+            <div>
+              <div class="small-title">gridGap*</div>
+              <input type="text" formControlName="gridGap" />
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <div class="grid-item">
+    <div class="flex justify-end">
+      <button (click)="onPatternAction()">
+        <span *ngIf="!isNewPattern">Save This Pattern</span>
+        <span *ngIf="isNewPattern">Create Pattern</span>
+      </button>
+    </div>
+    <div *ngIf="errorMessage" class="title-error">{{ errorMessage }}</div>
+    <div formGroupName="patternStyle">
+      <div class="title">Pattern CSS*</div>
+      <div #monacoContainer>
+        <ngx-monaco-editor [options]="editorOptions" formControlName="css"></ngx-monaco-editor>
+      </div>
+    </div>
+    <div>
+      <div class="title flex items-center justify-between">
+        <div>Pattern Preview</div>
+        <button (click)="onResponsivePreviewLayout()" class="common">Open In Reponsive Mode</button>
+      </div>
+
+      <div class="preview" #preview>
+        <cms-next-cms-content-manage-layout
+          [changeDetectorPatternTrigger]="changeDetectorPatternTrigger"
+          [pattern]="pattern"
+          [contentCategoryData]="contentCategoryData"
+        ></cms-next-cms-content-manage-layout>
+      </div>
+    </div>
+  </div>
+</section>

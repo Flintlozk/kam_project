@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-backend-_ENV_
+  namespace: crm
+spec:
+  replicas: _SIZE_
+  selector:
+    matchLabels:
+      app: crm-backend-_ENV_
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: crm-backend-_ENV_
+    spec:
+      containers:
+        - name: crm-backend-_ENV_
+          image: git.itopplus.com:5000/crm/backend:_TAG_
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3333
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 3333
+          readinessProbe:
+            tcpSocket:
+              port: 3333
+          env:
+            - name: NODE_ENV
+              value: '_ENV_'
+            - name: REDIS_HOST_CRM
+              value: '_REDIS_HOST_CRM_'
+            - name: PG_URL_READ_CRM
+              value: '_PG_URL_READ_CRM_'
+            - name: PG_URL_WRITE_CRM
+              value: '_PG_URL_WRITE_CRM_'
+            - name: PAGE_KEY
+              value: '_PAGE_KEY_'
+            - name: TOKEN_KEY
+              value: '_TOKEN_KEY_'
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: './assets/static/AUTH.json'
+      imagePullSecrets:
+        - name: gitlabsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: crm-backend-_ENV_-service
+  name: crm-backend-_ENV_-service
+  namespace: crm
+  annotations:
+    cloud.google.com/load-balancer-type: 'Internal'
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3333
+  selector:
+    app: crm-backend-_ENV_

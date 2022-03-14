@@ -1,0 +1,330 @@
+//define properties
+$text-darker-color: #484b52;
+$transition: all ease-in-out 0.3s;
+$mobilemax: 'screen and (max-width: 768px)';
+$tabletmax: 'screen and (max-width: 992px)';
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis {
+  @include text-ellipsis();
+}
+
+.subscription-switcher-container {
+  &.cms-theme {
+    .account {
+      .account-menu {
+        .item.active {
+          background: #d8ffe6;
+        }
+
+        .subscription-list-item {
+          .subscription-id {
+            color: #22c55e;
+          }
+        }
+      }
+    }
+  }
+
+  &.social-theme {
+    .account {
+      .account-menu {
+        .item.active {
+          background: #e2f1ff;
+        }
+
+        .subscription-list-item {
+          .subscription-id {
+            color: #53b1ff;
+          }
+        }
+      }
+    }
+  }
+
+  .account {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: $transition;
+    position: relative;
+
+    .account-image {
+      height: 40px;
+    }
+
+    img {
+      width: 40px;
+      border-radius: 100%;
+      flex-shrink: 0;
+    }
+
+    .text {
+      padding-left: 15px;
+      padding-right: 15px;
+      color: $text-darker-color;
+
+      .name {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 14px;
+
+        @media #{$mobilemax} {
+          max-width: 100px;
+          @include text-ellipsis();
+        }
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 200;
+      }
+    }
+
+    img.toogle {
+      height: 1em;
+      width: auto;
+      transition: $transition;
+    }
+
+    &.active {
+      img.toogle {
+        transform: scaleY(-1);
+      }
+    }
+
+    .account-menu {
+      position: absolute;
+      background: white;
+      width: 100%;
+      min-width: 375px;
+      border-radius: 5px;
+      box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+      z-index: 99;
+      top: 100%;
+      right: 20px;
+
+      @media #{$tabletmax} {
+        right: 10px;
+        top: calc(100% + 5px);
+      }
+
+      @media #{$mobilemax} {
+        top: calc(100% + 5px);
+        min-width: 300px;
+      }
+
+      .packages-summary-item {
+        border-top: 1px solid #f2f5f9;
+        display: flex;
+        align-items: center;
+        color: #9d9fac;
+        font-weight: 300;
+        padding: 15px;
+      }
+
+      .item {
+        border-top: 1px solid #f2f5f9;
+        display: flex;
+        align-items: center;
+        color: $text-darker-color;
+        font-weight: 300;
+        transition: $transition;
+
+        &.logout {
+          .subscription-list-item {
+            align-items: center;
+
+            img {
+              width: 24px;
+              height: 23px;
+              padding: 0px;
+              flex-shrink: 0;
+            }
+          }
+        }
+
+        img {
+          width: 15px;
+          padding-right: 15px;
+          border-radius: 0px;
+        }
+
+        &:hover {
+          background: rgb(242, 242, 242);
+        }
+
+        &.active {
+          background: #e2f1ff;
+        }
+      }
+
+      .subscription-list-item {
+        padding: 15px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 30px 65px auto 55px;
+        grid-gap: 0px;
+        cursor: pointer;
+        font-weight: 300;
+        transition: $transition;
+        align-items: start;
+
+        &:hover {
+          background: rgb(242, 242, 242);
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          color: #9d9fac;
+          font-weight: 300;
+          transition: $transition;
+
+          .active {
+            background-color: rgba(83, 177, 255, 1);
+          }
+        }
+
+        img {
+          width: 15px;
+          padding-right: 15px;
+          border-radius: 0px;
+        }
+
+        .subscription-id {
+          font-size: 12px;
+          color: #53b1ff;
+        }
+
+        .expire-detail {
+          font-size: 12px;
+          color: #ea6161;
+          grid-column-start: 1;
+          grid-column-end: 5;
+          text-align: right;
+        }
+
+        .title {
+          font-size: 14px;
+          max-width: 140px;
+          //@include text-ellipsis();
+        }
+
+        &.active {
+          background: #e2f1ff;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        .logout {
+          color: #f44336;
+        }
+      }
+
+      .create-subscription-item {
+        padding: 15px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 9% auto;
+        cursor: pointer;
+        font-weight: 300;
+        transition: $transition;
+        align-items: center;
+
+        &:hover {
+          background: rgb(242, 242, 242);
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          color: #9d9fac;
+          font-weight: 300;
+          transition: $transition;
+
+          .active {
+            background-color: red;
+          }
+        }
+
+        img {
+          width: 15px;
+          padding-right: 15px;
+          border-radius: 0px;
+        }
+
+        .subscription-id {
+          color: #53b1ff;
+        }
+
+        .title {
+          padding-right: 20px;
+          font-size: 14px;
+          max-width: 140px;
+          @include text-ellipsis();
+        }
+
+        &.active {
+          background: #e2f1ff;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+@media #{$mobilemax} {
+  .subscription-switcher-container {
+    .account-menu {
+      .account {
+        padding: 5px 10px;
+      }
+    }
+
+    .account {
+      //padding-right: 0px;
+      .account-image {
+        width: 30px !important;
+        height: 30px !important;
+        flex-shrink: 0;
+      }
+
+      .text {
+        display: none;
+      }
+
+      .toogle {
+        display: none;
+      }
+    }
+  }
+}
+@media #{$tabletmax} {
+  .subscription-switcher-container {
+    .account {
+      padding: 5px 20px;
+
+      //padding-right: 0px;
+      .account-image {
+        width: 30px !important;
+        height: 30px !important;
+        flex-shrink: 0;
+      }
+
+      .text {
+        line-height: 18px;
+      }
+    }
+  }
+}

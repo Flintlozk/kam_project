@@ -1,0 +1,176 @@
+<div
+  class="guideline absolute w-full h-full left-0 top-0 group flex items-center justify-center group"
+  (dblclick)="onShoppingCartFocusEvent()"
+  [ngClass]="{ 'border border-green-500 ': onFocus }"
+>
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: isChildEnter || onFocus, hidden: !isChildEnter && !onFocus }">
+    <div
+      [ngClass]="{ 'bg-green-500': !onFocus && !themeOption, 'bg-green-900': !onFocus && themeOption, 'bg-gray-700': onFocus }"
+      class="absolute right-0 px-2 py-1 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none flex items-center justify-between"
+    >
+      <span *ngIf="themeOption">{{ themeOption.themeIdentifier }}</span>
+      <span *ngIf="!themeOption">Shopping Cart</span>
+      <button *ngIf="!themeOption" (click)="onRemoveCurrentComponent()" class="focus:outline-none pl-4">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="7" cy="7" r="7" fill="#AAB2C2" />
+          <path d="M3.81641 3.81641L10.18 10.18M10.18 3.81641L3.81641 10.18" stroke="white" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute w-full h-full bg-green-500 opacity-40 cursor-move" [ngClass]="{ hidden: onFocus || isChildEnter }"></div>
+  </div>
+</div>
+<div class="shopping-cart-rendering w-full" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+  <ng-container *ngIf="productList?.length">
+    <div class="shopping-cart-rendering-cards gap-2" [ngClass]="shoppingCartSaveData.pattern.type === ShoppingCartTypes.SHOPPING_CART_2 ? 'grid-cols-4' : 'grid-cols-3'">
+      <ng-container *ngFor="let product of productList; let index = index">
+        <div class="shopping-cart-rendering-card grid gap-4">
+          <!-- image -->
+          <div class="product-image" [ngStyle]="{ 'background-size': backgroundSizeImageScale }">
+            <img
+              [ngClass]="{ 'swap-image': hoverAnimationClass === HoverAnimationTypes.SWAP, 'zoom-in': hoverAnimationClass === HoverAnimationTypes.ZOOM_IN }"
+              class="object-fill"
+              [ngStyle]="{ 'width.px': mediaWidth, 'height.px': mediaHeight }"
+              [src]="product?.images[0]?.mediaLink"
+              alt="product.name"
+            />
+          </div>
+
+          <div class="text-4xl">{{ product.name }}</div>
+          <div class="font-light text-2xl">
+            <span class="pro-text-sec"> {{ product.sku }} </span> : <span class="text-gray-400">{{ product.sku }}</span>
+          </div>
+
+          <!-- desc -->
+          <div class="text-2-lines text-xl pro-text-sec" [innerHTML]="product.desc"></div>
+
+          <!-- discount-price -->
+          <div class="flex items-end">
+            <div *ngFor="let discountPercent of discountPercents">
+              <div class="mr-2 px-3 py-1.5 rounded text-white" [ngStyle]="{ 'background-color': discountPercent.bgColor }">{{ discountPercent.percent }}%</div>
+            </div>
+            <div class="italic">Near expiration <span class="text-red-500">2 days</span></div>
+          </div>
+
+          <!-- prices -->
+
+          <div class="flex items-center">
+            <div class="text-3xl mr-4">
+              {{ product.maxUnitPrice | currency: currencySymbol }}
+            </div>
+            <div class="text-gray-400 text-xl line-through">
+              {{ secondaryPrice | currency: currencySymbol }}
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="text-xl mr-4"><span class="pro-text-sec"> Member </span> {{ product.maxUnitPrice | currency: currencySymbol }}</div>
+            <div class="text-gray-400 text-xl line-through">{{ secondaryPrice | currency: currencySymbol }}</div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="text-xl mr-4"><span class="pro-text-sec"> VIP </span> {{ product.maxUnitPrice | currency: currencySymbol }}</div>
+            <div class="text-gray-400 text-xl line-through">{{ secondaryPrice | currency: currencySymbol }}</div>
+          </div>
+
+          <!-- star -->
+          <div class="flex">
+            <ng-container *ngFor="let item of noOfStarsArray">
+              <div class="mr-2">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.81935 26C5.53449 26 5.25161 25.9073 5.0102 25.7251C4.5605 25.385 4.35042 24.8005 4.47282 24.2364L6.14547 16.5479L0.472901 11.3569C0.0559294 10.977 -0.103361 10.3755 0.0678316 9.82509C0.239024 9.27572 0.704795 8.88677 1.25626 8.83357L8.76176 8.12254L11.7292 0.876216C11.948 0.343821 12.4463 0 12.9999 0C13.5536 0 14.0519 0.343821 14.2707 0.874974L17.2381 8.12254L24.7424 8.83357C25.295 8.88553 25.7608 9.27572 25.932 9.82509C26.1032 10.3745 25.9449 10.977 25.5279 11.3569L19.8554 16.5469L21.528 24.2351C21.6506 24.8005 21.4403 25.385 20.9908 25.7241C20.5423 26.0631 19.9442 26.0892 19.4719 25.793L12.9999 21.7572L6.52792 25.7953C6.30912 25.9309 6.06532 26 5.81935 26Z"
+                    fill="#D6DBE3"
+                  />
+                </svg>
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- progress-bar -->
+          <div class="w-full bg-gray-300 rounded-full h-4">
+            <div class="h-4 progressbar-fill-color rounded-full" [ngStyle]="{ 'width.%': (product.sold / product.inventory) * 100 }"></div>
+          </div>
+
+          <!-- sold/inventory -->
+          <div class="flex justify-between">
+            <div class="text-base pro-text-sec">Sold {{ product.sold }}</div>
+
+            <div class="text-base text-gray-400">Inventory {{ product.inventory }}</div>
+          </div>
+
+          <!-- actions -->
+          <div class="flex">
+            <img class="mr-2" src="assets/cms/icon/favorite.svg" alt="add-to-cart" />
+            <img src="assets/cms/icon/add-to-cart.svg" alt="add-to-cart" />
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <!-- pagination -->
+
+  <div *ngIf="productList?.length">
+    <div *ngIf="paginationMode === ShoppingCartPatternBottomTypes.BUTTON">
+      <div class="more-btn">{{ moreBtnText }}</div>
+    </div>
+
+    <div class="flex justify-end">
+      <div *ngIf="paginationMode === ShoppingCartPatternBottomTypes.PAGINATION">
+        <!-- pagination1 -->
+        <div class="flex" *ngIf="ShoppingCartPatternPaginationTypes.PAGINATION_1 === paginationType">
+          <div class="bg-white flex h-10 items-center justify-center rounded w-10 m-2">
+            <img [src]="arrowLeftDark" alt="left" />
+          </div>
+
+          <div
+            *ngFor="let page of dummyPagination"
+            [ngClass]="page === currentPage ? 'pagination1-bg text-white' : 'bg-white text-black'"
+            class="flex h-10 m-2 items-center justify-center rounded w-10"
+          >
+            {{ page }}
+          </div>
+          <div class="bg-white flex h-10 items-center justify-center rounded w-10 m-2">
+            <img [src]="arrowRightDark" alt="left" />
+          </div>
+        </div>
+
+        <!-- pagination2 -->
+        <div class="flex mt-2" *ngIf="ShoppingCartPatternPaginationTypes.PAGINATION_2 === paginationType">
+          <div class="pagination-light-bg flex h-10 items-center justify-center rounded w-10">
+            <img [src]="arrowLeftDark" alt="left" />
+          </div>
+
+          <div class="flex pagination-dark-bg h-10 items-center justify-center pr-5 pl-5 text-white">{{ currentPage }} of {{ totalPages }}</div>
+
+          <div class="bg-green-500 flex h-10 items-center justify-center w-10">
+            <img [src]="arrowRightLight" alt="right" />
+          </div>
+        </div>
+
+        <!-- pagination3 -->
+        <div class="flex mt-2" *ngIf="ShoppingCartPatternPaginationTypes.PAGINATION_3 === paginationType">
+          <input type="text" class="input-border p-2 w-12" [value]="currentPage" />
+          <div class="flex items-center pr-5 pl-5">Of {{ totalPages }}</div>
+          <div class="pagination-light-bg flex h-10 items-center justify-center rounded w-10">
+            <img [src]="arrowLeftDark" alt="left" />
+          </div>
+          <div class="bg-green-500 flex h-10 items-center justify-center w-10">
+            <img [src]="arrowRightLight" alt="right" />
+          </div>
+        </div>
+
+        <!-- pagination4 -->
+        <div class="flex mt-2" *ngIf="ShoppingCartPatternPaginationTypes.PAGINATION_4 === paginationType">
+          <div class="pagination-light-bg flex h-10 items-center justify-center rounded w-10">
+            <img [src]="arrowLeftDark" alt="left" />
+          </div>
+          <div class="pagination-dark-bg flex h-10 items-center justify-center w-10">
+            <img [src]="arrowRightLight" alt="right" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

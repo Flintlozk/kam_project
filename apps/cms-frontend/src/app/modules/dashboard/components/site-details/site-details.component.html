@@ -1,0 +1,117 @@
+<section class="overflow-hidden bg-white border border-gray-200 rounded-md">
+  <div class="relative p-6 shadow-md">
+    <svg class="absolute top-0 right-0 z-0" width="146" height="149" viewBox="0 0 146 149" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="63.2898" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="83.5191" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="63.2898" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="83.5191" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="63.2898" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="83.5191" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="66.6099" cy="104.61" r="3.60986" fill="#DADFEB" />
+      <circle cx="86.8391" cy="104.61" r="3.60986" fill="#DADFEB" />
+      <circle cx="107.069" cy="104.61" r="3.60986" fill="#DADFEB" />
+      <circle cx="66.6099" cy="124.839" r="3.60986" fill="#DADFEB" />
+      <circle cx="86.8391" cy="124.839" r="3.60986" fill="#DADFEB" />
+      <circle cx="107.069" cy="124.839" r="3.60986" fill="#DADFEB" />
+      <circle cx="66.6099" cy="145.068" r="3.60986" fill="#DADFEB" />
+      <circle cx="86.8391" cy="145.069" r="3.60986" fill="#DADFEB" />
+      <circle cx="107.069" cy="145.069" r="3.60986" fill="#DADFEB" />
+      <circle cx="3.60986" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="63.8391" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="84.0686" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="104.298" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="104.298" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="104.298" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="144.756" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="144.756" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="144.756" r="3.60986" fill="#92E898" />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M146 75.2157C136.831 82.5882 125.181 87 112.5 87C82.9528 87 59 63.0472 59 33.5C59 20.8192 63.4118 9.16877 70.7843 0H58.5454C52.4948 9.72431 49 21.204 49 33.5C49 68.5701 77.4299 97 112.5 97C124.796 97 136.276 93.5051 146 87.4546V75.2157Z"
+        fill="#E1FCDF"
+      />
+    </svg>
+    <div class="flex">
+      <div class="h-40 overflow-hidden rounded-lg shadow-lg w-60">
+        <img class="h-full" [src]="siteInfo.img" [alt]="siteInfo.title" />
+      </div>
+      <div class="z-10 pl-4">
+        <h3 class="text-2xl">{{ siteInfo.title }}</h3>
+        <h4 class="pt-1 text-sm font-light">{{ siteInfo.status }}</h4>
+        <div class="flex gap-2">
+          <cms-next-edit-site-button></cms-next-edit-site-button>
+          <cms-next-mock-site-button></cms-next-mock-site-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-3">
+    <ng-container *ngFor="let siteDetail of siteDetails; trackBy: trackByIndex">
+      <div class="relative px-4 py-6 border border-gray-50 focus:outline-none cursor-pointer" [routerLink]="[siteDetail.route]">
+        <h3 class="flex items-center text-lg leading-tight">
+          <span class="mr-2">{{ siteDetail.title }}</span>
+          <svg *ngIf="!siteDetail.isWebsite" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 11L6 6L1 1" stroke="#2EC639" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M7 11L12 6L7 1" stroke="#2EC639" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </h3>
+        <h4 class="text-sm font-light" [ngClass]="{ 'text-orange-300': siteDetail.isWebsite }">{{ siteDetail.subTitle }}</h4>
+        <div class="pt-2 -mb-4 text-5xl font-light text-right">{{ siteDetail.value }}</div>
+        <div class="absolute bottom-0 mb-4" *ngIf="siteDetail.decoration === 'left'">
+          <svg width="69" height="31" viewBox="0 0 69 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="66.7017" cy="2.29851" r="2.29851" transform="rotate(90 66.7017 2.29851)" fill="#DADFEB" />
+            <circle cx="66.7017" cy="15.1791" r="2.29851" transform="rotate(90 66.7017 15.1791)" fill="#DADFEB" />
+            <circle cx="66.7017" cy="28.0597" r="2.29851" transform="rotate(90 66.7017 28.0597)" fill="#DADFEB" />
+            <circle cx="53.8211" cy="2.29851" r="2.29851" transform="rotate(90 53.8211 2.29851)" fill="#DADFEB" />
+            <circle cx="53.8211" cy="15.1791" r="2.29851" transform="rotate(90 53.8211 15.1791)" fill="#DADFEB" />
+            <circle cx="53.8211" cy="28.0597" r="2.29851" transform="rotate(90 53.8211 28.0597)" fill="#DADFEB" />
+            <circle cx="40.9404" cy="2.29851" r="2.29851" transform="rotate(90 40.9404 2.29851)" fill="#DADFEB" />
+            <circle cx="40.9404" cy="15.1791" r="2.29851" transform="rotate(90 40.9404 15.1791)" fill="#DADFEB" />
+            <circle cx="40.9404" cy="28.0597" r="2.29851" transform="rotate(90 40.9404 28.0597)" fill="#DADFEB" />
+            <circle cx="28.0598" cy="2.29851" r="2.29851" transform="rotate(90 28.0598 2.29851)" fill="#DADFEB" />
+            <circle cx="28.06" cy="15.1791" r="2.29851" transform="rotate(90 28.06 15.1791)" fill="#DADFEB" />
+            <circle cx="28.06" cy="28.0597" r="2.29851" transform="rotate(90 28.06 28.0597)" fill="#DADFEB" />
+            <circle cx="15.1793" cy="2.29851" r="2.29851" transform="rotate(90 15.1793 2.29851)" fill="#DADFEB" />
+            <circle cx="15.1792" cy="15.1791" r="2.29851" transform="rotate(90 15.1792 15.1791)" fill="#DADFEB" />
+            <circle cx="15.1792" cy="28.0597" r="2.29851" transform="rotate(90 15.1792 28.0597)" fill="#DADFEB" />
+            <circle cx="2.29872" cy="2.29851" r="2.29851" transform="rotate(90 2.29872 2.29851)" fill="#DADFEB" />
+            <circle cx="2.2986" cy="15.1791" r="2.29851" transform="rotate(90 2.2986 15.1791)" fill="#DADFEB" />
+            <circle cx="2.2986" cy="28.0597" r="2.29851" transform="rotate(90 2.2986 28.0597)" fill="#DADFEB" />
+          </svg>
+        </div>
+        <div class="absolute top-0 right-0 mr-6" *ngIf="siteDetail.decoration === 'top'">
+          <svg width="31" height="57" viewBox="0 0 31 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="2.29851" cy="2.29851" r="2.29851" fill="#DADFEB" />
+            <circle cx="15.1791" cy="2.29851" r="2.29851" fill="#DADFEB" />
+            <circle cx="28.0597" cy="2.29851" r="2.29851" fill="#DADFEB" />
+            <circle cx="2.29851" cy="15.1791" r="2.29851" fill="#DADFEB" />
+            <circle cx="15.1791" cy="15.1791" r="2.29851" fill="#DADFEB" />
+            <circle cx="28.0597" cy="15.1791" r="2.29851" fill="#DADFEB" />
+            <circle cx="2.29851" cy="28.0597" r="2.29851" fill="#DADFEB" />
+            <circle cx="15.1791" cy="28.0597" r="2.29851" fill="#DADFEB" />
+            <circle cx="28.0597" cy="28.0597" r="2.29851" fill="#DADFEB" />
+            <circle cx="2.29851" cy="40.9401" r="2.29851" fill="#DADFEB" />
+            <circle cx="15.1791" cy="40.9404" r="2.29851" fill="#DADFEB" />
+            <circle cx="28.0597" cy="40.9404" r="2.29851" fill="#DADFEB" />
+            <circle cx="2.29851" cy="53.821" r="2.29851" fill="#DADFEB" />
+            <circle cx="15.1791" cy="53.821" r="2.29851" fill="#DADFEB" />
+            <circle cx="28.0597" cy="53.821" r="2.29851" fill="#DADFEB" />
+          </svg>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

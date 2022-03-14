@@ -1,0 +1,16 @@
+<div class="cms-popover-layout p-4">
+  <div class="flex justify-between items-center mb-5">
+    <div class="flex">
+      <img class="mr-2" src="assets/menu/setting.svg" alt="Settings" />
+      <div>Settings</div>
+    </div>
+
+    <div class="flex">
+      <img class="mr-2 setting-btn cursor-pointer" (click)="popOverBtnEvent(closeBtn)" src="assets/menu/setting-close.svg" alt="close" />
+      <img class="setting-btn cursor-pointer" (click)="popOverBtnEvent(saveBtn)" src="assets/menu/setting-save.svg" alt="save" />
+    </div>
+  </div>
+  <div class="content">
+    <ng-content select=".popover-content"> </ng-content>
+  </div>
+</div>

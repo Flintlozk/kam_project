@@ -1,0 +1,107 @@
+@import 'base';
+.pwa-install-card-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 12;
+}
+.pwa-install-card {
+  position: fixed;
+  z-index: 99;
+  background: $main-color;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+  display: grid;
+  grid-template-columns: 20px auto;
+  align-items: start;
+  grid-gap: 10px;
+  top: 70px;
+  right: 20px;
+  left: unset;
+  width: 360px;
+  border-radius: 8px;
+  &:before {
+    content: '';
+    background-image: url(/assets/img/deco_background.svg);
+    background-size: auto 120px;
+    background-position: top right;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    opacity: 0.6;
+  }
+
+  &.update {
+    grid-template-columns: 0px auto;
+  }
+
+  @media #{$mobilemax} {
+    top: 40px;
+    left: 0px;
+    right: unset;
+    width: calc(100% - 40px);
+    border-radius: 0px;
+  }
+  h3 {
+    margin: 0px;
+    font-size: 1em;
+    line-height: 1em;
+    font-weight: 400;
+  }
+  p {
+    margin: 0px;
+    padding-top: 5px;
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  .dismiss {
+    z-index: 999;
+  }
+  .buttons {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .right {
+      display: flex;
+      align-items: center;
+    }
+    &.force-right {
+      justify-content: flex-end;
+    }
+    button.primary {
+      border: 0px;
+      height: 30px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: $main-color;
+      width: 70px;
+      cursor: pointer;
+    }
+    button.secondary {
+      border: 1px solid white;
+      background: 0px;
+      padding: 0px 10px;
+      margin-right: 5px;
+      color: white;
+      height: 30px;
+      border-radius: 20px;
+      font-weight: 300;
+      opacity: 0.9;
+      cursor: pointer;
+    }
+  }
+}

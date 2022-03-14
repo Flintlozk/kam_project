@@ -1,0 +1,78 @@
+@import 'base';
+@import 'buttons';
+.setting-direct-message-order-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .img {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $border-color;
+      img {
+        width: 100px;
+      }
+      .dismiss-icon {
+        right: 5px;
+        top: 20px;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #eb6161;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          width: 10px;
+        }
+      }
+    }
+  }
+  .func {
+    width: 100%;
+    padding-top: 20px;
+    .label {
+      color: #617889;
+      font-size: 12px;
+      font-weight: 200;
+      padding-bottom: 10px;
+    }
+    input {
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 10px 15px;
+      width: calc(100% - 30px);
+    }
+    .btn-reset {
+      color: $main-color;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      img {
+        height: 15px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

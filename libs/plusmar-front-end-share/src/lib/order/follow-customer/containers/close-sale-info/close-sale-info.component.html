@@ -1,0 +1,45 @@
+<div class="audience-contact-container">
+  <reactor-room-order-action [selector]="'HEADER'" *ngIf="!viewControl.mobileView && audience"></reactor-room-order-action>
+  <div class="audience-contact-layout">
+    <div class="audience-contact-content">
+      <div class="audience-contact-top" *ngIf="!viewControl.mobileView">
+        <reactor-room-order-detail class="extra-grid"></reactor-room-order-detail>
+      </div>
+
+      <div class="audience-contact-bottom extra-grid'">
+        <div class="left-wrapper">
+          <reactor-room-chatbox
+            class="chat-box"
+            *ngIf="audience"
+            [loadedIn]="chatLoadLocation"
+            [enableHead]="true"
+            [viewMode]="chatViewMode"
+            [extraGrid]="true"
+            [audience]="audience"
+            [audienceId]="audience.id"
+            [togglePrivateMessage]="togglePrivateInChat"
+            #chatbox
+          >
+            <reactor-room-order-action [selector]="'BUTTON'"></reactor-room-order-action>
+          </reactor-room-chatbox>
+        </div>
+        <div
+          class="right-wrapper animated"
+          [ngClass]="{
+            collapsecontent: viewControl.chatBoxStatus
+          }"
+        >
+          <div class="audience-contact-top" *ngIf="viewControl.mobileView">
+            <reactor-room-order-detail class="extra-grid"></reactor-room-order-detail>
+          </div>
+          <div class="collapse-inner bg-white rounded shadow-md"></div>
+          <div class="inner-outlet bg-white rounded shadow-md">
+            <div class="tab-container">
+              <reactor-room-purchase-cart></reactor-room-purchase-cart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

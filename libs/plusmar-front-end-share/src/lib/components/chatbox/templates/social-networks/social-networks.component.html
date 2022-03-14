@@ -1,0 +1,55 @@
+<div class="custom-dialog">
+  <div class="head">
+    {{ 'Social Network' | translate }}
+  </div>
+  <div class="items w-full">
+    <div [formGroup]="filterForm" class="item flex items-center justify-between py-10" *ngFor="let item of socialData">
+      <div class="w-140 pr-25 label flex items-center item">
+        <img [src]="item.imgUrl" [alt]="item.label" class="pr-10 socials-img-desktop" />
+        <img (click)="select(item.controlName)" [src]="item.imgUrl" [alt]="item.label" class="pr-10 socials-img-mobile" />
+        <div class="text-sm socials-label">{{ item.label | translate }}</div>
+      </div>
+
+      <div class="relative w-full flex">
+        <div *ngIf="updatedField === item.controlName" class="absolute right-0 bottom-0 top-0 text-sm flex items-center pointer-events-none">
+          <svg
+            *ngIf="!fieldIsSaved"
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0"
+            xml:space="preserve"
+          >
+            <circle fill="#54b1ff" stroke="none" cx="6" cy="50" r="6">
+              <animateTransform attributeName="transform" dur="1s" type="translate" values="0 15 ; 0 -15; 0 15" repeatCount="indefinite" begin="0.1" />
+            </circle>
+            <circle fill="#54b1ff" stroke="none" cx="30" cy="50" r="6">
+              <animateTransform attributeName="transform" dur="1s" type="translate" values="0 10 ; 0 -10; 0 10" repeatCount="indefinite" begin="0.2" />
+            </circle>
+            <circle fill="#54b1ff" stroke="none" cx="54" cy="50" r="6">
+              <animateTransform attributeName="transform" dur="1s" type="translate" values="0 5 ; 0 -5; 0 5" repeatCount="indefinite" begin="0.3" />
+            </circle>
+          </svg>
+          <svg *ngIf="fieldIsSaved" width="20" height="20" class="fill-transparent relative right-10" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19C14.9706 19 19 14.9706 19 10Z"
+              stroke="#54b1ff"
+              stroke-width="2"
+              class="circle"
+            />
+            <path d="M5 10.6438L8.93518 14L15 7" stroke="#54b1ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tick" />
+          </svg>
+        </div>
+        <input (keyup)="updateField(item.controlName)" class="w-full" style="max-width: unset" type="text" [name]="item.label" [formControlName]="item.controlName" />
+      </div>
+
+      <button (click)="select(item.controlName)" class="socials-action btn-secondary transparent small border-none">
+        {{ 'Select' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

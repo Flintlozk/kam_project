@@ -1,0 +1,17 @@
+<div
+  class="setting-logistic-flat-shipping"
+  [ngClass]="{
+    invalid: !logisticFlatShippingForm.get('deliveryFee').valid && (logisticFlatShippingForm.get('deliveryFee').touched || logisticFlatShippingForm.get('deliveryFee').dirty)
+  }"
+>
+  <form [formGroup]="logisticFlatShippingForm">
+    <div class="label">{{ 'Delivery Fee' | translate }}*</div>
+    <div class="price-with-symbol">
+      <div class="input-group-prepend">
+        <span>฿</span>
+      </div>
+      <input id="flat-rate-delivery-fee" type="“text”" formControlName="deliveryFee" (keyup)="eventLookUpOnFocus('deliveryFee')" />
+    </div>
+    <mat-error *ngIf="!logisticFlatShippingForm.get('deliveryFee').valid" [innerHTML]="feeValidationMessage"> </mat-error>
+  </form>
+</div>

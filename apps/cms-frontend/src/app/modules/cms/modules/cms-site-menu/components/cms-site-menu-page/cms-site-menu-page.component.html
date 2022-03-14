@@ -1,0 +1,522 @@
+<section cdkDropListGroup>
+  <button
+    (click)="onActiveCreateNewPage(false)"
+    [ngClass]="{ 'bg-gray-200 cursor-not-allowed': createNewPageStatus, 'bg-gray-700 transform': !createNewPageStatus }"
+    class="flex items-center justify-center w-full p-2 mb-4 font-light text-white transition rounded-md focus:outline-none hover:scale-105"
+  >
+    <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.84937 0.267425C7.20593 0.267425 7.49499 0.55648 7.49499 0.913046L7.49499 6.20364L12.7856 6.20364C13.1421 6.20364 13.4312 6.4927 13.4312 6.84926C13.4312 7.20583 13.1421 7.49488 12.7856 7.49488L7.49499 7.49488L7.49499 12.7855C7.49499 13.142 7.20593 13.4311 6.84937 13.4311C6.4928 13.4311 6.20374 13.142 6.20374 12.7855L6.20374 7.49488L0.913149 7.49488C0.556582 7.49488 0.267527 7.20583 0.267528 6.84926C0.267528 6.4927 0.556582 6.20364 0.913149 6.20364L6.20374 6.20364L6.20374 0.913046C6.20374 0.55648 6.4928 0.267425 6.84937 0.267425Z"
+        fill="white"
+      />
+    </svg>
+    Create New Page
+  </button>
+  <div [@fadeBoxAnimation] *ngIf="createNewPageStatus && !createNewPageFromChildStatus" class="grid gap-2 mb-4">
+    <div class="p-2 bg-green-500 rounded-md" [formGroup]="newPageForm">
+      <input
+        formControlName="name"
+        autofocus
+        placeholder="Enter Page Name..."
+        type="text"
+        class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+      />
+      <div class="mt-2 text-sm font-light text-white">Create New Page</div>
+    </div>
+    <div class="flex items-center justify-end">
+      <button
+        (click)="onDeactiveCreateNewPage()"
+        class="flex items-center justify-center w-8 h-8 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button
+        (click)="onCreateNewPage(null)"
+        class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+      >
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="relative flex items-center" [formGroup]="searchForm">
+    <input
+      formControlName="search"
+      type="text"
+      placeholder="Search"
+      class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400"
+    />
+    <svg class="absolute right-0 mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+        fill="#BCC4D6"
+      />
+    </svg>
+  </div>
+  <div class="flex items-center pt-4">
+    <div class="font-light flex items-center">
+      <img src="assets/site-menu/home.svg" class="pr-2" [alt]="currentHomeSite?.title" />
+      Home Page:
+    </div>
+    <div class="flex items-center pl-2">
+      {{ currentHomeSite?.title }}
+    </div>
+  </div>
+  <ng-container *ngTemplateOutlet="mainNode"></ng-container>
+</section>
+
+<ng-template #mainNode>
+  <div
+    class="grid gap-2 mt-4 pl-6"
+    cdkDropList
+    [cdkDropListData]="cmsSites"
+    [id]="'main'"
+    [attr.cdkDropListConnectedTo]="dropTargetIds ? dropTargetIds : null"
+    (cdkDropListDropped)="dropEvent$.next($event)"
+    [cdkDropListSortingDisabled]="true"
+  >
+    <div
+      cdkDrag
+      [cdkDragDisabled]="site.isHomePage"
+      [cdkDragData]="site.siteId"
+      (cdkDragMoved)="dragMoved($event)"
+      class="grid gap-2"
+      *ngFor="let site of cmsSites; trackBy: trackBySiteId"
+    >
+      <div
+        [attr.data-id]="site.siteId"
+        [attr.data-nested-level]="site.nestedLevel"
+        [attr.data-level]="1"
+        [attr.data-parent-id]="'main'"
+        [attr.id]="'node-' + site.siteId"
+        cdkDragHandle
+        class="relative flex items-center node-item"
+      >
+        <button
+          (click)="onActiveToggleSite(site)"
+          [ngClass]="{ 'bg-gray-400': !site.isToggleStatus, 'bg-none border-green-500 border': site.isToggleStatus }"
+          *ngIf="site.child.length"
+          class="absolute flex items-center justify-center w-4 h-4 -ml-6 transition transform rounded-full btn-toggle hover:scale-105 focus:outline-none"
+        >
+          <svg *ngIf="!site.isToggleStatus" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 6H11" stroke="white" stroke-linecap="round" />
+            <path d="M6 1V11" stroke="white" stroke-linecap="round" />
+          </svg>
+          <svg *ngIf="site.isToggleStatus" width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1H11" stroke="#2EC639" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button (click)="onUpdatePageChildSelected(site)" *ngIf="site.child.length && isFromMegaChild" class="mr-2 focus:outline-none">
+          <svg *ngIf="!site.isChildSelected" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+          </svg>
+          <svg *ngIf="site.isChildSelected" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+            <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div class="w-full focus:outline-none" (click)="onActiveCurrentSite(site)" (click)="onChangePage($event, site)">
+          <div
+            [ngClass]="{
+              'bg-green-500': site.siteId === currentSite?._id && !site.isHide,
+              'bg-itopplus-400 hover:bg-green-100 hover:text-gray-900': !(site.siteId === currentSite?._id) && !site.isHide,
+              'bg-gray-100': site.isHide && site.siteId === currentSite?._id,
+              'text-gray-200': true
+            }"
+            class="flex items-center justify-between w-full p-4 transition rounded-md cursor-pointer focus:outline-none"
+          >
+            <div class="flex items-center">
+              <button [ngClass]="{ 'opacity-50': site.isHide }" class="w-2 transition transform focus:outline-none hover:scale-105">
+                <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="1.25" cy="1.25" r="1.25" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? 'white' : '#B2B9C7'" />
+                  <circle cx="1.25" cy="5" r="1.25" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? 'white' : '#B2B9C7'" />
+                  <circle cx="5" cy="1.25" r="1.25" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? 'white' : '#B2B9C7'" />
+                  <circle cx="5" cy="5" r="1.25" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? 'white' : '#B2B9C7'" />
+                </svg>
+              </button>
+              <div class="flex items-center justify-between ml-2">
+                <div class="flex items-center">
+                  <div class="w-3">
+                    <img *ngIf="site.isHomePage && !(site.siteId === currentSite?._id) && !site.isHide" src="assets/site-menu/home-level-1.svg" [alt]="site.title" />
+                    <img *ngIf="!site.isHomePage && !(site.siteId === currentSite?._id) && !site.isHide" src="assets/site-menu/page-level-1.svg" [alt]="site.title" />
+                    <img *ngIf="site.isHomePage && site.siteId === currentSite?._id && !site.isHide" src="assets/site-menu/home-a.svg" [alt]="site.title" />
+                    <img *ngIf="!site.isHomePage && site.siteId === currentSite?._id && !site.isHide" src="assets/site-menu/page-a.svg" [alt]="site.title" />
+                    <img class="opacity-50" *ngIf="site.isHomePage && site.isHide" src="assets/site-menu/home.svg" [alt]="site.title" />
+                    <img class="opacity-50" *ngIf="!site.isHomePage && site.isHide" src="assets/site-menu/page.svg" [alt]="site.title" />
+                  </div>
+                  <span class="ml-2" [ngClass]="{ 'text-white': site.siteId === currentSite?._id && !site.isHide, 'opacity-50': site.isHide }">{{ site.title }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <button *ngIf="site.isHide" (click)="activeHiddenSite(site)" class="transition transform focus:outline-none hover:scale-105">
+                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g opacity="0.4">
+                    <path
+                      d="M7.99993 1.72778C12.3497 1.72778 15.7554 6.45746 15.8983 6.65884C16.0339 6.84971 16.0339 7.10903 15.8983 7.30005C15.7554 7.50125 12.3497 12.231 7.99993 12.231C3.6502 12.231 0.244313 7.50128 0.101532 7.29989C-0.0338438 7.10884 -0.0338438 6.84971 0.101532 6.65865C0.244313 6.45746 3.6502 1.72778 7.99993 1.72778Z"
+                      fill="#AAB2C2"
+                    />
+                    <path
+                      d="M8.00006 4.36496C6.58655 4.36496 5.43652 5.54802 5.43652 7.00212C5.43652 8.45622 6.58655 9.63928 8.00006 9.63928C9.41357 9.63928 10.5636 8.45622 10.5636 7.00212C10.5636 5.54802 9.41357 4.36496 8.00006 4.36496Z"
+                      fill="#AAB2C2"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M4.99438 7.00209C4.99438 5.29687 6.3423 3.91025 7.99991 3.91025C9.65752 3.91025 11.0054 5.29687 11.0054 7.00209C11.0054 8.70731 9.65752 10.0939 7.99991 10.0939C6.3423 10.0939 4.99438 8.70731 4.99438 7.00209ZM7.99991 4.81961C6.83051 4.81961 5.87836 5.7991 5.87836 7.00209C5.87836 8.20508 6.83051 9.18457 7.99991 9.18457C9.16931 9.18457 10.1215 8.20508 10.1215 7.00209C10.1215 5.7991 9.16931 4.81961 7.99991 4.81961Z"
+                      fill="white"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M14.7709 0.173125C14.9953 0.40396 14.9953 0.778215 14.7709 1.00905L2.351 13.7856C2.12661 14.0165 1.7628 14.0165 1.53841 13.7856C1.31402 13.5548 1.31402 13.1805 1.53841 12.9497L13.9583 0.173125C14.1827 -0.0577085 14.5465 -0.0577085 14.7709 0.173125Z"
+                      fill="#AAB2C2"
+                    />
+                  </g>
+                </svg>
+              </button>
+              <button
+                (click)="onClickPrevenetDefault($event)"
+                [matMenuTriggerFor]="siteOption"
+                [ngClass]="{
+                  'bg-white': site.siteId === currentSite?._id && !site.isHide,
+                  'bg-green-500': !(site.siteId === currentSite?._id) && !site.isHide,
+                  'bg-gray-200': site.isHide
+                }"
+                class="flex items-center justify-center w-6 h-6 ml-2 transition transform rounded-md btn-option focus:outline-none hover:scale-105"
+              >
+                <svg width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="1" cy="1" rx="1" ry="1" transform="rotate(-90 1 1)" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? '#2EC639' : 'white'" />
+                  <ellipse cx="4" cy="1" rx="1" ry="1" transform="rotate(-90 4 1)" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? '#2EC639' : 'white'" />
+                  <ellipse cx="7" cy="1" rx="1" ry="1" transform="rotate(-90 7 1)" [attr.fill]="site.siteId === currentSite?._id && !site.isHide ? '#2EC639' : 'white'" />
+                </svg>
+                <mat-menu #siteOption="matMenu">
+                  <cms-next-cms-site-menu-option (siteMenuOptionEvent)="siteMenuOptionEvent($event, site)" [siteItem]="site" [showHide]="true"></cms-next-cms-site-menu-option>
+                </mat-menu>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{ hidden: !site.isToggleStatus }">
+        <ng-container *ngTemplateOutlet="childNode; context: { node: site.child, parent: site, count: 2 }"></ng-container>
+      </div>
+      <div [@fadeBoxAnimation] *ngIf="site.siteId === currentSite?._id && createNewPageStatus && createNewPageFromChildStatus" class="grid gap-2 mb-4 ml-8">
+        <div class="p-2 bg-green-500 rounded-md" [formGroup]="newPageForm">
+          <input
+            formControlName="name"
+            autofocus
+            placeholder="Enter Page Name..."
+            type="text"
+            class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+          />
+          <div class="mt-2 text-sm font-light text-white">Create New Page</div>
+        </div>
+        <div class="flex items-center justify-end">
+          <button
+            (click)="onDeactiveCreateNewPage()"
+            class="flex items-center justify-center w-8 h-8 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            (click)="onCreateNewPage(site)"
+            class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          >
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div [@fadeBoxAnimation] *ngIf="site.siteId === currentSite?._id && renameStatus" class="grid gap-2 mb-4">
+        <div class="p-2 bg-green-500 rounded-md" [formGroup]="renameForm">
+          <input
+            formControlName="name"
+            autofocus
+            placeholder="New Page Name..."
+            type="text"
+            class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+          />
+          <div class="mt-2 text-sm font-light text-white">Rename Page</div>
+        </div>
+        <div class="flex items-center justify-end">
+          <button
+            (click)="onDeactiveRename()"
+            class="flex items-center justify-center w-8 h-8 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            (click)="onRenameSite(site)"
+            class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          >
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #childNode let-node="node" let-parent="parent" let-count="count">
+  <div
+    [@fadeBoxAnimation]
+    cdkDropList
+    [cdkDropListData]="node"
+    [id]="parent.siteId"
+    [attr.cdkDropListConnectedTo]="dropTargetIds ? dropTargetIds : null"
+    (cdkDropListDropped)="dropEvent$.next($event)"
+    [cdkDropListSortingDisabled]="true"
+    class="grid gap-2 ml-5"
+    [ngClass]="{ hidden: !node.length }"
+  >
+    <ng-container *ngIf="node as nodes">
+      <div
+        cdkDrag
+        [cdkDragData]="childNodeItem.siteId"
+        (cdkDragMoved)="dragMoved($event)"
+        class="grid gap-2 page-item"
+        *ngFor="let childNodeItem of nodes; let childNodeItemIndex = index; trackBy: trackBySiteId"
+      >
+        <div
+          cdkDragHandle
+          [attr.data-id]="childNodeItem.siteId"
+          [attr.id]="'node-' + childNodeItem.siteId"
+          [attr.data-level]="count"
+          [attr.data-nested-level]="childNodeItem.nestedLevel"
+          [attr.data-parent-id]="parent.siteId"
+          class="relative flex items-center node-item"
+          [ngClass]="{ toggle: childNodeItem.isToggleStatus && childNodeItem.child.length, last: childNodeItemIndex === nodes.length - 1 }"
+        >
+          <button
+            (click)="onActiveToggleSite(childNodeItem)"
+            [ngClass]="{ 'bg-gray-400': !childNodeItem.isToggleStatus, 'bg-none border-green-500 border': childNodeItem.isToggleStatus }"
+            *ngIf="childNodeItem.child.length"
+            class="absolute left-0 z-10 flex items-center justify-center w-4 h-4 -ml-5 transition transform bg-white rounded-full btn-toggle hover:scale-105 focus:outline-none"
+          >
+            <svg *ngIf="!childNodeItem.isToggleStatus" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 6H11" stroke="white" stroke-linecap="round" />
+              <path d="M6 1V11" stroke="white" stroke-linecap="round" />
+            </svg>
+            <svg *ngIf="childNodeItem.isToggleStatus" width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1H11" stroke="#2EC639" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button (click)="onUpdatePageChildSelected(childNodeItem)" *ngIf="childNodeItem.child.length && isFromMegaChild" class="focus:outline-none">
+            <svg *ngIf="!childNodeItem.isChildSelected" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+            </svg>
+            <svg *ngIf="childNodeItem.isChildSelected" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+              <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="absolute -ml-4 guideline">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.35" y="0.35" width="6.3" height="6.3" rx="3.15" fill="#F4F4F9" stroke="#F4F4F9" stroke-width="0.7" />
+            </svg>
+          </div>
+          <div class="w-full focus:outline-none" (click)="onActiveCurrentSite(childNodeItem)" (click)="onChangePage($event, childNodeItem)">
+            <div
+              [ngClass]="{
+                'bg-green-500': childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide,
+                'hover:bg-gray-50': !(childNodeItem.siteId === currentSite?._id) && !childNodeItem.isHide,
+                'bg-gray-100': childNodeItem.isHide && childNodeItem.siteId === currentSite?._id
+              }"
+              class="flex items-center justify-between w-full px-4 py-2 transition rounded-md cursor-pointer focus:outline-none"
+            >
+              <div class="flex items-center">
+                <button [ngClass]="{ 'opacity-50': childNodeItem.isHide }" class="w-2 transition transform focus:outline-none hover:scale-105">
+                  <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="1.25" cy="1.25" r="1.25" [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? 'white' : '#B2B9C7'" />
+                    <circle cx="1.25" cy="5" r="1.25" [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? 'white' : '#B2B9C7'" />
+                    <circle cx="5" cy="1.25" r="1.25" [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? 'white' : '#B2B9C7'" />
+                    <circle cx="5" cy="5" r="1.25" [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? 'white' : '#B2B9C7'" />
+                  </svg>
+                </button>
+                <div class="flex items-center justify-between ml-2">
+                  <div class="flex items-center">
+                    <div class="w-3">
+                      <img
+                        *ngIf="childNodeItem.isHomePage && !(childNodeItem.siteId === currentSite?._id) && !childNodeItem.isHide"
+                        src="assets/site-menu/home.svg"
+                        [alt]="childNodeItem.title"
+                      />
+                      <img
+                        *ngIf="!childNodeItem.isHomePage && !(childNodeItem.siteId === currentSite?._id) && !childNodeItem.isHide"
+                        src="assets/site-menu/page.svg"
+                        [alt]="childNodeItem.title"
+                      />
+                      <img
+                        *ngIf="childNodeItem.isHomePage && childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide"
+                        src="assets/site-menu/home-a.svg"
+                        [alt]="childNodeItem.title"
+                      />
+                      <img
+                        *ngIf="!childNodeItem.isHomePage && childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide"
+                        src="assets/site-menu/page-a.svg"
+                        [alt]="childNodeItem.title"
+                      />
+                      <img class="opacity-50" *ngIf="childNodeItem.isHomePage && childNodeItem.isHide" src="assets/site-menu/home.svg" [alt]="childNodeItem.title" />
+                      <img class="opacity-50" *ngIf="!childNodeItem.isHomePage && childNodeItem.isHide" src="assets/site-menu/page.svg" [alt]="childNodeItem.title" />
+                    </div>
+                    <span class="ml-2" [ngClass]="{ 'text-white': childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide, 'opacity-50': childNodeItem.isHide }">{{
+                      childNodeItem.title
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <button (click)="activeHiddenSite(childNodeItem)" class="transition transform focus:outline-none hover:scale-105" *ngIf="childNodeItem.isHide">
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g opacity="0.4">
+                      <path
+                        d="M7.99993 1.72778C12.3497 1.72778 15.7554 6.45746 15.8983 6.65884C16.0339 6.84971 16.0339 7.10903 15.8983 7.30005C15.7554 7.50125 12.3497 12.231 7.99993 12.231C3.6502 12.231 0.244313 7.50128 0.101532 7.29989C-0.0338438 7.10884 -0.0338438 6.84971 0.101532 6.65865C0.244313 6.45746 3.6502 1.72778 7.99993 1.72778Z"
+                        fill="#AAB2C2"
+                      />
+                      <path
+                        d="M8.00006 4.36496C6.58655 4.36496 5.43652 5.54802 5.43652 7.00212C5.43652 8.45622 6.58655 9.63928 8.00006 9.63928C9.41357 9.63928 10.5636 8.45622 10.5636 7.00212C10.5636 5.54802 9.41357 4.36496 8.00006 4.36496Z"
+                        fill="#AAB2C2"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M4.99438 7.00209C4.99438 5.29687 6.3423 3.91025 7.99991 3.91025C9.65752 3.91025 11.0054 5.29687 11.0054 7.00209C11.0054 8.70731 9.65752 10.0939 7.99991 10.0939C6.3423 10.0939 4.99438 8.70731 4.99438 7.00209ZM7.99991 4.81961C6.83051 4.81961 5.87836 5.7991 5.87836 7.00209C5.87836 8.20508 6.83051 9.18457 7.99991 9.18457C9.16931 9.18457 10.1215 8.20508 10.1215 7.00209C10.1215 5.7991 9.16931 4.81961 7.99991 4.81961Z"
+                        fill="white"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M14.7709 0.173125C14.9953 0.40396 14.9953 0.778215 14.7709 1.00905L2.351 13.7856C2.12661 14.0165 1.7628 14.0165 1.53841 13.7856C1.31402 13.5548 1.31402 13.1805 1.53841 12.9497L13.9583 0.173125C14.1827 -0.0577085 14.5465 -0.0577085 14.7709 0.173125Z"
+                        fill="#AAB2C2"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  (click)="onClickPrevenetDefault($event)"
+                  [matMenuTriggerFor]="siteOption"
+                  [ngClass]="{
+                    'bg-white': childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide,
+                    'bg-gray-300': !(childNodeItem.siteId === currentSite?._id) && !childNodeItem.isHide,
+                    'bg-gray-200': childNodeItem.isHide
+                  }"
+                  class="flex items-center justify-center w-6 h-6 ml-2 transition transform rounded-md btn-option focus:outline-none hover:scale-105"
+                >
+                  <svg width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse
+                      cx="1"
+                      cy="1"
+                      rx="1"
+                      ry="1"
+                      transform="rotate(-90 1 1)"
+                      [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? '#2EC639' : 'white'"
+                    />
+                    <ellipse
+                      cx="4"
+                      cy="1"
+                      rx="1"
+                      ry="1"
+                      transform="rotate(-90 4 1)"
+                      [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? '#2EC639' : 'white'"
+                    />
+                    <ellipse
+                      cx="7"
+                      cy="1"
+                      rx="1"
+                      ry="1"
+                      transform="rotate(-90 7 1)"
+                      [attr.fill]="childNodeItem.siteId === currentSite?._id && !childNodeItem.isHide ? '#2EC639' : 'white'"
+                    />
+                  </svg>
+                  <mat-menu #siteOption="matMenu">
+                    <cms-next-cms-site-menu-option
+                      (siteMenuOptionEvent)="siteMenuOptionEvent($event, childNodeItem)"
+                      [siteItem]="childNodeItem"
+                      [showHide]="!parent.isHide"
+                    ></cms-next-cms-site-menu-option>
+                  </mat-menu>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [ngClass]="{ hidden: !childNodeItem.isToggleStatus }">
+          <ng-container *ngTemplateOutlet="childNode; context: { node: childNodeItem.child, parent: childNodeItem, count: count + 1 }"></ng-container>
+        </div>
+        <div [@fadeBoxAnimation] *ngIf="childNodeItem.siteId === currentSite?._id && createNewPageStatus && createNewPageFromChildStatus" class="grid gap-2 mb-4 ml-8">
+          <div class="p-2 bg-green-500 rounded-md" [formGroup]="newPageForm">
+            <input
+              formControlName="name"
+              autofocus
+              placeholder="Enter Page Name..."
+              type="text"
+              class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+            />
+            <div class="mt-2 text-sm font-light text-white">Create New Page</div>
+          </div>
+          <div class="flex items-center justify-end">
+            <button
+              (click)="onDeactiveCreateNewPage()"
+              class="flex items-center justify-center w-8 h-8 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              (click)="onCreateNewPage(childNodeItem)"
+              class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+            >
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div [@fadeBoxAnimation] *ngIf="childNodeItem.siteId === currentSite?._id && renameStatus" class="grid gap-2 mb-4">
+          <div class="p-2 bg-green-500 rounded-md" [formGroup]="renameForm">
+            <input
+              formControlName="name"
+              autofocus
+              placeholder="New Page Name..."
+              type="text"
+              class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+            />
+            <div class="mt-2 text-sm font-light text-white">Rename Page</div>
+          </div>
+          <div class="flex items-center justify-end">
+            <button
+              (click)="onDeactiveRename()"
+              class="flex items-center justify-center w-8 h-8 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              (click)="onRenameSite(childNodeItem)"
+              class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+            >
+              <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

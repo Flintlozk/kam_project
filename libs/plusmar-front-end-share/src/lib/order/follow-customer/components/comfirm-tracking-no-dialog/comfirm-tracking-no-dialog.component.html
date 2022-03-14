@@ -1,0 +1,79 @@
+<div class="confirm-tracking-no-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head">Tracking No.</div>
+    <form class="content" [formGroup]="trackingForm">
+      <div class="content-item" *ngIf="!flatRate">
+        <div class="label">Logistic</div>
+        <input type="text" formControlName="logistic" />
+        <!-- <img src="assets/img/logistic/Logo_Thaipost.png" alt="Logistic"> -->
+      </div>
+      <div class="content-item" *ngIf="flatRate">
+        <div class="label">Logistic</div>
+        <input type="text" value="{{ 'Flat rate shipping' | translate }}" readonly="readonly" disabled="on" />
+        <!-- <img src="assets/img/logistic/Logo_Thaipost.png" alt="Logistic"> -->
+      </div>
+      <!-- <div class="content-item">
+        <div class="label">URL for Tracking</div>
+        <input type="text" formControlName="trackingUrl" />
+      </div> -->
+      <div class="content-item shipping">
+        <!-- <div class="grid-2"> -->
+        <div class="gab">
+          <div class="label">Shipping Date</div>
+          <reactor-room-datepicker [value]="currentDate"></reactor-room-datepicker>
+        </div>
+        <div class="gab">
+          <div class="label">Time</div>
+          <input type="text" formControlName="shippingTime" />
+        </div>
+        <!-- </div> -->
+      </div>
+      <div class="content-item">
+        <div class="label">Tracking No. <span *ngIf="isReadOnly"> ( from auto generation )</span></div>
+        <input type="text" formControlName="trackingNo" #trackingNo [readonly]="isReadOnly" />
+      </div>
+
+      <div class="content-item caution" *ngIf="!isTrackingActive">
+        <div class="label">* {{ 'Failed to create tracking number' | translate }}, {{ 'Please try again' | translate }}.</div>
+        <div class="normal">
+          * {{ 'Switch to' | translate }}, <u style="cursor: pointer" (click)="onClickSwitchToManualInput()">{{ 'Manual input' | translate }}.</u>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel" (click)="onNoClick()">{{ 'Cancel' | translate }}</button>
+        <button class="btn-save" (click)="onRetry()" *ngIf="!isTrackingActive">
+          <svg width="19" height="19" viewBox="0 0 56 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+            <title>icon_btn-undo</title>
+            <desc>Created with Sketch.</desc>
+            <g id="More-commerce" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="icon" transform="translate(-469.000000, -144.000000)" fill="white" fill-rule="nonzero">
+                <g id="icon_btn-undo" transform="translate(469.000000, 144.000000)">
+                  <path
+                    d="M47.7989433,18.6721934 C42.5105276,13.3252793 35.4789796,10.3805508 28,10.3805508 L23.8949417,10.3805508 L30.4837175,3.70253516 L26.8126303,0 L13.9803917,13.0059824 L26.6451509,26.0249199 L30.3419942,22.3486875 L23.7992946,15.6230391 L28,15.6230391 C40.5801134,15.6230391 50.8148675,25.970875 50.8148675,38.6902754 C50.8148675,51.4096758 40.5801134,61.7575117 28,61.7575117 C15.4198866,61.7575117 5.18513246,51.4095449 5.18513246,38.689752 L5.18513246,36.0685078 L0,36.0690313 L0,38.6902754 C0,46.2521152 2.9125115,53.3613125 8.20105668,58.7082266 C13.4894724,64.0552715 20.5210204,67 28,67 C35.4789796,67 42.5105276,64.0552715 47.7989433,58.7082266 C53.0874885,53.3611816 56,46.2519844 56,38.6902754 C56,31.1285664 53.0874885,24.0192383 47.7989433,18.6721934 Z"
+                    id="Path"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <span class="ml-5">{{ 'Retry' | translate }}</span>
+        </button>
+        <button class="btn-save" (click)="onConfirm()" *ngIf="isTrackingActive">
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+              fill="white"
+            />
+          </svg>
+          <span class="ml-5">{{ 'Confirm Send Tracking No' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

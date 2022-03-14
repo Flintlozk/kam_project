@@ -1,0 +1,11 @@
+export enum ErrorMessageResponseType {
+  CUSTOMER_NOT_FOUND = 'CUSTOMER_NOT_FOUND',
+  USER_NOT_FOUND = 'USER_NOT_FOUND',
+  BILLING_NOT_FOUND = 'BILLING_NOT_FOUND',
+}
+
+export enum ErrorCodeResponseType {
+  CUSTOMER_NOT_FOUND = 501,
+  USER_NOT_FOUND = 502,
+  BILLING_NOT_FOUND = 503,
+}

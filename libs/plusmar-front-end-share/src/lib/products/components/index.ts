@@ -1,0 +1,12 @@
+export { ProductsCreateComponent } from './products-create/products-create.component';
+export { ProductsCategoriesDialogComponent } from './products-categories-dialog/products-categories-dialog.component';
+export { ProductsTagsDialogComponent } from './products-tags-dialog/products-tags-dialog.component';
+export { ProductsAttributesDialogComponent } from './products-attributes-dialog/products-attributes-dialog.component';
+export { ProductsCategoriesComponent } from './products-categories/products-categories.component';
+export { ProductsListComponent } from './products-list/products-list.component';
+export { ProductsAttributesCardComponent } from './products-attributes-card/products-attributes-card.component';
+export { ProductsConfirmDeleteDialogComponent } from './products-confirm-delete-dialog/products-confirm-delete-dialog.component';
+export { ProductsTagsComponent } from './products-tags/products-tags.component';
+export { ProductsAttributesComponent } from './products-attributes/products-attributes.component';
+export { ProductsAttributesMagageDialogComponent } from './products-attributes-magage-dialog/products-attributes-magage-dialog.component';
+export { ProductTagsManageDialogComponent } from './product-tags-manage-dialog/product-tags-manage-dialog.component';

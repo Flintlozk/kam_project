@@ -1,0 +1,56 @@
+.image-modal {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+
+  .content {
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    object-fit: contain;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    height: 40px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    bottom: 30px;
+    left: 0;
+    position: absolute;
+    transition: visibility 0s, opacity 0.2s linear;
+
+    a {
+      cursor: pointer;
+      margin-left: 15px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    div {
+      cursor: pointer;
+      margin-left: 15px;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .closeButton {
+    color: #fff;
+    cursor: pointer;
+    text-align: right;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  &:hover {
+    .option {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

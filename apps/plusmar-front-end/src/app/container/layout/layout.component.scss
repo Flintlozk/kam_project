@@ -1,0 +1,51 @@
+@import 'base';
+.layout {
+  font-family: $font-family;
+  font-size: $font-size;
+  display: flex;
+  position: relative;
+  .layout-content-container {
+    flex: auto;
+    background: $content-bg;
+    padding-left: 250px;
+    @media #{$tabletmax} {
+      padding-left: 0;
+    }
+    .layout-nav {
+      background: white;
+    }
+    .layout-content {
+      position: relative;
+      padding: 30px 30px 10px 30px;
+      margin: auto;
+      // height: calc(100vh - 105px);
+      height: 89%;
+
+      @media #{$tabletmax} {
+        padding: 20px;
+        padding-top: 50px;
+        width: calc(100vw - 30px);
+      }
+
+      @media #{$mobilemax} {
+        padding: 15px !important;
+        width: calc(100vw - 30px);
+      }
+    }
+    &.wizard {
+      background: white;
+      padding-left: 0;
+    }
+  }
+  .layout-menu {
+    position: fixed;
+    z-index: 11;
+  }
+  .collapsed {
+    padding-left: 3rem;
+    transition: padding-left 0.5s ease-in-out;
+    @media #{$tabletmax} {
+      padding: 0;
+    }
+  }
+}

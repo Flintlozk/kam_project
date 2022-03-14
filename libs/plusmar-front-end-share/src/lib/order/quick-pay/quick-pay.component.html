@@ -1,0 +1,22 @@
+<div class="quickpay-container">
+  <reactor-room-quick-pay-transaction-list
+    [audienceID]="audienceID"
+    [audience]="audience"
+    [customerID]="customerID"
+    [parentContainer]="parentContainer"
+    [isBankEnable]="isBankEnable"
+    *ngIf="showQuickComponent === quickPayComponentsType.TRANSACTION"
+  ></reactor-room-quick-pay-transaction-list>
+  <reactor-room-quick-pay-new
+    [isBankEnable]="isBankEnable"
+    *ngIf="showQuickComponent === quickPayComponentsType.NEW"
+    [audienceID]="audienceID"
+    [parentContainer]="parentContainer"
+  ></reactor-room-quick-pay-new>
+  <reactor-room-quick-pay-details
+    [parentContainer]="parentContainer"
+    [isBankEnable]="isBankEnable"
+    [audienceID]="audienceID"
+    *ngIf="showQuickComponent === quickPayComponentsType.DETAIL"
+  ></reactor-room-quick-pay-details>
+</div>

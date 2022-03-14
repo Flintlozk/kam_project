@@ -1,0 +1,342 @@
+<div
+  class="setting-shop-owner"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <div class="head">
+    <div class="text">
+      {{ 'If you are interested in our package. Please' | translate }}
+      <a href="https://www.more-commerce.com/contact" target="_blank">{{ 'contact us' | translate }}</a>
+      {{ 'or' | translate }}
+      <a href="https://www.more-commerce.com/pricing" target="_blank">{{ 'Check Pricing' | translate }}</a>
+    </div>
+    <button *ngIf="isOwner" class="btn-edit" (click)="editPage()">
+      <svg class="edit" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12.9659 0.294462L0.0532027 13.2001C0.0532027 13.2001 0.00482531 17.5185 0.000120317 17.6926C-0.00458468 17.8668 0.129237 18.0056 0.307501 17.9998C0.422936 17.9961 1.53125 17.9837 2.77895 17.9698C3.45806 17.9622 4.17846 17.9541 4.80254 17.9468L17.7011 5.05531C18.1391 4.61752 18.0637 4.21697 17.6822 3.83567L14.1214 0.276834C13.7823 -0.0621027 13.3992 -0.127579 12.9659 0.294462ZM1.10666 16.8939L1.14488 13.6596L10.4788 4.33071L13.6768 7.52686L4.34278 16.8557L1.10666 16.8939Z"
+          fill="url(#edit)"
+        />
+        <defs>
+          <linearGradient id="edit" x1="0.0857386" y1="17.9143" x2="15.9184" y2="2.07288" gradientUnits="userSpaceOnUse">
+            <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+            <stop *ngIf="theme === themeType.SOCIAL" stop-color="#55B2FF" />
+            <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+            <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#87D6FF" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <span class="ml-5">
+        {{ 'Edit' | translate }}
+      </span>
+    </button>
+  </div>
+  <div class="cards">
+    <!-- Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail -->
+    <div class="main">
+      <reactor-room-card>
+        <div class="card-content">
+          <div class="title">
+            {{ shopOwner.page_name }}
+          </div>
+          <table class="shop-table">
+            <tr>
+              <td>{{ 'Name' | translate }}</td>
+              <td colspan="3">{{ shopOwner.firstname }} {{ shopOwner.lastname }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'Phone No' | translate }}</td>
+              <td colspan="3">{{ !shopOwner.tel ? userPhone : shopOwner.tel }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'Email' | translate }}</td>
+              <td class="link" colspan="3">{{ shopOwner.email }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'Address' | translate }}</td>
+              <td colspan="3">
+                {{ shopOwner.address }}
+                {{ shopOwner.amphoe }}
+                {{ shopOwner.district }}
+                {{ shopOwner.province }}
+                {{ shopOwner.post_code }}
+              </td>
+            </tr>
+          </table>
+          <div class="shop-social-connect">
+            <div class="social-icon">
+              <img src="assets/img/social/facebook.svg" style="height: 25px; width: 25px" />
+              <span>Facebook</span>
+            </div>
+            <div class="social-status">
+              <button class="connected" *ngIf="socialConnect.facebook.id">
+                <span>{{ 'Connected' | translate }}</span>
+              </button>
+            </div>
+            <div class="social-link">
+              <span (click)="copyLink(typeLink.FACEBOOK)" *ngIf="socialConnect.facebook.id" class="copy">{{ socialConnectedText | translate }}</span>
+            </div>
+          </div>
+          <div class="shop-social-connect">
+            <div class="social-icon">
+              <img src="assets/img/social/line.svg" style="height: 25px; width: 25px" />
+              <span>Line</span>
+            </div>
+            <div class="social-status">
+              <button class="connected" *ngIf="socialConnect.line.name">
+                <span>{{ 'Connected' | translate }}</span>
+              </button>
+            </div>
+            <div class="social-link">
+              <span (click)="copyLink(typeLink.LINE)" *ngIf="socialConnect.line.name" class="copy">{{ socialConnectedText | translate }}</span>
+            </div>
+          </div>
+          <!-- ////:: marketplace functionality commenting now -->
+          <!-- <div class="shop-social-connect">
+            <div class="social-icon">
+              <img src="assets/img/social/shopee.svg" style="height: 25px; width: 25px" />
+              <span>Shopee</span>
+            </div>
+            <div class="social-status">
+              <button class="connected" *ngIf="socialConnect.shopee.name">
+                <span>{{ 'Connected' | translate }}</span>
+              </button>
+            </div>
+            <div class="social-link">
+              <span (click)="copyLink(typeLink.SHOPEE)" *ngIf="socialConnect.shopee.name" class="copy whitespace-no-wrap cursor-pointer">{{
+                socialConnectedText | translate
+              }}</span>
+            </div>
+          </div>
+          <div class="shop-social-connect">
+            <div class="social-icon">
+              <img src="assets/img/social/lazada.svg" style="height: 25px; width: 25px" />
+              <span>Lazada</span>
+            </div>
+            <div class="social-status">
+              <button class="connected" *ngIf="socialConnect.lazada.name">
+                <span>{{ 'Connected' | translate }}</span>
+              </button>
+            </div>
+            <div class="social-link">
+              <span (click)="copyLink(typeLink.LAZADA)" *ngIf="socialConnect.lazada.name" class="copy whitespace-no-wrap cursor-pointer">{{
+                socialConnectedText | translate
+              }}</span>
+            </div>
+          </div> -->
+        </div>
+      </reactor-room-card>
+    </div>
+    <!-- Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail  Shop Detail -->
+
+    <!-- Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription -->
+    <div class="details">
+      <reactor-room-card>
+        <div class="card-content">
+          <div class="subscription-remain">
+            <div class="subscription-label">
+              {{ 'Subscription' | translate }}
+              <div class="border"></div>
+            </div>
+
+            <reactor-room-credit-topup *ngIf="isOwner" [theme]="theme"></reactor-room-credit-topup>
+          </div>
+
+          <reactor-room-current-budget [theme]="theme"></reactor-room-current-budget>
+
+          <div class="line">
+            <div class="group">
+              <div class="img">
+                <svg width="25" height="40" viewBox="0 0 25 40" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M23.3334 35.1534V28.8584C23.3334 26.6967 22.4 24.6384 20.7717 23.2134L17.0984 20L20.7717 16.7866C22.4001 15.3616 23.3334 13.3033 23.3334 11.1416V4.84664C24.3016 4.50164 25 3.585 25 2.5C25 1.12164 23.8784 0 22.5 0H2.5C1.12164 0 0 1.12164 0 2.5C0 3.585 0.698359 4.50164 1.66664 4.84664V11.1416C1.66664 13.3033 2.6 15.3616 4.22828 16.7866L7.90164 20L4.22828 23.2134C2.59992 24.6384 1.66664 26.6967 1.66664 28.8584V35.1534C0.698359 35.4984 0 36.415 0 37.5C0 38.8784 1.12164 40 2.5 40H22.5C23.8784 40 25 38.8784 25 37.5C25 36.415 24.3016 35.4984 23.3334 35.1534ZM21.6667 35H3.33336V28.8584C3.33336 27.1767 4.06 25.5767 5.325 24.4684L9.715 20.6267C9.89664 20.4684 10 20.2401 10 20.0001C10 19.7601 9.89664 19.5317 9.715 19.3734L5.325 15.5318C4.06 14.4234 3.33336 12.8234 3.33336 11.1418V5H21.6667V11.1416C21.6667 12.8233 20.9401 14.4233 19.6751 15.5316L15.2851 19.3733C15.1034 19.5316 15 19.76 15 20C15 20.24 15.1034 20.4684 15.285 20.6266L19.675 24.4683C20.9416 25.5766 21.6667 27.1766 21.6667 28.8583V35ZM19.9239 32.0876L13.1603 23.8543C12.8391 23.4641 12.161 23.4641 11.8398 23.8543L5.07618 32.0876C4.87327 32.3346 4.83435 32.6739 4.97473 32.9587C5.1151 33.2436 5.41098 33.4247 5.73563 33.4247H19.2629C19.5876 33.4247 19.8834 33.2435 20.0255 32.9587C20.1657 32.6739 20.1269 32.3346 19.9239 32.0876ZM15.9776 13.1507C16.3288 13.1507 16.647 13.3735 16.7809 13.7151C16.9165 14.0566 16.8417 14.4493 16.5932 14.7105L13.1155 18.3634C12.9451 18.5407 12.7226 18.6301 12.5 18.6301C12.2774 18.6301 12.0549 18.5406 11.8844 18.3634L8.40675 14.7105C8.15807 14.4475 8.08333 14.0566 8.21896 13.7151C8.35287 13.3735 8.67108 13.1507 9.02229 13.1507H15.9776Z"
+                    fill="url(#period)"
+                  />
+                  <defs>
+                    <linearGradient id="period" x1="1" y1="15.8904" x2="25" y2="15.8904" gradientUnits="userSpaceOnUse">
+                      <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+                      <stop *ngIf="theme === themeType.SOCIAL" stop-color="#60E9FF" />
+                      <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#53B1FF" />
+                      <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div class="text">
+                <div class="label">{{ 'Valid until' | translate }}</div>
+                <span [ngClass]="[isExpired ? 'expire-expired' : 'text-detail']" [innerText]="isSubscriptionFree ? 'N/A' : subscription.expiredDate"> </span>
+              </div>
+            </div>
+            <div class="group-seperate"></div>
+            <div class="group">
+              <div class="img">
+                <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M31.5278 3.29327V2.08294C31.5278 0.934408 30.5934 0 29.4449 0H7.22682C6.07828 0 5.14387 0.934408 5.14387 2.08294V3.29327C0.615072 11.6573 0.561401 11.4089 0.561401 11.8026C0.561401 11.8029 0.561401 11.8031 0.561401 11.8033V13.192C0.561401 14.3954 1.25724 15.5147 2.36662 16.1511V34.8546C2.36662 35.238 2.67753 35.5489 3.06093 35.5489H33.6107C33.9941 35.5489 34.3051 35.238 34.3051 34.8546V16.1511C35.4033 15.5152 36.1103 14.3828 36.1103 13.192V11.8033C36.1103 11.8031 36.1103 11.8029 36.1103 11.8026C36.1103 11.4047 36.0124 11.5757 31.5278 3.29327ZM34.2417 11.109H29.9453L27.631 4.16588H30.423L34.2417 11.109ZM24.5847 12.4977H28.7505V13.192C28.7505 14.3405 27.8161 15.2749 26.6676 15.2749C25.5191 15.2749 24.5847 14.3405 24.5847 13.192V12.4977ZM6.5325 2.08294C6.5325 1.7001 6.84397 1.38863 7.22682 1.38863H29.4449C29.8277 1.38863 30.1392 1.7001 30.1392 2.08294V2.77726C29.478 2.77726 7.19876 2.77726 6.5325 2.77726V2.08294ZM23.196 12.4977V13.192C23.196 14.3405 22.2616 15.2749 21.1131 15.2749C19.9646 15.2749 19.0302 14.3405 19.0302 13.192V12.4977H23.196ZM19.0302 11.109V4.16588H21.9136L23.0708 11.109H19.0302ZM17.6415 12.4977V13.192C17.6415 14.3405 16.7071 15.2749 15.5586 15.2749C14.41 15.2749 13.4756 14.3405 13.4756 13.192V12.4977H17.6415ZM8.19011 11.109L10.5045 4.16588H13.3503L12.1931 11.109H8.19011ZM12.087 12.4977V13.192C12.087 14.3405 11.1526 15.2749 10.0041 15.2749C8.85554 15.2749 7.92113 14.3405 7.92113 13.192V12.4977H12.087ZM1.95003 13.192V12.4977H6.5325V13.192C6.5325 14.2821 5.44041 15.2749 4.24127 15.2749C3.93896 15.2749 3.62569 15.2093 3.33407 15.0845C2.50624 14.7324 1.95003 13.9718 1.95003 13.192ZM14.8643 34.1602H7.92113V28.1891H14.8643V34.1602ZM14.8643 26.8005H7.92113V20.8294H14.8643V26.8005ZM32.9164 34.1602H16.2529V20.1351C16.2529 19.7517 15.942 19.4408 15.5586 19.4408H7.22682C6.84342 19.4408 6.5325 19.7517 6.5325 20.1351V34.1602H3.75525V16.6296C3.91619 16.6515 4.07831 16.6635 4.24127 16.6635C5.15505 16.6635 6.07877 16.3015 6.77537 15.6702C6.92944 15.5307 7.06816 15.3814 7.19266 15.225C7.82406 16.0957 8.84873 16.6635 10.0041 16.6635C11.1385 16.6635 12.1474 16.1166 12.7813 15.2725C13.4152 16.1166 14.4241 16.6635 15.5586 16.6635C16.693 16.6635 17.7019 16.1166 18.3358 15.2725C18.9697 16.1166 19.9787 16.6635 21.1131 16.6635C22.2475 16.6635 23.2564 16.1166 23.8903 15.2725C24.5243 16.1166 25.5332 16.6635 26.6676 16.6635C27.8229 16.6635 28.8476 16.0957 29.479 15.225C29.6035 15.3814 29.7422 15.5306 29.8963 15.6702C30.5929 16.3015 31.5166 16.6635 32.4304 16.6635C32.593 16.6635 32.7551 16.6519 32.9164 16.6299V34.1602ZM34.7216 13.192C34.7216 13.9938 34.1447 14.7631 33.2862 15.1065C33.0054 15.2183 32.7176 15.2749 32.4304 15.2749C31.2313 15.2749 30.1392 14.2821 30.1392 13.192V12.4977H34.7216V13.192Z"
+                    fill="url(#shop)"
+                  />
+                  <defs>
+                    <linearGradient id="shop" x1="0.561401" y1="17.7744" x2="36.1103" y2="17.7744" gradientUnits="userSpaceOnUse">
+                      <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+                      <stop *ngIf="theme === themeType.SOCIAL" stop-color="#60E9FF" />
+                      <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#53B1FF" />
+                      <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div class="text">
+                <div class="label">{{ 'Your Shop' | translate }}</div>
+                <span class="text-detail"> {{ subscription?.pageusing }} / {{ subscription?.pagelimit }} </span>
+              </div>
+            </div>
+          </div>
+          <!-- 
+          <div class="line">
+            <div class="img">
+              <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M31.5278 3.29327V2.08294C31.5278 0.934408 30.5934 0 29.4449 0H7.22682C6.07828 0 5.14387 0.934408 5.14387 2.08294V3.29327C0.615072 11.6573 0.561401 11.4089 0.561401 11.8026C0.561401 11.8029 0.561401 11.8031 0.561401 11.8033V13.192C0.561401 14.3954 1.25724 15.5147 2.36662 16.1511V34.8546C2.36662 35.238 2.67753 35.5489 3.06093 35.5489H33.6107C33.9941 35.5489 34.3051 35.238 34.3051 34.8546V16.1511C35.4033 15.5152 36.1103 14.3828 36.1103 13.192V11.8033C36.1103 11.8031 36.1103 11.8029 36.1103 11.8026C36.1103 11.4047 36.0124 11.5757 31.5278 3.29327ZM34.2417 11.109H29.9453L27.631 4.16588H30.423L34.2417 11.109ZM24.5847 12.4977H28.7505V13.192C28.7505 14.3405 27.8161 15.2749 26.6676 15.2749C25.5191 15.2749 24.5847 14.3405 24.5847 13.192V12.4977ZM6.5325 2.08294C6.5325 1.7001 6.84397 1.38863 7.22682 1.38863H29.4449C29.8277 1.38863 30.1392 1.7001 30.1392 2.08294V2.77726C29.478 2.77726 7.19876 2.77726 6.5325 2.77726V2.08294ZM23.196 12.4977V13.192C23.196 14.3405 22.2616 15.2749 21.1131 15.2749C19.9646 15.2749 19.0302 14.3405 19.0302 13.192V12.4977H23.196ZM19.0302 11.109V4.16588H21.9136L23.0708 11.109H19.0302ZM17.6415 12.4977V13.192C17.6415 14.3405 16.7071 15.2749 15.5586 15.2749C14.41 15.2749 13.4756 14.3405 13.4756 13.192V12.4977H17.6415ZM8.19011 11.109L10.5045 4.16588H13.3503L12.1931 11.109H8.19011ZM12.087 12.4977V13.192C12.087 14.3405 11.1526 15.2749 10.0041 15.2749C8.85554 15.2749 7.92113 14.3405 7.92113 13.192V12.4977H12.087ZM1.95003 13.192V12.4977H6.5325V13.192C6.5325 14.2821 5.44041 15.2749 4.24127 15.2749C3.93896 15.2749 3.62569 15.2093 3.33407 15.0845C2.50624 14.7324 1.95003 13.9718 1.95003 13.192ZM14.8643 34.1602H7.92113V28.1891H14.8643V34.1602ZM14.8643 26.8005H7.92113V20.8294H14.8643V26.8005ZM32.9164 34.1602H16.2529V20.1351C16.2529 19.7517 15.942 19.4408 15.5586 19.4408H7.22682C6.84342 19.4408 6.5325 19.7517 6.5325 20.1351V34.1602H3.75525V16.6296C3.91619 16.6515 4.07831 16.6635 4.24127 16.6635C5.15505 16.6635 6.07877 16.3015 6.77537 15.6702C6.92944 15.5307 7.06816 15.3814 7.19266 15.225C7.82406 16.0957 8.84873 16.6635 10.0041 16.6635C11.1385 16.6635 12.1474 16.1166 12.7813 15.2725C13.4152 16.1166 14.4241 16.6635 15.5586 16.6635C16.693 16.6635 17.7019 16.1166 18.3358 15.2725C18.9697 16.1166 19.9787 16.6635 21.1131 16.6635C22.2475 16.6635 23.2564 16.1166 23.8903 15.2725C24.5243 16.1166 25.5332 16.6635 26.6676 16.6635C27.8229 16.6635 28.8476 16.0957 29.479 15.225C29.6035 15.3814 29.7422 15.5306 29.8963 15.6702C30.5929 16.3015 31.5166 16.6635 32.4304 16.6635C32.593 16.6635 32.7551 16.6519 32.9164 16.6299V34.1602ZM34.7216 13.192C34.7216 13.9938 34.1447 14.7631 33.2862 15.1065C33.0054 15.2183 32.7176 15.2749 32.4304 15.2749C31.2313 15.2749 30.1392 14.2821 30.1392 13.192V12.4977H34.7216V13.192Z"
+                  fill="url(#shop)"
+                />
+                <defs>
+                  <linearGradient id="shop" x1="0.561401" y1="17.7744" x2="36.1103" y2="17.7744" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#60E9FF" />
+                    <stop offset="1" stop-color="#53B1FF" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="text">
+              <div class="label">{{ 'Your Shop' | translate }}</div>
+              <span class="text-detail"> {{ subscription?.pageusing }} / {{ subscription?.pagelimit }} </span>
+            </div>
+          </div> -->
+
+          <reactor-room-setting-shop-subscription-free *ngIf="subscriptionFeatureType === 'FREE'"> </reactor-room-setting-shop-subscription-free>
+
+          <reactor-room-setting-shop-subscription-business *ngIf="subscriptionFeatureType === 'BUSINESS'" [subscriptionLimitAndPrice]="subscriptionLimit">
+            <div class="remain">
+              <div *ngIf="!isExpired && !isSubscriptionFree" [ngClass]="[isRemainingWarning ? 'remaining-warning-label' : 'remaining-label']">
+                {{ 'remaining' | translate }} {{ subscription?.daysRemaining }} {{ 'days' | translate }}
+              </div>
+              <div *ngIf="isExpired && !isSubscriptionFree" class="remaining-warning-label">
+                {{ 'Expired' | translate }}
+              </div>
+            </div></reactor-room-setting-shop-subscription-business
+          >
+
+          <reactor-room-setting-shop-subscription-commerce *ngIf="subscriptionFeatureType === 'COMMERCE'" [subscriptionLimitAndPrice]="subscriptionLimit">
+            <div class="remain">
+              <div *ngIf="!isExpired && !isSubscriptionFree" [ngClass]="[isRemainingWarning ? 'remaining-warning-label' : 'remaining-label']">
+                {{ 'remaining' | translate }} {{ subscription?.daysRemaining }} {{ 'days' | translate }}
+              </div>
+              <div *ngIf="isExpired && !isSubscriptionFree" class="remaining-warning-label">
+                {{ 'Expired' | translate }}
+              </div>
+            </div>
+          </reactor-room-setting-shop-subscription-commerce>
+        </div>
+      </reactor-room-card>
+      <reactor-room-card style="display: none">
+        <div class="card-content">
+          <div class="title">
+            {{ 'Subscription' | translate }}
+            <div class="border"></div>
+          </div>
+          <div class="available">
+            <div class="text">{{ 'Available' | translate }}</div>
+            <div class="value">฿0</div>
+          </div>
+        </div>
+      </reactor-room-card>
+    </div>
+    <!-- Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription  Subscription -->
+
+    <!-- Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info -->
+    <div class="information">
+      <div class="info-item">
+        <div class="w-full">
+          <reactor-room-card>
+            <div class="card-content" *ngIf="taxData">
+              <div class="title">
+                {{ 'Tax' | translate }}
+                <div class="borders"></div>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Tax ID' | translate }}</span>
+                <span>{{ taxData.tax_id }}</span>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Tax Name' | translate }}</span>
+                <span>{{ taxData.name }}</span>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Tax' | translate }} (%)</span>
+                <span>{{ taxData.tax }}%</span>
+              </div>
+            </div>
+          </reactor-room-card>
+        </div>
+        <div class="w-full">
+          <reactor-room-card>
+            <div class="card-content">
+              <div class="title">
+                {{ 'Other' | translate }}
+                <div class="borders"></div>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Currency' | translate }}</span>
+                <span>{{ 'Thai Baht' | translate }} ({{ 'THB' | translate }})</span>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Language' | translate }}</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 30 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mat-tooltip-trigger cursor-pointer animated visible"
+                  ng-reflect-message="เปลี่ยนเป็นภาษาไทย"
+                  aria-describedby="cdk-describedby-message-2"
+                  cdk-describedby-host=""
+                >
+                  <path d="M15 30C23.2843 30 30 23.2843 30 15C30 6.71573 23.2843 0 15 0C6.71573 0 0 6.71573 0 15C0 23.2843 6.71573 30 15 30Z" fill="#F0F0F0"></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M18.913 0.516724C20.8325 1.03411 22.5993 1.92256 24.1323 3.10083L18.913 8.32006V0.516724ZM0.516724 11.087C1.03405 9.16757 1.9225 7.40068 3.10077 5.86769L8.32012 11.087H0.516724ZM26.8992 5.86774C28.0774 7.40073 28.9659 9.16762 29.4832 11.087H21.68L26.8992 5.86774ZM0.516724 18.9131C1.03411 20.8325 1.92256 22.5994 3.10077 24.1324L8.31995 18.9131H0.516724ZM5.86769 26.8991C7.40068 28.0774 9.16757 28.9658 11.087 29.4832V21.68L5.86769 26.8991ZM5.86769 3.10077C7.40062 1.92256 9.16751 1.03411 11.0869 0.516724V8.32L5.86769 3.10077ZM18.9131 29.4832C20.8325 28.9658 22.5994 28.0774 24.1323 26.8992L18.9131 21.68V29.4832ZM26.8992 24.1324L21.68 18.9131H29.4832C28.9659 20.8325 28.0774 22.5995 26.8992 24.1324Z"
+                    fill="#0052B4"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M29.873 13.0435H16.9566H16.9566V0.126973C16.3161 0.0435938 15.6631 0 15 0C14.3368 0 13.6839 0.0435938 13.0435 0.126973V13.0434V13.0434H0.126973C0.0435938 13.6839 0 14.3369 0 15C0 15.6632 0.0435938 16.3161 0.126973 16.9565H13.0434H13.0434V29.873C13.6839 29.9564 14.3368 30 15 30C15.6631 30 16.3161 29.9565 16.9565 29.873V16.9566V16.9566H29.873C29.9564 16.3161 30 15.6632 30 15C30 14.3369 29.9564 13.6839 29.873 13.0435ZM18.9131 18.9131L25.6066 25.6066C25.9144 25.2989 26.2081 24.9772 26.4883 24.6437L20.7577 18.9131H18.9131V18.9131ZM11.0868 18.9131H11.0869V20.7576L5.35634 26.4883C5.02283 26.2081 4.70109 25.9144 4.39336 25.6066L11.0868 18.9131ZM11.0869 11.087V11.0869L4.39341 4.39336C4.08555 4.70109 3.79188 5.02283 3.51169 5.35635L9.24233 11.087H11.0869ZM25.6066 4.39342L18.9131 11.087V9.2424L24.6437 3.51176C24.9772 3.79189 25.2989 4.08556 25.6066 4.39342Z"
+                    fill="#D80027"
+                  ></path>
+                </svg>
+              </div>
+              <div class="contents">
+                <span class="title">{{ 'Time Zone' | translate }}</span>
+                <span
+                  >{{ 'Thailand' | translate }} <span class="semiBold"> {{ 'GMT' | translate }} +7</span>
+                </span>
+              </div>
+            </div>
+          </reactor-room-card>
+        </div>
+      </div>
+      <div>
+        <reactor-room-setting-company-info [theme]="theme" [isEditAvailable]="false"></reactor-room-setting-company-info>
+      </div>
+    </div>
+    <!-- Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info  Page info -->
+  </div>
+</div>

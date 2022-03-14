@@ -1,0 +1,73 @@
+<section class="w-full py-3 bg-white">
+  <div id="main-container" class="flex items-center px-4 overflow-scroll no-scroll-bar">
+    <div class="flex">
+      <ng-container *ngFor="let imagesDataItem of imageDataFormArray.controls; trackBy: trackByIndex; let imagesDataItemIndex = index">
+        <ng-container [formGroup]="imagesDataItem">
+          <div
+            [ngClass]="{ 'border-4 border-gray-300': imagesDataItem['controls']['activeStatus'].value }"
+            [id]="'mainImage' + imagesDataItemIndex"
+            (click)="activeImageDataItem(imagesDataItemIndex)"
+            class="relative flex-shrink-0 w-48 h-64 mr-6 overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 rounded-lg shadow"
+          >
+            <img [src]="imagesDataItem['controls']['imageData'].value" onerror="this.src='assets/images/shared/no-image.svg'" class="w-full" />
+            <button (click)="onRemoveImageConfirmDialog(imagesDataItemIndex)" class="absolute top-0 right-0 mt-2 mr-2 focus:outline-none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.8" filter="url(#filter0_b)">
+                  <circle cx="12" cy="12" r="11.2" stroke="#EA6161" stroke-width="1.6" />
+                </g>
+                <line x1="6" y1="12" x2="18" y2="12" stroke="#EA6161" stroke-width="2" stroke-linecap="round" />
+                <defs>
+                  <filter id="filter0_b" x="-27" y="-27" width="78" height="78" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feGaussianBlur in="BackgroundImage" stdDeviation="13.5" />
+                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur" result="shape" />
+                  </filter>
+                </defs>
+              </svg>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div id="sub-container" class="flex items-center px-4 overflow-scroll no-scroll-bar" [ngClass]="{ 'mt-6': imageDataFormArray.controls.length }">
+    <div class="flex items-center">
+      <ng-container *ngFor="let imagesDataItem of imageDataFormArray.controls; trackBy: trackByIndex; let imagesDataItemIndex = index">
+        <ng-container [formGroup]="imagesDataItem">
+          <div
+            [ngClass]="{ 'border-2 border-gray-300': imagesDataItem['controls']['activeStatus'].value }"
+            [id]="'subImage' + imagesDataItemIndex"
+            (click)="activeImageDataItem(imagesDataItemIndex)"
+            class="flex-shrink-0 w-12 h-16 mr-8 overflow-hidden bg-gray-200 rounded shadow"
+          >
+            <img [src]="imagesDataItem['controls']['imageData'].value" onerror="this.src='assets/images/shared/no-image.svg'" class="w-full" />
+          </div>
+        </ng-container>
+      </ng-container>
+      <button (click)="onActiveToggleLayout()" class="flex items-center justify-center w-8 h-8 mr-8 rounded-full bg-green-500 focus:outline-none">
+        <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.7592 0.9H5.74357C5.68302 0.9 5.61924 0.915206 5.5713 0.963143C5.52336 1.01108 5.50815 1.07486 5.50815 1.13542V13.0521C5.50815 13.1126 5.52336 13.1764 5.5713 13.2244C5.61924 13.2723 5.68302 13.2875 5.74357 13.2875H6.7592C6.81975 13.2875 6.88353 13.2723 6.93147 13.2244C6.97941 13.1764 6.99461 13.1126 6.99461 13.0521V1.13542C6.99461 1.07486 6.97941 1.01108 6.93147 0.963143C6.88353 0.915206 6.81975 0.9 6.7592 0.9Z"
+            fill="white"
+            stroke="white"
+            stroke-width="0.2"
+          />
+          <path
+            d="M11.9389 6.3502H0.563883C0.50333 6.3502 0.439548 6.3654 0.39161 6.41334C0.343673 6.46128 0.328467 6.52506 0.328467 6.58561V7.60124C0.328467 7.66179 0.343673 7.72557 0.39161 7.77351C0.439548 7.82145 0.50333 7.83665 0.563883 7.83665H11.9389C11.9994 7.83665 12.0632 7.82145 12.1112 7.77351C12.1591 7.72557 12.1743 7.66179 12.1743 7.60124V6.58561C12.1743 6.52506 12.1591 6.46128 12.1112 6.41334C12.0632 6.3654 11.9994 6.3502 11.9389 6.3502Z"
+            fill="white"
+            stroke="white"
+            stroke-width="0.2"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+<ng-container>
+  <cms-next-option-toggle-layout [optionToggleLayoutStatus]="optionToggleLayoutStatus" (optionToggleLayoutStatusEvent)="optionToggleLayoutStatusEvent($event)">
+    <button class="option-item" (click)="imageUpload.click()">Open Photo Library</button>
+    <button class="option-item" (click)="onImageFileManageDialog()">Select From File Manage</button>
+  </cms-next-option-toggle-layout>
+  <input #imageUpload type="file" accept="image/*" class="hidden" />
+</ng-container>

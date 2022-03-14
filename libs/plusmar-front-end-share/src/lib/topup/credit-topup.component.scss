@@ -1,0 +1,19 @@
+@import 'base';
+@import 'buttons';
+
+.btn-add {
+  &.cms-theme {
+    @include btn-active();
+    background: #22c55e;
+    &:hover {
+      background: #00940f;
+    }
+  }
+  &.social-theme {
+    @include btn-active();
+  }
+  min-width: 90px;
+  height: 40px;
+  padding: 6px 12px;
+  margin-right: 5px;
+}

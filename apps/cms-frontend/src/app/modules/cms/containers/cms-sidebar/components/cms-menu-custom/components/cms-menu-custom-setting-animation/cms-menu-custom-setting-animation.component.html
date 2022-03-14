@@ -1,0 +1,16 @@
+<section class="grid grid-cols-2 gap-2">
+  <ng-container *ngFor="let animation of animationStyles; let index = index">
+    <div
+      (click)="onActiveAnimationStyle(index)"
+      [ngClass]="{ 'bg-green-100 border-green-500': animation.status, 'bg-gray-100 border-gray-100 hover:bg-gray-200': !animation.status }"
+      class="focus:outline-none cursor-pointer flex flex-col items-center justify-center relative py-3 rounded-md border"
+    >
+      <svg *ngIf="animation.status" class="absolute right-2 top-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+        <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <img [src]="animation.status ? animation.imgActiveUrl : animation.imgUrl" [alt]="animation.title" />
+      <span class="pt-1 font-light">{{ animation.title }}</span>
+    </div>
+  </ng-container>
+</section>

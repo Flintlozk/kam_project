@@ -1,0 +1,17 @@
+<div>
+  <h3 class="w-full mb-2 text-2xl text-center text-gray-700">Select Image</h3>
+  <div id="images-dialog-container" class="container grid grid-cols-2 gap-4 overflow-scroll no-scroll-bar md:grid-cols-3">
+    <ng-container *ngFor="let imagesDataItem of imagesData; trackBy: trackByIndex; let imagesDataItemIndex = index">
+      <div [id]="'image-dialog-item' + imagesDataItemIndex" class="relative overflow-hidden text-gray-200 rounded" (click)="onSelectImageItem(imagesDataItemIndex)">
+        <img [src]="imagesDataItem.imageData" onerror="this.src='assets/images/shared/no-image.svg'" class="w-full" />
+        <div *ngIf="imagesDataItem.activeStatus" class="absolute bottom-0 right-0 flex items-center justify-center w-8 h-8 mb-2 mr-2 rounded-full bg-green-500">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.53115 11.9313L1.96198 7.1936L0 9.22795L6.53115 16L20 2.03435L18.038 0L6.53115 11.9313Z" fill="white" />
+          </svg>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <button (click)="onConfirmSelection()" class="w-full py-3 mt-4 text-xl text-white rounded-md bg-green-500 focus:outline-none">Confirm</button>
+  <button (click)="onCancelSelection()" class="w-full pt-2 text-xl font-light text-gray-500 bg-white rounded-md focus:outline-none">Close</button>
+</div>

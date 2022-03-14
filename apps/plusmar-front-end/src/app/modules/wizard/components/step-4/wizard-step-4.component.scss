@@ -1,0 +1,293 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.wizard-step-4 {
+  background-color: rgba(243, 245, 249, 1);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  .content {
+    padding: 40px;
+    margin: 40px;
+    border-radius: 12px;
+    background-color: white;
+    flex-direction: column;
+    min-width: 709px;
+    min-height: 812px;
+    .divider {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card-content {
+      &.first {
+        display: flex;
+        align-items: center;
+
+        .text {
+          padding-right: 15px;
+          color: #576f83;
+          font-weight: 200;
+          text-align: right;
+
+          .sub {
+            padding-top: 10px;
+          }
+        }
+
+        .control {
+          .radios {
+            display: flex;
+            align-items: center;
+
+            .radio-button {
+              @extend .custom-radio-button;
+              margin-bottom: 0px;
+
+              &:first-child {
+                margin-right: 15px;
+              }
+
+              .input {
+                display: none;
+              }
+
+              .not-allow {
+                background-color: #eaeaea !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .setting-payment-flat-shipping {
+      width: 25%;
+      color: #567197;
+      .label {
+        color: #576f83;
+        font-weight: 200;
+        font-size: 12px;
+        padding: 20px 0px 10px;
+      }
+
+      input {
+        text-align: left;
+        padding: 10px 15px;
+        border: 1px solid #dddfea;
+        border-radius: 8px;
+        padding: 9px 15px;
+        width: calc(100% - 30px);
+        height: 35px;
+      }
+    }
+
+    .title-container {
+      text-align: center;
+
+      .title {
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+        color: #567197;
+        padding-bottom: 10px;
+      }
+
+      .sub-title {
+        font-size: 14px;
+        font-weight: 200;
+      }
+    }
+
+    .main {
+      padding-top: 10px;
+      .card-content {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 20px;
+
+        .item {
+          &.on-line {
+            grid-column-start: 1;
+            grid-column-end: 3;
+          }
+
+          &.logo {
+            text-align: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            div.logo-img {
+              width: 100px;
+              height: 100px;
+              border-radius: 100%;
+              display: flex;
+              // background-color: $main-color;
+
+              img {
+                width: 50px;
+                height: 50px;
+                margin: auto;
+                border-radius: 100%;
+              }
+            }
+
+            img.logo-img {
+              width: 100px;
+              height: 100px;
+              border-radius: 100%;
+            }
+
+            .dismiss-icon {
+              position: absolute;
+              background: #eb6160;
+              width: 15px;
+              height: 15px;
+              border-radius: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              top: 0px;
+              left: calc(50% + 20px);
+              cursor: pointer;
+
+              img {
+                width: 8px;
+                flex-shrink: 0;
+              }
+            }
+          }
+
+          .label {
+            color: #576f83;
+            padding-bottom: 10px;
+            font-weight: 400;
+            font-size: 12px;
+          }
+
+          input {
+            border: 1px solid $border-color;
+            border-radius: 8px;
+            height: 42px;
+            padding: 0px 15px;
+            width: 100%;
+          }
+        }
+
+        ::ng-deep reactor-room-address {
+          grid-column-start: 1;
+          grid-column-end: 3;
+          display: grid;
+          grid-template-columns: repeat(2, auto);
+          grid-gap: 20px;
+
+          .mat-form-field {
+            display: unset;
+            padding: 0px !important;
+          }
+
+          .label {
+            color: #576f83;
+            padding-bottom: 10px;
+            font-size: 12px;
+          }
+
+          .mat-form-field-appearance-legacy .mat-form-field-underline {
+            display: none;
+          }
+
+          .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+            padding: 0px !important;
+          }
+
+          .mat-form-field-appearance-legacy .mat-form-field-infix {
+            padding: 0px !important;
+            border-top: none;
+          }
+        }
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 5em;
+      .btn-edit {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+
+    .item-disabled {
+      opacity: 0.5;
+    }
+
+    .payment-container {
+      padding-top: 30px;
+
+      .sub-title {
+        font-size: 14px;
+        font-weight: 200;
+      }
+
+      .payment-detail {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-top: 15px;
+
+        .item {
+          display: inline-block;
+          margin: 10px 0 0 10px;
+          width: 22%;
+          text-align: center;
+          border: 1px solid #dddfea;
+          border-radius: 15px;
+
+          &.active {
+            border-color: #54b1ff;
+          }
+
+          .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 15px 0px 15px;
+
+            button.btn-edit {
+              @include btn-active();
+              padding-left: 5px;
+              padding-right: 5px;
+              margin: none;
+              min-width: auto;
+              height: auto;
+              padding: none;
+            }
+
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+          .body {
+            padding: 15px;
+            padding-bottom: 30px;
+            cursor: pointer;
+            img {
+              width: 80px;
+              height: 80px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

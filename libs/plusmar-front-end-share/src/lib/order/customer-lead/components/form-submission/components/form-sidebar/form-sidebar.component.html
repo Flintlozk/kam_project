@@ -1,0 +1,17 @@
+<reactor-room-card [padding]="'0px'" [height]="'100%'">
+  <div class="card-content">
+    <div class="head">
+      <div class="title" [innerText]="sidebarData?.length + ' form(s)'">
+        <div class="border"></div>
+        <div class="sub-title">Select a form for getting customer info</div>
+      </div>
+    </div>
+    <div class="content" *ngIf="sidebarData?.length">
+      <ng-container *ngFor="let item of sidebarData; let i = index">
+        <div class="item" [ngClass]="{ active: item?.selected }" (click)="setActiveSidebarItem(i)">
+          <div class="text" [innerText]="item?.name"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</reactor-room-card>

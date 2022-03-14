@@ -1,0 +1,5 @@
+<ng-container *ngIf="attachment$ | async; let attachment">
+  <div *ngIf="attachment?.file_url?.length > 0">
+    <a [href]="attachment?.file_url" class="link" target="_blank">{{ attachment?.file_url | generateFilePreview }}</a>
+  </div>
+</ng-container>

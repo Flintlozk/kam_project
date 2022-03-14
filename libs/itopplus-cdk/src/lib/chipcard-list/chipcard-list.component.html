@@ -1,0 +1,27 @@
+<mat-form-field class="example-chip-list">
+  <mat-chip-list #chipList required>
+    <input
+      [placeholder]="'Cutomer name' | translate"
+      #fruitInput
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="add($event)"
+    />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <button mat-button color="primary" class="add-button">
+      <mat-icon id="create">{{ 'add' | translate }}</mat-icon>
+      {{ 'Add New Customer' | translate }}
+    </button>
+    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+      {{ fruit }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<div class="text-inside">
+  <mat-chip class="outside" *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
+    {{ fruit }} <mat-icon aria-hidden="false" *ngIf="removable" aria-label="Example home icon"> {{ 'close' | translate }}</mat-icon>
+  </mat-chip>
+</div>

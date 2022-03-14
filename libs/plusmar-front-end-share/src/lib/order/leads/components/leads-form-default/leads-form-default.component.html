@@ -1,0 +1,61 @@
+<div class="leads-form-default">
+  <reactor-room-heading [headingTitle]="'Form Info' | translate" [Route]="'Leads / Form /  Form Info' | translate">
+    <div class="heading-content">
+      <button class="btn-back" [routerLink]="'/leads/form'">{{ 'Back' | translate }}</button>
+    </div>
+  </reactor-room-heading>
+  <div class="content">
+    <reactor-room-card [height]="'calc(100% - 40px)'">
+      <div class="card-content">
+        <div class="label">{{ 'Form Name' | translate }}*</div>
+        <input type="text" value="Name, Phone No., Remark" disabled />
+        <div class="title">
+          {{ 'Review' | translate }}
+          <div class="border"></div>
+        </div>
+        <div class="label">{{ 'Name' | translate }}*</div>
+        <input type="text" disabled />
+        <div class="phone-group">
+          <div class="label">{{ 'Phone No' | translate }}*</div>
+          <div class="input">
+            <input type="text" disabled />
+          </div>
+          <div class="input">
+            <input type="text" disabled />
+            <div class="func">
+              <img src="assets/img/trash-icon.svg" alt="" />
+            </div>
+          </div>
+          <div class="input">
+            <input type="text" disabled />
+            <div class="func">
+              <img src="assets/img/trash-icon.svg" alt="" />
+              <div class="add-icon">
+                <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="remark">
+          <div class="label">{{ 'Remark' | translate }}</div>
+          <textarea rows="4" disabled></textarea>
+        </div>
+      </div>
+    </reactor-room-card>
+    <reactor-room-card [height]="'calc(100% - 40px)'">
+      <div class="card-content">
+        <div class="label">{{ 'Message box' | translate }}</div>
+        <div class="message-box">
+          <div class="text">{{ 'Contact Info' | translate }}</div>
+          <img src="assets/img/message-box.png" alt="Message Box" />
+          <div class="btn-enter">{{ 'Enter Contact Info' | translate }}</div>
+        </div>
+      </div>
+    </reactor-room-card>
+  </div>
+</div>

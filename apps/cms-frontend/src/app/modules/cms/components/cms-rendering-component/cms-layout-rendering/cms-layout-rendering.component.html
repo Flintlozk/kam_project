@@ -1,0 +1,33 @@
+<cms-next-cms-layout-guideline
+  (dblclick)="onLayoutEditorFocusEvent()"
+  [onFocus]="onFocus"
+  [isChildEnter]="isChildEnter"
+  [themeOption]="themeOption"
+  [el]="el"
+  (removeEvent)="onRemoveCurrentComponent($event)"
+  [title]="layoutTitle"
+></cms-next-cms-layout-guideline>
+<div #dropZone1 class="w-full z-10 column-1" [ngClass]="{ hidden: currentColumnNumber < 1 }">
+  <cms-next-cms-container-rendering [renderingComponentDataContainer]="renderingComponentDataContainers[0]" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+    <ng-container #insertPoint1></ng-container>
+    <ng-content select="[column=0]"></ng-content>
+  </cms-next-cms-container-rendering>
+</div>
+<div #dropZone2 class="w-full z-10 column-2" [ngClass]="{ hidden: currentColumnNumber < 2 }">
+  <cms-next-cms-container-rendering [renderingComponentDataContainer]="renderingComponentDataContainers[1]" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+    <ng-container #insertPoint2></ng-container>
+    <ng-content select="[column=1]"></ng-content>
+  </cms-next-cms-container-rendering>
+</div>
+<div #dropZone3 class="w-full z-10 column-3" [ngClass]="{ hidden: currentColumnNumber < 3 }">
+  <cms-next-cms-container-rendering [renderingComponentDataContainer]="renderingComponentDataContainers[2]" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+    <ng-container #insertPoint3></ng-container>
+    <ng-content select="[column=2]"></ng-content>
+  </cms-next-cms-container-rendering>
+</div>
+<div #dropZone4 class="w-full z-10 column-4" [ngClass]="{ hidden: currentColumnNumber < 4 }">
+  <cms-next-cms-container-rendering [renderingComponentDataContainer]="renderingComponentDataContainers[3]" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+    <ng-container #insertPoint4></ng-container>
+    <ng-content select="[column=3]"></ng-content>
+  </cms-next-cms-container-rendering>
+</div>

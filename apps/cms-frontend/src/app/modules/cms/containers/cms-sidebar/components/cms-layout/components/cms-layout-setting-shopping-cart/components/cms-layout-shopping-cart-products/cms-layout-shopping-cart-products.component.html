@@ -1,0 +1,142 @@
+<div class="layout-shopping-cart-product">
+  <section class="grid gap-4" [formGroup]="layoutCartProductForm">
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Display Type</div>
+      <div class="select-options text">
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="displayType">
+            <mat-option *ngFor="let displayType of shoppingCartProductDisplayTypeList" [value]="displayType.key">
+              {{ displayType.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Sort By</div>
+      <div class="select-options text">
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="sortBy">
+            <mat-option *ngFor="let sortType of shoppingCartProductSortTypeList" [value]="sortType.key">
+              {{ sortType.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="bg-white rounded-sm text-black">
+      <button class="advanced-button" (click)="onClickAdvanceSetting()" *ngIf="!isShowAdvanceSetting; else advanceSetting">
+        <img src="assets/cms/icon/setting.svg" alt="setting" />
+        Advance Setting
+      </button>
+
+      <!-- advance settings -->
+      <ng-template #advanceSetting>
+        <div class="flex justify-between items-center advance-setting-border p-4">
+          <div class="flex">
+            <img class="mr-4" src="assets/cms/icon/setting.svg" alt="setting" />
+            <div>Advance Setting</div>
+          </div>
+          <div>
+            <img class="cursor-pointer" src="assets/cms/icon/close.svg" (click)="closeAdvanceSetting()" alt="close" />
+          </div>
+        </div>
+
+        <div class="grid gap-2 p-4">
+          <div class="grid gap-2">
+            <div class="layout-label">Primary Product Amount</div>
+            <div class="relative input-border w-36 p-2">
+              <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <input type="text" class="w-full focus:outline-none pr-6" />
+            </div>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="layout-label">Secondary Product Amount</div>
+            <div class="relative input-border w-36 p-2">
+              <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <input type="text" class="w-full focus:outline-none pr-6" />
+            </div>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="layout-label">Show Info</div>
+            <ng-container *ngFor="let showInfo of shoppingCartProductAdvanceShowInfoList; let index = index">
+              <div class="relative">
+                <div class="gap-2 grid items-center show-info-grid relative z-0">
+                  <img src="assets/cms/icon/drag.svg" alt="icon" />
+                  <input type="checkbox" [name]="showInfo.value" />
+                  <div class="text-one">{{ showInfo.label }}</div>
+
+                  <div *ngIf="!showInfo.isSetting" mat-button class="flex cursor-pointer justify-self-end layout-label underline" (click)="onShowInfoSettings(showInfo.value)">
+                    Setting
+                  </div>
+                </div>
+                <div class="absolute z-10" *ngIf="showInfo.isSetting">
+                  <ng-template [ngComponentOutlet]="showInfo.component"></ng-template>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="layout-label">Button</div>
+            <ng-container *ngFor="let buttonList of shoppingCartProductAdvanceButtonList; let index = index">
+              <div class="relative">
+                <div class="gap-2 grid items-center show-info-grid relative z-0">
+                  <img src="assets/cms/icon/drag.svg" alt="icon" />
+                  <input type="checkbox" [name]="buttonList.value" />
+                  <div class="text-one">{{ buttonList.label }}</div>
+
+                  <div *ngIf="!buttonList.isSetting" mat-button class="flex cursor-pointer justify-self-end layout-label underline" (click)="onButtonSettings(buttonList.value)">
+                    Setting
+                  </div>
+                </div>
+                <div class="absolute z-10" *ngIf="buttonList.isSetting">
+                  <ng-template [ngComponentOutlet]="buttonList.component"></ng-template>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="layout-label">Label</div>
+            <ng-container *ngFor="let labelList of shoppingCartProductAdvanceLabelList; let index = index">
+              <div class="relative">
+                <div class="gap-2 grid items-center show-info-grid relative z-0">
+                  <img src="assets/cms/icon/drag.svg" alt="icon" />
+                  <input type="checkbox" [name]="labelList.value" />
+                  <div class="text-one">{{ labelList.label }}</div>
+
+                  <div *ngIf="!labelList.isSetting" mat-button class="flex cursor-pointer justify-self-end layout-label underline" (click)="onLabelSettings(labelList.value)">
+                    Setting
+                  </div>
+                </div>
+                <div class="absolute z-10" *ngIf="labelList.isSetting">
+                  <ng-template [ngComponentOutlet]="labelList.component"></ng-template>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+</div>

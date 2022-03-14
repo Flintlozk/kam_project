@@ -1,0 +1,30 @@
+@import 'base';
+.card-content {
+  padding: 20px;
+  padding-top: 0px;
+  position: relative;
+  ::ng-deep reactor-room-loader {
+    .loader {
+      position: absolute;
+      width: 100%;
+      background-color: rgba(247, 248, 250, 0.4);
+      height: 100%;
+    }
+  }
+  @media #{$mobilemax} {
+    padding: 10px;
+    padding-top: 0px;
+  }
+  .label {
+    transform: rotate(270deg);
+    position: absolute;
+    left: -20px;
+    font-size: 12px;
+    bottom: 50%;
+    font-weight: 300;
+    color: #74787c;
+    @media #{$mobilemax} {
+      left: -18px;
+    }
+  }
+}

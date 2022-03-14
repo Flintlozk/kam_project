@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>(DEV) More-Commerce</title>
+    <%- include ("../partials/head") %>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script>
+        <%if (payload) { %>
+            var payloadData = <%-JSON.stringify(payload); %>
+        <% } %>
+
+    
+   
+
+        function sendSomething(){
+            const params = getPayloadParams()
+            console.log('params ::::::::::>>> ',params);
+            console.log('payloadData ::::::::::>>> ',payloadData);
+            // const value = {
+            //     response_type: payloadData.type,
+            //     audienceId: payloadData.audienceId,
+            //     view: payloadData.view,
+            //     auth:payloadData.auth
+            // }
+            // const params = new URLSearchParams(value).toString();
+            // console.log('params ::::::::::>>> ',params);
+            // POST(`/purchase/postback`, value, function (isPass) {
+            //     console.log('isPass ::::::::::>>> ',isPass);
+        
+            // })
+        }
+    </script>
+</head>
+
+<body style="background-color: #FFF;">
+<%=payload.auth%>
+    <button onClick="sendSomething()" >click me click me click me click me click me</button>
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <style>
+      .margin-20 {
+        margin: 20px;
+      }
+
+      .error-msg {
+        color: red;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .action-btn {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .apply {
+        background-color: #54b1ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        border-radius: 40px;
+        min-width: 133px;
+        height: 40px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+
+      .cancel {
+        background-color: white;
+        border: 1px solid #54b1ff;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        border-radius: 40px;
+        min-width: 133px;
+        height: 40px;
+        cursor: pointer;
+        color: #54b1ff;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      .categories-tree {
+        margin: 0px 10px;
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        border-top: 1px solid #dddfea;
+      }
+
+      .custom-checkbox {
+        margin-right: 10px;
+      }
+
+      .checkmark {
+        top: -11px;
+      }
+
+      .expand-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        border: 1px solid #dddfea;
+        color: #dddfea;
+        cursor: pointer;
+        margin-right: 5px;
+        border-radius: 5px;
+        background: white;
+        z-index: 1;
+        line-height: 20px;
+        font-size: 25px;
+        font-weight: 300;
+      }
+
+      .sub {
+        display: flex;
+        padding: 10px 20px;
+        padding-left: 75px;
+      }
+
+      input[type='text'] {
+        border: #dddfea 1px solid;
+        border-radius: 8px;
+        height: 26px;
+        width: 100%;
+      }
+      input[type='text']:focus,
+      textarea:focus,
+      input[type='text']:focus {
+        outline: none;
+        border: 1px solid #54b1ff !important;
+      }
+
+      .text-24 {
+        font-size: 24px;
+      }
+
+      .mt-10 {
+        margin-top: 10px;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      .tag {
+        padding: 2px 10px;
+        border: #dddfea 1px solid;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin: 5px;
+      }
+
+      .active {
+        background-color: #54b1ff;
+        color: white;
+      }
+
+      .clear {
+        color: #54b1ff;
+        border: unset;
+        background: unset;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%- JSON.stringify(payload); %>
+      <% } %>
+    </script>
+
+    <script>
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
+      var paramJSON = {};
+
+      for (let [key, value] of params) {
+        paramJSON[key] = value;
+      }
+
+      var sessionParams = {
+        catalogID: paramJSON.catalogID,
+        psid: paramJSON.psid,
+        auth: paramJSON.auth,
+        view: paramJSON.view,
+        audienceId: paramJSON.audienceId,
+      };
+      function initProductCatalogFilter() {
+        return {
+          tags: payloadData.tags,
+          categories: payloadData.categories,
+          search: null,
+          backURL: null,
+          isAvailableCatalogData: true,
+          isShowFilter: false,
+          async checkFilter() {
+            const payload = await this.getSession();
+            const filter = payload.filter;
+            this.backURL = payload.startPoint;
+            const { categoryIds, tagIds, searchString } = filter;
+            this.search = searchString || '';
+            tagIds?.map((tagID) => {
+              const tag = payloadData.tags.find(({ id }) => id === +tagID);
+              tag.active = true;
+            });
+            const subCategoriesArrayFlat = payloadData.categories.map((cat) => cat.subCategory).flat();
+            categoryIds?.map((catID) => {
+              const catPayload = payloadData.categories.find(({ categoryID }) => categoryID === +catID);
+              if (catPayload) {
+                catPayload.status = true;
+              } else {
+                const subCatPayload = subCategoriesArrayFlat.find(({ subCategoryID }) => subCategoryID === +catID);
+                if (subCatPayload) subCatPayload.subCategoryActive = true;
+              }
+            });
+          },
+          async clearFilter() {
+            await this.setFilter(null, null, null);
+            this.search = null;
+            this.tags.forEach((tag) => (tag.active = false));
+            this.categories.forEach((cat) => {
+              cat.status = false;
+              cat.subCategory.forEach((subCat) => (subCat.subCategoryActive = false));
+            });
+          },
+          tagStatus(tagID) {
+            let tagStatus = this.tags.find((tag) => tag.id === tagID).active;
+            this.tags.find((tag) => tag.id === tagID).active = !tagStatus;
+          },
+          async getSession() {
+            try {
+              const newQueryString = new URLSearchParams(sessionParams).toString();
+              const sessionGetPath = `session/get?${newQueryString}`;
+              const response = await (await fetch(sessionGetPath)).json();
+              if (!Object.keys(response || {}).length > 0) {
+                this.isAvailableCatalogData = false;
+              }
+              return response;
+            } catch (error) {
+              this.isAvailableCatalogData = false;
+              console.log('variant :>> ', error);
+            }
+          },
+          onToggleSubCategoryDisplay(categoryID) {
+            const subContentID = `subContentID${categoryID}`;
+            const subContentElement = document.getElementById(subContentID);
+            const plusID = `plus${categoryID}`;
+            const plusElement = document.getElementById(plusID);
+            const minusID = `minus${categoryID}`;
+            const minusElement = document.getElementById(minusID);
+            if (subContentElement.style.display === 'block') {
+              subContentElement.style.display = 'none';
+              plusElement.style.display = 'block';
+              minusElement.style.display = 'none';
+            } else {
+              subContentElement.style.display = 'block';
+              plusElement.style.display = 'none';
+              minusElement.style.display = 'block';
+            }
+          },
+          async goBackToCatalog() {
+            const catalogLS = await this.getSession();
+            this.backURL = catalogLS.startPoint;
+            window.location = this.backURL;
+          },
+          async applyFilter() {
+            const tagsActiveArray = payloadData.tags.filter((tag) => tag.active);
+            const tagsActive = tagsActiveArray.map(({ id }) => id);
+            const categoryActiveArray = payloadData.categories.filter((cat) => cat.status);
+            const categoryActive = categoryActiveArray.map(({ categoryID }) => categoryID);
+            const subCategoriesArrayFlat = payloadData.categories.map((cat) => cat.subCategory).flat();
+            const subCategoryActiveArray = subCategoriesArrayFlat.filter((subCat) => subCat.subCategoryActive);
+            const subCategoryActive = subCategoryActiveArray.map(({ subCategoryID }) => subCategoryID);
+            const catSubCatActive = [...categoryActive, ...subCategoryActive];
+            const search = this.search?.trim();
+            if (!tagsActive?.length && !catSubCatActive?.length && !search?.length) {
+              await this.setFilter(null, null, null);
+              await this.goBackToCatalog();
+            } else {
+              this.isShowFilter = false;
+              await this.setFilter(search, tagsActive, catSubCatActive);
+              await this.goBackToCatalog();
+            }
+          },
+          async setFilter(search, tags, catSubcat) {
+            const catalogLS = await this.getSession();
+            const cart = catalogLS.cart;
+            let filter = {};
+            if (!search && !tags && !catSubcat) {
+              filter = {};
+            } else {
+              filter = {
+                categoryIds: catSubcat,
+                tagIds: tags,
+                searchString: search,
+              };
+            }
+            const payload = {
+              cart,
+              filter,
+              startPoint: this.backURL,
+            };
+            await this.setSession(JSON.stringify(payload));
+          },
+          async setSession(body) {
+            const newQueryString = new URLSearchParams(sessionParams).toString();
+            const sessionSetPath = `session/set?${newQueryString}`;
+            await fetch(sessionSetPath, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: body,
+            })
+              .then((result) => {
+                result.json().then((result) => {
+                  if (!result?.status === 200) {
+                    this.isAvailableCatalogData = false;
+                  }
+                });
+              })
+              .catch((err) => {
+                this.isAvailableCatalogData = false;
+                console.log('error in session', err);
+              });
+          },
+        };
+      }
+    </script>
+
+    <body class="margin-20">
+      <div x-data="initProductCatalogFilter()" x-init="checkFilter()">
+        <template x-if="!isAvailableCatalogData">
+          <div>Some thing went wrong, please try again later</div>
+        </template>
+        <template x-if="isAvailableCatalogData">
+          <div>
+            <div class="action-btn">
+              <button class="clear" @click="clearFilter()">Clear Filter</button>
+              <button class="cancel" @click="goBackToCatalog()">Cancel</button>
+              <button class="apply" x-on:click="applyFilter()">Apply</button>
+            </div>
+            <template x-if="isShowFilter">
+              <div class="error-msg">Please select some filter to apply</div>
+            </template>
+            <input type="text" x-model="search" placeholder="Search Products" />
+            <!-- tags -->
+            <div>
+              <div class="text-24 mt-10">Tags</div>
+              <div class="tag-list mt-10">
+                <template x-for="(tag,index) of tags" :key="tag.id">
+                  <div :class="tag.active ? 'active' : ''" @click="tagStatus(tag.id)" class="tag" x-text="tag.name"></div>
+                </template>
+              </div>
+            </div>
+
+            <!-- categories -->
+            <div style="position: absolute">
+              <div class="text-24 mt-10">Categories</div>
+              <div class="categories-tree mt-10">
+                <template class="item" x-for="(cat,index) of categories" :key="cat.categoryID">
+                  <div>
+                    <div class="content">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" x-model="cat.status" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <div class="expand-icon" x-on:click="onToggleSubCategoryDisplay(cat.categoryID)">
+                        <span :id="'minus' + cat.categoryID" style="display: block">-</span>
+                        <span :id="'plus' + cat.categoryID" style="display: none">+</span>
+                      </div>
+                      <div class="title" x-text="cat.category"></div>
+                    </div>
+                    <div class="sub-content" style="display: block" :id="'subContentID' + cat.categoryID">
+                      <template x-for="subCat of cat.subCategory" :key="subCat.subCategoryID">
+                        <div>
+                          <div class="sub">
+                            <div class="border"></div>
+                            <label class="custom-checkbox">
+                              <input type="checkbox" x-model="subCat.subCategoryActive" />
+                              <span class="checkmark"></span>
+                            </label>
+                            <div class="title" x-text="subCat.subCategory"></div>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </body>
+  </head>
+</html>

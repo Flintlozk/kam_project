@@ -1,0 +1,17 @@
+<section class="flex items-center pb-4">
+  <ng-container *ngIf="display?.displayType === EContentManagementGeneralDisplay.TAB">
+    <ng-container *ngFor="let item of display.array; let index = index">
+      <div [ngClass]="{ 'bg-yellow-700 text-white': index === display.array.length - 1 }" class="px-10 py-2 rounded-t itp-color-header-true text-lg font-light">
+        {{ item.title }}
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="display?.displayType === EContentManagementGeneralDisplay.LINK">
+    <div class="text-xl pr-4">{{ display.displayTitle }}</div>
+    <ng-container *ngFor="let item of display.array; let index = index">
+      <div [ngClass]="{ 'bg-yellow-700 bg-opacity-20 text-yellow-700 ': index === display.array.length - 1 }" class="px-6 py-2 rounded itp-color-header-true text-lg font-light">
+        {{ item.title }}
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

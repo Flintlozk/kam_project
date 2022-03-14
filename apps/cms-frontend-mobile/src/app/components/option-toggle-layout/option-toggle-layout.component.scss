@@ -1,0 +1,16 @@
+@layer components {
+  ::ng-deep .option-toggle-layout {
+    .option-item {
+      @apply flex items-center justify-center w-full h-16 px-4 text-xl text-blue-600 bg-white font-light mb-px focus:outline-none;
+      &:first-child {
+        @apply rounded-t-lg;
+      }
+      &:nth-last-child(2) {
+        @apply rounded-b-lg mb-0;
+      }
+      &.danger {
+        @apply text-red-500;
+      }
+    }
+  }
+}

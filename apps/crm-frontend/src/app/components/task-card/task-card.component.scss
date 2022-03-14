@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.img-group-assignee {
+  display: flex;
+  flex-direction: row;
+  .img-more-assignee {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    margin-left: -10px;
+    background-color: #e3edf2;
+    .count-more-assignee {
+      cursor: pointer;
+      font-size: 12px;
+      padding-top: 8px;
+      padding-left: 8px;
+    }
+  }
+  .add-more-assignee {
+    cursor: pointer;
+  }
+}
+.card-task-option {
+  width: 260px;
+  height: 120px;
+  background-color: #f2f2f2;
+  border-bottom: none;
+  box-shadow: none;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  .tag-task {
+    margin-bottom: 10px;
+
+    .mat-chip-tag-task {
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+}
+.img-profile-assignee {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  margin-left: -10px;
+  border: 1.4px solid #a5bcc8;
+}
+
+.group-symbol {
+  display: flex;
+  flex-direction: row;
+  .note-symbol {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: 18px;
+    background-color: #e3edf2;
+    text-align: center;
+    margin-right: 4px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+  .img-note-symbol {
+    margin: auto;
+    text-align: center;
+  }
+  .note-symbol-count {
+    margin: auto;
+    margin-left: 4px;
+    font-size: 8px;
+  }
+}
+.card-header-flex {
+  flex-direction: column;
+  width: 100% !important;
+  .card-title-font {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    word-wrap: break-word;
+    font-size: 16px;
+    font-weight: 300;
+    color: #153342;
+  }
+}
+:host .mat-card-header-text {
+  margin: 0;
+}
+::ng-deep .mat-card-header-text {
+  margin: 0px;
+}
+::ng-deep .mat-card-actions {
+  margin-left: 0px;
+}
+::ng-deep .mat-chip-list-wrapper {
+  margin-bottom: 10px;
+}
+::ng-deep .mat-card-content {
+  margin-bottom: 0px;
+}

@@ -1,0 +1,438 @@
+body {
+  background-color: #f9f9f9;
+  font-size: 14px;
+  font-weight: 300;
+  color: #153342;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  mat-form-field {
+    font-size: 16px;
+  }
+  mat-option {
+    font-size: 16px;
+    height: 0px;
+  }
+  .form-detail {
+    min-width: 200px;
+    width: 50%;
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    .recent-title {
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #153342;
+    }
+    .add-noted {
+      display: flex;
+      flex-direction: row;
+      .center {
+        display: flex;
+        align-items: center;
+        .notetype {
+          display: flex;
+          flex-direction: row;
+          padding-left: 20px;
+          .space {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .link {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+          }
+        }
+      }
+      mat-card {
+        display: flex;
+      }
+      .img-comment {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+      }
+      .recent-comment {
+        .attachment {
+          padding-top: 10px;
+        }
+        .same-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        font-size: small;
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        background-color: white;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        mat-card {
+          flex-direction: column;
+        }
+        .comment-task {
+          padding-bottom: 10px;
+        }
+        .size_undo {
+          width: 15px;
+          height: 15px;
+        }
+        .img-attachment {
+          cursor: pointer;
+        }
+      }
+      .timestamp-comment-dialog-task {
+        color: #777777;
+        font-size: small;
+        margin-left: 20px;
+        margin-bottom: 10px;
+      }
+    }
+    .group-attachment {
+      display: flex;
+      flex-direction: column;
+      .attachment-file {
+        display: flex;
+        flex-direction: row;
+        .attach-file-download {
+          background-color: #777777;
+          border-radius: 8px;
+          text-align: center;
+          width: fit-content;
+          height: fit-content;
+          padding: 3px 3px 3px 3px;
+          margin-right: 3px;
+          color: white;
+          cursor: pointer;
+        }
+        .attach-file-remove {
+          background-color: #777777;
+          border-radius: 8px;
+          text-align: center;
+          height: fit-content;
+          width: fit-content;
+          padding: 3px 3px 3px 3px;
+          color: white;
+          cursor: pointer;
+        }
+      }
+    }
+    .button-inactive-task {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .recent-title {
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #153342;
+    }
+    .chip-tag-task {
+      margin-bottom: 20px;
+      .mat-icon-delete-tag {
+        cursor: pointer;
+      }
+    }
+    .actionButton {
+      margin-bottom: 10px;
+    }
+    .card-deal-detail {
+      margin-bottom: 20px;
+    }
+    .card-deal-create {
+      margin-bottom: 20px;
+    }
+
+    .button-datepicker-appointment {
+      display: flex;
+      width: 100%;
+      background-color: white;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .form-appointment-detail {
+      background-color: white;
+      cursor: pointer;
+      flex-direction: row;
+      display: flex;
+      margin: auto;
+    }
+    .listed-add-appointment {
+      background-color: white;
+      flex-direction: column;
+      display: flex;
+      border-radius: 8px;
+      height: 68px;
+      width: 100%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      .list-detail-appointment {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        .date-appointment {
+          color: #777777;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 20px;
+          margin-bottom: 3px;
+        }
+        .time-appointment {
+          line-height: 20px;
+          color: #153342;
+          font-size: 14px;
+          font-weight: 300;
+          margin-bottom: 3px;
+        }
+      }
+      .list-detail-appointment-note {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 20px;
+      }
+    }
+    .profile-form-detail {
+      background-color: white;
+      padding-left: 10px;
+      padding-top: 10px;
+      margin-bottom: 20px;
+    }
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+    .assignee-add {
+      display: flex;
+      flex-direction: row;
+      .img-assignee {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+      }
+      .group-assignee {
+        padding-left: 5px;
+      }
+      .add-group-assignee {
+        padding-left: 5px;
+      }
+    }
+    .search-tag-menu {
+      background-color: white;
+    }
+    .add-noted {
+      display: flex;
+      flex-direction: row;
+      .recent-comment {
+        font-size: small;
+        margin-left: 20px;
+        background-color: white;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        .comment-task {
+          padding-bottom: 10px;
+        }
+        .img-attachment {
+          cursor: pointer;
+        }
+      }
+      .timestamp-comment-dialog-task {
+        font-size: small;
+        margin-left: 20px;
+        margin-bottom: 10px;
+      }
+    }
+    .lead-member {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 10px;
+      .button-add-company-contact {
+        border: 2.4px solid #a5bcc8;
+        border-radius: 10px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+      .task-owner {
+        padding-left: 5px;
+        .short-name-contact {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          background-color: #e3edf2;
+          border: 2.4px solid #a5bcc8;
+          text-align: center;
+          .text-short-name {
+            font-size: 16px;
+            font-weight: 300;
+            margin-top: 7px;
+            cursor: pointer;
+          }
+        }
+      }
+      .add-task-owner {
+        padding-left: 5px;
+      }
+    }
+    .title-company-detail {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .title-company-name {
+        font-size: 14px;
+        font-weight: 400;
+        color: #153342;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+.group-attachment {
+  display: flex;
+  flex-direction: column;
+  .attachment-file {
+    display: flex;
+    flex-direction: row;
+    .attach-file-download {
+      background-color: #777777;
+      border-radius: 8px;
+      text-align: center;
+      width: fit-content;
+      height: fit-content;
+      padding: 3px 3px 3px 3px;
+      margin-right: 3px;
+      color: white;
+      cursor: pointer;
+    }
+    .attach-file-remove {
+      background-color: #777777;
+      border-radius: 8px;
+      text-align: center;
+      height: fit-content;
+      width: fit-content;
+      padding: 3px 3px 3px 3px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+.mat-badge-content {
+  font-family: 'Material Icons';
+}
+.divider-mat-dialog {
+  margin-left: 35px;
+  margin-right: 15px;
+}
+.header-title-dialog {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 36px;
+  padding-right: 16px;
+  .task-title-detail {
+    font-weight: 300;
+    font-size: 18px;
+    color: #153342;
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+  .header-title-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .create-detail-title {
+      display: flex;
+      flex-direction: column;
+      margin-top: auto;
+      margin-bottom: auto;
+      font-size: 12px;
+      color: #153342;
+      font-weight: 500;
+    }
+    .create-detail-date {
+      font-size: 14px;
+      font-weight: 300;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 30px;
+      color: #777777;
+    }
+    .button-save-dialog-task {
+      margin-top: auto;
+      margin-bottom: auto;
+      .button-move-state {
+        background-color: #0ec2f2;
+        font-size: 14px;
+        font-weight: 300;
+        color: white;
+      }
+    }
+  }
+}
+::ng-deep .mat-card.form-detail {
+  box-shadow: none;
+}
+::ng-deep .mat-card.card-recent-comment {
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 7px 7px 7px 7px;
+}
+::ng-deep .mat-menu-panel.mat-menu-search-tag {
+  background-color: white;
+  .form-field-side-nav-menu {
+    padding-left: 20px;
+    width: 100%;
+    width: auto;
+    .search-assign {
+      margin-bottom: 10px;
+      border-bottom: whitesmoke 5px;
+    }
+  }
+}
+.tagtask {
+  padding-bottom: 10px;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 0px !important;
+  min-height: 0px !important;
+}
+::ng-deep .mat-icon {
+  padding-left: 5px;
+  cursor: pointer;
+}
+.button-add-appointment {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  .form-appointment-detail {
+    background-color: white;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+  }
+}
+.mat-menu-add-deal {
+  display: flex;
+  flex-direction: column;
+  .color {
+    margin-top: 10px;
+    background-color: #0ec2f2;
+  }
+}

@@ -1,0 +1,143 @@
+@import 'base';
+@import 'buttons';
+
+.content {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  align-items: flex-start;
+  grid-gap: 10px;
+  padding-bottom: 20px;
+  color: #324b57;
+  font-size: 14px;
+
+  .detail {
+    border: solid 1px rgba(208, 227, 238, 1);
+    border-radius: 25px;
+    padding: 20px;
+  }
+
+  .detail.commerce {
+    .title {
+      color: rgba(4, 144, 255, 1);
+    }
+
+    .save-active {
+      background-color: rgba(4, 144, 255, 1);
+    }
+
+    .features.with-color {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      text-align: center;
+      color: rgba(4, 144, 255, 1);
+    }
+  }
+
+  .detail.pro-plus {
+    color: white;
+    background-color: rgba(4, 144, 255, 1) !important;
+
+    .title {
+      color: white;
+    }
+
+    .features {
+      color: white;
+    }
+
+    ul {
+      color: white;
+    }
+
+    .save-active {
+      color: rgba(4, 144, 255, 1);
+      background-color: white;
+    }
+
+    .features.with-color {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+  }
+
+  .detail.starter {
+    .title {
+      color: rgba(4, 144, 255, 1) !important;
+    }
+
+    .save-active {
+      background-color: rgba(4, 144, 255, 1);
+    }
+
+    .features.with-color {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      text-align: center;
+      color: rgba(4, 144, 255, 1);
+    }
+  }
+
+  .price {
+    font-weight: 500;
+    font-size: 42px;
+  }
+
+  .features {
+    cursor: pointer;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #4f7186;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .button {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .save-active {
+      @include btn-active();
+      padding: 14px 20px;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .save-disable {
+      @extend .btn-disabled;
+      padding: 14px 20px;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+  line-height: 2rem;
+  color: #4f7186;
+
+  li {
+    .with-color {
+      color: rgba(4, 144, 255, 1);
+    }
+  }
+}
+
+img {
+  width: 15px;
+}

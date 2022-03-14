@@ -1,0 +1,85 @@
+<div class="px-4 pb-2 bg-white">
+  <div class="relative w-full">
+    <input
+      autofocus
+      type="text"
+      placeholder="{{ 'Search' | translate }}..."
+      class="w-full py-2 pl-10 pr-3 font-light text-gray-700 transition duration-300 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-200"
+    />
+    <svg class="absolute bottom-0 left-0 mb-3 ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.7065 14.3705L11.3259 9.98816C12.1112 8.91718 12.5318 7.62239 12.5259 6.29441C12.511 2.82792 9.7072 0.0200853 6.24074 6.36781e-05C4.58184 -0.00744187 2.98885 0.64882 1.81662 1.82265C0.6444 2.99649 -0.00967429 4.59038 0.000108173 6.24926C0.0150908 9.71606 2.81911 12.5242 6.28588 12.5442C7.61928 12.55 8.91879 12.1244 9.99049 11.331L9.99506 11.3276L14.3717 15.7065C14.6083 15.9547 14.9609 16.0552 15.2928 15.969C15.6248 15.8828 15.8839 15.6234 15.9698 15.2914C16.0558 14.9594 15.955 14.6069 15.7065 14.3705ZM6.28122 11.2893C3.50795 11.2734 1.26478 9.02711 1.2526 6.25383C1.24512 4.92689 1.76842 3.65203 2.70602 2.71304C3.64362 1.77404 4.9177 1.24884 6.24465 1.25435C9.01792 1.27031 11.2611 3.51654 11.2733 6.28983C11.2808 7.61676 10.7574 8.89162 9.81985 9.83062C8.88225 10.7696 7.60816 11.2948 6.28122 11.2893Z"
+        fill="#9799A5"
+      />
+    </svg>
+  </div>
+</div>
+<div class="grid gap-2 p-4">
+  <div [routerLink]="['new']" class="flex items-center justify-center w-full h-24 bg-white border border-gray-300 rounded-md focus:outline-none">
+    <div class="flex items-center justify-center w-8 h-8 rounded-full bg-green-500">
+      <svg class="w-4 h-4" width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M15.7718 0.9H13.402C13.2812 0.9 13.1723 0.930252 13.0943 1.00828C13.0163 1.08631 12.986 1.19523 12.986 1.31597V29.1215C12.986 29.2423 13.0163 29.3512 13.0943 29.4292C13.1723 29.5072 13.2812 29.5375 13.402 29.5375H15.7718C15.8925 29.5375 16.0014 29.5072 16.0795 29.4292C16.1575 29.3512 16.1877 29.2423 16.1877 29.1215V1.31597C16.1877 1.19523 16.1575 1.08631 16.0795 1.00828C16.0014 0.930252 15.8925 0.9 15.7718 0.9Z"
+          fill="white"
+          stroke="white"
+          stroke-width="0.2"
+        />
+        <path
+          d="M27.8576 13.6179H1.31597C1.19523 13.6179 1.08631 13.6481 1.00828 13.7262C0.930252 13.8042 0.9 13.9131 0.9 14.0339V16.4037C0.9 16.5244 0.930252 16.6333 1.00828 16.7113C1.08631 16.7894 1.19523 16.8196 1.31597 16.8196H27.8576C27.9784 16.8196 28.0873 16.7894 28.1653 16.7113C28.2434 16.6333 28.2736 16.5244 28.2736 16.4037V14.0339C28.2736 13.9131 28.2434 13.8042 28.1653 13.7262C28.0873 13.6481 27.9784 13.6179 27.8576 13.6179Z"
+          fill="white"
+          stroke="white"
+          stroke-width="0.2"
+        />
+      </svg>
+    </div>
+    <div class="pl-4 text-lg text-gray-700">{{ 'Create New Draft Content' | translate }}</div>
+  </div>
+  <ng-container *ngFor="let contentDraftDataItem of contentDraftData; trackBy: trackByIndex; let contentDraftDataItemIndex = index">
+    <div class="flex items-center justify-between w-full h-24 p-4 bg-white border border-gray-300 rounded-md focus:outline-none">
+      <div class="flex items-center focus:outline-none" [routerLink]="['edit']">
+        <img [src]="contentDraftDataItem.imgUrl" class="w-16 h-16" onerror="this.src='assets/images/shared/no-image-square.svg'" />
+        <div class="pl-4">
+          <div #titleDraft class="text-lg text-gray-700 text-ellipsis">{{ contentDraftDataItem.content }}</div>
+          <div class="pt-1 text-base font-light text-gray-500">{{ contentDraftDataItem.date }}</div>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <div class="pr-2 focus:outline-none" *ngIf="contentDraftDataItem.pin">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.4339 0.491743C13.2365 0.294282 12.993 0.149191 12.7253 0.0696118C12.4577 -0.00996729 12.1744 -0.0215195 11.9012 0.0360017C11.6279 0.0935229 11.3734 0.2183 11.1605 0.39903C10.9477 0.57976 10.7833 0.810732 10.6823 1.07102L10.0751 2.63336C9.77126 3.41495 9.2906 4.1156 8.67079 4.68048C8.05098 5.24536 7.30885 5.65914 6.50247 5.88942L2.70536 6.97413C2.42432 7.05439 2.16912 7.20665 1.965 7.41583C1.76088 7.62502 1.61492 7.88387 1.54157 8.16679C1.46823 8.4497 1.47003 8.74687 1.54681 9.02887C1.62358 9.31087 1.77267 9.56794 1.97932 9.77463L5.5942 13.3884L0.228947 18.7544C0.158274 18.8203 0.101587 18.8997 0.0622711 18.9879C0.0229549 19.0762 0.0018158 19.1714 0.000110626 19.268C-0.00159264 19.3646 0.0161743 19.4605 0.0523529 19.5501C0.0885315 19.6397 0.14238 19.721 0.210686 19.7893C0.278994 19.8576 0.360357 19.9115 0.449926 19.9476C0.539497 19.9838 0.635435 20.0016 0.732021 19.9999C0.828606 19.9982 0.923857 19.977 1.01209 19.9377C1.10033 19.8984 1.17975 19.8417 1.2456 19.7711L6.61085 14.406L10.2248 18.0198C10.4315 18.2264 10.6885 18.3755 10.9706 18.4523C11.2526 18.5291 11.5497 18.5309 11.8327 18.4575C12.1156 18.3842 12.3745 18.2382 12.5836 18.0341C12.7928 17.83 12.9451 17.5748 13.0254 17.2938L14.1101 13.4958C14.3406 12.6897 14.7545 11.9478 15.3194 11.3282C15.8842 10.7086 16.5848 10.2281 17.3663 9.92424L18.9296 9.31715C19.1899 9.216 19.4207 9.05155 19.6014 8.83867C19.782 8.62579 19.9067 8.37121 19.9641 8.098C20.0215 7.82478 20.0099 7.54156 19.9303 7.27398C19.8506 7.00639 19.7055 6.76291 19.508 6.56556L13.4339 0.491743ZM7.11438 12.8753L7.11918 12.8801L7.12397 12.8849L11.2424 17.0022C11.2719 17.0317 11.3086 17.053 11.3489 17.0639C11.3891 17.0749 11.4316 17.0751 11.4719 17.0647C11.5123 17.0542 11.5493 17.0334 11.5792 17.0043C11.6091 16.9752 11.6308 16.9387 11.6423 16.8986L12.7261 13.1007C13.0175 12.0811 13.541 11.1427 14.2555 10.359C14.9699 9.57535 15.8561 8.96764 16.8445 8.58346L18.4079 7.9754C18.4451 7.96095 18.4781 7.93744 18.5039 7.90701C18.5297 7.87658 18.5475 7.84019 18.5557 7.80114C18.5639 7.76209 18.5622 7.72162 18.5508 7.68338C18.5394 7.64515 18.5186 7.61036 18.4904 7.58218L12.4163 1.50932C12.3881 1.48108 12.3534 1.46031 12.3151 1.4489C12.2769 1.4375 12.2364 1.43581 12.1974 1.444C12.1583 1.45219 12.1219 1.47 12.0915 1.49581C12.0611 1.52162 12.0375 1.55461 12.0231 1.5918L11.416 3.15509C11.0316 4.1433 10.4238 5.02918 9.64011 5.74346C8.85643 6.45773 7.91812 6.98102 6.89858 7.2724L3.10052 8.35711C3.0604 8.36861 3.02399 8.39037 2.99486 8.42025C2.96574 8.45013 2.94492 8.4871 2.93446 8.52749C2.924 8.56788 2.92426 8.6103 2.93521 8.65056C2.94617 8.69082 2.96744 8.72753 2.99693 8.75705L7.11438 12.8753Z"
+              fill="#2FC639"
+            />
+          </svg>
+        </div>
+        <button class="focus:outline-none" (click)="onActiveToggleLayout(contentDraftDataItemIndex)">
+          <svg width="12" height="32" viewBox="0 0 12 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="12" height="32" fill="white" />
+            <circle cx="6" cy="16" r="3" fill="#BCBFC8" />
+            <circle cx="6" cy="26" r="3" fill="#BCBFC8" />
+            <circle cx="6" cy="6" r="3" fill="#BCBFC8" />
+          </svg>
+        </button>
+      </div>
+      <ng-container *ngIf="contentDraftDataItem.toggleStatus">
+        <cms-next-option-toggle-layout
+          class="flex justify-center"
+          [optionToggleLayoutStatus]="contentDraftDataItem.toggleStatus"
+          (optionToggleLayoutStatusEvent)="optionToggleLayoutStatusEvent($event, contentDraftDataItemIndex)"
+        >
+          <button class="option-item" (click)="onPinDraftItem(contentDraftDataItemIndex)">
+            <ng-container *ngIf="!contentDraftDataItem.pin">{{ 'Pin' | translate }}</ng-container>
+            <ng-container *ngIf="contentDraftDataItem.pin">{{ 'Unpin' | translate }}</ng-container>
+          </button>
+          <button class="option-item" (click)="onDuplicateDraftItem(contentDraftDataItemIndex)">{{ 'Duplicate' | translate }}</button>
+          <button class="option-item">{{ 'Share' | translate }}</button>
+          <button class="option-item danger" (click)="onRemoveDraftItem(contentDraftDataItemIndex)">{{ 'Delete' | translate }}</button>
+        </cms-next-option-toggle-layout>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

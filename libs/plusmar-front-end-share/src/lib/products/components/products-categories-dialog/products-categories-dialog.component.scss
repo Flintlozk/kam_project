@@ -1,0 +1,176 @@
+@import 'base';
+@import 'buttons';
+
+.products-categories-dialog {
+  .content {
+    .label {
+      padding-bottom: 10px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #576f83;
+    }
+
+    .categories-tree {
+      color: text-darker-color;
+
+      .category-tree {
+        padding-bottom: 20px;
+
+        .main {
+          display: flex;
+          align-items: center;
+
+          .expand {
+            border: 1px solid $main-color;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            color: $main-color;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+          }
+
+          input {
+            // padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid $border-color;
+            margin: 0px 10px;
+            width: 100%;
+            //background: white;
+            z-index: 1;
+
+            &:focus {
+              outline: none;
+              border-color: $text-dark-color;
+            }
+
+            &::placeholder {
+              font-style: italic;
+            }
+          }
+
+          img.trash {
+            width: 18px;
+            cursor: pointer;
+            margin-right: 10px;
+          }
+
+          .add-icon {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            background: $main-color;
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+
+            img {
+              width: 15px;
+            }
+
+            &.disabled {
+              @extend .disable-div;
+            }
+          }
+        }
+
+        .sub {
+          padding-top: 10px;
+          display: flex;
+          align-items: center;
+          padding-left: 60px;
+          position: relative;
+
+          .border {
+            position: absolute;
+            width: 10px;
+            height: 1px;
+            background: $border-color;
+            left: 50px;
+
+            &:before {
+              content: '';
+              width: 1px;
+              height: 60px;
+              display: flex;
+              background: $border-color;
+              position: absolute;
+              bottom: 0px;
+            }
+          }
+
+          input {
+            border-radius: 8px;
+            border: 1px solid $border-color;
+            margin-right: 10px;
+            width: 60%;
+
+            &:focus {
+              outline: none;
+              border-color: $text-dark-color;
+            }
+
+            &::placeholder {
+              font-style: italic;
+            }
+          }
+
+          img.trash {
+            width: 18px;
+            cursor: pointer;
+            margin-right: 10px;
+          }
+
+          .add-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            background: $main-color;
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+            cursor: pointer;
+
+            img {
+              width: 15px;
+            }
+
+            &.disabled {
+              @extend .disable-div;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+
+      .btn-cancel {
+        margin-right: 10px;
+        @extend .btn-inactive;
+      }
+
+      .btn-save {
+        @extend .btn-active;
+
+        &.disabled {
+          @extend .btn-disabled;
+        }
+      }
+    }
+  }
+}
+
+.mat-error-padding {
+  padding-left: 65px;
+}

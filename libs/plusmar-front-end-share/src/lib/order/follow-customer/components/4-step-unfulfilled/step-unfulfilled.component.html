@@ -1,0 +1,59 @@
+<div class="header"></div>
+<reactor-room-custom-table *ngIf="audienceList" [isLoading]="false" [tableColSpan]="6" [tableData]="audienceList" [isNoData]="false" [tableHeader]="tableHeader">
+  <tr *ngFor="let audience of audienceList; trackBy: trackBy" class="table-content" #tableContent (click)="redirectToDetail(audience)">
+    <td>
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [platform]="audience?.platform"
+        [firstName]="audience?.first_name"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      >
+      </reactor-room-custom-table-content>
+    </td>
+    <td>
+      {{ audience.updated_at | timeAgo: 'utc' }}
+    </td>
+
+    <td [ngStyle]="{ color: audience.payment_type ? '#000' : '#EA6161' }">
+      <ng-container *ngIf="audience.payment_type" [ngSwitch]="audience.payment_type">
+        <div style="display: flex">
+          <img class="img_dec" *ngSwitchCase="'PAYPAL'" src="assets/img/payment/paypal.svg" alt="Paypal" />
+        </div>
+
+        <div style="display: flex">
+          <img class="img_dec" *ngSwitchCase="'COD'" src="assets/img/payment/COD.svg" alt="COD" />
+        </div>
+        <div style="display: flex">
+          <img class="img_dec" *ngSwitchCase="'BANK_ACCOUNT'" [src]="bankLogo[audience.bank_type]" alt="Banking" onerror="this.src = 'assets/img/logo-small.svg'" />
+          <!-- <div style="margin: auto 0;">{{ audience.bank_account_id }}</div> -->
+        </div>
+        <div style="display: flex">
+          <img class="img_dec" *ngSwitchDefault src="assets/img/order-detail-icon.png" alt="Order Detail" />
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!audience.payment_type">
+        <span>{{ 'Unselect' | translate }}</span>
+      </ng-container>
+    </td>
+    <td>{{ audience.total_price ? '฿' + audience.total_price : '-' }}</td>
+    <td [ngStyle]="{ color: audience.logistic_type ? '#000' : '#53B1FF' }">
+      <ng-container *ngIf="audience.logistic_type !== 'DOMESTIC'" ;>
+        {{ 'Fixed Rate' }}
+      </ng-container>
+      <ng-container *ngIf="audience.logistic_type === 'DOMESTIC'" ;>
+        <img [src]="logisticData(audience.logistic_name)" [matTooltip]="audience.logistic_name" style="height: 36px; width: 36px" />
+      </ng-container>
+    </td>
+    <!-- <td>
+      <reactor-room-custom-table-content (click)="audience.is_confirm ? openTrackNo(audience) : ''" [isConfirmAddress]="audience.is_confirm" [Selector]="'tracking-number'">
+      </reactor-room-custom-table-content>
+    </td> -->
+    <td>
+      <reactor-room-custom-table-content [Selector]="'detail'"> </reactor-room-custom-table-content>
+    </td>
+  </tr>
+</reactor-room-custom-table>

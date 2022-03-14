@@ -1,0 +1,121 @@
+@import 'base';
+@import 'buttons';
+.customer-service-issue-list {
+  color: $text-darker-color;
+  padding-top: 20px;
+  .head {
+    padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    .label {
+      padding: 10px 0px;
+      padding-right: 15px;
+    }
+    .buttons {
+      display: flex;
+      .btn-issue {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-new-issue {
+        @include btn-active();
+      }
+    }
+  }
+  .filter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 2fr;
+    grid-gap: 10px;
+    padding-bottom: 10px;
+    @media #{$mobilemax} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .select-options {
+      @extend .select-option;
+    }
+    input {
+      padding: 6px 15px;
+      border-radius: 8px;
+      border: 1px solid $border-color;
+      width: calc(100% - 30px);
+    }
+  }
+  .table {
+    .status {
+      display: flex;
+      align-items: center;
+      .round {
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        flex-shrink: 0;
+        margin-right: 10px;
+        flex-shrink: 0;
+        &.open {
+          background: #c7d8e9;
+        }
+        &.progress {
+          background: #fbb936;
+        }
+      }
+    }
+    .action {
+      display: flex;
+      align-items: center;
+      .tooltip {
+        @extend .tooltip;
+        .tooltiptext {
+          left: -50%;
+        }
+        img {
+          width: 20px;
+        }
+        cursor: pointer;
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+      }
+      .more {
+        cursor: pointer;
+        position: relative;
+        .img {
+          img {
+            width: 20px;
+          }
+        }
+        .more-menu {
+          position: absolute;
+          background: white;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+          min-width: 230px;
+          overflow: hidden;
+          right: 0px;
+          top: 30px;
+          border-top: 2px solid $main-color;
+          box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+          z-index: 1;
+          .item {
+            display: flex;
+            align-items: center;
+            padding: 7px 15px;
+            cursor: pointer;
+            transition: $transition;
+            img {
+              width: 20px;
+              margin-right: 5px;
+            }
+            .disabled {
+              color: #d5d7dc;
+            }
+            &:hover {
+              background: #e2f1ff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

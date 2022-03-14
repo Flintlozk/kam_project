@@ -1,0 +1,130 @@
+@import 'base';
+@import 'switch';
+@import 'buttons';
+
+.setting-term-condition-container {
+  .toggle-contianer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    .mode-toggle {
+      @extend .switch;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .setting-term-condition-content {
+    padding: 20px 40px 20px 90px;
+
+    .quill-editor {
+      .toolbar {
+        display: flex;
+      }
+      .language-eng {
+        background: url('../../../../../../assets/flag/en.svg') no-repeat scroll;
+        width: 25px;
+        height: 25px;
+      }
+      .language-th {
+        background: url('../../../../../../assets/flag/th.svg') no-repeat scroll;
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .edit-message {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      .text-edit-message {
+        display: inline-block;
+      }
+      .button-container {
+        display: flex;
+        .save-button {
+          margin: 0 4px;
+          display: inline-block;
+          .btn-save {
+            @include btn-active();
+
+            &.disabled {
+              @extend .btn-disabled;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep.mat-expansion-panel-header {
+    font-size: unset;
+    font-weight: unset;
+    height: 69px;
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+    border-top: 5px solid #f2f5f9;
+  }
+  ::ng-deep.mat-expansion-panel:not {
+    box-shadow: unset;
+  }
+  ::ng-deep.mat-expansion-panel {
+    box-shadow: unset;
+  }
+  ::ng-deep.mat-expansion-panel-header-description,
+  ::ng-deep.mat-expansion-indicator::after {
+    color: white;
+  }
+  ::ng-deep .mat-expansion-indicator {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    background: $main-color;
+    border-radius: 50px;
+  }
+  .toggle-btn {
+    background: $main-color;
+    color: #fff;
+    padding: 0px 14px;
+    border: none;
+    transition: all ease-in-out 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 30px;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+
+  .button-inside {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-radius: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 6em;
+    font-size: 0.8em;
+    color: white;
+    background: #577083;
+  }
+}

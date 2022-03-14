@@ -1,0 +1,24 @@
+@import 'base';
+
+.steps-container {
+  overflow: auto;
+  @include no-scroll-bar();
+  margin-bottom: 5px;
+  scroll-behavior: auto;
+  scroll-behavior: smooth;
+}
+
+.steps {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  reactor-room-step:focus {
+    outline: none;
+  }
+  @media #{$desktopmax} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media #{$tabletmax} {
+    grid-template-columns: repeat(6, 220px);
+  }
+}

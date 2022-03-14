@@ -1,0 +1,42 @@
+<div class="wizard-step-1">
+  <div class="content">
+    <div class="title-container">
+      <img src="assets/img/wizard/fb-logo.png" />
+      <ng-container *ngIf="showError">
+        <div class="title">Sorry, Its seems like we can't retrieving your's Facebook Page. <a class="link" (click)="openLinkTroubleshoot()">Troubleshoot.</a></div>
+      </ng-container>
+      <ng-container *ngIf="!showError">
+        <div class="title">What Pages do you want to use with this shop ?</div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="!showError">
+      <ng-container *ngIf="facebookPagesWithPageStatus as pages">
+        <div class="item" *ngFor="let page of pages">
+          <div class="img">
+            <img [src]="page.facebook_page.picture" alt="Page Logo" *ngIf="page.facebook_page.picture; noImg" />
+            <ng-container #noImg>
+              <img src="assets/img/profile-img.png" alt="" />
+            </ng-container>
+          </div>
+          <div class="text">{{ page.facebook_page.name }}</div>
+          <div *ngIf="page.is_binded && page.facebook_page.id !== currentPage.fb_page_id" class="connected">{{ 'Connected by' | translate }} {{ page.email }}</div>
+          <div *ngIf="page.is_binded && page.facebook_page.id === currentPage.fb_page_id" class="selectable-page">
+            <img src="assets/img/wizard/check.png" />
+          </div>
+          <div *ngIf="!page.is_binded" class="selectable-page">
+            <span (click)="onSelectPage(page.facebook_page)">
+              {{ 'Select' | translate }}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div class="button">
+      <button class="btn-edit" (click)="cancel.emit(true)">
+        <span class="ml-5"> Cancel </span>
+      </button>
+    </div>
+  </div>
+</div>
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

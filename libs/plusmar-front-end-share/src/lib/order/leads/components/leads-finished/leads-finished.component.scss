@@ -1,0 +1,65 @@
+@import 'base';
+@import 'custom-checkbox';
+@import 'buttons';
+.header {
+  color: $text-darker-color;
+
+  .info {
+    padding: 20px 0px;
+    padding-right: 15px;
+    @media #{$mobilemax} {
+      padding: 10px 0px;
+    }
+
+    .btn-export {
+      margin-top: 20px;
+      @include btn-active();
+    }
+  }
+}
+
+.table-content {
+  .first {
+    display: flex;
+    align-items: center;
+
+    .custom-checkbox {
+      padding-right: 15px;
+
+      .checkmark {
+        top: -10px;
+      }
+    }
+  }
+
+  .buttons {
+    width: 20px;
+
+    img {
+      width: 20px;
+    }
+  }
+}
+
+.status {
+  display: flex;
+  align-items: center;
+
+  .round {
+    width: 10px;
+    height: 10px;
+    border-radius: 8px;
+
+    &.new {
+      background: $main-color;
+    }
+
+    &.old {
+      background: #fbb936;
+    }
+  }
+
+  .text {
+    margin-left: 10px;
+  }
+}

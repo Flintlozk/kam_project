@@ -1,0 +1,119 @@
+<section class="grid gap-4">
+  <div class="flex items-center justify-between">
+    <span>LAYOUT F</span>
+    <button (click)="onDismiss()" class="transition transform focus:outline-none hover:scale-105">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="flex items-center">
+    <ng-container *ngFor="let tab of menuCustomTabs; let index = index">
+      <button
+        *ngIf="tab.status"
+        (click)="onSidebarMenuCustomTabHandler(tab.title)"
+        class="flex items-center justify-center w-8 h-8 mr-2 focus:outline-none rounded-xl"
+        [ngClass]="{ 'bg-gray-700': tab.selected }"
+      >
+        <svg
+          *ngIf="tab.title === EMenuCustomTab.SOURCE_TAB"
+          class="fill-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="18"
+          height="17"
+          viewBox="0 0 18 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="18" height="5" rx="1" />
+          <rect x="4" y="6" width="14" height="5" rx="1" />
+          <rect x="4" y="12" width="14" height="5" rx="1" />
+          <line x1="2.5" y1="6" x2="2.5" y2="17" />
+        </svg>
+        <svg
+          *ngIf="tab.title === EMenuCustomTab.DESIGN_TAB"
+          class="fill-current stroke-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="16"
+          height="18"
+          viewBox="0 0 16 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.02253 13.2486C8.61439 13.9278 8.61907 14.7528 9.03519 15.4552C9.47872 16.2139 10.3086 16.6826 11.2076 16.6819C12.1067 16.6814 12.9359 16.2118 13.3785 15.4526C13.7925 14.7517 13.7962 13.9301 13.3886 13.2553C13.3842 13.2479 13.3796 13.2408 13.3745 13.234L11.4348 10.619C11.3811 10.5492 11.2956 10.5092 11.2059 10.5118C11.1162 10.5092 11.0309 10.5491 10.9771 10.6187L9.0374 13.2301C9.03203 13.236 9.02707 13.2422 9.02253 13.2486ZM9.50308 13.535L11.2054 11.2401L12.9084 13.5424C13.2107 14.0512 13.2039 14.6475 12.8891 15.1805C12.5469 15.7698 11.9042 16.1345 11.2071 16.1349C10.5102 16.1354 9.8669 15.7715 9.52387 15.1828C9.2074 14.6481 9.19997 14.0481 9.50308 13.535Z"
+          />
+          <path
+            d="M15 3.20663C15 1.99001 13.9921 1 12.7535 1C12.1101 1 11.4961 1.27195 11.0693 1.74619L6.21509 7.15C5.0148 6.82821 3.68932 7.11269 2.72817 8.03332C1.66731 9.04934 1.80532 10.104 1.92667 11.0344C2.05441 12.0106 2.16464 12.8537 1.13198 13.8429C1.02347 13.9469 0.977329 14.0984 1.01063 14.244C1.04354 14.3893 1.15076 14.5076 1.29389 14.5563C1.65619 14.6801 2.17957 14.7544 2.78842 14.7544C4.32138 14.7544 6.39695 14.2818 7.80899 12.9292C8.49642 12.2707 8.87498 11.402 8.87498 10.4829C8.87498 10.1874 8.82258 9.90132 8.74701 9.62165L14.2403 4.86058C14.7231 4.44173 15 3.83867 15 3.20663ZM7.19802 8.6486C7.71498 9.14381 7.99996 9.79514 7.99996 10.483C7.99996 11.1683 7.71544 11.8184 7.19802 12.314C5.72531 13.7241 3.50448 13.9797 2.26031 13.8702C3.03917 12.7941 2.90544 11.7718 2.79481 10.9249C2.68074 10.0537 2.59057 9.36539 3.33911 8.6486C4.42089 7.61201 6.11621 7.61283 7.19802 8.6486ZM12.7535 1.85952C13.5097 1.85952 14.125 2.46385 14.125 3.20669C14.125 3.59279 13.9558 3.96085 13.6614 4.21641L8.3898 8.78533C8.22953 8.51628 8.04475 8.259 7.80902 8.03334C7.58248 7.81622 7.33067 7.64634 7.06971 7.49831L11.7251 2.31529C11.9858 2.02571 12.3605 1.85952 12.7535 1.85952Z"
+            stroke-width="0.7"
+          />
+        </svg>
+        <svg
+          *ngIf="tab.title === EMenuCustomTab.MOBILE_TAB"
+          class="fill-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="10"
+          height="20"
+          viewBox="0 0 10 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.09616 0H1.93686C0.889726 0 0 0.894036 0 1.9902V17.103C0 18.1991 0.8709 19.0909 1.91804 19.0909L8.08747 19.0839C9.13446 19.0839 9.99102 18.192 9.99102 17.0957L10 1.98914C9.99986 0.889032 9.14749 0 8.09616 0ZM4.12671 1.19321H5.91369C6.07067 1.19321 6.19854 1.32665 6.19854 1.49147C6.19854 1.6563 6.07067 1.78974 5.91369 1.78974H4.12671C3.9693 1.78974 3.84187 1.6563 3.84187 1.49147C3.84187 1.32665 3.9693 1.19321 4.12671 1.19321ZM3.05293 1.28813C3.1585 1.17774 3.35066 1.17623 3.45609 1.28813C3.50894 1.34333 3.54022 1.42081 3.54022 1.49997C3.54022 1.5776 3.50894 1.65494 3.45609 1.71028C3.40352 1.76563 3.32923 1.79823 3.25523 1.79823C3.17978 1.79823 3.10723 1.76563 3.05293 1.71028C3.00036 1.65509 2.97039 1.5776 2.97039 1.49997C2.97024 1.42081 3.00036 1.34333 3.05293 1.28813ZM9.11578 16.1077H0.997031V2.83389H9.11578V16.1077Z"
+          />
+        </svg>
+        <svg
+          class="fill-current stroke-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          *ngIf="tab.title === EMenuCustomTab.SETTING_TAB"
+          width="19"
+          height="15"
+          viewBox="0 0 19 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M1 2H11" stroke-linecap="round" />
+          <path d="M15 2L18 2" stroke-linecap="round" />
+          <circle cx="13" cy="2" r="1.5" />
+          <path d="M1 8H18" stroke-linecap="round" />
+          <circle cx="6" cy="8" r="1.5" />
+          <path d="M1 13H18" stroke-linecap="round" />
+          <circle cx="13" cy="13" r="1.5" />
+        </svg>
+        <svg
+          *ngIf="tab.title === EMenuCustomTab.COMMON_SETTING_TAB"
+          class="fill-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+          />
+          <path
+            d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+            [attr.fill]="tab.selected ? 'black' : 'white'"
+          />
+        </svg>
+      </button>
+    </ng-container>
+  </div>
+  <div [ngClass]="{ hidden: currentMenuCustomTab !== EMenuCustomTab.SOURCE_TAB }">
+    <cms-next-cms-menu-custom-source></cms-next-cms-menu-custom-source>
+  </div>
+  <div [ngClass]="{ hidden: currentMenuCustomTab !== EMenuCustomTab.DESIGN_TAB }">
+    <cms-next-cms-menu-custom-design></cms-next-cms-menu-custom-design>
+  </div>
+  <div [ngClass]="{ hidden: currentMenuCustomTab !== EMenuCustomTab.MOBILE_TAB }">
+    <cms-next-cms-menu-custom-mobile></cms-next-cms-menu-custom-mobile>
+  </div>
+  <div [ngClass]="{ hidden: currentMenuCustomTab !== EMenuCustomTab.SETTING_TAB }">
+    <cms-next-cms-menu-custom-setting></cms-next-cms-menu-custom-setting>
+  </div>
+  <div [ngClass]="{ hidden: currentMenuCustomTab !== EMenuCustomTab.COMMON_SETTING_TAB }">
+    <cms-next-cms-menu-custom-common-setting></cms-next-cms-menu-custom-common-setting>
+  </div>
+</section>

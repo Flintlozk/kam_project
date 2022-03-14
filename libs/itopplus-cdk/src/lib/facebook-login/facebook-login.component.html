@@ -1,0 +1,17 @@
+<!-- <div class="facebook-login-button-container" (click)="checkFacebookLoginStatus();">
+    <img src="assets/login/btn-facebook-signin.png" alt="facebook">
+</div> -->
+<!-- <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default"
+    data-auto-logout-link="false" data-use-continue-as="true" data-width=""></div> -->
+
+<button id="btnFacebookLogin" class="facebook-login-button" (click)="checkFacebookLoginStatus()">
+  <div class="logo">
+    <svg width="24" height="24" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M38.9998 19.4999C38.9998 8.73122 30.2686 0 19.4999 0C8.73122 0 0 8.73122 0 19.4999C0 29.232 7.12977 37.2996 16.4533 38.764V25.1379H11.5009V19.4999H16.4533V15.2029C16.4533 10.3162 19.3655 7.61514 23.8189 7.61514C25.9523 7.61514 28.1845 7.99631 28.1845 7.99631V12.7952H25.7247C23.3034 12.7952 22.5465 14.2979 22.5465 15.8418V19.4999H27.9542L27.0904 25.1379H22.5465V38.764C31.8701 37.3024 38.9998 29.2348 38.9998 19.4999Z"
+        fill="white"
+      />
+    </svg>
+  </div>
+  <div class="text">{{ 'Continue with' | translate }} Facebook</div>
+</button>

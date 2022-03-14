@@ -1,0 +1,23 @@
+{
+  "root": "libs/itopplus-services-lib",
+  "sourceRoot": "libs/itopplus-services-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-services-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/itopplus-services-lib"],
+      "options": {
+        "jestConfig": "libs/itopplus-services-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

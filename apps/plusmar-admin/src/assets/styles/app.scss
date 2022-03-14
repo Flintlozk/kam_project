@@ -1,0 +1,25 @@
+@import './utils.scss';
+@import './dialog.scss';
+@import './buttons.scss';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: $font-family;
+  font-size: $font-size;
+  outline: none !important;
+
+  &:focus {
+    outline: none !important;
+  }
+}

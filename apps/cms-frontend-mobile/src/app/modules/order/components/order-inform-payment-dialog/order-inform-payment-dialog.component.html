@@ -1,0 +1,55 @@
+<div>
+  <h3 class="w-full pb-2 text-2xl text-center text-gray-700">{{ 'Inform Payment' | translate }}</h3>
+  <form [formGroup]="informPaymentForm" class="grid gap-4 font-light text-gray-700">
+    <div class="w-full">
+      <div class="pb-1">{{ 'Payment Method' | translate }}</div>
+      <input formControlName="paymentMethod" class="w-full px-3 py-2 text-lg font-light text-gray-700 border border-gray-300 rounded-md focus:outline-none disabled:bg-gray-200" />
+    </div>
+    <div
+      class="w-full"
+      *ngIf="bankAccountData"
+      [ngClass]="{
+        'invalid-validation': informPaymentForm['controls']['bankAccount'].invalid && formErrorMessageObj?.bankAccountErrorMessage
+      }"
+    >
+      <div class="pb-1 invalid-title">{{ 'Bank Account' | translate }}</div>
+      <div class="invalid-message">
+        {{ formErrorMessageObj?.bankAccountErrorMessage | translate }}
+      </div>
+      <mat-form-field appearance="fill" class="w-full">
+        <select matNativeControl required formControlName="bankAccount">
+          <option value="" disabled selected>{{ 'Select Bank Account' | translate }}</option>
+          <option *ngFor="let bankAccountDataItem of bankAccountData; trackBy: trackByIndex; let index = index" [value]="bankAccountDataItem.value">
+            {{ bankAccountDataItem.title }}
+          </option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div
+      class="w-full"
+      [ngClass]="{
+        'invalid-validation': informPaymentForm['controls']['date'].invalid && formErrorMessageObj?.dateErrorMessage
+      }"
+    >
+      <div class="pb-1 invalid-title">{{ 'Date' | translate }}</div>
+      <div class="invalid-message">
+        {{ formErrorMessageObj?.dateErrorMessage | translate }}
+      </div>
+      <input formControlName="date" type="date" class="w-full px-3 py-2 text-lg font-light text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none" />
+    </div>
+    <div
+      class="w-full"
+      [ngClass]="{
+        'invalid-validation': informPaymentForm['controls']['time'].invalid && formErrorMessageObj?.timeErrorMessage
+      }"
+    >
+      <div class="pb-1 invalid-title">{{ 'Time' | translate }}</div>
+      <div class="invalid-message">
+        {{ formErrorMessageObj?.timeErrorMessage | translate }}
+      </div>
+      <input formControlName="time" type="time" class="w-full px-3 py-2 text-lg font-light text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none" />
+    </div>
+    <button (click)="onSaveInformPaymentForm()" class="w-full py-3 mt-2 text-xl text-white rounded-md bg-green-500 focus:outline-none">{{ 'Save' | translate }}</button>
+    <button (click)="onCancelInformPaymentForm()" class="w-full py-0 text-xl font-light text-gray-500 bg-white rounded-md focus:outline-none">{{ 'Cancel' | translate }}</button>
+  </form>
+</div>

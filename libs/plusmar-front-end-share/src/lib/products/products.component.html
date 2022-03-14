@@ -1,0 +1,38 @@
+<div class="products" [ngStyle]="{ 'max-width': tabWidth }">
+  <div *ngIf="!projectScope; else cmsHeading">
+    <reactor-room-heading [headingTitle]="'Products' | translate" [Route]="'Products' | translate"> </reactor-room-heading>
+  </div>
+
+  <ng-template #cmsHeading>
+    <div class="px-6 py-8">
+      <section class="flex items-center justify-between">
+        <div class="pb-6 text-gray-700">
+          <h1 class="text-4xl font-light">{{ heading.title }}</h1>
+          <h3 class="pt-1 text-sm font-light">{{ heading.subTitle }}</h3>
+        </div>
+        <ng-content select=".btn-group"></ng-content>
+      </section>
+    </div>
+  </ng-template>
+  <div class="heading-content"></div>
+  <div [ngClass]="{ 'px-6': projectScope }">
+    <mat-tab-group class="mat-tab-products" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+      <mat-tab [label]="'All Products' | translate">
+        <reactor-room-products-list *matTabContent></reactor-room-products-list>
+      </mat-tab>
+      <!-- ////:: marketplace functionality commenting now -->
+      <!-- <mat-tab [label]="'MarketPlace' | translate">
+        <reactor-room-product-marketplace-list *matTabContent></reactor-room-product-marketplace-list>
+      </mat-tab> -->
+      <mat-tab [label]="'Tag' | translate">
+        <reactor-room-products-tags *matTabContent></reactor-room-products-tags>
+      </mat-tab>
+      <mat-tab [label]="'Categories' | translate">
+        <reactor-room-products-categories *matTabContent></reactor-room-products-categories>
+      </mat-tab>
+      <mat-tab [label]="'Attribute' | translate">
+        <reactor-room-products-attributes *matTabContent></reactor-room-products-attributes>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

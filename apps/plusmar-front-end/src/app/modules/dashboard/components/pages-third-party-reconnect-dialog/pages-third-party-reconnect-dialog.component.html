@@ -1,0 +1,32 @@
+<div class="pages-third-party-reconnect">
+  <reactor-room-custom-dialog>
+    <ng-container class="head">
+      <div class="title">{{ 'Authorization Required' | translate }}</div>
+    </ng-container>
+    <ng-container class="content">
+      <div>
+        <div class="pages-reconnect" *ngFor="let page of reconnectPages">
+          <div class="page-reconnect-item">
+            <div>
+              <img [src]="marketPlaceIconObj[page]" [alt]="page" />
+            </div>
+            <div>
+              {{ page.toUpperCase() }}
+            </div>
+          </div>
+          <div>
+            <button class="btn-create" (click)="onReconnect(page)">{{ 'Authorize' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="footer">
+      <div class="buttons">
+        <div class="btn-cancel small" (click)="onNoClick()">
+          {{ 'Cancel' | translate }}
+        </div>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

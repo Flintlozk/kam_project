@@ -1,0 +1,121 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@ngneat/spectator:spectator-component": {
+      "jest": true
+    }
+  },
+  "root": "apps/cms-frontend-mobile",
+  "sourceRoot": "apps/cms-frontend-mobile/src",
+  "prefix": "cms-next",
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "apps/cms-frontend-mobile/webpack.config.js"
+        },
+        "outputPath": "dist/apps/cms-frontend-mobile",
+        "index": "apps/cms-frontend-mobile/src/index.html",
+        "main": "apps/cms-frontend-mobile/src/main.ts",
+        "polyfills": "apps/cms-frontend-mobile/src/polyfills.ts",
+        "tsConfig": "apps/cms-frontend-mobile/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/cms-frontend-mobile/src/favicon.ico",
+          "apps/cms-frontend-mobile/src/assets",
+          "apps/cms-frontend-mobile/src/manifest.webmanifest",
+          {
+            "glob": "**/*",
+            "input": "./libs/shared-assets/",
+            "output": "./assets"
+          }
+        ],
+        "styles": [
+          "apps/cms-frontend-mobile/src/styles.scss",
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "node_modules/quill/dist/quill.bubble.css",
+          "node_modules/quill/dist/quill.snow.css"
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["chart.js", "zen-observable", "graphql-tag", "lodash", "dayjs/locale/th"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/cms-frontend-mobile/src/environments/environment.ts",
+              "with": "apps/cms-frontend-mobile/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "12mb",
+              "maximumError": "18mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "85kb",
+              "maximumError": "100kb"
+            }
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "apps/cms-frontend-mobile/ngsw-config.json"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "browserTarget": "cms-frontend-mobile:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "cms-frontend-mobile:build:production"
+        },
+        "development": {
+          "browserTarget": "cms-frontend-mobile:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "cms-frontend-mobile:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/cms-frontend-mobile/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/cms-frontend-mobile/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

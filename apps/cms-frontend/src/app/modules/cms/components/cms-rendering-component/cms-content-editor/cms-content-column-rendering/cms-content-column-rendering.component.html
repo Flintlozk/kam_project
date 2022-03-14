@@ -1,0 +1,147 @@
+<section
+  class="grid gap-2 border border-dashed relative h-full p-2"
+  (click)="!isViewMode ? onFocusEvent() : null"
+  [ngClass]="{ 'border-gray-300': !onFocus && isViewMode, 'border-gray-900': onFocus && isViewMode, 'border-none': isViewMode }"
+>
+  <div [ngClass]="{ hidden: !onFocus || isViewMode }" class="absolute bottom-full left-0 border border-gray-700 bg-white flex items-center">
+    <div class="flex items-center justify-center">
+      <button class="btn-backward" (click)="onNavigate('backward')">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+          <path d="M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"></path>
+        </svg>
+      </button>
+      <button class="btn-forward" (click)="onNavigate('forward')">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+          <path d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"></path>
+        </svg>
+      </button>
+    </div>
+    <div [matMenuTriggerFor]="option" class="flex items-center justify-center w-10 border-l border-gray-300 cursor-pointer">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path d="M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"></path>
+      </svg>
+    </div>
+    <mat-menu #option="matMenu">
+      <div class="grid">
+        <button (click)="onToggleComponentStatus()" class="px-4 py-2 font-light hover:bg-gray-100 text-sm">Block Options</button>
+        <button (click)="onRemoveColumn()" class="px-4 py-2 font-light hover:bg-gray-100 text-red-400 text-sm">Remove This Block</button>
+      </div>
+    </mat-menu>
+  </div>
+  <div [formGroup]="componentVariationForm" class="border border-gray-700 p-4 grid gap-4 relative w-full content-start" *ngIf="componentStatus">
+    <button (click)="onToggleComponentStatus()" class="absolute right-2 top-2 focus:outline-none">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path>
+      </svg>
+    </button>
+    <div class="flex items-center">
+      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+        <path
+          d="M19 6H6c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-4.1 1.5v10H10v-10h4.9zM5.5 17V8c0-.3.2-.5.5-.5h2.5v10H6c-.3 0-.5-.2-.5-.5zm14 0c0 .3-.2.5-.5.5h-2.6v-10H19c.3 0 .5.2.5.5v9z"
+        ></path>
+      </svg>
+      <span class="ml-4 text-lg">Block Options</span>
+    </div>
+    <div class="flex items-center">
+      <span class="font-light pr-4">Gap</span>
+      <input class="focus:outline-none px-4 py-2 w-16 border rounded" type="number" formControlName="gap" min="0" max="100" />
+    </div>
+  </div>
+  <div class="border border-gray-700 p-4 grid gap-4 relative w-full content-start" *ngIf="componentCreateStatus">
+    <button (click)="onToggleComponentCreateStatus()" class="absolute right-2 top-2 focus:outline-none">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path>
+      </svg>
+    </button>
+    <div class="flex items-center">
+      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+        <path
+          d="M6 5.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5H6a.5.5 0 01-.5-.5V6a.5.5 0 01.5-.5zM4 6a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm11-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5V6a.5.5 0 01.5-.5zM13 6a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2V6zm5 8.5h-3a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5zM15 13a2 2 0 00-2 2v3a2 2 0 002 2h3a2 2 0 002-2v-3a2 2 0 00-2-2h-3zm-9 1.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5H6a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zM4 15a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2v-3z"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <span class="ml-4 text-lg">Component List</span>
+    </div>
+    <input
+      *ngIf="componentList.length >= 10"
+      type="text"
+      class="focus:outline-none border rounded h-12 px-4 w-full font-light"
+      placeholder="Search Component..."
+      [formControl]="componentListFormControl"
+    />
+    <div class="max-h-40 overflow-auto">
+      <div class="flex flex-wrap justify-center">
+        <ng-container *ngFor="let component of componentList$ | async">
+          <div
+            *ngIf="component.status"
+            (click)="onCreateNewComponent(component.value)"
+            class="flex items-center justify-center flex-col py-4 w-32 flex-shrink-0 transition hover:bg-gray-100 rounded cursor-pointer"
+          >
+            <ng-container *ngIf="component.value === EContentEditorComponentType.TEXT">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+                <path
+                  d="M4 14.5h16V16H4zM4 18.5h9V20H4zM4 4h3c2 0 3 .86 3 2.583 0 .891-.253 1.554-.76 1.988-.505.435-1.24.652-2.204.652H5.542V12H4V4zm2.855 4c.53 0 .924-.114 1.18-.343.266-.228.398-.579.398-1.051 0-.473-.132-.82-.397-1.04-.265-.229-.67-.343-1.217-.343H5.542V8h1.313z"
+                ></path>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="component.value === EContentEditorComponentType.BUTTON">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+                <path
+                  d="M17 3H7c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm.5 6c0 .3-.2.5-.5.5H7c-.3 0-.5-.2-.5-.5V5c0-.3.2-.5.5-.5h10c.3 0 .5.2.5.5v4zm-8-1.2h5V6.2h-5v1.6zM17 13H7c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zm.5 6c0 .3-.2.5-.5.5H7c-.3 0-.5-.2-.5-.5v-4c0-.3.2-.5.5-.5h10c.3 0 .5.2.5.5v4zm-8-1.2h5v-1.5h-5v1.5z"
+                ></path>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="component.value === EContentEditorComponentType.EMBEDED">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm.5 16c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5V9.8l4.7-5.3H19c.3 0 .5.2.5.5v14zm-6-9.5L16 12l-2.5 2.8 1.1 1L18 12l-3.5-3.5-1 1zm-3 0l-1-1L6 12l3.5 3.8 1.1-1L8 12l2.5-2.5z"
+                ></path>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="component.value === EContentEditorComponentType.IMAGE">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 4.5h14c.3 0 .5.2.5.5v8.4l-3-2.9c-.3-.3-.8-.3-1 0L11.9 14 9 12c-.3-.2-.6-.2-.8 0l-3.6 2.6V5c-.1-.3.1-.5.4-.5zm14 15H5c-.3 0-.5-.2-.5-.5v-2.4l4.1-3 3 1.9c.3.2.7.2.9-.1L16 12l3.5 3.4V19c0 .3-.2.5-.5.5z"
+                ></path>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="component.value === EContentEditorComponentType.IMAGE_GALLERY">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+                <path
+                  d="M20.2 8v11c0 .7-.6 1.2-1.2 1.2H6v1.5h13c1.5 0 2.7-1.2 2.7-2.8V8h-1.5zM18 16.4V4.6c0-.9-.7-1.6-1.6-1.6H4.6C3.7 3 3 3.7 3 4.6v11.8c0 .9.7 1.6 1.6 1.6h11.8c.9 0 1.6-.7 1.6-1.6zM4.5 4.6c0-.1.1-.1.1-.1h11.8c.1 0 .1.1.1.1V12l-2.3-1.7c-.3-.2-.6-.2-.9 0l-2.9 2.1L8 11.3c-.2-.1-.5-.1-.7 0l-2.9 1.5V4.6zm0 11.8v-1.8l3.2-1.7 2.4 1.2c.2.1.5.1.8-.1l2.8-2 2.8 2v2.5c0 .1-.1.1-.1.1H4.6c0-.1-.1-.2-.1-.2z"
+                ></path>
+              </svg>
+            </ng-container>
+            <div class="font-light pt-1">{{ component.title }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div
+    [ngClass]="{ hidden: isChildEnter || onFocus || isViewMode }"
+    class="absolute bg-transparent hover:bg-black hover:bg-opacity-5 w-full h-full left-0 top-0 z-0 group cursor-pointer"
+  >
+    <div class="group-hover:flex hidden bottom-full right-0 px-2 font-light text-xs text-white bg-gray-700 z-10 rounded-sm absolute">Block</div>
+  </div>
+  <div
+    [ngClass]="{ hidden: componentStatus || componentCreateStatus }"
+    [ngStyle]="{ 'gap.px': savingData.gap }"
+    (mouseenter)="mouseEnterEvent()"
+    (mouseleave)="mouseLeaveEvent()"
+    class="w-full grid content-start"
+  >
+    <ng-container #componentPoint></ng-container>
+    <ng-content></ng-content>
+    <button
+      [ngClass]="{ hidden: isViewMode }"
+      (click)="!isViewMode ? onToggleComponentCreateStatus() : null"
+      class="flex items-center justify-center border border-gray-700 w-full h-10"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false">
+        <path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path>
+      </svg>
+    </button>
+  </div>
+</section>

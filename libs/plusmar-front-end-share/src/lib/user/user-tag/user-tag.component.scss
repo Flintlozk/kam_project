@@ -1,0 +1,87 @@
+@import 'base';
+@import 'buttons';
+
+.user-tag-container {
+  margin: auto;
+  width: 470px;
+  @media #{$mobilemax} {
+    width: unset;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+
+        &.disabled {
+          @extend .btn-disabled;
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px;
+
+    //
+    // .title {
+    //   color: #484b52;
+    //   margin-bottom: 4px;
+    // }
+    .tags-list {
+      display: flex;
+      flex-flow: column;
+      // padding: 8px;
+      // border: 1px solid #dddfea;
+      // border-radius: 7px;
+
+      .list {
+        display: flex;
+        height: 38px;
+        align-items: center;
+
+        .user {
+          margin-left: 4px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+
+          img {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+          }
+
+          .text {
+            margin-left: 4px;
+          }
+        }
+        .checkbox-group {
+          padding-left: 6px;
+          .custom-checkbox {
+            margin: 6px 0;
+            .input-checkbox {
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

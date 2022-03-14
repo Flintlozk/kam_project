@@ -1,0 +1,34 @@
+<div class="subscription-features">
+  <div class="info">
+    <div class="title">ราคาไม่รวมภาษีมูลค่าเพิ่ม (VAT) 7%</div>
+    <div class="title">*เงื่อนไขการเชื่อมต่อกับ LINE Official Account (LINEOA)</div>
+
+    <div class="detail">
+      - การเชื่อมต่อกับ LINE Official Account มีค่าใช้จ่ายเพิ่มเติม ที่คุณต้องจ่ายโดยตรงกับ LINE โดยราคาขึ้นอยู่กับแพ็กเกจรายเดือนของ LINE (เนื่องจากการส่งข้อความบน LINEOA
+      ทางบริษัท LINE มีการจำกัดจำนวนการส่งข้อความต่อเดือน)
+    </div>
+    <div class="detail">- แนะนำแพ็กเกจ 15,000 ข้อความ จ่ายโดยตรงกับ LINE 1,200 บาท/เดือน (เฉลี่ยเพียงข้อความละ 0.08 บาท)</div>
+    <div class="detail">- เชื่อมต่อได้เฉพาะบัญชี LINE Official Account ไม่สามารถเชื่อมต่อกับบัญชี LINE ส่วนตัวได้</div>
+  </div>
+  <reactor-room-heading [headingTitle]="'Line Packages' | translate">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <div class="table">
+    <table>
+      <tr *ngFor="let data of tableData; let i = index" class="table-content">
+        <td>
+          {{ data.stCol }}
+        </td>
+        <td>
+          {{ data.ndCol }}
+        </td>
+        <td>
+          {{ data.rdCol }}
+        </td>
+        <td>
+          {{ data.thCol }}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

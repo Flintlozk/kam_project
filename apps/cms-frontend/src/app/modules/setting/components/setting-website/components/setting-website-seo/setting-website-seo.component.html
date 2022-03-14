@@ -1,0 +1,35 @@
+<section class="bg-white col-span-3 shadow-md">
+  <div class="p-10" [formGroup]="seoSettingForm">
+    <div>
+      <label for="">
+        <p class="font-light">Title (ชื่อเว็บไซต์)</p>
+        <input
+          formControlName="title"
+          class="w-full mb-6 py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400"
+          type="text"
+          name=""
+          id=""
+        />
+      </label>
+    </div>
+    <div>
+      <label for="">
+        <p class="font-light">Keyword (คำค้นหา)</p>
+        <reactor-room-custom-chip class="w-full" [inputControl]="this.getKeyword" [formField]="getKeywordField"></reactor-room-custom-chip>
+      </label>
+    </div>
+
+    <div class="pt-4">
+      <p class="font-light">Description (รายละเอียด)</p>
+      <label for="">
+        <textarea
+          formControlName="description"
+          class="w-full mb-6 py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400"
+          name=""
+          id=""
+          rows="1"
+        ></textarea>
+      </label>
+    </div>
+  </div>
+</section>

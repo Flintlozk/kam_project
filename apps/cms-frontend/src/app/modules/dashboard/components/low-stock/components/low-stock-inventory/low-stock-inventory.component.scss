@@ -1,0 +1,237 @@
+.table {
+  box-shadow: none;
+}
+.secondary {
+  color: red;
+}
+.primary {
+  color: black;
+}
+
+::ng-deep .mat-paginator-icon {
+  border: 1px solid rgb(243, 244, 246);
+  border-radius: 10px;
+}
+
+::ng-deep .low-stock-container {
+  .custom-cms-table {
+    table td {
+      padding-right: 0rem;
+      padding-left: 0rem;
+      padding-top: 0rem;
+      padding-bottom: 0rem;
+    }
+    table {
+      width: 100%;
+      text-align: left;
+    }
+
+    .sticky {
+      box-shadow: 0px 0px 12px 0px rgba(226, 226, 226, 0.81);
+      background-color: white;
+
+      th {
+        padding: 10px;
+        padding-right: 25px;
+        .sort {
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+
+          .icon-up-down {
+            width: 0;
+            height: 0;
+            display: flex;
+            flex-direction: column;
+            border: solid transparent;
+            border-top-color: #dddfea;
+            border-bottom-color: #dddfea;
+            transition: all ease-in-out 0.3s;
+
+            &.up {
+              border-width: 0px 5px 7px 5px;
+              margin-bottom: 3px;
+            }
+
+            &.down {
+              border-width: 7px 5px 0px 5px;
+            }
+
+            &:hover {
+              border-top-color: #60dd54;
+              border-bottom-color: #60dd54;
+            }
+
+            &.active {
+              border-top-color: #25ff1d;
+              border-bottom-color: #25ff1d;
+            }
+          }
+        }
+      }
+    }
+    .main-tr {
+      background-color: white;
+
+      &.even {
+        td {
+          background-color: rgb(243, 244, 246);
+        }
+      }
+      &.odd {
+        td {
+          background-color: white;
+        }
+      }
+
+      .no {
+        padding-left: 10px;
+        width: 5.255%;
+        background-color: white;
+        background-clip: content-box;
+        div {
+          margin-left: 15px;
+        }
+      }
+
+      .Product {
+        word-break: break-all;
+        padding: 10px;
+        .item-img {
+          display: flex;
+          flex-direction: row;
+          filter: contrast(0.5);
+          border-radius: 0px;
+        }
+        .dataproduct {
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+      }
+
+      .variants {
+        table td {
+          padding-right: 0rem;
+          padding-left: 0rem;
+        }
+        padding-left: 11px;
+        width: 7.82%;
+      }
+
+      .inventory {
+        padding-left: 10px;
+        width: 8.569%;
+      }
+
+      .notification {
+        padding-left: 11px;
+        width: 17.5%;
+      }
+      .withhold {
+        padding-left: 12px;
+        width: 8.239%;
+      }
+      .unpaid {
+        padding-left: 12px;
+        width: 7.313%;
+      }
+      .revenue {
+        width: 10.968%;
+        padding-left: 12px;
+      }
+
+      .td-arrow {
+        padding-right: 10px;
+        background-color: white;
+        background-clip: content-box;
+        .arrow {
+          width: 60%;
+        }
+      }
+    }
+  }
+
+  .main-tr2 {
+    .table-list {
+      background-color: white;
+
+      tr td {
+        background-color: white;
+      }
+      background-color: white;
+      border-top-left-radius: 0%;
+      box-shadow: none;
+      .list-low-stock {
+        border-bottom: 5px solid #f3f4f6;
+        .item {
+          .child-no {
+            width: 5.255%;
+            height: 80px;
+            padding-left: 31px;
+          }
+
+          .all-product {
+            border-top: 1px solid rgb(236, 236, 236);
+            width: 28.91%;
+            padding: 10px;
+            height: 80px;
+            word-break: break-all;
+            .child-img {
+              display: flex;
+              flex-direction: row;
+              filter: contrast(0.5);
+              border-radius: 0px;
+            }
+            .child-dataproduct {
+              margin-top: 10px;
+              margin-left: 10px;
+            }
+          }
+          .child-variants {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 7.82%;
+            padding-left: 11px;
+          }
+          .child-inventory {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 8.569%;
+            padding-left: 34px;
+          }
+          .child-notification {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 17.5%;
+            padding-left: 31px;
+          }
+          .child-withhold {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 8.239%;
+            padding-left: 36px;
+          }
+          .child-unpaid {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 7.313%;
+            padding-left: 37px;
+          }
+          .child-revenue {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 10.998%;
+            padding-left: 34px;
+          }
+          .child-icon {
+            border-top: 1px solid rgb(236, 236, 236);
+            height: 80px;
+            width: 60%;
+          }
+        }
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,39 @@
+<reactor-room-loader block="true" [text]="loaderText" *ngIf="isLoading"></reactor-room-loader>
+
+<mat-form-field class="custom-chips" [ngClass]="{ main: defaultColor === 'main', sub: defaultColor === 'sub' }">
+  <ng-container *ngIf="componentType !== 'CATEGORY'">
+    <button class="add-chip-custom" type="button" (click)="addChipButton()">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+        ></path>
+      </svg>
+    </button>
+  </ng-container>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let item of chips" [selectable]="selectable" [removable]="removable" (removed)="remove(item)">
+      {{ item.name }}
+      <mat-icon matChipRemove *ngIf="removable">
+        <svg width="10" height="10" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L7.20711 6.5L12.8536 0.853554C13.0488 0.658291 13.0488 0.341709 12.8536 0.146446C12.6583 -0.0488155 12.3417 -0.0488155 12.1464 0.146446L6.5 5.79289L0.853553 0.146448C0.658291 -0.0488143 0.341709 -0.0488143 0.146447 0.146448C-0.0488155 0.34171 -0.0488155 0.658293 0.146447 0.853555L5.79289 6.5L0.146447 12.1464C-0.0488155 12.3417 -0.0488155 12.6583 0.146447 12.8536C0.341709 13.0488 0.658291 13.0488 0.853553 12.8536L6.5 7.20711L12.1464 12.8536Z"
+            fill="white"
+          />
+        </svg>
+      </mat-icon>
+    </mat-chip>
+    <input
+      autocomplete="off"
+      #chipInput
+      [placeholder]="placeholder"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)"
+      [readOnly]="disabled"
+      [ngClass]="disabled ? 'no-pointer' : ''"
+    />
+  </mat-chip-list>
+</mat-form-field>
+<!-- [matChipInputAddOnBlur]="addOnBlur" -->

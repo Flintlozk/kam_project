@@ -1,0 +1,31 @@
+.address-form .mat-form-field-subscript-wrapper {
+  margin: auto;
+  top: unset;
+  position: relative;
+}
+.address-form .mat-form-field-infix {
+  width: 100%;
+}
+.address-form {
+  :host ::ng-deep .mat-autocomplete-panel {
+    min-width: 400px;
+  }
+
+  // * {
+  //   box-sizing: border-box;
+  // }
+
+  input {
+    box-sizing: border-box !important;
+    border: 1px solid #dddfea;
+    border-radius: 8px;
+    height: 42px;
+    padding: 0px 15px;
+    width: 100%;
+
+    &.readonly {
+      background-color: #fafafa;
+      color: #7d7d7d;
+    }
+  }
+}

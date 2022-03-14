@@ -1,0 +1,117 @@
+@import 'base';
+@import 'switch';
+.setting-logistic-per-item {
+  margin: 0px -15px;
+  padding: 20px;
+  background: #f9fbfd;
+  position: relative;
+  .label {
+    color: #576f83;
+    font-weight: 200;
+    font-size: 12px;
+    padding-bottom: 10px;
+  }
+  input {
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    text-align: right;
+    padding: 10px 15px;
+    width: calc(100% - 30px);
+  }
+  .mode-toggle {
+    @extend .switch;
+    margin-top: 13px;
+  }
+  .decoration {
+    position: absolute;
+    padding: 6px 20px;
+    background: #9396a2;
+    color: white;
+    top: 0px;
+    right: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .on-line {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .item {
+    display: grid;
+    align-items: end;
+  }
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    @media #{$mobilemax} {
+      grid-template-columns: auto 105px;
+      padding-top: 20px;
+    }
+    .left {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+    }
+    .purchase-between {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 20px;
+      .content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        .first {
+          .form {
+            display: grid;
+            grid-template-columns: 1fr 12px 1fr;
+            grid-gap: 10px;
+            align-items: center;
+            .text {
+              font-weight: 200;
+            }
+            input {
+              text-align: center;
+              padding: 10px 3px;
+              width: calc(100% - 6px);
+            }
+          }
+        }
+        .second {
+          position: relative;
+          .func {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: calc(100% + 10px);
+            bottom: 10px;
+            width: 100%;
+            img {
+              margin-right: 10px;
+              width: 15px;
+              cursor: pointer;
+            }
+
+            .add-icon {
+              background: $main-color;
+              width: 15px;
+              height: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+              border-radius: 50%;
+              margin-right: 10px;
+              cursor: pointer;
+
+              img {
+                margin: 0px;
+                width: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

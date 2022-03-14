@@ -1,0 +1,101 @@
+<div class="adding-note-container" *ngIf="notes">
+  <div class="note-label">
+    <div class="flex justify-between">
+      <div class="label">{{ 'Note' | translate }}</div>
+      <!-- <div class="link" (click)="openCustomerTagDialog()">{{ 'Edit' | translate }}</div> -->
+    </div>
+  </div>
+  <div class="note-wrapper">
+    <!-- <input
+      id="customer-note-input"
+      [formControl]="addField"
+      [placeholder]="'Write a note' | translate"
+      (keyup.enter)="addNote()"
+      [ngStyle]="{ 'border-color': addInvalid ? '#dc493d' : '#dddfea' }"
+      autocomplete="off"
+    /> -->
+    <textarea
+      id="customer-note-input"
+      [formControl]="addField"
+      [ngStyle]="{ 'border-color': addInvalid ? '#dc493d' : '#dddfea' }"
+      [placeholder]="'Write a note' | translate"
+    ></textarea>
+    <button id="customer-note-add" class="buttons" (click)="addNote()">
+      <svg _ngcontent-nyn-c546="" _ngcontent-ucy-c561="" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          _ngcontent-nyn-c546=""
+          _ngcontent-ucy-c561=""
+          d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+        ></path>
+      </svg>
+      <span class="text">
+        {{ 'Add' | translate }}
+      </span>
+    </button>
+  </div>
+</div>
+<div class="saved-note-container">
+  <div class="header-wrapper">
+    <div class="title">{{ totalNote }} {{ 'item' | translate }}{{ totalNote > 1 ? 's' : '' }}</div>
+    <div class="search">
+      <input id="customer-note-search" [formControl]="searchField" [placeholder]="'Search' | translate" />
+    </div>
+  </div>
+
+  <div id="notes-content-wrapper" class="content-wrapper" [ngClass]="{ 'with-assignee': extraHeight }" reactorRoomClickOutside (outside)="clickOutsideEvent($event)">
+    <ng-container *ngIf="notes">
+      <ng-container *ngFor="let note of notes; trackBy: trackByIndex; let index = index">
+        <div class="note-wrapper" *ngIf="note.searchText" [@slideInOut]>
+          <div class="saved-not-wrapper">
+            <div class="note-item" #noteItem [id]="'noteItem' + index">
+              <div class="note" (dblclick)="onClickEditNote(note, noteItem, index)" (tap)="onClickEditNote(note, noteItem, index)">
+                <div [innerHTML]="note.note | urlify"></div>
+                <svg
+                  (click)="onClickEditNote(note, noteItem, index)"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="edit-on-hover cursor-pointer"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17.2168 1.61961L3.09199 15.7444C3.09199 15.7444 3.03907 20.4708 3.03393 20.6613C3.02878 20.8519 3.17516 21.0039 3.37016 20.9976C3.49643 20.9935 4.70883 20.98 6.07369 20.9647C6.81652 20.9564 7.6045 20.9476 8.28713 20.9395L22.3964 6.8302C22.8756 6.35105 22.7931 5.91267 22.3758 5.49535L18.4808 1.60031C18.1098 1.22936 17.6907 1.15769 17.2168 1.61961ZM4.24433 19.7872L4.28614 16.2473L14.4963 6.03716L17.9943 9.53524L7.78422 19.7454L4.24433 19.7872Z"
+                    fill="#aaa"
+                  ></path>
+                  <defs>
+                    <linearGradient id="paint0_linear" x1="3.1276" y1="20.9039" x2="20.456" y2="3.57553" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#aaa"></stop>
+                      <stop offset="1" stop-color="#aaa"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <textarea
+                [id]="'editInput' + index"
+                #editInput
+                cdkTextareaAutosize
+                class="edit-note"
+                [formControl]="editField"
+                (keydown.escape)="handleCancelEdittingNote(index)"
+                (keydown.enter)="handleSaveEdittingNote($event, note, index)"
+              ></textarea>
+              <div class="edit-note-action">
+                <span class="save" (click)="handleSaveEdittingNote($event, note, index)">Save</span>
+                <span>|</span>
+                <span class="cancel" (click)="handleCancelEdittingNote(index)">Cancel</span>
+              </div>
+              <div class="detail">{{ note.updated_at | timeAgo: 'utc' }} | {{ 'By' | translate }} {{ note.name }}</div>
+            </div>
+
+            <div class="delete">
+              <img [id]="'customer-note-delete-' + index" (click)="removeNote(note)" src="assets/img/trash-icon.svg" />
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

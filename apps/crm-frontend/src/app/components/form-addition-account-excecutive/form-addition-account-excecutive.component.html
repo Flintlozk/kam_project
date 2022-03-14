@@ -1,0 +1,12 @@
+<form [formGroup]="productAmountForm" class="container">
+  <mat-form-field class="form-field-detail">
+    <mat-label> Product Amount </mat-label>
+    <input formControlName="productAmount" (change)="onUpdateProductAmount()" matInput />
+  </mat-form-field>
+</form>
+<form [formGroup]="mediaAmountForm" class="container">
+  <mat-form-field class="form-field-detail">
+    <mat-label> Media Amount </mat-label>
+    <input formControlName="mediaAmount" (change)="onUpdateMediaAmount()" matInput />
+  </mat-form-field>
+</form>

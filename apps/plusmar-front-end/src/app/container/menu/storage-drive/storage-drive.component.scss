@@ -1,0 +1,82 @@
+@import 'base';
+.text {
+  margin-bottom: 0.1rem;
+  font-weight: 300;
+}
+.storage-section {
+  display: grid;
+  padding-left: 1.5rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  .border {
+    border: 0.25px solid #f6f6f9;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+  .total-storage-text {
+    padding-top: 0.3rem;
+    padding-bottom: 0.5rem;
+    .total-storage-used {
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: rgb(17 24 39);
+    }
+  }
+  .used-storage {
+    padding-bottom: 0.25rem;
+    .storage-name {
+      font-weight: 300;
+      color: rgb(107 114 128);
+      padding-right: 0.25rem;
+    }
+    .storage-icon-color {
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-left: 0.25rem;
+      border-radius: 9999px;
+      flex-shrink: 0;
+      margin-right: 0.25rem;
+    }
+  }
+  .storage-name {
+    font-weight: 300;
+    color: rgb(107 114 128);
+    padding-right: 0.25rem;
+  }
+  .storage-icon-color {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 0.25rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+  }
+  .link {
+    font-size: 0.75rem;
+  }
+  ::ng-deep mat-progress-bar {
+    .mat-progress-bar-fill::after {
+      background-color: $main-color;
+    }
+    .mat-progress-bar-buffer {
+      background-color: $third-color;
+    }
+  }
+}
+
+.gauge-bar {
+  background-color: #f6f6f9;
+  height: 0.75rem;
+}
+.storage-bar {
+  height: 100%;
+  background-color: $main-color;
+  &:first-child {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+  }
+  &:last-child {
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+  }
+}

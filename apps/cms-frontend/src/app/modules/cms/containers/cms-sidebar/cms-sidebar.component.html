@@ -1,0 +1,32 @@
+<section class="flex-shrink-0 h-full px-8 py-8 overflow-scroll border-r w-96 no-scroll-bar relative bg-itopplus-200 text-white">
+  <mat-tab-group *ngIf="sideBarMode === EsidebarMode.SITE_MANAGE" class="custom-tab" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab label="Manage Page">
+      <cms-next-cms-manage-page *matTabContent (activeSiteMenuIndex)="menuIndexEvent($event)"></cms-next-cms-manage-page>
+    </mat-tab>
+    <mat-tab label="Site Menu">
+      <cms-next-cms-site-menu *matTabContent></cms-next-cms-site-menu>
+    </mat-tab>
+  </mat-tab-group>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.SITE_SETTING">
+    <cms-next-cms-site-setting></cms-next-cms-site-setting>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.CONTENT_MANAGE">
+    <cms-next-cms-content-management></cms-next-cms-content-management>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.CONTENT_MANAGE_MEDIA">
+    <cms-next-cms-content-management-media></cms-next-cms-content-management-media>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.LAYOUT_SETTING">
+    <cms-next-cms-layout></cms-next-cms-layout>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.TEMPLATE_SETTING">
+    <cms-next-cms-theme-setting></cms-next-cms-theme-setting>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.MEDIA_GALLERY_ITEM">
+    <cms-next-cms-media-gallery-item> </cms-next-cms-media-gallery-item>
+  </ng-container>
+  <ng-container *ngIf="sideBarMode === EsidebarMode.MENU_CUSTOM">
+    <cms-next-cms-menu-custom></cms-next-cms-menu-custom>
+  </ng-container>
+  <cms-next-cms-manage-layers></cms-next-cms-manage-layers>
+</section>

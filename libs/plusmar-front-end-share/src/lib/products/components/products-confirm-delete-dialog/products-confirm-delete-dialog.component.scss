@@ -1,0 +1,116 @@
+@import 'base';
+@import 'buttons';
+.product-confirm-delete-dialog {
+  .footer {
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .btn-no {
+        @extend .btn-inactive;
+        img {
+          width: auto;
+          height: 12px;
+        }
+      }
+      .btn-yes {
+        @extend .btn-active;
+      }
+    }
+  }
+  .content {
+    .count {
+      padding-bottom: 20px;
+      font-weight: 500;
+    }
+    .table-content {
+      td {
+        border-bottom: 1px solid $border-color;
+        border-radius: 0px !important;
+      }
+      .product-item {
+        display: flex;
+        align-items: center;
+        img {
+          width: 35px;
+          height: 35px;
+          border-radius: 100%;
+          margin-right: 10px;
+          flex-shrink: 0;
+        }
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        font-weight: 300;
+        .round {
+          width: 8px;
+          height: 8px;
+          border-radius: 100%;
+          margin-right: 5px;
+          flex-shrink: 0;
+          &.selling {
+            background: $main-color;
+          }
+          &.stock {
+            background: #cbdbeb;
+          }
+          &.cancel {
+            background: #eb6161;
+          }
+        }
+      }
+      .action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 80px;
+        img {
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
+        }
+        .toogle {
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
+          background: $main-color;
+          border-radius: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: $transition;
+          img {
+            width: 15px;
+          }
+          &.active {
+            img {
+              transform: scaleY(-1);
+            }
+          }
+        }
+      }
+    }
+  }
+  .custom-table {
+    tr.sticky {
+      th:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+      }
+      th:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 0px;
+      }
+      th {
+        background: #e2f1ff;
+      }
+    }
+    tr {
+      td {
+        padding: 8px 15px;
+      }
+    }
+  }
+}

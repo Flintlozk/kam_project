@@ -1,0 +1,73 @@
+.backgroundColor {
+  padding: 100px;
+  padding-top: 78px;
+  padding-bottom: 65px;
+  background-color: white;
+}
+
+.mainBackground {
+  background-color: white;
+  color: black;
+  font-family: prompt;
+  color: #153342;
+
+  .mainContainer {
+    padding: 50px 0px 40px 0px;
+    position: relative;
+    // text-align: center;
+    width: 80%;
+    font-weight: 300;
+    margin: 0 auto;
+    line-height: 2.5;
+
+    .titleFont {
+      font-weight: 500;
+      font-size: 1.1vw;
+      padding-bottom: 1rem;
+    }
+
+    .titleFont.titleSec {
+      padding-top: 0.8rem;
+      padding-bottom: 0.2rem;
+    }
+
+    .tableContent {
+      table {
+        font-family: Roboto, Prompt;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    }
+
+    .contentFont {
+      font-size: 0.9vw;
+
+      .fontHead {
+        font-weight: 400;
+      }
+    }
+
+    .contentFont.contentTab {
+      padding-left: 20px;
+    }
+
+    .contentBorder {
+      border-bottom: 1px solid;
+      width: 100%;
+      margin: 0 auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div
+  class="setting-paypal-dialog"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <form [formGroup]="PaypalForm">
+    <reactor-room-custom-dialog>
+      <div class="head">{{ 'Edit Pay online using credit/debit card through Paypal' | translate }}</div>
+      <div class="content">
+        <div class="item">
+          <div class="label">{{ 'Client ID' | translate }}*</div>
+          <input id="paypal-client-id" type="text" formControlName="clientId" style="max-width: 286px" />
+        </div>
+        <div class="item">
+          <div class="label">{{ 'Client Secret' | translate }}*</div>
+          <input id="paypal-client-secret" type="text" formControlName="clientSecret" style="max-width: 286px" />
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button class="btn-cancel" id="paypal-cancel-button" (click)="onCancel()">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button class="btn-save" id="paypal-save-button" (click)="onSubmit()">
+            <img src="assets/img/connection-icon.png" alt="Connect Paypal" />
+            {{ 'Connect Paypal' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>
+
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="254px" height="43px" viewBox="0 0 254 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>btn_Signin-Google</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="252" height="40" rx="2"></rect>
+        <filter x="-0.8%" y="-5.0%" width="101.6%" height="112.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.24 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.12 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="AUTODIGI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="btn_google_signin" transform="translate(-32.000000, -15.000000)">
+            <g id="btn_Signin-Google" transform="translate(33.000000, 16.000000)">
+                <g id="button">
+                    <g id="button-bg">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#4285F4" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+                <text id="Sign-in-with-Google" font-family="Roboto-Medium, Roboto" font-size="14" font-weight="400" letter-spacing="0.21875" fill="#FFFFFF">
+                    <tspan x="83" y="22">Sign in with Google</tspan>
+                </text>
+                <rect id="button-bg-copy" fill="#FFFFFF" x="1" y="1" width="38" height="38" rx="1"></rect>
+                <path d="M28.64,20.2045455 C28.64,19.5663636 28.5827273,18.9527273 28.4763636,18.3636364 L20,18.3636364 L20,21.845 L24.8436364,21.845 C24.635,22.97 24.0009091,23.9231818 23.0477273,24.5613636 L23.0477273,26.8195455 L25.9563636,26.8195455 C27.6581818,25.2527273 28.64,22.9454545 28.64,20.2045455 L28.64,20.2045455 Z" id="Shape" fill="#4285F4"></path>
+                <path d="M20,29 C22.43,29 24.4672727,28.1940909 25.9563636,26.8195455 L23.0477273,24.5613636 C22.2418182,25.1013636 21.2109091,25.4204545 20,25.4204545 C17.6559091,25.4204545 15.6718182,23.8372727 14.9640909,21.71 L11.9572727,21.71 L11.9572727,24.0418182 C13.4381818,26.9831818 16.4818182,29 20,29 L20,29 Z" id="Shape" fill="#34A853"></path>
+                <path d="M14.9640909,21.71 C14.7840909,21.17 14.6818182,20.5931818 14.6818182,20 C14.6818182,19.4068182 14.7840909,18.83 14.9640909,18.29 L14.9640909,15.9581818 L11.9572727,15.9581818 C11.3477273,17.1731818 11,18.5477273 11,20 C11,21.4522727 11.3477273,22.8268182 11.9572727,24.0418182 L14.9640909,21.71 L14.9640909,21.71 Z" id="Shape" fill="#FBBC05"></path>
+                <path d="M20,14.5795455 C21.3213636,14.5795455 22.5077273,15.0336364 23.4404545,15.9254545 L26.0218182,13.3440909 C24.4631818,11.8918182 22.4259091,11 20,11 C16.4818182,11 13.4381818,13.0168182 11.9572727,15.9581818 L14.9640909,18.29 C15.6718182,16.1627273 17.6559091,14.5795455 20,14.5795455 L20,14.5795455 Z" id="Shape" fill="#EA4335"></path>
+                <polygon id="Shape" points="11 11 29 11 29 29 11 29"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

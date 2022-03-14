@@ -1,0 +1,7 @@
+FROM node:16
+ENV INSTALL_PROJECT_PATH /project
+WORKDIR $INSTALL_PROJECT_PATH
+ADD ./dist/apps/plusmar-website .
+ADD ./package.json .
+RUN npm install -f
+CMD ["npm","run","start:plusmar-website"]

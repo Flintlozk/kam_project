@@ -1,0 +1,18 @@
+<div class="setting-general">
+  <div class="menu">
+    <div class="title">
+      {{ 'General Settings' | translate }}
+    </div>
+    <div class="grid" style="border-top: 5px solid #f2f5f9">
+      <reactor-room-setting-message-track-mode [isAllowed]="isAllowed"></reactor-room-setting-message-track-mode>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="title">
+      {{ 'Automation Response' | translate }}
+    </div>
+    <div class="grid" style="border-top: 5px solid #f2f5f9">
+      <reactor-room-setting-working-hour *ngIf="feature" [isEnabled]="feature.WORKING_HOURS" [isAllowed]="isAllowed"></reactor-room-setting-working-hour>
+    </div>
+  </div>
+</div>

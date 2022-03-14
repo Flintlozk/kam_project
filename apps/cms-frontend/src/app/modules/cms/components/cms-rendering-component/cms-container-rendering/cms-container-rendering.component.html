@@ -1,0 +1,106 @@
+<div (dblclick)="onContainerEditorFocusEvent()" class="absolute w-full h-full left-0 top-0 group guideline cursor-pointer" [ngClass]="{ ' border border-green-500': onFocus }">
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: isChildEnter || onFocus, hidden: !isChildEnter && !onFocus }">
+    <button
+      [ngClass]="{ 'bg-green-900': !onFocus, 'bg-gray-700': onFocus }"
+      class="absolute left-0 px-10 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none"
+    >
+      Container
+    </button>
+    <div class="absolute w-full h-full bg-green-900 opacity-40" [ngClass]="{ hidden: isChildEnter || onFocus }"></div>
+  </div>
+</div>
+<div *ngIf="isEmptyContainer" class="w-full h-full flex items-center justify-center absolute top-0 left-0 empty-container" style="z-index: -1">
+  <div class="absolute">
+    <svg width="193" height="212" viewBox="0 0 193 212" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="94" height="212" fill="#E8EBF3" />
+      <rect x="18.5" y="16.5" width="58" height="38" rx="2.5" fill="white" stroke="white" stroke-dasharray="2 2" />
+      <rect x="18" y="63" width="59" height="39" rx="3" fill="#DADFEB" />
+      <rect x="18" y="110" width="59" height="39" rx="3" fill="#DADFEB" />
+      <rect x="18" y="157" width="59" height="39" rx="3" fill="#DADFEB" />
+      <g filter="url(#filter0_d)">
+        <path
+          d="M61 46.4747C61 44.5557 62.5602 43 64.4848 43H172.515C174.44 43 176 44.5557 176 46.4747V125.525C176 127.444 174.44 129 172.515 129H64.4848C62.5602 129 61 127.444 61 125.525V46.4747Z"
+          fill="white"
+        />
+        <path
+          d="M77.1818 60.3741C77.1818 59.6921 77.7366 59.1367 78.4242 59.1367H158.576C159.263 59.1367 159.818 59.6921 159.818 60.3741V111.627C159.818 112.309 159.263 112.864 158.576 112.864H78.4242C77.7366 112.864 77.1818 112.309 77.1818 111.627V60.3741Z"
+          fill="white"
+          stroke="#D6DBE3"
+        />
+        <path
+          d="M128.586 72.5362L107.155 94.351C106.614 94.9007 107.005 95.8275 107.777 95.8275H149.45C150.21 95.8275 150.605 94.9251 150.089 94.3689L129.848 72.5541C129.51 72.1897 128.935 72.1815 128.586 72.5362Z"
+          fill="#B7C2D9"
+          fill-opacity="0.24"
+        />
+        <path
+          d="M109.043 77.0089L87.7607 98.1316C87.2099 98.6783 87.5981 99.616 88.3753 99.616H129.758C130.523 99.616 130.917 98.7028 130.39 98.1494L110.29 77.0266C109.953 76.6727 109.39 76.6647 109.043 77.0089Z"
+          fill="#DADFEB"
+        />
+        <path
+          d="M120.406 75.3246C120.406 77.0745 119.016 78.493 117.302 78.493C115.588 78.493 114.198 77.0745 114.198 75.3246C114.198 73.5748 115.588 72.1562 117.302 72.1562C119.016 72.1562 120.406 73.5748 120.406 75.3246Z"
+          fill="#DADFEB"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M81.4734 76.0101C81.4734 75.2904 82.0585 74.707 82.7802 74.707H105.432C106.153 74.707 106.739 75.2904 106.739 76.0101C106.739 76.7297 106.153 77.3131 105.432 77.3131H82.7802C82.0585 77.3131 81.4734 76.7297 81.4734 76.0101Z"
+          fill="#8890A0"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M81.4734 80.3538C81.4734 79.6342 82.0585 79.0508 82.7802 79.0508H97.5908C98.3125 79.0508 98.8976 79.6342 98.8976 80.3538C98.8976 81.0735 98.3125 81.6568 97.5908 81.6568H82.7802C82.0585 81.6568 81.4734 81.0735 81.4734 80.3538Z"
+          fill="#8890A0"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M82.0397 86.4356C82.0397 86.0279 82.3712 85.6973 82.7802 85.6973H126.341C126.75 85.6973 127.081 86.0279 127.081 86.4356C127.081 86.8434 126.75 87.174 126.341 87.174H82.7802C82.3712 87.174 82.0397 86.8434 82.0397 86.4356Z"
+          fill="#B2B9C7"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M82.0397 89.9103C82.0397 89.5025 82.3712 89.1719 82.7802 89.1719H126.341C126.75 89.1719 127.081 89.5025 127.081 89.9103C127.081 90.3181 126.75 90.6486 126.341 90.6486H82.7802C82.3712 90.6486 82.0397 90.3181 82.0397 89.9103Z"
+          fill="#B2B9C7"
+        />
+        <path
+          d="M81.9091 94.2535C81.9091 93.7737 82.2991 93.3848 82.7803 93.3848H88.0075C88.4887 93.3848 88.8788 93.7737 88.8788 94.2535V95.1221C88.8788 95.6019 88.4887 95.9908 88.0075 95.9908H82.7803C82.2991 95.9908 81.9091 95.6019 81.9091 95.1221V94.2535Z"
+          fill="#8890A0"
+        />
+      </g>
+      <g clip-path="url(#clip0)" filter="url(#filter1_d)">
+        <path
+          d="M156.888 106.714C158.665 105.874 160.786 106.621 161.617 108.379L164.082 113.591C164.426 113.094 164.904 112.677 165.49 112.4C166.893 111.737 168.512 112.063 169.54 113.095C169.892 112.513 170.415 112.022 171.077 111.709C172.48 111.045 174.099 111.372 175.127 112.404C175.478 111.822 176.001 111.331 176.663 111.018C178.44 110.177 180.562 110.924 181.393 112.683L187.801 126.233C190.502 131.947 188.003 138.817 182.229 141.547C178.898 143.122 175.158 143.321 171.702 142.103L156.411 136.72C155.557 136.42 154.876 135.808 154.49 134.993C153.692 133.305 154.425 131.287 156.123 130.484C156.869 130.131 157.699 129.951 158.522 129.966L163.987 130.064L155.174 111.426C154.342 109.668 155.111 107.555 156.888 106.714Z"
+          fill="#8890A0"
+        />
+      </g>
+      <defs>
+        <filter id="filter0_d" x="57" y="39" width="123" height="94" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+          <feOffset />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+        </filter>
+        <filter id="filter1_d" x="140" y="98.334" width="56.7006" height="60.7343" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+        </filter>
+        <clipPath id="clip0">
+          <rect width="33.858" height="42.3225" fill="white" transform="translate(144 112.809) rotate(-25.3079)" />
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
+</div>
+<div [ngStyle]="{ minHeight: isEmptyContainer ? '250px' : '30px' }" #container class="container-rendering w-full" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+  <ng-content></ng-content>
+</div>

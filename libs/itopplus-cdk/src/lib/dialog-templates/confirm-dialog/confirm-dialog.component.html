@@ -1,0 +1,25 @@
+<div>
+  <h3
+    [ngClass]="{
+      'text-green-500': receivedData.type === statusTypes.ACTION,
+      'text-red-500': receivedData.type === statusTypes.DANGER
+    }"
+    class="w-full pb-2 text-2xl text-center"
+  >
+    {{ receivedData.title }}
+  </h3>
+  <div>
+    <div class="pb-4 text-lg font-light text-gray-700">{{ receivedData.content }}</div>
+    <button
+      (click)="onConfirm()"
+      [ngClass]="{
+        'bg-green-500': receivedData.type === statusTypes.ACTION,
+        'bg-red-500': receivedData.type === statusTypes.DANGER
+      }"
+      class="w-full py-3 text-xl text-white rounded-md focus:outline-none"
+    >
+      {{ 'Confirm' }}
+    </button>
+    <button (click)="onCancel()" class="w-full pt-2 text-xl font-light text-gray-500 bg-white rounded-md focus:outline-none">{{ 'Cancel' }}</button>
+  </div>
+</div>

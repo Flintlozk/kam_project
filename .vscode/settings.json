@@ -1,0 +1,156 @@
+{
+  "scss.lint.unknownAtRules": "ignore",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/.git": true, // this is a default value
+    "**/.DS_Store": true, // this is a default value
+    "**/node_modules": true, // this excludes all folders
+    "**/coverage": true,
+    ".storybook": true,
+    "dist": true,
+    "tmp": true,
+    "**/.gitignore": true,
+    "**/.prettier*": true,
+    "**/.eslint*": true,
+    "**/jest.*": true,
+    "**/tslint.*": true,
+    "**/tsconfig.*": true,
+    "**/tsconfig.*.*": true,
+    "decorate-angular-cli.js": false,
+    "babel.config.json": true,
+    "ngrok.yaml": true,
+    "nx.json": true,
+    "angular.json": true,
+    "docker-compose.yml": false,
+    "package-lock.json": false,
+    "migrations.json": true,
+    "yarn.lock": true,
+    "workspace.json": true
+  },
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
+  "files.eol": "\n",
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.tslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "better-comments.tags": [
+    {
+      "tag": "[LOG]",
+      "color": "white",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "orange",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "!",
+      "color": "black",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "red",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "black",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#3498DB",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "black",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "#474747",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "console.log",
+      "color": "black",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "yellow",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "black",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#FF8C00",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "black",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "#98C379",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "favorites.resources": [
+    "apps/plusmar-back-end/src/services/webhook/webhook-template.service.ts",
+    "apps/plusmar-front-end/src/app/modules/setting/components/setting-shop-owner/components/setting-shop-owner-detail/setting-shop-owner-detail.component.ts",
+    "apps/plusmar-back-end/src/routes/app.route.ts",
+    "libs/itopplus-services-lib/src/lib/data/pages/pages-third-party.data.ts",
+    "libs/itopplus-model-lib/src/lib/pages/pages.model.ts",
+    "apps/plusmar-back-end/src/controllers/product/product-marketplace.controller.ts",
+    "libs/itopplus-model-lib/src/lib/product/product-marketplace.model.ts",
+    "apps/plusmar-front-end/src/app/modules/products/services/product-marketplace.service.ts",
+    "apps/plusmar-front-end/src/app/modules/products/components/product-marketplace-list/product-marketplace-import-dialog/product-marketplace-import-dialog.component.ts",
+    "libs/itopplus-services-lib/src/lib/data/product/product-marketplace.data.ts",
+    "libs/itopplus-services-lib/src/lib/services/product/product-marketplace.service.ts",
+    "apps/plusmar-front-end/src/app/modules/products/components/product-table-header.ts",
+    "apps/plusmar-front-end/src/app/modules/products/components/product-marketplace-list/product-marketplace-list.component.ts",
+    "apps/plusmar-front-end/src/app/modules/leads/components/leads-create-form/components/leads-create-form-view/leads-create-form-view.component.html",
+    "libs/itopplus-back-end-helpers/src/lib/shopee/shopee.helper.ts",
+    "libs/itopplus-services-lib/src/lib/services/pages/pages-third-party.service.ts",
+    "libs/itopplus-services-lib/src/lib/data/audience/get-audience.data.ts"
+  ],
+  "favorites.sortDirection": "DESC",
+  "favorites.sortOrder": "DESC",
+  "i18n-ally.localesPaths": ["apps/plusmar-front-end/src/assets/i18n/*", "apps/cms-frontend-mobile/src/assets/i18n/*", "apps/cms-frontend/src/assets/i18n/*"],
+  "i18n-ally.keystyle": "flat",
+  "runCurrentTest.run": "${workspaceRoot}/scripts/runtest.sh ${relativeTestPath}",
+  "runCurrentTest.runAndUpdateSnapshots": "${workspaceRoot}/runtest.sh ${relativeTestPath}",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ejs]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "git.ignoreLimitWarning": true,
+  "angular.enable-strict-mode-prompt": false,
+  "editor.parameterHints.enabled": true,
+  "editorHoverWidget.highlightForeground": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

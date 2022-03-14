@@ -1,0 +1,36 @@
+<ng-container *ngIf="isDevelopment">
+  <div class="login-test-container">
+    <h1>Login as test user</h1>
+    <div class="button-container">
+      <div class="button-group">
+        <button id="login-button-2" class="online" (click)="login(2)">GELD_TONER (238) : User2 (544:Admin)</button>
+      </div>
+      <div class="button-group">
+        <button id="login-button-3" class="online" (click)="login(3)">NDSL (91) : User3 (428:Member)</button>
+      </div>
+      <div class="button-group">
+        <button id="login-button-6" class="online" (click)="login(6)">TRAFIK_THAILAND (249) : User6 (429:Member)</button>
+      </div>
+      <div class="button-group">
+        <button id="login-button-6" class="online" (click)="login(61)">TRAFIK_THAILAND (249) : UserAdmin3 (545:Admin)</button>
+      </div>
+
+      <div class="button-group back">
+        <button id="login-button-1" (click)="login(1)">GREAN_APP (304) : User1</button>
+      </div>
+
+      <div class="button-group">
+        <button id="login-button-5" (click)="login(5)">THAILAND_ONLINE_MARKETING (340) : User5</button>
+      </div>
+      <div class="button-group">
+        <button id="login-button-7" (click)="login(7)">KUB_PHOM (355) : User7</button>
+      </div>
+
+      <div class="button-group back">
+        <button id="login-button-0" class="online" (click)="login(0)">back to normal login</button>
+      </div>
+    </div>
+  </div>
+
+  <reactor-room-process *ngIf="initProcessing" [setInitTo]="'LOGIN'" (errorEvent)="processCallback()"> </reactor-room-process>
+</ng-container>

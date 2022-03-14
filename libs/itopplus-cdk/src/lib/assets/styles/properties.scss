@@ -1,0 +1,87 @@
+//define properties
+$main-color: #54b1ff;
+$second-color: #60e8ff;
+$third-color: #e2f2ff;
+$text-light-color: #8f9295;
+$text-darker-color: #484b52;
+$text-dark-2-color: #343d46;
+$text-grey-color: #577083;
+$text-dark-color: #000000;
+$border-color: #dddfea;
+$reject-color: #fde8df;
+$error-color: #ef5350;
+$disabled-color: #999999;
+$white: #fff;
+$black: #000;
+$font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+$font-size: 14px;
+$content-bg: #f2f5f9;
+$transition: all ease-in-out 0.3s;
+$default-border: 1px solid $border-color;
+$desktopmax: 'screen and (max-width: 1200px)';
+$mobilemax: 'screen and (max-width: 768px)';
+$tetrismax: 'screen and (max-width: 480px)';
+$mobilemin: 'screen and (min-width: 768px)';
+$tabletmax: 'screen and (max-width: 992px)';
+$tabletmin: 'screen and (min-width: 992px)';
+$portrait: 'screen and (orientation: portrait)';
+$landscape: 'screen and (orientation: landscape)';
+$success-color: #40be30;
+$warning-color: #e1b001;
+$danger-color: #dc493d;
+
+$facebook: #0075fb;
+$line: #00b900;
+$lazada: #1700c6;
+$shopee: #ea501f;
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis {
+  @include text-ellipsis();
+}
+
+@mixin no-scroll-bar() {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  }
+}
+
+.no-scroll-bar {
+  @include no-scroll-bar();
+}
+
+@mixin custom-scroll-bar() {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: whitesmoke;
+    border-radius: 8px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #dddfea;
+    border-radius: 8px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $text-light-color;
+  }
+}
+
+.custom-scroll-bar {
+  @include custom-scroll-bar();
+}

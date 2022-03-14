@@ -1,0 +1,127 @@
+@import 'base';
+@import 'buttons';
+.setting-omise-dialog {
+  .content {
+    form {
+      padding-bottom: 15px;
+    }
+    .label {
+      color: #576f83;
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+    a {
+      color: $main-color;
+    }
+    .inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      input {
+        height: 35px;
+        border-radius: 8px;
+        width: calc(100% - 30px);
+        border: 1px solid $border-color;
+        padding: 0px 15px;
+      }
+      .payment-option {
+        display: flex;
+        align-items: center;
+        input {
+          height: auto;
+          border-radius: 8px;
+          width: auto;
+          border: none;
+        }
+      }
+    }
+    .webhooks {
+      padding-top: 30px;
+      padding-bottom: 15px;
+      .info {
+        background: #f2f4f6;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-radius: 8px;
+        .link {
+          cursor: pointer;
+          &:hover,
+          &:visited {
+            text-decoration: underline;
+          }
+        }
+        .link[cms] {
+          cursor: pointer;
+          color: #22c55e;
+          &:hover,
+          &:visited {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  &.social-theme {
+    .validate {
+      display: flex;
+      justify-content: flex-end;
+      .btn-save {
+        @include btn-active();
+      }
+    }
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      .buttons {
+        display: flex;
+        .btn-cancel {
+          @extend .btn-inactive;
+          margin-right: 10px;
+        }
+        .btn-save {
+          @include btn-active();
+        }
+      }
+    }
+  }
+  &.cms-theme {
+    .validate {
+      display: flex;
+      justify-content: flex-end;
+      .btn-save {
+        @include btn-active-cms();
+      }
+    }
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      .buttons {
+        display: flex;
+        .btn-cancel {
+          @extend .btn-inactive-cms;
+          margin-right: 10px;
+        }
+        .btn-save {
+          @include btn-active-cms();
+        }
+      }
+    }
+  }
+}
+
+.disabled {
+  color: #dddfea !important;
+  cursor: default;
+}
+
+.text {
+  padding-right: 15px;
+  &.info {
+    padding-bottom: 15px;
+  }
+  @extend .wrapword;
+  a[cms] {
+    color: #22c55e !important;
+  }
+}

@@ -1,0 +1,92 @@
+<reactor-room-simple-info-dialog [title]="'History' | translate">
+  <div class="content" [ngClass]="{ 'audience-chat-log-mb': isMobile === true }">
+    <div class="table-containers" [ngClass]="{ disable: isHistorySwitch === false }">
+      <div class="audience-display-pane">
+        <span style="color: #c4c4c2">{{ totalRows }} {{ 'Audience' | translate }}</span>
+        <div class="filter">
+          <div class="search search-mb">
+            <input type="text" placeholder="{{ 'Search...' | translate }}" [formControl]="searchField" />
+          </div>
+        </div>
+      </div>
+      <reactor-room-custom-table [isLoading]="false" [tableColSpan]="4" [isNoVerticalScroll]="true" [tableHeader]="tableHeader" [tableData]="tableData">
+        <!-----------   item list content ------------>
+        <!-- if isToggle is true, It's will expand  -->
+        <ng-container class="table-content" *ngFor="let data of tableData; let index = index">
+          <tr (click)="toggleChart(index, data.id)">
+            <td>{{ index + 1 }}</td>
+            <td>{{ data.status | translate }}</td>
+            <td>{{ data.reason ? data.reason : '-' }}</td>
+            <td>
+              {{ data.updated_at | timeAgo: 'utc' }}
+              <button mat-mini-fab color="bluesea" class="mat-elevation-z0 button30" style="float: right">
+                <!-- this is arrow up -->
+                <svg
+                  [ngStyle]="{
+                    transform: tableData[index].id !== audienceID ? 'rotate(0deg)' : 'rotate(180deg)'
+                  }"
+                  class="expand"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: block; margin: auto"
+                >
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8 9.19355L13.1935 4L15 5.80645L8 12.8065L1 5.80645L2.80645 4L8 9.19355Z" fill="#faf5f5" />
+                </svg>
+                <!-- end of arrow up -->
+              </button>
+            </td>
+          </tr>
+          <!-----------   history content ------------>
+
+          <tr class="table-content">
+            <td [attr.colspan]="isMobile ? 3 : 4" *ngIf="tableData[index].id === audienceID && isToggle === true">
+              <reactor-room-history-pipeline [historyData]="historyData"></reactor-room-history-pipeline>
+            </td>
+            <td *ngIf="isMobile === true && tableData[index].id === audienceID && isToggle === true" style="vertical-align: top">
+              <div class="chat-history-btn-container">
+                <button class="btn-create" (click)="toggleHistory()">Chat History</button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </reactor-room-custom-table>
+      <reactor-room-pagination
+        #paginator
+        [pageIndex]="tableFilters.currentPage - 1"
+        [pageSizeOptions]="[10, 50, 100]"
+        [pageSize]="tableFilters.pageSize"
+        [length]="totalRows"
+        (changePage)="changePage($event)"
+      >
+      </reactor-room-pagination>
+    </div>
+
+    <div class="chat-history-content" [ngClass]="{ enable: !isHistorySwitch }">
+      <div class="chatbox-reason shadow-md" *ngIf="currentReason?.reason">
+        <div class="chatbox-reason-section">
+          {{ 'Reason Type' | translate }} : {{ currentReason?.reason || '-' }}
+          <p style="margin-bottom: 1rem; margin-top: 0.5rem">
+            {{ currentReason?.close_detail }}
+          </p>
+          <small style="color: #c4c4c2">{{ 'Created at' | translate }}: {{ currentReason?.open_by || '' }} {{ ' ' + currentReason?.created_at | timeAgo: 'utc' }} </small> <br />
+          <small style="color: #c4c4c2">{{ 'Closed at' | translate }} : {{ currentReason?.close_by || '' }} {{ ' ' + currentReason?.closed_at | timeAgo: 'utc' }}</small>
+        </div>
+        <div class="rh-container" [ngStyle]="{ display: isMobile ? 'block' : 'none' }"><button class="btn-create" (click)="toggleHistory()">Return to History</button></div>
+      </div>
+
+      <reactor-room-chatbox *ngIf="audienceWithCustomer?.id" [viewMode]="chatboxViewType.HISTORY" [audienceId]="audienceWithCustomer.id" [audience]="audienceWithCustomer">
+      </reactor-room-chatbox>
+    </div>
+  </div>
+
+  <!-- <ng-template #elseTemplate>
+    <div class="content">
+      <div class="chat-history-content">
+        {{ 'No History Available' | translate }}
+      </div>
+    </div>
+  </ng-template> -->
+</reactor-room-simple-info-dialog>

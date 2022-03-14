@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "root": "libs/plusmar-front-end-share",
+  "sourceRoot": "libs/plusmar-front-end-share/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/plusmar-front-end-share/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/plusmar-front-end-share/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "less"
+    }
+  },
+  "tags": []
+}

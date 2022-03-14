@@ -1,0 +1,37 @@
+@import 'base';
+.card-title {
+  span.all-time {
+    color: $main-color;
+    font-size: 12px;
+  }
+}
+.dashboard-lead-steps {
+  overflow: auto;
+  @include no-scroll-bar();
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    @media #{$desktopmax} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media #{$tabletmax} {
+      grid-template-columns: repeat(5, 220px);
+    }
+    reactor-room-step:focus {
+      outline: none;
+    }
+    .card-step {
+      background: $content-bg;
+
+      &:hover {
+        background: $main-color;
+      }
+      .step-count {
+        .count {
+          background: white !important;
+        }
+      }
+    }
+  }
+}

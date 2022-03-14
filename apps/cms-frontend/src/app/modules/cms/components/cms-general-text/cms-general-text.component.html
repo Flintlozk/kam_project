@@ -1,0 +1,6 @@
+<section [ngStyle]="containerStyle" class="relative h-full w-full flex overflow-hidden" *ngIf="generalTextSetting?.text?.isText">
+  <div [ngClass]="[fontFamilyClass, overlayEffectClass]" [ngStyle]="overlayStyle" class="p-2 overlay">
+    <div [ngClass]="[textEffectClass]" [ngStyle]="titleTextStyle" class="title">{{ languageTitle }}</div>
+    <div [ngClass]="[textEffectClass]" [ngStyle]="descriptionTextStyle" class="description">{{ languageDescription }}</div>
+  </div>
+</section>

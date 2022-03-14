@@ -1,0 +1,20 @@
+.admin-reasons-closed-base-container {
+  display: flex;
+  // row-gap: 10px; // !
+  // column-gap: 10px; // !
+
+  border-radius: 10px;
+  min-height: 100px;
+  background: #fff;
+  flex-flow: column;
+  padding: 20px 30px;
+
+  .title {
+    font-size: 20px;
+  }
+
+  .chart-content {
+    max-height: 500px;
+    max-width: calc(100% - 10px);
+  }
+}

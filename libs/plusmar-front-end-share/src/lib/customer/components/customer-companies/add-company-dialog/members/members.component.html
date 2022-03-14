@@ -1,0 +1,60 @@
+<div [formGroup]="filterForm" *ngIf="filterForm" class="overflow-on-mobile flex flex-col px-10 pt-15">
+  <div class="flex items-center justify-between py-10">
+    <span class="text-sm counter">{{ totalRows }} {{ 'Customers' | translate }}</span>
+
+    <div class="flex items-center">
+      <button (click)="openSelectMembersDialog()" class="cursor-pointer flex items-center border-none transparent text-blue px-10 py-5 mr-20">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7 8V15H8V8H15V7H8V0H7V7H0V8H7Z" fill="#53B1FF" />
+        </svg>
+        <span class="ml-10">
+          {{ 'Customer' | translate }}
+        </span>
+      </button>
+
+      <div [formGroup]="filterForm" *ngIf="filterForm" class="pb-0 search">
+        <input autofocus type="text" name="Search" [placeholder]="'Search' | translate" formControlName="search" />
+      </div>
+    </div>
+  </div>
+  <ng-container [formGroup]="membersTableForm">
+    <reactor-room-custom-table
+      style="height: 60vh"
+      class="overflow-hidden"
+      [isLoading]="false"
+      [tableColSpan]="tableHeader.length"
+      [tableData]="membersTableForm.value"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [orderMethod]="filterForm.value.orderMethod"
+      [currentIndex]="0"
+      (sortTableMetaData)="sortTableData($event)"
+      templateStyle="bg-white"
+    >
+      <tr *ngFor="let data of membersTableForm.value; trackBy: trackBy" class="bt1 table-content">
+        <td style="padding: 5px 10px" class="border-radius-0 w-full">
+          <div class="customer-profile flex items-center">
+            <reactor-room-customer-profile-picture [line_user_id]="data?.line_user_id" [psid]="data?.psid" [url]="data?.profile_pic"></reactor-room-customer-profile-picture>
+            <div class="content flex items-center">{{ data?.first_name }} {{ data?.last_name }}</div>
+          </div>
+        </td>
+
+        <td style="padding: 5px 10px" (click)="remove(data.id)" class="border-radius-0">
+          <button class="interactive flex items-center p-10 border-none transparent cursor-pointer" [matTooltip]="'Remove' | translate">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M14 7.5C14 11.0899 11.0899 14 7.5 14C3.91015 14 1 11.0899 1 7.5C1 3.91015 3.91015 1 7.5 1C11.0899 1 14 3.91015 14 7.5ZM15 7.5C15 11.6421 11.6421 15 7.5 15C3.35786 15 0 11.6421 0 7.5C0 3.35786 3.35786 0 7.5 0C11.6421 0 15 3.35786 15 7.5ZM4 8H11V7H4V8Z"
+                fill="#EA6161"
+              />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+    <ng-container *ngIf="membersTableForm.value.length < 11">
+      <reactor-room-pagination #paginator [pageSize]="10" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>
+    </ng-container>
+  </ng-container>
+</div>

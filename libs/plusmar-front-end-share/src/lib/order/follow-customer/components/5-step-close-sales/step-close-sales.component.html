@@ -1,0 +1,86 @@
+<div class="header">
+  <div class="func">
+    <reactor-room-filter
+      [exportSelectedTotal]="selectedIds.length"
+      (exportAllHandler)="exportAllHandler()"
+      (exportSelectedHandler)="exportSelectedHandler()"
+      [isExportAvailable]="true"
+      [isExportSelectedDisabled]="selectedIds.length === 0"
+      [searchActive]="true"
+      (handleFilterUpdate)="handleFilterUpdate($event)"
+      [reportPrintReceipt]="reportPrintReceipt.bind(this)"
+      [reportPrintAllReceipt]="reportPrintAllReceipt.bind(this)"
+    ></reactor-room-filter>
+  </div>
+</div>
+<div class="paid-filter">
+  <div class="type all" (click)="paidFilter(paidFilterEnum.ALL)">
+    {{ 'All' | translate }} <span>{{ paid + unpaid }}</span>
+  </div>
+  <div class="type paid" (click)="paidFilter(paidFilterEnum.PAID)">
+    {{ 'Paid' | translate }} <span>{{ paid }}</span>
+  </div>
+  <div class="type unpaid" (click)="paidFilter(paidFilterEnum.UNPAID)">
+    {{ 'Unpaid' | translate }} <span>{{ unpaid }}</span>
+  </div>
+</div>
+<reactor-room-custom-table
+  *ngIf="audienceList"
+  [isLoading]="false"
+  [isNoVerticalScroll]="true"
+  [tableColSpan]="8"
+  [tableData]="audienceList"
+  [isNoData]="false"
+  [tableHeader]="tableHeader"
+  (selectAll)="selectAllHandler($event)"
+  [isAllchecked]="isAllchecked"
+>
+  <tr class="table-content" #tableContent *ngFor="let audience of audienceList; trackBy: trackBy">
+    <td>
+      <div class="first">
+        <label class="custom-checkbox">
+          <input type="checkbox" [checked]="isIdSelected(audience.orderno)" (change)="selectRow(audience.orderno, $event)" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </td>
+    <td (click)="redirectToDetail(audience)">
+      <span *ngIf="!audience.aliasOrderId">
+        {{ audience.orderno | orderId }}
+      </span>
+      <span *ngIf="audience.aliasOrderId">
+        {{ audience.aliasOrderId }}
+      </span>
+    </td>
+    <td>
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [platform]="audience.platform"
+        [firstName]="audience?.first_name"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      >
+      </reactor-room-custom-table-content>
+    </td>
+    <td (click)="redirectToDetail(audience)">
+      {{ audience.created_at | timeAgo: 'utc' }}
+    </td>
+    <td (click)="redirectToDetail(audience)" [ngStyle]="{ color: audience.logistic_type ? '#000' : '#53B1FF' }">
+      <ng-container *ngIf="audience.logistic_type !== 'DOMESTIC'" ;>
+        {{ 'Fixed Rate' }}
+      </ng-container>
+      <ng-container *ngIf="audience.logistic_type === 'DOMESTIC'" ;>
+        <img [src]="logisticData(audience.logistic_name)" [matTooltip]="audience.logistic_name" style="height: 36px; width: 36px" />
+      </ng-container>
+    </td>
+
+    <td (click)="redirectToDetail(audience)">{{ audience.tracking_no }}</td>
+    <td (click)="redirectToDetail(audience)">{{ audience.logistic_type ? '฿' + audience.delivery_fee : '' }}</td>
+    <td (click)="redirectToDetail(audience)">
+      <reactor-room-custom-table-content [Selector]="'detail'"> </reactor-room-custom-table-content>
+    </td>
+  </tr>
+</reactor-room-custom-table>
+<reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>

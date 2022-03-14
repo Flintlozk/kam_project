@@ -1,0 +1,60 @@
+@import '../assets/styles/properties';
+.date-picker {
+  .mat-form-field {
+    font-size: 1em;
+    min-width: 120px;
+    max-width: 100%;
+    .mat-form-field-wrapper {
+      border: @default-border;
+      border-radius: 8px;
+      padding: 0px 15px;
+      outline: none;
+      background: white;
+      display: flex;
+      align-items: center;
+      height: 40px;
+
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      .mat-form-field-infix {
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        width: 100%;
+        display: flex;
+
+        input {
+          margin: 0px;
+          font-family: @font-family;
+          &.mat-input-element {
+            &:disabled {
+              color: @text-color;
+            }
+          }
+        }
+
+        .mat-form-field-label-wrapper {
+          padding-top: 0px;
+          bottom: 0px;
+          top: unset;
+          line-height: 20px;
+
+          .mat-form-field-label {
+            top: 0px;
+            color: @text-color;
+          }
+        }
+      }
+
+      .mat-datepicker-toggle {
+        mat-icon {
+          img {
+            width: 16px;
+          }
+        }
+      }
+    }
+  }
+}

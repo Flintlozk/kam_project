@@ -1,0 +1,1 @@
+wrk -t1 -c5 -d5 -s ./publish-fb-force.lua http://localhost:8740 --timeout=5s --latency

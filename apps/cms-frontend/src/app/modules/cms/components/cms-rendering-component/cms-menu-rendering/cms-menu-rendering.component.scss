@@ -1,0 +1,52 @@
+@layer components {
+  :host {
+    @apply block relative w-full;
+    z-index: 10 !important;
+  }
+}
+
+::ng-deep {
+  cms-next-cms-edit-rendering cms-next-cms-menu-rendering .nav-container {
+    position: relative !important;
+  }
+
+  cms-next-cms-preview-desktop cms-next-cms-preview-renderding cms-next-cms-menu-rendering .nav-container {
+    &.fixed,
+    &.smart,
+    &.auto {
+      max-width: 200%;
+      top: 56px !important;
+    }
+  }
+
+  cms-next-cms-preview-tablet cms-next-cms-preview-renderding cms-next-cms-menu-rendering .nav-container {
+    &.fixed,
+    &.smart,
+    &.auto {
+      max-width: 606px;
+      top: 104px !important;
+      left: auto !important;
+    }
+  }
+
+  cms-next-cms-preview-mobile cms-next-cms-preview-renderding cms-next-cms-menu-rendering .nav-container {
+    &.fixed,
+    &.smart,
+    &.auto {
+      max-width: 375px;
+      top: 104px !important;
+      left: calc(50% - 188px) !important;
+    }
+  }
+
+  cms-next-cms-preview-mobile cms-next-cms-preview-renderding cms-next-cms-menu-rendering.primary-menu {
+    z-index: 99 !important;
+  }
+
+  cms-next-cms-preview-mobile cms-next-cms-preview-renderding cms-next-cms-menu-rendering.primary-menu .nav-container.toggle-active {
+    max-width: 375px;
+    max-height: 812px;
+    top: 104px !important;
+    left: calc(50% - 188px) !important;
+  }
+}

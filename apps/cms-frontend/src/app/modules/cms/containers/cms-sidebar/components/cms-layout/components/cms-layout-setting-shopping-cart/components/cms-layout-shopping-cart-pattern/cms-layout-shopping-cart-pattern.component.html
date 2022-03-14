@@ -1,0 +1,79 @@
+<div class="layout-shopping-cart-pattern">
+  <div class="grid gap-4" [formGroup]="patternForm">
+    <div class="cursor-pointer w-full rounded-md overflow-hidden flex items-center justify-center">
+      <img [src]="this.currentCartImage" alt="cart-image" />
+    </div>
+    <div class="cursor-pointer text-right underline text-green-500" *ngIf="!isShowChangePattern; else changePatternSettings" (click)="onClickChangePattern()">Change Pattern</div>
+
+    <!-- change pattern settings -->
+    <ng-template #changePatternSettings>
+      <div class="flex justify-between items-center">
+        <div>Change Pattern</div>
+        <div>
+          <img class="cursor-pointer" src="assets/cms/icon/close.svg" (click)="closeChangePattern()" alt="close" />
+        </div>
+      </div>
+
+      <div class="h-96 overflow-hidden overflow-y-auto">
+        <div class="grid gap-2 grid-cols-2 auto-rows-fr">
+          <ng-container *ngFor="let pattern of patternList; let i = index">
+            <div
+              (click)="onClickPattern(i, pattern.type)"
+              class="flex items-center cursor-pointer justify-center text-gray-300 rounded-md"
+              *ngIf="i < shoppingCartPatternListLength; else notAvailablePattern"
+            >
+              <img class="cursor-pointer" (click)="onClickPattern(i, pattern.type)" [ngClass]="{ hidden: pattern.selected }" [src]="pattern.imgURL" alt="style" />
+              <img class="" [ngClass]="{ hidden: !pattern.selected }" (click)="onClickPattern(i, pattern.type)" [src]="pattern.activeImageURL" alt="style-active" />
+            </div>
+            <ng-template #notAvailablePattern>
+              <div (click)="onClickPattern(i, pattern)" class="flex items-center cursor-pointer justify-center bg-white text-gray-300 border-2 hover:border-green-500 rounded-md">
+                {{ pattern.type }}
+              </div>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="bg-white rounded-sm text-black">
+      <div [ngClass]="isShowAdvanceSetting ? 'hidden' : 'block'">
+        <button class="advanced-button" (click)="onClickAdvanceSetting()">
+          <img src="assets/cms/icon/setting.svg" alt="setting" />
+          Advance Setting
+        </button>
+      </div>
+
+      <!-- advance settings -->
+      <div [ngClass]="isShowAdvanceSetting ? 'block' : 'hidden'">
+        <div class="flex justify-between items-center advance-setting-border p-4">
+          <div class="flex">
+            <img class="mr-4" src="assets/cms/icon/setting.svg" alt="setting" />
+            <div>Advance Setting</div>
+          </div>
+          <div>
+            <img class="cursor-pointer" src="assets/cms/icon/close.svg" (click)="onClickAdvanceSetting()" alt="close" />
+          </div>
+        </div>
+
+        <div class="grid gap-2 p-4">
+          <div class="grid gap-2">
+            <div class="layout-label">Product Row</div>
+            <div class="relative input-border w-36 p-2">
+              <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <input type="text" class="w-full focus:outline-none pr-6" />
+            </div>
+          </div>
+          <cms-next-cms-layout-bottom-input [bottomFormName]="'advanceSetting'"></cms-next-cms-layout-bottom-input>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+@layer components {
+  ::ng-deep .select-options {
+    &.text {
+      .mat-form-field {
+        .mat-form-field-wrapper {
+          .mat-form-field-flex {
+            .mat-form-field-infix {
+              @apply w-full;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<ng-container *ngIf="selector === 'HEADER' && orderService.orderInfo">
+  <reactor-room-heading [headingTitle]="'Orders' | translate" [Route]="'Order / ' + orderService.customStepLabel">
+    <div class="heading-content">
+      <div class="buttons">
+        <div class="cancel" (click)="onClickClose(false)" id="order-action-close-button">{{ 'Close' | translate }}</div>
+        <div class="btn-create" [ngClass]="!orderService.isLoading ? '' : 'disable'" (click)="onClickWaitingForPayment()" *ngIf="orderService.stepIndex === orderService.stepOne">
+          {{ 'Waiting For Payment' | translate }}
+          <img src="assets/img/icon_next.svg" alt="Waiting For Payment" />
+        </div>
+
+        <div class="btn-create" (click)="onClickConfirmPayment()" [ngClass]="!orderService.isLoading ? '' : 'disable'" *ngIf="orderService.stepIndex === orderService.stepTwo">
+          {{ 'Confirm Payment' | translate }}
+          <img src="assets/img/icon_next.svg" alt="Confirm Payment" />
+        </div>
+
+        <div
+          class="btn-done"
+          [ngClass]="!orderService.isLoading ? '' : 'disable'"
+          *ngIf="orderService.stepIndex === orderService.stepThree"
+          (click)="onClickConfirmOrder(orderService.audience?.psid)"
+        >
+          <div class="icon">
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="label">
+            <div class="main">{{ 'Confirm Order' | translate }}</div>
+            <div class="secondary">{{ 'Waiting for shipment' | translate }}</div>
+          </div>
+        </div>
+
+        <div
+          class="btn-done close"
+          reactorRoomClickOutside
+          (outside)="clickOutsideTrackingAndCloseSale($event)"
+          (click)="toggleTrackingAndCloseSale()"
+          [ngClass]="!orderService.isLoading && !orderService.isStepPrevented ? '' : 'disable'"
+          *ngIf="orderService.stepIndex === orderService.stepFour"
+        >
+          <!-- (click)="onClickTracking(orderService.audience?.psid)" -->
+          <div class="icon">
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="label">
+            <div class="main">{{ 'Tracking No' | translate }}</div>
+            <div class="secondary">{{ 'Close sale' | translate }}</div>
+          </div>
+
+          <div class="menu-toggle" *ngIf="orderTrackingAndCloseSale">
+            <div class="item" (click)="onClickTracking()">
+              <img src="assets/img/logistic/tracking-type/manual-inactive.png" alt="Previous Step" />
+              {{ 'Tracking No' | translate }}
+            </div>
+            <div class="item close" (click)="onClickCloseSale()">
+              <svg _ngcontent-mnj-c485="" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="ng-tns-c485-105">
+                <circle _ngcontent-mnj-c485="" cx="9.28601" cy="9" r="9" fill="#2EC639" class="ng-tns-c485-105"></circle>
+                <path
+                  _ngcontent-mnj-c485=""
+                  d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+                  fill="white"
+                  class="ng-tns-c485-105"
+                ></path>
+              </svg>
+
+              {{ 'Close sale' | translate }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="more"
+          reactorRoomClickOutside
+          (outside)="clickOutsideOrderInfoMenuEvent($event)"
+          (click)="toggleOrderInfoMenuStatus()"
+          *ngIf="orderService.stepIndex < orderService.stepFive"
+        >
+          <div class="img">
+            <img src="assets/img/more-active.svg" alt="More" />
+          </div>
+
+          <div class="menu-toggle" *ngIf="orderInfoMenuStatus">
+            <div class="item" [ngClass]="orderService.enableRollbackStep ? '' : 'disabled'" (click)="onClickPreviosStep()">
+              <img src="assets/img/back-to-step.png" alt="Previous Step" /> {{ 'Previous Step' | translate }}
+            </div>
+            <div class="item reject" [ngClass]="orderService.stepIndex < orderService.stepFour && !orderService.isPaid ? '' : 'disabled'" (click)="onClickReject()">
+              <img src="assets/img/reject-icon.svg" alt="Reject" /> {{ 'Reject' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container
+        *ngIf="
+          originRoute !== AudienceViewType.CLOSE && (orderService.audience.status === AudienceDomainStatus.REJECT || orderService.audience.status === AudienceDomainStatus.CLOSED)
+        "
+      >
+        <button class="btn-follow" reactorRoomClickOutside (click)="toggleMoveTo()" (outside)="clickOutsideToggleMoveToEvent($event)">
+          <span class="ml-5"> {{ 'Move to' | translate }}... </span>
+          <div class="more-menu menu-toggle" *ngIf="moveToMenu">
+            <ng-container>
+              <div mat-menu-item class="item" (click)="openNewChat()">
+                <reactor-room-svg [name]="'icon_service'"></reactor-room-svg>
+                <span class="ml-10">
+                  {{ 'Follow' | translate }}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+        </button>
+      </ng-container>
+    </div>
+  </reactor-room-heading>
+</ng-container>
+
+<ng-container class="buttons" *ngIf="selector === 'BUTTON' && orderService.orderInfo">
+  <div class="btn-item round" [ngClass]="!orderService.isLoading ? '' : 'disable'" (click)="onClickWaitingForPayment()" *ngIf="orderService.stepIndex === orderService.stepOne">
+    <span> {{ 'Waiting For Payment' | translate }} </span>
+  </div>
+  <div class="btn-item round" [ngClass]="!orderService.isLoading ? '' : 'disable'" (click)="onClickConfirmPayment()" *ngIf="orderService.stepIndex === orderService.stepTwo">
+    <span> {{ 'Confirm Payment' | translate }}</span>
+  </div>
+
+  <div
+    class="btn-item round"
+    [ngClass]="!orderService.isLoading ? '' : 'disable'"
+    (click)="onClickConfirmOrder(orderService.audience?.psid)"
+    *ngIf="orderService.stepIndex === orderService.stepThree"
+  >
+    <span>{{ 'Confirm Order' | translate }} ➜ {{ 'Waiting for shipment' | translate }}</span>
+  </div>
+
+  <div
+    class="btn-item round"
+    [ngClass]="!orderService.isLoading && !orderService.isStepPrevented ? '' : 'disable'"
+    *ngIf="orderService.stepIndex === orderService.stepFour"
+    (click)="onClickTracking()"
+  >
+    <span>{{ 'Tracking No' | translate }}</span>
+  </div>
+  <div
+    class="btn-item round"
+    [ngClass]="!orderService.isLoading && !orderService.isStepPrevented ? '' : 'disable'"
+    *ngIf="orderService.stepIndex === orderService.stepFour"
+    (click)="onClickCloseSale()"
+  >
+    <svg _ngcontent-mnj-c485="" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="ng-tns-c485-105">
+      <circle _ngcontent-mnj-c485="" cx="9.28601" cy="9" r="9" fill="#2EC639" class="ng-tns-c485-105"></circle>
+      <path
+        _ngcontent-mnj-c485=""
+        d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+        fill="white"
+        class="ng-tns-c485-105"
+      ></path>
+    </svg>
+    <span>{{ 'Close sale' | translate }}</span>
+  </div>
+
+  <div class="btn-item danger" *ngIf="orderService.enableRollbackStep && orderService.stepIndex < orderService.stepFour" (click)="onClickPreviosStep()">
+    <span> {{ 'Previous Step' | translate }}</span>
+  </div>
+  <div class="btn-item danger" *ngIf="orderService.stepIndex < orderService.stepFour && !orderService.isPaid" (click)="onClickReject()">
+    <span> {{ 'Reject' | translate }}</span>
+  </div>
+</ng-container>

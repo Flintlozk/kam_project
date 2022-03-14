@@ -1,0 +1,20 @@
+<div class="setting-openapi-message">
+  <div class="menu">
+    <div class="title">
+      {{ 'Open API' | translate }}
+    </div>
+    <div class="grid" style="border-top: 5px solid #f2f5f9">
+      <reactor-room-setting-api></reactor-room-setting-api>
+    </div>
+  </div>
+  <div class="menu" *ngIf="clientAPI.benabled_api">
+    <div class="title">
+      {{ 'Webhook' | translate }}
+    </div>
+    <div class="grid" style="border-top: 5px solid #f2f5f9">
+      <reactor-room-setting-webhook-pattern [isAllowed]="isAllowed"></reactor-room-setting-webhook-pattern>
+      <reactor-room-setting-webhook></reactor-room-setting-webhook>
+      <reactor-room-setting-webhook-quickpay [isAllowed]="isAllowed"></reactor-room-setting-webhook-quickpay>
+    </div>
+  </div>
+</div>

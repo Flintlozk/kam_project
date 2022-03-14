@@ -1,0 +1,73 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.setting-shop-owner-social {
+  .social-picture {
+    width: 10%;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+  }
+
+  .social-text {
+    width: 25%;
+    display: inline-block;
+  }
+
+  .social-input {
+    width: 65%;
+    display: inline-block;
+  }
+
+  .social-detail {
+    padding: 5px;
+  }
+
+  input {
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    height: 32px;
+    padding: 0px 15px;
+    width: calc(100% - 30px);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+
+  .content {
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 10px 40px;
+      border-bottom: 1px dotted $border-color;
+
+      .img {
+        margin: 0px 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+<section class="low-stock-container px-6 py-8">
+  <div class="lowstock-num">{{ totalRows }} {{ 'items' }}</div>
+
+  <div class="table w-full">
+    
+    <cms-next-custom-cms-table
+      [tableHeader]="lowstockTableHeader"
+      [tableColSpan]="lowstockTableColSpan"
+      [orderMethod]="commonTableFiltersLowStock.orderMethod"
+      [tableData]="productLowInventoryLists.length"
+      [orderMethod]="commonTableFiltersLowStock.orderMethod"
+      (sortTableMetaData)="sortTableData($event)"
+      [templateStyle]="'bg-white'"
+      [isLoading]="isLoading"
+    >
+      <ng-container class="table-content">
+        <ng-container *ngFor="let item of productLowInventoryLists; let index = index">
+          <tr class="main-tr shadow-md" [ngClass]="index % 2 === 0 ? 'odd' : 'even'">
+            <td class="no">
+              <div>
+                {{ index + 1 + (commonTableFiltersLowStock.currentPage - 1) * commonTableFiltersLowStock.pageSize }}
+              </div>
+            </td>
+            <td class="Product flex">
+              <div class="item-img">
+                <img (error)="loadImageFail($event)" style="width: 50px; height: 50px; border-radius: 5px" *ngIf="item.images !== null" [src]="item?.images[0]?.mediaLink" />
+                <img *ngIf="item.images === null" style="width: 50px; height: 50px; border-radius: 5px" src="assets/img/image-icon.svg" />
+                <div class="dataproduct">
+                  <div>{{ item.name }}</div>
+                  <div class="text-sm font-weight: text-gray-400">
+                    Published date : {{ item.createdAt | timeAgo: 'utc':'DD/MM/YYYY' }}
+                    <label class="text-sm font-style: italic font-weight: text-gray-400">({{ item.createdAt | timeAgo }} ago)</label>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="variants">{{ item.variants }}</td>
+            <td class="inventory" [ngClass]="item.inventory < 20 ? 'primary' : 'secondary'"><label *ngIf="item.inventory >= 20">≤ </label>{{ item.inventory }}</td>
+            <td class="notification">-</td>
+            <td class="withhold">
+              <div *ngIf="item.withhold !== null">฿{{ item.withhold }}</div>
+              <div *ngIf="item.withhold === null">฿0</div>
+            </td>
+            <td class="unpaid">
+              <div *ngIf="item.unpaid !== null">฿{{ item.unpaid }}</div>
+              <div *ngIf="item.unpaid === null">฿0</div>
+            </td>
+            <td class="revenue">
+              <div *ngIf="item.revenue !== null">฿{{ item.revenue }}</div>
+              <div *ngIf="item.revenue === null">฿0</div>
+            </td>
+            <td class="td-arrow">
+              <img
+                class="arrow"
+                *ngIf="item.subProductLowInventory"
+                [src]="isActive(item.idIndex) ? '../../../../../assets/page-icons/expand.svg' : '../../../../../assets/page-icons/collapse.svg'"
+                (click)="select(item.idIndex)"
+              />
+            </td>
+          </tr>
+          <tr class="main-tr2" *ngIf="isActive(item.idIndex)">
+            <td colspan="9" class="table-list" style="margin: 0; padding: 0">
+              <div style="margin-top: 20px; padding-left: 80px">Product Variants</div>
+              <table class="list-low-stock">
+                <ng-container *ngFor="let data of item.subProductLowInventory">
+                  <tr class="item">
+                    <td class="child-no"></td>
+                    <td class="all-product">
+                      <div class="child-img">
+                        <img
+                          (error)="loadImageFail($event)"
+                          style="width: 50px; height: 50px; border-radius: 5px"
+                          *ngIf="data.subImages !== null"
+                          [src]="data?.subImages[0]?.mediaLink"
+                        />
+                        <img *ngIf="data.subImages === null" style="width: 50px; height: 50px; border-radius: 5px" src="assets/img/image-icon.svg" />
+                        <div class="child-dataproduct">
+                          <div class="child-des-stock">{{ data.subNameProductVariant }}</div>
+                          <div class="child-price">Price: ฿{{ data.subUnit_price }}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="child-variants"></td>
+                    <td class="child-inventory" [ngClass]="data.subInventory < 20 ? 'primary' : 'secondary'">
+                      <label *ngIf="data.subInventory >= 20">≤ </label>{{ data.subInventory }}
+                    </td>
+                    <td class="child-notification"></td>
+                    <td class="child-withhold">
+                      <div *ngIf="data.subWithhold !== null">฿{{ data.subWithhold }}</div>
+                      <div *ngIf="data.subWithhold === null">฿0</div>
+                    </td>
+                    <td class="child-unpaid">
+                      <div *ngIf="data.subUnpaid !== null">฿{{ data.subUnpaid }}</div>
+                      <div *ngIf="data.subUnpaid === null">฿0</div>
+                    </td>
+                    <td class="child-revenue">
+                      <div *ngIf="data.subRevenue !== null">฿{{ data.subRevenue }}</div>
+                      <div *ngIf="data.subRevenue === null">฿0</div>
+                    </td>
+                    <td class="child-icon"></td>
+                  </tr>
+                </ng-container>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </cms-next-custom-cms-table>
+    <reactor-room-pagination #paginator [pageSize]="commonTableFiltersLowStock.pageSize" [length]="totalRows" (changePage)="changePage($event)"> </reactor-room-pagination>
+  </div>
+</section>

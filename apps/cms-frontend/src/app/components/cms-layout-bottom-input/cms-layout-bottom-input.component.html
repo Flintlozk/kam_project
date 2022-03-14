@@ -1,0 +1,139 @@
+<div class="bottom-inputs" [formGroup]="bottomInputForm">
+  <div class="grid gap-2">
+    <div class="layout-label">Bottom</div>
+    <div class="grid gap-2">
+      <div *ngFor="let bottom of bottomOptions">
+        <input class="mr-2" type="radio" [value]="bottom.type" formControlName="options" />
+        <label>{{ bottom.label }}</label>
+      </div>
+    </div>
+
+    <!-- button -->
+    <div class="grid gap-2" *ngIf="isButton">
+      <ng-container formGroupName="button">
+        <div>
+          <div class="layout-label">Button Name*</div>
+          <input type="text" formControlName="name" class="input-border w-full p-2" />
+        </div>
+
+        <!-- link start -->
+        <div class="grid gap-2" formGroupName="link">
+          <div class="text-sm font-light">Link Type</div>
+          <div class="select-options">
+            <mat-form-field appearance="fill">
+              <mat-select
+                (selectionChange)="onLinkTypeChange($event)"
+                formControlName="linkType"
+                [(value)]="bottomInputForm['controls']['button']['controls']['link']['controls']['linkType'].value"
+              >
+                <mat-option *ngFor="let linkType of linkTypeData" [value]="linkType.value">
+                  {{ linkType.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <ng-container *ngIf="currentLinkType === ElinkType.URL">
+            <input placeholder="Enter URL..." type="text" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.PAGE">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.PRODUCT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Product Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of productPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.CONTENT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Content" formControlName="linkValue">
+                  <mat-option *ngFor="let page of contentPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.POPUP">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Popup" formControlName="linkValue">
+                  <mat-option *ngFor="let page of popupPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.ANCHOR">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="parentID">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select An Anchor" formControlName="linkValue">
+                  <mat-option *ngFor="let anchor of anchorData" [value]="anchor.value">
+                    {{ anchor.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.EMAIL">
+            <input placeholder="Enter Email..." type="email" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+        </div>
+
+        <!-- link end -->
+
+        <div class="grid gap-2">
+          <div class="layout-label">Open</div>
+          <div>
+            <input class="mr-2" type="radio" [value]="OpenWindowTypes.NEW" formControlName="openType" />
+            <label>New window</label>
+          </div>
+          <div>
+            <input class="mr-2" type="radio" [value]="OpenWindowTypes.CURRENT" formControlName="openType" />
+            <label class="hover:bg-gray-200">Current window</label>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- pagination -->
+    <div class="grid grid-cols-2" *ngIf="isPagination">
+      <div
+        [ngClass]="{ 'bg-green-500': pagination.selected }"
+        (click)="onPaginationSelect(index)"
+        class="border border-white rounded-md cursor-pointer"
+        *ngFor="let pagination of paginationList; let index = index"
+      >
+        <img [src]="pagination.imgURL" [alt]="pagination.type" />
+      </div>
+    </div>
+
+    <div class="grid gap-1" *ngIf="isPagination">
+      <cms-next-cms-element-position [isRemoveJustify]="true"></cms-next-cms-element-position>
+    </div>
+  </div>
+</div>

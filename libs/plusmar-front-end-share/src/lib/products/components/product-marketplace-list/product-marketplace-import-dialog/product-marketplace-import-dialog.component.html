@@ -1,0 +1,96 @@
+<div class="product-import-dialog">
+  <reactor-room-custom-dialog>
+    <ng-container class="head">
+      <div class="title">{{ 'Import Products' | translate }}</div>
+    </ng-container>
+    <ng-container class="content">
+      <div class="content-container">
+        <div class="counter-search-bar">
+          <div class="counter">{{ tableForProduct.totalRows }} {{ 'Products' | translate }}</div>
+
+          <div class="filter-input">
+            <div class="select-option">
+              <mat-form-field>
+                <mat-select (selectionChange)="marketPlaceTypeDropDown$.next($event.value)" [(value)]="marketPlaceTypeDefault">
+                  <mat-option *ngFor="let item of marketPlaceTypeDropdown" [value]="item.value">
+                    {{ item.label }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <input autofocus type="text" [placeholder]="'Search' | translate" [formControl]="searchField" />
+          </div>
+        </div>
+        <div class="table w-full">
+          <ng-container></ng-container>
+          <reactor-room-custom-table
+            [isLoading]="tableForProduct.isLoading"
+            [isNoData]="tableForProduct.isNoData"
+            [tableData]="tableData"
+            [tableHeader]="tableForProduct.productMarketSitesHeader"
+            [tableColSpan]="tableForProduct.productMarketSitesTableColSpan"
+            [orderMethod]="tableForProduct.commonTableFilters.orderMethod"
+            [isNoVerticalScroll]="true"
+            (sortTableMetaData)="sortTableData($event)"
+            (selectAll)="tableForProduct.selectAllHandler($event)"
+            [isAllchecked]="tableForProduct.isAllchecked"
+            [bgHeaderColorClass]="'custom-table-bg-color-light'"
+          >
+            <ng-container *ngFor="let data of tableData; let i = index; trackBy: tableForProduct.trackBy" class="table-content">
+              <tr class="data-tr">
+                <td>
+                  <div class="first">
+                    <label class="custom-checkbox">
+                      <input type="checkbox" [checked]="tableForProduct.isIdSelected(data.id)" (change)="tableForProduct.selectRow(data.id, $event.target.checked)" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="product-name">
+                    {{ data.name }}
+                  </div>
+                  <div class="variant-count">{{ 'Variants' | translate }}: {{ data.variants }}</div>
+                </td>
+                <td>{{ 'Price' | translate }}: {{ data.price }}</td>
+                <td>
+                  <div>
+                    <img [src]="data.marketPlaceIcon" [alt]="data.name" />
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </reactor-room-custom-table>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container class="footer">
+      <div class="footer-border-top"></div>
+      <reactor-room-pagination
+        #paginator
+        [pageSize]="tableForProduct.commonTableFilters.pageSize"
+        [length]="tableForProduct.totalRows"
+        (changePage)="changePage($event)"
+      ></reactor-room-pagination>
+      <div class="flex justify-between align-center">
+        <div class="flex">
+          <!--  <label class="custom-checkbox mr-5">
+            <span class="checkmark"></span>
+          </label>
+          <div class="text-sm max-w-70-per">{{ 'Make and use information from More-commerce for any same SKU code' | translate }}</div> -->
+        </div>
+        <div class="buttons flex">
+          <button class="btn-cancel mr-5" (click)="onImportButton$.next(onCancel)">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button class="btn-active" (click)="onImportButton$.next(onImport)">
+            <img src="../assets/img/import-icon.svg" alt="Import" />
+            <span class="ml-5">
+              {{ 'Import Create Products' | translate }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </reactor-room-custom-dialog>
+</div>

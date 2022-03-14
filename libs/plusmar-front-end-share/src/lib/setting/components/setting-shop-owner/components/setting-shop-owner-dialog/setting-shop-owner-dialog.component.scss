@@ -1,0 +1,109 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.setting-shop-owner-dialog {
+  &.cms-theme {
+    .connected {
+      span,
+      .text {
+        color: #22c55e !important;
+      }
+    }
+    .selectable-page {
+      span {
+        color: #22c55e !important;
+      }
+    }
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+
+  .content {
+    .item {
+      display: grid;
+      grid-template-columns: 10% 42% auto;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px dotted $border-color;
+      @media #{$mobilemax} {
+        grid-template-columns: 60px 1fr;
+        grid-row-gap: 10px;
+        .connected {
+          grid-column-start: 1;
+          grid-column-end: 4;
+        }
+      }
+      .img {
+        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .connected {
+        font-size: 12px;
+        font-weight: 200;
+        padding: 10px;
+        text-align: center;
+        color: #b9bbbf;
+        background-color: rgba(243, 245, 249, 1);
+        border: 1px solid rgba(243, 245, 249, 1);
+        border-radius: 8px;
+        span {
+          color: $main-color;
+          cursor: pointer;
+        }
+      }
+
+      .selectable-page {
+        text-align: right;
+        @media #{$mobilemax} {
+          grid-row-start: 1;
+          grid-column-start: 3;
+          padding-left: 10px;
+        }
+        span {
+          color: $main-color;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .item-disabled {
+    opacity: 0.5;
+  }
+}

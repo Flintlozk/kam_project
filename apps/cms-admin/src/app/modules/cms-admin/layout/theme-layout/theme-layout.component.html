@@ -1,0 +1,188 @@
+<reactor-room-nav-bar-theme (saveThemeHandler)="saveThemeHandler($event)" (deleteThemeHandler)="deleteThemeHandler()"> </reactor-room-nav-bar-theme>
+<div [ngClass]="isPreviewMode ? 'display-none' : ''">
+  <div class="flex-container" [formGroup]="monacoFormGroup" #monacoContainer>
+    <reactor-room-side-bar-theme></reactor-room-side-bar-theme>
+    <div class="flex-container right-area">
+      <div class="editor-area">
+        <div class="title-text">
+          {{ topic }}
+          <div class="line"></div>
+        </div>
+        <ngx-monaco-editor *ngIf="!srcImage" class="editor" [options]="editorOptions" (onInit)="onInit($event)" formControlName="code"></ngx-monaco-editor>
+        <img *ngIf="srcImage" class="display-image" [src]="srcImage" />
+      </div>
+      <div class="theme-assets">
+        <div class="title-text">
+          Theme Assets
+          <div class="line"></div>
+        </div>
+        <div class="flex-container justify-content-center mt-2 align-items-center">
+          <label class="black-btn flex-container justify-content-center">
+            <div style="width: 20px; margin-right: 10px">
+              <reactor-room-plus-icon> </reactor-room-plus-icon>
+            </div>
+            <div>Upload</div>
+            <input id="upload-file" type="file" (change)="readURL($event)" />
+          </label>
+        </div>
+        <div class="mt-2 flex-container">
+          <div class="file flex-container">
+            <div class="flex-container" style="width: 80%">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.5714 2.76923H8.87143L7.22143 0.567697C7.08844 0.3913 6.91427 0.247909 6.71315 0.149243C6.51204 0.0505774 6.28969 -0.000562124 6.06429 4.66035e-06H1.42857C1.04969 4.66035e-06 0.686328 0.145883 0.418419 0.405549C0.15051 0.665215 0 1.0174 0 1.38462V16.6154C0 16.9826 0.15051 17.3348 0.418419 17.5945C0.686328 17.8541 1.04969 18 1.42857 18H18.5714C18.9503 18 19.3137 17.8541 19.5816 17.5945C19.8495 17.3348 20 16.9826 20 16.6154V4.15385C20 3.78663 19.8495 3.43444 19.5816 3.17478C19.3137 2.91511 18.9503 2.76923 18.5714 2.76923ZM18.5714 16.6154H1.42857V5.53846H6.65C7.02888 5.53846 7.39224 5.39259 7.66015 5.13292C7.92806 4.87325 8.07857 4.52107 8.07857 4.15385H1.42857V1.38462H6.06429L7.92857 3.87C7.99507 3.9582 8.08215 4.0299 8.18271 4.07923C8.28327 4.12856 8.39444 4.15413 8.50714 4.15385H18.5714V16.6154Z"
+                  fill="#797F8C"
+                />
+              </svg>
+              <div style="margin-left: 20px">
+                Image
+                <div *ngIf="moreImage">
+                  <div
+                    class="click ident"
+                    *ngFor="let file of themeRendering.image"
+                    (click)="onClickSetImage(file)"
+                    [matMenuTriggerFor]="menuAction"
+                    style="display: flex; flex-direction: column"
+                  >
+                    - {{ file.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 20%; text-align: end">
+              <svg class="click" *ngIf="!moreImage" (click)="onClickMoreImage()" width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 5L11 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg class="click" *ngIf="moreImage" (click)="onClickMoreImage()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 flex-container">
+          <div class="file flex-container">
+            <div class="flex-container" style="width: 80%">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.5714 2.76923H8.87143L7.22143 0.567697C7.08844 0.3913 6.91427 0.247909 6.71315 0.149243C6.51204 0.0505774 6.28969 -0.000562124 6.06429 4.66035e-06H1.42857C1.04969 4.66035e-06 0.686328 0.145883 0.418419 0.405549C0.15051 0.665215 0 1.0174 0 1.38462V16.6154C0 16.9826 0.15051 17.3348 0.418419 17.5945C0.686328 17.8541 1.04969 18 1.42857 18H18.5714C18.9503 18 19.3137 17.8541 19.5816 17.5945C19.8495 17.3348 20 16.9826 20 16.6154V4.15385C20 3.78663 19.8495 3.43444 19.5816 3.17478C19.3137 2.91511 18.9503 2.76923 18.5714 2.76923ZM18.5714 16.6154H1.42857V5.53846H6.65C7.02888 5.53846 7.39224 5.39259 7.66015 5.13292C7.92806 4.87325 8.07857 4.52107 8.07857 4.15385H1.42857V1.38462H6.06429L7.92857 3.87C7.99507 3.9582 8.08215 4.0299 8.18271 4.07923C8.28327 4.12856 8.39444 4.15413 8.50714 4.15385H18.5714V16.6154Z"
+                  fill="#797F8C"
+                />
+              </svg>
+              <div style="margin-left: 20px">
+                Javascript
+                <div *ngIf="moreJavascript">
+                  <div
+                    class="click ident"
+                    *ngFor="let file of themeRendering.javascript; let i = index"
+                    (click)="onClickOpenJavascriptFile(i)"
+                    style="display: flex; flex-direction: column"
+                  >
+                    - {{ file.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 20%; text-align: end">
+              <svg class="click" *ngIf="!moreJavascript" (click)="onClickMoreJavascript()" width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 5L11 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg class="click" *ngIf="moreJavascript" (click)="onClickMoreJavascript()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 flex-container">
+          <div class="file flex-container">
+            <div class="flex-container" style="width: 80%">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.5714 2.76923H8.87143L7.22143 0.567697C7.08844 0.3913 6.91427 0.247909 6.71315 0.149243C6.51204 0.0505774 6.28969 -0.000562124 6.06429 4.66035e-06H1.42857C1.04969 4.66035e-06 0.686328 0.145883 0.418419 0.405549C0.15051 0.665215 0 1.0174 0 1.38462V16.6154C0 16.9826 0.15051 17.3348 0.418419 17.5945C0.686328 17.8541 1.04969 18 1.42857 18H18.5714C18.9503 18 19.3137 17.8541 19.5816 17.5945C19.8495 17.3348 20 16.9826 20 16.6154V4.15385C20 3.78663 19.8495 3.43444 19.5816 3.17478C19.3137 2.91511 18.9503 2.76923 18.5714 2.76923ZM18.5714 16.6154H1.42857V5.53846H6.65C7.02888 5.53846 7.39224 5.39259 7.66015 5.13292C7.92806 4.87325 8.07857 4.52107 8.07857 4.15385H1.42857V1.38462H6.06429L7.92857 3.87C7.99507 3.9582 8.08215 4.0299 8.18271 4.07923C8.28327 4.12856 8.39444 4.15413 8.50714 4.15385H18.5714V16.6154Z"
+                  fill="#797F8C"
+                />
+              </svg>
+              <div style="margin-left: 20px">
+                Style.CSS
+                <div *ngIf="moreStyle">
+                  <div style="display: flex; flex-direction: column" class="click ident" *ngFor="let file of themeRendering.style; let i = index" (click)="onClickOpenCSSFile(i)">
+                    <div>- {{ file.name }}</div>
+                    <div *ngIf="file.name === 'site.css'" style="padding-left: 10px">(This is default CSS)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 20%; text-align: end">
+              <svg class="click" *ngIf="!moreStyle" (click)="onClickMoreStyle()" width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 5L11 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg class="click" *ngIf="moreStyle" (click)="onClickMoreStyle()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 flex-container">
+          <div class="file flex-container">
+            <div class="flex-container" style="width: 80%">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.5714 2.76923H8.87143L7.22143 0.567697C7.08844 0.3913 6.91427 0.247909 6.71315 0.149243C6.51204 0.0505774 6.28969 -0.000562124 6.06429 4.66035e-06H1.42857C1.04969 4.66035e-06 0.686328 0.145883 0.418419 0.405549C0.15051 0.665215 0 1.0174 0 1.38462V16.6154C0 16.9826 0.15051 17.3348 0.418419 17.5945C0.686328 17.8541 1.04969 18 1.42857 18H18.5714C18.9503 18 19.3137 17.8541 19.5816 17.5945C19.8495 17.3348 20 16.9826 20 16.6154V4.15385C20 3.78663 19.8495 3.43444 19.5816 3.17478C19.3137 2.91511 18.9503 2.76923 18.5714 2.76923ZM18.5714 16.6154H1.42857V5.53846H6.65C7.02888 5.53846 7.39224 5.39259 7.66015 5.13292C7.92806 4.87325 8.07857 4.52107 8.07857 4.15385H1.42857V1.38462H6.06429L7.92857 3.87C7.99507 3.9582 8.08215 4.0299 8.18271 4.07923C8.28327 4.12856 8.39444 4.15413 8.50714 4.15385H18.5714V16.6154Z"
+                  fill="#797F8C"
+                />
+              </svg>
+              <div style="margin-left: 20px">
+                Html
+                <div *ngIf="moreHtml">
+                  <div style="display: flex; flex-direction: column" class="click ident" *ngFor="let file of themeRendering.html; let i = index" (click)="onClickOpenHTMLFile(i)">
+                    <div>- {{ file.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 20%; text-align: end">
+              <svg class="click" *ngIf="!moreHtml" (click)="onClickMoreHtml()" width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 5L11 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg class="click" *ngIf="moreHtml" (click)="onClickMoreHtml()" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container justify-content-center mt-2 align-items-center" (click)="onClickAddLayout()">
+          <label class="black-btn flex-container justify-content-center">
+            <div style="width: 20px; margin-right: 10px">
+              <reactor-room-plus-icon> </reactor-room-plus-icon>
+            </div>
+            <div>add Layout</div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-menu #menuAction="matMenu">
+    <button mat-menu-item (click)="onClickAppendUrl()">Append</button>
+    <button mat-menu-item [cdkCopyToClipboard]="getClipboard()">Copy</button>
+    <button mat-menu-item (click)="onClickShowImage()">Preview</button>
+  </mat-menu>
+</div>
+<div *ngIf="isPreviewMode" style="margin: 0px; padding: 0px; overflow: hidden; width: 100%; height: 100%">
+  <iframe
+    [ngStyle]="{ width: minWidth }"
+    style="overflow-x: hidden; border-width: 10px; border-radius: 1.5em"
+    id="iframeId"
+    class="responsive-iframe"
+    [name]="name"
+    [src]="urlIframe | safe"
+    scrolling="yes"
+    height="1000px"
+  ></iframe>
+</div>

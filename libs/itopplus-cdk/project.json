@@ -1,0 +1,62 @@
+{
+  "projectType": "library",
+  "root": "libs/itopplus-cdk",
+  "sourceRoot": "libs/itopplus-cdk/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-cdk/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/itopplus-cdk/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/itopplus-cdk/.storybook"
+        },
+        "projectBuildConfig": "itopplus-cdk:build-storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "outputPath": "dist/storybook/itopplus-cdk",
+        "config": {
+          "configFolder": "libs/itopplus-cdk/.storybook"
+        },
+        "projectBuildConfig": "itopplus-cdk:build-storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "less"
+    },
+    "@ngneat/spectator:spectator-component": {
+      "jest": true
+    }
+  },
+  "tags": []
+}

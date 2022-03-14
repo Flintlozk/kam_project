@@ -1,0 +1,215 @@
+@import 'base';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: $text-darker-color;
+
+  .info {
+    padding: 20px 0px;
+    padding-right: 15px;
+    @media #{$mobilemax} {
+      padding: 10px 0px;
+      padding-right: 10px;
+    }
+
+    .limit {
+      font-size: 12px;
+      font-weight: 400;
+      color: #789bb3;
+    }
+  }
+
+  .func {
+    padding: 20px 0px;
+    .search {
+      padding: 0px;
+      @media #{$mobilemax} {
+        padding-top: 10px;
+        padding-bottom: 5px;
+      }
+    }
+    @media #{$mobilemax} {
+      padding: 0px 0px;
+    }
+
+    input {
+      border: 1px solid $border-color;
+      padding: 0px 15px;
+      height: 35px;
+      border-radius: 8px;
+      max-width: 250px;
+      @media #{$mobilemax} {
+        width: 140px;
+      }
+    }
+  }
+}
+
+.table-content {
+  .status {
+    display: flex;
+    align-items: center;
+
+    .round {
+      width: 10px;
+      height: 10px;
+      border-radius: 8px;
+
+      &.new {
+        background: $main-color;
+      }
+
+      &.old {
+        background: #fbb936;
+      }
+    }
+
+    .text {
+      margin-left: 10px;
+    }
+  }
+
+  .buttons {
+    width: 20px;
+
+    img {
+      width: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  height: 10px;
+
+  &::-webkit-progress-bar {
+    background-color: #f3f5f9;
+    border-radius: 20px;
+  }
+
+  &::-webkit-progress-value {
+    border-radius: 20px;
+  }
+
+  &.block::-webkit-progress-value {
+    background-color: #7c9bb1;
+  }
+  &.negative::-webkit-progress-value {
+    background-color: #b1c8da;
+  }
+  &.normal::-webkit-progress-value {
+    background-color: #bee2fa;
+  }
+  &.moderate::-webkit-progress-value {
+    background-color: #8ed0fc;
+  }
+  &.high::-webkit-progress-value {
+    background-color: #3faafa;
+  }
+}
+
+:host ::ng-deep .dropdown {
+  .blocked {
+    background-color: #7c9bb1;
+  }
+  .negative {
+    background-color: #b1c8da;
+  }
+  .normal {
+    background-color: #bee2fa;
+  }
+  .moderate {
+    background-color: #8ed0fc;
+  }
+  .high {
+    background-color: #3faafa;
+  }
+}
+.audience-guests {
+  .action-group {
+    @media #{$mobilemax} {
+      display: none;
+    }
+  }
+  .action-group-mobile {
+    display: none;
+    @media #{$mobilemax} {
+      display: block;
+      button.action {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 100%;
+        border: 1px solid $main-color;
+        background: #e2f2ff;
+        box-shadow: 3px 4px 8px 0px #4453638a;
+        position: fixed;
+        top: 45px;
+        right: 20px;
+        &:focus {
+          animation: anim-glow 1s ease infinite;
+        }
+      }
+      .button-group {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        background-color: rgba(46, 46, 46, 0.6);
+        left: 0px;
+        z-index: 10;
+      }
+      .button-box {
+        bottom: 20px;
+        left: 20px;
+        width: calc(100% - 40px);
+        position: fixed;
+        z-index: 11;
+        .btn-item {
+          background: rgba(255, 255, 255, 0.85);
+          text-align: center;
+          margin-bottom: 1px;
+          padding: 8px 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 15px;
+          color: $main-color;
+          &:first-child {
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+          }
+          &.danger {
+            color: #ea6161;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+          }
+          &.cancel {
+            border-radius: 8px;
+          }
+        }
+        .seperate {
+          height: 5px;
+        }
+      }
+    }
+  }
+}
+@keyframes anim-glow {
+  0% {
+    box-shadow: 0 0 rgba(#53b1ff, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px 20px transparent;
+    //border-width: 2px;
+  }
+}

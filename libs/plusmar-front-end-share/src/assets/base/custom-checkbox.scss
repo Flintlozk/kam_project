@@ -1,0 +1,109 @@
+@import 'base';
+
+/* The custom-checkbox */
+.custom-checkbox {
+  display: flex;
+  position: relative;
+  /* padding-left: 30px; */
+  cursor: pointer;
+  font-size: 1em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: transform 0.1s ease;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    /* When the checkbox is checked, add a blue background */
+    &:checked ~ .checkmark {
+      background-color: #54b1ff;
+      //border: none;
+    }
+
+    &:disabled ~ .checkmark {
+      background-color: $border-color;
+    }
+
+    /* Show the checkmark when checked */
+    &:checked ~ .checkmark:after {
+      display: block;
+    }
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    height: 19px;
+    width: 19px;
+    background-color: white;
+    border: 1px solid #dcdfea;
+    border-radius: 5px;
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    &:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+
+    /* Style the checkmark/indicator */
+    &:after {
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  /* Style the checkmark/indicator */
+  &:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+/* On mouse-over, add a grey background color */
+// &:hover input~.checkmark {
+//   background-color: #dcdfea;
+//   border: 1px solid #dcdfea;
+// }
+
+.svg-checkbox:checked ~ .svg-checkbox_border {
+  border: 2px solid #54b1ff;
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: -4px;
+  bottom: -4px;
+  border-radius: 40px;
+}
+
+.svg-checkbox ~ svg {
+  transition: filter 0.15s ease-in-out;
+}
+
+.svg-checkbox:not(:checked) ~ svg {
+  filter: grayscale(1);
+}
+
+.svg-checkbox:not(:checked):hover ~ svg {
+  filter: grayscale(0.5);
+}

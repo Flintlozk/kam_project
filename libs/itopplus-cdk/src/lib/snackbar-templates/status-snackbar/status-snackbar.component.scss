@@ -1,0 +1,7 @@
+$font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+@layer components {
+  ::ng-deep .mat-snack-bar-container {
+    font-family: $font-family;
+    @apply p-0 min-h-0 bg-transparent shadow-none;
+  }
+}

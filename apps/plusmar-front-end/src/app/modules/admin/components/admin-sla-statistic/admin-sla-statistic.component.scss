@@ -1,0 +1,117 @@
+@import 'base';
+
+.admin-sla-statistic-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  // row-gap: 10px; // !
+  // column-gap: 10px; // !
+
+  .card-container {
+    border-radius: 10px;
+    width: 100%;
+    // min-width: 340px;
+    min-height: 100px;
+    background: #fff;
+    color: $text-darker-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+
+    &.first {
+      background-color: $main-color;
+      color: #fff;
+    }
+
+    &.last {
+      margin-right: 0px;
+    }
+
+    .left {
+      padding: 16px;
+      display: flex;
+      .circle {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: #7b95ae;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .right {
+      padding: 16px;
+      display: flex;
+      flex-flow: column;
+      text-align: end;
+
+      .title {
+        font-weight: 300;
+        font-size: 12px;
+
+        .red {
+          color: #ea6161;
+        }
+      }
+      .amount {
+        font-size: 30px;
+
+        .red {
+          color: #ea6161;
+        }
+      }
+    }
+
+    .wait-for-open {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+
+      .top {
+        height: 50%;
+        display: flex;
+        justify-content: space-between;
+        .text {
+          margin: auto 10px auto 10px;
+          font-size: 12px;
+        }
+        .amount {
+          margin: auto 10px auto 10px;
+          font-size: 30px;
+        }
+      }
+      .bottom {
+        height: 50%;
+        display: flex;
+        justify-content: space-around;
+        .card {
+          width: 50%;
+          color: #fff;
+          display: flex;
+          flex-flow: column;
+          &.almost {
+            background: #e69d19;
+            border-bottom-left-radius: 10px;
+          }
+          &.over {
+            background: #ea6161;
+            border-bottom-right-radius: 10px;
+          }
+
+          .text {
+            margin: auto;
+            font-size: 12px;
+          }
+          .amount {
+            margin: auto;
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}

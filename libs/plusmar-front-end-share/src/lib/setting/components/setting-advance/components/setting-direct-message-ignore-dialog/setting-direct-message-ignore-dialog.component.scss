@@ -1,0 +1,40 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.setting-direct-message-ignore-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    padding-top: 20px;
+    .label {
+      color: #617889;
+      font-size: 12px;
+      font-weight: 200;
+      padding-bottom: 10px;
+    }
+    .radios {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 10px;
+      .radio-button {
+        @extend .custom-radio-button;
+        margin-bottom: 0px;
+        &:first-child {
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+}

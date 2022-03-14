@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Error</title>
+    <%- include ("../partials/head") %>
+    <script>
+
+        window.onload = function () {
+           
+        }
+    </script>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+        }
+
+        body {
+            background-color: #FFF;
+            margin: 15px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+        .wrapper {
+            border: 1px solid rgba(227, 230, 234, 1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .wrapper,
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper .title {
+            font-size: 16px;
+            color: #565E68;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            border: none;
+            padding: 0;
+        }
+    </style>
+
+    <div class="wrapper">
+        <div class="wrapper title">
+            The link you clicked is either invalid or expired.
+        </div>
+    </div>
+
+</body>
+</html>

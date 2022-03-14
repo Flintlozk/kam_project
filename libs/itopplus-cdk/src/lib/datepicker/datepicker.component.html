@@ -1,0 +1,21 @@
+<div class="date-picker">
+  <mat-form-field class="example-full-width">
+    <mat-label *ngIf="!propValue">{{ 'Choose a date' | translate }}</mat-label>
+
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerstart" (dateChange)="onDateChange()" [formControl]="propValue" readonly="readonly" />
+
+    <mat-datepicker-toggle matSuffix [for]="pickerstart">
+      <mat-icon matDatepickerToggleIcon>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M4.5 3C4.224 3 4 2.832 4 2.625V1.99353H1.83337C1.37402 1.99353 1 2.36501 1 2.82137V5H15V2.82137C15 2.36501 14.626 1.99353 14.1666 1.99353H12V2.625C12 2.832 11.776 3 11.5 3C11.224 3 11 2.832 11 2.625V1.99353H5V2.625C5 2.832 4.776 3 4.5 3ZM11 1.00002H5V0.375C5 0.167999 4.776 0 4.5 0C4.224 0 4 0.167999 4 0.375V1.00002H1.83337C0.822022 1.00002 0 1.81659 0 2.82137V5.5V14.1785C0 15.1833 0.822022 16 1.83337 16H14.1666C15.178 16 16 15.1833 16 14.1785V5.5V2.82137C16 1.81659 15.178 1.00002 14.1666 1.00002H12V0.375C12 0.167999 11.776 0 11.5 0C11.224 0 11 0.167999 11 0.375V1.00002ZM1 6H15V14.1785C15 14.6349 14.626 15.0065 14.1666 15.0065H1.83337C1.37402 15.0065 1 14.6349 1 14.1785V6Z"
+            fill="#54B1FF"
+          />
+        </svg>
+      </mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #pickerstart disabled="false"></mat-datepicker>
+  </mat-form-field>
+</div>

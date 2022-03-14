@@ -1,0 +1,71 @@
+<div class="p-5">
+  <form [formGroup]="loginForm">
+    <div [routerLink]="['/login']" class="focus:outline-none">
+      <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="33" fill="white" />
+        <path
+          d="M13.0981 22.4437L9.37197 18.7704L8.93778 18.3423H9.54748H28.375C28.7408 18.3423 29.0909 18.199 29.3485 17.9451C29.606 17.6912 29.75 17.3477 29.75 16.9903C29.75 16.6329 29.606 16.2894 29.3485 16.0356C29.0909 15.7816 28.7408 15.6383 28.375 15.6383H9.54748H8.93778L9.37197 15.2103L13.0965 11.5385C13.3457 11.2834 13.4829 10.9429 13.4798 10.5903C13.4766 10.2369 13.3329 9.8982 13.0783 9.64725C12.8237 9.39618 12.4784 9.25315 12.1168 9.25005C11.7558 9.24696 11.4087 9.38352 11.1498 9.62932L4.65132 16.0357C4.65131 16.0357 4.6513 16.0357 4.6513 16.0357C4.39392 16.2896 4.25 16.633 4.25 16.9903C4.25 17.3477 4.39393 17.6911 4.65132 17.9449L11.1514 24.3529C11.4089 24.6068 11.759 24.75 12.1248 24.75C12.4905 24.75 12.8405 24.6068 13.0981 24.3529V22.4437ZM13.0981 22.4437C13.3555 22.6976 13.4994 23.041 13.4994 23.3983M13.0981 22.4437L13.4994 23.3983M13.4994 23.3983C13.4994 23.7557 13.3555 24.0991 13.0982 24.3529L13.4994 23.3983Z"
+          fill="#484B52"
+          stroke="white"
+          stroke-width="0.5"
+        />
+      </svg>
+    </div>
+    <h1 class="pt-1 text-3xl font-light">{{ 'Login' | translate }}</h1>
+    <div class="grid gap-5 pt-4">
+      <p class="font-light">{{ 'Enter your detail below' | translate }}</p>
+      <div
+        [ngClass]="{
+          'invalid-validation': loginForm['controls']['email'].invalid && formErrorMessageObj?.emailErrorMessage
+        }"
+      >
+        <div class="invalid-message">
+          {{ formErrorMessageObj?.emailErrorMessage | translate }}
+        </div>
+        <div class="relative">
+          <input
+            formControlName="email"
+            type="text"
+            placeholder="Email / อีเมล"
+            class="w-full h-12 pl-12 pr-4 text-sm font-light rounded-md border focus:border-green-500 focus:outline-none"
+          />
+          <svg class="absolute top-0 left-0 mt-3 ml-3" width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21.75 0H2.25002C1.00928 0 0 1.00928 0 2.25002V15.75C0 16.9907 1.00928 18 2.25002 18H21.75C22.9907 18 24 16.9907 24 15.75V2.25002C24 1.00928 22.9907 0 21.75 0ZM21.75 1.49999C21.8519 1.49999 21.9488 1.52114 22.0374 1.55806L12 10.2576L1.9625 1.55806C2.05113 1.52119 2.14807 1.49999 2.24997 1.49999H21.75ZM21.75 16.5H2.25002C1.8362 16.5 1.49999 16.1638 1.49999 15.75V3.14282L11.5085 11.8169C11.6499 11.9392 11.825 12 12 12C12.175 12 12.3501 11.9392 12.4915 11.8169L22.5 3.14282V15.75C22.5 16.1638 22.1638 16.5 21.75 16.5Z"
+              fill="#BCBFC8"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        [ngClass]="{
+          'invalid-validation': loginForm['controls']['password'].invalid && formErrorMessageObj?.passwordErrorMessage
+        }"
+      >
+        <div class="invalid-message">
+          {{ formErrorMessageObj?.passwordErrorMessage | translate }}
+        </div>
+        <div class="relative">
+          <input
+            formControlName="password"
+            type="password"
+            placeholder="Password / รหัสผ่าน"
+            class="w-full h-12 pl-12 pr-4 text-sm font-light rounded-md border focus:border-green-500 focus:outline-none"
+          />
+          <svg class="absolute top-0 left-0 mt-2 ml-3" width="20" height="27" viewBox="0 0 20 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.5 26.6667H2.5C1.12222 26.6667 0 25.5456 0 24.1667V12.5C0 11.1211 1.12222 10 2.5 10H17.5C18.8778 10 20 11.1211 20 12.5V24.1667C20 25.5456 18.8778 26.6667 17.5 26.6667ZM2.5 11.6667C2.04111 11.6667 1.66667 12.04 1.66667 12.5V24.1667C1.66667 24.6267 2.04111 25 2.5 25H17.5C17.9589 25 18.3333 24.6267 18.3333 24.1667V12.5C18.3333 12.04 17.9589 11.6667 17.5 11.6667H2.5Z"
+              fill="#BCBFC8"
+            />
+            <path
+              d="M15.8334 11.6667C15.3734 11.6667 15 11.2933 15 10.8333V6.66667C15 3.91 12.7567 1.66667 10 1.66667C7.24337 1.66667 5.00004 3.91 5.00004 6.66667V10.8333C5.00004 11.2933 4.62671 11.6667 4.16671 11.6667C3.70671 11.6667 3.33337 11.2933 3.33337 10.8333V6.66667C3.33337 2.99 6.32337 0 10 0C13.6767 0 16.6667 2.99 16.6667 6.66667V10.8333C16.6667 11.2933 16.2934 11.6667 15.8334 11.6667Z"
+              fill="#BCBFC8"
+            />
+          </svg>
+        </div>
+      </div>
+      <div [routerLink]="['/forget-password']" class="w-full font-light text-right focus:outline-none">{{ 'Forget your password' | translate }}?</div>
+      <button (click)="loginSubmit()" class="h-12 mt-3 text-lg text-white rounded-md bg-green-500 focus:outline-none">{{ 'Login' | translate }}</button>
+    </div>
+  </form>
+</div>

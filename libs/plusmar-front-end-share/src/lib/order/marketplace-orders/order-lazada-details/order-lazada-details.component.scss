@@ -1,0 +1,66 @@
+@import 'base';
+@import 'buttons';
+@import 'utils';
+
+.order-lazada-details {
+  .heading-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .order-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    .order-number {
+      background-color: $main-color;
+      padding: 15px;
+      color: white;
+      .order-id {
+        padding-top: 20px;
+        font-size: 18px;
+      }
+      .sub {
+        font-size: 12px;
+        font-weight: 300;
+        color: #acd8ff;
+      }
+    }
+    .order-info {
+      padding: 15px;
+    }
+
+    .payment-info {
+      padding: 15px;
+    }
+  }
+
+  .order-details {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    grid-template-columns: 2fr 7fr;
+    grid-gap: 10px;
+    align-items: center;
+    display: grid;
+    margin-bottom: 20px;
+    .divider {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      border-bottom: 0.5px solid $border-color;
+    }
+
+    .order-title {
+      font-weight: 400;
+    }
+    .order-value {
+      font-weight: 300;
+    }
+  }
+
+  .max-w-300 {
+    max-width: 300px;
+  }
+}

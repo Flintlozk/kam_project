@@ -1,0 +1,121 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+.wizard-step-1 {
+  background-color: rgba(243, 245, 249, 1);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  .content {
+    padding: 40px;
+    margin: 40px;
+    border-radius: 12px;
+    background-color: white;
+    flex-direction: column;
+    min-width: 709px;
+    // min-height: 812px;
+
+    .title-container {
+      text-align: center;
+      img {
+        width: 144px;
+        padding-bottom: 10px;
+      }
+
+      .title {
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        color: #484b52;
+        padding-bottom: 30px;
+
+        .link {
+          color: #54b1ff;
+          text-decoration: underline;
+        }
+      }
+    }
+    .item {
+      display: grid;
+      grid-template-columns: 10% 42% auto;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px dotted $border-color;
+      @media #{$mobilemax} {
+        grid-template-columns: 60px 1fr;
+        grid-row-gap: 10px;
+        .connected {
+          grid-column-start: 1;
+          grid-column-end: 4;
+        }
+      }
+      .img {
+        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .connected {
+        font-size: 12px;
+        font-weight: 200;
+        padding: 10px;
+        text-align: center;
+        color: #b9bbbf;
+        background-color: rgba(243, 245, 249, 1);
+        border: 1px solid rgba(243, 245, 249, 1);
+        border-radius: 8px;
+        span {
+          color: $main-color;
+          cursor: pointer;
+        }
+      }
+
+      .selectable-page {
+        text-align: right;
+        @media #{$mobilemax} {
+          grid-row-start: 1;
+          grid-column-start: 3;
+          padding-left: 10px;
+        }
+        span {
+          color: $main-color;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        img {
+          width: 25px;
+        }
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10rem;
+      .btn-edit {
+        @extend .btn-inactive;
+      }
+
+      .btn-setting {
+        display: none !important;
+        @extend .btn-inactive;
+
+        &.display {
+          display: block !important;
+        }
+      }
+    }
+  }
+
+  .item-disabled {
+    opacity: 0.5;
+  }
+}

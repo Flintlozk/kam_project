@@ -1,0 +1,70 @@
+<div class="px-4 py-2 bg-white">
+  <div class="relative w-full">
+    <input
+      autofocus
+      type="text"
+      placeholder="{{ 'Search' | translate }}..."
+      class="w-full py-2 pl-10 pr-3 font-light text-gray-700 transition duration-300 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-200"
+    />
+    <svg class="absolute bottom-0 left-0 mb-3 ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.7065 14.3705L11.3259 9.98816C12.1112 8.91718 12.5318 7.62239 12.5259 6.29441C12.511 2.82792 9.7072 0.0200853 6.24074 6.36781e-05C4.58184 -0.00744187 2.98885 0.64882 1.81662 1.82265C0.6444 2.99649 -0.00967429 4.59038 0.000108173 6.24926C0.0150908 9.71606 2.81911 12.5242 6.28588 12.5442C7.61928 12.55 8.91879 12.1244 9.99049 11.331L9.99506 11.3276L14.3717 15.7065C14.6083 15.9547 14.9609 16.0552 15.2928 15.969C15.6248 15.8828 15.8839 15.6234 15.9698 15.2914C16.0558 14.9594 15.955 14.6069 15.7065 14.3705ZM6.28122 11.2893C3.50795 11.2734 1.26478 9.02711 1.2526 6.25383C1.24512 4.92689 1.76842 3.65203 2.70602 2.71304C3.64362 1.77404 4.9177 1.24884 6.24465 1.25435C9.01792 1.27031 11.2611 3.51654 11.2733 6.28983C11.2808 7.61676 10.7574 8.89162 9.81985 9.83062C8.88225 10.7696 7.60816 11.2948 6.28122 11.2893Z"
+        fill="#9799A5"
+      />
+    </svg>
+  </div>
+</div>
+<div class="p-4 overflow-scroll no-scroll-bar">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center font-light text-gray-700">
+      <span class="text-gray-500">{{ 'Sort by' | translate }}</span>
+      <button (click)="toggleSortCategoryStatus()" class="flex items-center ml-2 focus:outline-none">
+        {{ 'Product Name' | translate }}
+        <svg
+          class="ml-2 transition-all duration-300 ease-in-out"
+          [style.transform]="sortCategoryStatus ? 'scaleY(-1)' : 'scaleY(1)'"
+          width="8"
+          height="12"
+          viewBox="0 0 8 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.7012 7.79286L4.86451 9.51262L4.69617 9.67025L4.69617 9.43963L4.69617 0.75001C4.69617 0.579819 4.62402 0.415153 4.49321 0.292668C4.36217 0.169975 4.18313 0.1 3.99516 0.1C3.8072 0.1 3.62815 0.169975 3.49712 0.292668C3.36631 0.415153 3.29416 0.579819 3.29416 0.75001L3.29416 9.43963L3.29416 9.67025L3.12581 9.51262L1.28976 7.79346C1.15798 7.67457 0.980375 7.60783 0.794855 7.60934C0.609042 7.61085 0.432501 7.68069 0.302957 7.80199C0.173626 7.92308 0.101587 8.08547 0.100026 8.25374C0.0984668 8.42173 0.16725 8.58494 0.293854 8.70798L3.49719 11.7074C3.4972 11.7074 3.4972 11.7074 3.49721 11.7074C3.62823 11.8301 3.80725 11.9 3.99516 11.9C4.18308 11.9 4.36209 11.8301 4.49312 11.7074L6.7012 7.79286ZM6.7012 7.79286C6.7012 7.79286 6.70121 7.79285 6.70121 7.79285C6.83224 7.6702 7.01125 7.60026 7.19917 7.60026C7.38708 7.60026 7.56609 7.6702 7.69712 7.79284C7.82788 7.91532 7.9 8.07995 7.9 8.25011C7.9 8.42026 7.82789 8.58489 7.69713 8.70737C7.69713 8.70737 7.69712 8.70738 7.69712 8.70738L4.49313 11.7074L6.7012 7.79286Z"
+            fill="#484B52"
+            stroke="white"
+            stroke-width="0.2"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-4 py-4 sm:grid-cols-3 lg:grid-cols-4">
+    <ng-container *ngFor="let productCategoryDataItem of productCategoryData">
+      <div class="overflow-hidden bg-gray-200 rounded-md focus:outline-none" [routerLink]="['/product/product-details']">
+        <div class="w-full h-32 overflow-hidden">
+          <img class="min-w-full min-h-full" [src]="productCategoryDataItem.productImage" [alt]="productCategoryDataItem.productTitle" />
+        </div>
+        <div class="p-2 bg-white">
+          <h3 class="text-base text-gray-700 text-ellipsis">{{ productCategoryDataItem.productTitle }}</h3>
+          <div class="pt-1">
+            <div class="flex items-end justify-between">
+              <div class="text-xs font-light text-gray-600">{{ 'Amount' | translate }}</div>
+              <div class="text-base text-gray-700">{{ productCategoryDataItem.amount }}</div>
+            </div>
+            <div class="flex items-end justify-between">
+              <div class="text-xs font-light text-gray-600">{{ 'Discount' | translate }}</div>
+              <div class="text-base text-gray-700">{{ productCategoryDataItem.discount | currency }}</div>
+            </div>
+            <div class="flex items-end justify-between">
+              <div class="text-xs font-light text-gray-600">{{ 'Price' | translate }}</div>
+              <div class="text-base text-gray-700">{{ productCategoryDataItem.price | currency }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

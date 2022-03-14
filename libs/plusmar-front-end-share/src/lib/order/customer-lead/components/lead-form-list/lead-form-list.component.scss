@@ -1,0 +1,17 @@
+@import 'base';
+@import 'buttons';
+
+.lead-form-list {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  min-height: 300px;
+  padding: 0 20px;
+
+  .lead-option {
+    font-size: 12px;
+  }
+}
+
+::ng-deep .custom-table {
+  max-height: calc(100vh - 320px) !important;
+}

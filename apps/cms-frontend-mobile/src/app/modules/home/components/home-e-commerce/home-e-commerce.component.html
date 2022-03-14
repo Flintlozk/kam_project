@@ -1,0 +1,44 @@
+<section class="p-4">
+  <h2 class="py-3 text-xl text-gray-700">{{ 'E-Commerce' | translate }}</h2>
+  <div>
+    <ng-container *ngFor="let eCommerceDataItem of eCommerceData; trackBy: trackByIndex">
+      <div class="flex items-center mb-2 bg-white rounded-md shadow last:mb-0">
+        <div class="flex items-center justify-center w-20 h-20 border-r-2 border-gray-200">
+          <img [src]="eCommerceDataItem.imgUrl" [alt]="eCommerceDataItem.title | translate" />
+        </div>
+        <div class="flex items-center justify-between w-full p-3">
+          <div>
+            <div class="text-base font-light text-gray-700">{{ eCommerceDataItem.title | translate }}</div>
+            <div
+              class="flex items-center pt-1 text-sm"
+              [ngClass]="{
+                'text-gray-500': eCommerceDataItem.status === 'neutral',
+                'text-green-500': eCommerceDataItem.status === 'positive',
+                'text-red-500': eCommerceDataItem.status === 'negative'
+              }"
+            >
+              <span class="mr-1" *ngIf="eCommerceDataItem.status === 'positive'">
+                <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.159942 4.54195L0.487503 4.86959C0.590348 4.9726 0.727828 5.02959 0.874169 5.02959C1.02067 5.02959 1.17059 4.9726 1.27344 4.86959L3.39124 2.76439L3.39124 9.45276C3.39124 9.75439 3.6114 10 3.91295 10L4.37644 10C4.67791 10 4.95376 9.75439 4.95376 9.45276L4.95376 2.74057L7.06734 4.86959C7.17035 4.9726 7.29994 5.02959 7.44645 5.02959C7.59279 5.02959 7.72644 4.9726 7.82937 4.86959L8.15514 4.54195C8.36831 4.3287 8.36742 3.98179 8.15425 3.76854L4.54498 0.159674C4.44222 0.0569102 4.30433 -3.50587e-07 4.15677 -3.63487e-07L4.15523 -3.63622e-07C4.0088 -3.76423e-07 3.87124 0.0569101 3.76848 0.159674L0.159942 3.76845C-0.0533919 3.98163 -0.0533919 4.3287 0.159942 4.54195Z"
+                    fill="#2FC639"
+                  />
+                </svg>
+              </span>
+              <span class="mr-1" *ngIf="eCommerceDataItem.status === 'negative'">
+                <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8.15463 5.45805L7.82707 5.13041C7.72423 5.0274 7.58675 4.97041 7.44041 4.97041C7.2939 4.97041 7.14398 5.0274 7.04114 5.13041L4.92333 7.23561L4.92333 0.547236C4.92333 0.24561 4.70317 0 4.40163 0L3.93813 0C3.63667 0 3.36081 0.24561 3.36081 0.547236L3.36081 7.25943L1.24724 5.13041C1.14423 5.0274 1.01463 4.97041 0.868131 4.97041C0.721789 4.97041 0.588131 5.0274 0.485204 5.13041L0.159432 5.45805C-0.0537391 5.6713 -0.0528448 6.01821 0.160326 6.23146L3.76959 9.84033C3.87236 9.94309 4.01024 10 4.1578 10H4.15935C4.30577 10 4.44333 9.94309 4.5461 9.84033L8.15463 6.23154C8.36797 6.01837 8.36797 5.6713 8.15463 5.45805Z"
+                    fill="#EA6161"
+                  />
+                </svg>
+              </span>
+              {{ eCommerceDataItem.statusValue }}%
+            </div>
+          </div>
+          <div class="text-2xl text-gray-700">{{ eCommerceDataItem.value | currency }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

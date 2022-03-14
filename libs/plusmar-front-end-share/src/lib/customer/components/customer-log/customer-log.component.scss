@@ -1,0 +1,35 @@
+@import 'base';
+
+.customer-log {
+  display: grid;
+  grid-gap: 20px;
+
+  .mat-tab-labels {
+    .mat-tab-label-active {
+      .mat-tab-label-content {
+        color: white !important;
+      }
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    margin-top: 0px;
+  }
+
+  .func {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    input {
+      padding: 15px 20px;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+
+      &:focus {
+        outline: none;
+        border-color: $text-darker-color;
+      }
+    }
+  }
+}

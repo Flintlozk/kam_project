@@ -1,0 +1,403 @@
+@import '/pages/styles/variable.module.scss';
+@import '/pages/styles/font.module.scss';
+@import '/pages/styles/global.module.scss';
+.mainPageContainer {
+  .pricingContainer {
+    padding-top: 50px;
+    width: 1440px;
+    margin: 0 auto;
+
+    .priceTitle {
+      font-size: 4rem;
+      color: $more_blue60;
+      text-align: center;
+      font-weight: 600;
+    }
+    .MorePriceContent {
+      padding-top: 60px;
+      padding-bottom: 30px;
+    }
+  }
+
+  .vatContainer {
+    width: 1380px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    // float:left;
+    .vatTitle {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: $more_coolgrey80;
+      padding-bottom: 17px;
+    }
+    .vatDetail {
+      font-size: 1.125rem;
+      color: $more_coolgrey70;
+      padding-bottom: 10px;
+    }
+  }
+
+  .lineCondition {
+    width: 1380px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+    .lineTitle {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: $more_blue60;
+      text-decoration: underline;
+      padding-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.3rem;
+      color: $more_coolgrey70;
+      tbody {
+        //   tr:last-child td:first-child {
+        //     border-bottom-left-radius: 10px;
+        // }
+        tr td:first-child {
+          background-color: $more_coolgrey10;
+          color: $more_coolgrey80;
+        }
+        // tr:first-child td:first-child {
+        //   border-top-left-radius: 20px;
+        // }
+        td {
+          padding: 20px 30px;
+          // border-radius: 20px;
+          border: $more_coolgrey20 solid 1px;
+          font-weight: 500;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .pricingFAQContainer {
+    width: 1440px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    .faqTitle {
+      font-size: 3.3rem;
+      font-weight: 600;
+      color: $more_blue60;
+    }
+
+    .fsqTitleDescription {
+      font-family: Roboto, Prompt !important;
+      font-size: 1.6rem;
+      color: $more_coolgrey50;
+    }
+  }
+}
+
+@include small_desktop {
+  .mainPageContainer {
+    .mainPageTopMenu {
+    }
+
+    .pricingContainer {
+      padding-top: 50px;
+      width: 85%;
+      margin: 0 auto;
+
+      .priceTitle {
+        font-size: 4rem;
+        color: $more_blue60;
+        text-align: center;
+        font-weight: 600;
+      }
+      .MorePriceContent {
+        padding-top: 60px;
+        padding-bottom: 30px;
+      }
+    }
+
+    .vatContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 30px;
+      // float:left;
+      .vatTitle {
+        font-size: 1.5vw;
+        font-weight: 400;
+        color: $more_coolgrey80;
+        padding-bottom: 17px;
+      }
+      .vatDetail {
+        margin-right: 250px;
+        font-size: 1.125vw;
+        color: $more_coolgrey70;
+        padding-bottom: 10px;
+      }
+    }
+
+    .lineCondition {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 80px;
+      .lineTitle {
+        font-size: 1.5vw;
+        font-weight: 400;
+        color: $more_blue60;
+        text-decoration: underline;
+        padding-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.3vw;
+        color: $more_coolgrey60;
+        tbody {
+          //   tr:last-child td:first-child {
+          //     border-bottom-left-radius: 10px;
+          // }
+          tr td:first-child {
+            background-color: $more_coolgrey10;
+            color: $more_coolgrey80;
+          }
+          // tr:first-child td:first-child {
+          //   border-top-left-radius: 20px;
+          // }
+          td {
+            padding: 20px 30px;
+            // border-radius: 20px;
+            border: $more_coolgrey20 solid 1px;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .pricingFAQContainer {
+      width: 85%;
+
+      .faqTitle {
+        font-size: 3.3vw;
+      }
+
+      .fsqTitleDescription {
+        font-size: 1.6vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .mainPageContainer {
+    .mainPageTopMenu {
+    }
+
+    .pricingContainer {
+      padding-top: 50px;
+      width: 85%;
+      margin: 0 auto;
+
+      .priceTitle {
+        font-size: 4.5vw;
+      }
+    }
+
+    .pricingFAQContainer {
+      width: 85%;
+
+      .faqTitle {
+        font-size: 3.3vw;
+      }
+
+      .fsqTitleDescription {
+        font-size: 1.6vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .mainPageContainer {
+    .mainPageTopMenu {
+    }
+
+    .pricingContainer {
+      padding-top: 31px;
+      width: 85%;
+      margin: 0 auto;
+
+      .priceTitle {
+        font-size: 7vw;
+      }
+      .MorePriceContent {
+        overflow-x: scroll;
+      }
+    }
+    .vatContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 30px;
+      // float:left;
+      .vatTitle {
+        font-size: 3vw;
+        font-weight: 400;
+        color: $more_coolgrey80;
+        padding-bottom: 17px;
+      }
+      .vatDetail {
+        margin-right: 0px;
+        font-size: 1.8vw;
+        color: $more_coolgrey70;
+        padding-bottom: 10px;
+      }
+    }
+
+    .lineCondition {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 80px;
+      .lineTitle {
+        font-size: 3.2vw;
+        font-weight: 400;
+        color: $more_blue60;
+        text-decoration: underline;
+        padding-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.8vw;
+        color: $more_coolgrey60;
+        tbody {
+          //   tr:last-child td:first-child {
+          //     border-bottom-left-radius: 10px;
+          // }
+          tr td:first-child {
+            background-color: $more_coolgrey10;
+            color: $more_coolgrey80;
+          }
+          // tr:first-child td:first-child {
+          //   border-top-left-radius: 20px;
+          // }
+          td {
+            padding: 20px 30px;
+            // border-radius: 20px;
+            border: $more_coolgrey20 solid 1px;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .pricingFAQContainer {
+      width: 85%;
+
+      .faqTitle {
+        font-size: 3.3vw;
+      }
+
+      .fsqTitleDescription {
+        font-size: 1.6vw;
+      }
+    }
+  }
+}
+
+//431
+@include mobile {
+  .mainPageContainer {
+    .mainPageTopMenu {
+    }
+
+    .pricingContainer {
+      padding-top: 50px;
+      width: 100%;
+      margin: 0 auto;
+
+      .priceTitle {
+        font-size: 14vw;
+      }
+    }
+
+    .vatContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 30px;
+      // float:left;
+      .vatTitle {
+        font-size: 4vw;
+        font-weight: 400;
+        line-height: 1;
+        color: $more_coolgrey80;
+        padding-bottom: 17px;
+      }
+      .vatDetail {
+        margin-right: 0px;
+        font-size: 2.8vw;
+        color: $more_coolgrey70;
+        padding-bottom: 10px;
+      }
+    }
+
+    .lineCondition {
+      width: 85%;
+      margin: 0 auto;
+      padding-bottom: 80px;
+      .lineTitle {
+        font-size: 3.2vw;
+        font-weight: 400;
+        color: $more_blue60;
+        text-decoration: underline;
+        padding-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 2.2vw;
+        color: $more_coolgrey60;
+        tbody {
+          //   tr:last-child td:first-child {
+          //     border-bottom-left-radius: 10px;
+          // }
+          tr td:first-child {
+            background-color: $more_coolgrey10;
+            color: $more_coolgrey80;
+          }
+          // tr:first-child td:first-child {
+          //   border-top-left-radius: 20px;
+          // }
+          td {
+            padding: 10px 5px;
+            // border-radius: 20px;
+            border: $more_coolgrey20 solid 1px;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .pricingFAQContainer {
+      width: 85%;
+
+      .faqTitle {
+        font-size: 13vw;
+      }
+
+      .fsqTitleDescription {
+        font-size: 7.5vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 431px) {
+  .mainPageContainer {
+    .mainPageTopMenu {
+    }
+
+    .pricingContainer {
+      .priceTitle {
+        font-size: 14vw;
+      }
+    }
+  }
+}

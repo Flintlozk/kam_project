@@ -1,0 +1,144 @@
+<div class="promotions-product-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head">
+      {{ 'Select Products' | translate }}
+    </div>
+    <div class="content">
+      <div class="head">
+        {{ productListData ? productListData.length : 0 }} Products
+        <input autofocus type="text" [placeholder]="'Search' | translate" [formControl]="searchField" />
+      </div>
+      <div class="table">
+        <reactor-room-custom-table
+          [isLoading]="isLoading"
+          [isNoData]="isNoData"
+          [tableData]="productListData"
+          [tableHeader]="tableHeader"
+          [tableColSpan]="tableColSpan"
+          [orderMethod]="tableFilters.orderMethod"
+          [isNoVerticalScroll]="true"
+          (sortTableMetaData)="sortTableData($event)"
+        >
+          <ng-container *ngFor="let product of productListData; trackBy: trackBy; let productIndex = index" class="table-content">
+            <tr *ngIf="product.statusValue === 1" (click)="toggleAttributeStatus(productIndex)" class="cursor-pointer">
+              <td class="checkbox"></td>
+
+              <td>
+                <div class="title product-name">
+                  <img *ngIf="product?.images" [src]="(product?.images)[0]?.mediaLink" [alt]="product.name" onerror="this.src = 'assets/img/logo-small.svg'" />
+                  <img *ngIf="!product?.images" src="assets/img/logo-small.svg" [alt]="product.name" />
+                  {{ product.name }}
+                </div>
+              </td>
+
+              <td>฿{{ product.minUnitPrice | formatCurrency }} ~ ฿{{ product.maxUnitPrice | formatCurrency }}</td>
+
+              <td>
+                {{ product.inventory }}
+                <span style="font-size: 0.8em" *ngIf="product.reserved > 0"
+                  >(<span style="color: #ef5350">-{{ product.reserved }}</span
+                  >)</span
+                >
+              </td>
+
+              <td>
+                <div class="status">
+                  <div class="round"></div>
+                  <span>{{ product.status | translate }}</span>
+                </div>
+              </td>
+
+              <td class="td-action" *ngIf="product.variantData.length > 0">
+                <div class="action">
+                  <div class="toggle-button" [ngClass]="{ active: product.activeStatus }">
+                    <img src="assets/img/down-button.svg" alt="Toogle" />
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="product.variantData?.length">
+              <tr
+                class="attribute disable"
+                *ngFor="let variant of product.variantData; let variantIndex = index"
+                [ngClass]="{ toggle: !product.activeStatus, disable: variant.variantInventory - variant.variantReserved > 0 && variant.variantStatus === 1 ? false : true }"
+                (click)="onSelectItem(variant.variantID, variant, product, $event)"
+              >
+                <td class="checkbox">
+                  <div class="first">
+                    <label class="custom-checkbox">
+                      <input type="checkbox" #variantCheckboxes [id]="variant.variantID" />
+                      <span class="checkmark" [ngClass]="variant.variantInventory > 0 && variant.variantStatus === 1 ? '' : 'disable'"></span>
+                    </label>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="title">
+                    <ng-container *ngIf="variant?.variantImages?.length; else defaultVariantText">
+                      <img
+                        *ngIf="(variant?.variantImages)[0]?.mediaLink"
+                        [src]="(variant?.variantImages)[0]?.mediaLink"
+                        [alt]="variant.variantAttributes"
+                        onerror="this.src = 'assets/img/logo-small.svg'"
+                      />
+                    </ng-container>
+                    <ng-template #defaultVariantText>
+                      <div class="img">
+                        {{ variant.variantAttributes.substring(0, 2) }}
+                      </div>
+                    </ng-template>
+
+                    <div class="text">
+                      <span>{{ variant.variantAttributes }}</span>
+                      <!-- <span *ngFor="let item of variant.attribute">{{item}}</span> -->
+                    </div>
+                  </div>
+                </td>
+
+                <td>฿{{ variant.variantUnitPrice | formatCurrency }}</td>
+
+                <td>
+                  {{ variant.variantInventory }}
+                  <span *ngIf="variant.variantReserved > 0" style="font-size: 0.8em"
+                    >(<span style="color: #ef5350">-{{ variant.variantReserved }}</span
+                    >)</span
+                  >
+                </td>
+
+                <td>
+                  <div class="status">
+                    <div
+                      class="round"
+                      [ngClass]="{
+                        '': variant.variantStatus === 1 && variant.variantInventory - variant.variantReserved > 0,
+                        out: variant.variantStatus === 2 || variant.variantInventory - variant.variantReserved < 1,
+                        cancel: variant.variantStatus === 3 && variant.variantInventory - variant.variantReserved > 0
+                      }"
+                    ></div>
+                    <span *ngIf="variant.variantStatus === 1 && variant.variantInventory - variant.variantReserved > 0">Selling</span>
+                    <span *ngIf="variant.variantStatus === 2 || variant.variantInventory - variant.variantReserved < 1">Out of Stock</span>
+                    <span *ngIf="variant.variantStatus === 3 && variant.variantInventory - variant.variantReserved > 0">Cancel</span>
+                  </div>
+                </td>
+                <td class="td-action"></td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </reactor-room-custom-table>
+        <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="totalRows" (changePage)="changePage($event)"> </reactor-room-pagination>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel" (click)="onNoClick()">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button class="btn-save" (click)="onSave()">
+          <img src="assets/img/check-icon-white.png" alt="OK" />
+          {{ 'OK' | translate }}
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

@@ -1,0 +1,54 @@
+<section [formGroup]="menuMobileIconForm" class="grid gap-4">
+  <div class="grid gap-1">
+    <span class="font-light">Contact</span>
+    <div class="flex items-center">
+      <ng-container *ngFor="let contactItem of contactIconData; let index = index">
+        <div
+          (click)="onSetContactListToForm(index)"
+          [ngClass]="{ 'bg-green-500 hover:bg-green-500': contactItem.selected, 'bg-gray-50 hover:bg-gray-100': !contactItem.selected }"
+          class="cursor-pointer w-10 h-10 rounded flex items-center justify-center mr-2 last:mr-0"
+        >
+          <img [src]="contactItem.selected ? contactItem.iconActive : contactItem.icon" [alt]="contactItem.value" />
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="grid gap-1">
+    <div class="font-light">Search</div>
+    <div>
+      <input type="checkbox" formControlName="isSearch" #isSearch class="hidden" />
+      <button
+        (click)="isSearch.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': menuMobileIconForm['controls']['isSearch'].value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{
+            'bg-gray-300': !menuMobileIconForm['controls']['isSearch'].value,
+            'bg-white right-0 mr-2': menuMobileIconForm['controls']['isSearch'].value
+          }"
+        ></div>
+      </button>
+    </div>
+  </div>
+  <div class="grid gap-1">
+    <div class="font-light">Language</div>
+    <div>
+      <input type="checkbox" formControlName="isLanguage" #isLanguage class="hidden" />
+      <button
+        (click)="isLanguage.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': menuMobileIconForm['controls']['isLanguage'].value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{
+            'bg-gray-300': !menuMobileIconForm['controls']['isLanguage'].value,
+            'bg-white right-0 mr-2': menuMobileIconForm['controls']['isLanguage'].value
+          }"
+        ></div>
+      </button>
+    </div>
+  </div>
+</section>

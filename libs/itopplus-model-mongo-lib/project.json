@@ -1,0 +1,23 @@
+{
+  "root": "libs/itopplus-model-mongo-lib",
+  "sourceRoot": "libs/itopplus-model-mongo-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-model-mongo-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/itopplus-model-mongo-lib"],
+      "options": {
+        "jestConfig": "libs/itopplus-model-mongo-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

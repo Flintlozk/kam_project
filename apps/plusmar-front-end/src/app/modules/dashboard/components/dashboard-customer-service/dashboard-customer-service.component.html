@@ -1,0 +1,23 @@
+<reactor-room-card [height]="'100%'" [padding]="'0px'" [topPadding]="'20px'" [withTitle]="true" [moreRouteLink]="'/customer-service/issues'">
+  <div class="card-title">
+    {{ 'Customer Service' | translate }}
+    <div class="sub">{{ 'Issues' | translate }}</div>
+  </div>
+  <div class="card-content">
+    <div class="sum">
+      {{ sumValue }}
+    </div>
+    <div class="progress-bar">
+      <div class="progress-bar-item" *ngFor="let item of valuePercentage" [ngStyle]="{ background: item.colorCode, flex: item.percent }"></div>
+    </div>
+    <div class="info" [ngClass]="{ business: businessDashboard }">
+      <div class="info-item" *ngFor="let item of valuePercentage">
+        <div class="title">
+          <div class="round" [ngStyle]="{ background: item.colorCode }"></div>
+          <div class="label">{{ item.label | translate }}</div>
+        </div>
+        <div class="value">{{ item.value }}</div>
+      </div>
+    </div>
+  </div>
+</reactor-room-card>

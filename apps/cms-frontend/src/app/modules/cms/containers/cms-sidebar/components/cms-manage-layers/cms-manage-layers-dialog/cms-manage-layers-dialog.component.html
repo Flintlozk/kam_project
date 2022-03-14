@@ -1,0 +1,251 @@
+<section class="grid gap-4">
+  <div class="flex items-center justify-between">
+    <h3 class="mr-4 text-lg">Website Layers Preview</h3>
+    <button class="focus:outline-none" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L11.08 11.08M11.08 1L1 11.08" stroke="#C4C4C4" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="grid border border-dashed border-green-900 p-4" *ngIf="headerContainer?.length">
+    <ng-container *ngFor="let refComponent of headerContainer; trackBy: trackByIndex; let index = index">
+      <div
+        (dblclick)="onFocusComponent(refComponent?.component)"
+        class="p-4 border focus:outline-none font-light cursor-pointer"
+        [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+      >
+        <ng-container>
+          {{ refComponent?.component?.componentType | componentGetName }}
+        </ng-container>
+      </div>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+        <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+        <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsLayoutRenderingComponent'">
+        <ng-container *ngTemplateOutlet="containerTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="!headerContainer?.length" class="p-8 flex items-center justify-center border border-green-900 border-dashed">There is no component in HEADER</div>
+  <div class="grid border border-dashed border-green-500 p-4" *ngIf="contentContainer?.length">
+    <ng-container *ngFor="let refComponent of contentContainer; trackBy: trackByIndex; let index = index">
+      <div
+        (dblclick)="onFocusComponent(refComponent?.component)"
+        class="p-4 border focus:outline-none font-light cursor-pointer"
+        [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+      >
+        <ng-container>
+          {{ refComponent?.component?.componentType | componentGetName }}
+        </ng-container>
+      </div>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+        <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+        <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsLayoutRenderingComponent'">
+        <ng-container *ngTemplateOutlet="containerTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="!contentContainer?.length" class="p-8 flex items-center justify-center border border-dashed border-green-500">There is no component in CONTENT</div>
+  <div class="grid border border-dashed border-green-900 p-4" *ngIf="footerContainer?.length">
+    <ng-container *ngFor="let refComponent of footerContainer; trackBy: trackByIndex; let index = index">
+      <div
+        (dblclick)="onFocusComponent(refComponent?.component)"
+        class="p-4 border focus:outline-none font-light cursor-pointer"
+        [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+      >
+        <ng-container>
+          {{ refComponent?.component?.componentType | componentGetName }}
+        </ng-container>
+      </div>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+        <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+        <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="refComponent?.component?.componentType === 'CmsLayoutRenderingComponent'">
+        <ng-container *ngTemplateOutlet="containerTemplate; context: { component: refComponent?.component }"></ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="!footerContainer?.length" class="p-8 flex items-center justify-center border border-green-900 border-dashed">There is no component in FOOTER</div>
+</section>
+
+<ng-template #containerTemplate let-component="component">
+  <div class="grid" *ngIf="component?.currentColumnNumber as currentColumnNumber">
+    <ng-container *ngIf="component?.layoutDropListRef1?.data?.viewRefAndElementRefAndComponents as refComponent1">
+      <ng-container *ngIf="currentColumnNumber >= 1">
+        <div
+          (dblclick)="onFocusComponent(component?.containers?.get(0))"
+          class="px-4 py-2 border ml-8 cursor-pointer font-light"
+          [ngClass]="{ 'bg-green-100 border-green-500': component?.containers?.get(0)?.onFocus }"
+        >
+          Column 1
+        </div>
+        <div class="ml-16">
+          <ng-container *ngIf="refComponent1.length">
+            <ng-container *ngFor="let refComponent of refComponent1; trackBy: trackByIndex; let index = index">
+              <div
+                (dblclick)="onFocusComponent(refComponent?.component)"
+                class="px-4 py-2 border cursor-move font-light"
+                [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+              >
+                {{ refComponent?.component?.componentType | componentGetName }}
+              </div>
+              <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+                <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+              </ng-container>
+              <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+                <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="component?.layoutDropListRef2?.data?.viewRefAndElementRefAndComponents as refComponent2">
+      <ng-container *ngIf="currentColumnNumber >= 2">
+        <div
+          (dblclick)="onFocusComponent(component?.containers?.get(1))"
+          class="px-4 py-2 border ml-8 cursor-pointer font-light"
+          [ngClass]="{ 'bg-green-100 border-green-500': component?.containers?.get(1)?.onFocus }"
+        >
+          Column 2
+        </div>
+        <div class="ml-16">
+          <ng-container *ngFor="let refComponent of refComponent2; trackBy: trackByIndex; let index = index">
+            <div
+              (dblclick)="onFocusComponent(refComponent?.component)"
+              class="px-4 py-2 border cursor-move font-light"
+              [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+            >
+              {{ refComponent?.component?.componentType | componentGetName }}
+            </div>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+              <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+              <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="component?.layoutDropListRef3?.data?.viewRefAndElementRefAndComponents as refComponent3">
+      <ng-container *ngIf="currentColumnNumber >= 3">
+        <div
+          (dblclick)="onFocusComponent(component?.containers?.get(2))"
+          class="px-4 py-2 border ml-8 cursor-pointer font-light"
+          [ngClass]="{ 'bg-green-100 border-green-500': component?.containers?.get(2)?.onFocus }"
+        >
+          Column 3
+        </div>
+        <div class="ml-16">
+          <ng-container *ngFor="let refComponent of refComponent3; trackBy: trackByIndex; let index = index">
+            <div
+              (dblclick)="onFocusComponent(refComponent?.component)"
+              class="px-4 py-2 border cursor-move font-light"
+              [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+            >
+              {{ refComponent?.component?.componentType | componentGetName }}
+            </div>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+              <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+              <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="component?.layoutDropListRef4?.data?.viewRefAndElementRefAndComponents as refComponent4">
+      <ng-container *ngIf="currentColumnNumber >= 4">
+        <div
+          (dblclick)="onFocusComponent(component?.containers?.get(3))"
+          class="px-4 py-2 border ml-8 cursor-pointer font-light"
+          [ngClass]="{ 'bg-green-100 border-green-500': component?.containers?.get(3)?.onFocus }"
+        >
+          Column 4
+        </div>
+        <div class="ml-16">
+          <ng-container *ngFor="let refComponent of refComponent4; trackBy: trackByIndex; let index = index">
+            <div
+              (dblclick)="onFocusComponent(refComponent?.component)"
+              class="px-4 py-2 border cursor-move font-light"
+              [ngClass]="{ 'bg-green-100 border-green-500': refComponent?.component?.onFocus }"
+            >
+              {{ refComponent?.component?.componentType | componentGetName }}
+            </div>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsContentManagementRenderingComponent'">
+              <ng-container *ngTemplateOutlet="contentManagementTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="refComponent?.component?.componentType === 'CmsMediaGalleryRenderingComponent'">
+              <ng-container *ngTemplateOutlet="mediaGalleryTemplate; context: { component: refComponent?.component }"></ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #contentManagementTemplate let-component="component">
+  <div class="grid" *ngIf="component?.categoryContentsData as categoryContentsData">
+    <ng-container *ngFor="let categoryContents of categoryContentsData">
+      <div class="px-4 py-2 border ml-8 cursor-pointer font-light">{{ categoryContents?.category?.categoryName }} ({{ categoryContents?.contents?.length }} contents)</div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #mediaGalleryTemplate let-component="component">
+  <div class="grid" *ngIf="component?.mediaGalleryFormValue?.setting?.gallleryList as gallleryList">
+    <ng-container *ngFor="let gallery of gallleryList">
+      <div class="px-4 py-2 border ml-8 cursor-pointer font-light flex items-center">
+        <div class="flex items-center justify-center bg-gray-300 w-10 h-10 rounded-full mr-4">
+          <svg *ngIf="gallery.fileType === EBackground.IMAGE" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.6667 1H2.33333C1.59695 1 1 1.59695 1 2.33333V11.6667C1 12.403 1.59695 13 2.33333 13H11.6667C12.403 13 13 12.403 13 11.6667V2.33333C13 1.59695 12.403 1 11.6667 1Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M4.66797 5.66602C5.22025 5.66602 5.66797 5.2183 5.66797 4.66602C5.66797 4.11373 5.22025 3.66602 4.66797 3.66602C4.11568 3.66602 3.66797 4.11373 3.66797 4.66602C3.66797 5.2183 4.11568 5.66602 4.66797 5.66602Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path d="M12.9987 8.99935L9.66536 5.66602L2.33203 12.9993" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg *ngIf="gallery.fileType === EBackground.VIDEO" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13 4.99865L17.553 2.72265C17.7054 2.64649 17.8748 2.61053 18.045 2.6182C18.2152 2.62587 18.3806 2.6769 18.5256 2.76646C18.6706 2.85602 18.7902 2.98113 18.8733 3.12993C18.9563 3.27872 18.9999 3.44626 19 3.61665V10.3807C18.9999 10.551 18.9563 10.7186 18.8733 10.8674C18.7902 11.0162 18.6706 11.1413 18.5256 11.2308C18.3806 11.3204 18.2152 11.3714 18.045 11.3791C17.8748 11.3868 17.7054 11.3508 17.553 11.2747L13 8.99865V4.99865Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M11 1H3C1.89543 1 1 1.89543 1 3V11C1 12.1046 1.89543 13 3 13H11C12.1046 13 13 12.1046 13 11V3C13 1.89543 12.1046 1 11 1Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        {{ gallery?.title }}
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

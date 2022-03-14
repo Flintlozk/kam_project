@@ -1,0 +1,20 @@
+@import 'base';
+
+.setting-logistic-flat-shipping {
+  .label {
+    color: #576f83;
+    font-weight: 200;
+    font-size: 12px;
+    padding-bottom: 10px;
+  }
+
+  input {
+    text-align: left;
+    padding: 10px 15px;
+    border: 1px solid #dddfea;
+    border-radius: 8px;
+    padding: 9px 15px;
+    width: calc(100% - 30px);
+    height: 35px;
+  }
+}

@@ -1,0 +1,1602 @@
+@import '/pages/styles/variable.module.scss';
+.normalImage {
+  width: 10px;
+  .normalBT {
+    margin-bottom: 3px;
+  }
+}
+.mobileNavContainer {
+  width: 90%;
+  margin: 0 auto;
+  height: 95px;
+
+  .mobileBarContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .flexLeftSide {
+      display: flex;
+
+      .leftMenuToggle {
+        padding-top: 10px;
+        // width: 60px;
+
+        .hamburgerMenu {
+          display: block;
+          // position: absolute;
+          width: 62px;
+          height: 60px;
+          position: relative;
+          float: left;
+          z-index: 1000;
+          transition-duration: 0.5s;
+
+          .circleBG {
+            height: 45px;
+            width: 45px;
+            top: 16px;
+            // left: 19px;
+            background-color: $more_blue40;
+            border-radius: 50%;
+            position: relative;
+
+            i {
+              transition-duration: 0.25s;
+              position: absolute;
+              width: 26px;
+              height: 3px;
+              top: 21px;
+              left: 9.5px;
+              background-color: #ffffff;
+
+              &:before,
+              &:after {
+                transition-duration: 0.25s;
+                position: absolute;
+                width: 26px;
+                height: 3px;
+                background-color: #ffffff;
+                content: '';
+              }
+
+              &:before {
+                top: -7px;
+                left: 0;
+              }
+
+              &:after {
+                top: 7px;
+                left: 0;
+              }
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &.sticky {
+            top: 0px;
+          }
+        }
+      }
+
+      .topLogoMobile {
+        padding-top: 22px;
+        // padding-left: 10px;
+        //width: 40vw;
+        padding-right: 38px;
+
+        .logoMobile {
+          width: 26vw;
+          height: 56px;
+        }
+      }
+    }
+
+    .menuRightToggle {
+      float: right;
+      // right: 0;
+      // text-align: right;
+      // width: 20%;
+      padding-top: 25px;
+      // font-size: 18px;
+
+      a {
+        text-decoration: none;
+        // color: white;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        .mainPageButton {
+          color: white;
+          cursor: pointer;
+          border: 1px solid white;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          font-family: 'DM Sans', sans-serif !important;
+          text-decoration: none;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: white;
+            color: $more_blue60 !important;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+.menuBackGround {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1001;
+  top: 0;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-delay: 0;
+
+  .mobileBarContainer {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
+
+    .flexLeftSide {
+      display: flex;
+
+      .leftMenuToggle {
+        padding-top: 10px;
+        // width: 15%;
+
+        .hamburgerMenu {
+          display: block;
+          // position: absolute;
+          width: 62px;
+          height: 60px;
+          position: relative;
+          float: left;
+          z-index: 1000;
+          transition-duration: 0.5s;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &.open {
+            transition-duration: 1s;
+
+            .circleBG {
+              height: 45px;
+              width: 45px;
+              top: 16px;
+              // left: 19px;
+              background-color: $more_blue20;
+              border-radius: 50%;
+              position: relative;
+
+              i {
+                transition-duration: 0.25s;
+                position: absolute;
+                width: 26px;
+                height: 3px;
+                top: -17px;
+                left: 8.5px;
+                font-size: 55px;
+                // background-color: #ffffff;
+                color: $more_blue60;
+                // height: 100px;
+                // width: 100px;
+                // background-color: #FA6900;
+                border-radius: 5px;
+                position: relative;
+
+                // &:before {
+                //     transition-duration: 0.5s;
+                //     top: 0;
+                //     transform: rotate(45deg);
+                //     -webkit-transform: rotate(45deg);
+                // }
+
+                &:after {
+                  content: '\d7';
+                }
+              }
+            }
+          }
+
+          &.sticky {
+            top: 0px;
+          }
+        }
+      }
+
+      .topLogoMobile {
+        padding-top: 22px;
+        //width: 40vw;
+        padding-right: 38px;
+
+        .logoMobile {
+          width: 26vw;
+          height: 56px;
+        }
+      }
+    }
+
+    .menuRightToggle {
+      float: right;
+      // right: 0;
+      // text-align: right;
+      // width: 20%;
+      padding-top: 25px;
+      // font-size: 2.8vw;
+
+      a {
+        text-decoration: none;
+        // color: white;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        .mainPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+
+  .menuContainer {
+    position: relative;
+    // margin: 0 auto;
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+
+    .priceMenu {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      border-bottom-style: solid;
+      border-color: $more_coolgrey10;
+      border-bottom-width: 1px;
+      .priceIcon {
+        width: 20px;
+        margin-top: 16px;
+        padding-right: 25px;
+        margin-bottom: -4px;
+        filter: invert(42%) sepia(9%) saturate(1170%) hue-rotate(164deg) brightness(96%) contrast(89%);
+      }
+
+      a {
+        padding-left: 25px;
+        color: $more_coolgrey70;
+        font-size: 5.5vw;
+        text-decoration: none;
+        font-weight: 500;
+      }
+    }
+
+    .contactMenu {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      border-bottom-style: solid;
+      border-color: $more_coolgrey10;
+      border-bottom-width: 1px;
+
+      .contactIcon {
+        width: 20px;
+        margin-top: 16px;
+        padding-right: 25px;
+        margin-bottom: -4px;
+        filter: invert(42%) sepia(9%) saturate(1170%) hue-rotate(164deg) brightness(96%) contrast(89%);
+      }
+
+      a {
+        padding-left: 25px;
+        font-size: 5.5vw;
+        color: $more_coolgrey70;
+        text-decoration: none;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.stickyMobileNavContainer {
+  width: 100%;
+  height: 78px;
+  top: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 1005;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  animation-duration: 0.6s;
+  animation-delay: 0;
+
+  &.showStickMenu {
+    display: block;
+  }
+
+  &.hideStickMenu {
+    display: none;
+  }
+
+  .stickyMobileBarContainer {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    .flexLeftSide {
+      display: flex;
+
+      .leftMenuToggle {
+        padding-top: 2px;
+        // width: 15%;
+
+        .hamburgerMenu {
+          display: block;
+          // position: absolute;
+          width: 62px;
+          height: 60px;
+          position: relative;
+          float: left;
+          z-index: 1000;
+          transition-duration: 0.5s;
+
+          .circleBG {
+            height: 45px;
+            width: 45px;
+            top: 14px;
+            // left: 19px;
+            background-color: $more_blue40;
+            border-radius: 50%;
+            position: relative;
+
+            i {
+              transition-duration: 0.25s;
+              position: absolute;
+              width: 26px;
+              height: 3px;
+              top: 21px;
+              left: 9.5px;
+              background-color: #ffffff;
+
+              &:before,
+              &:after {
+                transition-duration: 0.25s;
+                position: absolute;
+                width: 26px;
+                height: 3px;
+                background-color: #ffffff;
+                content: '';
+              }
+
+              &:before {
+                top: -7px;
+                left: 0;
+              }
+
+              &:after {
+                top: 7px;
+                left: 0;
+              }
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &.sticky {
+            top: 0px;
+          }
+        }
+      }
+
+      .topLogoMobile {
+        padding-top: 12px;
+        // padding-left: 10px;
+        //width: 40vw;
+        padding-right: 38px;
+
+        .logoImage {
+          width: 26vw;
+          height: 56px;
+        }
+      }
+    }
+
+    .menuRightToggle {
+      float: right;
+      // right: 0;
+      // text-align: right;
+      // width: 20%;
+      padding-top: 15px;
+      // font-size: 2.8vw;
+
+      a {
+        text-decoration: none;
+        // color: white;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        .mainPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.8rem 1.5rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+          font-size: 3.6vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .MobileMenuToggled {
+//     display: block !important;
+//     animation-duration: 0.8s;
+//     animation-delay: 0;
+//     // position: absolute;
+
+//     &.openToggle {
+//         -webkit-animation-name: fadeIn;
+//         animation-name: fadeIn;
+//     }
+
+//     &.closeToggle {
+//         -webkit-animation-name: fadeOut;
+//         animation-name: fadeOut;
+//     }
+// }
+
+.navbarContainer {
+  // width: 300px;
+  // display: block;
+  height: 110px;
+  width: 100%;
+  // top: 0;
+  // position: fixed;
+
+  // &.unactiveFeature {
+  //     background-color: transparent;
+
+  // }
+
+  // &.activeFeature {
+  //     background-color: white;
+  //     -webkit-animation-name: fadeIn;
+  //     animation-name: fadeIn;
+  //     animation-duration: 0.6s;
+  //     animation-delay: 0;
+
+  //     .menuBarContainer {
+  //         .menuLeftContent {
+  //             .logoImage {
+  //                 filter: invert(42%) sepia(30%) saturate(7050%) hue-rotate(188deg) brightness(104%) contrast(106%);
+  //             }
+  //         }
+  //     }
+
+  //     .menuCenterContent {
+  //         .mainPageColor {
+  //             color: $more_coolgrey70  !important;
+  //         }
+  //     }
+
+  //     .menuRightContent {
+  //         a {
+  //             .mainPageButton {
+  //                 font-family: 'DM Sans', sans-serif !important;
+  //                 color: white;
+  //                 cursor: pointer;
+  //                 border: none !important;
+  //                 border-radius: 40px;
+  //                 padding: 0.7rem 2.25rem;
+  //                 font-weight: 700;
+  //                 background-color: $more_blue60;
+  //                 box-shadow: 0px 4px 12px #0091ff63;
+
+  //                 &:hover {
+  //                     background: $more_blue50;
+  //                     color: white;
+  //                     border-color: white;
+  //                 }
+
+  //                 &:disabled {
+  //                     background: #d5d5d5;
+  //                     color: black;
+  //                 }
+  //             }
+  //         }
+
+  //     }
+  // }
+
+  .menuBarContainer {
+    width: 1440px;
+    margin: 0 auto;
+
+    .menuLeftContent {
+      padding-top: 30px;
+      float: left;
+
+      .logoImage {
+        width: 158px;
+        height: 56px;
+      }
+    }
+
+    .menuCenterContent {
+      padding-top: 40px;
+      width: 70%;
+      float: left;
+
+      .mainPageColor {
+        color: white;
+      }
+
+      .otherPageColor {
+        color: $more_coolgrey70;
+
+        &:hover {
+          color: $more_coolgrey80;
+        }
+      }
+
+      a {
+        padding-left: 100px;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+    }
+
+    .menuRightContent {
+      float: right;
+      // width: 20%;
+      padding-top: 35px;
+
+      a {
+        text-decoration: none;
+        // color: white;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 40px;
+          padding: 0.7rem 2.25rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          box-shadow: 0px 4px 12px #0091ff63;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        .mainPageButton {
+          color: white;
+          cursor: pointer;
+          border: 1px solid white;
+          border-radius: 40px;
+          padding: 0.7rem 2.25rem;
+          font-weight: 700;
+          font-family: 'DM Sans', sans-serif !important;
+          text-decoration: none;
+
+          &:hover {
+            background: white;
+            color: $more_blue60 !important;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+.toggleFeatureMenuContainerMobile {
+  // display: none;
+  width: 100%;
+  height: 35vw;
+  background-color: white;
+  position: absolute;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-delay: 0;
+  border-top: $more_coolgrey20 solid 1px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 999;
+
+  .flexToggleMenu {
+    width: 225%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 25px auto;
+
+    .CardContainer {
+      text-align: center;
+      cursor: pointer;
+
+      .imageCard {
+        padding-bottom: 5px;
+        position: relative;
+        max-width: 14vw;
+
+        img {
+          width: 14vw;
+        }
+      }
+
+      .titleCard {
+        font-size: 3.1vw;
+        color: $more_coolgrey60;
+        font-weight: 600;
+      }
+
+      &:hover {
+        .titleCard {
+          color: $more_coolgrey60;
+        }
+      }
+    }
+  }
+}
+
+.toggleFeatureStickContainerMobile {
+  // display: none;
+  z-index: 999;
+  width: 100%;
+  top: 72px;
+  height: 35vw;
+  background-color: white;
+  position: fixed;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  animation-duration: 0.6s;
+  animation-delay: 0;
+  border-top: $more_coolgrey20 solid 1px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  .flexToggleStick {
+    width: 225%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 25px auto;
+
+    .CardStickContainer {
+      text-align: center;
+      cursor: pointer;
+
+      .imageStickCard {
+        padding-bottom: 5px;
+        position: relative;
+        max-width: 14vw;
+        margin: auto;
+        img {
+          // width: 14vw;
+        }
+      }
+
+      .titleStickCard {
+        font-size: 3.1vw;
+        color: $more_coolgrey60;
+        font-weight: 600;
+      }
+
+      &:hover {
+        .titleStickCard {
+          color: $more_blue60;
+        }
+      }
+    }
+  }
+}
+
+.toggleFeatureMenuContainer {
+  // display: none;
+  width: 100%;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-delay: 0;
+  border-top: $more_coolgrey20 solid 1px;
+
+  .flexToggleMenu {
+    width: 1440px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 30px auto;
+
+    .CardContainer {
+      text-align: center;
+      cursor: pointer;
+
+      .imageCard {
+        max-width: 50px;
+        margin: auto;
+        padding-bottom: 5px;
+
+        img {
+          // width: 50px;
+        }
+      }
+
+      .titleCard {
+        font-size: 1rem;
+        color: $more_coolgrey70;
+        font-weight: 500;
+      }
+
+      &:hover {
+        .titleCard {
+          color: $more_coolgrey80;
+        }
+      }
+    }
+  }
+}
+
+.toggleFeatureStickContainer {
+  // display: none;
+  z-index: 9999;
+  width: 100%;
+  top: 72px;
+  height: 140px;
+  background-color: white;
+  position: fixed;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  animation-duration: 0.6s;
+  animation-delay: 0;
+  border-top: $more_coolgrey20 solid 1px;
+
+  .flexToggleStick {
+    width: 1440px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px auto;
+
+    .CardStickContainer {
+      text-align: center;
+      cursor: pointer;
+
+      .imageStickCard {
+        position: relative;
+        padding-bottom: 5px;
+        max-width: 50px;
+        margin: auto;
+
+        img {
+          // width: 50px;
+        }
+      }
+
+      .titleStickCard {
+        font-size: 1rem;
+        color: $more_coolgrey60;
+        font-weight: 500;
+      }
+
+      &:hover {
+        .titleStickCard {
+          color: $more_coolgrey80;
+        }
+      }
+    }
+  }
+}
+
+.stickyNavBarContainer {
+  width: 100%;
+  height: 72px;
+  top: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 0px 6px 12px #383a4014;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  animation-duration: 0.6s;
+  animation-delay: 0;
+
+  .menuBarContainer {
+    width: 1440px;
+    margin: 0 auto;
+
+    .menuLeftContent {
+      padding-top: 15px;
+      float: left;
+
+      .logoImage {
+        width: 128px;
+        height: 44px;
+      }
+    }
+
+    .menuCenterContent {
+      padding-top: 22px;
+      width: 70%;
+      float: left;
+
+      .otherPageColor {
+        color: $more_coolgrey70;
+      }
+
+      a {
+        color: $more_coolgrey70;
+        padding-left: 100px;
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+    }
+
+    .menuRightContent {
+      float: right;
+      // width: 20%;
+      padding-top: 15px;
+
+      a {
+        text-decoration: none;
+
+        .otherPageButton {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 0.7rem 2.25rem;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-family: 'DM Sans', sans-serif !important;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .navbarContainer {
+    height: 110px;
+    width: 100%;
+
+    .menuBarContainer {
+      width: 85%;
+      margin: 0 auto;
+
+      .menuLeftContent {
+        padding-top: 30px;
+        float: left;
+
+        .logoImage {
+          width: 158px;
+          height: 56px;
+        }
+      }
+
+      .menuCenterContent {
+        padding-top: 40px;
+        width: 50%;
+        float: left;
+
+        .mainPageColor {
+          color: white;
+        }
+
+        .otherPageColor {
+          color: $more_coolgrey70;
+        }
+
+        a {
+          padding-left: 6.4vw;
+          text-decoration: none;
+          font-size: 1.7vw;
+          font-weight: 500;
+        }
+      }
+
+      .menuRightContent {
+        float: right;
+        // width: 20%;
+        padding-top: 35px;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 0.9vw 2.7vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 1.4vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+
+        .mainPageButton {
+          color: white;
+          cursor: pointer;
+          border: 1px solid white;
+          border-radius: 40px;
+          padding: 0.9vw 2.7vw;
+          font-weight: 700;
+          font-family: 'DM Sans', sans-serif !important;
+          font-size: 1.4vw;
+
+          &:hover {
+            background: white;
+            color: $more_blue60;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleFeatureMenuContainer {
+    height: 160px;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+    animation-delay: 0;
+
+    .flexToggleMenu {
+      width: 85%;
+      margin: 30px auto;
+
+      .CardContainer {
+        .imageCard {
+          max-width: 45px;
+          padding-bottom: 5px;
+
+          img {
+            // width: 45px;
+          }
+        }
+
+        .titleCard {
+          font-size: 1.2vw;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .toggleFeatureStickContainer {
+    top: 72px;
+    height: 140px;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    animation-duration: 0.8s;
+    animation-delay: 0;
+
+    .flexToggleStick {
+      width: 85%;
+      margin: 20px auto;
+
+      .CardStickContainer {
+        .imageStickCard {
+          padding-bottom: 5px;
+          max-width: 45px;
+
+          img {
+            // width: 45px;
+          }
+        }
+
+        .titleStickCard {
+          font-size: 1.2vw;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .stickyNavBarContainer {
+    width: 100%;
+    height: 72px;
+    top: 0;
+    position: fixed;
+    background-color: white;
+    z-index: 999;
+    box-shadow: 0px 6px 12px #383a4014;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    animation-duration: 0.8s;
+    animation-delay: 0;
+
+    .menuBarContainer {
+      width: 85%;
+      margin: 0 auto;
+
+      .menuLeftContent {
+        padding-top: 15px;
+        float: left;
+
+        .logoImage {
+          width: 128px;
+          height: 44px;
+        }
+      }
+
+      .menuCenterContent {
+        padding-top: 22px;
+        width: 50%;
+        float: left;
+
+        .otherPageColor {
+          color: $more_coolgrey70;
+        }
+
+        a {
+          padding-left: 6.4vw;
+          text-decoration: none;
+          font-size: 1.7vw;
+          font-weight: 500;
+        }
+      }
+
+      .menuRightContent {
+        float: right;
+        // width: 20%;
+        padding-top: 12px;
+
+        .otherPageButton {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 0.9vw 2.7vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-family: 'DM Sans', sans-serif !important;
+          font-size: 1.2vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  .toggleFeatureMenuContainer {
+    height: 118px;
+
+    .flexToggleMenu {
+      width: 85%;
+      margin: 20px auto;
+
+      .CardContainer {
+        .imageCard {
+          max-width: 40px;
+          padding-bottom: 5px;
+
+          img {
+            // width: 40px;
+          }
+        }
+
+        .titleCard {
+          font-size: 1.2vw;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .toggleFeatureStickContainer {
+    top: 72px;
+    height: 118px;
+
+    .flexToggleStick {
+      width: 85%;
+      margin: 20px auto;
+
+      .CardStickContainer {
+        .imageStickCard {
+          max-width: 40px;
+          padding-bottom: 5px;
+
+          img {
+            // width: 40px;
+          }
+        }
+
+        .titleStickCard {
+          font-size: 1.2vw;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+@include tablet_vertical {
+  .navbarContainer {
+    height: 90px;
+    width: 100%;
+
+    .menuBarContainer {
+      width: 85%;
+      margin: 0 auto;
+
+      .menuLeftContent {
+        padding-top: 23px;
+        float: left;
+
+        .logoImage {
+          width: 120px;
+          height: 56px;
+        }
+      }
+
+      .menuCenterContent {
+        padding-top: 35px;
+        width: 50%;
+        float: left;
+
+        .mainPageColor {
+          color: white;
+        }
+
+        .otherPageColor {
+          color: $more_coolgrey70;
+        }
+
+        a {
+          padding-left: 4vw;
+          text-decoration: none;
+          font-size: 2.4vw;
+          font-weight: 500;
+        }
+      }
+
+      .menuRightContent {
+        float: right;
+        // width: 20%;
+        padding-top: 30px;
+
+        .otherPageButton {
+          font-family: 'DM Sans', sans-serif !important;
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 1vw 3.7vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 2vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+
+        .mainPageButton {
+          color: white;
+          cursor: pointer;
+          border: 1px solid white;
+          border-radius: 40px;
+          padding: 1vw 3.7vw;
+          font-weight: 700;
+          font-family: 'DM Sans', sans-serif !important;
+          font-size: 2vw;
+
+          &:hover {
+            background: white;
+            color: $more_blue60;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleFeatureMenuContainer {
+    height: 100px;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+    animation-delay: 0;
+
+    .flexToggleMenu {
+      width: 85%;
+      margin: 18px auto;
+
+      .CardContainer {
+        .imageCard {
+          max-width: 30px;
+          padding-bottom: 5px;
+
+          img {
+            // width: 30px;
+          }
+        }
+
+        .titleCard {
+          font-size: 1.6vw;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .toggleFeatureStickContainer {
+    top: 72px;
+    height: 100px;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    animation-duration: 0.8s;
+    animation-delay: 0;
+
+    .flexToggleStick {
+      width: 85%;
+      margin: 15px auto;
+
+      .CardStickContainer {
+        .imageStickCard {
+          max-width: 30px;
+          padding-bottom: 5px;
+
+          img {
+            // width: 30px;
+          }
+        }
+
+        .titleStickCard {
+          font-size: 1.6vw;
+          color: $more_coolgrey60;
+          font-weight: 500;
+        }
+
+        &:hover {
+          .titleStickCard {
+            color: $more_blue60;
+          }
+        }
+      }
+    }
+  }
+
+  .stickyNavBarContainer {
+    width: 100%;
+    height: 72px;
+    top: 0;
+    position: fixed;
+    background-color: white;
+    z-index: 999;
+    box-shadow: 0px 6px 12px #383a4014;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    animation-duration: 0.8s;
+    animation-delay: 0;
+
+    .menuBarContainer {
+      width: 85%;
+      margin: 0 auto;
+
+      .menuLeftContent {
+        padding-top: 15px;
+        float: left;
+
+        .logoImage {
+          width: 120px;
+          height: 44px;
+        }
+      }
+
+      .menuCenterContent {
+        padding-top: 22px;
+        width: 50%;
+        float: left;
+
+        .otherPageColor {
+          color: $more_coolgrey70;
+        }
+
+        a {
+          padding-left: 4vw;
+          text-decoration: none;
+          font-size: 2.4vw;
+          font-weight: 500;
+        }
+      }
+
+      .menuRightContent {
+        float: right;
+        // width: 20%;
+        padding-top: 18px;
+
+        .otherPageButton {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 1vw 3.7vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-family: 'DM Sans', sans-serif !important;
+          font-size: 2vw;
+
+          &:hover {
+            background: $more_blue50;
+            color: white;
+            border-color: white;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  .mobileNavContainer {
+    .mobileBarContainer {
+      .menuRightToggle {
+        a {
+          .otherPageButton {
+            font-size: 3vw;
+          }
+        }
+
+        a {
+          .mainPageButton {
+            font-size: 3vw;
+          }
+        }
+      }
+    }
+  }
+
+  .menuBackGround {
+    .mobileBarContainer {
+      .menuRightToggle {
+        a {
+          .otherPageButton {
+            font-size: 3vw;
+          }
+        }
+
+        a {
+          .mainPageButton {
+            font-size: 3vw;
+          }
+        }
+      }
+    }
+  }
+
+  .stickyMobileNavContainer {
+    .stickyMobileBarContainer {
+      .menuRightToggle {
+        a {
+          .otherPageButton {
+            font-size: 3vw;
+          }
+        }
+
+        a {
+          .mainPageButton {
+            font-size: 3vw;
+          }
+        }
+      }
+    }
+  }
+}

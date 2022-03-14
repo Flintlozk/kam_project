@@ -1,0 +1,882 @@
+<div class="flex items-center justify-end pb-4" *ngIf="isContentEditor">
+  <button (click)="onDismissContentEditor()" class="transition transform focus:outline-none hover:scale-105">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+    </svg>
+  </button>
+</div>
+<section class="grid gap-4" [formGroup]="layoutTextForm">
+  <div class="grid gap-1">
+    <div class="font-light text-sm">Theme Style</div>
+    <div class="select-options text">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="themeStyle">
+          <mat-option *ngFor="let themeStyle of themeStyleData" [value]="themeStyle.value">
+            {{ themeStyle.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <ng-container *ngFor="let toggleItem of toggleData; let toggleIndex = index">
+    <button (click)="onToggleItem(toggleIndex)" class="flex items-center justify-between px-4 py-3 bg-gray-400 rounded focus:outline-none">
+      <span class="font-light text-white">{{ toggleItem.title }}</span>
+      <svg class="transition transform" [ngClass]="{ ' -rotate-90': toggleItem.status }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container *ngTemplateOutlet="toggleContent; context: { selector: toggleItem.title, status: toggleItem.status }"></ng-container>
+  </ng-container>
+
+  <ng-template #toggleContent let-status="status" let-selector="selector">
+    <div [ngClass]="{ hidden: !status }">
+      <ng-container *ngIf="selector === ESidebarElement.TEXT_GENERAL">
+        <div formGroupName="text" class="grid gap-4">
+          <div class="grid gap-1">
+            <div class="text-sm font-light flex items-center">
+              Font
+              <button
+                *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                (click)="onToggleDefault('isThemeFontFamily')"
+                [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeFontFamily'].value }"
+                class="focus:outline-none text-gray-500 fill-current pl-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="20" rx="10" />
+                  <path
+                    d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div *ngIf="!layoutTextForm['controls']['isThemeFontFamily'].value || !layoutTextForm['controls']['themeStyle'].value">
+              <div matAutocompleteOrigin #fontFamilyOrigin="matAutocompleteOrigin">
+                <input
+                  onClick="this.setSelectionRange(0, this.value.length)"
+                  placeholder="Search Font..."
+                  class="focus:outline-none border-white bg-transparent rounded h-12 px-4 border w-full"
+                  formControlName="fontFamily"
+                  [matAutocomplete]="fontFamily"
+                  [matAutocompleteConnectedTo]="fontFamilyOrigin"
+                />
+              </div>
+              <mat-autocomplete #fontFamily="matAutocomplete">
+                <mat-option *ngFor="let fontFamily of filterFontFamilyData | async" [value]="fontFamily.value">{{ fontFamily.title }}</mat-option>
+              </mat-autocomplete>
+            </div>
+            <div
+              (click)="onToggleDefault('isThemeFontFamily')"
+              class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md bg-gray-700"
+              *ngIf="layoutTextForm['controls']['isThemeFontFamily'].value && layoutTextForm['controls']['themeStyle'].value"
+            >
+              <span>{{ globalThemeFontSetting?.familyCode }}</span>
+            </div>
+          </div>
+          <div class="grid gap-2 grid-cols-2 items-end">
+            <div class="grid gap-1">
+              <div class="text-sm font-light flex items-center">
+                Style
+                <button
+                  *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                  (click)="onToggleDefault('isThemeStyle')"
+                  [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeStyle'].value }"
+                  class="focus:outline-none text-gray-500 fill-current pl-2"
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="20" height="20" rx="10" />
+                    <path
+                      d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="select-options text" *ngIf="!layoutTextForm['controls']['isThemeStyle'].value || !layoutTextForm['controls']['themeStyle'].value">
+                <mat-form-field appearance="fill">
+                  <mat-select formControlName="fontStyle" [(value)]="layoutTextForm['controls']['text']['controls']['fontStyle'].value">
+                    <mat-option *ngFor="let fontStyle of fontStyleData" [value]="fontStyle.value">
+                      {{ fontStyle.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div
+                (click)="onToggleDefault('isThemeStyle')"
+                class="h-12 py-0 px-3 bg-gray-700 border border-gray-100 font-light rounded-md flex items-center"
+                *ngIf="layoutTextForm['controls']['isThemeStyle'].value && layoutTextForm['controls']['themeStyle'].value"
+              >
+                {{ globalThemeFontSetting?.style }}
+              </div>
+            </div>
+            <div class="grid gap-1">
+              <div class="text-sm font-light flex items-center">
+                Size
+                <button
+                  *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                  (click)="onToggleDefault('isThemeFontSize')"
+                  [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeFontSize'].value }"
+                  class="focus:outline-none text-gray-500 fill-current pl-2"
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="20" height="20" rx="10" />
+                    <path
+                      d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  *ngIf="!layoutTextForm['controls']['isThemeFontSize'].value || !layoutTextForm['controls']['themeStyle'].value"
+                  (click)="onSwitchFontSize()"
+                  class="focus:outline-none bg-gray-200 rounded-full font-light text-sm flex items-center px-3 py-1 ml-2"
+                >
+                  <span class="pr-2">{{ fontSizeCurrent === 'px' ? 'Pixel' : 'Em' }}</span>
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9.60065 2.85746C9.60065 2.70602 9.53743 2.56077 9.42489 2.45369C9.31234 2.3466 9.1597 2.28644 9.00054 2.28644H2.04528L3.42553 0.97879C3.53854 0.871263 3.60202 0.725427 3.60202 0.573362C3.60202 0.421297 3.53854 0.27546 3.42553 0.167934C3.31253 0.0604076 3.15927 1.13297e-09 2.99946 0C2.83965 -1.13297e-09 2.68638 0.0604076 2.57338 0.167934L0.172943 2.45203C0.0896735 2.53233 0.0332655 2.6343 0.010837 2.74508C-0.0115916 2.85585 0.000964313 2.97046 0.0469203 3.07445C0.0919405 3.17873 0.168393 3.268 0.266643 3.331C0.364893 3.394 0.480544 3.42792 0.59902 3.42849H9.00054C9.1597 3.42849 9.31234 3.36833 9.42489 3.26124C9.53743 3.15415 9.60065 3.00891 9.60065 2.85746ZM11.9531 4.92457C11.9081 4.82029 11.8316 4.73103 11.7334 4.66802C11.6351 4.60502 11.5195 4.5711 11.401 4.57054H2.99946C2.8403 4.57054 2.68766 4.6307 2.57512 4.73779C2.46257 4.84488 2.39935 4.99012 2.39935 5.14156C2.39935 5.29301 2.46257 5.43825 2.57512 5.54534C2.68766 5.65243 2.8403 5.71259 2.99946 5.71259H9.95472L8.57447 7.02024C8.51822 7.07332 8.47357 7.13648 8.44311 7.20606C8.41264 7.27565 8.39696 7.35028 8.39696 7.42566C8.39696 7.50105 8.41264 7.57568 8.44311 7.64527C8.47357 7.71485 8.51822 7.77801 8.57447 7.83109C8.63026 7.88461 8.69663 7.92709 8.76976 7.95608C8.84289 7.98507 8.92132 8 9.00054 8C9.07977 8 9.1582 7.98507 9.23133 7.95608C9.30446 7.92709 9.37083 7.88461 9.42662 7.83109L11.8271 5.54699C11.9103 5.46669 11.9667 5.36472 11.9892 5.25395C12.0116 5.14318 11.999 5.02856 11.9531 4.92457Z"
+                      fill="#BCC4D6"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <ng-container *ngIf="!layoutTextForm['controls']['isThemeFontSize'].value || !layoutTextForm['controls']['themeStyle'].value">
+                <div *ngIf="fontSizeCurrent === 'px'">
+                  <div matAutocompleteOrigin #fontSizePxOrigin="matAutocompleteOrigin">
+                    <input
+                      onClick="this.setSelectionRange(0, this.value.length)"
+                      placeholder="Font Size..."
+                      class="focus:outline-none border-white bg-transparent rounded h-12 px-4 border w-full"
+                      formControlName="fontSize"
+                      [matAutocomplete]="fontSizePx"
+                      [matAutocompleteConnectedTo]="fontSizePxOrigin"
+                    />
+                  </div>
+                  <mat-autocomplete #fontSizePx="matAutocomplete">
+                    <mat-option *ngFor="let fontSize of filterFontSizePxData | async" [value]="fontSize">{{ fontSize }}</mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div *ngIf="fontSizeCurrent === 'em'">
+                  <div matAutocompleteOrigin #fontSizeEmOrigin="matAutocompleteOrigin">
+                    <input
+                      onClick="this.setSelectionRange(0, this.value.length)"
+                      placeholder="Font Size..."
+                      class="focus:outline-none border-white bg-transparent rounded h-12 px-4 border w-full"
+                      formControlName="fontSize"
+                      [matAutocomplete]="fontSizeEm"
+                      [matAutocompleteConnectedTo]="fontSizeEmOrigin"
+                    />
+                  </div>
+                  <mat-autocomplete #fontSizeEm="matAutocomplete">
+                    <mat-option *ngFor="let fontSize of filterFontSizeEmData | async" [value]="fontSize">{{ fontSize }}</mat-option>
+                  </mat-autocomplete>
+                </div>
+              </ng-container>
+              <div
+                (click)="onToggleDefault('isThemeFontSize')"
+                class="h-12 py-0 px-3 bg-gray-700 border border-gray-100 font-light rounded-md flex items-center"
+                *ngIf="layoutTextForm['controls']['isThemeFontSize'].value && layoutTextForm['controls']['themeStyle'].value"
+              >
+                {{ globalThemeFontSetting?.size }}{{ globalThemeFontSetting?.unit }}
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light flex items-center">
+              Color
+              <button
+                *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                (click)="onToggleDefault('isThemeTextColor')"
+                [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeTextColor'].value }"
+                class="focus:outline-none text-gray-500 fill-current pl-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="20" rx="10" />
+                  <path
+                    d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <ng-container *ngIf="!layoutTextForm['controls']['isThemeTextColor'].value || !layoutTextForm['controls']['themeStyle'].value">
+              <div class="grid grid-cols-2 gap-2 w-full">
+                <div class="select-options text">
+                  <mat-form-field appearance="fill">
+                    <mat-select formControlName="colorStyle">
+                      <mat-option *ngFor="let modeColor of modeColorData" [value]="modeColor.value">
+                        {{ modeColor.title }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div *ngIf="layoutTextForm['controls']['text']['controls']['colorStyle'].value" class="flex items-center">
+                  <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36 bg-gray-700">
+                    <input
+                      *ngIf="themeMode === EnumThemeMode.LIGHT"
+                      type="color"
+                      disabled
+                      [value]="globalThemeColorSetting?.light?.color"
+                      class="focus:outline-none border-gray-200 border-2 focus:border-green-500 bg-transparent"
+                    />
+                    <input
+                      *ngIf="themeMode === EnumThemeMode.DARK"
+                      type="color"
+                      disabled
+                      [value]="globalThemeColorSetting?.dark?.color"
+                      class="focus:outline-none border-gray-200 border-2 focus:border-green-500 bg-transparent"
+                    />
+                    <span *ngIf="themeMode === EnumThemeMode.LIGHT" class="pl-2">{{ globalModeColorSetting?.light?.color }}</span>
+                    <span *ngIf="themeMode === EnumThemeMode.DARK" class="pl-2">{{ globalModeColorSetting?.dark?.color }}</span>
+                  </div>
+                </div>
+                <div *ngIf="!layoutTextForm['controls']['text']['controls']['colorStyle'].value" class="flex items-center">
+                  <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36">
+                    <input type="color" formControlName="textColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                    <span class="pl-2">{{ layoutTextForm['controls']['text']['controls']['textColor'].value }}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <div
+              (click)="onToggleDefault('isThemeTextColor')"
+              *ngIf="layoutTextForm['controls']['isThemeTextColor'].value && layoutTextForm['controls']['themeStyle'].value"
+              class="flex items-center"
+            >
+              <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36 bg-gray-700">
+                <input
+                  *ngIf="themeMode === EnumThemeMode.LIGHT"
+                  type="color"
+                  disabled
+                  [value]="globalThemeColorSetting?.light?.color"
+                  class="focus:outline-none border-gray-200 border-2 focus:border-green-500 bg-transparent"
+                />
+                <input
+                  *ngIf="themeMode === EnumThemeMode.DARK"
+                  type="color"
+                  disabled
+                  [value]="globalThemeColorSetting?.dark?.color"
+                  class="focus:outline-none border-gray-200 border-2 focus:border-green-500 bg-transparent"
+                />
+                <span *ngIf="themeMode === EnumThemeMode.LIGHT" class="pl-2">{{ globalThemeColorSetting?.light?.color }}</span>
+                <span *ngIf="themeMode === EnumThemeMode.DARK" class="pl-2">{{ globalThemeColorSetting?.dark?.color }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light flex items-center">
+              Text Opacity
+              <button
+                *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                (click)="onToggleDefault('isThemeTextOpacity')"
+                [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeTextOpacity'].value }"
+                class="focus:outline-none text-gray-500 fill-current pl-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="20" rx="10" />
+                  <path
+                    d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                    stroke="white"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              *ngIf="!layoutTextForm['controls']['isThemeTextOpacity'].value || !layoutTextForm['controls']['themeStyle'].value"
+              class="flex items-center justify-between w-20 h-12 p-2 border border-gray-100 rounded-md"
+            >
+              <input type="text" formControlName="textOpacity" class="hidden w-full h-full focus:outline-none" />
+              <span>{{ layoutTextForm['controls']['text']['controls']['textOpacity'].value }}</span>
+              <div class="flex flex-col items-center justify-center">
+                <button (click)="onIncreaseTextOpacity()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <button (click)="onDecreaseTextOpacity()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              (click)="onToggleDefault('isThemeTextOpacity')"
+              *ngIf="layoutTextForm['controls']['isThemeTextOpacity'].value && layoutTextForm['controls']['themeStyle'].value"
+              class="flex items-center justify-between w-20 h-12 p-2 ml-2 border border-gray-100 rounded-md bg-gray-700"
+            >
+              <span *ngIf="themeMode === EnumThemeMode.LIGHT">{{ globalThemeColorSetting?.light?.opacity }}</span>
+              <span *ngIf="themeMode === EnumThemeMode.DARK"> {{ globalThemeColorSetting?.dark?.opacity }}</span>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <cms-next-cms-element-position [positionLabel]="positionLabel"></cms-next-cms-element-position>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.TEXT_TYPOGRAPHY">
+        <div formGroupName="typography" class="grid gap-4">
+          <div class="flex items-end justify-between">
+            <div class="w-full mr-2">
+              <div class="grid gap-1">
+                <div class="text-sm font-light flex items-center">
+                  Line Height
+                  <button
+                    *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                    (click)="onToggleDefault('isThemeLineHeight')"
+                    [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeLineHeight'].value }"
+                    class="focus:outline-none text-gray-500 fill-current pl-2"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="20" height="20" rx="10" />
+                      <path
+                        d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  *ngIf="!layoutTextForm['controls']['isThemeLineHeight'].value || !layoutTextForm['controls']['themeStyle'].value"
+                  class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md"
+                >
+                  <input formControlName="lineHeight" class="bg-transparent w-full h-full focus:outline-none" />
+                  <div class="flex flex-col items-center justify-center">
+                    <button (click)="onIncreaseLineHeight()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <button (click)="onDecreaseLineHeight()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  (click)="onToggleDefault('isThemeLineHeight')"
+                  *ngIf="layoutTextForm['controls']['isThemeLineHeight'].value && layoutTextForm['controls']['themeStyle'].value"
+                  class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md bg-gray-700"
+                >
+                  <span>{{ globalThemeFontSetting?.lineHeight + globalThemeFontSetting?.unit.toLowerCase() }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="w-full mr-2">
+              <div class="grid gap-1">
+                <div class="text-sm font-light flex items-center">
+                  Letter Spacing
+                  <button
+                    *ngIf="layoutTextForm['controls']['themeStyle'].value"
+                    (click)="onToggleDefault('isThemeLetterSpacing')"
+                    [ngClass]="{ 'text-green-500': layoutTextForm['controls']['isThemeLetterSpacing'].value }"
+                    class="focus:outline-none text-gray-500 fill-current pl-1"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="20" height="20" rx="10" />
+                      <path
+                        d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path d="M3 10H17" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M10 3C11.7509 4.91685 12.7459 7.40442 12.8 10C12.7459 12.5956 11.7509 15.0832 10 17C8.24912 15.0832 7.25409 12.5956 7.20001 10C7.25409 7.40442 8.24912 4.91685 10 3V3Z"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  *ngIf="!layoutTextForm['controls']['isThemeLetterSpacing'].value || !layoutTextForm['controls']['themeStyle'].value"
+                  class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md"
+                >
+                  <input formControlName="letterSpacing" class="w-full h-full focus:outline-none bg-transparent" />
+                  <div class="flex flex-col items-center justify-center">
+                    <button (click)="onIncreaseLetterSpacing()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <button (click)="onDecreaseLetterSpacing()" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  (click)="onToggleDefault('isThemeLetterSpacing')"
+                  *ngIf="layoutTextForm['controls']['isThemeLetterSpacing'].value && layoutTextForm['controls']['themeStyle'].value"
+                  class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md bg-gray-700"
+                >
+                  <span>{{ globalThemeFontSetting?.letterSpacing + globalThemeFontSetting?.unit.toLowerCase() }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <button
+                [matMenuTriggerFor]="emojiMenu"
+                class="flex items-center justify-center flex-shrink-0 w-12 h-12 bg-green-100 border border-green-500 rounded-md focus:outline-none"
+              >
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11" cy="11" r="10.5" stroke="#2EC639" />
+                  <circle cx="5" cy="8" r="1" fill="#2EC639" />
+                  <circle cx="17" cy="8" r="1" fill="#2EC639" />
+                  <mask id="path-4-inside-1" fill="white">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 11C5.20516 13.9485 7.88614 16 11 16C14.1139 16 16.7948 13.9485 18 11H4Z" />
+                  </mask>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4 11C5.20516 13.9485 7.88614 16 11 16C14.1139 16 16.7948 13.9485 18 11H4Z" fill="#2EC639" />
+                  <path
+                    d="M4 11V10H2.51096L3.07434 11.3784L4 11ZM18 11L18.9257 11.3784L19.489 10H18V11ZM11 15C8.3518 15 6.00098 13.2525 4.92566 10.6216L3.07434 11.3784C4.40935 14.6446 7.42049 17 11 17V15ZM17.0743 10.6216C15.999 13.2525 13.6482 15 11 15V17C14.5795 17 17.5906 14.6446 18.9257 11.3784L17.0743 10.6216ZM18 10H4V12H18V10Z"
+                    fill="#2EC639"
+                    mask="url(#path-4-inside-1)"
+                  />
+                </svg>
+              </button>
+              <mat-menu #emojiMenu="matMenu">
+                <div class="grid grid-cols-6 gap-4 p-4">
+                  <ng-container *ngFor="let emoji of emojiList; let index = index">
+                    <button (click)="onSetEmojiToQuill(index)" class="flex items-center justify-center w-5 h-5 focus:outline-none">{{ emoji }}</button>
+                  </ng-container>
+                </div>
+              </mat-menu>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light">Position</div>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex items-center">
+                <ng-container *ngFor="let position of horizontalData; let index = index">
+                  <button
+                    (click)="onHorizontal(index)"
+                    [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+                    class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+                  >
+                    <svg
+                      *ngIf="position.value === ETextPosition.LEFT"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="20"
+                      height="22"
+                      viewBox="0 0 20 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M1 1V21" stroke-linecap="round" fill="none" />
+                      <rect x="4" y="7" width="16" height="3" rx="1.5" stroke="none" />
+                      <rect x="4" y="13" width="10" height="3" rx="1.5" stroke="none" />
+                    </svg>
+                    <svg
+                      *ngIf="position.value === ETextPosition.JUSTIFY_CENTER"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="16"
+                      height="22"
+                      viewBox="0 0 16 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M8 1V21" stroke-linecap="round" fill="none" />
+                      <rect y="7" width="16" height="3" rx="1.5" stroke="none" />
+                      <rect x="3" y="13" width="10" height="3" rx="1.5" stroke="none" />
+                    </svg>
+                    <svg
+                      *ngIf="position.value === ETextPosition.RIGHT"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="20"
+                      height="22"
+                      viewBox="0 0 20 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M19 1V21" stroke-linecap="round" fill="none" />
+                      <rect y="7" width="16" height="3" rx="1.5" stroke="none" />
+                      <rect x="6" y="13" width="10" height="3" rx="1.5" stroke="none" />
+                    </svg>
+                  </button>
+                </ng-container>
+              </div>
+              <div class="flex items-center">
+                <ng-container *ngFor="let position of verticalData; let index = index">
+                  <button
+                    (click)="onVertical(index)"
+                    [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+                    class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+                  >
+                    <svg
+                      *ngIf="position.value === ETextPosition.TOP"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="21"
+                      height="20"
+                      viewBox="0 0 21 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M20.5 0.5L0.499999 0.5" stroke-linecap="round" fill="none" />
+                      <rect x="14.5" y="3.5" width="16" height="3" rx="1.5" transform="rotate(90 14.5 3.5)" stroke="none" />
+                      <rect x="8.5" y="3.5" width="10" height="3" rx="1.5" transform="rotate(90 8.5 3.5)" stroke="none" />
+                    </svg>
+                    <svg
+                      *ngIf="position.value === ETextPosition.ITEM_CENTER"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="22"
+                      height="16"
+                      viewBox="0 0 22 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M1 8L21 8" fill="none" stroke-linecap="round" />
+                      <rect x="7" y="16" width="16" height="3" rx="1.5" transform="rotate(-90 7 16)" stroke="none" />
+                      <rect x="13" y="13" width="10" height="3" rx="1.5" transform="rotate(-90 13 13)" stroke="none" />
+                    </svg>
+                    <svg
+                      *ngIf="position.value === ETextPosition.BOTTOM"
+                      [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                      class="fill-current stroke-current"
+                      width="21"
+                      height="20"
+                      viewBox="0 0 21 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M20.5 19.5L0.5 19.5" fill="none" stroke-linecap="round" />
+                      <rect x="14.5" y="0.5" width="16" height="3" rx="1.5" transform="rotate(90 14.5 0.5)" stroke="none" />
+                      <rect x="8.5" y="6.5" width="10" height="3" rx="1.5" transform="rotate(90 8.5 6.5)" stroke="none" />
+                    </svg>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light">Decoration</div>
+            <div class="flex items-center">
+              <ng-container *ngFor="let deco of decorationData; let index = index">
+                <button
+                  (click)="onDecoration(index)"
+                  [ngClass]="{ 'bg-green-500': deco.selected, 'bg-gray-100 hover:bg-gray-200': !deco.selected }"
+                  class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+                >
+                  <svg
+                    *ngIf="deco.value === EDecoration.DASH"
+                    [ngClass]="{ 'text-white': deco.selected, 'text-gray-400': !deco.selected }"
+                    class="fill-current"
+                    width="10"
+                    height="3"
+                    viewBox="0 0 10 3"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect width="10" height="3" rx="1.5" />
+                  </svg>
+                  <svg
+                    *ngIf="deco.value === EDecoration.UNDERLINE"
+                    [ngClass]="{ 'text-white': deco.selected, 'text-gray-400': !deco.selected }"
+                    class="fill-current"
+                    width="24"
+                    height="18"
+                    viewBox="0 0 24 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.98 14.3C10.0733 14.3 8.63333 13.8133 7.66 12.84C6.68667 11.8533 6.2 10.5 6.2 8.78V0.0199988H8.24V8.86C8.24 10.0467 8.57333 10.9467 9.24 11.56C9.90667 12.16 10.82 12.46 11.98 12.46C13.1267 12.46 14.0333 12.16 14.7 11.56C15.3667 10.9467 15.7 10.0467 15.7 8.86V0.0199988H17.74V8.78C17.74 10.4867 17.2533 11.8333 16.28 12.82C15.3067 13.8067 13.8733 14.3 11.98 14.3Z"
+                    />
+                    <rect y="16" width="24" height="2" rx="1" />
+                  </svg>
+                  <svg
+                    *ngIf="deco.value === EDecoration.CROSSWORD"
+                    [ngClass]="{ 'text-white': deco.selected, 'text-gray-400': !deco.selected }"
+                    class="fill-current"
+                    width="17"
+                    height="15"
+                    viewBox="0 0 17 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect y="5.28125" width="17" height="2" rx="1" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M5.9 14.36C6.68667 14.5067 7.48 14.58 8.28 14.58C9.97333 14.58 11.2533 14.2467 12.12 13.58C12.9867 12.9133 13.42 11.9733 13.42 10.76C13.42 10.0133 13.2733 9.39333 12.98 8.9C12.8573 8.67797 12.709 8.47131 12.5351 8.28H8.73111C9.25259 8.50222 9.65556 8.68889 9.94 8.84C10.3667 9.05333 10.6933 9.30667 10.92 9.6C11.1467 9.89333 11.26 10.28 11.26 10.76C11.26 12.16 10.22 12.86 8.14 12.86C6.66 12.86 5.28 12.56 4 11.96V13.8C4.49333 14.04 5.12667 14.2267 5.9 14.36ZM11.1518 7.28H6.49794C5.86002 6.92683 5.3607 6.5535 5 6.16C4.41333 5.52 4.12 4.71333 4.12 3.74C4.12 3.00667 4.32 2.36 4.72 1.8C5.12 1.22667 5.68 0.786666 6.4 0.48C7.12 0.16 7.94667 0 8.88 0C9.64 0 10.3267 0.06 10.94 0.18C11.5533 0.3 12.1533 0.493333 12.74 0.76V2.52C11.58 2 10.4067 1.74 9.22 1.74C8.26 1.74 7.52667 1.91333 7.02 2.26C6.51333 2.60667 6.26 3.1 6.26 3.74C6.26 4.18 6.36667 4.55333 6.58 4.86C6.80667 5.15333 7.13333 5.42 7.56 5.66C8 5.88667 8.64667 6.17333 9.5 6.52C10.1428 6.78256 10.6934 7.03589 11.1518 7.28Z"
+                    />
+                  </svg>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light">Number Positon</div>
+            <div class="flex items-center">
+              <ng-container *ngFor="let position of numberPositionData; let index = index">
+                <button
+                  (click)="onNumberPosition(index)"
+                  [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+                  class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+                >
+                  <svg
+                    *ngIf="position.value === ENumberPosition.SCRIPT"
+                    [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                    class="fill-current"
+                    width="25"
+                    height="15"
+                    viewBox="0 0 25 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M6.48 1.02H8.44L14.02 15H11.94L10.54 11.52H4.36L3 15H0.9L6.48 1.02ZM9.98 9.82L7.46 3.28L4.94 9.82H9.98Z" />
+                    <path
+                      d="M14.9 13.66L17.92 10.76C18.1867 10.4933 18.56 10.1467 19.04 9.72C19.8 9.02667 20.38 8.46667 20.78 8.04C21.18 7.61333 21.5067 7.16 21.76 6.68C22.0133 6.18667 22.14 5.66 22.14 5.1C22.14 4.27333 21.9 3.64667 21.42 3.22C20.94 2.78 20.24 2.56 19.32 2.56C18.6933 2.56 18.0467 2.67333 17.38 2.9C16.7267 3.12667 16.1133 3.46 15.54 3.9V1.94C16.66 1.12667 18.0267 0.719999 19.64 0.719999C21.08 0.719999 22.2 1.10667 23 1.88C23.8 2.64 24.2 3.68 24.2 5C24.2 5.64 24.06 6.25333 23.78 6.84C23.5133 7.42667 23.1333 8.00667 22.64 8.58C22.1467 9.14 21.48 9.82667 20.64 10.64L17.92 13.3H24.72V15H14.9V13.66Z"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="position.value === ENumberPosition.SUBSCRIPT"
+                    [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                    class="fill-current"
+                    width="20"
+                    height="18"
+                    viewBox="0 0 20 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M6.48 0.0199988H8.44L14.02 14H11.94L10.54 10.52H4.36L3 14H0.9L6.48 0.0199988ZM9.98 8.82L7.46 2.28L4.94 8.82H9.98Z" />
+                    <path
+                      d="M14.45 17.33L15.96 15.88C16.0933 15.7467 16.28 15.5733 16.52 15.36C16.9 15.0133 17.19 14.7333 17.39 14.52C17.59 14.3067 17.7533 14.08 17.88 13.84C18.0067 13.5933 18.07 13.33 18.07 13.05C18.07 12.6367 17.95 12.3233 17.71 12.11C17.47 11.89 17.12 11.78 16.66 11.78C16.3467 11.78 16.0233 11.8367 15.69 11.95C15.3633 12.0633 15.0567 12.23 14.77 12.45V11.47C15.33 11.0633 16.0133 10.86 16.82 10.86C17.54 10.86 18.1 11.0533 18.5 11.44C18.9 11.82 19.1 12.34 19.1 13C19.1 13.32 19.03 13.6267 18.89 13.92C18.7567 14.2133 18.5667 14.5033 18.32 14.79C18.0733 15.07 17.74 15.4133 17.32 15.82L15.96 17.15H19.36V18H14.45V17.33Z"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="position.value === ENumberPosition.SUPERSCRIPT"
+                    [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+                    class="fill-current"
+                    width="20"
+                    height="19"
+                    viewBox="0 0 20 19"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M6.48 5.02H8.44L14.02 19H11.94L10.54 15.52H4.36L3 19H0.9L6.48 5.02ZM9.98 13.82L7.46 7.28L4.94 13.82H9.98Z" />
+                    <path
+                      d="M14.45 7.33L15.96 5.88C16.0933 5.74667 16.28 5.57333 16.52 5.36C16.9 5.01333 17.19 4.73333 17.39 4.52C17.59 4.30667 17.7533 4.08 17.88 3.84C18.0067 3.59333 18.07 3.33 18.07 3.05C18.07 2.63667 17.95 2.32333 17.71 2.11C17.47 1.89 17.12 1.78 16.66 1.78C16.3467 1.78 16.0233 1.83667 15.69 1.95C15.3633 2.06333 15.0567 2.23 14.77 2.45V1.47C15.33 1.06333 16.0133 0.86 16.82 0.86C17.54 0.86 18.1 1.05333 18.5 1.44C18.9 1.82 19.1 2.34 19.1 3C19.1 3.32 19.03 3.62667 18.89 3.92C18.7567 4.21333 18.5667 4.50333 18.32 4.79C18.0733 5.07 17.74 5.41333 17.32 5.82L15.96 7.15H19.36V8H14.45V7.33Z"
+                    />
+                  </svg>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="text-sm font-light">Bullet & Numbering</div>
+            <div class="flex items-center">
+              <ng-container *ngFor="let bullet of bulletData; let index = index">
+                <button
+                  (click)="onBullet(index)"
+                  [ngClass]="{ 'bg-green-500': bullet.selected, 'bg-gray-100 hover:bg-gray-200': !bullet.selected }"
+                  class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+                >
+                  <svg
+                    *ngIf="bullet.value === EBullet.NONE"
+                    [ngClass]="{ 'text-white': bullet.selected, 'text-gray-400': !bullet.selected }"
+                    class="stroke-current"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect x="1" y="1" width="20" height="20" rx="3" stroke-width="2" />
+                    <path d="M2 21L21 2" stroke-width="2" />
+                  </svg>
+                  <svg
+                    *ngIf="bullet.value === EBullet.BULLETED_LIST"
+                    [ngClass]="{ 'text-white': bullet.selected, 'text-gray-400': !bullet.selected }"
+                    class="fill-current"
+                    width="19"
+                    height="14"
+                    viewBox="0 0 19 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect x="3" width="16" height="2" rx="1" />
+                    <rect x="3" y="12" width="16" height="2" rx="1" />
+                    <rect x="3" y="6" width="16" height="2" rx="1" />
+                    <circle cx="1" cy="1" r="1" />
+                    <circle cx="1" cy="7" r="1" />
+                    <circle cx="1" cy="13" r="1" />
+                  </svg>
+                  <svg
+                    *ngIf="bullet.value === EBullet.NUMBERED_LIST"
+                    [ngClass]="{ 'text-white': bullet.selected, 'text-gray-400': !bullet.selected }"
+                    class="fill-current"
+                    width="20"
+                    height="17"
+                    viewBox="0 0 20 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect x="4" y="1" width="16" height="2" rx="1" />
+                    <rect x="4" y="13" width="16" height="2" rx="1" />
+                    <rect x="4" y="7" width="16" height="2" rx="1" />
+                    <path d="M0.86332 1.49L0.15332 2.005V1.135L1.01332 0.505H1.74832V4H0.86332V1.49Z" />
+                    <path
+                      d="M0.169922 9.495L0.724922 8.99L0.964922 8.775C1.16159 8.60167 1.31159 8.46333 1.41492 8.36C1.52159 8.25667 1.60826 8.15167 1.67492 8.045C1.74492 7.93833 1.77992 7.83333 1.77992 7.73C1.77992 7.42 1.60492 7.265 1.25492 7.265C1.08492 7.265 0.916589 7.295 0.749922 7.355C0.586589 7.415 0.434922 7.49833 0.294922 7.605V6.76C0.444922 6.65667 0.619922 6.57667 0.819922 6.52C1.01992 6.46 1.23326 6.43 1.45992 6.43C1.71992 6.43 1.94492 6.47833 2.13492 6.575C2.32492 6.67167 2.46992 6.805 2.56992 6.975C2.66992 7.145 2.71992 7.33667 2.71992 7.55C2.71992 7.80667 2.65992 8.03167 2.53992 8.225C2.42326 8.415 2.23326 8.63 1.96992 8.87L1.52492 9.275H2.82992V10H0.169922V9.495Z"
+                    />
+                    <path
+                      d="M1.33945 16.075C1.11945 16.075 0.907787 16.0567 0.704453 16.02C0.504453 15.9833 0.332786 15.9283 0.189453 15.855V15.155C0.52612 15.3083 0.86612 15.385 1.20945 15.385C1.67279 15.385 1.90445 15.2467 1.90445 14.97C1.90445 14.83 1.84779 14.73 1.73445 14.67C1.62112 14.6067 1.44445 14.575 1.20445 14.575H0.719453V13.9H1.18445C1.38112 13.9 1.53279 13.8667 1.63945 13.8C1.74945 13.7333 1.80445 13.635 1.80445 13.505C1.80445 13.3817 1.75612 13.2867 1.65945 13.22C1.56279 13.1533 1.42612 13.12 1.24945 13.12C0.88612 13.12 0.55612 13.2133 0.259453 13.4V12.685C0.409453 12.605 0.58112 12.5433 0.774453 12.5C0.967786 12.4533 1.16779 12.43 1.37445 12.43C1.83112 12.43 2.16779 12.5217 2.38445 12.705C2.60112 12.885 2.70945 13.14 2.70945 13.47C2.70945 13.62 2.67279 13.7617 2.59945 13.895C2.52945 14.0283 2.42445 14.1417 2.28445 14.235C2.63445 14.3883 2.80945 14.6483 2.80945 15.015C2.80945 15.3517 2.69445 15.6133 2.46445 15.8C2.23445 15.9833 1.85945 16.075 1.33945 16.075Z"
+                    />
+                  </svg>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.TEXT_LINK">
+        <div class="grid gap-2" formGroupName="link">
+          <div class="text-sm font-light">Link Type</div>
+          <div class="select-options">
+            <mat-form-field appearance="fill">
+              <mat-select (selectionChange)="onLinkTypeChange($event)" formControlName="linkType" [(value)]="layoutTextForm['controls']['link']['controls']['linkType'].value">
+                <mat-option *ngFor="let linkType of linkTypeData" [value]="linkType.value">
+                  {{ linkType.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <ng-container *ngIf="currentLinkType === ElinkType.URL">
+            <input placeholder="Enter URL..." type="text" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.PAGE">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.PRODUCT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Product Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of productPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.CONTENT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Content" formControlName="linkValue">
+                  <mat-option *ngFor="let page of contentPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.POPUP">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Popup" formControlName="linkValue">
+                  <mat-option *ngFor="let page of popupPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.ANCHOR">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="parentID">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select An Anchor" formControlName="linkValue">
+                  <mat-option *ngFor="let anchor of anchorData" [value]="anchor.value">
+                    {{ anchor.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="currentLinkType === ElinkType.EMAIL">
+            <input placeholder="Enter Email..." type="email" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,62 @@
+<section class="order-container bg-white border border-gray-200 rounded-md">
+  <div class="p-4 text-lg shadow-md font-medium">Order</div>
+  <div class="grid grid-cols-6 overflow-hidden bg-white border border-gray-200 rounded-b-md h-44">
+    <!-- col 1 -->
+    <div class="col-span-1 flex flex-col justify-between px-6 pt-3 text-white custom-background">
+      <div>
+        <div class="flex justify-between whitespace-nowrap">
+          <span class="mr-3 font-medium text-lg mt-3">All</span>
+          <div class="self-center">
+            <svg width="53" height="24" viewBox="0 0 53 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="51.2345" cy="1.76552" r="1.76552" transform="rotate(90 51.2345 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="51.2345" cy="11.6591" r="1.76552" transform="rotate(90 51.2345 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="51.2345" cy="21.5531" r="1.76552" transform="rotate(90 51.2345 21.5531)" fill="white" fill-opacity="0.4" />
+              <circle cx="41.3405" cy="1.76552" r="1.76552" transform="rotate(90 41.3405 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="41.3405" cy="11.6591" r="1.76552" transform="rotate(90 41.3405 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="41.3405" cy="21.5531" r="1.76552" transform="rotate(90 41.3405 21.5531)" fill="white" fill-opacity="0.4" />
+              <circle cx="31.4469" cy="1.76552" r="1.76552" transform="rotate(90 31.4469 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="31.4469" cy="11.6591" r="1.76552" transform="rotate(90 31.4469 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="31.4469" cy="21.5531" r="1.76552" transform="rotate(90 31.4469 21.5531)" fill="white" fill-opacity="0.4" />
+              <circle cx="21.5531" cy="1.76552" r="1.76552" transform="rotate(90 21.5531 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="21.5531" cy="11.6591" r="1.76552" transform="rotate(90 21.5531 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="21.5531" cy="21.5531" r="1.76552" transform="rotate(90 21.5531 21.5531)" fill="white" fill-opacity="0.4" />
+              <circle cx="11.6593" cy="1.76552" r="1.76552" transform="rotate(90 11.6593 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="11.6593" cy="11.6591" r="1.76552" transform="rotate(90 11.6593 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="11.6593" cy="21.5531" r="1.76552" transform="rotate(90 11.6593 21.5531)" fill="white" fill-opacity="0.4" />
+              <circle cx="1.7657" cy="1.76552" r="1.76552" transform="rotate(90 1.7657 1.76552)" fill="white" fill-opacity="0.4" />
+              <circle cx="1.76552" cy="11.6591" r="1.76552" transform="rotate(90 1.76552 11.6591)" fill="white" fill-opacity="0.4" />
+              <circle cx="1.76552" cy="21.5531" r="1.76552" transform="rotate(90 1.76552 21.5531)" fill="white" fill-opacity="0.4" />
+            </svg>
+          </div>
+        </div>
+        <div class="mr-3 text-sm font-normal mt-1">Active orders</div>
+      </div>
+      <div class="mb-4 text-3xl font-normal text-right">{{ mainOrderTotal }}</div>
+    </div>
+    <!-- col 2 -->
+    <ng-container *ngFor="let order of orderData; let idx = index; trackBy: trackByIndex">
+      <div class="col-span-1 flex flex-col justify-between px-6 pt-3 text-black-500 border border-gray-100">
+        <div>
+          <div class="flex justify-between whitespace-nowrap">
+            <span class="mr-3 font-medium text-lg mt-3">{{ order.title }}</span>
+            <div class="self-center">
+              <svg *ngIf="idx !== 4" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
+                <path d="M4.96552 0H0L8.27586 8.68966L0 17.3793H4.96552L13.2414 8.68966L4.96552 0Z" fill="#DADFEB" fill-opacity="0.5" />
+                <path d="M15.7233 0H10.7578L19.0337 8.68966L10.7578 17.3793H15.7233L23.9992 8.68966L15.7233 0Z" fill="#DADFEB" fill-opacity="0.9" />
+              </svg>
+              <svg *ngIf="idx === 4" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                <path
+                  d="M16.8912 0.507376C17.2368 0.178344 17.6967 -0.00355778 18.1739 5.27373e-05C18.651 0.00366325 19.1081 0.192505 19.4487 0.526729C19.7893 0.860953 19.9867 1.31442 19.9994 1.79144C20.012 2.26846 19.8388 2.73172 19.5163 3.08348L9.72714 15.3261C9.55881 15.5074 9.35565 15.6529 9.1298 15.7539C8.90396 15.8549 8.66007 15.9093 8.41271 15.9139C8.16536 15.9185 7.91962 15.8731 7.69019 15.7806C7.46076 15.688 7.25236 15.5501 7.07743 15.3752L0.585654 8.88339C0.404869 8.71493 0.259866 8.51178 0.159295 8.28607C0.0587241 8.06036 0.00464558 7.8167 0.000286364 7.56963C-0.00407285 7.32256 0.0413766 7.07715 0.133923 6.84803C0.226468 6.61891 0.364215 6.41077 0.538946 6.23604C0.713676 6.06131 0.921809 5.92357 1.15093 5.83102C1.38005 5.73847 1.62547 5.69302 1.87253 5.69738C2.1196 5.70174 2.36326 5.75582 2.58897 5.85639C2.81469 5.95696 3.01783 6.10197 3.18629 6.28275L8.32378 11.4178L16.8445 0.561353C16.8599 0.542463 16.8763 0.524443 16.8936 0.507376H16.8912Z"
+                  fill="#DADFEB"
+                  fill-opacity="0.9"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="mr-3 text-sm font-normal text-gray-400 mt-1">{{ order.subTitle }}</div>
+        </div>
+        <div class="mb-4 text-3xl font-normal text-right">{{ order.value }}</div>
+      </div>
+    </ng-container>
+  </div>
+</section>

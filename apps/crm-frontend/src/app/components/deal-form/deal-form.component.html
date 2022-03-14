@@ -1,0 +1,147 @@
+<form [formGroup]="dealCreateForm">
+  <div style="display: flex">
+    <mat-form-field>
+      <mat-label>Deal Title</mat-label>
+      <input matInput value="" formControlName="dealtitle" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Project Code</mat-label>
+      <label *ngIf="hasProjectCode"> {{ projectPrefix }} </label>
+      <input matInput value="" formControlName="projectNumber" />
+    </mat-form-field>
+  </div>
+  <mat-form-field appearance="fill" class="example-form-field">
+    <mat-label>Enter start and end date of deal</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate formControlName="startDate" placeholder="Start date" />
+      <input matEndDate formControlName="endDate" placeholder="End date" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+  <section class="flex-column">
+    <label>Made advertising before</label>
+    <mat-checkbox class="example-margin" formControlName="advertiseBefore">Yes, it was</mat-checkbox>
+
+    <mat-form-field>
+      <mat-label>Payment Detail</mat-label>
+      <input matInput value="" formControlName="paymentDetail" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Product Service</mat-label>
+      <input matInput value="" formControlName="productService" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Objective</mat-label>
+      <input matInput value="" formControlName="objective" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Target</mat-label>
+      <input matInput value="" formControlName="target" />
+    </mat-form-field>
+    <mat-label class="tagtask">Tag Services on deal</mat-label>
+    <div class="flex-row">
+      <mat-chip-list aria-label="tagTask">
+        <mat-chip
+          *ngFor="let tag of tagDealListForView; let i = index; trackBy: trackByIndex"
+          [ngStyle]="{ 'background-color': tag.tagColor }"
+          (removed)="onClickRemoveDealTag(tag, i)"
+        >
+          {{ tag.tagName }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <svg style="padding-left: 10px" [matMenuTriggerFor]="searchTab" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="16" fill="#E3EDF2" />
+        <path d="M16 21V16M16 16V11M16 16H21M16 16H11" stroke="#153342" stroke-linecap="round" />
+      </svg>
+    </div>
+    <mat-form-field>
+      <mat-label>Ads Optimize Fee</mat-label>
+      <input matInput value="" formControlName="adsOptimizeFee" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Ads Spend</mat-label>
+      <input matInput value="" formControlName="adsSpend" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <textarea matInput cdkTextareaAutosize placeholder="Type Note" type="text" formControlName="noteDetail" #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" value="">
+      </textarea>
+    </mat-form-field>
+  </section>
+  <div>Account Executive.</div>
+  <div class="assignee-add">
+    <img *ngIf="accountExecutive" class="img-assignee" draggable="false" [src]="[accountExecutive.profilePic]" [matTooltip]="[accountExecutive.name]" />
+    <mat-label *ngIf="accountExecutive">{{ accountExecutive.name }}</mat-label>
+
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" [matMenuTriggerFor]="addAssign" (click)="onClickAE()">
+      <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+      <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="title-company-name">Project Manager</div>
+  <div class="assignee-add">
+    <img *ngIf="projectManager" class="img-assignee" draggable="false" [src]="[projectManager.profilePic]" [matTooltip]="[projectManager.name]" />
+    <mat-label *ngIf="projectManager">{{ projectManager.name }}</mat-label>
+    <div class="add-group-assignee">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" [matMenuTriggerFor]="addAssign" (click)="onClickPM()">
+        <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+        <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div class="title-company-name">Head of Client Service & Production</div>
+  <div class="assignee-add">
+    <img *ngIf="headOfClient" class="img-assignee" draggable="false" [src]="[headOfClient.profilePic]" [matTooltip]="[headOfClient.name]" />
+    <mat-label *ngIf="headOfClient">{{ headOfClient.name }}</mat-label>
+    <div class="add-group-assignee">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" [matMenuTriggerFor]="addAssign" (click)="onClickHC()">
+        <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+        <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <mat-menu #addAssign="matMenu" yPosition="below" xPosition="after" class="mat-menu-search-tag">
+    <mat-form-field class="form-search-assignee">
+      <input
+        type="text"
+        placeholder="Type User or Email ..."
+        aria-label="Assignee"
+        (click)="$event.stopPropagation()"
+        matInput
+        [formControl]="assignOption"
+        [matAutocomplete]="autoAssignee"
+        class="input-auto-complete-assignee"
+      />
+      <mat-autocomplete #autoAssignee="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async; let i = index" [value]="option" (click)="onAddAssigneeWithAutoComplete(option)" class="option-search-assignee">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-menu>
+  <div class="button-add-appointment" (click)="onClickCreateDeal()" *ngIf="actionType !== 'EDIT'">
+    <mat-button class="form-appointment-detail"> + Create deal </mat-button>
+  </div>
+  <div class="button-add-appointment" (click)="onClickUpdateDeal()" *ngIf="actionType === 'EDIT'">
+    <mat-button class="form-appointment-detail"> + Update deal </mat-button>
+  </div>
+</form>
+<mat-menu #searchTab="matMenu" yPosition="below" xPosition="before" class="mat-menu-search-tag">
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let tag of tagDealListForOwner; trackBy: trackByIndex"
+      [ngStyle]="{ 'background-color': tag.tagColor }"
+      [selectable]="selectable"
+      (click)="onClickTagDeal(tag)"
+    >
+      {{ tag.tagName }}
+    </mat-chip>
+  </mat-chip-list>
+</mat-menu>

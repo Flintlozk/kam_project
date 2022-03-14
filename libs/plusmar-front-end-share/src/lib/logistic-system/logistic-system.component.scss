@@ -1,0 +1,199 @@
+@import 'base';
+@import 'custom-checkbox';
+
+@import 'switch';
+@import 'buttons';
+
+.logistic-system-container {
+  &.cms-theme {
+    .calculation-method {
+      ::ng-deep {
+        .mat-form-field-flex {
+          width: 200% !important;
+        }
+      }
+    }
+    input[type='number'] {
+      &:focus {
+        border: 1px solid #22c55e !important;
+      }
+    }
+    span[cms] {
+      color: #22c55e !important;
+    }
+    .btn-save {
+      @include btn-active-cms();
+
+      &.disabled {
+        @extend .btn-disabled;
+      }
+    }
+    .mode-toggle {
+      @extend .switch-cms;
+      top: -10px;
+    }
+    .common-method {
+      &.fixed-rate-method {
+        .selector-charged {
+          display: flex;
+          align-items: center;
+
+          .text-group {
+            margin-left: 40px;
+
+            .text {
+              color: #576f83;
+              font-weight: 200;
+              font-size: 12px;
+
+              .red {
+                color: #ef5350;
+              }
+              .blue {
+                color: #22c55e;
+              }
+            }
+          }
+        }
+
+        .amount-group {
+          color: #576f83;
+          font-weight: 200;
+          margin: 8px 0;
+          font-size: 12px;
+        }
+
+        .fallback-group {
+          font-weight: 200;
+          margin: 8px 0;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  &.social-theme {
+    .btn-save {
+      @include btn-active();
+
+      &.disabled {
+        @extend .btn-disabled;
+      }
+    }
+    .mode-toggle {
+      @extend .switch;
+    }
+    .common-method {
+      &.fixed-rate-method {
+        .selector-charged {
+          display: flex;
+          align-items: center;
+
+          .text-group {
+            margin: 0 8px;
+
+            .text {
+              color: #576f83;
+              font-weight: 200;
+              font-size: 12px;
+
+              .red {
+                color: #ef5350;
+              }
+              .blue {
+                color: #54b1ff;
+              }
+            }
+          }
+        }
+
+        .amount-group {
+          color: #576f83;
+          font-weight: 200;
+          margin: 8px 0;
+          font-size: 12px;
+        }
+
+        .fallback-group {
+          font-weight: 200;
+          margin: 8px 0;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  color: #000;
+  .control-wrapper {
+    display: flex;
+    padding: 12px 0;
+    margin: 12px 0;
+    justify-content: space-between;
+    border-bottom: 1px solid #dddfea;
+    .save-button {
+      display: inline-block;
+    }
+
+    .calculation-method {
+      .label {
+        margin-right: 4px;
+        color: #576f83;
+        font-weight: 200;
+        font-size: 12px;
+      }
+      .select-option {
+        width: 200px;
+      }
+    }
+  }
+  .common-method {
+    input[type='text'],
+    input[type='number'] {
+      width: 180px;
+      height: 35px;
+      padding: 0px 15px;
+      border-radius: 8px;
+      border: 1px solid #dddfea;
+
+      &:focus {
+        outline: none;
+        border-color: #54b1ff;
+      }
+    }
+
+    &.flat-rate-method {
+      .label {
+        color: #576f83;
+        font-weight: 200;
+        font-size: 12px;
+      }
+    }
+
+    &.pricing-table-method {
+      .label {
+        margin-right: 4px;
+        color: #576f83;
+        font-weight: 200;
+        font-size: 12px;
+      }
+      .select-option {
+        width: 200px;
+      }
+      .text-group {
+        margin: 0 8px 0 0;
+
+        .text {
+          color: #576f83;
+          font-weight: 200;
+          font-size: 12px;
+
+          .red {
+            color: #ef5350;
+          }
+          .blue {
+            color: #54b1ff;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

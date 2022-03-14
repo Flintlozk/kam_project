@@ -1,0 +1,103 @@
+@import 'base';
+@import 'buttons';
+.promotions {
+  .btn-create {
+    @include btn-active();
+
+    .label {
+      margin-left: 5px;
+    }
+  }
+  .header {
+    color: $text-darker-color;
+    font-size: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    .info {
+      padding: 10px 0px;
+      margin-right: 10px;
+    }
+    .func {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .select-options {
+        width: 200px;
+        padding: 10px 0px;
+        margin-right: 10px;
+        @extend .select-option;
+      }
+      .search {
+        padding: 10px 0px;
+        margin-right: 10px;
+
+        input {
+          box-shadow: none;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          padding: 0px 15px;
+          height: 35px;
+        }
+      }
+      .btn-delete {
+        &.active {
+          cursor: pointer;
+          background: red;
+          border-color: red;
+          color: white;
+        }
+      }
+    }
+  }
+  .table {
+    .title {
+      span {
+        font-size: 12px;
+        font-weight: 300;
+        color: #9a9da9;
+      }
+    }
+    .status {
+      color: $main-color;
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      .tooltip {
+        margin-right: 10px;
+        img {
+          width: 20px;
+          cursor: pointer;
+        }
+        .tooltiptext {
+          margin-left: -13px;
+        }
+      }
+      .more {
+        img {
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+.mat-menu-panel {
+  button.mat-menu-item {
+    height: 35px;
+    line-height: 35px;
+    .option-select-item {
+      display: flex;
+      align-items: center;
+      img {
+        width: 18px;
+        margin-right: 10px;
+      }
+    }
+    &:hover {
+      background: #e2f1ff;
+    }
+  }
+}

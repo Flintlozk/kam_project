@@ -1,0 +1,141 @@
+<section class="grid gap-4" [formGroup]="mediaGalleryControlForm">
+  <div class="flex items-center">
+    <div class="mr-5 text-sm font-light">Is Page Slide</div>
+    <div>
+      <input type="checkbox" formControlName="isPageSlide" #isPageSlide class="hidden" />
+      <button
+        (click)="isPageSlide.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': mediaGalleryControlForm['controls']['isPageSlide'].value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{
+            'bg-gray-300': !mediaGalleryControlForm['controls']['isPageSlide'].value,
+            'bg-white right-0 mr-2': mediaGalleryControlForm['controls']['isPageSlide'].value
+          }"
+        ></div>
+      </button>
+    </div>
+  </div>
+  <div [ngClass]="{ hidden: !mediaGalleryControlForm['controls']['isPageSlide'].value }" class="grid gap-4">
+    <div class="flex items-center">
+      <div class="mr-5 text-sm font-light">Auto Slide Page</div>
+      <div>
+        <input type="checkbox" formControlName="isAutoSlide" #isAutoSlide class="hidden" />
+        <button
+          (click)="isAutoSlide.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': mediaGalleryControlForm['controls']['isAutoSlide'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !mediaGalleryControlForm['controls']['isAutoSlide'].value,
+              'bg-white right-0 mr-2': mediaGalleryControlForm['controls']['isAutoSlide'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="gird gap-4" [ngClass]="{ hidden: !mediaGalleryControlForm['controls']['isAutoSlide'].value }">
+      <div class="grid">
+        <div class="text-sm font-light">Slide Speed</div>
+        <div class="flex items-center justify-between">
+          <div class="w-full">
+            <input class="transition-all" type="range" min="200" max="3000" step="100" class="slider" formControlName="slideSpeed" />
+          </div>
+          <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+            {{ mediaGalleryControlForm['controls']['slideSpeed'].value }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <div class="mr-5 text-sm font-light">Page Button</div>
+      <div>
+        <input type="checkbox" formControlName="isPageButton" #isPageButton class="hidden" />
+        <button
+          (click)="isPageButton.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': mediaGalleryControlForm['controls']['isPageButton'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !mediaGalleryControlForm['controls']['isPageButton'].value,
+              'bg-white right-0 mr-2': mediaGalleryControlForm['controls']['isPageButton'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div [ngClass]="{ hidden: !mediaGalleryControlForm['controls']['isPageButton'].value }" class="grid gap-4">
+      <div class="grid">
+        <div class="text-sm font-light">Button Size (px)</div>
+        <div class="flex items-center justify-between">
+          <div class="w-full">
+            <input class="transition-all" type="range" min="0" max="100" class="slider" formControlName="pageButtonSize" />
+          </div>
+          <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+            {{ mediaGalleryControlForm['controls']['pageButtonSize'].value }}
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="text-sm font-light">Button Offset (%)</div>
+        <div class="flex items-center justify-between">
+          <div class="w-full">
+            <input class="transition-all" type="range" min="0" max="100" class="slider" formControlName="pageButtonOffset" />
+          </div>
+          <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+            {{ mediaGalleryControlForm['controls']['pageButtonOffset'].value }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <div class="mr-5 text-sm font-light">Page Arrow</div>
+      <div>
+        <input type="checkbox" formControlName="isPageArrow" #isPageArrow class="hidden" />
+        <button
+          (click)="isPageArrow.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': mediaGalleryControlForm['controls']['isPageArrow'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !mediaGalleryControlForm['controls']['isPageArrow'].value,
+              'bg-white right-0 mr-2': mediaGalleryControlForm['controls']['isPageArrow'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div [ngClass]="{ hidden: !mediaGalleryControlForm['controls']['isPageArrow'].value }" class="grid gap-4">
+      <div class="grid">
+        <div class="text-sm font-light">Arrow Size (px)</div>
+        <div class="flex items-center justify-between">
+          <div class="w-full">
+            <input class="transition-all" type="range" min="0" max="100" class="slider" formControlName="pageArrowSize" />
+          </div>
+          <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+            {{ mediaGalleryControlForm['controls']['pageArrowSize'].value }}
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="text-sm font-light">Arrow Offset (%)</div>
+        <div class="flex items-center justify-between">
+          <div class="w-full">
+            <input class="transition-all" type="range" min="0" max="100" class="slider" formControlName="pageArrowOffset" />
+          </div>
+          <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+            {{ mediaGalleryControlForm['controls']['pageArrowOffset'].value }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

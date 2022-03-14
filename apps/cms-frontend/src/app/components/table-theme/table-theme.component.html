@@ -1,0 +1,41 @@
+<section class="p-4 bg-white shadow-md">
+  <table class="w-full border-separate" style="border-spacing: 0px">
+    <tr>
+      <th *ngIf="isCheckAll && tableData.length">
+        <ng-content select=".is-check-all"></ng-content>
+      </th>
+      <ng-container *ngFor="let tableHeaderItem of tableHeader; trackBy: trackByIndex">
+        <th>
+          <div class="flex items-center font-normal text-left">
+            <span>{{ tableHeaderItem.title }}</span>
+            <div *ngIf="tableHeaderItem.sort" class="flex flex-col items-center ml-2">
+              <button class="mb-1 focus:outline-none">
+                <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.35858 1.14142L1.34142 6.15858C1.21543 6.28457 1.30466 6.5 1.48284 6.5H11.5172C11.6953 6.5 11.7846 6.28457 11.6586 6.15858L6.64142 1.14142C6.56332 1.06332 6.43668 1.06332 6.35858 1.14142Z"
+                    [attr.fill]="tableHeaderItem.isSorted && tableHeaderItem.asc ? '#22C55E' : '#E0E0E7'"
+                    [attr.stroke]="tableHeaderItem.isSorted && tableHeaderItem.asc ? '#22C55E' : '#E0E0E7'"
+                  />
+                </svg>
+              </button>
+              <button class="focus:outline-none">
+                <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.64142 6.35858L11.6586 1.34142C11.7846 1.21543 11.6953 1 11.5172 1L1.48284 1C1.30466 1 1.21543 1.21543 1.34142 1.34142L6.35858 6.35858C6.43668 6.43668 6.56332 6.43668 6.64142 6.35858Z"
+                    [attr.fill]="tableHeaderItem.isSorted && !tableHeaderItem.asc ? '#22C55E' : '#E0E0E7'"
+                    [attr.stroke]="tableHeaderItem.isSorted && !tableHeaderItem.asc ? '#22C55E' : '#E0E0E7'"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </th>
+      </ng-container>
+    </tr>
+    <tr *ngIf="!tableData.length">
+      <td [attr.colspan]="colSpan" class="p-4 italic font-light text-center bg-gray-100">No Data Available</td>
+    </tr>
+    <ng-content *ngIf="tableData.length" select=".table-content"></ng-content>
+  </table>
+  <mat-paginator (page)="emitValueChange($event)" [pageSizeOptions]="[5, 10, 20, 50]" [length]="tableData.length" [pageSize]="5" aria-label="Select page"> </mat-paginator>
+</section>

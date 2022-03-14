@@ -1,0 +1,22 @@
+{
+  "root": "libs/itopplus-back-end-helpers",
+  "sourceRoot": "libs/itopplus-back-end-helpers/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-back-end-helpers/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/itopplus-back-end-helpers/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

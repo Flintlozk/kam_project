@@ -1,0 +1,23 @@
+{
+  "root": "libs/autodigi-model-mongo-lib",
+  "sourceRoot": "libs/autodigi-model-mongo-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/autodigi-model-mongo-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/autodigi-model-mongo-lib"],
+      "options": {
+        "jestConfig": "libs/autodigi-model-mongo-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

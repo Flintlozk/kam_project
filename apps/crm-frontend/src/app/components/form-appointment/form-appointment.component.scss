@@ -1,0 +1,111 @@
+.listed-add-appointment {
+  background-color: white;
+  flex-direction: column;
+  border-radius: 8px;
+  height: 80px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .setting-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 10px;
+  }
+  .time-appointment {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 20px;
+    color: #153342;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 3px;
+  }
+  .list-detail-appointment {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 20px;
+    color: #153342;
+    font-size: 14px;
+    font-weight: 300;
+    .note-detail {
+      padding-top: 20px;
+    }
+  }
+  .list-detail-appointment-note {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 20px;
+  }
+}
+.button-add-appointment {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  .form-appointment-detail {
+    background-color: white;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+  }
+  .appoimentForm {
+    flex-direction: column;
+    .dateTimePicker {
+      flex-direction: row;
+    }
+  }
+}
+.button-datepicker-appointment {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.form-appointment-detail {
+  background-color: white;
+  flex-direction: row;
+  display: flex;
+  margin: auto;
+}
+.timepicker {
+  border: 1px solid #dddfea;
+  border-radius: 8px;
+
+  input[type='text'],
+  input[type='time'] {
+    border: none;
+    border-radius: 10px;
+
+    &:focus {
+      border: none !important;
+      outline: none;
+    }
+  }
+}
+.google-calendar-icon {
+  width: 30px;
+  padding-top: 5px;
+  cursor: pointer;
+}
+.margin {
+  margin-bottom: 10px;
+}
+::ng-deep .mat-icon {
+  padding-top: 2px;
+  cursor: pointer;
+}

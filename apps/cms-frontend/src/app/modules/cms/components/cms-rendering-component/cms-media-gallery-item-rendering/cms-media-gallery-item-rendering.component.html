@@ -1,0 +1,14 @@
+<div (dblclick)="onMediaGalleryItemFocusEvent()" class="absolute w-full h-full left-0 top-0 group guideline" [ngClass]="{ ' border border-green-500': onFocus, 'z-10': !onFocus }">
+  <div class="w-full h-full" [ngClass]="{ 'group-hover:flex': !onFocus && !isChildEnter, flex: onFocus, hidden: !onFocus }">
+    <button
+      [ngClass]="{ 'bg-green-900': !onFocus, 'bg-gray-700': onFocus }"
+      class="absolute right-0 px-10 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none"
+    >
+      Media
+    </button>
+    <div class="absolute w-full h-full bg-green-900 opacity-40" [ngClass]="{ hidden: onFocus }"></div>
+  </div>
+</div>
+<div class="w-full h-full" (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()">
+  <cms-next-cms-general-text [changeDetectorTrigger]="changeDetectorTrigger" [generalTextSetting]="galleryListItem?.setting?.generalTextSetting"></cms-next-cms-general-text>
+</div>

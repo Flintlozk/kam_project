@@ -1,0 +1,39 @@
+<section class="storage-section">
+  <!-- font-size: 0.875rem;
+line-height: 1.25rem; -->
+  <div class="border"></div>
+
+  <p class="text"><small>Storage drive</small></p>
+  <div class="flex items-center w-full gauge-bar rounded-full">
+    <ng-container *ngFor="let storage of AllStorage; trackBy: trackByIndex">
+      <div class="storage-bar" [ngStyle]="{ 'background-color': storage.colorCode, flex: storage.usedByte / totalByte }"></div>
+    </ng-container>
+  </div>
+  <div class="text-sm font-light tracking-wide total-storage-text">
+    <span class="total-storage-used">{{ totalUsedByte | filesize }} </span> of {{ totalByte | filesize }} Used
+  </div>
+
+  <div class="items-center text-sm">
+    <div class="used-storage">
+      <span class="text">Assets</span>
+      <ng-container *ngFor="let storage of storageUsage; trackBy: trackByIndex">
+        <div class="flex items-center mr-4">
+          <div class="storage-icon-color" [ngStyle]="{ 'background-color': storage.colorCode }"></div>
+          <div class="storage-name">{{ storage.name }}</div>
+          <div>({{ storage.usedByte | filesize }})</div>
+        </div>
+      </ng-container>
+    </div>
+    <div>
+      <span class="text">System</span>
+      <ng-container *ngFor="let storageSystem of storageSystemUsage; trackBy: trackByIndex">
+        <div class="flex items-center mr-4">
+          <div class="storage-icon-color" [ngStyle]="{ 'background-color': storageSystem.colorCode }"></div>
+          <div class="storage-name">{{ storageSystem.name }}</div>
+          <div>({{ storageSystem.usedByte | filesize }})</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <a class="link">Upgrade your store drive</a>
+</section>

@@ -1,0 +1,265 @@
+@import 'base';
+@import 'radio-button';
+::ng-deep .mat-option-text {
+  display: flex !important;
+  align-items: center !important;
+  > span {
+    margin: 0 4px;
+  }
+}
+@keyframes blink {
+  50% {
+    border-color: #ce1111;
+    box-shadow: 0px 0px 2px 1px rgba(206, 17, 17, 0.2);
+  }
+}
+.on-focus-field {
+  animation: blink 0.3s;
+  animation-iteration-count: 3;
+}
+.order-detail {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  background: $white;
+
+  @media #{$mobilemax} {
+    flex-flow: column;
+    border-radius: 0;
+  }
+  .order {
+    width: 100%;
+    background: $main-color;
+    color: white;
+    padding: 15px;
+
+    @media #{$mobilemax} {
+      width: unset;
+    }
+    .top {
+      padding-bottom: 20px;
+    }
+
+    .des {
+      font-size: 18px;
+
+      .sub {
+        font-size: 12px;
+        font-weight: 300;
+        color: #acd8ff;
+      }
+    }
+  }
+
+  .address-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    @media #{$mobilemax} {
+      width: unset;
+    }
+
+    .display-address {
+      width: 100%;
+      padding-right: 10px;
+      white-space: nowrap;
+
+      .name {
+        color: #353434;
+
+        div {
+          font-size: 16px;
+          font-weight: 500;
+          .edit-address {
+            color: #54b1ff;
+            font-size: 12px !important;
+            font-weight: 200;
+          }
+        }
+      }
+      .address {
+        div {
+          word-break: break-word;
+          white-space: normal;
+        }
+      }
+
+      .logistic {
+        padding-top: 6px;
+
+        div {
+          display: flex;
+
+          .text {
+            font-size: 14px;
+            font-weight: 300;
+            margin: auto 5px;
+          }
+        }
+      }
+      .logistic-select {
+        padding-top: 6px;
+        flex-direction: column;
+        .title {
+          font-weight: 400;
+          font-size: 1.2em;
+          padding-bottom: 5px;
+        }
+        div {
+          display: flex;
+        }
+      }
+
+      .item {
+        font-size: 12px;
+        display: flex;
+        align-items: flex-start;
+        color: #353434;
+        font-weight: 300;
+
+        div {
+          width: 100%;
+        }
+      }
+
+      .img {
+        img {
+          max-width: 120px;
+        }
+      }
+    }
+
+    .address {
+      width: 100%;
+      padding-right: 10px;
+      white-space: nowrap;
+
+      .caution {
+        color: #353434;
+        font-size: 1.2em !important;
+        font-weight: 500;
+
+        .edit-address {
+          color: #54b1ff;
+          font-size: 12px !important;
+          font-weight: 200;
+        }
+      }
+
+      .name {
+        color: #d1d4db;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+      .phone {
+        color: #d1d4db;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+      .address {
+        color: #d1d4db;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+
+      .logistic {
+        color: #d1d4db;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+
+      .item {
+        display: flex;
+        align-items: flex-start;
+        font-size: 14.4px;
+
+        div {
+          border-bottom: 1px dotted $border-color;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .img {
+        img {
+          max-width: 120px;
+        }
+      }
+    }
+  }
+
+  .payment {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @media #{$mobilemax} {
+      width: unset;
+    }
+
+    .config-icon {
+      width: 20px;
+      cursor: pointer;
+    }
+
+    .left {
+      width: 10%;
+      .img_dec {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+      }
+    }
+
+    .right {
+      width: 90%;
+      .detail {
+        width: 100%;
+        font-size: 12px;
+        padding-right: 10px;
+
+        .title {
+          font-size: 1.2em;
+          padding-bottom: 5px;
+        }
+
+        .date {
+          font-weight: 400;
+        }
+
+        .status {
+          font-weight: 400;
+
+          display: flex;
+          align-items: center;
+
+          .text {
+            padding-right: 10px;
+          }
+
+          .radios {
+            display: flex;
+            align-items: center;
+
+            .radio-button {
+              @extend .custom-radio-button;
+              margin-bottom: 0px;
+
+              &:first-child {
+                margin-right: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.img_dec {
+  border-radius: 50%;
+  max-width: 40px;
+}

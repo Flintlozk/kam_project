@@ -1,0 +1,121 @@
+::ng-deep .rounded-b-md {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.main-head {
+  display: flex;
+  .main-head1 {
+    width: 75%;
+    .items-center-main {
+      border-left: 4px solid #2dc55e;
+      margin-bottom: 1px;
+      box-shadow: 0px 7px 14px -3px rgba(175, 175, 175, 0.75);
+      img {
+        //border-radius: 3px;
+      }
+      .text-main-e-commerce {
+        margin-left: 20px;
+      }
+      .text-base {
+        //margin-bottom: 28px;
+      }
+    }
+    .items-des-main {
+      // text-align: center;
+      // .text-title{
+      //     margin-top: 7px;
+      // }
+
+      // .text-sub{
+      //     margin-top: 7px;
+      // }
+
+      // .value{
+      //     margin-top: 9px;
+      //     margin-bottom: 17px;
+      // }
+      // .items-percen {
+      //   display: flex;
+      //   .items-center {
+      //     width: 21%;
+      //     border-radius: 4px;
+      //     //margin: auto;
+      //     margin-top: 14px;
+      //   }
+      //   .value {
+      //   }
+      // }
+      // .items-center{
+      //     width: 35%;
+      //     border-radius: 4px;
+      //     margin: auto;
+      //     margin-bottom: 10px;
+      // }
+    }
+  }
+  .main-head2 {
+    margin-left: 10px;
+    width: 25%;
+    .item-col-two {
+      // padding-top: 9px;
+      // padding-bottom: 9px;
+      padding-bottom: 1px;
+      .text-base {
+        width: 100%;
+        position: relative;
+        margin-top: 15px;
+        text-align: right;
+        padding: 0px 15px;
+      }
+      .low-stock {
+        text-align: center;
+        img {
+          margin: auto;
+        }
+        .main {
+          margin-top: 5px;
+        }
+        .sub-main {
+          margin-top: 6px;
+        }
+        .sub-number {
+          margin-top: 16px;
+          margin-bottom: 21px;
+        }
+      }
+    }
+  }
+
+  .main-table {
+    padding: 10px;
+    .items-percen {
+      display: flex;
+      .items-center {
+        width: 21%;
+        border-radius: 4px;
+        //margin: auto;
+        margin-top: 14px;
+      }
+    }
+  }
+}
+
+// .items-center{
+//     width: 75%;
+// }
+// .grid{
+//     width: 75%;
+// }
+
+// .item-col-two{
+//     width: 24%;
+//     margin-left: auto;
+// }
+
+@media only screen and (max-width:768px) {
+  /* For mobile phones: */
+  .main-head1 {
+    width: 100%;
+  }
+}

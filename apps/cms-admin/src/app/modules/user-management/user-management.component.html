@@ -1,0 +1,48 @@
+<reactor-room-header [Topic]="name" (parentHandler)="close(true)"> </reactor-room-header>
+<div class="user-management">
+  <div class="grid-1-8">
+    <reactor-room-custom-table [isLoading]="false" [tableColSpan]="4" [isNoVerticalScroll]="true" [tableHeader]="tableHeader" [tableData]="userList">
+      <tr *ngFor="let user of userListTemp; trackBy: trackByIndex" class="table-content" #tableContent>
+        <td>
+          <div>{{ user.name }}</div>
+        </td>
+        <td>
+          <div>
+            <div>{{ user.email }}</div>
+          </div>
+        </td>
+        <td>
+          <div>
+            <div>{{ user.role }}</div>
+          </div>
+        </td>
+      </tr>
+      <tr class="table-content" #tableContent>
+        <td colspan="3" (click)="loadMoreData()">
+          <div style="text-align: center">Load more...</div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+  </div>
+</div>
+<div class="invitation-modal" [style.display]="this.displayModal ? 'flex' : 'none'">
+  <div class="modal-area">
+    <div class="flex-container flex-space-between">
+      <div>Invite User</div>
+      <div class="close" (click)="close(false)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.719971 0.720215L10.8 10.8002M10.8 0.720215L0.719971 10.8002" stroke="#CACCCF" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+    <input class="input-modal" type="text" placeholder="Email to Invite ..." [value]="sendInviteByEmailValue" (input)="sendInviteByEmailValue = getValue($event)" />
+    <div class="flex-container flex-direction-col">
+      <div>Role</div>
+      <div *ngFor="let role of userAppRole">
+        <input class="bg-input" type="radio" name="Role" value="{{ role.value }}" (change)="radioChangeHandler($event)" />
+        <label for="Admin User"> {{ role.view }}</label>
+      </div>
+    </div>
+    <button class="sent-btn" (click)="sendInviteByEmail()">Save & Send Email</button>
+  </div>
+</div>

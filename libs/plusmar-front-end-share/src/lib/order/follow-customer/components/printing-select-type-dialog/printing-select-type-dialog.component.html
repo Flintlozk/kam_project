@@ -1,0 +1,61 @@
+<div class="setting-shop-owner-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head">Select a document type & paper size</div>
+    <div class="content">
+      <div class="content-group">
+        <label>Document Type</label>
+        <div class="select-option">
+          <mat-form-field>
+            <mat-select [(value)]="selected" (selectionChange)="changeReportType($event)">
+              <!-- <mat-option value="receipt">Receipt</mat-option> -->
+              <mat-option [value]="EnumPaperType.LABEL">Shipping Label</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="content-group">
+        <label>Paper Size</label>
+        <div class="container-content">
+          <!-- <div class="buttons">
+            <button class="paper-size" (click)="selectSizeReport('a4')">
+              <img src="assets/img/type2-active.png"  /><br />
+              <span style="margin-left: 10px">A4</span>
+            </button>
+          </div>
+          <div class="buttons">
+            <button class="paper-size" (click)="selectSizeReport('100')">
+              <img src="assets/img/type2-active.png"  /><br />
+              <span style="margin-left: 10px">100 x 150 MM</span>
+            </button>
+          </div> -->
+          <div class="buttons">
+            <button class="paper-size" (click)="selectSizeReport(EnumPaperSize.SIZE_A4)" [ngClass]="{ 'selected-size': sizeSelected === EnumPaperSize.SIZE_A4 }">
+              <img src="assets/img/type2-active.png" /><br />
+              <span style="margin-left: 10px">A4</span>
+            </button>
+          </div>
+          <!-- <div class="buttons">
+            <button class="paper-size" (click)="selectSizeReport('57')">
+              <img src="assets/img/type1-active.png" /><br />
+              <span style="margin-left: 10px">57 MM</span>
+            </button>
+          </div> -->
+          <div class="buttons">
+            <button class="paper-size" (click)="selectSizeReport(EnumPaperSize.SIZE_100x150)" [ngClass]="{ 'selected-size': sizeSelected === EnumPaperSize.SIZE_100x150 }">
+              <img src="assets/img/type1-active.png" /><br />
+              <span style="margin-left: 10px">100 x 150 MM</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="buttons">
+        <div class="cancel" (click)="onCancel()">Cancel</div>
+        <div class="btn-create" [ngClass]="{ disable: !isAllow }" (click)="onSelect()">Next</div>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

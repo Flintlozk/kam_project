@@ -1,0 +1,122 @@
+<section class="grid gap-4" [formGroup]="buttonHoverForm">
+  <div class="grid grid-cols-2 gap-2 items-center">
+    <div class="text-sm font-light">Apply Button Hover</div>
+    <div>
+      <input type="checkbox" formControlName="isHover" #isHover class="hidden" />
+      <button
+        (click)="isHover.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': buttonHoverForm['controls']['isHover'].value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{
+            'bg-gray-300': !buttonHoverForm['controls']['isHover'].value,
+            'bg-white right-0 mr-2': buttonHoverForm['controls']['isHover'].value
+          }"
+        ></div>
+      </button>
+    </div>
+  </div>
+  <div [ngClass]="{ hidden: !buttonHoverForm['controls']['isHover'].value }" class="grid gap-4">
+    <div class="grid w-10/12 gap-2">
+      <div class="flex items-center">
+        <div class="text-sm font-light">Button Hover Color</div>
+        <button (click)="onRemoveColorProperty('buttonHoverColor')" class="focus:outline-none group ml-3 flex items-center">
+          <svg class="group-hover:animate-spin" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8.93631 3.25H6.68728C6.55473 3.25 6.42761 3.19732 6.33388 3.10355C6.24016 3.00979 6.1875 2.88261 6.1875 2.75C6.1875 2.61739 6.24016 2.49021 6.33388 2.39645C6.42761 2.30268 6.55473 2.25 6.68728 2.25H8.43652V0.5C8.43652 0.367392 8.48918 0.240215 8.58291 0.146447C8.67663 0.0526784 8.80376 0 8.93631 0C9.06886 0 9.19598 0.0526784 9.28971 0.146447C9.38344 0.240215 9.43609 0.367392 9.43609 0.5V2.75C9.43609 2.88261 9.38344 3.00979 9.28971 3.10355C9.19598 3.19732 9.06886 3.25 8.93631 3.25Z"
+              fill="#2EC639"
+            />
+            <path
+              d="M5.00217 10C4.12471 10.0008 3.26251 9.77039 2.50226 9.33206C1.74202 8.89373 1.11053 8.26288 0.671282 7.50294C0.232034 6.74301 0.000514715 5.88077 8.57247e-07 5.00293C-0.000513 4.12509 0.229997 3.26258 0.668354 2.50213C1.10671 1.74168 1.73747 1.11009 2.4972 0.670868C3.25692 0.231644 4.11885 0.000266913 4.99631 2.30791e-07C5.87378 -0.000266451 6.73584 0.230587 7.49584 0.669348C8.25584 1.10811 8.88697 1.73932 9.32579 2.4995C9.38786 2.61394 9.40286 2.74808 9.36761 2.87341C9.33235 2.99874 9.24962 3.10537 9.137 3.17063C9.02438 3.23588 8.89076 3.25462 8.76455 3.22285C8.63835 3.19107 8.5295 3.11131 8.46117 3.0005C7.97504 2.16228 7.20094 1.52942 6.28305 1.21979C5.36516 0.910158 4.36607 0.94487 3.47186 1.31746C2.57765 1.69005 1.8493 2.37511 1.42247 3.24504C0.995641 4.11497 0.899436 5.11046 1.15177 6.04609C1.40411 6.98171 1.98779 7.79368 2.79409 8.33075C3.60039 8.86782 4.57433 9.09337 5.53451 8.9654C6.49469 8.83742 7.37564 8.36464 8.01327 7.63512C8.6509 6.9056 9.00174 5.96908 9.00043 5C9.00043 4.86739 9.05309 4.74021 9.14682 4.64644C9.24054 4.55268 9.36767 4.5 9.50022 4.5C9.63277 4.5 9.75989 4.55268 9.85362 4.64644C9.94734 4.74021 10 4.86739 10 5C9.99854 6.32563 9.47152 7.59656 8.53456 8.53392C7.5976 9.47129 6.32723 9.99854 5.00217 10Z"
+              fill="#2EC639"
+            />
+          </svg>
+          <span class="text-sm font-light text-green-500 ml-1">Clear</span>
+        </button>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+          <input type="color" formControlName="buttonHoverColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+          <span class="pl-2">{{ buttonHoverForm['controls']['buttonHoverColor'].value }}</span>
+        </div>
+        <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="buttonHoverColorOpacity" />
+      </div>
+    </div>
+    <div class="grid w-10/12 gap-2">
+      <div class="flex items-center">
+        <div class="text-sm font-light">Border Hover Color</div>
+        <button (click)="onRemoveColorProperty('borderHoverColor')" class="focus:outline-none group ml-3 flex items-center">
+          <svg class="group-hover:animate-spin" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8.93631 3.25H6.68728C6.55473 3.25 6.42761 3.19732 6.33388 3.10355C6.24016 3.00979 6.1875 2.88261 6.1875 2.75C6.1875 2.61739 6.24016 2.49021 6.33388 2.39645C6.42761 2.30268 6.55473 2.25 6.68728 2.25H8.43652V0.5C8.43652 0.367392 8.48918 0.240215 8.58291 0.146447C8.67663 0.0526784 8.80376 0 8.93631 0C9.06886 0 9.19598 0.0526784 9.28971 0.146447C9.38344 0.240215 9.43609 0.367392 9.43609 0.5V2.75C9.43609 2.88261 9.38344 3.00979 9.28971 3.10355C9.19598 3.19732 9.06886 3.25 8.93631 3.25Z"
+              fill="#2EC639"
+            />
+            <path
+              d="M5.00217 10C4.12471 10.0008 3.26251 9.77039 2.50226 9.33206C1.74202 8.89373 1.11053 8.26288 0.671282 7.50294C0.232034 6.74301 0.000514715 5.88077 8.57247e-07 5.00293C-0.000513 4.12509 0.229997 3.26258 0.668354 2.50213C1.10671 1.74168 1.73747 1.11009 2.4972 0.670868C3.25692 0.231644 4.11885 0.000266913 4.99631 2.30791e-07C5.87378 -0.000266451 6.73584 0.230587 7.49584 0.669348C8.25584 1.10811 8.88697 1.73932 9.32579 2.4995C9.38786 2.61394 9.40286 2.74808 9.36761 2.87341C9.33235 2.99874 9.24962 3.10537 9.137 3.17063C9.02438 3.23588 8.89076 3.25462 8.76455 3.22285C8.63835 3.19107 8.5295 3.11131 8.46117 3.0005C7.97504 2.16228 7.20094 1.52942 6.28305 1.21979C5.36516 0.910158 4.36607 0.94487 3.47186 1.31746C2.57765 1.69005 1.8493 2.37511 1.42247 3.24504C0.995641 4.11497 0.899436 5.11046 1.15177 6.04609C1.40411 6.98171 1.98779 7.79368 2.79409 8.33075C3.60039 8.86782 4.57433 9.09337 5.53451 8.9654C6.49469 8.83742 7.37564 8.36464 8.01327 7.63512C8.6509 6.9056 9.00174 5.96908 9.00043 5C9.00043 4.86739 9.05309 4.74021 9.14682 4.64644C9.24054 4.55268 9.36767 4.5 9.50022 4.5C9.63277 4.5 9.75989 4.55268 9.85362 4.64644C9.94734 4.74021 10 4.86739 10 5C9.99854 6.32563 9.47152 7.59656 8.53456 8.53392C7.5976 9.47129 6.32723 9.99854 5.00217 10Z"
+              fill="#2EC639"
+            />
+          </svg>
+          <span class="text-sm font-light text-green-500 ml-1">Clear</span>
+        </button>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+          <input type="color" formControlName="borderHoverColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+          <span class="pl-2">{{ buttonHoverForm['controls']['borderHoverColor'].value }}</span>
+        </div>
+        <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="borderHoverColorOpacity" />
+      </div>
+    </div>
+    <div class="grid w-10/12 gap-2">
+      <div class="flex items-center">
+        <div class="text-sm font-light">Text Hover Color</div>
+        <button (click)="onRemoveColorProperty('textHoverColor')" class="focus:outline-none group ml-3 flex items-center">
+          <svg class="group-hover:animate-spin" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8.93631 3.25H6.68728C6.55473 3.25 6.42761 3.19732 6.33388 3.10355C6.24016 3.00979 6.1875 2.88261 6.1875 2.75C6.1875 2.61739 6.24016 2.49021 6.33388 2.39645C6.42761 2.30268 6.55473 2.25 6.68728 2.25H8.43652V0.5C8.43652 0.367392 8.48918 0.240215 8.58291 0.146447C8.67663 0.0526784 8.80376 0 8.93631 0C9.06886 0 9.19598 0.0526784 9.28971 0.146447C9.38344 0.240215 9.43609 0.367392 9.43609 0.5V2.75C9.43609 2.88261 9.38344 3.00979 9.28971 3.10355C9.19598 3.19732 9.06886 3.25 8.93631 3.25Z"
+              fill="#2EC639"
+            />
+            <path
+              d="M5.00217 10C4.12471 10.0008 3.26251 9.77039 2.50226 9.33206C1.74202 8.89373 1.11053 8.26288 0.671282 7.50294C0.232034 6.74301 0.000514715 5.88077 8.57247e-07 5.00293C-0.000513 4.12509 0.229997 3.26258 0.668354 2.50213C1.10671 1.74168 1.73747 1.11009 2.4972 0.670868C3.25692 0.231644 4.11885 0.000266913 4.99631 2.30791e-07C5.87378 -0.000266451 6.73584 0.230587 7.49584 0.669348C8.25584 1.10811 8.88697 1.73932 9.32579 2.4995C9.38786 2.61394 9.40286 2.74808 9.36761 2.87341C9.33235 2.99874 9.24962 3.10537 9.137 3.17063C9.02438 3.23588 8.89076 3.25462 8.76455 3.22285C8.63835 3.19107 8.5295 3.11131 8.46117 3.0005C7.97504 2.16228 7.20094 1.52942 6.28305 1.21979C5.36516 0.910158 4.36607 0.94487 3.47186 1.31746C2.57765 1.69005 1.8493 2.37511 1.42247 3.24504C0.995641 4.11497 0.899436 5.11046 1.15177 6.04609C1.40411 6.98171 1.98779 7.79368 2.79409 8.33075C3.60039 8.86782 4.57433 9.09337 5.53451 8.9654C6.49469 8.83742 7.37564 8.36464 8.01327 7.63512C8.6509 6.9056 9.00174 5.96908 9.00043 5C9.00043 4.86739 9.05309 4.74021 9.14682 4.64644C9.24054 4.55268 9.36767 4.5 9.50022 4.5C9.63277 4.5 9.75989 4.55268 9.85362 4.64644C9.94734 4.74021 10 4.86739 10 5C9.99854 6.32563 9.47152 7.59656 8.53456 8.53392C7.5976 9.47129 6.32723 9.99854 5.00217 10Z"
+              fill="#2EC639"
+            />
+          </svg>
+          <span class="text-sm font-light text-green-500 ml-1">Clear</span>
+        </button>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+          <input type="color" formControlName="textHoverColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+          <span class="pl-2">{{ buttonHoverForm['controls']['textHoverColor'].value }}</span>
+        </div>
+        <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="textHoverColorOpacity" />
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="text-sm font-light flex items-center justify-between">Text Transform</div>
+      <div class="select-options text">
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="textHoverTransform">
+            <mat-option *ngFor="let style of textHoverTransformData" [value]="style.value">
+              {{ style.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="text-sm font-light flex items-center justify-between">Hover Effect</div>
+      <div class="select-options text">
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="hoverEffect">
+            <mat-option *ngFor="let style of hoverEffectData" [value]="style.value">
+              {{ style.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</section>

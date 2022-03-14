@@ -1,0 +1,13 @@
+<section class="relative">
+  <reactor-room-subscription-switcher
+    *ngIf="userSubscriptionsContext"
+    [theme]="theme"
+    [userSubscriptionsContext]="userSubscriptionsContext"
+    [userSubscriptions]="userSubscriptions"
+    [activeSubscription]="activeSubscription"
+    [hasSub]="hasSub"
+    (createSubscriptionClick)="createSubscription()"
+    (subcriptionItemClick)="setSubscriptionItemStatus($event)"
+    (logoutClick)="logout()"
+  ></reactor-room-subscription-switcher>
+</section>

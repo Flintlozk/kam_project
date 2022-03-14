@@ -1,0 +1,122 @@
+<div
+  class="menu sticky"
+  reactorRoomClickOutside
+  (outside)="clickOutsideMenuEvent($event)"
+  [style.min-height]="menuMinHeight"
+  [style.max-height]="menuMaxHeight"
+  (window:resize)="onResize($event)"
+  [ngClass]="{ inactive: !menuStatus }"
+  verticalDragContent
+>
+  <div class="logo" (click)="goToMessages()" style="cursor: pointer">
+    <img *ngIf="menuStatus" src="/assets/img/logo.svg" alt="logo" />
+    <img *ngIf="!menuStatus" src="/assets/img/logo-small.svg" alt="logo" />
+  </div>
+
+  <div *ngIf="menuStatus && currentPageRole !== 'STAFF'" class="section-seperator organize">{{ 'Organization' | translate }}</div>
+  <nav *ngIf="currentPageRole !== 'STAFF'" [ngClass]="hasPages === false ? 'disableClick' : 'click'">
+    <ng-container *ngFor="let item of menuAdminItems; let i = index">
+      <a
+        [id]="item.id"
+        *ngIf="!(item.isHiddenInBusiness && isSubscriptionBusiness)"
+        class="nav-item organize"
+        (click)="changeRouteTo(item.routerLink, i)"
+        [routerLinkActive]="'active'"
+        [ngClass]="{ 'has-sub': item.subMenu?.length, active: item.routeNode === currentRoute }"
+        [routerLinkActiveMatch]="item.routeNode"
+        [matTooltip]="(menuStatus ? '' : item.label) | translate"
+      >
+        <div class="item">
+          <div class="icon-invert">
+            <img [src]="item.imgUrl" [alt]="item.label" />
+          </div>
+          <div class="text">{{ item.label | translate }}</div>
+        </div>
+        <svg *ngIf="item.subMenu?.length" class="expand" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8 9.19355L13.1935 4L15 5.80645L8 12.8065L1 5.80645L2.80645 4L8 9.19355Z" fill="#53B0FF" />
+        </svg>
+        <span class="total" *ngIf="item.total" [innerText]="item.total"></span>
+      </a>
+
+      <div class="sub" *ngIf="item.subMenu?.length && (item.isActive || item.routeNode === currentRoute)">
+        <ng-container *ngFor="let sub of item.subMenu; let j = index">
+          <div [id]="sub.id" class="nav-item" (click)="changeRouteSubTo(sub.routerLink, i, j)" [routerLink]="sub.routerLink" routerLinkActive="active">
+            <div class="text">{{ sub.label | translate }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </nav>
+
+  <div *ngIf="!menuStatus && currentPageRole !== 'STAFF'" class="section-seperator-dotted"></div>
+  <div *ngIf="menuStatus" class="section-seperator shop">{{ 'Shop' | translate }}</div>
+  <reactor-room-shop-page-switcher
+    [theme]="theme"
+    [enableCreateShop]="true"
+    [userContext]="userContext"
+    [facebookPageData]="facebookPageData"
+    [pageTitleActive]="pageTitleActive"
+    [pageImgUrlActive]="pageImgUrlActive"
+    [menuStatus]="menuStatus"
+    [isOwner]="isOwner"
+    (pageListClicked)="fetchAllPageNotification($event)"
+    (pageDataClicked)="selectPageByIndex($event)"
+    (createPageClicked)="createPage()"
+    class="usingNGDEEP"
+  >
+  </reactor-room-shop-page-switcher>
+  <div class="package-label">
+    <reactor-room-package-label></reactor-room-package-label>
+  </div>
+  <div class="upgrade">
+    <reactor-room-upgrade></reactor-room-upgrade>
+  </div>
+
+  <nav [ngClass]="hasPages === false ? 'disableClick' : 'click'" class="nav-section">
+    <ng-container *ngFor="let item of menuItems; let i = index">
+      <a
+        [id]="item.id"
+        *ngIf="!(item.isHiddenInBusiness && isSubscriptionBusiness)"
+        class="nav-item"
+        (click)="changeRouteTo(item.routerLink, i)"
+        [routerLinkActive]="'active'"
+        [ngClass]="{ 'has-sub': item.subMenu?.length, active: item.routeNode === currentRoute }"
+        [routerLinkActiveMatch]="item.routeNode"
+        [matTooltip]="(menuStatus ? '' : item.label) | translate"
+      >
+        <div class="item">
+          <div class="icon">
+            <img [src]="item.imgUrl" [alt]="item.label" />
+          </div>
+          <div class="text">{{ item.label | translate }}</div>
+        </div>
+        <svg *ngIf="item.subMenu?.length" class="expand" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8 9.19355L13.1935 4L15 5.80645L8 12.8065L1 5.80645L2.80645 4L8 9.19355Z" fill="#53B0FF" />
+        </svg>
+        <span class="total" *ngIf="item.total" [innerText]="item.total"></span>
+      </a>
+
+      <div class="sub" *ngIf="item.subMenu?.length && (item.isActive || item.routeNode === currentRoute)">
+        <ng-container *ngFor="let sub of item.subMenu; let j = index">
+          <div [id]="sub.id" class="nav-item" (click)="changeRouteSubTo(sub.routerLink, i, j)" [routerLink]="sub.routerLink" routerLinkActive="active">
+            <div class="text">{{ sub.label | translate }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <reactor-room-storage-drive *ngIf="menuStatus"></reactor-room-storage-drive>
+  </nav>
+  <div class="bottom-menu">
+    <div class="slidebar" (click)="menuToggle()">
+      <a class="text">Collapse sidebar</a>
+      <div class="slidebar-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8.52323 1L0.999999 8L8.52323 15" stroke="#54B1FF" stroke-linecap="round" />
+          <path d="M15.0667 1L7.54343 8L15.0667 15" stroke="#54B1FF" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<reactor-room-loader block="true" [text]="'Loading' | translate" *ngIf="isLoading"></reactor-room-loader>

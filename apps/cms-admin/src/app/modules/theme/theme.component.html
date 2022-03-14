@@ -1,0 +1,5 @@
+<div style="max-width: 1280px">
+  <reactor-room-header [Topic]="name" (parentHandler)="addNewTheme()"> </reactor-room-header>
+  <cms-next-page-pagination [allPagesNumber]="allPages" (changePage)="onPageChange($event)"></cms-next-page-pagination>
+  <cms-next-theme-list [themes]="themes" (themeIndexEmitter)="onSelectTemplate($event)"></cms-next-theme-list>
+</div>

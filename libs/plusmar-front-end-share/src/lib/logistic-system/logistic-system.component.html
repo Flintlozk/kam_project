@@ -1,0 +1,168 @@
+<!-- create theme for cms and add ngclass for select option :
+cms use class select options 
+plusmar user class select options -->
+<div
+  class="logistic-system-container"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <div class="control-wrapper" *ngIf="logisticSystemForm">
+    <div class="calculation-method">
+      <div class="label">{{ 'Calculation method' | translate }}</div>
+      <!-- <div [ngClass]="{'select-option': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL}"> -->
+      <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+        <mat-form-field>
+          <mat-select (selectionChange)="onSelectCalucationMethod($event)" [value]="getActivatedCalculationMethod">
+            <ng-container *ngFor="let method of calculationMethodList">
+              <!-- <mat-option [value]="method.type"> {{ method.name }} </mat-option> -->
+              <ng-container *ngIf="subSystem && method.isAllow">
+                <mat-option [value]="method.type"> {{ method.name | translate }} </mat-option>
+              </ng-container>
+              <ng-container *ngIf="!subSystem">
+                <mat-option [value]="method.type"> {{ method.name | translate }} </mat-option>
+              </ng-container>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="save-button" *ngIf="!subSystem && !setReturnUpdate">
+      <button class="btn-save" [disabled]="!logisticSystemForm.dirty" (click)="saveLogisticSystemConfig()">
+        <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+            attr.fill="{{ !logisticSystemForm.dirty ? '#d7d8df' : '#FFF' }}"
+          />
+        </svg>
+        <span>{{ 'Save' | translate }}</span>
+      </button>
+    </div>
+  </div>
+
+  <ng-container [formGroup]="logisticSystemForm" *ngIf="logisticSystemForm">
+    <div [ngSwitch]="getActivatedCalculationMethod">
+      <ng-container *ngIf="!subSystem">
+        <div *ngSwitchCase="ELogisticSystemType.PRICING_TABLE" formGroupName="pricingTable">
+          <div class="common-method pricing-table-method">
+            <div class="label">{{ 'Provider referrence' | translate }}</div>
+
+            <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+              <mat-form-field>
+                <mat-select formControlName="provider">
+                  <mat-option [value]="'THAILAND_POST'"> {{ 'THAILAND_POST' | translate }} </mat-option>
+                  <!-- <mat-option [value]="'FLASH_EXPRESS'"> Flash Express </mat-option>
+                  <mat-option [value]="'J_AND_T'"> J&T Express </mat-option> -->
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="text-group">
+              <div class="text">
+                <span>{{ 'View' | translate }} </span>
+                <span *ngIf="theme === themeType.SOCIAL" class="blue" (click)="openInfoDialog(logisticSystemForm?.value?.pricingTable?.provider)">{{
+                  'shipping rate' | translate
+                }}</span>
+                <span *ngIf="theme === themeType.CMS" cms (click)="openInfoDialog(logisticSystemForm?.value?.pricingTable?.provider)">{{ 'shipping rate' | translate }}</span>
+                <span> {{ 'for each provider' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div *ngSwitchCase="ELogisticSystemType.FLAT_RATE" formGroupName="flatRate">
+        <div class="common-method flat-rate-method">
+          <div class="label">{{ 'Delivery Fee' | translate }}</div>
+          <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+            <input class="border border-green-500" type="number" formControlName="deliveryFee" />
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="ELogisticSystemType.FIXED_RATE">
+        <ng-container formGroupName="fixedRate">
+          <div class="common-method fixed-rate-method">
+            <div class="selector-charged">
+              <label class="mode-toggle">
+                <input type="checkbox" formControlName="useMin" />
+                <span class="slider round" [ngClass]="'not-allow'"></span>
+              </label>
+              <div class="text-group">
+                <div class="text">
+                  <ng-container *ngIf="getFixedRateControl.value.useMin">
+                    <!-- Total order price <span class="blue">lower</span> than provided amount will <span class="red">not</span> be <span class="blue">"charged"</span> -->
+                    {{ 'FALLBACK_TOTAL_PRICE_LOWER_1' | translate }}<span class="blue">{{ 'FALLBACK_TOTAL_PRICE_LOWER_2' | translate }}</span>
+                    {{ 'FALLBACK_TOTAL_PRICE_LOWER_3' | translate }} <span class="red">{{ 'FALLBACK_TOTAL_PRICE_LOWER_4' | translate }}</span>
+                    {{ 'FALLBACK_TOTAL_PRICE_LOWER_5' | translate }} <span class="blue">{{ 'FALLBACK_TOTAL_PRICE_LOWER_6' | translate }}</span>
+                  </ng-container>
+                  <ng-container *ngIf="!getFixedRateControl.value.useMin">
+                    {{ 'FALLBACK_TOTAL_PRICE_HIGHER_1' | translate }}<span class="blue">{{ 'FALLBACK_TOTAL_PRICE_HIGHER_2' | translate }}</span
+                    >{{ 'FALLBACK_TOTAL_PRICE_HIGHER_3' | translate }}<span class="red">{{ 'FALLBACK_TOTAL_PRICE_HIGHER_4' | translate }}</span
+                    >{{ 'FALLBACK_TOTAL_PRICE_HIGHER_5' | translate }}<span class="blue">{{ 'FALLBACK_TOTAL_PRICE_HIGHER_6' | translate }}</span>
+                  </ng-container>
+                </div>
+                <div class="text">
+                  <ng-container *ngIf="getFixedRateControl.value.useMin"
+                    >{{ ' And use fallback method to calculate for ' | translate }}<span class="blue">{{ 'HIGHER_PRICE_1' | translate }}</span
+                    >{{ 'HIGHER_PRICE_2' | translate }}</ng-container
+                  >
+                  <ng-container *ngIf="!getFixedRateControl.value.useMin"
+                    >{{ ' And use fallback method to calculate for ' | translate }}<span class="blue">{{ 'LOWER_PRICE_1' | translate }}</span
+                    >{{ 'LOWER_PRICE_2' | translate }}
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="amount-group">
+              <div>{{ 'Amount' | translate }}</div>
+              <input type="number" formControlName="amount" />
+            </div>
+
+            <div class="fallback-group">
+              <div class="label">{{ 'Fallback Method' | translate }}</div>
+              <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+                <mat-form-field appearance="none">
+                  <mat-select formControlName="fallbackType">
+                    <mat-option *ngIf="!subSystem" [value]="ELogisticSystemType.PRICING_TABLE"> {{ 'Pricing Table' | translate }} </mat-option>
+                    <mat-option [value]="ELogisticSystemType.FLAT_RATE"> {{ 'Flat Rate' | translate }} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="getFixedRateControl.value.fallbackType === ELogisticSystemType.PRICING_TABLE">
+          <div formGroupName="pricingTable">
+            <div class="common-method pricing-table-method">
+              <div class="label">{{ 'Provider referrence' | translate }}</div>
+              <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+                <mat-form-field appearance="none">
+                  <mat-select formControlName="provider">
+                    <mat-option [value]="'THAILAND_POST'"> {{ 'THAILAND_POST' | translate }} </mat-option>
+                    <!-- <mat-option [value]="'FLASH_EXPRESS'"> Flash Express </mat-option> -->
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="getFixedRateControl.value.fallbackType === ELogisticSystemType.FLAT_RATE">
+          <div formGroupName="flatRate">
+            <div class="common-method flat-rate-method">
+              <div class="label">{{ 'Delivery Fee' | translate }}</div>
+              <div [ngClass]="{ 'select-options': theme === themeType.CMS, 'select-option': theme === themeType.SOCIAL }">
+                <input type="number" formControlName="deliveryFee" />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div *ngSwitchDefault></div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script>
+      alert('asd')
+       <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+    </script>
+  </head>
+  <body x-data="{name:payloadData.name}" onload="onLoaded()">
+    <h1>Flash Express A4</h1>
+    <div>
+      <span>NAME:</span>
+      <span x-text="name"></span>
+      <img id="trackNo" />
+    </div>
+  </body>
+</html>

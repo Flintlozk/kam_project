@@ -1,0 +1,22 @@
+<div *ngIf="!isSetupSuccess" class="wizard-container" [ngClass]="selectStep && step ? 'gray' : ''">
+  <div class="container">
+    <div *ngIf="!selectStep && disableCancel" class="button">
+      <button type="button" (click)="openConfirmDeletePageDialog()" class="btn-edit">
+        <span class="ml-5"> Cancel </span>
+      </button>
+    </div>
+
+    <reactor-room-wizard-steps *ngIf="step && !selectStep" [currentStep]="currentStep" (selectStep)="onSelectStep($event)"> </reactor-room-wizard-steps>
+
+    <ng-container *ngIf="selectStep && step">
+      <reactor-room-wizard-step-1 *ngIf="step === EnumWizardStepType.STEP_CONNECT_FACEBOOK || step === EnumWizardStepType.CMS_DEFAULT" (cancel)="onCancel()">
+      </reactor-room-wizard-step-1>
+      <reactor-room-wizard-step-2 *ngIf="step === EnumWizardStepType.STEP_SET_SHOP_INFO" (cancel)="onCancel()"> </reactor-room-wizard-step-2>
+      <reactor-room-wizard-step-3 *ngIf="step === EnumWizardStepType.STEP_SET_LOGISTIC" (cancel)="onCancel()"> </reactor-room-wizard-step-3>
+      <reactor-room-wizard-step-4 *ngIf="step === EnumWizardStepType.STEP_SET_PAYMENT" (cancel)="onCancel()" (setupSuccess)="onSetupSuccess()"> </reactor-room-wizard-step-4>
+    </ng-container>
+  </div>
+</div>
+<reactor-room-wizard-step-finish *ngIf="isSetupSuccess"></reactor-room-wizard-step-finish>
+
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

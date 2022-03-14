@@ -1,0 +1,122 @@
+@import 'base';
+
+.chatbox-audience-seperator-container {
+  .reason-container {
+    position: relative;
+    border-radius: 4px;
+    height: 22px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    &.line {
+      background: #cbf0cf;
+
+      .more-button {
+        color: #1ba629;
+      }
+
+      .more-detail-tooltip {
+        background: #0aa119;
+      }
+      .more-detail-tooltip-arrow {
+        border-bottom-color: #0aa119 !important;
+      }
+    }
+
+    &.facebook {
+      background: #e7f4ff;
+
+      .more-button {
+        color: #3482ff;
+      }
+
+      .more-detail-tooltip {
+        background: #53b1ff;
+      }
+      .more-detail-tooltip-arrow {
+        border-bottom-color: #53b1ff !important;
+      }
+    }
+    .type {
+      color: $text-dark-2-color;
+    }
+    .description {
+      color: $text-dark-2-color;
+    }
+    .more-button {
+      cursor: pointer;
+      margin: 0 10px;
+
+      // &.facebook {
+      //   background: #3482ff;
+      // }
+      // &.line {
+      //   background: #1ba629;
+      // }
+
+      .more-detail-tooltip-arrow {
+        display: none;
+        position: absolute;
+        top: 15px;
+        border-left: 10px solid #0000;
+        border-right: 10px solid #0000;
+        border-bottom: 15px solid #fff;
+      }
+
+      .more-detail-tooltip {
+        display: none;
+        flex-flow: column;
+        position: absolute;
+        top: 30px;
+        z-index: 1;
+        padding: 0px;
+        right: 0;
+        border-radius: 4px;
+        color: #fff;
+
+        // &.facebook {
+        //   background: #53b1ff;
+        // }
+        // &.line {
+        //   background: #0aa119;
+        // }
+
+        .detail {
+          margin: 10px;
+          word-break: break-all;
+        }
+
+        .user {
+          margin: 10px;
+        }
+        .dotted {
+          width: 100%;
+          height: 1px;
+          border-bottom: 1px dotted #fff;
+        }
+      }
+
+      &:hover {
+        .more-detail-tooltip {
+          display: flex;
+        }
+
+        .more-detail-tooltip-arrow {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .break-audience {
+    // text-align: center;
+    margin: 8px 0 10px 0;
+    clear: both;
+    height: 4px;
+    background: #f3f5f960;
+    // background: #dddfea7a;
+    // width: 50%;
+  }
+}

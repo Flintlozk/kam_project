@@ -1,0 +1,100 @@
+<section>
+  <div class="main-head">
+    <div class="main-head1">
+      <div class="flex items-center-main justify-between px-6 py-3 bg-white shadow-md rounded-t-md">
+        <div class="flex items-center">
+          <img src="../../../../../assets/stock/icon/icon-buytwo.svg" class="rounded-lg" style="box-shadow: 0px 0px 10px 0px rgb(217 217 217 / 75%)" />
+          <div class="text-main-e-commerce">
+            <span class="mr-3 text-lg text-black">E-Commerce</span>
+            <div>
+              <span class="text-green-500"><em>Last 7 days </em></span>
+              <span class="text-gray-400"><em>Aug 31,2020 - Sep 6, 2020</em></span>
+            </div>
+          </div>
+          <!-- <svg width="53" height="24" viewBox="0 0 53 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="51.2345" cy="1.76552" r="1.76552" transform="rotate(90 51.2345 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="51.2345" cy="11.6591" r="1.76552" transform="rotate(90 51.2345 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="51.2345" cy="21.5531" r="1.76552" transform="rotate(90 51.2345 21.5531)" fill="white" fill-opacity="0.4" />
+        <circle cx="41.3405" cy="1.76552" r="1.76552" transform="rotate(90 41.3405 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="41.3405" cy="11.6591" r="1.76552" transform="rotate(90 41.3405 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="41.3405" cy="21.5531" r="1.76552" transform="rotate(90 41.3405 21.5531)" fill="white" fill-opacity="0.4" />
+        <circle cx="31.4469" cy="1.76552" r="1.76552" transform="rotate(90 31.4469 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="31.4469" cy="11.6591" r="1.76552" transform="rotate(90 31.4469 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="31.4469" cy="21.5531" r="1.76552" transform="rotate(90 31.4469 21.5531)" fill="white" fill-opacity="0.4" />
+        <circle cx="21.5531" cy="1.76552" r="1.76552" transform="rotate(90 21.5531 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="21.5531" cy="11.6591" r="1.76552" transform="rotate(90 21.5531 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="21.5531" cy="21.5531" r="1.76552" transform="rotate(90 21.5531 21.5531)" fill="white" fill-opacity="0.4" />
+        <circle cx="11.6593" cy="1.76552" r="1.76552" transform="rotate(90 11.6593 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="11.6593" cy="11.6591" r="1.76552" transform="rotate(90 11.6593 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="11.6593" cy="21.5531" r="1.76552" transform="rotate(90 11.6593 21.5531)" fill="white" fill-opacity="0.4" />
+        <circle cx="1.7657" cy="1.76552" r="1.76552" transform="rotate(90 1.7657 1.76552)" fill="white" fill-opacity="0.4" />
+        <circle cx="1.76552" cy="11.6591" r="1.76552" transform="rotate(90 1.76552 11.6591)" fill="white" fill-opacity="0.4" />
+        <circle cx="1.76552" cy="21.5531" r="1.76552" transform="rotate(90 1.76552 21.5531)" fill="white" fill-opacity="0.4" />
+      </svg> -->
+        </div>
+        <!-- button more -->
+        <button class="text-base font-light text-green-500 focus:outline-none" [routerLink]="[moreLink]" routerLinkActive="router-link-active">more</button>
+      </div>
+
+      <div class="grid grid-cols-4 row-span-2 overflow-hidden bg-white border border-gray-200 rounded-b-md">
+        <ng-container *ngFor="let ecommerceDataItem of ecommerceData; trackBy: trackByIndex">
+          <div class="col-span-2 row-span-1 border border-gray-50">
+            <div class="main-table border-gray-50">
+              <div>
+                <h2 class="text-title text-lg">{{ ecommerceDataItem.title }}</h2>
+              </div>
+              <div class="items-percen justify-between">
+                <div
+                  class="flex items-center px-2 text-sm font-light leading-none text-white transform bg-red-500 h-7"
+                  [ngClass]="{ 'bg-green-500': ecommerceDataItem.isPositive }"
+                >
+                  <span class="mr-1"
+                    ><svg *ngIf="!ecommerceDataItem.isPositive" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.5748 1L6.5748 11" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+                      <path d="M11.6714 6.71436L6.57481 11.7144L1.47827 6.71436" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+                    </svg>
+                    <svg *ngIf="ecommerceDataItem.isPositive" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5.88965 11.7144V1.71436" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+                      <path d="M0.792984 6L5.88953 1L10.9861 6" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+                    </svg>
+                  </span>
+                  {{ ecommerceDataItem.percentage }}%
+                </div>
+                <div class="value pt-3 text-4xl">{{ ecommerceDataItem.value }}</div>
+              </div>
+            </div>
+
+            <div class="col-span-1">
+              <div class="col-span-2 flex flex-row justify-between">
+                <div class="col-span-1 h-24 flex justify-between items-center border border-gray-50" style="width: 50%; border-left: 0px">
+                  <div>
+                    <div class="pb-10 pl-5 text-sm font-light text-gray-400">{{ ecommerceDataItem.unpaid }}</div>
+                  </div>
+                  <div>
+                    <div class="pr-4 pt-6 text-2xl">{{ ecommerceDataItem.valueunpaid }}</div>
+                  </div>
+                </div>
+                <div class="col-span-1 h-24 flex justify-between items-center border border-gray-50" style="width: 50%; border-right: 0px">
+                  <div class="pb-10 pl-5 text-sm font-light text-gray-400">{{ ecommerceDataItem.paid }}</div>
+                  <div class="pr-4 pt-6 text-2xl">{{ ecommerceDataItem.valuepaid }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="main-head2">
+      <div class="item-col-two col-span-1 justify-between items-center bg-white">
+        <button style="position: relative;" class="text-base font-light focus:outline-none text-green-500" [routerLink]="[moreLinkLowstock]" routerLinkActive="router-link-active">more</button>
+        <div class="low-stock">
+          <img src="../../../../../assets/stock/icon/home.png" />
+          <div class="main text-lg">Low Stock</div>
+          <div class="sub-main text-sm font-light text-gray-400">All time</div>
+          <div class="sub-number pt-3 text-7xl">{{productLowStockTotal[0].sumLowStock}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

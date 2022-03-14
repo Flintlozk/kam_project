@@ -1,0 +1,17 @@
+<table class="w-full font-light text-gray-600">
+  <tr class="border-gray-600 border-b-1">
+    <td class="p-2">{{ confirmPaymentData.title | translate }}</td>
+    <td class="flex items-center justify-end p-2 text-gray-700">
+      <img
+        *ngIf="confirmPaymentData.imageUrl"
+        [src]="confirmPaymentData.imageUrl"
+        [alt]="confirmPaymentData.title"
+        class="flex-shrink-0 w-8 h-8 mr-3 border border-gray-200 rounded-full"
+      />
+      {{ confirmPaymentData.value }}
+    </td>
+  </tr>
+</table>
+<button (click)="openOrderConfirmShippingDialog()" class="w-full py-3 mt-4 text-xl font-light text-white bg-gray-700 rounded-md focus:outline-none">
+  {{ 'Confirm Shipping' | translate }}
+</button>

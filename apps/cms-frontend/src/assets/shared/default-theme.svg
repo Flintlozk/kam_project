@@ -1,0 +1,15 @@
+<svg width="373px" height="221px" viewBox="0 0 373 221" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="CMS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-27">
+            <rect id="Rectangle" stroke="#E4E6E9" fill="#E4E6E9" x="0.5" y="0.5" width="372" height="220"></rect>
+            <g id="picture-2" transform="translate(157.000000, 86.000000)" fill-rule="nonzero">
+                <g id="picture">
+                    <path d="M56.9767969,0 L3.02320312,0 C1.90579688,0 1,0.901537095 1,2.01394028 L1,45.9860597 C1,47.0984629 1.90579688,48 3.02320312,48 L56.9767969,48 C58.0943164,48 59,47.0983501 59,45.9860597 L59,2.01394028 C59,0.901537095 58.0942031,0 56.9767969,0 Z" id="Shape" stroke="#CED1DA" stroke-width="3"></path>
+                    <path d="M20,10 C17.2431591,10 15,12.2431591 15,15 C15,17.7568409 17.2431591,20 20,20 C22.757299,20 25,17.7568409 25,15 C25,12.2432354 22.7568409,10 20,10 Z" id="Shape" fill="#CED1DA"></path>
+                    <path d="M45.1098581,30.9014171 C44.5669894,30.6518907 43.9314494,30.7138737 43.4463485,31.0643922 L22,46.528465 L23.9434832,49.25 L44.6053457,34.3514642 L57.6165573,40.3126226 L59,37.2650435 L45.1098581,30.9014171 Z" id="Path" fill="#CED1DA"></path>
+                    <polygon id="Rectangle" fill="#CED1DA" transform="translate(17.500000, 30.868620) rotate(-62.530448) translate(-17.500000, -30.868620) " points="16 13 18.9570683 13.0118271 19 48.737239 16.0429317 48.7254119"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,188 @@
+<div class="container">
+  <div class="content">
+    <div class="info free">
+      <div class="detail free">
+        <div class="title">FREE</div>
+        <div>
+          <span class="price">Free</span>
+        </div>
+        <div class="features">ทดลองใช้ฟีเจอร์พื้นฐาน สำหรับร้านค้า ซื้อขายสินค้าได้เต็มรูปแบบ</div>
+        <div *ngIf="isSubscriptionNoPlan" class="button">
+          <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(EnumSubscriptionPackageType.FREE)">Try For Free</button>
+        </div>
+        <div *ngIf="isSubscriptionFree" class="features with-color">
+          {{ 'Current package' | translate }}
+        </div>
+        <div *ngIf="!isSubscriptionFree && !isSubscriptionNoPlan" class="features with-color">ไม่สามารถใช้งานได้</div>
+        <ul>
+          <li><span class="li-detail">เชื่อมต่อ Facebook Fan Page, Inbox, Comment & Live</span> <span class="icon">1 เพจ</span></li>
+          <li>
+            <span class="li-detail">เชื่อมต่อ Line Official Account</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+          </li>
+          <li><span class="li-detail">แอดมินเข้าใช้งานได้ทั้งหมด</span> <span class="icon">1 คน</span></li>
+          <li><span class="li-detail">แชทกับลูกค้าได้สูงสุด</span> <span class="icon">ไม่จำกัด</span></li>
+          <li><span class="li-detail">แยกสถานะลูกค้าตามความสนใจ</span> <span class="icon">ไม่จำกัด</span></li>
+          <li><span class="li-detail">แท็กแยกประเภทลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+          <li><span class="li-detail">จำนวนข้อความแชทกับลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+          <li><span class="li-detail">สร้างสินค้าและจัดการสต๊อก</span> <span class="icon">ไม่จำกัด</span></li>
+          <li><span class="li-detail">จำนวนการเปิดบิล</span> <span class="icon">10 ใบ/เดือน</span></li>
+          <li><span class="li-detail">ออกใบเสร็จรับเงิน</span> <span class="icon">10 ใบ/เดือน</span></li>
+          <li><span class="li-detail">ระบบจัดส่ง และพิมพ์ใบปะหน้าพัสดุ</span> <span class="icon">ไม่จำกัด</span></li>
+          <li>
+            <span class="li-detail">ช่องทางการชำระเงินอัตโนมัติ</span> <span class="icon"><img src="/assets/img/check-orange.png" /></span>
+          </li>
+          <li>
+            <span class="li-detail">รายงานสถิติการติดต่อจากลูกค้า</span> <span class="icon"><img src="/assets/img/check-orange.png" /></span>
+          </li>
+          <li>
+            <span class="li-detail">สร้างแบบฟอร์มเก็บข้อมูลลูกค้า</span> <span class="icon"><img src="/assets/img/check-orange.png" /></span>
+          </li>
+          <li>
+            <span class="li-detail">คีย์ลัดข้อความตอบกลับอัตโนมัติ</span> <span class="icon"><img src="/assets/img/check-orange.png" /></span>
+          </li>
+          <li>
+            <span class="li-detail">ระบุแอดมินที่ตอบกลับลูกค้า</span> <span class="icon"><img src="/assets/img/check-orange.png" /></span>
+          </li>
+          <li>
+            <span class="li-detail"><span class="with-color">FREE</span> อบรมการใช้งานระบบ</span> <span class="icon">ไม่จำกัด</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="info">
+        <div class="detail business">
+          <div class="title">BUSINESS</div>
+          <div>
+            <span class="price">23,500</span>
+            {{ 'Per Year' | translate }}
+          </div>
+          <div class="features">ฟีเจอร์สำหรับธุรกิจที่ต้องเก็บรายชื่อลูกค้า เพื่อให้ Sales ติดต่อก่อนซื้อขาย</div>
+          <div *ngIf="isSubscriptionFree || isSubscriptionNoPlan" class="button">
+            <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(EnumSubscriptionPackageType.BUSINESS)">Subscribe</button>
+          </div>
+          <div *ngIf="!isSubscriptionBusiness" class="features with-color">
+            {{ 'Contact Us' | translate }}
+          </div>
+          <div *ngIf="isSubscriptionBusiness" class="features with-color">
+            {{ 'Current package' | translate }}
+          </div>
+          <ul>
+            <li><span class="li-detail">เชื่อมต่อ Facebook Fan Page, Inbox, Comment & Live</span> <span class="icon">1 เพจ</span></li>
+            <li><span class="li-detail">เชื่อมต่อ Line Official Account</span> <span class="icon">1 บัญชี*</span></li>
+            <li><span class="li-detail">แอดมินเข้าใช้งานได้ทั้งหมด</span> <span class="icon">5 คน</span></li>
+            <li><span class="li-detail">แชทกับลูกค้าได้สูงสุด</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">แยกสถานะลูกค้าตามความสนใจ</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">แท็กแยกประเภทลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">จำนวนข้อความแชทกับลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+            <li>
+              <span class="li-detail">สร้างสินค้าและจัดการสต๊อก</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+            </li>
+            <li>
+              <span class="li-detail">จำนวนการเปิดบิล</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+            </li>
+            <li>
+              <span class="li-detail">ออกใบเสร็จรับเงิน</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+            </li>
+            <li>
+              <span class="li-detail">ระบบจัดส่ง และพิมพ์ใบปะหน้าพัสดุ</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+            </li>
+            <li>
+              <span class="li-detail">ช่องทางการชำระเงินอัตโนมัติ</span> <span class="icon"><img src="/assets/img/no-grey.png" /></span>
+            </li>
+            <li>
+              <span class="li-detail">รายงานสถิติการติดต่อจากลูกค้า</span> <span class="icon"><img src="/assets/img/check-purple.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">สร้างแบบฟอร์มเก็บข้อมูลลูกค้า</span> <span class="icon"><img src="/assets/img/check-purple.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">คีย์ลัดข้อความตอบกลับอัตโนมัติ</span> <span class="icon"><img src="/assets/img/check-purple.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">ระบุแอดมินที่ตอบกลับลูกค้า</span> <span class="icon"><img src="/assets/img/check-purple.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail"><span class="with-color">FREE</span> อบรมการใช้งานระบบ</span> <span class="icon">ไม่จำกัด</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="info extra" (click)="toContactUs()">
+        <ul>
+          <li class="li-detail">
+            <span class="business-text">
+              <div class="discount-title">เพิ่ม Facebook Page หรือ LINE OA</div>
+              <div class="discount-detail">พิเศษ! ลดราคาทันที <span class="extra-discount">20%</span> คลิ๊ก</div>
+            </span>
+            <div class="extra-icon"><img src="/assets/img/Arrow-Purple.svg" /></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="info">
+        <div class="detail commerce">
+          <div class="title">COMMERCE</div>
+          <div>
+            <span class="price">33,500</span>
+            {{ 'Per Year' | translate }}
+          </div>
+          <div class="features">ฟีเจอร์สำหรับธุรกิจซื้อขายสินค้าออนไลน์ ซื้อขายสินค้าได้อย่างไม่จำกัด</div>
+          <div *ngIf="isSubscriptionFree || isSubscriptionNoPlan" class="button">
+            <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(EnumSubscriptionPackageType.COMMERCE)">Subscribe</button>
+          </div>
+          <div *ngIf="!isSubscriptionCommerce" class="features with-color">
+            {{ 'Contact Us' | translate }}
+          </div>
+          <div *ngIf="isSubscriptionCommerce" class="features with-color">
+            {{ 'Current package' | translate }}
+          </div>
+
+          <ul>
+            <li><span class="li-detail">เชื่อมต่อ Facebook Fan Page, Inbox, Comment & Live</span> <span class="icon">1 เพจ</span></li>
+            <li><span class="li-detail">เชื่อมต่อ Line Official Account</span> <span class="icon">1 บัญชี*</span></li>
+            <li><span class="li-detail">แอดมินเข้าใช้งานได้ทั้งหมด</span> <span class="icon">5 คน</span></li>
+            <li><span class="li-detail">แชทกับลูกค้าได้สูงสุด</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">แยกสถานะลูกค้าตามความสนใจ</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">แท็กแยกประเภทลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">จำนวนข้อความแชทกับลูกค้า</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">สร้างสินค้าและจัดการสต๊อก</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">จำนวนการเปิดบิล</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">ออกใบเสร็จรับเงิน</span> <span class="icon">ไม่จำกัด</span></li>
+            <li><span class="li-detail">ระบบจัดส่ง และพิมพ์ใบปะหน้าพัสดุ</span> <span class="icon">ไม่จำกัด</span></li>
+            <li>
+              <span class="li-detail">ช่องทางการชำระเงินอัตโนมัติ</span> <span class="icon"><img src="/assets/img/check-blue.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">รายงานสถิติการติดต่อจากลูกค้า</span> <span class="icon"><img src="/assets/img/check-blue.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">สร้างแบบฟอร์มเก็บข้อมูลลูกค้า</span> <span class="icon"><img src="/assets/img/check-blue.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">คีย์ลัดข้อความตอบกลับอัตโนมัติ</span> <span class="icon"><img src="/assets/img/check-blue.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail">ระบุแอดมินที่ตอบกลับลูกค้า</span> <span class="icon"><img src="/assets/img/check-blue.svg" /></span>
+            </li>
+            <li>
+              <span class="li-detail"><span class="with-color">FREE</span> อบรมการใช้งานระบบ</span> <span class="icon">ไม่จำกัด</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="info extra" (click)="toContactUs()">
+        <ul>
+          <li class="li-detail">
+            <span class="commerce-text">
+              <div class="discount-title">เพิ่ม Facebook Page หรือ LINE OA</div>
+              <div class="discount-detail">พิเศษ! ลดราคาทันที <span class="extra-discount">20%</span> คลิ๊ก</div>
+            </span>
+            <div class="extra-icon"><img src="/assets/img/Arrow-blue.svg" /></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

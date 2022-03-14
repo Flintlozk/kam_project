@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  .rendering-item:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) !important;
+  }
+  .cdk-drag-placeholder {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) !important;
+  }
+}
+
+::ng-deep {
+  .custom-table .content,
+  .table-content-group .content,
+  .custom-dialog .content {
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #22c55e !important;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: darken(#22c55e, 10%) !important;
+    }
+  }
+}

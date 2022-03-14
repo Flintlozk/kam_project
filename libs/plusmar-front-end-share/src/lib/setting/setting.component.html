@@ -1,0 +1,40 @@
+<div *ngIf="!invalid" class="setting" [ngStyle]="{ 'max-width': tabWidth }">
+  <reactor-room-heading [headingTitle]="'Settings' | translate" [Route]="'Settings' | translate">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <mat-tab-group class="mat-tab-setting" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab [label]="'Shop Owner' | translate" #owner>
+      <reactor-room-setting-shop-owner *matTabContent></reactor-room-setting-shop-owner>
+    </mat-tab>
+    <mat-tab *ngIf="!isSubscriptionBusiness" [label]="'Payments' | translate" #payment>
+      <reactor-room-setting-payment *matTabContent></reactor-room-setting-payment>
+    </mat-tab>
+    <mat-tab *ngIf="!isSubscriptionBusiness" [label]="'Logistic' | translate" #logistic>
+      <reactor-room-setting-logistic *matTabContent></reactor-room-setting-logistic>
+    </mat-tab>
+    <mat-tab *ngIf="!isSubscriptionBusiness" [label]="'Tax' | translate" #TAX>
+      <reactor-room-setting-tax *matTabContent></reactor-room-setting-tax>
+    </mat-tab>
+    <!-- <mat-tab [label]="'Order' | translate" #order>
+      <reactor-room-setting-order *matTabContent></reactor-room-setting-order>
+    </mat-tab> -->
+    <mat-tab *ngIf="!isSubscriptionBusiness" [label]="'General Settings' | translate" #general>
+      <reactor-room-setting-general *matTabContent> </reactor-room-setting-general>
+    </mat-tab>
+    <mat-tab *ngIf="!isSubscriptionBusiness" [label]="'Advanced Settings' | translate" #advance_settings>
+      <reactor-room-setting-advance *matTabContent [isSubscriptionBusiness]="isSubscriptionBusiness"> </reactor-room-setting-advance>
+    </mat-tab>
+    <mat-tab [label]="'Admin' | translate" #admin>
+      <reactor-room-setting-direct-admin *matTabContent></reactor-room-setting-direct-admin>
+    </mat-tab>
+    <mat-tab *ngIf="isAllowed" [label]="'Log' | translate" #log>
+      <reactor-room-setting-log *matTabContent></reactor-room-setting-log>
+    </mat-tab>
+    <mat-tab [label]="'Open API' | translate" #openapi>
+      <reactor-room-setting-openapi *matTabContent></reactor-room-setting-openapi>
+      <!-- <reactor-room-setting-api></reactor-room-setting-api> -->
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<reactor-room-setting-invalid *ngIf="invalid"></reactor-room-setting-invalid>
+<reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>

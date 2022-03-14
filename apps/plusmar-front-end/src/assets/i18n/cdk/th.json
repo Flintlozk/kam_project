@@ -1,0 +1,18 @@
+{
+  "Export to Excel": "ส่งออกไปยัง Excel",
+  "Export All": "ส่งออกทั้งหมด",
+  "Export selected": "เลือกส่งออก",
+  "Search": "ค้นหา",
+  "All": "ทั้งหมด",
+  "Start date": "วันที่เริ่มต้น",
+  "End date": "วันที่สิ้นสุด",
+  "To": "ถึง",
+  "Today": "วันนี้",
+  "Yesterday": "เมื่อวานนี้",
+  "Last 7 days": "7 วันล่าสุด",
+  "Last 14 days": "14 วันที่ผ่านมา",
+  "Last 30 days": "30 วันที่ผ่านมา",
+  "Last year": "ปีที่แล้ว",
+  "All time": "ตลอดเวลา",
+  "Custom": "กำหนดเอง"
+}

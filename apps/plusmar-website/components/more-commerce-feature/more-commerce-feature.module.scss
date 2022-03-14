@@ -1,0 +1,57 @@
+@import '/pages/styles/variable.module.scss';
+.mainContainer {
+  display: block;
+
+  .flexContainer {
+    width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@include desktop_screen {
+  .mainContainer {
+    .flexContainer {
+      width: 85%;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .mainContainer {
+    .flexContainer {
+    }
+  }
+}
+
+@include tablet_vertical {
+  .mainContainer {
+    .flexContainer {
+    }
+  }
+}
+
+@include mobile {
+  .mainContainer {
+    width: 100%;
+
+    // overflow: hidden;
+    position: relative;
+    display: block;
+
+    .flexContainer {
+      // margin: 0;
+      // overflow-x: auto;
+      // -webkit-flex-wrap: nowrap;
+      // flex-wrap: nowrap;
+      width: 85%;
+      margin: 0 auto;
+    }
+  }
+}

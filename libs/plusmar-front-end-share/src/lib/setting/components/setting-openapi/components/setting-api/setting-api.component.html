@@ -1,0 +1,20 @@
+<div class="table">
+  <reactor-room-custom-table [isLoading]="false" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader">
+    <tr class="table-content">
+      <td>
+        <span>{{ clientAPI.api_client_id === null ? 'Not Create' : clientAPI.api_client_id }}</span>
+      </td>
+      <td style="width: 100px">
+        <div class="api">
+          <label class="mode-toggle" [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)">
+            <input type="checkbox" (change)="toggleActiveStatus()" [checked]="clientAPI.benabled_api" [disabled]="!isAllowed" [(ngModel)]="isActive" />
+            <span class="slider round" [ngClass]="!isAllowed ? 'not-allow' : ''"></span>
+          </label>
+          <div *ngIf="isAllowed" class="img">
+            <img *ngIf="isAllowed" src="assets/img/edit-icon.png" alt="Edit" (click)="isAllowed ? openAPIDialog() : ''" />
+          </div>
+        </div>
+      </td>
+    </tr>
+  </reactor-room-custom-table>
+</div>

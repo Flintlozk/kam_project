@@ -1,0 +1,9 @@
+<div class="login-facebook-cms-admin-bg-login">
+  <div class="content-area flex-container">
+    <div class="content flex-container">
+      <div class="welcome-back">WELCOME BACK</div>
+      <div class="center-text">Login to Admin Setting</div>
+      <reactor-room-facebook-login [appID]="facebookAppID" [facebookScope]="facebookLoginScope" (response)="facebookLogin($event)"> </reactor-room-facebook-login>
+    </div>
+  </div>
+</div>

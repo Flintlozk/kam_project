@@ -1,0 +1,72 @@
+<ng-container *ngIf="isEditAvailable || companyInfo?.company_name || shopDetails?.page_name">
+  <reactor-room-card>
+    <div
+      class="card-content"
+      [ngClass]="{
+        'cms-theme': theme === themeType.CMS,
+        'social-theme': theme === themeType.SOCIAL
+      }"
+    >
+      <div class="company-info-title">
+        <div class="title">
+          {{ 'Company Info' | translate }}
+          <div class="borders"></div>
+        </div>
+        <div *ngIf="isEditAvailable" class="edit-text" (click)="openCompanyInfoSetting()">
+          {{ 'Edit' | translate }}
+        </div>
+      </div>
+      <ng-container *ngIf="companyInfo?.company_name">
+        <div class="companyinfo-detail">
+          <div class="company-detail">
+            <img class="pro-img shadow" onerror="src='assets/img/setting/default-company-picture.svg'" [src]="companyInfo?.company_logo" />
+            <div class="company">
+              <span
+                class="company-name"
+                [ngClass]="{
+                  cms: theme === themeType.CMS,
+                  social: theme === themeType.SOCIAL
+                }"
+              >
+                {{ companyInfo?.company_name }}
+              </span>
+              <span class="company-tax-id" *ngIf="companyInfo?.tax_identification_number"> {{ 'Tax ID' | translate }}: {{ companyInfo?.tax_identification_number }} </span>
+            </div>
+          </div>
+          <div *ngIf="companyInfo?.address" class="info-detail">
+            <span class="title">
+              {{ 'Address' | translate }}
+            </span>
+            <span class="value">
+              {{ companyInfo?.address }}
+            </span>
+          </div>
+          <div *ngIf="companyInfo?.phone_number" class="info-detail">
+            <span class="title">
+              {{ 'Phone No' | translate }}
+            </span>
+            <span class="value">
+              {{ companyInfo?.phone_number }}
+            </span>
+          </div>
+          <div *ngIf="companyInfo?.fax" class="info-detail">
+            <span class="title">
+              {{ 'Fax' | translate }}
+            </span>
+            <span class="value">
+              {{ companyInfo?.fax }}
+            </span>
+          </div>
+          <div *ngIf="companyInfo?.email" class="info-detail">
+            <span class="title">
+              {{ 'Email' | translate }}
+            </span>
+            <span class="value">
+              {{ companyInfo?.email }}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </reactor-room-card>
+</ng-container>

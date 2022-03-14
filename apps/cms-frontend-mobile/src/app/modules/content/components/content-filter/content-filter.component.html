@@ -1,0 +1,16 @@
+<section class="p-4 bg-white">
+  <h3 class="text-xl font-light text-gray-700">{{ 'Content Management' | translate }}</h3>
+  <div class="flex items-center justify-between pt-4">
+    <ng-container *ngFor="let contentFilterDataitem of contentFilterData; trackBy: trackByIndex">
+      <div [routerLink]="[contentFilterDataitem.routeLink]" routerLinkActive="router-link-active" #rla="routerLinkActive" class="relative pb-2 focus:outline-none">
+        <div class="flex items-center">
+          <img [@iconFade]="rla.isActive" [src]="rla.isActive ? contentFilterDataitem.imgActiveUrl : contentFilterDataitem.imgUrl" [alt]="contentFilterDataitem.title" />
+          <div class="ml-2 text-base font-light text-gray-700 transition duration-300 ease-in-out xxxs:text-lg" [ngClass]="{ 'text-green-500': rla.isActive }">
+            {{ contentFilterDataitem.title | translate }}
+          </div>
+        </div>
+        <div [@fadeLeftAnimation]="rla.isActive" *ngIf="rla.isActive" class="absolute bottom-0 w-10 h-1 rounded-full bg-green-500"></div>
+      </div>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm Delete</h1>
+<div class="overflow">
+  <p>Are you sure you want to delete {{ data.title }} ?</p>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onSubmit()">Ok</button>
+    <button mat-button (click)="onNoClick()">No</button>
+  </div>
+</div>

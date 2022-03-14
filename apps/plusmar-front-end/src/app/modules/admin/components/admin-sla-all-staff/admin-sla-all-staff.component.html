@@ -1,0 +1,56 @@
+<div class="admin-sla-all-staff-container">
+  <div class="title">
+    <div class="text">
+      {{ trackMode === 'TRACK_BY_TAG' ? ('ALL_TAG' | translate) : ('ALL_ASSIGNEE' | translate) }} {{ 'MOST_OVER_SLA_1' | translate
+      }}<span class="red">{{ 'MOST_OVER_SLA_2' | translate }} </span>
+    </div>
+    <div class="zoom">
+      Zoom
+      <mat-slider min="50" max="100" step="1" value="100" [(ngModel)]="zoomValue" (change)="onDoZoom($event)"></mat-slider>
+    </div>
+  </div>
+  <div #chart class="content">
+    <ng-container *ngFor="let staff of staffList">
+      <div class="card-container" [ngStyle]="{ zoom: zoomValue + '%' }">
+        <div class="card-top">
+          <div class="card-top-left">
+            <ng-container *ngIf="staff?.users?.length > 0">
+              <div class="users-profile" [ngStyle]="{ 'width.px': staff?.users?.length > 0 ? 25 + staff?.users?.length * 8 : 25 }">
+                <ng-container *ngFor="let user of staff.users; let index = index">
+                  <img [src]="user.picture" [ngStyle]="{ 'left.px': index * 8 }" />
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <div class="tag-name">
+              {{ staff.tagName }}
+            </div>
+          </div>
+          <div class="card-top-right">
+            <div class="score">{{ staff.todayClosed }}</div>
+            <div class="title">{{ 'Closed Today' | translate }}</div>
+          </div>
+        </div>
+        <div class="card-bottom" [ngClass]="{ over: staff.overSLA > 0, almost: staff.almostSLA > 0 }">
+          <div class="card-score process">
+            <div class="title">{{ 'on process' | translate }}</div>
+            <div class="score">{{ staff.totalOnProcess }}</div>
+          </div>
+          <div class="card-score almost">
+            <div class="title">{{ 'Almost Over SLA' | translate }}</div>
+            <div class="score">{{ staff.almostSLA }}</div>
+          </div>
+          <div class="card-score over">
+            <div class="title">{{ 'Over SLA' | translate }}</div>
+            <div class="score">{{ staff.overSLA }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!staffList?.length">
+      <div class="no-data">
+        {{ 'No data available' }}
+      </div>
+    </ng-container>
+  </div>
+</div>

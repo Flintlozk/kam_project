@@ -1,0 +1,22 @@
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  .label {
+    font-weight: 300;
+  }
+  .content {
+    padding-top: 20px;
+    display: flex;
+    align-items: flex-end;
+    img {
+      width: 30px;
+    }
+    .value {
+      font-size: 1.5em;
+      padding-left: 10px;
+      line-height: 1em;
+    }
+  }
+}

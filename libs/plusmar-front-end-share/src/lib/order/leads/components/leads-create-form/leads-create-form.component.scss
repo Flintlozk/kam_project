@@ -1,0 +1,33 @@
+@import 'base';
+@import 'buttons';
+.lead-create-form {
+  .heading-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    //gap: 10px;
+    .btn-cancel {
+      @extend .btn-inactive;
+      margin-right: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+    .btn-save {
+      @include btn-active();
+      margin-right: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+  }
+  .container {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    grid-gap: 20px;
+    @media #{$mobilemax} {
+      grid-template-columns: 1fr;
+      reactor-room-leads-create-form-design {
+        grid-row-start: 1;
+      }
+    }
+  }
+}

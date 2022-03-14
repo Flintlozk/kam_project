@@ -1,0 +1,70 @@
+.menu:hover {
+  cursor: pointer;
+}
+
+::ng-deep .mat-menu-panel.menu-application-tab {
+  position: relative;
+  left: 60px;
+  background-color: #0ec2f2;
+  padding-right: 10px;
+}
+::ng-deep .mat-menu-panel.menu-search-tab {
+  position: relative;
+  left: 60px;
+  background-color: #4faefa;
+}
+
+::ng-deep .mat-menu-panel.menu-notification-tab {
+  position: relative;
+  left: 60px;
+  width: 420px;
+  height: 340px;
+  background-color: #0ec2f2;
+}
+::ng-deep .mat-menu-item {
+  color: #ffffff;
+  font-family: Prompt;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 21px;
+  height: 28px;
+  width: 168px;
+}
+.header-menu {
+  color: white;
+  padding-left: 10px;
+}
+.search-input {
+  border-radius: 6px;
+  background: #f9f9f9;
+  border: none;
+  margin: 10px 10px 10px 10px;
+}
+.noti-tab {
+  margin: 0px 10px 10px 10px;
+}
+.last-item {
+  margin: auto;
+}
+.fixedbot {
+  width: 100%;
+  height: 100%;
+}
+.bgcolor {
+  background: linear-gradient(180deg, rgba(6, 193, 255, 0.52) 65.1%, rgba(84, 105, 229, 0.84) 100%);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0px;
+  width: 70px;
+}
+img {
+  width: 38px;
+  height: 38px;
+  border-radius: 35px;
+  margin-bottom: 15px;
+}

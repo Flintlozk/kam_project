@@ -1,0 +1,250 @@
+@import 'base';
+
+.modal-body {
+  width: 100%;
+  margin: auto;
+  border-radius: 8px;
+
+  @media #{$mobilemax} {
+    overflow: auto;
+    max-height: 85vh;
+  }
+}
+
+.modal-header {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+::ng-deep .search {
+  @media #{$mobilemax} {
+    // padding-top: 30px;
+    width: 100%;
+    padding-top: 0;
+
+    input[type='text'] {
+      border-radius: 0;
+      padding: 5px 20px;
+      border-left: none;
+      border-right: none;
+    }
+  }
+}
+::ng-deep .btn-secondary.transparent.mobile {
+  @media #{$mobilemax} {
+    background: #e2f2ff;
+    margin-top: 15px;
+    height: 49px;
+    width: 100%;
+  }
+}
+
+::ng-deep .custom-dialog .head {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+.template-tab {
+  @media #{$mobilemax} {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-label {
+    padding-top: 5px;
+  }
+
+  svg {
+    display: none;
+
+    @media #{$mobilemax} {
+      display: flex;
+      fill: #adb0b2;
+    }
+  }
+
+  .template-tab-label {
+    @media #{$mobilemax} {
+      color: #adb0b2;
+    }
+  }
+}
+
+:host ::ng-deep .mat-tab-group {
+  @media #{$mobilemax} {
+    position: relative;
+    top: -50px;
+  }
+}
+
+:host ::ng-deep .mat-tab-header {
+  @media #{$mobilemax} {
+    position: fixed;
+    top: calc(100% - 70px);
+    width: 100%;
+    z-index: 2;
+    background: white;
+  }
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  @media #{$mobilemax} {
+    align-items: flex-end !important;
+  }
+}
+
+::ng-deep .cdk-overlay-container .cdk-overlay-dark-backdrop ~ .cdk-global-overlay-wrapper .cdk-overlay-pane {
+  // width: calc(100vw - 300px) !important;
+  // max-width: unset !important;
+
+  @media #{$tabletmax} {
+    width: calc(100vw - 100px) !important;
+  }
+
+  @media #{$mobilemax} {
+    width: 100% !important;
+  }
+}
+
+:host ::ng-deep .custom-tabs .mat-tab-labels .mat-tab-label {
+  @media #{$mobilemax} {
+    width: 100%;
+    height: 70px;
+    border-top: 1px solid lightgray;
+    color: #adb0b2;
+
+    &-active {
+      border-top: 1px solid #54b1ff;
+
+      .template-tab-label {
+        color: red;
+      }
+    }
+  }
+}
+
+:host ::ng-deep .custom-tabs .mat-ink-bar {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+.modal-content {
+  @media #{$mobilemax} {
+    padding: 40px 0;
+  }
+}
+
+:host ::ng-deep th {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+:host ::ng-deep th {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+// :host ::ng-deep .mat-paginator {
+//   @media #{$mobilemax} {
+//     display: none;
+//   }
+// }
+
+:host ::ng-deep .custom-tabs .mat-tab-labels .mat-tab-label-active,
+:host ::ng-deep .mat-tab-group.mat-primary .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-group.mat-primary .mat-tab-label.cdk-program-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-group.mat-primary .mat-tab-link.cdk-keyboard-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-group.mat-primary .mat-tab-link.cdk-program-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-nav-bar.mat-primary .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-nav-bar.mat-primary .mat-tab-label.cdk-program-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-nav-bar.mat-primary .mat-tab-link.cdk-keyboard-focused:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-nav-bar.mat-primary .mat-tab-link.cdk-program-focused:not(.mat-tab-disabled) {
+  @media #{$mobilemax} {
+    background: #54b1ff;
+
+    .template-tab-label {
+      color: white;
+      font-size: 0.85rem;
+    }
+
+    .mat-tab-label-content svg {
+      fill: white;
+    }
+  }
+}
+
+:host ::ng-deep .counter {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+:host ::ng-deep .main-actions {
+  display: flex;
+
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+:host ::ng-deep .main-actions-mobile {
+  display: none;
+  width: 100%;
+
+  @media #{$mobilemax} {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+:host ::ng-deep .custom-table {
+  @media #{$mobilemax} {
+    margin: auto;
+  }
+}
+
+:host ::ng-deep .template-actions {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}
+
+:host ::ng-deep .template-form {
+  @media #{$mobilemax} {
+    margin: 0 20px;
+
+    input[type='text'] {
+      padding: 10px 165px 10px 15px;
+    }
+  }
+}
+
+:host ::ng-deep .template-form textarea {
+  @media #{$mobilemax} {
+    padding: 75px 50px 17px 15px;
+  }
+}
+
+::ng-deep .emoji-picker {
+  @media #{$mobilemax} {
+    top: 72px;
+  }
+}
+
+::ng-deep .template-actions-mobile {
+  display: none;
+
+  @media #{$mobilemax} {
+    display: flex;
+  }
+}
+
+:host ::ng-deep .edit-opened {
+  @media #{$mobilemax} {
+    display: none;
+  }
+}

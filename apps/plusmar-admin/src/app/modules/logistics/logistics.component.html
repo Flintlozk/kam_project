@@ -1,0 +1,9 @@
+<div class="flex flex-col">
+  <h1 class="text-3xl">Logistics</h1>
+
+  <div class="flex flex-wrap pt-10 flex-gap">
+    <ng-container *ngFor="let data of bundles; trackBy: trackBy">
+      <admin-logistic-operator (bundleAdded)="bundleAddedHandler($event)" (updated)="getBundles()" [data]="data"></admin-logistic-operator>
+    </ng-container>
+  </div>
+</div>

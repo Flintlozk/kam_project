@@ -1,0 +1,29 @@
+<ul>
+  <!-- <li class="bg-gray-200 rounded-md mb-12 flex items-center justify-center px-2 py-1 overflow-hidden">{{ 'Products' | translate }}</li>
+  <li class="bg-gray-200 rounded-md mb-12 flex items-center justify-center px-2 py-1 overflow-hidden">{{ 'Customers' | translate }}</li> -->
+  <li>
+    <button
+      (click)="changeRouteTo('manage/customers/1')"
+      routerLinkActive="active-button"
+      class="w-full bg-light-blue-500 hover:bg-blia-600 text-white rounded-xl mb-4 flex items-center justify-center p-3 px-6 overflow-hidden shadow-blue-500 font-medium"
+    >
+      Customer
+    </button>
+
+    <button
+      (click)="changeRouteTo('manage/logistics')"
+      routerLinkActive="active-button"
+      class="w-full bg-light-blue-500 hover:bg-blia-600 text-white rounded-xl mb-4 flex items-center justify-center p-3 px-6 overflow-hidden shadow-blue-500 font-medium"
+    >
+      Logistics
+    </button>
+
+    <button
+      (click)="changeRouteTo('manage/migrations')"
+      routerLinkActive="active-button"
+      class="w-full bg-light-blue-500 hover:bg-blia-600 text-white rounded-xl mb-4 flex items-center justify-center p-3 px-6 overflow-hidden shadow-blue-500 font-medium"
+    >
+      Migrations
+    </button>
+  </li>
+</ul>

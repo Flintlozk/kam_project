@@ -1,0 +1,12 @@
+<div [@fadeInOutFastest] class="peekbox-container" *ngIf="audience">
+  <reactor-room-peekbox-audience-control [audience]="audience" [route]="routeType" (closeResponse)="closePeekBox($event)"></reactor-room-peekbox-audience-control>
+  <reactor-room-chatbox
+    #chatbox
+    class="chat-box"
+    [enableHead]="true"
+    [viewMode]="chatViewMode"
+    [audience]="audience"
+    [audienceId]="audience.id"
+    [togglePrivateMessage]="togglePrivateInChat"
+  ></reactor-room-chatbox>
+</div>

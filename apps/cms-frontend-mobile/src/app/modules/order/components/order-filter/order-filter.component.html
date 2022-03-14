@@ -1,0 +1,76 @@
+<section class="p-4 bg-white">
+  <div class="relative w-full">
+    <input
+      autofocus
+      type="text"
+      placeholder="{{ 'Search' | translate }}..."
+      class="w-full py-2 pl-10 pr-3 font-light text-gray-700 transition duration-300 bg-gray-200 rounded-md focus:outline-none focus:bg-gray-200"
+    />
+    <svg class="absolute bottom-0 left-0 mb-3 ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.7065 14.3705L11.3259 9.98816C12.1112 8.91718 12.5318 7.62239 12.5259 6.29441C12.511 2.82792 9.7072 0.0200853 6.24074 6.36781e-05C4.58184 -0.00744187 2.98885 0.64882 1.81662 1.82265C0.6444 2.99649 -0.00967429 4.59038 0.000108173 6.24926C0.0150908 9.71606 2.81911 12.5242 6.28588 12.5442C7.61928 12.55 8.91879 12.1244 9.99049 11.331L9.99506 11.3276L14.3717 15.7065C14.6083 15.9547 14.9609 16.0552 15.2928 15.969C15.6248 15.8828 15.8839 15.6234 15.9698 15.2914C16.0558 14.9594 15.955 14.6069 15.7065 14.3705ZM6.28122 11.2893C3.50795 11.2734 1.26478 9.02711 1.2526 6.25383C1.24512 4.92689 1.76842 3.65203 2.70602 2.71304C3.64362 1.77404 4.9177 1.24884 6.24465 1.25435C9.01792 1.27031 11.2611 3.51654 11.2733 6.28983C11.2808 7.61676 10.7574 8.89162 9.81985 9.83062C8.88225 10.7696 7.60816 11.2948 6.28122 11.2893Z"
+        fill="#9799A5"
+      />
+    </svg>
+  </div>
+  <h3 class="pt-4 pb-5 text-xl font-light text-gray-700">{{ 'Order Management' | translate }}</h3>
+  <div class="flex items-center justify-between">
+    <ng-container *ngFor="let tabOrderDataItem of tabOrderData; trackBy: trackByIndex; let tabOrderDataItemIndex = index">
+      <div
+        [routerLink]="[tabOrderDataItem.routeLink]"
+        routerLinkActive="router-link-active"
+        class="flex items-center focus:outline-none"
+        #rla="routerLinkActive"
+        [ngClass]="{ 'w-auto': tabOrderDataItemIndex === tabOrderData.length - 1, 'w-full': tabOrderDataItemIndex !== tabOrderData.length - 1 }"
+      >
+        <div>
+          <div
+            class="
+              relative
+              flex
+              items-center
+              justify-center
+              flex-shrink-0
+              w-16
+              h-16
+              duration-500
+              ease-in-out
+              bg-white
+              border border-gray-200
+              rounded-md
+              shadow-md
+              xxs:w-20 xxs:h-20
+              transition-color
+            "
+            [ngClass]="{ 'bg-green-500 shadow-none': rla.isActive }"
+          >
+            <img [@iconFade]="rla.isActive" [src]="rla.isActive ? tabOrderDataItem.imgActiveUrl : tabOrderDataItem.imgUrl" [alt]="tabOrderDataItem.title | translate" />
+            <ng-container *ngIf="tabOrderDataItemIndex !== tabOrderData.length - 1">
+              <div [@iconFade]="!rla.isActive" *ngIf="!rla.isActive" class="absolute top-0 right-0 w-4 h-4 -mt-2 -mr-2 rounded-full bg-green-500"></div>
+              <div
+                [@iconFade]="rla.isActive"
+                *ngIf="rla.isActive"
+                class="absolute top-0 right-0 px-2 -mt-3 -mr-3 text-base font-light bg-white border rounded-lg text-green-500 border-green-500"
+              >
+                {{ tabOrderDataItem.value }}
+              </div>
+            </ng-container>
+          </div>
+          <div class="pt-3 text-base font-light text-center text-gray-600 transition-all duration-500 text-ellipsis" [ngClass]="{ 'text-green-500': rla.isActive }">
+            {{ tabOrderDataItem.title | translate }}
+          </div>
+        </div>
+        <div class="flex justify-center w-full -mt-5" *ngIf="tabOrderDataItemIndex !== tabOrderData.length - 1">
+          <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.501472 0.175823L0.166414 0.536142C0.0617753 0.649542 0.00412904 0.800413 0.00412904 0.961658C0.00412905 1.12281 0.0617753 1.27386 0.166414 1.38726L3.96231 5.49754L0.162202 9.61256C0.0575637 9.72578 -4.90954e-08 9.87683 -4.20511e-08 10.038C-3.50067e-08 10.1991 0.0575637 10.3503 0.162202 10.4636L0.495196 10.824C0.711741 11.0587 1.06447 11.0587 1.28102 10.824L5.82178 5.92458C5.92633 5.81136 6 5.66049 6 5.4979L6 5.49602C6 5.33478 5.92625 5.1839 5.82178 5.07068L1.29332 0.175823C1.18877 0.0624237 1.04523 0.000179245 0.896407 -3.91832e-08C0.747501 -3.26743e-08 0.605946 0.0624237 0.501472 0.175823Z"
+              fill="#BCBFC8"
+            />
+          </svg>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

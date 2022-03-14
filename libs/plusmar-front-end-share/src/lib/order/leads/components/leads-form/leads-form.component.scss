@@ -1,0 +1,95 @@
+@import 'base';
+@import 'buttons';
+
+.leads-form {
+  .heading-content {
+    .btn-create {
+      @include btn-active();
+    }
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+
+    .title {
+      padding-right: 15px;
+    }
+
+    input {
+      padding: 0px 15px;
+      border-radius: 8px;
+      border: 1px solid $border-color;
+    }
+  }
+
+  .table {
+    .form-name {
+      width: 60%;
+    }
+
+    .info-td {
+      width: 70px;
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+
+      .tooltip {
+        margin-right: 10px;
+
+        img {
+          width: 20px;
+          cursor: pointer;
+        }
+
+        .tooltiptext {
+          margin-left: -13px;
+        }
+      }
+
+      .more {
+        img {
+          width: 20px;
+        }
+      }
+    }
+
+    .copy {
+      .tooltip {
+        img {
+          width: 20px;
+          cursor: pointer;
+        }
+
+        .tooltiptext {
+          margin-left: -13px;
+        }
+      }
+    }
+  }
+}
+
+.mat-menu-panel {
+  button.mat-menu-item {
+    height: 35px;
+    line-height: 35px;
+
+    .option-select-item {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 18px;
+        margin-right: 10px;
+      }
+    }
+
+    &:hover {
+      background: #e2f1ff;
+    }
+  }
+}

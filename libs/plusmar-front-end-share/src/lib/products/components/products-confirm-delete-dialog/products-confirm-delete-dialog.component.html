@@ -1,0 +1,45 @@
+<div class="product-confirm-delete-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head">Confirm delete "{{ tableData?.length }} items"</div>
+    <div class="content">
+      <div class="count">{{ tableData?.length }} products</div>
+      <reactor-room-custom-table [tableData]="tableData" [tableHeader]="tableHeader">
+        <tr *ngFor="let data of tableData; trackBy: trackBy; let i = index" class="table-content">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div class="product-item">
+              <img [src]="data.productImgUrl" [alt]="data.productName" />
+              {{ data.productName }}
+            </div>
+          </td>
+          <td>
+            <div class="status">
+              <div class="round" [ngClass]="{ selling: data.status === 1, stock: data.status === 2, cancel: data.status === 3 }"></div>
+              {{ data.statusName }}
+            </div>
+          </td>
+          <td>
+            <div class="action">
+              <img src="assets/img/products/remove.png" alt="Remove" />
+              <div class="toogle">
+                <img src="assets/img/down-button.svg" alt="Toogle" />
+              </div>
+            </div>
+          </td>
+        </tr>
+      </reactor-room-custom-table>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-no" (click)="onNoClick()">
+          <img src="assets/img/dismiss-icon-active.png" alt="No" />
+          No
+        </button>
+        <button type="submit" class="btn-yes" (click)="onConfirmYes()">
+          <img src="assets/img/check-icon-white.png" alt="Yes" />
+          Yes
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

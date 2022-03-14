@@ -1,0 +1,144 @@
+<div class="text-quick-pay" [ngStyle]="{ height: containerHeight }">
+  <reactor-room-quick-pay-disable *ngIf="!isBankEnable"></reactor-room-quick-pay-disable>
+  <div [ngClass]="{ 'bank-disabled': isBankEnable === false }">
+    <div class="botton-border">
+      <div class="title">{{ 'Open quick bill' | translate }}</div>
+    </div>
+    <div class="mt-10" *ngIf="quickBillForm">
+      <form [formGroup]="quickBillForm">
+        <div class="bill-container">
+          <ng-container formArrayName="billItems">
+            <table>
+              <tbody class="item-list-tbody custom-scroll-bar" #itemTableTbody>
+                <tr>
+                  <td>{{ 'Item' | translate }}</td>
+                  <td>{{ 'Price' | translate }} ({{ currencySymbol }})</td>
+                  <td>{{ 'Discount' | translate }} ({{ currencySymbol }})</td>
+                  <td *ngIf="vat">VAT</td>
+                  <td></td>
+                </tr>
+                <ng-container *ngFor="let billItem of billItemArray?.controls; let billItemIndex = index">
+                  <ng-container [formGroupName]="billItemIndex">
+                    <tr>
+                      <td><input autofocus type="text" formControlName="item" class="mr-5" /></td>
+                      <td>
+                        <input type="text" formControlName="amount" reactorRoomNumeric decimals="2" class="mr-5 max-width-150" />
+                      </td>
+                      <td><input type="text" formControlName="discount" reactorRoomNumeric decimals="2" class="mr-5 max-width-150" /></td>
+                      <td>
+                        <div class="vat" *ngIf="vat">
+                          <label class="custom-checkbox">
+                            <input formControlName="isVAT" type="checkbox" [checked]="false" />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="flex" style="align-items: center">
+                          <div class="icon mr-5 mt-5 w-20" *ngIf="billItemIndex === 0"></div>
+                          <div class="icon mr-5 mt-5" (click)="deleteBillItem(billItemIndex)" *ngIf="billItemIndex">
+                            <img src="assets/img/trash-icon.svg" alt="Trash" class="trash" />
+                          </div>
+
+                          <button *ngIf="billItemArray.controls.length - 1 === billItemIndex" class="add-item-icon" type="button" (click)="addBillItem()">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <div class="discount-error" *ngIf="discountError[billItemIndex]">{{ 'Amount should be greater than discount' | translate }}</div>
+                </ng-container>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+        <div class="botton-border mt-20 mb-20"></div>
+        <div class="expire-and-summary">
+          <div>
+            <div class="max-width-230">
+              <div class="link-expire">
+                <div>
+                  <div>{{ 'Define Payment link expire date' | translate }}</div>
+                  <div class="select-option">
+                    <mat-form-field>
+                      <mat-select formControlName="linkExpireValue">
+                        <mat-option *ngFor="let item of expireDateDropDown" [value]="item.value">
+                          {{ item.label | translate }} <span *ngIf="item.value !== 'Custom'"> {{ 'Days' | translate }} </span></mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <reactor-room-datepicker (setDate)="setDate($event)" [minDate]="minDate" [maxDate]="maxDate" [value]="expireDate"></reactor-room-datepicker>
+                <label class="custom-checkbox">
+                  <input formControlName="isWithHoldingTax" type="checkbox" [checked]="false" />
+                  <span class="checkmark"></span>
+                  <div class="ml-5">{{ 'Withholding tax' | translate }} %</div>
+                </label>
+                <div [ngClass]="{ 'display-none': !quickBillForm.controls['isWithHoldingTax'].value }">
+                  <input type="text" formControlName="withHoldingTax" reactorRoomNumeric decimals="2" />
+                  <div
+                    *ngIf="quickBillForm.controls['withHoldingTax'].invalid && (quickBillForm.controls['withHoldingTax'].dirty || quickBillForm.controls['withHoldingTax'].touched)"
+                  >
+                    <div class="text-danger">{{ 'Withholding tax should be less than' | translate }} {{ withHoldingTaxLimitPercent }} %</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-item" *ngIf="quickBillForm.controls['isWithHoldingTax'].value">
+              <div>{{ 'Withholding tax' | translate }}</div>
+              <div class="border-dotted">{{ withHoldingTaxTotal | currency }}</div>
+            </div>
+            <div class="summary-item">
+              <div>{{ 'Discount' | translate }}</div>
+              <div class="border-dotted">{{ discountTotal | currency }}</div>
+            </div>
+
+            <div class="summary-item">
+              <div>{{ 'Total' | translate }}</div>
+              <div class="border-dotted">{{ amountTotal | currency }}</div>
+            </div>
+            <div class="summary-item" *ngIf="vat">
+              <div>{{ 'VAT' }} ({{ vat }}%)</div>
+              <div class="border-dotted">{{ vatTotal | currency }}</div>
+            </div>
+
+            <div class="summary-item">
+              <div>{{ 'Grand Total' | translate }}</div>
+              <div class="border-dotted">{{ grandTotal | currency }}</div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="footer">
+        <button type="button" class="btn-cancel" (click)="onCancelClick()">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button
+          (click)="saveQuickPay()"
+          type="submit"
+          class="btn-save"
+          [ngClass]="[!(grandTotal > 0) || quickBillForm?.invalid ? 'disabled' : '']"
+          [disabled]="!(grandTotal > 0) || quickBillForm?.invalid"
+        >
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.5882 2.67522L13.3249 0.411875C13.0593 0.14625 12.7061 0 12.3305 0C12.0512 0 4.55525 0 4.21881 0H1.40631C0.630905 0 6.10352e-05 0.630844 6.10352e-05 1.40625V14.5938C6.10352e-05 15.3692 0.630905 16 1.40631 16C2.09906 16 14.0495 16 14.5938 16C15.3692 16 16.0001 15.3692 16.0001 14.5938V3.66956C16.0001 3.29397 15.8538 2.94081 15.5882 2.67522ZM4.68756 0.9375H9.43756V3.65625C9.43756 3.91513 9.64744 4.125 9.90631 4.125C10.1652 4.125 10.3751 3.91513 10.3751 3.65625V0.9375H11.3126V4.59375C11.3126 4.85222 11.1023 5.0625 10.8438 5.0625H5.15631C4.89784 5.0625 4.68756 4.85222 4.68756 4.59375V0.9375ZM12.2501 15.0625H3.75006V11H12.2501V15.0625ZM12.2501 10.0625H3.75006V8.5C3.75006 8.24153 3.96034 8.03125 4.21881 8.03125H11.7813C12.0398 8.03125 12.2501 8.24153 12.2501 8.5V10.0625ZM15.0626 14.5938C15.0626 14.8522 14.8523 15.0625 14.5938 15.0625H13.1876V8.5C13.1876 7.72459 12.5567 7.09375 11.7813 7.09375H4.21881C3.4434 7.09375 2.81256 7.72459 2.81256 8.5V15.0625H1.40631C1.14784 15.0625 0.937561 14.8522 0.937561 14.5938V1.40625C0.937561 1.14778 1.14784 0.9375 1.40631 0.9375H3.75006V4.59375C3.75006 5.36916 4.3809 6 5.15631 6H10.8438C11.6192 6 12.2501 5.36916 12.2501 4.59375V0.9375H12.3305C12.4557 0.9375 12.5734 0.98625 12.6619 1.07478L14.9252 3.33813C15.0138 3.42666 15.0626 3.54438 15.0626 3.66956V14.5938Z"
+            />
+          </svg>
+
+          {{ 'Save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@import '../assets/styles/properties';
+
+.plusmar-toggler {
+  font-family: @font-family;
+  color: @text-color;
+  .toggle-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: @font-family;
+    img {
+      height: 30px;
+    }
+    .toggle-btn {
+      cursor: pointer;
+      svg {
+        transition: all ease-in-out 0.3s;
+      }
+    }
+    .active {
+      transform: scaleY(-1);
+    }
+  }
+}

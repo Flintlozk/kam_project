@@ -1,0 +1,73 @@
+@layer components {
+  .active-shortcut-item {
+    @apply border-t border-r;
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      @apply border-t-0;
+    }
+    &:nth-child(3n),
+    &:last-child {
+      @apply border-r-0;
+    }
+    img.img {
+      @apply block;
+    }
+    img.img-active {
+      @apply hidden;
+    }
+    button {
+      @apply hidden;
+    }
+    &:hover {
+      button {
+        @apply flex;
+      }
+      img.img {
+        @apply hidden;
+      }
+      img.img-active {
+        @apply block;
+      }
+      h4 {
+        @apply text-green-500;
+      }
+    }
+  }
+  .cdk-drag-preview {
+    @apply z-10 shadow-lg bg-white;
+    img.img-active {
+      @apply hidden;
+    }
+  }
+  .cdk-drag-placeholder {
+    @apply border-dotted border-green-500 bg-none border-2;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    img.img {
+      @apply hidden;
+    }
+  }
+
+  .cdk-drag-placeholder ~ .cdk-drag {
+    @apply hidden;
+  }
+
+  .cdk-drag-animating {
+    transition: none;
+  }
+
+  .default-position {
+    .cdk-drag-placeholder {
+      @apply border-red-500;
+      img.img {
+        @apply block;
+      }
+      img.img-active {
+        @apply hidden;
+      }
+      button {
+        @apply hidden;
+      }
+    }
+  }
+}

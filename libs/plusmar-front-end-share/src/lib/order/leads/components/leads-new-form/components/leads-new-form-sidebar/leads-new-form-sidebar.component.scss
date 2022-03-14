@@ -1,0 +1,56 @@
+@import 'base';
+.card-content {
+  padding-bottom: 60px;
+  .head {
+    padding: 20px;
+    .title {
+      font-size: 1.2em;
+      .border {
+        width: 30px;
+        height: 2px;
+        background: $main-color;
+      }
+      .sub-title {
+        font-weight: 300;
+        font-size: 14px;
+        color: $main-color;
+        padding-top: 10px;
+      }
+    }
+  }
+  .content {
+    .item {
+      position: relative;
+      padding: 20px 40px;
+      border-bottom: 1px solid $border-color;
+      transition: $transition;
+      cursor: pointer;
+      .text {
+        @include text-ellipsis();
+      }
+      &:last-child {
+        border-bottom: 0px;
+      }
+      &:hover {
+        background: rgb(242, 242, 242);
+      }
+      &.active {
+        background: $main-color;
+        color: white;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 100%;
+          margin-top: -10px;
+          border-width: 10px;
+          border-style: solid;
+          border-color: transparent transparent transparent $main-color;
+          @media #{$mobilemax} {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

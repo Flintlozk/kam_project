@@ -1,0 +1,73 @@
+<section class="low-stock-container px-6 py-8">
+  <div class="flex flex-row justify-between p-4 text-lg shadow-md bg-white">
+    <div class="flex flex-row">
+      <div>
+        <img src="../../../../../assets/stock/setting-inventory/allproduct.svg" />
+      </div>
+      <div class="flex-row p-2">
+        <div class="text-sm">All Products</div>
+        <div class="des-all text-sm font-style: italic font-weight: text-gray-400">is less than or equal to <span style="color: red">≤ 20</span></div>
+      </div>
+    </div>
+    <div>
+      <input [formControl]="darkModeFormControl" type="checkbox" #isDarkMode class="hidden" />
+      <button
+        (click)="isDarkMode.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': darkModeFormControl.value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{ 'bg-gray-300': !darkModeFormControl.value, 'bg-white right-0 mr-2': darkModeFormControl.value }"
+        ></div>
+      </button>
+    </div>
+  </div>
+  <hr width="auto" />
+  <div class="grid grid-cols-2">
+    <div class="col-span-2 justify-between shadow-md border border-gray-50 p-8 bg-white">
+      <div>Product</div>
+      <div class="flex flex-row">
+        <div class="equal">
+          <label class="text-gray-400">is less than or equal to</label><br />
+          <!-- <input style="border: 1px solid gray" type="number" name="equal" id="equal" /> -->
+
+          <div class="flex">
+            <div
+              class="w-5 flex items-center justify-center"
+              style="background-color: #dce1ea; border: 1px solid #dce1ea; border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+            >
+              ≤
+            </div>
+            <input
+              type="number"
+              [min]="0"
+              class="input py-1 px-1"
+              style="
+                border: 1px solid #d6dbe3;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+                text-align: right;
+              "
+            />
+          </div>
+        </div>
+        <div>
+          <div class="radio">
+            <label class="head text-gray-400">All Product</label><br />
+            <label class="container">
+              <input type="radio" checked="checked" name="radio" />
+              <span class="checkmark"></span>Yes
+            </label>
+            <label class="container">
+              <input type="radio" name="radio" />
+              <span class="checkmark"></span>No
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

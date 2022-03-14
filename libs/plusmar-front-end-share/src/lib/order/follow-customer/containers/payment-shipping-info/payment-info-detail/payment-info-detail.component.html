@@ -1,0 +1,97 @@
+<div class="payment-info-detail">
+  <form [formGroup]="paymentForm">
+    <div class="content">
+      <div class="left">
+        <div class="item" *ngIf="paymentData.type === 'NORMAL'">
+          <div class="label">{{ 'Payment Status' | translate }}</div>
+          <div class="radios">
+            <label class="radio-button" style="font-size: 16px; font-weight: 400"
+              >{{ 'Unpaid' | translate }}
+              <input type="radio" name="paymentStatus" value="false" formControlName="paymentStatus" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="radio-button" style="font-size: 16px; font-weight: 400"
+              >{{ 'Paid' | translate }}
+              <input type="radio" name="paymentStatus" value="true" formControlName="paymentStatus" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">{{ 'Payment Method' | translate }}</div>
+          <input class="paymentMethod" type="text" formControlName="paymentMethod" />
+        </div>
+
+        <div class="item" (click)="selectStatus = !selectStatus" *ngIf="this.paymentDetail.type === enumPaymentType.BANK_ACCOUNT">
+          <div class="label">{{ 'Bank Account' | translate }} <span style="color: red">*</span></div>
+          <div class="select" [ngClass]="{ active: selectStatus }">
+            <div class="text" *ngIf="selectData">
+              <img [src]="selectData.image" alt="bank-icon" *ngIf="selectData.image" />
+              <div class="title" style="font-size: 14px; font-weight: 400">{{ selectData.account_name }} : {{ selectData.account_id }}</div>
+            </div>
+            <div class="text" *ngIf="!selectData" style="font-size: 14px; font-weight: 400">
+              {{ 'Select Default' | translate }}
+            </div>
+            <img src="assets/img/down-icon.svg" alt="Select" />
+          </div>
+          <div class="banks" *ngIf="selectStatus">
+            <div class="bank" *ngFor="let item of bankAccounts" (click)="setSelectedData(item)">
+              <img [src]="item.image" alt="bank-icon" *ngIf="item.image" />
+              <div class="title" style="font-size: 14px; font-weight: 400">{{ item.account_name }} : {{ item.account_id }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'Date' | translate }}</div>
+          <div class="date-pickup">
+            <reactor-room-datepicker [value]="currentDate" (setDate)="setDate($event)"></reactor-room-datepicker>
+            <!-- <input type="text" formControlName="hour" style="font-size: 16px; font-weight: 400" /> -->
+            <form [formGroup]="timeForm">
+              <input
+                type="text"
+                (keypress)="isNumberKey($event)"
+                maxlength="2"
+                formControlName="hour"
+                style="font-size: 16px; font-weight: 400"
+                (mousewheel)="onScrollTimer($event, 'hour')"
+                [matTooltip]="'Scrollable'"
+              />&nbsp;:&nbsp;<input
+                (mousewheel)="onScrollTimer($event, 'minute')"
+                [matTooltip]="'Scrollable'"
+                (keypress)="isNumberKey($event)"
+                maxlength="2"
+                type="text"
+                formControlName="minute"
+                style="font-size: 16px; font-weight: 400"
+              />
+            </form>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'Money' | translate }}<span style="color: red">*</span></div>
+          <div class="money">
+            <div>฿</div>
+            <input type="text" (keypress)="isNumberKey($event)" formControlName="money" value="0" style="font-size: 16px; font-weight: 400" />
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="label">{{ 'Attach payment Slip' | translate }}</div>
+        <div class="img-upload">
+          <img [src]="paymentForm.value.imagePayment" alt="Default Image" (click)="triggerUploadFile(this.fileUpload)" />
+          <input
+            type="file"
+            multiple
+            #fileUpload
+            id="fileUpload"
+            name="fileUpload"
+            accept="image/x-png,image/gif,image/jpeg"
+            (change)="onFileChange($event)"
+            style="display: none"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

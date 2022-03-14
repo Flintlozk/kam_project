@@ -1,0 +1,61 @@
+<div class="flex justify-center w-full">
+  <div class="flex items-center justify-between w-full px-5 py-5 lg:px-40">
+    <div [routerLink]="['login']" class="flex items-center focus:outline-none">
+      <div (click)="onToggleHambugerStatus()" class="hamburger" [ngClass]="{ 'is-active': hamburgerStatus }">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+      <img class="z-30 w-24 lg:w-full" [src]="hamburgerStatus ? 'assets/shared/logo.svg' : 'assets/shared/logo-white.svg'" alt="More" />
+      <div class="items-center hidden ml-10 text-white lg:flex">
+        <ng-container *ngFor="let welcomeMenuDataItem of welcomeMenuData; let welcomeMenuDataIndex = index; trackBy: trackByIndex">
+          <div class="relative mr-12 focus:outline-none" reactorRoomClickOutside (outside)="onOutsideWelcomeMenuDataItem($event, welcomeMenuDataIndex)">
+            <div class="flex items-center">
+              <span class="text-xl cursor-pointer focus:outline-none whitespace-nowrap" [routerLink]="[welcomeMenuDataItem.route]" routerLinkActive="underline">{{
+                welcomeMenuDataItem.title
+              }}</span>
+              <div
+                (click)="onWelcomeMenuDataItem(welcomeMenuDataIndex)"
+                class="h-full transition-all duration-300 transform cursor-pointer focus:outline-none"
+                *ngIf="welcomeMenuDataItem.subMenu.length"
+                [ngClass]="{ '-scale-y-100': welcomeMenuDataItem.subMenuStatus }"
+              >
+                <svg class="ml-2" width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L6.5 6.5L12 1" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+            <div
+              [@fadeBoxAnimation]
+              *ngIf="welcomeMenuDataItem.subMenuStatus"
+              class="absolute z-10 grid gap-2 px-4 py-2 mt-2 bg-white shadow-xl text-primary-500 rounded-xl min-w-max"
+            >
+              <ng-container *ngFor="let subMenuItem of welcomeMenuDataItem.subMenu; trackBy: trackByIndex">
+                <div class="cursor-pointer whitespace-nowrap focus:outline-none hover:underline" [routerLink]="[subMenuItem.route]" routerLinkActive="underline">
+                  {{ subMenuItem.title }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <div
+        [routerLink]="['login']"
+        routerLinkActive="underline"
+        class="px-4 py-2 ml-2 text-sm text-white border border-white rounded-full cursor-pointer text-ellipsis lg:text-lg focus:outline-none hover:underline lg:px-10 lg:ml-4"
+      >
+        Sign In
+      </div>
+      <div
+        [routerLink]="['register']"
+        routerLinkActive="underline"
+        class="px-4 py-2 ml-2 text-sm bg-white rounded-full shadow-lg cursor-pointer text-ellipsis lg:text-lg lg:px-10 lg:ml-4 text-primary-500 focus:outline-none hover:underline"
+      >
+        Sign Up
+      </div>
+    </div>
+  </div>
+</div>
+<div [@fadeInOutXAnimation] *ngIf="hamburgerStatus" class="fixed top-0 z-20 w-full h-full max-w-lg bg-white shadow-lg lg:hidden"></div>

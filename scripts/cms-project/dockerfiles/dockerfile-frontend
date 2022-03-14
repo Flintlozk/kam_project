@@ -1,0 +1,4 @@
+FROM nginx:1.17.9
+RUN rm -rf /etc/nginx
+ADD ./scripts/common/nginx /etc/nginx
+ADD ./dist/apps/cms-frontend /usr/share/nginx/html

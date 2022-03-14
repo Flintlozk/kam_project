@@ -1,0 +1,124 @@
+<div>
+  <p>Appointment</p>
+</div>
+<div style="display: flex; flex-direction: column">
+  <div *ngFor="let appoinment of appointmentTask | slice: 0:(displayMoreComment ? undefined : primaryDisplayAppointment); trackBy: trackByIndex; let i = index">
+    <div class="listed-add-appointment" *ngIf="i !== disableIndex">
+      <div class="list-detail-appointment">
+        {{ appoinment.appointmentStartDate | timeAgo: 'utc':'MMM D YYYY' }} {{ appoinment.appointmentStartDate | timeAgo: 'utc':'hh:mm A' }} -
+        {{ appoinment.appointmentEndDate | timeAgo: 'utc':'MMM D YYYY' }} {{ appoinment.appointmentEndDate | timeAgo: 'utc':'hh:mm A' }}
+        <div class="note-detail">
+          {{ appoinment.note }}
+        </div>
+      </div>
+      <div class="setting-button">
+        <mat-icon (click)="onClickEdit(appoinment, i)" matTooltip="Edit appointment">edit</mat-icon>
+        <mat-icon (click)="onDeleteAppointment(appoinment)" matTooltip="Delete appointment">delete</mat-icon>
+        <a [href]="[appoinment.htmlLink]">
+          <svg class="google-calendar-icon" xmlns="http://www.w3.org/2000/svg" viewBox="186 38 76 76">
+            <path fill="#fff" d="M244 56h-40v40h40V56z" />
+            <path fill="#EA4335" d="M244 114l18-18h-18v18z" />
+            <path fill="#FBBC04" d="M262 56h-18v40h18V56z" />
+            <path fill="#34A853" d="M244 96h-40v18h40V96z" />
+            <path fill="#188038" d="M186 96v12c0 3.315 2.685 6 6 6h12V96h-18z" />
+            <path fill="#1967D2" d="M262 56V44c0-3.315-2.685-6-6-6h-12v18h18z" />
+            <path fill="#4285F4" d="M244 38h-52c-3.315 0 -6 2.685-6 6v52h18V56h40V38z" />
+            <path
+              fill="#4285F4"
+              d="M212.205 87.03c-1.495-1.01-2.53-2.485-3.095-4.435l3.47-1.43c.315 1.2.865 2.13 1.65 2.79.78.66 1.73.985 2.84.985 1.135 0 2.11-.345 2.925-1.035s1.225-1.57 1.225-2.635c0-1.09-.43-1.98-1.29-2.67-.86-.69-1.94-1.035-3.23-1.035h-2.005V74.13h1.8c1.11 0 2.045-.3 2.805-.9.76-.6 1.14-1.42 1.14-2.465 0 -.93-.34-1.67-1.02-2.225-.68-.555-1.54-.835-2.585-.835-1.02 0 -1.83.27-2.43.815a4.784 4.784 0 0 0 -1.31 2.005l-3.435-1.43c.455-1.29 1.29-2.43 2.515-3.415 1.225-.985 2.79-1.48 4.69-1.48 1.405 0 2.67.27 3.79.815 1.12.545 2 1.3 2.635 2.26.635.965.95 2.045.95 3.245 0 1.225-.295 2.26-.885 3.11-.59.85-1.315 1.5-2.175 1.955v.205a6.605 6.605 0 0 1 2.79 2.175c.725.975 1.09 2.14 1.09 3.5 0 1.36-.345 2.575-1.035 3.64s-1.645 1.905-2.855 2.515c-1.215.61-2.58.92-4.095.92-1.755.005-3.375-.5-4.87-1.51zM233.52 69.81l-3.81 2.755-1.905-2.89 6.835-4.93h2.62V88h-3.74V69.81z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <svg
+    *ngIf="appointmentTask.length > primaryDisplayAppointment"
+    (click)="displayMoreComment = !displayMoreComment"
+    width="65"
+    height="31"
+    viewBox="0 0 65 31"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2.828 15.21C2.28667 15.21 1.764 15.1633 1.26 15.07C0.756 14.9767 0.354667 14.8507 0.056 14.692L0.28 13.656C1.07333 14.0387 1.974 14.23 2.982 14.23C3.822 14.23 4.466 14.0993 4.914 13.838C5.37133 13.5673 5.66067 13.1567 5.782 12.606C5.81933 12.382 5.838 12.2373 5.838 12.172C5.838 11.9107 5.76333 11.6913 5.614 11.514C5.46467 11.3273 5.25467 11.164 4.984 11.024C4.71333 10.8747 4.284 10.674 3.696 10.422C3.00533 10.1233 2.48733 9.78733 2.142 9.414C1.79667 9.04067 1.624 8.59733 1.624 8.084C1.624 7.888 1.64267 7.70133 1.68 7.524C1.848 6.74933 2.254 6.138 2.898 5.69C3.55133 5.23267 4.39133 5.004 5.418 5.004C6.35133 5.004 7.19133 5.172 7.938 5.508L7.728 6.502C7.01867 6.15667 6.23 5.984 5.362 5.984C3.85 5.984 2.98667 6.49733 2.772 7.524C2.744 7.67333 2.73 7.80867 2.73 7.93C2.73 8.30333 2.87467 8.61133 3.164 8.854C3.46267 9.09667 3.98067 9.36733 4.718 9.666C5.24067 9.88067 5.656 10.086 5.964 10.282C6.28133 10.4687 6.524 10.6927 6.692 10.954C6.86933 11.2153 6.958 11.5373 6.958 11.92C6.958 12.1253 6.93 12.354 6.874 12.606C6.68733 13.4647 6.27667 14.1133 5.642 14.552C5.01667 14.9907 4.07867 15.21 2.828 15.21ZM11.6016 15.21C10.5936 15.21 9.80029 14.9767 9.22163 14.51C8.65229 14.0433 8.36763 13.3853 8.36763 12.536C8.36763 12.2373 8.40029 11.9433 8.46563 11.654C8.70829 10.5433 9.19363 9.67067 9.92163 9.036C10.659 8.392 11.6156 8.07 12.7916 8.07C13.753 8.07 14.481 8.29867 14.9756 8.756C15.4703 9.21333 15.7176 9.82933 15.7176 10.604C15.7176 10.8933 15.685 11.1827 15.6196 11.472L15.4936 12.06H9.38963C9.36163 12.2373 9.34763 12.41 9.34763 12.578C9.34763 13.7633 10.197 14.356 11.8956 14.356C12.3343 14.356 12.773 14.3187 13.2116 14.244C13.6596 14.16 14.0656 14.048 14.4296 13.908L14.2336 14.818C13.935 14.93 13.5336 15.0233 13.0296 15.098C12.535 15.1727 12.059 15.21 11.6016 15.21ZM14.6536 11.29C14.7003 11.038 14.7236 10.8233 14.7236 10.646C14.7236 9.50733 14.0143 8.938 12.5956 8.938C11.7556 8.938 11.079 9.15267 10.5656 9.582C10.0616 10.0113 9.72563 10.5807 9.55763 11.29H14.6536ZM20.1192 15.21C19.1112 15.21 18.3179 14.9767 17.7392 14.51C17.1699 14.0433 16.8852 13.3853 16.8852 12.536C16.8852 12.2373 16.9179 11.9433 16.9832 11.654C17.2259 10.5433 17.7112 9.67067 18.4392 9.036C19.1765 8.392 20.1332 8.07 21.3092 8.07C22.2705 8.07 22.9985 8.29867 23.4932 8.756C23.9879 9.21333 24.2352 9.82933 24.2352 10.604C24.2352 10.8933 24.2025 11.1827 24.1372 11.472L24.0112 12.06H17.9072C17.8792 12.2373 17.8652 12.41 17.8652 12.578C17.8652 13.7633 18.7145 14.356 20.4132 14.356C20.8519 14.356 21.2905 14.3187 21.7292 14.244C22.1772 14.16 22.5832 14.048 22.9472 13.908L22.7512 14.818C22.4525 14.93 22.0512 15.0233 21.5472 15.098C21.0525 15.1727 20.5765 15.21 20.1192 15.21ZM23.1712 11.29C23.2179 11.038 23.2412 10.8233 23.2412 10.646C23.2412 9.50733 22.5319 8.938 21.1132 8.938C20.2732 8.938 19.5965 9.15267 19.0832 9.582C18.5792 10.0113 18.2432 10.5807 18.0752 11.29H23.1712ZM31.8271 8.28H32.8631L32.6391 9.33C33.4511 8.49 34.3378 8.07 35.2991 8.07C35.8125 8.07 36.2091 8.17267 36.4891 8.378C36.7785 8.58333 36.9605 8.87267 37.0351 9.246C37.4271 8.84467 37.8611 8.55067 38.3371 8.364C38.8225 8.168 39.2985 8.07 39.7651 8.07C40.3811 8.07 40.8431 8.224 41.1511 8.532C41.4685 8.83067 41.6271 9.246 41.6271 9.778C41.6271 10.0113 41.5991 10.254 41.5431 10.506L40.5911 15H39.5271L40.4511 10.632C40.5165 10.3053 40.5491 10.058 40.5491 9.89C40.5491 9.54467 40.4511 9.302 40.2551 9.162C40.0685 9.01267 39.7558 8.938 39.3171 8.938C38.5145 8.938 37.7725 9.29733 37.0911 10.016C37.0911 10.1747 37.0585 10.3893 36.9931 10.66L36.0831 15H35.0331L35.9431 10.66C36.0178 10.3333 36.0551 10.072 36.0551 9.876C36.0551 9.54933 35.9618 9.31133 35.7751 9.162C35.5885 9.01267 35.2851 8.938 34.8651 8.938C34.0625 8.938 33.2598 9.386 32.4571 10.282L31.4631 15H30.3991L31.8271 8.28ZM45.668 15.21C44.744 15.21 44.002 14.9673 43.442 14.482C42.882 13.9967 42.602 13.334 42.602 12.494C42.602 12.2793 42.6347 11.9993 42.7 11.654C42.9333 10.5433 43.4513 9.67067 44.254 9.036C45.066 8.392 46.046 8.07 47.194 8.07C48.118 8.07 48.8553 8.31733 49.406 8.812C49.966 9.30667 50.246 9.974 50.246 10.814C50.246 11.1033 50.2133 11.3833 50.148 11.654C49.9053 12.7927 49.3873 13.67 48.594 14.286C47.8007 14.902 46.8253 15.21 45.668 15.21ZM45.85 14.356C46.6527 14.356 47.3433 14.1133 47.922 13.628C48.51 13.1333 48.8927 12.4753 49.07 11.654C49.1353 11.3833 49.168 11.1127 49.168 10.842C49.168 10.2353 48.986 9.76867 48.622 9.442C48.258 9.106 47.7213 8.938 47.012 8.938C46.2093 8.938 45.514 9.18533 44.926 9.68C44.338 10.1653 43.9553 10.8233 43.778 11.654C43.722 11.934 43.694 12.2 43.694 12.452C43.694 13.0493 43.876 13.516 44.24 13.852C44.604 14.188 45.1407 14.356 45.85 14.356ZM52.5537 8.28H53.6037L53.3237 9.596C54.0424 8.71867 55.1484 8.28 56.6417 8.28L56.4457 9.148C54.831 9.148 53.7157 9.68467 53.0997 10.758L52.2037 15H51.1257L52.5537 8.28ZM59.7403 15.21C58.7323 15.21 57.939 14.9767 57.3603 14.51C56.791 14.0433 56.5063 13.3853 56.5063 12.536C56.5063 12.2373 56.539 11.9433 56.6043 11.654C56.847 10.5433 57.3323 9.67067 58.0603 9.036C58.7976 8.392 59.7543 8.07 60.9303 8.07C61.8916 8.07 62.6196 8.29867 63.1143 8.756C63.609 9.21333 63.8563 9.82933 63.8563 10.604C63.8563 10.8933 63.8236 11.1827 63.7583 11.472L63.6323 12.06H57.5283C57.5003 12.2373 57.4863 12.41 57.4863 12.578C57.4863 13.7633 58.3356 14.356 60.0343 14.356C60.473 14.356 60.9116 14.3187 61.3503 14.244C61.7983 14.16 62.2043 14.048 62.5683 13.908L62.3723 14.818C62.0736 14.93 61.6723 15.0233 61.1683 15.098C60.6736 15.1727 60.1976 15.21 59.7403 15.21ZM62.7923 11.29C62.839 11.038 62.8623 10.8233 62.8623 10.646C62.8623 9.50733 62.153 8.938 60.7343 8.938C59.8943 8.938 59.2176 9.15267 58.7043 9.582C58.2003 10.0113 57.8643 10.5807 57.6963 11.29H62.7923Z"
+      fill="#153342"
+    />
+    <path d="M28 25L32.5 29L37 25" stroke="#153342" stroke-width="1.5" stroke-linecap="round" />
+  </svg>
+  <div class="button-add-appointment" (click)="onAppointment()" *ngIf="actionType === 'Edit'"></div>
+  <div [formGroup]="appointMentFormGroup" class="button-datepicker-appointment" *ngIf="actionType === 'EDIT'">
+    <div style="margin: auto">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onClickUndoEditAppointment()">
+        <path d="M13 13L1 1" stroke="#FF6E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M13 1L1 13" stroke="#FF6E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+    <div class="appoimentForm">
+      <div class="dateTimePicker">
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="startDatepicker" placeholder="Choose start date" formControlName="startDateControl" [min]="minDate" />
+          <button mat-icon-button matSuffix (click)="startDatepicker.open(); $event.stopPropagation()">
+            <mat-icon>today</mat-icon>
+          </button>
+          <ngx-mat-datetime-picker #startDatepicker> </ngx-mat-datetime-picker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="endDatepicker" placeholder="Choose end date" formControlName="endDateControl" [min]="minDate" />
+          <button mat-icon-button matSuffix (click)="endDatepicker.open(); $event.stopPropagation()">
+            <mat-icon>today</mat-icon>
+          </button>
+          <ngx-mat-datetime-picker #endDatepicker> </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-label>Note Detail</mat-label>
+        <input matInput value="" placeholder="take note" formControlName="appointmentNote" />
+      </mat-form-field>
+    </div>
+    <div style="margin: auto">
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onEditAppointment()">
+        <path d="M1 7L7 13L17 1" stroke="#0EC2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+  <div class="button-add-appointment" (click)="onAppointment()" *ngIf="!displayDatePicker">
+    <mat-button class="form-appointment-detail"> + Add Appointment </mat-button>
+  </div>
+  <div [formGroup]="appointMentFormGroup" class="button-datepicker-appointment" *ngIf="displayDatePicker">
+    <div style="margin: auto">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onAppointment()">
+        <path d="M13 13L1 1" stroke="#FF6E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M13 1L1 13" stroke="#FF6E5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+    <div class="appoimentForm">
+      <div class="dateTimePicker">
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="startDatepicker" placeholder="Choose start date" formControlName="startDateControl" [min]="minDate" />
+          <button mat-icon-button matSuffix (click)="startDatepicker.open(); $event.stopPropagation()">
+            <mat-icon>today</mat-icon>
+          </button>
+          <ngx-mat-datetime-picker #startDatepicker> </ngx-mat-datetime-picker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="endDatepicker" placeholder="Choose end date" formControlName="endDateControl" [min]="minDate" />
+          <button mat-icon-button matSuffix (click)="endDatepicker.open(); $event.stopPropagation()">
+            <mat-icon>today</mat-icon>
+          </button>
+          <ngx-mat-datetime-picker #endDatepicker> </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-label>Note Detail</mat-label>
+        <input matInput value="" placeholder="take note" formControlName="appointmentNote" />
+      </mat-form-field>
+    </div>
+    <div style="margin: auto">
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onAddAppointment()">
+        <path d="M1 7L7 13L17 1" stroke="#0EC2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+::ng-deep {
+  @layer components {
+    .cms-chip-list {
+      .mat-form-field-wrapper {
+        padding: 0px;
+        .mat-form-field-infix {
+          padding: 0px;
+          margin: 0px;
+          border: 0px;
+          .mat-chip-list-wrapper {
+            border: 1px solid;
+            border-radius: 5px;
+            .mat-chip.mat-standard-chip {
+              @apply bg-green-500 text-white font-light;
+            }
+          }
+          .mat-form-field-label-wrapper {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<div class="nav" (window:resize)="onResize($event)">
+  <div class="bugger">
+    <button
+      id="nav-menu-toggle"
+      class="cursor-pointer bugger-icon animated"
+      [matTooltip]="menuTooltipText"
+      reactorRoomClickOutside
+      (outside)="clickOutsideMenuToogleEvent($event)"
+      *ngIf="!focusModeStatus"
+      (click)="menuToggle()"
+    >
+      <svg *ngIf="menuStatus" width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="18" height="2" rx="1" fill="#CDCFD4" />
+        <rect y="7" width="18" height="2" rx="1" fill="#CDCFD4" />
+        <rect y="14" width="18" height="2" rx="1" fill="#CDCFD4" />
+      </svg>
+
+      <svg class="collapse" *ngIf="!menuStatus" width="3" height="15" viewBox="0 0 3 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="3" rx="1.5" fill="#CDCFD4" />
+        <rect y="6" width="3" height="3" rx="1.5" fill="#CDCFD4" />
+        <rect y="12" width="3" height="3" rx="1.5" fill="#CDCFD4" />
+      </svg>
+      <img class="mobile-logo" src="/assets/img/logo-small.svg" alt="logo" />
+    </button>
+    <div class="package-label">
+      <reactor-room-package-label></reactor-room-package-label>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="controls">
+      <div class="upgrade" *ngIf="isDisplayUpgrade">
+        <reactor-room-upgrade></reactor-room-upgrade>
+      </div>
+      <div class="notification">
+        <reactor-room-notification-inbox></reactor-room-notification-inbox>
+      </div>
+      <!-- <div class="notification">
+        <reactor-room-notification-comment></reactor-room-notification-comment>
+      </div> -->
+      <div class="language">
+        <reactor-room-language-switch></reactor-room-language-switch>
+      </div>
+      <!-- <div class="ecosystem">
+        <reactor-room-ecosystem></reactor-room-ecosystem>
+      </div> -->
+      <reactor-room-subscription-switcher
+        *ngIf="userSubscriptionsContext"
+        [theme]="theme"
+        [userSubscriptionsContext]="userSubscriptionsContext"
+        [userSubscriptions]="userSubscriptions"
+        [activeSubscription]="activeSubscription"
+        [hasSub]="hasSub"
+        (createSubscriptionClick)="createSubscription()"
+        (subcriptionItemClick)="setSubscriptionItemStatus($event)"
+        (logoutClick)="logout()"
+      ></reactor-room-subscription-switcher>
+    </div>
+  </div>
+</div>
+<div *ngIf="activeSubscription && activeSubscription.isExpire" class="expired-label" (window:resize)="onResize($event)">
+  <span>
+    {{ 'Your package expired' | translate }}
+  </span>
+</div>
+
+<reactor-room-loader block="true" [text]="loadingText" *ngIf="isLoading"></reactor-room-loader>

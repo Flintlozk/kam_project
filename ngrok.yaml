@@ -1,0 +1,4 @@
+tunnels:
+  backend:
+    proto: http
+    addr: http://localhost:3333

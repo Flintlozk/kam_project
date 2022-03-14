@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "root": "libs/cms-cdk",
+  "sourceRoot": "libs/cms-cdk/src",
+  "prefix": "cms-next",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/cms-cdk/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/cms-cdk/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

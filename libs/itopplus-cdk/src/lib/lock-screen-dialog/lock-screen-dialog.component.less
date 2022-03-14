@@ -1,0 +1,87 @@
+@import '../assets/styles/properties';
+
+.lock-screen-dialog {
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: @font-family;
+  max-width: 600px;
+  margin: auto;
+
+  .container {
+    display: block;
+    padding: 20px;
+    min-height: 160px;
+    background: white;
+    background-image: url('../assets/images/success-bg.png');
+    background-size: auto 200px;
+    background-repeat: no-repeat;
+    background-position: right top;
+
+    .title {
+      font-weight: 500;
+      font-size: 1.5em;
+      padding-bottom: 30px;
+      padding-top: 10px;
+
+      span {
+        color: @main-color;
+      }
+    }
+
+    .content {
+      font-weight: 200;
+
+      ul.response-list {
+        list-style: none;
+        position: relative;
+        padding-left: 35px;
+
+        li:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          background-size: 20px auto;
+          background-repeat: no-repeat;
+          width: 20px;
+          height: 20px;
+          display: block;
+          background-position: center;
+        }
+
+        li.success-item:before {
+          background-image: url('../assets/images/check-icon.svg');
+        }
+
+        li.error-item:before {
+          background-image: url('../assets/images/reject-icon.svg');
+          background-size: 15px auto;
+        }
+
+        li.error-item {
+          color: @danger-color;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background: #e2f1ff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &.error {
+    .container {
+      background-image: url('../assets/images/error-bg.png');
+
+      .title {
+        color: @danger-color;
+      }
+    }
+
+    .footer {
+      background: #fde8df;
+    }
+  }
+}

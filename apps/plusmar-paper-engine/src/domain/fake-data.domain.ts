@@ -1,0 +1,78 @@
+export const getPaperLabelData = () => {
+  return {
+    payload: {
+      orderID: 7573,
+      aliasOrderID: 'OR-21050600000',
+      trackingNo: 'EB505000111TH',
+      expandedTrackingNo: 'EB 5050 0011 1 TH',
+      shopWalletID: '9999999999999',
+      totalPrice: '300',
+      labelDetail: {
+        // Flash Express
+        pno: 'TH01414ZYN7C',
+        mchId: 'AA0201',
+        outTradeNo: 'OR-0000007573',
+        sortCode: '16C-16231-03',
+        lineCode: '2',
+        sortingLineCode: 'C11',
+        dstStoreName: 'WTL_SP-วังทองหลาง',
+        earlyFlightEnabled: false,
+        packEnabled: false,
+        upcountryCharge: false,
+        expandedSortCode: { ext1: '16C', ext2: '16231', ext3: '03' },
+        expandedDstStoreName: { ext1: 'WTL_SP', ext2: 'วังทองหลาง', ext3: undefined },
+        // J&T Express
+        billcode: '860000136531',
+        mailno: '860000136531',
+        reason: '1',
+        reportUrl: '',
+        sortingcode: 'A1-BKK1801-096',
+        success: 'true',
+        txlogisticid: '0000008777M0',
+      },
+      deliveryType: 'FLASH_EXPRESS',
+      trackingType: 'DROP_OFF',
+      codEnabled: false,
+      pageName: 'เทคนิคการซ่อม NDS(L)(i)(XL) 3DS',
+      pagePhoneNumber: '0614444444',
+      sourceLocation: {
+        amphoe: 'ห้วยขวาง',
+        address: '57/3 สมใจแมนชั่น ห้อง 309 ถนนเพชรพระราม',
+        district: 'บางกะปิ',
+        lastname: 'lname',
+        postCode: '10310',
+        province: 'กรุงเทพมหานคร',
+        firstname: 'fname',
+      },
+      customerName: 'Apithana Boriboonthanarak',
+      customerPhoneNumber: '0821377437',
+      customerLocation: {
+        address: 'dsadsadsa',
+        province: 'กรุงเทพมหานคร',
+        district: 'คลองเจ้าคุณสิงห์',
+        post_code: '10310',
+        city: 'วังทองหลาง',
+      },
+      products: [
+        {
+          index: 1,
+          productName: '____________',
+          attributes: '____________',
+          quantity: '____________',
+        },
+        {
+          index: 2,
+          productName: '____________',
+          attributes: '____________',
+          quantity: '____________',
+        },
+        {
+          index: 3,
+          productName: '____________',
+          attributes: '____________',
+          quantity: '____________',
+        },
+      ],
+    },
+  };
+};

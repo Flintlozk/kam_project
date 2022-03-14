@@ -1,0 +1,54 @@
+@import 'base';
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+  color: $text-darker-color;
+  font-size: 1em;
+
+  .info {
+    padding: 10px 0px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+
+    input {
+      box-shadow: none;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 0px 15px;
+      height: 35px;
+
+      &::placeholder {
+        font-style: italic;
+      }
+    }
+
+    .btn-rejected {
+      margin-left: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $border-color;
+      padding: 10px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: $transition;
+
+      img {
+        width: 25px;
+        padding-right: 10px;
+      }
+
+      &:hover {
+        background: #d8d8d8;
+      }
+    }
+  }
+}

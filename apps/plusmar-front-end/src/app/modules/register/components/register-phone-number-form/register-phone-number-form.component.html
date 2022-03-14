@@ -1,0 +1,20 @@
+<div class="details">
+  <div class="number-form">
+    <form [ngClass]="isInvalid ? 'invalid' : ''" class="otp-from" [formGroup]="telForm" (keydown.enter)="$event.preventDefault()">
+      <input (keyup)="keyUpEvent($event)" #phoneInput type="text" formControlName="phoneNumber" class="form-control" placeholder="099-9999999" />
+    </form>
+  </div>
+  <div *ngIf="isInvalid" class="err">
+    <span>{{ 'Invalid phoneNumber' | translate }}</span>
+  </div>
+
+  <div class="buttons">
+    <div (click)="logout()" class="resend-button">
+      <img src="/assets/img/logout-icon-dark.png" alt="logout" />
+      Log out
+    </div>
+    <button class="btn-create" (click)="onSubmit()">
+      {{ 'Get otp' | translate }}
+    </button>
+  </div>
+</div>

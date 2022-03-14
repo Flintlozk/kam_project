@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plusmar-nlp-_ENV_
+  namespace: plusmar
+spec:
+  replicas: _SIZE_
+  selector:
+    matchLabels:
+      app: plusmar-nlp-_ENV_
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: plusmar-nlp-_ENV_
+    spec:
+      containers:
+        - name: plusmar-nlp-_ENV_
+          image: git.itopplus.com:5000/plusmar/plusmar-nlp:_TAG_
+          imagePullPolicy: Always
+          env:
+            - name: STAGE
+              value: '_STAGE_'
+            - name: DB_NAME_MONGO
+              value: '_MONGODB_'
+            - name: DB_SERVICE_MONGO
+              value: '_HOSTMONGO_'
+            - name: DB_USER_MONGO
+              value: '_USERMONGO_'
+            - name: DB_PASS_MONGO
+              value: '_PASSMONGO_'
+            - name: DB_NAME_PG
+              value: '_PGDB_'
+            - name: DB_USER_PG
+              value: '_USERPG_'
+            - name: DB_PASS_PG
+              value: '_PASSPG_'
+            - name: DB_SERVICE_PG
+              value: '_HOSTPG_'
+            - name: DB_PORT_PG
+              value: '_PORTPG_'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+          resources:
+            requests:
+              cpu: '125m'
+              memory: '128Mi'
+      imagePullSecrets:
+        - name: gitlabsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: plusmar-nlp-_ENV_-service
+  name: plusmar-nlp-_ENV_-service
+  namespace: plusmar
+  annotations:
+    cloud.google.com/load-balancer-type: 'Internal'
+spec:
+  type: LoadBalancer
+  ports:
+    - name: plusmar-nlp-_ENV_-port
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: plusmar-nlp-_ENV_

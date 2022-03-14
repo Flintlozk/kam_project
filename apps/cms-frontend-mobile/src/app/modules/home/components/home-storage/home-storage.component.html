@@ -1,0 +1,36 @@
+<section class="p-4 mb-3">
+  <h2 class="pt-0 pb-3 text-xl text-gray-700">{{ 'Storage' | translate }}</h2>
+  <div class="grid gap-4 p-4 bg-white rounded-md shadow-md">
+    <div class="flex items-center font-light text-gray-700">
+      <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M19.3824 6.02654C18.5718 1.97025 14.6176 -0.66255 10.5505 0.145898C7.5758 0.737213 5.24982 3.05554 4.6551 6.02198C1.77139 6.35343 -0.297141 8.95354 0.0350104 11.8298C0.340795 14.4768 2.58877 16.4739 5.26044 16.4721H9.01482C9.42955 16.4721 9.76573 16.1368 9.76573 15.7232C9.76573 15.3095 9.42955 14.9743 9.01482 14.9743H5.26044C3.18679 14.962 1.51596 13.2757 1.52804 11.2078C1.54031 9.13981 3.2311 7.47324 5.30476 7.48529C5.68744 7.48548 6.00897 7.19822 6.05109 6.81892C6.43231 3.53199 9.41307 1.17568 12.7088 1.55589C15.4795 1.87565 17.6652 4.05537 17.9857 6.81892C18.0486 7.20498 18.3841 7.48785 18.7763 7.48529C20.85 7.48529 22.5309 9.16172 22.5309 11.2299C22.5309 13.2978 20.85 14.9743 18.7763 14.9743H15.0219C14.6072 14.9743 14.271 15.3095 14.271 15.7232C14.271 16.1368 14.6072 16.4721 15.0219 16.4721H18.7765C21.6792 16.454 24.0178 14.0926 23.9999 11.1974C23.9834 8.56091 22.0063 6.34686 19.3824 6.02654Z"
+          fill="#9799A5"
+        />
+        <path
+          d="M14.6728 13.4391C14.961 13.7368 15.4363 13.745 15.7346 13.4575C16.0329 13.1703 16.0411 12.6962 15.7531 12.3987C15.7471 12.3923 15.7408 12.3863 15.7346 12.3803L12.5501 9.20348C12.2573 8.91056 11.7818 8.91001 11.4881 9.20201C11.4877 9.20256 11.4871 9.20293 11.4868 9.20348L8.30222 12.3803C8.00394 12.6675 7.9957 13.1416 8.28373 13.4391C8.57193 13.7366 9.04727 13.7448 9.34555 13.4575C9.35178 13.4515 9.358 13.4453 9.36404 13.4391L11.2676 11.5399V20.9655C11.2676 21.3791 11.6038 21.7144 12.0185 21.7144C12.4331 21.7144 12.7692 21.3791 12.7692 20.9655V11.5399L14.6728 13.4391Z"
+          fill="#9799A5"
+        />
+      </svg>
+      <span class="ml-3">900 MB {{ 'of' | translate }} 3.00 GB {{ 'Used' | translate }}</span>
+    </div>
+    <div>
+      <div class="flex items-center w-full h-3 border-2 border-gray-200 rounded-full shadow-inner">
+        <ng-container *ngFor="let progressBarDataItem of progressBarData; trackBy: trackByIndex">
+          <div class="h-3 bg-green-500 first:rounded-l-full last:rounded-r-full" [ngStyle]="{ flex: progressBarDataItem.value, backgroundColor: progressBarDataItem.color }"></div>
+        </ng-container>
+      </div>
+      <div class="flex flex-wrap mt-4 font-light text-gray-700">
+        <ng-container *ngFor="let progressBarDataItem of progressBarData; trackBy: trackByIndex">
+          <div class="flex items-center mb-2 mr-4">
+            <div class="flex-shrink-0 w-3 h-3 rounded-full" [ngStyle]="{ backgroundColor: progressBarDataItem.color }"></div>
+            <div class="ml-1">{{ progressBarDataItem.title | translate }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <button class="py-3 -mt-2 text-xl text-white rounded-md bg-green-500 focus:outline-none">
+      {{ 'Upgrade Storage' | translate }}
+    </button>
+  </div>
+</section>

@@ -1,0 +1,116 @@
+<section [formGroup]="mediaGallerySettingForm" class="grid gap-4">
+  <div class="border p-4 rounded-md">
+    <img class="round-md" [src]="mediaGallerySettingForm['controls']['galleryPatternUrl'].value" [alt]="mediaGallerySettingForm['controls']['galleryPatternId'].value" />
+  </div>
+  <button
+    *ngIf="mediaGallerySettingForm['controls']['isChangePattern'].value"
+    (click)="onMediaGalleryDialog()"
+    class="focus:outline-none py-2 bg-gray-700 font-light text-white transform transition hover:scale-105 rounded"
+  >
+    Change Pattern
+  </button>
+  <div class="grid">
+    <div class="text-sm font-light">Gallery Gap</div>
+    <div class="flex items-center justify-between">
+      <div class="w-full">
+        <input class="transition-all" type="range" min="0" max="100" class="slider" formControlName="galleryGap" />
+      </div>
+      <div class="flex items-center justify-center flex-shrink-0 h-12 ml-4 border border-gray-100 rounded-md w-14">
+        {{ mediaGallerySettingForm['controls']['galleryGap'].value }}
+      </div>
+    </div>
+  </div>
+  <div class="grid gap-2">
+    <div class="text-sm font-light">Gallery Item Max Height (px)</div>
+    <div class="flex items-center justify-between h-12 px-4 border border-gray-100 rounded-md">
+      <input type="number" formControlName="galleryMaxHeight" class="w-full h-full border-none focus:outline-none" />
+      <div class="flex flex-col items-center justify-center">
+        <button (click)="onIncrease('galleryMaxHeight')" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button (click)="onDecrease('galleryMaxHeight')" class="h-full py-1 transition transform focus:outline-none hover:scale-105">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="text-sm font-light pb-1">Media Set</div>
+    <div class="grid grid-cols-2 gap-2">
+      <ng-container *ngFor="let mediaItem of mediaGallerySettingForm['controls']['gallleryList']['controls']; let index = index">
+        <ng-container>
+          <div class="w-full h-28 rounded-md bg-gray-100 flex items-center justify-center relative group border-gray-100 border hover:border-green-500">
+            <img class="w-full h-28" *ngIf="mediaItem['controls']['fileType'].value === EFileType.IMAGE" [src]="mediaItem['controls']['url'].value" />
+            <video class="w-full h-28" *ngIf="mediaItem['controls']['fileType'].value === EFileType.VIDEO">
+              <source [src]="mediaItem['controls']['url'].value" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div class="absolute left-2 top-2">
+              <svg *ngIf="mediaItem['controls']['fileType'].value === EFileType.IMAGE" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11.6667 1H2.33333C1.59695 1 1 1.59695 1 2.33333V11.6667C1 12.403 1.59695 13 2.33333 13H11.6667C12.403 13 13 12.403 13 11.6667V2.33333C13 1.59695 12.403 1 11.6667 1Z"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.66797 5.66602C5.22025 5.66602 5.66797 5.2183 5.66797 4.66602C5.66797 4.11373 5.22025 3.66602 4.66797 3.66602C4.11568 3.66602 3.66797 4.11373 3.66797 4.66602C3.66797 5.2183 4.11568 5.66602 4.66797 5.66602Z"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path d="M12.9987 8.99935L9.66536 5.66602L2.33203 12.9993" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg *ngIf="mediaItem['controls']['fileType'].value === EFileType.VIDEO" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 4.99865L17.553 2.72265C17.7054 2.64649 17.8748 2.61053 18.045 2.6182C18.2152 2.62587 18.3806 2.6769 18.5256 2.76646C18.6706 2.85602 18.7902 2.98113 18.8733 3.12993C18.9563 3.27872 18.9999 3.44626 19 3.61665V10.3807C18.9999 10.551 18.9563 10.7186 18.8733 10.8674C18.7902 11.0162 18.6706 11.1413 18.5256 11.2308C18.3806 11.3204 18.2152 11.3714 18.045 11.3791C17.8748 11.3868 17.7054 11.3508 17.553 11.2747L13 8.99865V4.99865Z"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M11 1H3C1.89543 1 1 1.89543 1 3V11C1 12.1046 1.89543 13 3 13H11C12.1046 13 13 12.1046 13 11V3C13 1.89543 12.1046 1 11 1Z"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <button class="focus:outline-none cursor-move absolute top-2 left-2 hidden group-hover:flex">
+              <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="1.25" cy="3.25" r="1.25" fill="#2EC639" />
+                <circle cx="1.25" cy="7" r="1.25" fill="#2EC639" />
+                <circle cx="5" cy="3.25" r="1.25" fill="#2EC639" />
+                <circle cx="5" cy="7" r="1.25" fill="#2EC639" />
+              </svg>
+            </button>
+            <button
+              (click)="onRemoveMediaGalleryListFormArray(index)"
+              class="focus:outline-none absolute right-2 top-2 hidden group-hover:flex w-5 h-5 items-center justify-center rounded-lg bg-red-500"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L9 9M9 1L1 9" stroke="white" stroke-width="1.7" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div (click)="onPushMediaGalleryListFormArray()" class="w-full h-28 rounded-md bg-gray-100 flex items-center justify-center focus:outline-none cursor-pointer group">
+        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-300 group-hover:bg-green-500">
+          <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 10H17" stroke="white" stroke-width="2" stroke-linecap="round" />
+            <path d="M9 1.5V17.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

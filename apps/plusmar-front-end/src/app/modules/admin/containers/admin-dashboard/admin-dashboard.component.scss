@@ -1,0 +1,25 @@
+.admin-dashboard {
+  width: 100%;
+
+  .heading-content {
+    display: flex;
+    align-items: center;
+
+    .select-option {
+      min-width: 190px;
+
+      .page-pic {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .content {
+    // margin-top: 10px;
+    display: flex;
+    flex-flow: column;
+    // gap: 10px; // !
+  }
+}

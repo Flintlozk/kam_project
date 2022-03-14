@@ -1,0 +1,33 @@
+.package-label {
+  font-weight: 300;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+
+  .title {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px 15px;
+    color: white;
+    padding-right: 15px;
+    font-size: 14px;
+    background-color: #6a839c;
+
+    border-right: none;
+  }
+
+  .subscription-detail {
+    background-color: rgba(226, 242, 255, 1);
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: none;
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #484b52;
+    .subscription-id {
+      color: #53b1ff;
+    }
+  }
+}

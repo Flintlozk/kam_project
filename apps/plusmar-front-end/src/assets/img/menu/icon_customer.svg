@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="66px" viewBox="0 0 61 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>icon_dark_menu_CRM</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbol" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Inbox" transform="translate(-624.000000, -1371.000000)" fill-rule="nonzero" stroke="#74787C" stroke-width="3">
+            <g id="Dark_Active" transform="translate(164.000000, 1351.000000)">
+                <g id="icon_dark_menu_CRM" transform="translate(462.000000, 21.000000)">
+                    <path d="M28.5,28.1800766 C20.9783385,28.1800766 14.8589744,22.0199908 14.8589744,14.4482759 C14.8589744,6.87656092 20.9783385,0.716475096 28.5,0.716475096 C36.0216615,0.716475096 42.1410256,6.87656092 42.1410256,14.4482759 C42.1410256,22.0199908 36.0216615,28.1800766 28.5,28.1800766 Z" id="Shape"></path>
+                    <path d="M49.7756933,43.7868835 C45.0940933,39.0989356 38.8878067,36.5172414 32.3,36.5172414 L24.7,36.5172414 C18.11232,36.5172414 11.9059067,39.0989356 7.22430667,43.7868835 C2.56563333,48.4518465 0,54.6095875 0,61.1262199 C0,62.1610462 0.850693333,63 1.9,63 L55.1,63 C56.1493067,63 57,62.1610462 57,61.1262199 C57,54.6095875 54.4343667,48.4518465 49.7756933,43.7868835 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

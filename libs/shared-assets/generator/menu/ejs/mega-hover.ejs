@@ -1,0 +1,42 @@
+function getMenuJsMegaHover() {
+  const mainElement = document.getElementById('<%=id%>');
+  const megaLIs = mainElement.getElementsByClassName('li-mega');
+  const mengaNav = mainElement.getElementsByClassName('mega-nav')[0];
+  mengaNav?.addEventListener(
+    'mouseleave',
+    function () {
+      for (let index = 0; index < megaLIs.length; index++) {
+        const megaLI = megaLIs[index];
+        megaLI.classList.remove('active');
+      }
+    },
+    false,
+  );
+  for (let index = 0; index < megaLIs.length; index++) {
+    const megaLI = megaLIs[index];
+    const elementId = megaLI.getAttribute('id');
+    const elementLevel = +megaLI.getAttribute('level');
+    megaLI?.addEventListener(
+      'mouseover',
+      function () {
+        const childElements = mainElement.querySelectorAll('.li-mega[parent-id');
+        let count = 1;
+        for (let index = 0; index < childElements.length; index++) {
+          const childElement = childElements[index];
+          const childParentId = childElement.getAttribute('parent-id');
+          const childLevel = +childElement.getAttribute('level');
+          if (childParentId === elementId) {
+            childElement.classList.add('active');
+            if (count === 1) childElement.style.marginTop = megaLI.offsetTop - mengaNav.offsetTop + 'px';
+            count++;
+          }
+          if (childParentId !== elementId && childLevel > elementLevel) {
+            childElement.classList.remove('active');
+          }
+        }
+      },
+      false,
+    );
+  }
+}
+getMenuJsMegaHover();

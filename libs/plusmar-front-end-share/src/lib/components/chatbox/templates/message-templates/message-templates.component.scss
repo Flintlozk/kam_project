@@ -1,0 +1,93 @@
+@import 'base';
+
+.message-template-input-container {
+  input {
+    border: 1px solid $border-color;
+    padding: 0px 15px;
+    height: 35px;
+    border-radius: 8px;
+  }
+}
+
+.table-full-height {
+  min-height: calc(100vh - 280px);
+  max-height: calc(100vh - 280px);
+}
+
+:host ::ng-deep .custom-table table,
+:host ::ng-deep .table-content-group table {
+  border-collapse: collapse !important;
+}
+
+::ng-deep .cdk-overlay-container {
+  overflow: auto !important;
+}
+
+::ng-deep .cdk-overlay-backdrop {
+  position: fixed !important;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  @media #{$mobilemax} {
+    position: relative !important;
+  }
+}
+
+:host ::ng-deep .custom-table tr td,
+:host ::ng-deep .custom-table tr th {
+  border-radius: 0 !important;
+}
+
+:host ::ng-deep .custom-table tr {
+  border-top: 1px solid #ebecf1;
+}
+
+:host ::ng-deep .custom-table tr:first-child {
+  border-top: 1px solid transparent;
+}
+
+:host ::ng-deep .custom-table tr {
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .custom-table tr th {
+  background-color: #e2f2ff;
+}
+
+::ng-deep .mat-menu-item {
+  display: flex !important;
+  align-items: center !important;
+}
+
+:host ::ng-deep .custom-table tr th:first-child {
+  border-top-left-radius: 10px !important;
+}
+
+:host ::ng-deep .custom-table tr th:last-child {
+  border-top-right-radius: 10px !important;
+}
+
+.icon-smileys:hover svg {
+  fill: #54b1ff;
+}
+
+.shortcut:after {
+  content: ':';
+  position: absolute;
+  left: 11px;
+  top: 6px;
+
+  @media #{$mobilemax} {
+    top: 16px;
+  }
+}
+
+.template-form {
+  @media #{$mobilemax} {
+    margin: 0 20px;
+
+    .inputbox {
+      padding: 10px 165px 10px 15px;
+    }
+  }
+}

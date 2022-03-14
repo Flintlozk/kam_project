@@ -1,0 +1,31 @@
+<div class="hover:scale-105 transition-all transform group bg-white w-full px-4 py-2 flex items-center justify-between rounded-xl">
+  <div class="flex flex-col">
+    <span class="mb-2 flex items-center">
+      <span>Expire in </span>
+      <span class="text-md text-orange-500 font-light mx-2">{{ bundle.expires_at | timeAgo }}</span>
+      <span class="text-md text-gray-400 font-light hidden group-hover:flex">{{ bundle.expires_at | timeAgo: 'utc' }}</span>
+    </span>
+
+    <h4 class="text-l font-medium text-gray-500">
+      <span class="text-l">Prefix: {{ bundle.prefix }}</span>
+      <span class="text-l"> Suffix: {{ bundle.suffix }}</span>
+    </h4>
+    <h4 class="text-l font-medium text-gray-500"></h4>
+    <h4 class="text-l font-medium text-gray-500">
+      Track: <span class="text-l"> {{ bundle.prefix }}{{ bundle.from }}X{{ bundle.suffix }} - {{ bundle.prefix }}{{ bundle.to }}X{{ bundle.suffix }}</span>
+    </h4>
+
+    <h4 class="text-l font-medium text-gray-500">
+      Used: <span class="text-xl">{{ bundle.spent }} /</span>
+      <span> {{ bundle.total }}</span>
+    </h4>
+  </div>
+  <button (click)="requestConfirm()" class="hidden group-hover:flex border-none transparent interactive p-4">
+    <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M3.625 1.17H3.5C3.56875 1.17 3.625 1.1115 3.625 1.04V1.17H8.375V1.04C8.375 1.1115 8.43125 1.17 8.5 1.17H8.375V2.34H9.5V1.04C9.5 0.466375 9.05156 0 8.5 0H3.5C2.94844 0 2.5 0.466375 2.5 1.04V2.34H3.625V1.17ZM11.5 2.34H0.5C0.223437 2.34 0 2.57237 0 2.86V3.38C0 3.4515 0.05625 3.51 0.125 3.51H1.06875L1.45469 12.0087C1.47969 12.5629 1.92031 13 2.45312 13H9.54688C10.0813 13 10.5203 12.5645 10.5453 12.0087L10.9312 3.51H11.875C11.9438 3.51 12 3.4515 12 3.38V2.86C12 2.57237 11.7766 2.34 11.5 2.34ZM9.42656 11.83H2.57344L2.19531 3.51H9.80469L9.42656 11.83Z"
+        fill="#0186FF"
+      />
+    </svg>
+  </button>
+</div>

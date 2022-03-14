@@ -1,0 +1,6 @@
+<table class="w-full font-light text-gray-600" [cdkCopyToClipboard]="orderConfirmFinishData[orderConfirmFinishData.length - 1].value" (click)="onCopyTrackingNumber()">
+  <tr class="even:bg-gray-200" *ngFor="let orderConfirmFinishDataItem of orderConfirmFinishData; trackBy: trackByIndex">
+    <td class="p-2">{{ orderConfirmFinishDataItem.title | translate }}</td>
+    <td class="p-2 text-right text-gray-700">{{ orderConfirmFinishDataItem?.value | currency }}{{ orderConfirmFinishDataItem?.valueStr }}</td>
+  </tr>
+</table>

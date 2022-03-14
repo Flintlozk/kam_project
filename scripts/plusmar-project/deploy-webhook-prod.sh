@@ -1,0 +1,3 @@
+#!/bin/sh
+sed 's/_ENV_/'"production"'/g; s/_SIZE_/'"2"'/g; s/_TAG_/'"$CI_PIPELINE_ID"'/g; s/_MONGODB_/'"$MONGODB"'/g; s/_PG_URL_READ_/'"$PG_URL_READ"'/g; s/_PG_URL_WRITE_/'"$PG_URL_WRITE"'/g; s/_REDIS_HOST_/'"$REDIS_HOST"'/g; s/_WEB_VIEW_URL_/'"$WEB_VIEW_URL"'/g; s/_WEBVIEWKEY_/'"$WEBVIEWKEY"'/g; s/_BACKEND_URL_/'"$BACKEND_URL"'/g; s/_SUBSCRIPTION_NAME_/'"$SUBSCRIPTION_NAME"'/g; s/_PAYAL_AUTH_API_/'"$PAYAL_AUTH_API"'/g; s/_PAYPAL_ORDER_API_/'"$PAYPAL_ORDER_API"'/g; s/_NLP_API_/'"$NLP_API"'/g; s/_LINESUBSCRIPTION_/'"$LINESUBSCRIPTION"'/g;' ./scripts/plusmar-project/yml/webhook.tpl.yml > webhook.yml
+kubectl apply -f webhook.yml --namespace=plusmar

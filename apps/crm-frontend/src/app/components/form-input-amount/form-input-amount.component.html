@@ -1,0 +1,34 @@
+<form [formGroup]="formContactDetail">
+  <div class="container-form">
+    <div class="profile-form-detail">
+      <div class="input-name-contact-company">
+        <mat-form-field class="form-field-detail">
+          <mat-label> Name </mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
+        <mat-checkbox formControlName="primaryContact" class="checkbox-primary-contact-company">Primary</mat-checkbox>
+      </div>
+      <mat-form-field class="form-field-detail">
+        <mat-label> Position </mat-label>
+        <input formControlName="position" matInput />
+      </mat-form-field>
+      <mat-form-field class="form-field-detail">
+        <mat-label> Phone Number </mat-label>
+        <input formControlName="phoneNumber" matInput />
+      </mat-form-field>
+      <mat-form-field class="form-field-detail">
+        <mat-label> Email </mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+      <mat-form-field class="form-field-detail">
+        <mat-label> Line ID </mat-label>
+        <input formControlName="lineId" matInput />
+      </mat-form-field>
+      <div class="button-save-contact-company">
+        <button *ngIf="editMode && !updateMode" mat-button color="primary" (click)="onInsertCompanyContact()">ADD</button>
+        <button *ngIf="editMode && updateMode" mat-button color="primary" (click)="onUpdateCompanyContact()">UPDATE</button>
+        <button *ngIf="editMode" mat-button color="warn" (click)="onCancelCompanyContact()">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</form>

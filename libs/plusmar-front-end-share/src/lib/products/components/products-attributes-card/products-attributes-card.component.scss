@@ -1,0 +1,47 @@
+@import 'base';
+.products-attribute-card {
+  color: $text-darker-color;
+  margin-top: 20px;
+  .card-content {
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .text {
+        padding-right: 15px;
+      }
+      .func {
+        color: $main-color;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        width: 100%;
+        justify-content: flex-end;
+        img {
+          width: 15px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .content {
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      .chip {
+        color: #ef8456;
+        border: 1px solid #ef8456;
+        border-radius: 8px;
+        padding: 5px 15px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: $transition;
+        &:hover {
+          background: #ef8456;
+          color: white;
+        }
+      }
+    }
+  }
+}

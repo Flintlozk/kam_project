@@ -1,0 +1,90 @@
+@import 'base';
+@import 'buttons';
+
+.close-reason-container {
+  margin: auto;
+  width: 640px;
+  @media #{$mobilemax} {
+    width: unset;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+
+        &.disabled {
+          @extend .btn-disabled;
+        }
+      }
+    }
+  }
+
+  ::ng-deep mat-form-field {
+    &.invalid {
+      border-color: #ef5350 !important;
+    }
+  }
+
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    //
+    // .title {
+    //   color: #484b52;
+    //   margin-bottom: 4px;
+    // }
+    .reason-list {
+      display: flex;
+      flex-flow: column;
+
+      .input-group {
+        margin: 10px 0;
+        display: flex;
+        flex-flow: column;
+        // padding: 8px;
+        // border: 1px solid #dddfea;
+        // border-radius: 7px;
+        .label {
+          margin: 4px 0;
+          font-size: 12px;
+          color: #577083;
+        }
+
+        .select-option {
+          max-width: 400px;
+        }
+
+        textarea {
+          box-sizing: border-box !important;
+          border: 1px solid #dddfea;
+          border-radius: 8px;
+          // height: 40px;
+          padding: 15px;
+          width: 100%;
+          resize: none;
+          height: 150px;
+          &:focus {
+            outline: none;
+            border: 1px solid #54b1ff !important;
+          }
+        }
+      }
+    }
+  }
+}

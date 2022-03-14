@@ -1,0 +1,42 @@
+@import 'base';
+@import 'buttons';
+@import 'radio-button';
+
+.closed-lead-detail-container {
+  .form-name {
+    height: 60px;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dddfea;
+  }
+  .form-options {
+    padding: 20px;
+    .last-updated {
+      font-size: 12px;
+      .time {
+        color: #576f83;
+      }
+    }
+    .input-group {
+      margin-top: 10px;
+      .label {
+        color: #576f83;
+        padding-bottom: 10px;
+        font-size: 12px;
+      }
+
+      input {
+        width: calc(100% - 30px);
+        border-radius: 8px;
+        padding: 11.5px 15px;
+        border: 1px solid $border-color;
+
+        &:disabled {
+          background-color: rgba(243, 245, 249, 1);
+        }
+      }
+    }
+  }
+}

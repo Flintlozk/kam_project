@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce | Paypal Checkout</title>
+    <%- include ("../../partials/head") %>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/step3paypal.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+      var paypalInit = false;
+      var enableConfirm = false;
+      var paypalObject = {};
+    </script>
+    <%if (payload.enablePaypal) { %>
+    <script defer type="text/javascript" src="javascript/step2paypal.js"></script>
+    <%}%>
+  </head>
+  <body x-data="{psid:payloadData.psid,customer:payloadData.customer}">
+    <div id="payment-success" class="wrapper-success" style="display: none"><%- include ("../payment/success.ejs") %></div>
+    <div id="payment-failed" class="wrapper-failed" style="display: none"><%- include ("../payment/failed.ejs") %></div>
+
+    <div id="pipeline-step2-container" style="display: block">
+      <% var payments = payload.payments; var accounts = payload.accounts; var logisticSystem = payload.logisticSystem %> <%- include ("../step2/step2-loader.ejs")%>
+      <div class="wrapper" id="container">
+        <input type="hidden" name="psid" id="psid" x-model="psid" />
+        <b>Paypal Checkout</b>
+        <div style="margin-top: 12px">
+          <div>- ชำระเงินผ่านช่องทาง <a href="https://www.paypal.com/" target="_blank">Paypal</a></div>
+          <div>- กรุณาดำเนินการชำระเงิน โดยการกดปุ่มด้านล่าง</div>
+        </div>
+      </div>
+      <div class="separator"></div>
+      <%- include ("../step2/step2-summary") %>
+    </div>
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %> <%}%>
+  </body>
+</html>

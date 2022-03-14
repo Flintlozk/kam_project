@@ -1,0 +1,51 @@
+<div>
+  <h2 class="font-medium text-2xl mb-4">Add tracking number range to {{ data.operator }}</h2>
+  <form [formGroup]="lotNumberForm">
+    <div class="flex flex-col mb-8 mt-6">
+      <span>Range</span>
+      <div class="flex justify-between items-center">
+        <label class="relative">
+          <span class="absolute pl-4 pr-6 top-0 bottom-0 flex items-center">E</span>
+          <input
+            type="text"
+            formControlName="trackingStartNumbers"
+            (keyup)="eventLookUpOnFocus('trackingStartNumbers')"
+            class="w-full border rounded-2xl p-3 pl-6 pr-4"
+            placeholder="G00000000"
+          />
+          <span class="absolute right-4 top-0 bottom-0 flex items-center">X TH</span>
+        </label>
+
+        <span class="mx-6">to</span>
+        <label class="relative">
+          <span class="absolute pl-4 pr-6 top-0 bottom-0 flex items-center">E</span>
+          <input
+            type="text"
+            formControlName="trackingEndNumbers"
+            (keyup)="eventLookUpOnFocus('trackingEndNumbers')"
+            class="w-full border rounded-2xl p-3 pl-6 pr-4"
+            placeholder="G99999999"
+          />
+          <span class="absolute right-4 top-0 bottom-0 flex items-center">X TH</span>
+        </label>
+      </div>
+      <!-- <mat-error class="my-2" *ngIf="bundleForm.controls?.to?.errors?.fromIsMoreThanTo && (bundleForm.controls?.to?.dirty || bundleForm.controls?.to?.touched)"
+        >"From" should be less than "To"</mat-error
+      > -->
+      <mat-error *ngIf="!isTrackAlphabetValid" [innerHTML]="trackingStartAndEndValidationMessage"> </mat-error>
+      <mat-error *ngIf="!lotNumberForm.get('trackingStartNumbers').valid" [innerHTML]="trackingStartNumbersValidationMessage"> </mat-error>
+      <mat-error *ngIf="!lotNumberForm.get('trackingEndNumbers').valid" [innerHTML]="trackingEndNumbersValidationMessage"> </mat-error>
+      <mat-error *ngIf="!isTrackingNumberValid" [innerHTML]="trackingNumberInvalidMessage"> </mat-error>
+    </div>
+
+    <div class="flex flex-col mb-10 mt-2">
+      <span>Expires at</span>
+      <admin-datepicker></admin-datepicker>
+    </div>
+
+    <div class="flex justify-end">
+      <button class="interactive-gray-shadow btn-secondary" (click)="dialogRef.close(false)">Close</button>
+      <button class="interactive-light-blue-shadow-xs btn-primary ml-4" (click)="addBundle()">Confirm</button>
+    </div>
+  </form>
+</div>

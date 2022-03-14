@@ -1,0 +1,251 @@
+<div class="comment" *ngIf="comments !== null && comments !== undefined">
+  <div class="title" [innerText]="formatComments('Comments', comments)"></div>
+
+  <div class="comment-box" [@slideInOut]>
+    <div class="item" *ngFor="let comment of comments">
+      <!-- PARENT COMMENT-->
+      <div class="comment" [id]="comment.commentID" *ngIf="!comment.deleted">
+        <div class="profile" *ngIf="audience$">
+          <img
+            [src]="audience$.profile_pic"
+            alt="Profile"
+            *ngIf="audience$.profile_pic && comment.audienceID === audience$.id"
+            onerror="src='assets/img/customer/customer_error.svg'"
+          />
+          <img src="assets/img/customer/customer_error.svg" *ngIf="!audience$.profile_pic || comment.audienceID !== audience$.id" />
+        </div>
+        <div class="comment-wrapper">
+          <div class="comment-content main-thread" [ngClass]="{ faded: comment.hidden === true }">
+            <span class="audience" *ngIf="audience$">
+              <span class="name" *ngIf="comment.audienceID === audience$.id"> {{ audience$.first_name }} {{ audience$.last_name !== null ? audience$.last_name : '' }}</span>
+
+              <span class="name" [innerText]="'unknown'" *ngIf="comment.audienceID !== audience$.id"></span>
+
+              <span class="more" (click)="toggleMenuEditor(comment._id)" [ngClass]="{ 'not-allowed': !allowChange }"
+                ><img src="assets/img/more.svg" *ngIf="comment.audienceID === audience$.id"
+              /></span>
+            </span>
+
+            <span class="image-source" *ngIf="comment.source !== null" (click)="zoomIn(comment.source, 'image')"><img [src]="comment.source" /></span>
+
+            <span class="text" [innerText]="comment.text" [ngStyle]="{ color: comment.audienceID === audience$.id && comment.hidden === false ? '#000' : '#9aa6b2' }"></span>
+          </div>
+
+          <div class="more-menu menu-toggle" *ngIf="displayMenuEditor(comment._id)">
+            <div mat-menu-item class="item" (click)="hideComment(comment)" *ngIf="comment.hidden === false">
+              <img src="assets/img/icon_hide.svg" alt="Hide" />
+              <span> {{ 'Hide' | translate }} </span>
+            </div>
+
+            <div mat-menu-item class="item" (click)="unhideComment(comment)" *ngIf="comment.hidden === true">
+              <img src="assets/img/icon_show.svg" alt="Unhide" />
+              <span> {{ 'Show' | translate }} </span>
+            </div>
+
+            <div mat-menu-item class="item" (click)="removeComment(comment)">
+              <img src="assets/img/trash-icon.svg" alt="Delete" />
+              <span> {{ 'Delete' | translate }} </span>
+            </div>
+          </div>
+
+          <div class="reply-box" *ngIf="comment.allowReply !== false">
+            <span
+              [innerText]="'Reply' | translate"
+              class="reply-to-comment"
+              (click)="toggleReply(comment)"
+              [ngClass]="{ 'not-allowed': !allowChange }"
+              *ngIf="comment.audienceID === audience$.id && comment.hidden === false"
+            ></span>
+            <span [innerText]="'|'" class="seperator" *ngIf="comment.audienceID === audience$.id && comment.hidden === false"></span>
+
+            <span
+              style="margin-left: 0"
+              [innerText]="'Send private message' | translate"
+              class="reply-to-comment"
+              (click)="togglePrivateMessage(comment)"
+              [ngClass]="{ 'not-allowed': !allowChange }"
+              *ngIf="comment.audienceID === audience$.id && comment.hidden === false"
+            ></span>
+            <span [innerText]="'|'" class="seperator" *ngIf="comment.audienceID === audience$.id && comment.hidden === false"></span>
+
+            <span [innerText]="comment.createdAt | date: 'dd/MM/yyy HH:mm'" class="timestamp"></span>
+          </div>
+
+          <!-- CHILD REPLIES-->
+          <div *ngFor="let reply of comment.replies" class="reply">
+            <!-- CHILD REPLIES AS PAGE-->
+            <div [id]="reply.commentID" *ngIf="reply?.sentBy === 'PAGE' && !reply.deleted" class="page-reply">
+              <div class="profile" *ngIf="page$">
+                <img [src]="page$?.shop_picture" alt="Profile" *ngIf="page$?.page_name" onerror="src='assets/img/customer/customer_error.svg'" />
+              </div>
+              <div class="comment-wrapper">
+                <div class="comment-content secondary-thread" [ngStyle]="{ display: editInputText(reply._id) ? 'none' : 'flex' }">
+                  <span class="page" *ngIf="page$">
+                    <span class="name" [innerText]="page$.page_name"></span>
+                    <span class="more" (click)="toggleMenuEditor(reply._id)" [ngClass]="{ 'not-allowed': !allowChange }"><img src="assets/img/more.svg" /></span>
+                  </span>
+                  <span class="image-source" *ngIf="comment.source !== null" (click)="zoomIn(reply.source, 'image')"><img [src]="reply.source" /></span>
+                  <span class="text" [innerText]="reply.text" [ngStyle]="{ color: reply.audienceID === audience$.id ? '#000' : '#9aa6b2' }"></span>
+                </div>
+
+                <div class="more-menu menu-toggle" *ngIf="displayMenuEditor(reply._id)">
+                  <div mat-menu-item class="item" (click)="toggleEditComment(reply)">
+                    <img src="assets/img/edit-icon.svg" alt="Edit" />
+                    <span> {{ 'Edit' | translate }} </span>
+                  </div>
+
+                  <div mat-menu-item class="item" (click)="removeComment(reply)">
+                    <img src="assets/img/trash-icon.svg" alt="Delete" />
+                    <span> {{ 'Delete' | translate }} </span>
+                  </div>
+                </div>
+
+                <div class="reply-section left" *ngIf="editInputText(reply._id)">
+                  <div class="content">
+                    <div class="alignment">
+                      <div class="input-content left">
+                        <textarea
+                          type="text"
+                          class="text"
+                          width="30%"
+                          (keydown)="editComment($event, reply, editCommentInput)"
+                          #editCommentInput
+                          [(ngModel)]="editReplyText"
+                          #ctrl="ngModel"
+                          [placeholder]="'Write a comment' | translate"
+                        ></textarea>
+                      </div>
+                      <div class="tools">
+                        <reactor-room-svg (click)="openPresetsDialog(true)" class="icon" [name]="'preset_template'" [fill]="'#DFE1EC'"></reactor-room-svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="reply-box" *ngIf="!editInputText(reply._id)">
+                  <span
+                    [innerText]="'Reply' | translate"
+                    class="reply-to-comment"
+                    (click)="toggleReply(comment)"
+                    [ngClass]="{ 'not-allowed': !allowChange }"
+                    *ngIf="comment.audienceID === audience$.id && comment.hidden === false"
+                  ></span>
+                  <span [innerText]="'|'" class="seperator" *ngIf="comment.audienceID === audience$.id && comment.hidden === false"></span>
+                  <span class="timestamp">
+                    <span [innerText]="reply.createdAt | date: 'dd/MM/yyy HH:mm'"></span>
+                    {{ ' ' }}<span *ngIf="reply?.sender?.user_name && pageUsersCount > 1">{{ reply?.sender?.user_name }}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CHILD REPLIES AS AUDIENCE-->
+            <div [id]="reply.commentID" *ngIf="reply?.sentBy === 'AUDIENCE' && !reply.deleted" class="audience-reply">
+              <div class="profile" *ngIf="audience$">
+                <img
+                  [src]="audience$.profile_pic"
+                  alt="Profile"
+                  onerror="src='assets/img/customer/customer_error.svg'"
+                  *ngIf="audience$.profile_pic && reply.audienceID === audience$.id"
+                />
+                <img src="assets/img/customer/customer_error.svg" *ngIf="reply.audienceID !== audience$.id" />
+              </div>
+              <div class="comment-wrapper">
+                <div class="comment-content secondary-thread" [ngClass]="{ faded: reply.hidden === true }">
+                  <span class="audience">
+                    <span class="name" *ngIf="reply.audienceID === audience$.id"> {{ audience$.first_name }} {{ audience$.last_name !== null ? audience$.last_name : '' }} </span>
+                    <span class="name" [innerText]="'unknown'" *ngIf="reply.audienceID !== audience$.id"></span>
+
+                    <span class="more" (click)="toggleMenuEditor(reply._id)" [ngClass]="{ 'not-allowed': !allowChange }"><img src="assets/img/more.svg" /></span>
+                  </span>
+
+                  <span class="image-source" *ngIf="comment.source !== null" (click)="zoomIn(reply.source, 'image')"><img [src]="reply.source" /></span>
+
+                  <span class="text" [innerText]="reply.text" [ngStyle]="{ color: reply.audienceID === audience$.id && reply.hidden === false ? '#000' : '#9aa6b2' }"></span>
+                </div>
+
+                <div class="more-menu menu-toggle" *ngIf="displayMenuEditor(reply._id)">
+                  <div mat-menu-item class="item" (click)="hideComment(reply)" *ngIf="reply.hidden === false">
+                    <img src="assets/img/icon_hide.svg" alt="Hide" />
+                    <span> {{ 'Hide' | translate }} </span>
+                  </div>
+
+                  <div mat-menu-item class="item" (click)="unhideComment(reply)" *ngIf="reply.hidden === true">
+                    <img src="assets/img/icon_show.svg" alt="Unhide" />
+                    <span> {{ 'Unhide' | translate }} </span>
+                  </div>
+
+                  <div mat-menu-item class="item" (click)="removeComment(reply)">
+                    <img src="assets/img/trash-icon.svg" alt="Delete" />
+                    <span> {{ 'Delete' | translate }} </span>
+                  </div>
+                </div>
+
+                <div class="reply-box">
+                  <span
+                    [innerText]="'Reply' | translate"
+                    class="reply-to-comment"
+                    (click)="toggleReply(comment)"
+                    [ngClass]="{ 'not-allowed': !allowChange }"
+                    *ngIf="comment.audienceID === audience$.id && reply.hidden === false && comment.hidden === false"
+                  ></span>
+                  <span [innerText]="'|'" class="seperator" *ngIf="comment.audienceID === audience$.id && reply.hidden === false && comment.hidden === false"></span>
+
+                  <span
+                    style="margin-left: 0"
+                    [innerText]="'Send private message' | translate"
+                    class="reply-to-comment"
+                    (click)="togglePrivateMessage(comment)"
+                    [ngClass]="{ 'not-allowed': !allowChange }"
+                    *ngIf="comment.audienceID === audience$.id && comment.hidden === false"
+                  ></span>
+                  <span [innerText]="'|'" class="seperator" *ngIf="comment.audienceID === audience$.id && reply.hidden === false && comment.hidden === false"></span>
+
+                  <span class="timestamp">
+                    <span [innerText]="reply.createdAt | date: 'dd/MM/yyy HH:mm'"></span>
+                    {{ ' ' }}
+                    <span *ngIf="reply?.sender?.user_name && pageUsersCount > 1">{{ reply?.sender?.user_name }}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reply Section -->
+
+          <div *ngIf="enabledReplyInput(comment._id)" class="reply-section">
+            <div class="content">
+              <img class="page-icon" [src]="page$?.shop_picture" />
+              <div class="alignment">
+                <div class="input-content">
+                  <textarea
+                    type="text"
+                    class="text textarea"
+                    width="30%"
+                    (keydown)="replyComment($event, comment, replyInput)"
+                    #replyInput
+                    [(ngModel)]="replyText"
+                    #ctrl="ngModel"
+                    resize="none"
+                    [placeholder]="'Write a comment' | translate"
+                  ></textarea>
+                  <!-- <div class="uploaded-image">
+                    <img [src]="page$?.shop_picture" />
+                  </div> -->
+                </div>
+                <span class="failed" #replyFailed>Failed to send message (<u (click)="resendReply(comment)">Resend</u>)</span>
+                <div class="tools" #replyTools>
+                  <reactor-room-svg (click)="openPresetsDialog(false)" class="icon" [name]="'preset_template'" [fill]="'#DFE1EC'"></reactor-room-svg>
+                  <!-- <reactor-room-svg class="icon" [name]="'chat_select_images'" [fill]="'#DFE1EC'"></reactor-room-svg> -->
+                </div>
+              </div>
+              <!-- <div class="alignment">
+                <span class="failed">Failed to send message (Resend)</span>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

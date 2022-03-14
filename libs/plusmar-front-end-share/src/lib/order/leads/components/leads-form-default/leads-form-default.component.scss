@@ -1,0 +1,105 @@
+@import 'base';
+@import 'buttons';
+.leads-form-default {
+  .heading-content {
+    .btn-back {
+      @extend .btn-inactive;
+    }
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    grid-gap: 20px;
+    @media #{$mobilemax} {
+      grid-template-columns: 1fr;
+    }
+    .label {
+      font-weight: 300;
+      color: #8495a3;
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+    input,
+    textarea {
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 10px 15px;
+      width: calc(100% - 30px);
+      background: #f2f5f9;
+      color: #a9a8a9;
+    }
+    .title {
+      font-size: 1.3em;
+      padding-top: 30px;
+      padding-bottom: 20px;
+      .border {
+        width: 30px;
+        height: 2px;
+        background: $main-color;
+      }
+    }
+    .phone-group {
+      padding-top: 20px;
+      width: 50%;
+      .input {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-bottom: 5px;
+        .func {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          left: calc(100% + 10px);
+          width: 100%;
+          img {
+            margin-right: 10px;
+            width: 15px;
+          }
+          .add-icon {
+            background: $main-color;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 50%;
+            margin-right: 10px;
+
+            img {
+              margin: 0px;
+              width: 10px;
+            }
+          }
+        }
+      }
+    }
+    .remark {
+      padding-top: 20px;
+      width: 70%;
+    }
+    .message-box {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 15px;
+      text-align: center;
+      justify-items: center;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 20px;
+      .text {
+        font-size: 1.1em;
+      }
+      img {
+        max-width: 80px;
+      }
+      .btn-enter {
+        background: #f2f5f9;
+        padding: 7px;
+        border-radius: 5px;
+        width: 100%;
+      }
+    }
+  }
+}

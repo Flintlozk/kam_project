@@ -1,0 +1,74 @@
+.container-row {
+  display: flex;
+  margin-bottom: 20px;
+  .view-task-list-table {
+    width: calc(100% - 70px);
+  }
+  .menu-state {
+    position: relative;
+    left: 50px;
+    padding: 10px 10px 10px 10px;
+  }
+  .card-task {
+    background-color: #f2f2f2;
+    margin-right: 10px;
+    width: 400px;
+  }
+  .button-task {
+    border-radius: 40px;
+    border: none;
+  }
+}
+.container-flow-task {
+  padding-left: 20px;
+  width: 270px;
+  padding-right: 40px;
+  .state-title {
+    font-size: 18px;
+    font-weight: 300;
+    color: #153342;
+    line-height: 55px;
+  }
+}
+.mat-drawer-height {
+  min-height: 1000px;
+  overflow: unset;
+}
+.container-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  font-weight: bold;
+  .header-tab-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .header-menu {
+    margin-block: auto;
+    padding-right: 30px;
+  }
+  .header-menu.profile-icon {
+    cursor: pointer;
+  }
+}
+::ng-deep .mat-menu-panel.mat-menu-profile {
+  background-color: white;
+  .form-field-side-nav-menu {
+    padding-left: 20px;
+    width: 100%;
+    width: auto;
+  }
+}
+mat-drawer-content {
+  height: 100%;
+}
+mat-drawer-container {
+  height: 100%;
+}

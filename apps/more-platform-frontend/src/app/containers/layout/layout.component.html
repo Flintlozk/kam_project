@@ -1,0 +1,12 @@
+<more-platform-header></more-platform-header>
+<div class="flex flex-col w-full px-4 py-4 md:py-10 md:px-6 md:flex-row">
+  <div class="md:w-40">
+    <more-platform-nav></more-platform-nav>
+  </div>
+  <div class="w-full">
+    <more-platform-ecosystem-details></more-platform-ecosystem-details>
+    <div [@routeAnimation]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </div>
+</div>

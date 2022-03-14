@@ -1,0 +1,15 @@
+@import 'base';
+
+.steps {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(2, 250px);
+
+  reactor-room-step:focus {
+    outline: none;
+  }
+
+  @media #{$mobilemax} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

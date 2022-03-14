@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%- JSON.stringify(payload); %>
+          <% } %>
+    </script>
+    <style>
+      body {
+        background: #fff;
+        max-width: 590px;
+        margin: 15px auto;
+      }
+
+      .mr-10 {
+        margin-right: 10px;
+      }
+
+      .mr-5 {
+        margin-right: 5px;
+      }
+
+      .mt-5 {
+        margin-top: 5px;
+      }
+
+      .product-list {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .product-details {
+        display: flex;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .productimage {
+        width: 100%;
+        max-width: 100px;
+        min-width: 100px;
+        max-height: 100px;
+        height: 60px;
+        border-radius: 10px;
+      }
+
+      .product-name {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 0;
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #484b52;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+      .totalPrice {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 24px;
+      }
+
+      .proceed {
+        background-color: #53b1ff;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        border: none;
+        margin-top: 10px;
+      }
+
+      .delete {
+        font-size: 12px;
+        color: #dc493d;
+        cursor: pointer;
+      }
+
+      .back {
+        color: #54b1ff;
+        border: unset;
+        background: unset;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .back-group {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+    </style>
+    <script>
+      var currentEndPoint = window.location.pathname;
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
+      var paramJSON = {};
+      for (let [key, value] of params) {
+        paramJSON[key] = value;
+      }
+      var sessionParams = {
+        catalogID: paramJSON.catalogID,
+        psid: paramJSON.psid,
+        auth: paramJSON.auth,
+        view: paramJSON.view,
+        audienceId: paramJSON.audienceId,
+      };
+
+      function initProductCatalogCart() {
+        return {
+          cartList: null,
+          totalPrice: 0,
+          isAvailableCatalogData: true,
+          isLoading: true,
+          isShowCloseMsg: false,
+          isShowErrorMsg: false,
+          async getProductCartDetails() {
+            const body = await this.getSession();
+            const newQueryString = new URLSearchParams(paramJSON).toString();
+            const path = `${currentEndPoint}/catalog/cart?${newQueryString}`;
+
+            fetch(path, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(body),
+            })
+              .then((result) => {
+                result.body;
+                result.json().then((cartList) => {
+                  this.cartList = cartList;
+                  this.totalPrice = cartList.reduce((sum, { price }) => sum + price, 0);
+                });
+                this.isLoading = false;
+              })
+              .catch((err) => {
+                this.isLoading = false;
+                console.log('err getting variant details', err);
+              });
+          },
+          async getSession() {
+            try {
+              const newQueryString = new URLSearchParams(sessionParams).toString();
+              const sessionGetPath = `session/get?${newQueryString}`;
+              const response = await (await fetch(sessionGetPath)).json();
+              if (!Object.keys(response || {}).length > 0) {
+                this.isAvailableCatalogData = false;
+              }
+              return response;
+            } catch (error) {
+              this.isAvailableCatalogData = false;
+              console.log('variant :>> ', error);
+            }
+          },
+          async setSession(body) {
+            const newQueryString = new URLSearchParams(sessionParams).toString();
+            const sessionSetPath = `session/set?${newQueryString}`;
+            await fetch(sessionSetPath, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: body,
+            })
+              .then((result) => {
+                result.json().then((result) => {
+                  console.log('result :>> ', result);
+                });
+              })
+              .catch((err) => {
+                console.log('error in session', err);
+              });
+          },
+          async initBackURL() {
+            const catalogLS = await this.getSession();
+            this.backURL = catalogLS.startPoint;
+          },
+          async checkOut() {
+            const params = JSON.parse(JSON.stringify(paramJSON));
+            const postBackParams = { ...params, response_type: 'ADD_ITEM_TO_CART_CATALOG' };
+            const newQueryString = new URLSearchParams(postBackParams).toString();
+            const postBackEndPoint = '/purchase/postback';
+            const path = `${postBackEndPoint}?${newQueryString}`;
+            const catalogLS = await this.getSession();
+            const cartList = catalogLS.cart;
+            fetch(path, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(cartList),
+            })
+              .then(async (result) => {
+                this.isShowCloseMsg = true;
+                this.cartList = [];
+                const payload = {
+                  ...catalogLS,
+                  cart: [],
+                };
+                await this.setSession(JSON.stringify(payload));
+                setTimeout(() => {
+                  if (typeof MessengerExtensions !== 'function') {
+                    window.close();
+                  } else {
+                    MessengerExtensions.requestCloseBrowser(function () {
+                      //
+                    });
+                  }
+                }, 20);
+              })
+              .catch((e) => {
+                this.isShowCloseMsg = true;
+                this.isShowErrorMsg = true;
+                console.log('e :>> ', e);
+              });
+          },
+          back() {
+            window.location = this.backURL;
+          },
+          async deleteVariant(variantId) {
+            const catalogLS = await this.getSession();
+            const cartList = catalogLS.cart;
+            const filteredCart = cartList.filter(({ variantID }) => variantID !== variantId);
+            const payload = {
+              ...catalogLS,
+              cart: filteredCart,
+            };
+            await this.setSession(JSON.stringify(payload));
+            await this.getProductCartDetails();
+          },
+        };
+      }
+    </script>
+  </head>
+  <body x-data="initProductCatalogCart()" x-init="getProductCartDetails(),initBackURL()">
+    <template x-if="isLoading">
+      <div class="text-center">Loading...! Please wait</div>
+    </template>
+    <template x-if="!cartList?.length && !isLoading && !isShowCloseMsg">
+      <div class="text-center">No products added to cart</div>
+    </template>
+    <template x-if="cartList?.length">
+      <div class="wrapper">
+        <template x-for="(cart,index) of cartList" :key="index">
+          <div class="product-list">
+            <div class="product-details">
+              <div class="mr-10">
+                <img class="productimage" :src="cart.imageURL" alt="image" />
+              </div>
+              <div class="product-name-attribute">
+                <div class="product-name" x-text="cart.productName"></div>
+                <div>
+                  <span class="mr-5">Variation:</span>
+                  <span x-text="cart.attributes ? cart.attributes : 'N/A'"></span>
+                </div>
+
+                <div>
+                  <span class="mr-5">Quantity:</span>
+                  <span x-text="cart.quantity"></span>
+                </div>
+
+                <div class="mt-5">
+                  <div class="delete" @click="deleteVariant(cart.variantID)">Delete</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div x-text="cart.displayPrice"></div>
+            </div>
+          </div>
+        </template>
+
+        <hr />
+        <div x-text="'฿'+totalPrice" class="totalPrice"></div>
+      </div>
+    </template>
+    <template x-if="cartList?.length">
+      <div class="button-group" @click="checkOut()">
+        <button class="proceed">Check Out</button>
+      </div>
+    </template>
+    <div class="back-group">
+      <button class="back" @click="back()">Back</button>
+    </div>
+
+    <template x-if="isShowErrorMsg">
+      <div class="button-group mt-10" id="added-button" style="text-align: center">Error! Please try again later</div>
+    </template>
+
+    <template x-if="isShowCloseMsg">
+      <div class="button-group mt-10" id="added-button" style="text-align: center">Please close the window</div>
+    </template>
+
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:''}) %> <%}%>
+  </body>
+</html>

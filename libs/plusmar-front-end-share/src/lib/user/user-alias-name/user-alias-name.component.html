@@ -1,0 +1,36 @@
+<div
+  class="setting-direct-admin-alias"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <form [formGroup]="aliasForm">
+    <reactor-room-custom-dialog>
+      <div class="head">{{ 'Set user alias' }}</div>
+      <div class="content">
+        <div class="input" [ngClass]="{ invalid: !aliasForm.get('aliasName').valid && (aliasForm.get('aliasName').touched || aliasForm.get('aliasName').dirty) }">
+          <div class="label">{{ 'Name' | translate }}*</div>
+          <input type="text" formControlName="aliasName" />
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button type="button" class="btn-cancel" (click)="onClose()">
+            {{ 'Cancel' | translate }}
+          </button>
+
+          <button class="save-active" (click)="aliasForm.valid ? onSave() : ''" [ngClass]="{ disabled: aliasForm.pristine }" [disabled]="aliasForm.pristine">
+            <svg width="23" height="16" viewBox="0 0 23 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.5882 2.67522L13.3249 0.411875C13.0593 0.14625 12.7061 0 12.3305 0C12.0512 0 4.55525 0 4.21881 0H1.40631C0.630905 0 6.10352e-05 0.630844 6.10352e-05 1.40625V14.5938C6.10352e-05 15.3692 0.630905 16 1.40631 16C2.09906 16 14.0495 16 14.5938 16C15.3692 16 16.0001 15.3692 16.0001 14.5938V3.66956C16.0001 3.29397 15.8538 2.94081 15.5882 2.67522ZM4.68756 0.9375H9.43756V3.65625C9.43756 3.91513 9.64744 4.125 9.90631 4.125C10.1652 4.125 10.3751 3.91513 10.3751 3.65625V0.9375H11.3126V4.59375C11.3126 4.85222 11.1023 5.0625 10.8438 5.0625H5.15631C4.89784 5.0625 4.68756 4.85222 4.68756 4.59375V0.9375ZM12.2501 15.0625H3.75006V11H12.2501V15.0625ZM12.2501 10.0625H3.75006V8.5C3.75006 8.24153 3.96034 8.03125 4.21881 8.03125H11.7813C12.0398 8.03125 12.2501 8.24153 12.2501 8.5V10.0625ZM15.0626 14.5938C15.0626 14.8522 14.8523 15.0625 14.5938 15.0625H13.1876V8.5C13.1876 7.72459 12.5567 7.09375 11.7813 7.09375H4.21881C3.4434 7.09375 2.81256 7.72459 2.81256 8.5V15.0625H1.40631C1.14784 15.0625 0.937561 14.8522 0.937561 14.5938V1.40625C0.937561 1.14778 1.14784 0.9375 1.40631 0.9375H3.75006V4.59375C3.75006 5.36916 4.3809 6 5.15631 6H10.8438C11.6192 6 12.2501 5.36916 12.2501 4.59375V0.9375H12.3305C12.4557 0.9375 12.5734 0.98625 12.6619 1.07478L14.9252 3.33813C15.0138 3.42666 15.0626 3.54438 15.0626 3.66956V14.5938Z"
+              />
+            </svg>
+
+            {{ 'Save' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>

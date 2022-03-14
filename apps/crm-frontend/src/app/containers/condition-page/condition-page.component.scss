@@ -1,0 +1,51 @@
+.backgroundColor {
+  padding: 100px;
+  padding-top: 78px;
+  padding-bottom: 65px;
+  background-color: white;
+  font-family: prompt;
+  color: #153342;
+}
+.mainBackground {
+  background-color: white;
+  color: #153342;
+}
+
+.mainContainer {
+  padding: 50px 0px 40px 0px;
+  position: relative;
+  width: 80%;
+  font-weight: 300;
+  margin: 0 auto;
+  line-height: 2.5;
+}
+
+.contentBorder {
+  border-bottom: 1px solid;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.timeUpdate {
+  font-weight: 500;
+  font-size: 1.1vw;
+  padding-bottom: 1rem;
+}
+.titleFont {
+  font-weight: 500;
+  font-size: 1.1vw;
+  padding-bottom: 1rem;
+}
+
+.contentFont {
+  font-size: 0.9vw;
+  display: inline;
+  display: inline;
+}
+.subContainer {
+  padding-left: 50px;
+}
+.subTitleFont {
+  font-weight: 500;
+}

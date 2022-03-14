@@ -1,0 +1,43 @@
+module.exports = {
+  apps: [
+    {
+      name: 'plusmar-pub-facebook',
+      script: './main.js',
+      instances: 1,
+      watch: false,
+      exec_mode: 'cluster',
+      increment_var: 'PORT',
+      env: {
+        PORT: 3000,
+        NODE_ENV: 'development',
+        GOOGLE_APPLICATION_CREDENTIALS: './AUTH.json',
+        FACEBOOK: 'true',
+        LINE: 'false',
+        redisHost: 'redis://127.0.0.1',
+        redisStorage: 'redis://10.148.0.23',
+        redisPort: '6379',
+      },
+    },
+    {
+      name: 'plusmar-pub-line',
+      script: './main.js',
+      instances: 1,
+      watch: false,
+      exec_mode: 'cluster',
+      increment_var: 'PORT',
+      env: {
+        PORT: 3333,
+        NODE_ENV: 'development',
+        GOOGLE_APPLICATION_CREDENTIALS: './AUTH.json',
+        FACEBOOK: 'false',
+        LINE: 'true',
+        lineSecretKey: '55f9e159994e6dff',
+        lineSecretToppic: 'line-secret',
+        lineSecretSubscription: 'line-secret-refresh',
+        redisHost: 'redis://127.0.0.1',
+        redisStorage: 'redis://10.148.0.23',
+        redisPort: '6379',
+      },
+    },
+  ],
+};

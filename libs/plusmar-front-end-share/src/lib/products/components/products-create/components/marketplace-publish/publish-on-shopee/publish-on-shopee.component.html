@@ -1,0 +1,272 @@
+<div class="product-create-shopee">
+  <reactor-room-loader block="true" [text]="loadingText" *ngIf="publishMarketPlaceCommon.isLoading"></reactor-room-loader>
+  <reactor-room-heading [headingTitle]="headingTitle" [Route]="routeTitle">
+    <div class="heading-content">
+      <button class="btn btn-cancel" (click)="publishMarketPlaceCommon.goToListProduct()">{{ 'Cancel' | translate }}</button>
+      <button class="btn btn-shopee" (click)="onClickSaveProductShopee()">
+        <img [src]="shopeeWhiteIcon" alt="shopee Icon" />
+        {{ 'Save Product on shopee' | translate }}
+      </button>
+    </div>
+  </reactor-room-heading>
+
+  <div class="product-details">
+    <ng-container *ngFor="let detail of productDetails; let i = index">
+      <div class="product-icon flex items-center">
+        <img [src]="detail.icon" [alt]="detail.key" />
+      </div>
+      <div class="product-title">
+        {{ detail.key }}
+      </div>
+      <div class="product-value">
+        <ng-container *ngIf="detail.id === 'image'; else notImageTemplate">
+          <img class="avatar" [src]="detail.value" [alt]="detail.key" />
+        </ng-container>
+        <ng-template #notImageTemplate>
+          {{ detail.value }}
+        </ng-template>
+      </div>
+      <div class="divider" *ngIf="i !== productDetails.length - 1"></div>
+    </ng-container>
+  </div>
+
+  <div *ngFor="let togglerInput of togglerInputs">
+    <div class="mb-20" *ngIf="togglerInput.id === 'basic_field' || publishMarketPlaceCommon.isCategoryExists">
+      <div class="mb-10">
+        <reactor-room-toggler [toggleInput]="togglerInput" (toggleEvent)="onToggle($event)"></reactor-room-toggler>
+      </div>
+      <ng-container *ngTemplateOutlet="toggleSection; context: { status: togglerInput.toggleStatus, toggleData: togglerInput }"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #toggleSection let-status="status" let-toggleData="toggleData">
+  <div class="content-container" *ngIf="status">
+    <mat-tab-group mat-align-tabs="start" *ngIf="toggleData.id === 'basic_field' && isAddVariant">
+      <mat-tab label="Required*">
+        <div #skuFieldRef class="p-16">
+          <div *ngFor="let variant of moreProduct.variants; let i = index">
+            <div class="border mb-10 rounded shadow-sm" [ngClass]="{ 'disable-item': !skuChecked[i] }">
+              <ng-container>
+                <div class="mb-5 flex items-center p-16">
+                  <label class="custom-checkbox mr-5" *ngIf="!publishMarketPlaceCommon.skuAlreadyPublishedStatusObj[moreProduct?.variants[i].variantSKU]">
+                    <input type="checkbox" [ngModelOptions]="{ standalone: true }" [(ngModel)]="skuChecked[i]" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <img class="avatar shadow-sm border mr-10" [src]="variant?.variantImages[0]?.mediaLink || moreCommerceIcon" alt="" />
+
+                  <div class="label">SellerSKU<br /><input type="text" class="input-no-style" [value]="variant.variantSKU" /></div>
+
+                  <div class="label">Quantity<br /><input type="text" [value]="variant.variantInventory" class="input-no-style" /></div>
+
+                  <div class="label">Price<br /><input type="text" [value]="variant.variantUnitPrice" class="input-no-style" /></div>
+
+                  <div class="attribute-items">
+                    <ng-container *ngFor="let attribute of variant.variantAttributes">
+                      <div class="attribute-item">
+                        {{ attribute.name }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="label ml-10" *ngIf="publishMarketPlaceCommon.skuAlreadyPublishedStatusObj[moreProduct?.variants[i].variantSKU]">
+                  {{ 'SKU already exists on marketplace' | translate }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <mat-error *ngIf="skuError"> {{ skuError }}</mat-error>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <form *ngIf="productPublishForm" [formGroup]="productPublishForm">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Required*" *ngIf="toggleData?.requiredForm?.groupName">
+          <div class="p-16">
+            <div *ngIf="toggleData.id === 'basic_field' && !isAddVariant">
+              <div
+                [ngClass]="{
+                  invalid: productPublishForm.controls['category'].invalid && this.categoryError
+                }"
+              >
+                <div class="flex items-center">
+                  <div class="label mr-5">{{ 'Categories' | translate }}*</div>
+                </div>
+                <div class="flex">
+                  <input type="text" readonly style="width: 100%; box-sizing: border-box" formControlName="category" (click)="onCategoryInputClick()" />
+                </div>
+                <mat-error *ngIf="productPublishForm.controls['category'].invalid && this.categoryError">
+                  {{ categoryError }}
+                </mat-error>
+              </div>
+
+              <reactor-room-marketplace-category-selector
+                reactorRoomClickOutside
+                (outside)="publishMarketPlaceCommon.clickOutsideSelectorEvent($event)"
+                *ngIf="publishMarketPlaceCommon.showCategorySelector"
+                [isCategorySelectedBySuggestion]="isCategorySelectedBySuggestion"
+                [marketPlaceType]="marketPlaceType"
+                [selectedCategory]="publishMarketPlaceCommon.selectedCategory"
+                [selectCategory]="publishMarketPlaceCommon.selectCategory"
+                (categorySelectedFromSelector)="categorySelectedFromSelector($event)"
+                [categoryLevels]="categoryLevels"
+              ></reactor-room-marketplace-category-selector>
+            </div>
+
+            <div *ngIf="toggleData.id === 'attribute_field'">
+              <!-- ? ATTRIBUTE-->
+              <div *ngIf="productPublishForm.controls[toggleData.requiredForm.groupName]" [formGroupName]="shopeeCustomFormGroupNames.ATTRIBUTE_REQUIRED">
+                <ng-container *ngFor="let attr of toggleData.requiredForm.attributes">
+                  <div
+                    class="mt-10"
+                    [ngClass]="{
+                      invalid: productPublishForm?.get(toggleData.requiredForm.groupName + '.' + attr?.attribute_id)?.invalid && errorMessages[attr?.attribute_id + 'ErrorMessage']
+                    }"
+                  >
+                    <div class="label">{{ attr.display_attribute_name }}*</div>
+                    <div class="flex items-center" *ngIf="!attr.attribute_value_list.length">
+                      <input type="text" [formControlName]="attr?.attribute_id" />
+                    </div>
+                    <div class="select-option" *ngIf="attr?.attribute_value_list.length">
+                      <mat-form-field>
+                        <mat-select [formControlName]="attr?.attribute_id">
+                          <mat-option *ngFor="let option of attr?.attribute_value_list" [value]="option?.value_id">
+                            {{ option?.display_value_name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <mat-error
+                      *ngIf="productPublishForm.get(toggleData.requiredForm.groupName + '.' + attr?.attribute_id)?.invalid"
+                      [innerHTML]="errorMessages[attr?.attribute_id + 'ErrorMessage']"
+                    ></mat-error>
+                  </div>
+                </ng-container>
+              </div>
+              <!-- ? -->
+            </div>
+            <!-- logistics fields -->
+            <div *ngIf="toggleData.id === 'logistics_field'" #logisticFieldRef>
+              <div class="flex justify-between">
+                <div *ngFor="let package of packageDetails">
+                  <div class="label">{{ package.key }}</div>
+                  <div class="label">{{ package.value }}</div>
+                </div>
+              </div>
+
+              <!-- shopee logistics -->
+              <div *ngIf="productPublishForm?.controls[shopeeCustomFormGroupNames.LOGISTICS_REQUIRED]" [formArrayName]="shopeeCustomFormGroupNames.LOGISTICS_REQUIRED">
+                <div *ngFor="let logistic of this.logistics; let i = index">
+                  <div class="flex" *ngIf="logistic.fee_type !== 'CUSTOM_PRICE'">
+                    <label class="custom-checkbox mr-5 mt-10">
+                      <input class="mr-10" type="checkbox" [formControlName]="i" />
+                      <span class="checkmark mr-10"></span>
+                      <div>{{ logistic.logistics_channel_name }}</div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <mat-error *ngIf="logisticError"> {{ logisticError }}</mat-error>
+            </div>
+
+            <!-- SKU Required attr -->
+            <div *ngIf="toggleData.id === 'sku_field'" #skuFieldRef>
+              <div *ngFor="let variant of moreProduct.variants; let i = index">
+                <div class="border mb-10 rounded shadow-sm" [ngClass]="{ 'disable-item': !skuChecked[i] }">
+                  <ng-container>
+                    <div class="mb-5 flex items-center p-16">
+                      <label
+                        [ngClass]="{ hidden: true }"
+                        class="custom-checkbox mr-5"
+                        *ngIf="!publishMarketPlaceCommon.skuAlreadyPublishedStatusObj[moreProduct?.variants[i].variantSKU]"
+                      >
+                        <input type="checkbox" [ngModelOptions]="{ standalone: true }" [(ngModel)]="skuChecked[i]" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <img class="avatar shadow-sm border mr-10" [src]="variant?.variantImages[0]?.mediaLink || moreCommerceIcon" alt="" />
+
+                      <div class="label">SellerSKU<br /><input type="text" class="input-no-style" [value]="variant.variantSKU" /></div>
+
+                      <div class="label">Quantity<br /><input type="text" [value]="variant.variantInventory" class="input-no-style" /></div>
+
+                      <div class="label">Price<br /><input type="text" [value]="variant.variantUnitPrice" class="input-no-style" /></div>
+
+                      <div class="attribute-items">
+                        <ng-container *ngIf="variant?.variantAttributes?.length">
+                          <ng-container *ngFor="let attribute of variant.variantAttributes">
+                            <div class="attribute-item">
+                              {{ attribute.name }}
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="label ml-10" *ngIf="publishMarketPlaceCommon.skuAlreadyPublishedStatusObj[moreProduct?.variants[i].variantSKU]">
+                      {{ 'SKU already exists on marketplace' | translate }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <mat-error *ngIf="skuError"> {{ skuError }}</mat-error>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Not Required" *ngIf="toggleData?.notRequiredForm?.groupName">
+          <div class="p-16 grid grid-columns-3 grid-gap-20" *ngIf="productPublishForm.controls[toggleData.notRequiredForm.groupName]">
+            <ng-container [formGroupName]="toggleData.notRequiredForm.groupName" *ngIf="productPublishForm?.controls[toggleData.notRequiredForm.groupName]">
+              <ng-container *ngFor="let attr of toggleData.notRequiredForm.attributes">
+                <div>
+                  <div class="label">{{ attr.display_attribute_name }}</div>
+                  <div
+                    class="flex items-center"
+                    *ngIf="!attr?.attribute_value_list?.length && !attr?.attribute_unit?.length && !(attr?.input_validation_type === shopeeAttributeType.DATE_TYPE)"
+                  >
+                    <input type="text" [formControlName]="attr.attribute_id" />
+                  </div>
+
+                  <div *ngIf="attr?.input_validation_type === shopeeAttributeType.DATE_TYPE">
+                    <div class="date-picker">
+                      <mat-form-field class="date-picker-form-field">
+                        <input matInput [matDatepicker]="pickerstart" [formControlName]="attr.attribute_id" />
+                        <mat-datepicker-toggle matSuffix [for]="pickerstart">
+                          <mat-icon matDatepickerToggleIcon>
+                            <img src="assets/img/date-picker-icon.svg" />
+                          </mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerstart></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="select-option" *ngIf="attr?.attribute_value_list?.length; else attributeUnitList">
+                    <mat-form-field>
+                      <mat-select [formControlName]="attr.attribute_id">
+                        <mat-option *ngFor="let option of attr.attribute_value_list" [value]="option.value_id">
+                          {{ option.display_value_name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <ng-template #attributeUnitList>
+                    <div class="select-option" *ngIf="attr?.attribute_unit?.length">
+                      <mat-form-field>
+                        <mat-select [formControlName]="attr.attribute_id">
+                          <mat-option *ngFor="let option of attr.attribute_unit" [value]="option">
+                            {{ option }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-template>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,47 @@
+.header-container {
+  margin-bottom: 40px;
+  .item-1 {
+    grid-column: 1;
+  }
+  .invite-btn {
+    justify-self: right;
+    grid-column: 7;
+    border: none;
+    border-radius: 14px;
+    height: 40px;
+    width: 120px;
+    background: #2fc639;
+    box-shadow: 1px 2px 12px 0px #2fc63980;
+    margin-top: 31px;
+    &:hover {
+      cursor: pointer;
+    }
+    .inside-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    .plus-icon {
+      width: 20px;
+      margin-right: 10px;
+    }
+  }
+  .search {
+    font-size: 14px;
+    padding: 9px 20px;
+    width: 70%;
+    border: none;
+    color: #484b52;
+    border-radius: 4px;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  .center {
+    align-items: center;
+    border-radius: 4px;
+    background-color: white;
+    width: 80%;
+  }
+}

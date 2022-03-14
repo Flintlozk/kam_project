@@ -1,0 +1,10 @@
+<section class="flex-col items-center justify-center px-2 py-6 border border-gray-50">
+  <div class="grid grid-cols-6 gap-4">
+    <h3 class="col-start-3 col-span-2 pb-2 text-lg text-center">{{ 'Total Visitor' | translate }}</h3>
+    <button class="col-end-7 col-span-1 text-base font-light text-green-500 focus:outline-none" (click)="openAutodigi()">more</button>
+  </div>
+  <div class="relative flex items-end justify-center w-full" style="width: 99%">
+    <canvas cmsNextDoughnutChart [labels]="labels" [colors]="colors" [data]="data" width="200px" height="200px"></canvas>
+    <div class="absolute bottom-0 text-lg font-light leading-tight text-center mb-28">{{ 'Visitor' | translate }}<br />{{ total }}</div>
+  </div>
+</section>

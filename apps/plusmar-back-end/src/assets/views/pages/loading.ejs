@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>loading</title>
+    <%- include ("../partials/head") %>
+    <script>
+
+        window.onload = function () {
+            window.location.href = 'https://9b02b3bd1900.ngrok.io/purchase?type=COMBINE_LOGISTIsssssYMENT&psid=2622191497882524&audienceId=1686' }
+    </script>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+        }
+
+        body {
+            margin: 15px;
+            background:#FFF;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+        .wrapper {
+            border: 1px solid rgba(227, 230, 234, 1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .wrapper,
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper .title {
+            font-size: 16px;
+            color: #565E68;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            border: none;
+            padding: 0;
+        }
+    </style>
+
+    <div  class="wrapper">
+        <div class="wrapper title">
+            Please wait
+        </div>
+    </div>
+
+    <%- include ("../partials/footer") %>
+</body>
+</html>

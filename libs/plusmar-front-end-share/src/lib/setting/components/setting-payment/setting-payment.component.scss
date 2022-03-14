@@ -1,0 +1,133 @@
+@import 'base';
+@import 'switch';
+@import 'buttons';
+.setting-payment {
+  .head {
+    color: $text-light-color;
+    padding-bottom: 20px;
+  }
+
+  .filter-disable {
+    filter: grayscale(1);
+    background-color: #f2f2f2 !important;
+  }
+
+  .line {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &.disable {
+      filter: grayscale(1);
+      background-color: #f2f2f2 !important;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        margin-right: 10px;
+
+        img {
+          height: 45px;
+        }
+      }
+    }
+
+    .mode {
+      display: flex;
+      align-items: center;
+
+      .btn-add {
+        min-width: 70px;
+        height: 35px;
+        padding: 0px 10px;
+        margin-right: 5px;
+        @include btn-active();
+        &.cms-theme {
+          background: #22c55e;
+          &:hover {
+            background: #00940f;
+          }
+        }
+      }
+
+      .not-allow {
+        background-color: #eaeaea !important;
+        &:before {
+          background-color: #d0d2d5 !important;
+          border: 1px solid #d0d2d5 !important;
+        }
+      }
+
+      .active {
+        background-color: #c0e1ff;
+        &:before {
+          background: #5b5e5b;
+          border: 1px solid #5b5e5b;
+        }
+      }
+    }
+  }
+
+  .more {
+    margin-bottom: 20px;
+  }
+}
+.setting-payment {
+  &.social-theme {
+    .mode-toggle {
+      @extend .switch;
+    }
+  }
+  &.cms-theme {
+    .mode-toggle {
+      @extend .switch-cms;
+      top: -10px;
+      left: -30px;
+    }
+    .btn-add {
+      position: relative;
+      right: 35px;
+    }
+    .btn-toogle {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30%;
+      border: none;
+      width: 20px;
+      height: 20px;
+      right: 25px;
+      flex-shrink: 0;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: all ease-in-out 0.3s, transform 0.1s ease;
+
+      img {
+        width: 15px;
+      }
+
+      &.active {
+        transform: scaleY(-1);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+    .active {
+      background-color: #b0b3b2 !important;
+      &:before {
+        background: green;
+        border: 1px solid green;
+      }
+    }
+  }
+}

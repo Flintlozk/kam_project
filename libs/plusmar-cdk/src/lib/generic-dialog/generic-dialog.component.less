@@ -1,0 +1,114 @@
+@import '../assets/styles/properties';
+@import '../assets/styles/buttons';
+
+.generic-dialog {
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: @font-family;
+  max-width: 600px;
+  margin: auto;
+
+  div .container {
+    display: block !important;
+    padding: 20px;
+    min-height: 160px;
+    background: white;
+    background-image: url('../assets/images/success-bg.png');
+    background-size: auto 200px;
+    background-repeat: no-repeat;
+    background-position: right top;
+
+    .title {
+      font-weight: 500;
+      font-size: 1.5em;
+      padding-bottom: 30px;
+      padding-top: 10px;
+
+      span {
+        color: @main-color;
+      }
+    }
+
+    .content {
+      font-weight: 200;
+    }
+
+    .copy {
+      input {
+        border: 0;
+        outline: none;
+        width: 70%;
+        background: none;
+      }
+      button {
+        width: 20%;
+        border: 1px solid @main-color;
+        color: @main-color;
+        background: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 14px;
+        &:hover {
+          background: @main-color;
+          color: #fff;
+        }
+
+        &:active {
+          background: @second-color;
+          border-color: @second-color;
+        }
+      }
+    }
+
+    &.reject {
+      background-image: url('../assets/images/confirm-bg.png');
+    }
+    &.refund {
+      background-image: url('../assets/images/confirm-bg.png');
+    }
+  }
+
+  div .footer {
+    background: #e2f1ff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+
+    .primary-button {
+      .btn-primary();
+    }
+
+    .secondary-button {
+      .btn-secondary();
+    }
+  }
+
+  &.error {
+    div .container {
+      background-image: url('../assets/images/error-bg.png');
+
+      .title {
+        span {
+          color: @danger-color;
+        }
+      }
+    }
+
+    div .footer {
+      background: #fde8df;
+
+      .primary-button {
+        background: @danger-color;
+      }
+
+      .secondary-button {
+        color: @danger-color;
+        border: 1px solid @danger-color;
+      }
+    }
+  }
+}
+
+.backdrop {
+  background-color: @danger-color;
+}

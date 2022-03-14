@@ -1,0 +1,166 @@
+<ng-container class="message-template-container">
+  <ng-container [formGroup]="filterForm" *ngIf="filterForm" class="flex flex-col px-10">
+    <div class="flex items-center justify-between pb-20">
+      <span class="text-sm counter">{{ totalRows }} {{ 'Messages' | translate }}</span>
+      <div class="flex items-center main-actions">
+        <button *ngIf="!isMessageEdit" (click)="openMessageEditor(true)" class="border-none btn-secondary transparent small">
+          <svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.375 7.90265H8.625V1.15265C8.625 0.807461 8.34519 0.527649 8 0.527649C7.65481 0.527649 7.375 0.807461 7.375 1.15265V7.90265H0.625C0.279812 7.90265 0 8.18246 0 8.52765C0 8.87284 0.279812 9.15265 0.625 9.15265H7.375V15.9026C7.375 16.2478 7.65481 16.5276 8 16.5276C8.34519 16.5276 8.625 16.2478 8.625 15.9026V9.15265H15.375C15.7202 9.15265 16 8.87284 16 8.52765C16 8.18246 15.7202 7.90265 15.375 7.90265Z"
+            />
+          </svg>
+          <div class="whitespace-no-wrap action-button">
+            {{ 'Create New Message' | translate }}
+          </div>
+        </button>
+
+        <div class="flex items-center" *ngIf="isMessageEdit">
+          <button class="btn-secondary transparent small" (click)="closeMessageEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="closeMessageEdit(true)">{{ 'Save' | translate }}</button>
+        </div>
+        <!-- Search -->
+        <div class="pb-0 search">
+          <input autofocus type="text" [matTooltip]="'Search by message or shortcut' | translate" [placeholder]="'Search' | translate" formControlName="search" />
+        </div>
+        <!-- Search -->
+      </div>
+
+      <!-- MOBILE -->
+      <div class="flex items-center main-actions-mobile">
+        <div class="pb-0 search">
+          <input autofocus type="text" [matTooltip]="'Search by message or shortcut' | translate" [placeholder]="'Search' | translate" formControlName="search" />
+        </div>
+        <div class="flex w-full">
+          <button *ngIf="!isMessageEdit" (click)="openMessageEditor(true)" class="mx-20 mt-20 border-none btn-secondary transparent small mobile">
+            <svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.375 7.90265H8.625V1.15265C8.625 0.807461 8.34519 0.527649 8 0.527649C7.65481 0.527649 7.375 0.807461 7.375 1.15265V7.90265H0.625C0.279812 7.90265 0 8.18246 0 8.52765C0 8.87284 0.279812 9.15265 0.625 9.15265H7.375V15.9026C7.375 16.2478 7.65481 16.5276 8 16.5276C8.34519 16.5276 8.625 16.2478 8.625 15.9026V9.15265H15.375C15.7202 9.15265 16 8.87284 16 8.52765C16 8.18246 15.7202 7.90265 15.375 7.90265Z"
+              />
+            </svg>
+            <div class="whitespace-no-wrap action-button">
+              {{ 'Create New Message' | translate }}
+            </div>
+          </button>
+        </div>
+        <div class="flex items-center template-actions" *ngIf="isMessageEdit">
+          <button class="btn-secondary transparent small" (click)="closeMessageEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="closeMessageEdit(true)">{{ 'Save' | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <div class="relative flex flex-col template-form mb-15" *ngIf="isMessageEdit">
+      <div [ngClass]="{ shortcut: filterForm.value.shortcut }" class="message-template-input-container relative top-0 left-0 right-0 flex w-full shadow-md z-1">
+        <div class="absolute items-center template-actions-mobile right-15 top-10" *ngIf="isMessageEdit">
+          <button class="btn-secondary transparent small" (click)="closeMessageEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="closeMessageEdit(true)">{{ 'Save' | translate }}</button>
+        </div>
+        <input
+          [ngStyle]="{
+            'border-color': filterForm.controls?.shortcut?.errors?.required && (filterForm.controls?.shortcut?.dirty || filterForm.controls?.shortcut?.touched) ? 'red' : '#dddfea'
+          }"
+          #shortcutEdit
+          class="inputbox"
+          (keydown)="trimValue($event)"
+          type="text"
+          maxlength="10"
+          formControlName="shortcut"
+          [placeholder]="'Shortcut' | translate"
+          class="w-full rounded-b-none"
+        />
+      </div>
+      <textarea
+        [ngStyle]="{
+          'border-color': filterForm.controls?.text?.errors?.required && (filterForm.controls?.text?.dirty || filterForm.controls?.text?.touched) ? 'red' : '#dddfea'
+        }"
+        [matTooltip]="'Use full_name or first_name for quick name replacement' | translate"
+        #messageEdit
+        class="flex-col flex-1 flex-shrink-0 rounded-t-none p-10-important border-important"
+        [placeholder]="'Add message text' | translate"
+        formControlName="text"
+      ></textarea>
+      <div class="relative z-0 flex w-full">
+        <!-- <button [matTooltip]="'Add emoji' | translate" class="absolute flex items-center justify-center p-5 border-none cursor-pointer emoji-picker transparent animated icon-smileys right-15 top-45">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9 0C7.21997 0 5.47991 0.527841 3.99987 1.51677C2.51983 2.50571 1.36628 3.91131 0.685088 5.55585C0.00389953 7.20038 -0.17433 9.00998 0.172936 10.7558C0.520203 12.5016 1.37737 14.1053 2.63604 15.364C3.89471 16.6226 5.49836 17.4798 7.24419 17.8271C8.99002 18.1743 10.7996 17.9961 12.4442 17.3149C14.0887 16.6337 15.4943 15.4802 16.4832 14.0001C17.4722 12.5201 18 10.78 18 9C18 6.61305 17.0518 4.32387 15.364 2.63604C13.6761 0.948212 11.387 0 9 0V0ZM9 17.0831C7.40131 17.0831 5.83852 16.6091 4.50926 15.7209C3.18 14.8327 2.14396 13.5703 1.53217 12.0933C0.920377 10.6163 0.760305 8.99103 1.07219 7.42306C1.38408 5.85509 2.15393 4.41481 3.28437 3.28437C4.41482 2.15392 5.85509 1.38408 7.42306 1.07219C8.99104 0.760301 10.6163 0.920373 12.0933 1.53217C13.5703 2.14396 14.8327 3.17999 15.7209 4.50926C16.6091 5.83852 17.0831 7.40131 17.0831 9C17.0816 11.1433 16.2295 13.1984 14.714 14.714C13.1984 16.2295 11.1433 17.0816 9 17.0831V17.0831Z"
+          />
+          <path
+            d="M3.9375 10.5227C3.9375 11.7599 4.47087 12.9464 5.42027 13.8212C6.36967 14.696 7.65734 15.1875 9 15.1875C10.3427 15.1875 11.6303 14.696 12.5797 13.8212C13.5291 12.9464 14.0625 11.7599 14.0625 10.5227V10.125H3.9375V10.5227ZM13.1619 10.9303C13.0573 11.8817 12.5732 12.7634 11.8033 13.4047C11.0333 14.0459 10.0325 14.4009 8.99467 14.4009C7.95686 14.4009 6.95601 14.0459 6.18609 13.4047C5.41616 12.7634 4.932 11.8817 4.82743 10.9303H13.1619Z"
+          />
+          <path d="M14.0119 5.63058L13.4438 4.91058L10.8619 6.94121L10.9688 7.31808L11.0813 7.75683L14.3326 8.22371L14.4619 7.31808L12.2682 7.00308L14.0119 5.63058Z" />
+          <path d="M3.88694 8.22371L7.13819 7.75683L7.35757 6.94121L4.77569 4.91058L4.21319 5.63058L5.95132 7.00308L3.75757 7.31808L3.88694 8.22371Z" />
+        </svg>
+      </button> -->
+        <!-- <textarea
+        [matTooltip]="'Use full_name or first_name for quick name replacement' | translate"
+        #messageEdit
+        class="flex-1 flex-shrink-0 p-10 border rounded-t-none"
+        matInput
+        [placeholder]="'Add message text' | translate"
+        cdkTextareaAutosize
+        formControlName="text"
+      ></textarea> -->
+      </div>
+    </div>
+
+    <reactor-room-custom-table
+      class="table-full-height"
+      [isLoading]="false"
+      [tableColSpan]="tableHeader.length"
+      [tableData]="messages"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [orderMethod]="tableFilters.orderMethod"
+      [currentIndex]="1"
+      (sortTableMetaData)="sortTableData($event)"
+      [ngClass]="{ 'edit-opened': isMessageEdit }"
+    >
+      <tr *ngFor="let data of messages; trackBy: trackBy" class="border-t border-b table-content">
+        <td style="padding: 15px" class="grid" (click)="selectMessage(data)">
+          <span [matTooltip]="data.shortcut ? ('Shortcut' | translate) + data.shortcut : ('No shortcut added' | translate)" class="block text-sm font-light truncate pr-25">
+            {{ data.text }}
+          </span>
+        </td>
+
+        <td>{{ data.shortcut ? ':/' + data.shortcut : ('No shortcut added' | translate) }}</td>
+
+        <td style="padding: 2px; width: 10px">
+          <div class="flex items-center justify-center action">
+            <reactor-room-table-action>
+              <div class="more-menu">
+                <button [attr.aria-label]="'Edit' | translate" (click)="editMessage(data)" mat-menu-item class="item w-full border-none transparent flex items-center py-5">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M20.077 7.49704C20.077 9.99732 19.2403 12.3153 18.2843 14.0149C17.8072 14.8631 17.3132 15.5341 16.9047 15.9798C16.7465 16.1524 16.6108 16.2805 16.503 16.3693C16.3952 16.2805 16.2596 16.1524 16.1014 15.9798C15.6928 15.5341 15.1988 14.8631 14.7218 14.0149C13.7657 12.3153 12.9291 9.99732 12.9291 7.49704C12.9291 5.5232 14.5292 3.92308 16.503 3.92308C18.4769 3.92308 20.077 5.5232 20.077 7.49704ZM21.0001 7.49704C21.0001 11.2811 19.2311 14.6229 17.8639 16.2821V21H3.89941V13.355H3V9.0797L5.99266 6.58582H12.0984C12.5196 4.53904 14.3316 3 16.503 3C18.9867 3 21.0001 5.01339 21.0001 7.49704ZM16.503 17.3905C16.6127 17.3905 16.7624 17.3237 16.9408 17.1966V20.0769H4.82249V13.355H8.40833V15.5917H12.9054V13.355H13.3502C14.4705 15.791 15.9666 17.3905 16.503 17.3905ZM3.92308 12.432H12.961C12.6438 11.606 12.3797 10.7066 12.2102 9.75737H3.92308V12.432ZM4.73639 8.83429H12.0782C12.0317 8.40011 12.0064 7.95762 12.006 7.50889H6.32686L4.73639 8.83429ZM17.3787 7.49706C17.3787 7.98072 16.9866 8.3728 16.5029 8.3728C16.0193 8.3728 15.6272 7.98072 15.6272 7.49706C15.6272 7.0134 16.0193 6.62132 16.5029 6.62132C16.9866 6.62132 17.3787 7.0134 17.3787 7.49706ZM18.3017 7.49706C18.3017 8.49052 17.4964 9.29588 16.5029 9.29588C15.5095 9.29588 14.7041 8.49052 14.7041 7.49706C14.7041 6.5036 15.5095 5.69824 16.5029 5.69824C17.4964 5.69824 18.3017 6.5036 18.3017 7.49706Z"
+                    />
+                  </svg>
+
+                  <span class="ml-5">{{ 'Edit' | translate }}</span>
+                </button>
+                <button
+                  [attr.aria-label]="'Delete' | translate"
+                  (click)="deleteMessageTemplate(data.id)"
+                  mat-menu-item
+                  class="item w-full border-none transparent flex items-center py-5"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M4.8 3C4.60631 3 4.43434 3.12712 4.37309 3.31559L3.02309 7.46943C3.0078 7.51649 3 7.56578 3 7.61538V20.5385C3 20.7934 3.20147 21 3.45 21H20.55C20.7985 21 21 20.7934 21 20.5385V13.6154C21 13.3605 20.7985 13.1538 20.55 13.1538H12.1863L13.9637 11.3309L13.3273 10.6782L10.4636 13.6154L13.3273 16.5526L13.9637 15.8999L12.1864 14.0769H20.1V20.0769H3.9V8.07693H20.1V10.8462C20.1 11.1011 20.3015 11.3077 20.55 11.3077C20.7985 11.3077 21 11.1011 21 10.8462V7.61538C21 7.55081 20.9868 7.48695 20.9612 7.42794L19.1612 3.27409C19.089 3.10742 18.9278 3 18.75 3H4.8ZM11.55 7.15385H4.07434L5.12434 3.92308H11.55V7.15385ZM19.8576 7.15385H12.45V3.92308H18.4576L19.8576 7.15385Z"
+                    />
+                  </svg>
+
+                  <span class="ml-5">{{ 'Delete' | translate }}</span>
+                </button>
+              </div>
+            </reactor-room-table-action>
+          </div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+    <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>
+  </ng-container>
+</ng-container>

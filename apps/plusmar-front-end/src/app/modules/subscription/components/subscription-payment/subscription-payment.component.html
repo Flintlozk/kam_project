@@ -1,0 +1,113 @@
+<div class="subscription-payment">
+  <div class="subscription-plans">
+    <div class="heading">Payment Method</div>
+    <div class="payment-content">
+      <div class="details">
+        <div class="content">
+          <div class="header">Information</div>
+
+          <div class="form">
+            <form [formGroup]="paymentForm">
+              <div class="content">
+                <div class="item">
+                  <div class="label">First name*</div>
+                  <input formControlName="firstName" type="text" [ngClass]="{ invalid: !paymentForm.get('firstName').valid }" />
+                  <mat-error *ngIf="!paymentForm.get('firstName').valid" [innerHTML]="firstNameValidationMessage"> </mat-error>
+                </div>
+                <div class="item">
+                  <div class="label">Last name*</div>
+                  <input formControlName="lastName" type="text" [ngClass]="{ invalid: !paymentForm.get('lastName').valid }" />
+                  <mat-error *ngIf="!paymentForm.get('lastName').valid" [innerHTML]="lastNameValidationMessage"> </mat-error>
+                </div>
+                <div class="item">
+                  <div class="label">Phone no.</div>
+                  <input formControlName="tel" type="text" [ngClass]="{ invalid: !paymentForm.get('tel').valid }" />
+                  <mat-error *ngIf="!paymentForm.get('tel').valid" [innerHTML]="telValidationMessage"> </mat-error>
+                </div>
+                <div class="item">
+                  <div class="label">Tax ID</div>
+                  <input formControlName="taxID" type="text" />
+                </div>
+                <div class="item on-line">
+                  <div class="label">Address</div>
+                  <input formControlName="address" type="text" />
+                </div>
+                <reactor-room-address [fields]="addressFields" (handleValue)="handleAddressValue($event)" class="item"> </reactor-room-address>
+                <div class="item">
+                  <div class="label">Country</div>
+                  <div class="form-item">
+                    <input type="text" formControlName="country" placeholder="Thailand" [value]="country" disabled />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="paymentRequestForm" (ngSubmit)="submitPurchase($event)" method="POST" [action]="paymentRedirectApiURL" class="details">
+        <input type="hidden" formControlName="version" name="version" [(ngModel)]="paymentSetting.version" />
+        <input type="hidden" formControlName="order_id" name="order_id" [(ngModel)]="paymentSetting.orderID" />
+        <input type="hidden" formControlName="merchant_id" name="merchant_id" [(ngModel)]="paymentSetting.merchantid" />
+        <input type="hidden" formControlName="currency" name="currency" [(ngModel)]="paymentSetting.cc" />
+        <input type="hidden" formControlName="payment_description" name="payment_description" [(ngModel)]="paymentSetting.details" />
+        <input type="hidden" formControlName="amount" name="amount" [(ngModel)]="paymentSetting.amount" />
+        <input type="hidden" formControlName="result_url_1" name="result_url_1" [(ngModel)]="paymentSetting.returnurl" />
+        <input type="hidden" formControlName="result_url_2" name="result_url_2" [(ngModel)]="paymentSetting.postbackurl" />
+        <input type="hidden" formControlName="payment_option" name="payment_option" [(ngModel)]="paymentSetting.payment_option" />
+        <input type="hidden" formControlName="request_3ds" name="request_3ds" [(ngModel)]="paymentSetting.request_3ds" />
+        <input type="hidden" formControlName="recurring" name="recurring" [(ngModel)]="paymentSetting.recurring" />
+        <input type="hidden" formControlName="order_prefix" name="order_prefix" [(ngModel)]="paymentSetting.order_prefix" />
+        <input type="hidden" formControlName="recurring_amount" name="recurring_amount" [(ngModel)]="paymentSetting.recurring_amount" />
+        <input type="hidden" formControlName="allow_accumulate" name="allow_accumulate" [(ngModel)]="paymentSetting.allow_accumulate" />
+        <input type="hidden" formControlName="recurring_interval" name="recurring_interval" [(ngModel)]="paymentSetting.recurring_interval" />
+        <input type="hidden" formControlName="recurring_count" name="recurring_count" [(ngModel)]="paymentSetting.recurring_count" />
+        <input type="hidden" formControlName="charge_next_date" name="charge_next_date" [(ngModel)]="paymentSetting.charge_next_date" (ngModelChange)="changeHashValue()" />
+        <input type="hidden" formControlName="user_defined_1" name="user_defined_1" [(ngModel)]="paymentSetting.user_defined_1" />
+
+        <input type="hidden" formControlName="hash_value" name="hash_value" [(ngModel)]="hash_value" (ngModelChange)="fireSubmit()" />
+
+        <div class="content">
+          <div class="header">Summary</div>
+          <div class="form">
+            <div class="business" *ngIf="isBusiness && subscriptionPlan">
+              <div class="title">BUSINESS</div>
+              <div class="body">
+                <reactor-room-subscription-payment-plan-business [subscriptionPlan]="subscriptionPlan"> </reactor-room-subscription-payment-plan-business>
+              </div>
+            </div>
+            <div class="commerce" *ngIf="isCommerce && subscriptionPlan">
+              <div class="title">COMMERCE</div>
+              <div class="body">
+                <reactor-room-subscription-payment-plan-commerce [subscriptionPlan]="subscriptionPlan"> </reactor-room-subscription-payment-plan-commerce>
+              </div>
+            </div>
+          </div>
+          <div class="calculate-price">
+            <div class="addition">
+              <div class="item">
+                <span>Tax</span>
+                <span>{{ tax | currency }}</span>
+              </div>
+              <div class="item">
+                <span>Discount</span>
+                <span>{{ discount | currency }}</span>
+              </div>
+            </div>
+            <div class="total">
+              <span>Total Amount</span>
+              <span>{{ total | currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="btn-submit" type="submit">Submit Purchase</button>
+          <button class="btn-back" (click)="back()">Back</button>
+        </div>
+      </form>
+    </div>
+
+    <reactor-room-loader block="true" [text]="'Loading' | translate" *ngIf="isLoading"></reactor-room-loader>
+  </div>
+</div>

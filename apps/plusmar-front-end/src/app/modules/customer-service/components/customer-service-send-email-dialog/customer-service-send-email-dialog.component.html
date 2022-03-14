@@ -1,0 +1,67 @@
+<div class="customer-service-send-email-dialog">
+  {{ emailForm.value | json }}
+  <form [formGroup]="emailForm">
+    <reactor-room-custom-dialog>
+      <div class="head">Send Email</div>
+      <div class="content">
+        <div class="item">
+          <div class="label">To</div>
+          <mat-form-field class="common-chips" reactorRoomClickOutside (outside)="clickOutsideEmailSendToEvent($event)">
+            <mat-chip-list #emailChipList (click)="openProfileList()">
+              <mat-chip *ngFor="let item of emailChips; let i = index" [selectable]="selectable" [removable]="removable" (removed)="removeEmailChip(item)">
+                {{ item.email }}
+                <mat-icon matChipRemove *ngIf="removable">
+                  <img src="assets/img/products/close-icon.png" alt="" />
+                </mat-icon>
+              </mat-chip>
+              <input
+                #chipEmailInput
+                [placeholder]="'Send to Email' | translate"
+                [matChipInputFor]="emailChipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addEmailChip($event)"
+              />
+            </mat-chip-list>
+            <div class="profile-list" *ngIf="profileListStatus">
+              <div class="item" *ngFor="let item of emailUserData; let i = index" (click)="selectEmail(i)">
+                <img [src]="item.imgUrl" [alt]="item.name" />
+                <div class="profile">
+                  <div class="name">{{ item.name }}</div>
+                  <div class="email">{{ item.email }}</div>
+                </div>
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'Subject' | translate }}</div>
+          <input type="text" formControlName="emailSubject" />
+          <textarea formControlName="emailContent" rows="10"></textarea>
+        </div>
+        <div class="item">
+          <div class="attach">
+            <div class="tooltip">
+              <img src="assets/img/customer-service/@.png" alt="tag" />
+              <span class="tooltiptext">{{ 'Mention' | translate }}</span>
+            </div>
+            <div class="tooltip">
+              <img src="assets/img/customer-service/icon_attach.png" alt="Attach" />
+              <span class="tooltiptext">{{ 'Attach' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button class="btn-cancel" (click)="onNoClick()">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button class="btn-send" (click)="onSend()">
+            <img src="assets/img/customer-service/send-email-icon.svg" alt="Send" />
+            {{ 'Send' | translate }}
+          </button>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>

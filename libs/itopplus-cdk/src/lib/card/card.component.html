@@ -1,0 +1,13 @@
+<div class="card" [ngStyle]="stylus">
+  <div class="top" *ngIf="withTitle" [ngStyle]="topStyle">
+    <div class="title">
+      <ng-content select=".card-title"></ng-content>
+    </div>
+    <a *ngIf="moreRouteLink" [routerLink]="moreRouteLink" [routerLinkActive]="['active']"> {{ 'more' | translate }}... </a>
+  </div>
+  <ng-content select=".card-content"></ng-content>
+</div>
+
+<div class="button">
+  <ng-content select=".connect"></ng-content>
+</div>

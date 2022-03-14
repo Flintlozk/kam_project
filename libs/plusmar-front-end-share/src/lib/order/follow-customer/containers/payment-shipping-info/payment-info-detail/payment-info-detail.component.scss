@@ -1,0 +1,319 @@
+@import 'base';
+@import 'radio-button';
+
+.payment-info-detail {
+  .content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+
+    @media #{$mobilemax} {
+      grid-template-columns: auto;
+    }
+
+    .label {
+      font-size: 12px;
+      padding-bottom: 10px;
+      font-weight: 300;
+      color: #8798a6;
+    }
+
+    .item {
+      .select {
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 15px;
+        height: 35px;
+        cursor: pointer;
+
+        img {
+          width: 15px;
+          transform: $transition;
+        }
+
+        &.active {
+          border-color: $text-darker-color;
+
+          img {
+            transform: scaleY(-1);
+          }
+        }
+
+        .text {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-right: 10px;
+            transform: scaleY(1) !important;
+          }
+
+          .title {
+            @media #{$mobilemax} {
+              @include text-ellipsis();
+              max-width: 100px;
+            }
+          }
+        }
+      }
+
+      .paymentMethod {
+        width: calc(100% - 32px);
+        height: 35px;
+        padding: 0px 15px;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+      }
+
+      .banks {
+        position: fixed;
+        margin-top: 15px;
+        margin-right: 15px;
+        padding: 15px 0px;
+        background: white;
+        border-radius: 10px;
+        z-index: 99;
+        box-shadow: 0px 0px 3px 1px #b6b6b6;
+        max-height: 200px;
+        overflow: auto;
+        @include custom-scroll-bar();
+
+        .bank {
+          display: flex;
+          align-items: center;
+          padding: 10px 15px;
+          cursor: pointer;
+          transition: $transition;
+
+          img {
+            width: 25px;
+          }
+
+          .title {
+            padding-left: 10px;
+          }
+
+          &:hover {
+            background: #e2f1ff;
+          }
+        }
+      }
+
+      .methods {
+        position: absolute;
+        margin-top: 15px;
+        padding: 15px 0px;
+        background: white;
+        border-radius: 8px;
+        z-index: 99;
+        box-shadow: 0px 0px 3px 1px #b6b6b6;
+        max-height: 200px;
+        overflow: auto;
+        @include custom-scroll-bar();
+
+        .method {
+          display: flex;
+          align-items: center;
+          padding: 10px 15px;
+          cursor: pointer;
+          transition: $transition;
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+          }
+
+          .title {
+            font-size: 1em;
+            padding-left: 10px;
+          }
+
+          &:hover {
+            background: #e2f1ff;
+          }
+        }
+      }
+    }
+
+    .left {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 20px;
+      align-content: start;
+
+      .radios {
+        display: flex;
+        align-items: center;
+
+        .radio-button {
+          @extend .custom-radio-button;
+          margin-bottom: 0px;
+
+          &:first-child {
+            margin-right: 15px;
+          }
+        }
+      }
+
+      .select-payment {
+        position: relative;
+
+        .select {
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          font-size: 12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 15px;
+          height: 35px;
+          cursor: pointer;
+          opacity: 65%;
+
+          img {
+            width: 15px;
+            transform: $transition;
+          }
+
+          &.active {
+            border-color: $main-color;
+
+            img {
+              transform: scaleY(-1);
+            }
+          }
+
+          .text {
+            display: flex;
+            align-items: center;
+
+            img {
+              margin-right: 10px;
+              transform: scaleY(1) !important;
+              width: 30px;
+              height: 30px;
+              border-radius: 100%;
+            }
+
+            .title {
+              font-size: 1em;
+
+              @media #{$mobilemax} {
+                @include text-ellipsis();
+                max-width: 100px;
+              }
+            }
+          }
+        }
+
+        .modals {
+          position: absolute;
+          margin-top: 15px;
+          padding: 15px 0px;
+          background: white;
+          border-radius: 8px;
+          z-index: 99;
+          box-shadow: 0px 0px 3px 1px #b6b6b6;
+          max-height: 200px;
+          width: 100%;
+          overflow: auto;
+          @include custom-scroll-bar();
+
+          .modal {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: $transition;
+
+            img {
+              width: 30px;
+              height: 30px;
+              border-radius: 100%;
+            }
+
+            .title {
+              font-size: 1em;
+              padding-left: 10px;
+            }
+
+            &:hover {
+              background: #e2f1ff;
+            }
+          }
+        }
+      }
+
+      .money {
+        display: flex;
+        align-items: center;
+
+        div {
+          background: #eaecef;
+          border: 1px solid $border-color;
+          border-top-left-radius: 8px;
+          border-bottom-left-radius: 8px;
+          border-right: 0px;
+          padding: 0px 20px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        input {
+          height: 40px;
+          padding: 0px 15px;
+          text-align: right;
+          border: 1px solid $border-color;
+          border-top-right-radius: 8px;
+          border-top-left-radius: 0px;
+          border-bottom-right-radius: 8px;
+          border-bottom-left-radius: 0px;
+          margin: 0px;
+        }
+      }
+
+      .date-pickup {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 10px;
+
+        input {
+          height: 40px;
+          padding: 0px;
+          text-align: center;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          margin: 0px;
+          width: calc(60% - 30px);
+        }
+      }
+    }
+
+    .right {
+      height: 100%;
+
+      .img-upload {
+        border: 1px dotted $border-color;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          max-width: 340px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

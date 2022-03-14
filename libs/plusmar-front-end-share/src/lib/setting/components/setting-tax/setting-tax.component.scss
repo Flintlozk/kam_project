@@ -1,0 +1,63 @@
+@import 'base';
+@import 'switch';
+@import 'buttons';
+.setting-tax {
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    .text {
+      padding-right: 15px;
+    }
+    .func {
+      display: flex;
+      align-items: center;
+
+      .not-allow {
+        background-color: #eaeaea !important;
+        &:before {
+          background-color: #d0d2d5 !important;
+          border: 1px solid #d0d2d5 !important;
+        }
+      }
+
+      .mode-toggle {
+        @extend .switch;
+      }
+      .btn-edit {
+        margin-left: 10px;
+        @extend .btn-inactive;
+
+        svg {
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+  .card-content {
+    .item {
+      padding: 15px 0px;
+      border-bottom: 1px dotted $border-color;
+      display: flex;
+      font-weight: 200;
+      width: 80%;
+      margin: auto;
+      .label {
+        color: #576f83;
+        padding-left: 10px;
+        min-width: 100px;
+      }
+      .val {
+        font-weight: 300;
+      }
+      &:first-child {
+        padding-top: 0px;
+      }
+      &:last-child {
+        border: 0px;
+        padding-bottom: 0px;
+      }
+    }
+  }
+}

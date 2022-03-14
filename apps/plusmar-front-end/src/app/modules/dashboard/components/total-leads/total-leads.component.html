@@ -1,0 +1,62 @@
+<reactor-room-card [height]="'100%'" [padding]="'0px'">
+  <!-- <div class="card-content">
+    <div class="title">{{ 'Leads' | translate }}</div>
+    <div class="donut-chart">
+      <canvas *ngIf="data?.leads_follow + data?.leads_finished" reactorRoomDoughnutChart
+        [firstLabel]="'Follow' | translate" [secondLabel]="'Finished' | translate" [firstData]="data?.leads_follow"
+        [secondData]="data?.leads_finished" [attr.width]="width" [attr.height]="height"></canvas>
+      <div class="donut-chart-info" width="150px" height="150px">
+        <div class="label">{{ 'Leads' | translate }}</div>
+        <div class="value">{{ data?.leads_follow + data?.leads_finished }}</div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="info-item new" [routerLink]="['/leads/follow/1']">
+        <div class="label">{{ 'Follow' | translate }}</div>
+        <div class="value">{{ data?.leads_follow }}</div>
+      </div>
+      <div class="info-item old" [routerLink]="['/leads/finished/1']">
+        <div class="label">{{ 'Finished' | translate }}</div>
+        <div class="value">{{ data?.leads_finished }}</div>
+      </div>
+    </div>
+  </div> -->
+  <div class="card-content">
+    <svg width="55" height="66" viewBox="0 0 55 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M30.5035 36.2807C32.9956 36.2807 35.4298 36.6731 37.7368 37.429C36.8236 38.3559 35.9772 39.3478 35.2059 40.3973C33.6987 40.0273 32.1236 39.8309 30.5035 39.8309H23.3262C13.157 39.8309 4.75937 47.5704 3.70117 57.4759L3.6676 57.8183L30.0866 57.8187C30.1611 59.0252 30.3161 60.21 30.5465 61.3682L1.79433 61.3684C0.80338 61.3684 0 60.5737 0 59.5933C0 53.42 2.42294 47.5866 6.82251 43.1674C11.1359 38.8347 16.8199 36.4012 22.8717 36.2851L23.3262 36.2807H30.5035ZM26.7199 0C35.6459 0 42.9078 7.27204 42.9078 16.2105C42.9078 25.149 35.6459 32.4211 26.7199 32.4211C17.7938 32.4211 10.5319 25.149 10.5319 16.2105C10.5319 7.27204 17.7938 0 26.7199 0ZM26.7199 3.60234C19.7774 3.60234 14.1292 9.25837 14.1292 16.2105C14.1292 23.1627 19.7774 28.8187 26.7199 28.8187C33.6623 28.8187 39.3105 23.1627 39.3105 16.2105C39.3105 9.25837 33.6623 3.60234 26.7199 3.60234Z"
+        fill="url(#paint0_linear)"
+      />
+      <path
+        d="M40.5674 62C46.3292 62 51 57.3972 51 51.7193C51 46.0414 46.3292 41.4386 40.5674 41.4386C34.8056 41.4386 30.1348 46.0414 30.1348 51.7193C30.1348 57.3972 34.8056 62 40.5674 62Z"
+        fill="url(#paint1_linear)"
+        stroke="url(#paint2_linear)"
+        stroke-width="8"
+      />
+      <path
+        d="M45.6847 53.6593H40.4746V46.3107C40.4746 45.674 39.9714 45.1579 39.3508 45.1579C38.7301 45.1579 38.2269 45.674 38.2269 46.3107V54.789C38.233 55.4337 38.7393 55.9556 39.3677 55.9649H45.6847C46.3053 55.9649 46.8085 55.4488 46.8085 54.8121C46.8085 54.1754 46.3053 53.6593 45.6847 53.6593Z"
+        fill="white"
+        stroke="white"
+        stroke-width="2"
+      />
+      <defs>
+        <linearGradient id="paint0_linear" x1="0" y1="30.6842" x2="42.9078" y2="30.6842" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#60E9FF" />
+          <stop offset="1" stop-color="#53B1FF" />
+        </linearGradient>
+        <linearGradient id="paint1_linear" x1="30.1348" y1="51.7193" x2="51" y2="51.7193" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#60E9FF" />
+          <stop offset="1" stop-color="#53B1FF" />
+        </linearGradient>
+        <linearGradient id="paint2_linear" x1="30.1348" y1="51.7193" x2="51" y2="51.7193" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#60E9FF" />
+          <stop offset="1" stop-color="#53B1FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="title">
+      <div class="sub">{{ 'Total Leads' | translate }}</div>
+      <div class="val">{{ data?.leads_follow + data?.leads_finished }}</div>
+    </div>
+  </div>
+</reactor-room-card>

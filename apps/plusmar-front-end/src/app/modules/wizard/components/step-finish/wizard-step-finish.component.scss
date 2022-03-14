@@ -1,0 +1,127 @@
+@import 'base';
+@import 'buttons';
+
+.wizard-container {
+  margin: auto;
+  position: relative;
+  max-width: 1400px;
+  .content {
+    padding: 40px;
+    border-radius: 12px;
+    background-color: white;
+    flex-direction: column;
+    min-width: 709px;
+    min-height: 812px;
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+      .btn-save {
+        @include btn-active();
+      }
+    }
+    .step:hover .btn-setting {
+      display: block !important;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-gap: 20px;
+      align-items: end;
+      .left {
+        padding: 20px;
+        img {
+          width: 142px;
+        }
+
+        .topic {
+          font-weight: 500;
+          color: #567097;
+          text-align: center;
+          font-size: 30px;
+        }
+        .title {
+          display: flex;
+          align-items: baseline;
+        }
+        .steps-content {
+          padding-top: 40px;
+          .step {
+            display: grid;
+            grid-template-columns: 10% auto 10%;
+            border-radius: 25px;
+            border: 1px solid rgba(226, 242, 255, 1);
+            margin-bottom: 15px;
+            padding: 25px;
+            &.active {
+              background-color: rgba(226, 242, 255, 1);
+              border-left: 4px solid rgba(83, 177, 255, 1);
+              margin-left: -4px;
+            }
+          }
+          .check-img {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+          img {
+            width: 36px;
+            &.logo {
+              width: 40px;
+            }
+          }
+        }
+      }
+      .right {
+        align-items: baseline;
+        // border: 2px solid #f2f5f9;
+        // border-radius: 20px;
+        margin: 20px;
+        margin-top: 30px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .step-detail {
+      text-align: center;
+
+      .label {
+        padding-left: 10px;
+        .title {
+          font-size: 16px;
+          color: #567197;
+          line-height: 30px;
+          font-weight: 400;
+        }
+
+        .details {
+          font-weight: 200;
+          font-style: normal;
+          font-size: 14px;
+          padding-bottom: 15px;
+          padding-top: 5px;
+        }
+      }
+
+      .step-img {
+        position: relative;
+        height: 100%;
+
+        .details-img {
+          position: relative;
+        }
+      }
+    }
+  }
+  // .content {
+  //   padding: 20px;
+  //   padding-bottom: 0px;
+  // }
+}
+
+.bg-img {
+  width: 100%;
+  position: absolute;
+}

@@ -1,0 +1,43 @@
+@import 'base';
+.setting-order {
+  .cards {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 6px;
+    .card-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .content {
+        display: flex;
+        align-items: center;
+        padding-right: 15px;
+        .img {
+          padding-right: 15px;
+          img {
+            width: 50px;
+          }
+        }
+        .text {
+          font-weight: 200;
+          .label {
+            color: #576f83;
+            font-size: 12px;
+            padding-bottom: 3px;
+          }
+          .status {
+            font-size: 1.2em;
+            .danger {
+              color: #eb6160;
+            }
+          }
+        }
+      }
+      img.edit {
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}

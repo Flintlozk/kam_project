@@ -1,0 +1,11 @@
+<div class="flex items-center justify-end pb-4" *ngIf="isContentEditor">
+  <button (click)="onDismissContentEditor()" class="transition transform focus:outline-none hover:scale-105">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+    </svg>
+  </button>
+</div>
+<section [formGroup]="layoutEmbededForm" class="grid gap-1">
+  <div class="font-light text-sm">Embeded HTML Code</div>
+  <textarea class="w-full p-4 bg-transparent border focus:outline-none" formControlName="embeded" rows="10"></textarea>
+</section>

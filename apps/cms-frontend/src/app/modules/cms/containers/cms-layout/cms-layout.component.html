@@ -1,0 +1,9 @@
+<section class="flex flex-col h-full bg-gray-100">
+  <cms-next-cms-header class="z-10 shadow-lg"></cms-next-cms-header>
+  <div class="flex flex-1 h-full overflow-scroll no-scroll-bar">
+    <cms-next-cms-sidebar class="transition all" [ngClass]="{ hidden: isPreviewMode }"></cms-next-cms-sidebar>
+    <div class="w-full overflow-scroll no-scroll-bar" id="scroll-container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</section>

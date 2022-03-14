@@ -1,0 +1,64 @@
+<div class="product-unmerge-dialog">
+  <reactor-room-custom-dialog>
+    <ng-container class="head">
+      <div class="title">{{ 'UnMatch' | translate }}</div>
+    </ng-container>
+    <ng-container class="content">
+      <div class="content-container" #contentContainer>
+        <div class="main-product">
+          <img [src]="productOrVariant.img" [alt]="productOrVariant.name" />
+          <div class="main-product-detail">
+            <div>{{ productOrVariant.name }}</div>
+            <div class="sub-detail">
+              <div class="price">{{ 'Price' | translate }}: {{ productOrVariant.price }}</div>
+              <div class="market-place-icons">
+                <img [src]="moreCommerceIcon" [alt]="'More commerce'" />
+                <ng-container *ngFor="let marketPlaceItem of productOrVariant?.mergedMarketPlaceData">
+                  <img [src]="marketPlaceIconObj[marketPlaceItem.mergedMarketPlaceType]" [alt]="marketPlaceItem.mergedMarketPlaceType" />
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="merge-divider relative">
+          <div class="merge-text">{{ 'UnMerge From' | translate }}</div>
+        </div>
+      </div>
+      <div class="market-place-list" *ngIf="productOrVariant.mergedMarketPlaceData.length">
+        <ng-container *ngFor="let marketPlaceItem of productOrVariant.mergedMarketPlaceData; trackBy: trackByIndex; let index = index">
+          <div
+            class="market-place-list-item"
+            [ngClass]="{ 'market-place-item-disable': marketPlaceItem.isDisabled, selected: marketPlaceItem.isSelected && !marketPlaceItem.isDisabled }"
+            (click)="selectMarketTypeToUnMerge(marketPlaceItem, contentContainer)"
+          >
+            <div class="market-place-list-detail">
+              <div class="sub-detail">
+                <div class="market-place-icons">
+                  <img [src]="marketPlaceIconObj[marketPlaceItem.mergedMarketPlaceType]" [alt]="marketPlaceItem.mergedMarketPlaceType" />
+                </div>
+                {{ marketPlaceItem.mergedMarketPlaceType.toUpperCase() }}
+              </div>
+            </div>
+            <div class="check-icon">
+              <img *ngIf="marketPlaceItem.isSelected && !marketPlaceItem.isDisabled" src="../assets/img/check-circle.svg" alt="Checked" />
+            </div>
+          </div>
+          <div *ngIf="index === unMergedProductCount - 1" class="merge-divider relative"></div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel mr-5" (click)="onActionClick$.next(cancelFlag)">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button class="btn-create active" (click)="onActionClick$.next(unMergeFlag)">
+          <span class="ml-5">
+            {{ 'Confirm' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

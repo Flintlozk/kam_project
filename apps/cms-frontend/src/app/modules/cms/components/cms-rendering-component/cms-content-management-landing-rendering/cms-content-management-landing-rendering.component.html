@@ -1,0 +1,20 @@
+<div
+  (dblclick)="onFocusEvent()"
+  class="guideline absolute w-full h-full left-0 top-0 group flex items-center justify-center group"
+  [ngClass]="{ 'border border-green-500 ': onFocus }"
+>
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: onFocus, hidden: !onFocus }">
+    <div
+      [ngClass]="{ 'bg-green-500': !onFocus, 'bg-gray-700': onFocus }"
+      class="absolute right-0 px-2 py-1 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none flex items-center justify-between"
+    >
+      Content Management Landing Page
+    </div>
+    <div class="absolute w-full h-full bg-green-500 opacity-40 cursor-move" [ngClass]="{ hidden: onFocus }"></div>
+  </div>
+</div>
+<div class="w-full">
+  <ng-container #landingInsertPoint></ng-container>
+  <ng-content></ng-content>
+  <section [innerHtml]="safeCSS"></section>
+</div>

@@ -1,0 +1,64 @@
+stages:
+  - build_nlp_staging
+  - deploy_nlp_staging
+  - build_nlp_prod
+  - deploy_nlp_production
+
+Build NLP Staging Image:
+  stage: build_nlp_staging
+  image: docker:latest
+  only:
+    - nlp
+  services:
+    - docker:dind
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin git.itopplus.com:5000
+    - echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin
+    - echo 'Commit Sha:' $CI_PIPELINE_ID
+    - DOCKER_BUILDKIT=1 docker build -t git.itopplus.com:5000/plusmar/plusmar-nlp:$CI_PIPELINE_ID -f ./apps/nlp-analysis/nlp/Dockerfile .
+    - docker push git.itopplus.com:5000/plusmar/plusmar-nlp:$CI_PIPELINE_ID
+Build NLP Production Image:
+  stage: build_nlp_prod
+  image: docker:latest
+  only:
+    - nlp
+  services:
+    - docker:dind
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin git.itopplus.com:5000
+    - echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin
+    - echo 'Commit Sha:' $CI_PIPELINE_ID
+    - DOCKER_BUILDKIT=1 docker build -t git.itopplus.com:5000/plusmar/plusmar-nlp:$CI_PIPELINE_ID -f ./apps/nlp-analysis/nlp/Dockerfile .
+    - docker push git.itopplus.com:5000/plusmar/plusmar-nlp:$CI_PIPELINE_ID
+Deploy NLP Staging:
+  stage: deploy_nlp_staging
+  image: google/cloud-sdk
+  only:
+    - nlp
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - export ENVSERVER=STAGING
+    - echo $SERVICE_ACCOUNT > /tmp/${CI_PIPELINE_ID}.json
+    - gcloud auth activate-service-account --key-file /tmp/${CI_PIPELINE_ID}.json
+    - gcloud container clusters get-credentials itp-k8s --region asia-southeast1 --project itopplus-platform
+    - ./scripts/nlp-analysis-project/deploy-nlp-staging.sh
+  after_script:
+    - rm /tmp/${CI_PIPELINE_ID}.json
+
+Deploy NLP Production:
+  stage: deploy_nlp_production
+  image: google/cloud-sdk
+  when: manual
+  only:
+    - nlp
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - export ENVSERVER=PRODUCTION
+    - echo $SERVICE_ACCOUNT > /tmp/${CI_PIPELINE_ID}.json
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud container clusters get-credentials itp-k8s	--region asia-southeast1 --project itopplus-platform
+    - ./scripts/nlp-analysis-project/deploy-nlp-prod.sh
+  after_script:
+    - rm /tmp/${CI_PIPELINE_ID}.json

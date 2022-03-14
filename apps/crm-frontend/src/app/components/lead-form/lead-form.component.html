@@ -1,0 +1,241 @@
+<form class="bgcolor" [formGroup]="leadFormInput" (ngSubmit)="onSubmit()">
+  <div class="topheader">
+    <div class="margin">
+      <div class="header">
+        <input class="companyInput" matInput placeholder="Type Company Name ..." formControlName="companyname" />
+        <div class="whiteBG">
+          <label *ngIf="hasProjectCode"> {{ projectPrefix }} </label>
+          <input matInput placeholder="000" formControlName="projectNumber" />
+        </div>
+      </div>
+      <svg width="440" height="1" viewBox="0 0 440 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line y1="0.5" x2="440" y2="0.5" stroke="#828282" />
+      </svg>
+    </div>
+    <svg (click)="sidebar.toggle()" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 21L1 1" stroke="#656565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 1L1 21" stroke="#656565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <div>
+    <div class="margin">
+      <label> Contacts </label>
+      <div class="pic">
+        <div class="padding" *ngFor="let contact of getCompanyContactList.controls; let i = index">
+          <div (click)="onClickchangeTheArrayForm(i)" [matTooltip]="contact.value.name">
+            <svg [ngStyle]="styleClickObject(i)" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="31" height="31" rx="9.5" fill="#C4C4C4" stroke="#A3A3A3" />
+              <path
+                d="M25.4786 22.5022C24.9626 21.3474 24.2137 20.2985 23.2738 19.4139C22.3367 18.5267 21.2266 17.8193 20.0048 17.4409C19.9938 17.3257 19.9829 17.3231 19.972 17.318C21.6762 16.155 22.7841 14.2607 22.7841 12.1234C22.7841 8.58286 19.7476 5.71423 15.9999 5.71423C12.2523 5.71423 9.2158 8.58286 9.2158 12.1234C9.2158 14.2607 10.3237 16.155 12.0279 17.3205C12.017 17.3257 12.0061 17.3283 11.9951 17.3335C10.7696 17.8219 9.6699 18.5223 8.72614 19.4165C7.78705 20.3018 7.03832 21.3505 6.52129 22.5048C6.01336 23.6348 5.73942 24.8463 5.7143 26.0737C5.71357 26.1013 5.71869 26.1288 5.72936 26.1545C5.74003 26.1801 5.75604 26.2035 5.77643 26.2233C5.79683 26.243 5.8212 26.2587 5.84811 26.2694C5.87503 26.2802 5.90394 26.2857 5.93315 26.2857H7.57447C7.69484 26.2857 7.79058 26.1952 7.79332 26.0841C7.84803 24.089 8.69604 22.2205 10.1951 20.8043C11.7462 19.3389 13.806 18.5326 15.9999 18.5326C18.1939 18.5326 20.2537 19.3389 21.8048 20.8043C23.3039 22.2205 24.1519 24.089 24.2066 26.0841C24.2093 26.1978 24.3051 26.2857 24.4254 26.2857H26.0667C26.096 26.2857 26.1249 26.2802 26.1518 26.2694C26.1787 26.2587 26.2031 26.243 26.2235 26.2233C26.2439 26.2035 26.2599 26.1801 26.2705 26.1545C26.2812 26.1288 26.2863 26.1013 26.2856 26.0737C26.2582 24.8384 25.9874 23.6367 25.4786 22.5022ZM15.9999 16.5685C14.7443 16.5685 13.5626 16.1059 12.6735 15.266C11.7845 14.4261 11.2948 13.3096 11.2948 12.1234C11.2948 10.9372 11.7845 9.82077 12.6735 8.98085C13.5626 8.14094 14.7443 7.67834 15.9999 7.67834C17.2556 7.67834 18.4373 8.14094 19.3264 8.98085C20.2154 9.82077 20.7051 10.9372 20.7051 12.1234C20.7051 13.3096 20.2154 14.4261 19.3264 15.266C18.4373 16.1059 17.2556 16.5685 15.9999 16.5685Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </div>
+        <svg class="padding" (click)="onClickCreateContactPerson()" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+          <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div formArrayName="companyContactList" *ngFor="let item of getCompanyContactList.controls; let i = index">
+        <div class="name" [formGroupName]="i" *ngIf="index === i">
+          <div class="flexend">
+            <svg (click)="onClickDeleteContact()" width="12" height="12" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21L1 1" stroke="#656565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M21 1L1 21" stroke="#656565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput value="" formControlName="name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Position</mat-label>
+            <input matInput value="" formControlName="position" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput value="" formControlName="phoneNumber" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput value="" formControlName="email" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Line ID</mat-label>
+            <input matInput value="" formControlName="lineId" />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bgcolor">
+    <div class="container margin">
+      <mat-form-field>
+        <mat-label>Tax Id No.</mat-label>
+        <input matInput placeholder="Type Tax ID NO." formControlName="taxIdNo" />
+      </mat-form-field>
+      <mat-form-field *ngIf="hasWebsite">
+        <mat-label>Website</mat-label>
+        <input matInput placeholder="Type Website" formControlName="website" />
+      </mat-form-field>
+      <div class="linkgroub">
+        <div class="link" [ngStyle]="{ color: indexOfAddressFormGroup === 0 ? '#153342' : '#A5BCC8' }" (click)="onClickInvoicingAddress()">Invoicing address</div>
+        <div class="link" [ngStyle]="{ color: indexOfAddressFormGroup === 1 ? '#153342' : '#A5BCC8' }" (click)="onClickDeliveryAddress()">Delivery address</div>
+      </div>
+      <div formArrayName="addressList" *ngFor="let address of getAddressList.controls; let i = index">
+        <div [formGroupName]="i" *ngIf="indexOfAddressFormGroup === i">
+          <mat-form-field class="full-input">
+            <mat-label>Address</mat-label>
+            <input matInput value="" formControlName="address" />
+          </mat-form-field>
+
+          <div class="warp">
+            <mat-form-field class="half-input">
+              <mat-label>Postal Code</mat-label>
+              <input matInput value="" formControlName="postalcode" />
+            </mat-form-field>
+
+            <mat-form-field class="half-input">
+              <mat-label>District</mat-label>
+              <input matInput value="" formControlName="district" />
+            </mat-form-field>
+          </div>
+
+          <div class="warp">
+            <mat-form-field class="half-input">
+              <mat-label>City</mat-label>
+              <input matInput value="" formControlName="city" />
+            </mat-form-field>
+
+            <mat-form-field class="half-input">
+              <mat-label>Province:</mat-label>
+              <input matInput value="" formControlName="province" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label>
+          <mat-form-field class="full-input">
+            <mat-label>Business Type</mat-label>
+            <input type="text" placeholder="Select Business Type" aria-label="Business Type" matInput formControlName="businesstype" [matAutocomplete]="autobusinesstype" />
+            <mat-autocomplete #autobusinesstype="matAutocomplete">
+              <mat-option *ngFor="let option of filteredBusinessTypeOptions | async" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </label>
+
+        <div><mat-label>Tags</mat-label></div>
+        <div class="tag">
+          <div *ngFor="let tag of tagLeadListForView">
+            <mat-chip *ngIf="tag.CRUD_TYPE !== 'DELETE'" color="primary" (removed)="onClickRemoveTagLead(tag)" [removable]="removable" [selectable]="selectable"
+              >{{ tag.tagname }} <mat-icon class="icon" matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+          </div>
+
+          <svg [matMenuTriggerFor]="addTagLead" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="16" fill="#E3EDF2" />
+            <path d="M16 21V16M16 16V11M16 16H21M16 16H11" stroke="#153342" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <mat-menu #addTagLead="matMenu" yPosition="below" xPosition="after" class="mat-menu-search-tag">
+          <mat-form-field>
+            <mat-chip-list #chipList aria-label="Tags selection">
+              <input
+                [matAutocomplete]="autotag"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="onAddLeadTag($event)"
+                (click)="$event.stopPropagation()"
+                placeholder="Type new tag.."
+              />
+            </mat-chip-list>
+            <mat-autocomplete #autotag="matAutocomplete" (optionSelected)="onSelectedTheTag($event)">
+              <mat-option *ngFor="let tag of filteredTagOptions | async" [value]="tag">
+                {{ tag }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </mat-menu>
+        <div formArrayName="noteLeadList" class="container_note">
+          <div *ngFor="let comment of getNoteLeadList.controls | slice: (seeMoreNoteLead ? undefined : -3):undefined; let i = index">
+            <mat-label>Note</mat-label>
+            <mat-card [formGroupName]="i">
+              <div class="editnote-topright">
+                <div>
+                  <textarea
+                    matInput
+                    cdkTextareaAutosize
+                    [readonly]="getNoteLeadList.controls[i].value.readonly"
+                    type="text"
+                    formControlName="notedetail"
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="2"
+                    value=""
+                  >
+                  </textarea>
+                  <div *ngFor="let file of fileList; let i = index" class="attachment-file">
+                    <div [value]="fileList[i].name" #downloadFile>
+                      {{ fileList[i].name }}
+                    </div>
+                    <div (click)="onRemoveFileAttach(downloadFile, i)">X</div>
+                  </div>
+                  <svg
+                    id="imgAttachment"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    (click)="attachFileTask.click()"
+                    class="img-attachment"
+                  >
+                    <rect width="24" height="24" rx="4" fill="#E3EDF2" />
+                    <path
+                      d="M14.1362 9.45784L10.9858 12.6083C10.7769 12.8172 10.6595 13.1005 10.6595 13.3959C10.6595 13.6913 10.7769 13.9747 10.9858 14.1835C11.1947 14.3924 11.478 14.5098 11.7734 14.5098C12.0688 14.5098 12.3521 14.3924 12.561 14.1835L15.7115 11.0331C16.1292 10.6153 16.3639 10.0487 16.3639 9.45784C16.3639 8.86701 16.1292 8.30038 15.7115 7.88261C15.2937 7.46483 14.7271 7.23012 14.1362 7.23012C13.5454 7.23012 12.9788 7.46483 12.561 7.88261L9.41053 11.0331C8.78386 11.6597 8.4318 12.5097 8.4318 13.3959C8.4318 14.2822 8.78386 15.1321 9.41053 15.7588C10.0372 16.3854 10.8871 16.7375 11.7734 16.7375C12.6596 16.7375 13.5096 16.3854 14.1362 15.7588L17.2867 12.6083"
+                      stroke="#153342"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.04778 9.30723V7.59295M7.04778 7.59295V5.87866M7.04778 7.59295H8.76207M7.04778 7.59295H5.3335"
+                      stroke="#153342"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <button *ngIf="typeOfAction === 'EDIT'" type="button" class="edit-note-button" (click)="onClickEditNote(i)">Edit</button>
+              </div>
+            </mat-card>
+            <div class="container_date">{{ getNoteLeadList.controls[i].value.createby }} {{ utcTime | timeAgo }}</div>
+          </div>
+        </div>
+        <svg
+          *ngIf="noteLead.length > 3 && seeMoreNoteLead === false"
+          (click)="seeMoreNoteLead = !seeMoreNoteLead"
+          width="65"
+          height="31"
+          viewBox="0 0 65 31"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.828 15.21C2.28667 15.21 1.764 15.1633 1.26 15.07C0.756 14.9767 0.354667 14.8507 0.056 14.692L0.28 13.656C1.07333 14.0387 1.974 14.23 2.982 14.23C3.822 14.23 4.466 14.0993 4.914 13.838C5.37133 13.5673 5.66067 13.1567 5.782 12.606C5.81933 12.382 5.838 12.2373 5.838 12.172C5.838 11.9107 5.76333 11.6913 5.614 11.514C5.46467 11.3273 5.25467 11.164 4.984 11.024C4.71333 10.8747 4.284 10.674 3.696 10.422C3.00533 10.1233 2.48733 9.78733 2.142 9.414C1.79667 9.04067 1.624 8.59733 1.624 8.084C1.624 7.888 1.64267 7.70133 1.68 7.524C1.848 6.74933 2.254 6.138 2.898 5.69C3.55133 5.23267 4.39133 5.004 5.418 5.004C6.35133 5.004 7.19133 5.172 7.938 5.508L7.728 6.502C7.01867 6.15667 6.23 5.984 5.362 5.984C3.85 5.984 2.98667 6.49733 2.772 7.524C2.744 7.67333 2.73 7.80867 2.73 7.93C2.73 8.30333 2.87467 8.61133 3.164 8.854C3.46267 9.09667 3.98067 9.36733 4.718 9.666C5.24067 9.88067 5.656 10.086 5.964 10.282C6.28133 10.4687 6.524 10.6927 6.692 10.954C6.86933 11.2153 6.958 11.5373 6.958 11.92C6.958 12.1253 6.93 12.354 6.874 12.606C6.68733 13.4647 6.27667 14.1133 5.642 14.552C5.01667 14.9907 4.07867 15.21 2.828 15.21ZM11.6016 15.21C10.5936 15.21 9.80029 14.9767 9.22163 14.51C8.65229 14.0433 8.36763 13.3853 8.36763 12.536C8.36763 12.2373 8.40029 11.9433 8.46563 11.654C8.70829 10.5433 9.19363 9.67067 9.92163 9.036C10.659 8.392 11.6156 8.07 12.7916 8.07C13.753 8.07 14.481 8.29867 14.9756 8.756C15.4703 9.21333 15.7176 9.82933 15.7176 10.604C15.7176 10.8933 15.685 11.1827 15.6196 11.472L15.4936 12.06H9.38963C9.36163 12.2373 9.34763 12.41 9.34763 12.578C9.34763 13.7633 10.197 14.356 11.8956 14.356C12.3343 14.356 12.773 14.3187 13.2116 14.244C13.6596 14.16 14.0656 14.048 14.4296 13.908L14.2336 14.818C13.935 14.93 13.5336 15.0233 13.0296 15.098C12.535 15.1727 12.059 15.21 11.6016 15.21ZM14.6536 11.29C14.7003 11.038 14.7236 10.8233 14.7236 10.646C14.7236 9.50733 14.0143 8.938 12.5956 8.938C11.7556 8.938 11.079 9.15267 10.5656 9.582C10.0616 10.0113 9.72563 10.5807 9.55763 11.29H14.6536ZM20.1192 15.21C19.1112 15.21 18.3179 14.9767 17.7392 14.51C17.1699 14.0433 16.8852 13.3853 16.8852 12.536C16.8852 12.2373 16.9179 11.9433 16.9832 11.654C17.2259 10.5433 17.7112 9.67067 18.4392 9.036C19.1765 8.392 20.1332 8.07 21.3092 8.07C22.2705 8.07 22.9985 8.29867 23.4932 8.756C23.9879 9.21333 24.2352 9.82933 24.2352 10.604C24.2352 10.8933 24.2025 11.1827 24.1372 11.472L24.0112 12.06H17.9072C17.8792 12.2373 17.8652 12.41 17.8652 12.578C17.8652 13.7633 18.7145 14.356 20.4132 14.356C20.8519 14.356 21.2905 14.3187 21.7292 14.244C22.1772 14.16 22.5832 14.048 22.9472 13.908L22.7512 14.818C22.4525 14.93 22.0512 15.0233 21.5472 15.098C21.0525 15.1727 20.5765 15.21 20.1192 15.21ZM23.1712 11.29C23.2179 11.038 23.2412 10.8233 23.2412 10.646C23.2412 9.50733 22.5319 8.938 21.1132 8.938C20.2732 8.938 19.5965 9.15267 19.0832 9.582C18.5792 10.0113 18.2432 10.5807 18.0752 11.29H23.1712ZM31.8271 8.28H32.8631L32.6391 9.33C33.4511 8.49 34.3378 8.07 35.2991 8.07C35.8125 8.07 36.2091 8.17267 36.4891 8.378C36.7785 8.58333 36.9605 8.87267 37.0351 9.246C37.4271 8.84467 37.8611 8.55067 38.3371 8.364C38.8225 8.168 39.2985 8.07 39.7651 8.07C40.3811 8.07 40.8431 8.224 41.1511 8.532C41.4685 8.83067 41.6271 9.246 41.6271 9.778C41.6271 10.0113 41.5991 10.254 41.5431 10.506L40.5911 15H39.5271L40.4511 10.632C40.5165 10.3053 40.5491 10.058 40.5491 9.89C40.5491 9.54467 40.4511 9.302 40.2551 9.162C40.0685 9.01267 39.7558 8.938 39.3171 8.938C38.5145 8.938 37.7725 9.29733 37.0911 10.016C37.0911 10.1747 37.0585 10.3893 36.9931 10.66L36.0831 15H35.0331L35.9431 10.66C36.0178 10.3333 36.0551 10.072 36.0551 9.876C36.0551 9.54933 35.9618 9.31133 35.7751 9.162C35.5885 9.01267 35.2851 8.938 34.8651 8.938C34.0625 8.938 33.2598 9.386 32.4571 10.282L31.4631 15H30.3991L31.8271 8.28ZM45.668 15.21C44.744 15.21 44.002 14.9673 43.442 14.482C42.882 13.9967 42.602 13.334 42.602 12.494C42.602 12.2793 42.6347 11.9993 42.7 11.654C42.9333 10.5433 43.4513 9.67067 44.254 9.036C45.066 8.392 46.046 8.07 47.194 8.07C48.118 8.07 48.8553 8.31733 49.406 8.812C49.966 9.30667 50.246 9.974 50.246 10.814C50.246 11.1033 50.2133 11.3833 50.148 11.654C49.9053 12.7927 49.3873 13.67 48.594 14.286C47.8007 14.902 46.8253 15.21 45.668 15.21ZM45.85 14.356C46.6527 14.356 47.3433 14.1133 47.922 13.628C48.51 13.1333 48.8927 12.4753 49.07 11.654C49.1353 11.3833 49.168 11.1127 49.168 10.842C49.168 10.2353 48.986 9.76867 48.622 9.442C48.258 9.106 47.7213 8.938 47.012 8.938C46.2093 8.938 45.514 9.18533 44.926 9.68C44.338 10.1653 43.9553 10.8233 43.778 11.654C43.722 11.934 43.694 12.2 43.694 12.452C43.694 13.0493 43.876 13.516 44.24 13.852C44.604 14.188 45.1407 14.356 45.85 14.356ZM52.5537 8.28H53.6037L53.3237 9.596C54.0424 8.71867 55.1484 8.28 56.6417 8.28L56.4457 9.148C54.831 9.148 53.7157 9.68467 53.0997 10.758L52.2037 15H51.1257L52.5537 8.28ZM59.7403 15.21C58.7323 15.21 57.939 14.9767 57.3603 14.51C56.791 14.0433 56.5063 13.3853 56.5063 12.536C56.5063 12.2373 56.539 11.9433 56.6043 11.654C56.847 10.5433 57.3323 9.67067 58.0603 9.036C58.7976 8.392 59.7543 8.07 60.9303 8.07C61.8916 8.07 62.6196 8.29867 63.1143 8.756C63.609 9.21333 63.8563 9.82933 63.8563 10.604C63.8563 10.8933 63.8236 11.1827 63.7583 11.472L63.6323 12.06H57.5283C57.5003 12.2373 57.4863 12.41 57.4863 12.578C57.4863 13.7633 58.3356 14.356 60.0343 14.356C60.473 14.356 60.9116 14.3187 61.3503 14.244C61.7983 14.16 62.2043 14.048 62.5683 13.908L62.3723 14.818C62.0736 14.93 61.6723 15.0233 61.1683 15.098C60.6736 15.1727 60.1976 15.21 59.7403 15.21ZM62.7923 11.29C62.839 11.038 62.8623 10.8233 62.8623 10.646C62.8623 9.50733 62.153 8.938 60.7343 8.938C59.8943 8.938 59.2176 9.15267 58.7043 9.582C58.2003 10.0113 57.8643 10.5807 57.6963 11.29H62.7923Z"
+            fill="#153342"
+          />
+          <path d="M28 25L32.5 29L37 25" stroke="#153342" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+      <!-- <input type="file" (change)="onUploadFileAttach($event)" style="display: none" #attachFileTask /> -->
+      <button type="submit" class="colorbutton">Create lead</button>
+    </div>
+  </div>
+</form>

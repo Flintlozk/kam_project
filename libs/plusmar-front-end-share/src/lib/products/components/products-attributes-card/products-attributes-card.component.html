@@ -1,0 +1,28 @@
+<div class="products-attribute-card">
+  <reactor-room-card [boxShadow]="'rgb(221, 221, 221) 0px 0px 10px 2px'">
+    <div class="card-content">
+      <div class="head">
+        <ng-container *ngIf="type === 'ATTRIBUTE'; else subAttribCounterTemplate">
+          <div class="text">{{ attributeData?.length > 0 ? attributeData.length : 0 }} {{ 'Attributes' | translate }}</div>
+        </ng-container>
+        <ng-template #subAttribCounterTemplate>
+          <div class="text">{{ subAttributeDataLocal?.length > 0 ? subAttributeDataLocal.length : 0 }} {{ 'Sub-Attributes' | translate }}</div>
+        </ng-template>
+      </div>
+      <div class="content">
+        <ng-container *ngIf="type === 'ATTRIBUTE'; else subAttribTemplate">
+          <ng-container *ngIf="attributeData?.length > 0">
+            <div class="chip" *ngFor="let attrib of attributeData" (click)="onAttributeSelected(attrib)">
+              {{ attrib.attributeName }}
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #subAttribTemplate>
+          <ng-container *ngIf="subAttributeDataLocal?.length > 0">
+            <div class="chip" *ngFor="let subAttrib of subAttributeDataLocal" (click)="onSubAttributeSelected(subAttrib)">{{ subAttrib.name }}</div>
+          </ng-container>
+        </ng-template>
+      </div>
+    </div>
+  </reactor-room-card>
+</div>

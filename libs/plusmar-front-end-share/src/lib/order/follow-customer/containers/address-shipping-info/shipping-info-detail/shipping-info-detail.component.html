@@ -1,0 +1,101 @@
+<div class="shipping-info-detail">
+  <form [formGroup]="shippingInfoForm">
+    <div class="shipping">
+      <div class="item">
+        <div class="label">{{ 'Name' | translate }} <span style="color: red">*</span></div>
+        <input
+          type="text"
+          formControlName="name"
+          [ngClass]="{ error: (shippingInfoForm.get('name').touched || shippingInfoForm.get('name').dirty) && !shippingInfoForm.get('name').valid }"
+        />
+      </div>
+      <div class="item">
+        <div class="label">{{ 'Phone No' | translate }} <span style="color: red">*</span></div>
+        <input
+          type="text"
+          formControlName="phoneNo"
+          inputmode="tel"
+          [ngClass]="{ error: (shippingInfoForm.get('phoneNo').touched || shippingInfoForm.get('phoneNo').dirty) && !shippingInfoForm.get('phoneNo').valid }"
+        />
+      </div>
+      <div class="item on-line">
+        <div class="label">{{ 'Address' | translate }} <span style="color: red">*</span></div>
+        <input
+          [ngClass]="{ error: (shippingInfoForm.get('address').touched || shippingInfoForm.get('address').dirty) && !shippingInfoForm.get('address').valid }"
+          type="text"
+          formControlName="address"
+        />
+      </div>
+
+      <div class="item">
+        <div class="label">{{ 'Postal Code' | translate }} <span style="color: red">*</span></div>
+        <input
+          (keyup)="changeHandler('postalCode')"
+          [ngClass]="{ error: (shippingInfoForm.get('postalCode').touched || shippingInfoForm.get('postalCode').dirty) && !shippingInfoForm.get('postalCode').valid }"
+          inputmode="numeric"
+          type="text"
+          formControlName="postalCode"
+          autocomplete="new-password"
+          [matAutocomplete]="auto"
+        />
+      </div>
+      <div class="item">
+        <div class="label">{{ 'District' | translate }}</div>
+        <input
+          class="form-readonly"
+          readonly
+          [ngClass]="{ error: (shippingInfoForm.get('district').touched || shippingInfoForm.get('district').dirty) && !shippingInfoForm.get('district').valid }"
+          (keyup)="changeHandler('district')"
+          type="text"
+          formControlName="district"
+          autocomplete="new-password"
+          [matAutocomplete]="auto"
+        />
+      </div>
+      <div class="item">
+        <div class="label">{{ 'City' | translate }}</div>
+        <input
+          class="form-readonly"
+          readonly
+          [ngClass]="{ error: (shippingInfoForm.get('city').touched || shippingInfoForm.get('city').dirty) && !shippingInfoForm.get('city').valid }"
+          (keyup)="changeHandler('city')"
+          type="text"
+          formControlName="city"
+          autocomplete="new-password"
+          [matAutocomplete]="auto"
+        />
+      </div>
+      <div class="item">
+        <div class="label">{{ 'Province' | translate }}</div>
+        <input
+          class="form-readonly"
+          readonly
+          [ngClass]="{ error: (shippingInfoForm.get('province').touched || shippingInfoForm.get('province').dirty) && !shippingInfoForm.get('province').valid }"
+          (keyup)="changeHandler('province')"
+          type="text"
+          formControlName="province"
+          autocomplete="new-password"
+          [matAutocomplete]="auto"
+        />
+      </div>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectSuggestion($event.option.value)">
+        <mat-option *ngFor="let options of filteredOptions" [value]="options">
+          <span *ngFor="let option of options | keyvalue">
+            {{ option.value }}
+            {{ ' ' }}
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0.646447 0.989586C0.841709 0.794324 1.15829 0.794324 1.35355 0.989586L5.35355 4.98959C5.54882 5.18485 5.54882 5.50143 5.35355 5.69669L1.35355 9.69669C1.15829 9.89195 0.841709 9.89195 0.646447 9.69669C0.451184 9.50143 0.451184 9.18485 0.646447 8.98959L4.29289 5.34314L0.646447 1.69669C0.451184 1.50143 0.451184 1.18485 0.646447 0.989586Z"
+                fill="black"
+              />
+            </svg>
+            {{ ' ' }}
+          </span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </form>
+</div>

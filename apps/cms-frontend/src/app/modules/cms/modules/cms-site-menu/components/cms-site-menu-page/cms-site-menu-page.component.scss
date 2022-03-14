@@ -1,0 +1,71 @@
+@layer components {
+  .page-item {
+    .guideline {
+      &:before {
+        content: '';
+        width: 2px;
+        left: 3px;
+        @apply flex h-8 absolute bottom-0 bg-gray-100;
+      }
+      &:after {
+        content: '';
+        width: 2px;
+        left: 3px;
+        @apply flex h-8 absolute top-0 bg-gray-100;
+      }
+    }
+    .toggle,
+    .last {
+      .guideline {
+        &:after {
+          @apply hidden;
+        }
+      }
+    }
+  }
+  .node-item {
+    .btn-option {
+      @apply hidden;
+    }
+    &:hover {
+      .btn-option {
+        @apply flex;
+      }
+    }
+  }
+}
+@layer components {
+  .cdk-drag-preview {
+    @apply rounded-md;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    .guideline,
+    .btn-toggle {
+      @apply hidden;
+    }
+  }
+  .cdk-drag-placeholder {
+    display: none;
+  }
+  .drop-before {
+    @apply border-green-500 border-dashed border-t-2;
+  }
+  .drop-before-home {
+    @apply border-red-500 border-dashed border-t-2;
+  }
+  .drop-before-max-level {
+    @apply border-red-500 border-dashed border-t-2;
+  }
+  .drop-after {
+    @apply border-green-500 border-dashed border-b-2;
+  }
+  .drop-after-max-level {
+    @apply border-red-500 border-dashed border-b-2;
+  }
+  .drop-inside {
+    @apply border-green-500 border-dashed border-2;
+  }
+  .drop-inside-max-level {
+    @apply border-red-500 border-dashed border-2;
+  }
+}

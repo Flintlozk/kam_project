@@ -1,0 +1,25 @@
+<div class="header" style="padding-left: 40px">
+  <div class="header_name">
+    <p>{{ headerName }}</p>
+  </div>
+  <div class="header-button-view"></div>
+  <div class="header-tab-menu">
+    <div class="header-menu">Filter</div>
+    <div class="header-menu">
+      <img draggable="false" [src]="[profilePicUrl]" class="img-profile-picture" />
+    </div>
+    <div class="header-menu profile-icon" [matMenuTriggerFor]="profileTab">
+      <div class="profile-member-container">
+        <div *ngFor="let member of memberFlow; let i = index" class="member-individual">
+          <img *ngIf="i < 2" [src]="member.profilePic" class="img-profile-picture" />
+          <div class="img-more-assignee" *ngIf="i >= 2">
+            <div class="count-more-assignee" matTooltip="More">+ {{ memberFlow.length - 2 }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-menu #profileTab="matMenu" yPosition="below" xPosition="before" class="mat-menu-panel mat-menu-profile">
+  <reactor-room-menu-profile [memberFlow]="memberFlow"></reactor-room-menu-profile>
+</mat-menu>

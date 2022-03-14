@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce | 2C2P Checkout</title>
+    <%- include ("../../partials/head") %>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/step32c2p.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      var enableConfirm = false;
+    </script>
+  </head>
+
+  <body x-data="{psid:payloadData.psid,customer:payloadData.customer}">
+    <div id="payment-success" class="wrapper-success" style="display: none"><%- include ("../payment/success.ejs") %></div>
+
+    <div id="pipeline-step2-container" style="display: block">
+      <% var payments = payload.payments; var accounts = payload.accounts; var logisticSystem = payload.logisticSystem var payment2C2PRedirectApi = payload.payment2C2PRedirectApi
+      %> <%- include ("../step2/step2-loader.ejs")%>
+      <div class="wrapper" id="container">
+        <input type="hidden" name="psid" id="psid" x-model="psid" />
+        <b>2C2P Checkout</b>
+        <div style="margin-top: 12px">
+          <div>- ชำระเงินผ่านช่องทาง <a href="https://2c2p.com/" target="_blank">2C2P</a></div>
+          <div>- กรุณาดำเนินการชำระเงิน โดยการกดปุ่มด้านล่าง</div>
+        </div>
+
+        <form id="myform" method="post" action="<%=payment2C2PRedirectApi%>">
+          <input type="hidden" id="version" name="version" value="" />
+          <input type="hidden" id="order_id" name="order_id" value="" />
+          <input type="hidden" id="merchant_id" name="merchant_id" value="" />
+          <input type="hidden" id="currency" name="currency" value="" />
+          <input type="hidden" id="payment_description" name="payment_description" value="" />
+          <input type="hidden" id="amount" name="amount" value="" />
+          <input type="hidden" id="result_url_1" name="result_url_1" value="" />
+          <input type="hidden" id="result_url_2" name="result_url_2" value="" />
+          <input type="hidden" id="payment_option" name="payment_option" value="" />
+          <input type="hidden" id="request_3ds" name="request_3ds" value="" />
+          <input type="hidden" id="hash_value" name="hash_value" value="" />
+        </form>
+      </div>
+      <div class="separator"></div>
+      <%- include ("../step2/step2-summary") %>
+    </div>
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %> <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %> <%}%>
+  </body>
+</html>

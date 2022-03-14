@@ -1,0 +1,134 @@
+<section class="grid gap-4">
+  <ng-container #sectionPoint></ng-container>
+  <ng-content></ng-content>
+  <div class="border border-green-700 relative flex items-center justify-center w-full my-4" [ngClass]="{ hidden: isViewMode }" *ngIf="!sectionStatus">
+    <button (click)="!isViewMode ? onToggleSectionStatus() : null" class="absolute bg-green-700 rounded p-1">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M13.0566 2.10792C13.6497 2.10792 14.1306 2.58873 14.1306 3.18183L14.1306 11.9821L22.9308 11.9821C23.524 11.9821 24.0048 12.4629 24.0048 13.056C24.0048 13.6491 23.524 14.13 22.9308 14.13L14.1306 14.13V22.9302C14.1306 23.5234 13.6497 24.0042 13.0566 24.0042C12.4635 24.0042 11.9827 23.5234 11.9827 22.9302V14.13L3.18243 14.13C2.58933 14.13 2.10852 13.6491 2.10852 13.056C2.10852 12.4629 2.58932 11.9821 3.18243 11.9821L11.9827 11.9821L11.9827 3.18183C11.9827 2.58873 12.4635 2.10792 13.0566 2.10792Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+  </div>
+  <div [ngClass]="{ hidden: isViewMode }" [formGroup]="sectionVariationForm" class="border border-green-700 p-4 grid gap-4 relative" *ngIf="sectionStatus">
+    <button (click)="onToggleSectionStatus()" class="absolute right-2 top-2 focus:outline-none">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path>
+      </svg>
+    </button>
+    <div class="flex items-center">
+      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+        <path
+          d="M19 6H6c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-4.1 1.5v10H10v-10h4.9zM5.5 17V8c0-.3.2-.5.5-.5h2.5v10H6c-.3 0-.5-.2-.5-.5zm14 0c0 .3-.2.5-.5.5h-2.6v-10H19c.3 0 .5.2.5.5v9z"
+        ></path>
+      </svg>
+      <span class="ml-4 text-2xl">Blocks</span>
+    </div>
+    <div class="flex items-center">
+      <span class="font-light pr-4">Block gap</span>
+      <input class="focus:outline-none px-4 py-2 w-16 border rounded" type="number" formControlName="gap" min="0" max="100" />
+    </div>
+    <div class="font-light">Select a variation to start with...</div>
+    <div class="grid grid-cols-6 gap-2">
+      <div (click)="onCreateNewSection(style.value)" *ngFor="let style of sectionStyle" class="flex items-center justify-center flex-col group cursor-pointer">
+        <div class="p-2 border-green-700 border flex items-center justify-center group-hover:bg-green-100">
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_1"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="m39.0625 14h-30.0625v20.0938h30.0625zm-30.0625-2c-1.10457 0-2 .8954-2 2v20.0938c0 1.1045.89543 2 2 2h30.0625c1.1046 0 2-.8955 2-2v-20.0938c0-1.1046-.8954-2-2-2z"
+            ></path>
+          </svg>
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_1_1"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H25V34H39ZM23 34H9V14H23V34Z"
+            ></path>
+          </svg>
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_3_7"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H20V34H39ZM18 34H9V14H18V34Z"
+            ></path>
+          </svg>
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_7_3"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H30V34H39ZM28 34H9V14H28V34Z"
+            ></path>
+          </svg>
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_1_1_1"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
+            ></path>
+          </svg>
+          <svg
+            *ngIf="style.value === EContentSectionType.FR_1_2_1"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path fill-rule="evenodd" d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM31 34H17V14h14v20zm2 0V14h6v20h-6zm-18 0H9V14h6v20z"></path>
+          </svg>
+        </div>
+        <span class="font-light pt-2">{{ style.title }}</span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+<div
+  class="setting-shop-owner-dialog"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <form>
+    <reactor-room-custom-dialog>
+      <div class="head">
+        {{ 'Which Pages do you want to use with this shop' | translate }}
+        <img src="assets/img/dismiss-icon.svg" alt="Close" (click)="onNoClick()" />
+      </div>
+      <div class="content" *ngIf="facebookPagesWithPageStatus as pages">
+        <div class="item" *ngFor="let page of pages">
+          <div class="img">
+            <img [src]="page.facebook_page.picture" alt="Page Logo" *ngIf="page.facebook_page.picture; noImg" />
+            <ng-container #noImg>
+              <img src="assets/img/profile-img.png" alt="" />
+            </ng-container>
+          </div>
+
+          <div class="text">{{ page.facebook_page.name }}</div>
+          <div *ngIf="page.is_binded" class="connected">
+            {{ 'Connected by' | translate }} {{ page.email }}
+            <span *ngIf="page.facebook_page.matchOwner" (click)="onSelectPage(page.facebook_page)"> [ {{ 'Update Token' | translate }} ]</span>
+          </div>
+          <div *ngIf="!page.is_binded" class="selectable-page">
+            <span (click)="onSelectPage(page.facebook_page)">
+              {{ 'Select' | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </reactor-room-custom-dialog>
+  </form>
+</div>

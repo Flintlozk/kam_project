@@ -1,0 +1,38 @@
+<div *ngIf="!isExport && !isPrintReport" class="action">
+  <div class="more" [ngClass]="{ active: t.menuOpen }">
+    <button mat-icon-button #t="matMenuTrigger" [matTooltip]="'More actions' | translate" [matMenuTriggerFor]="menu" (click)="modalClick.emit(item)">
+      <svg width="16" height="4" viewBox="0 0 16 4" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="2" r="2" />
+        <circle cx="2" cy="2" r="2" />
+        <circle cx="14" cy="2" r="2" />
+      </svg>
+    </button>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+      <ng-content select=".more-menu"></ng-content>
+    </mat-menu>
+  </div>
+</div>
+
+<div *ngIf="isExport">
+  <button [matMenuTriggerFor]="menu" (click)="modalClick.emit(item)" class="ml-5 btn-secondary small" style="display: inline-block">
+    <span class="mr-5"> {{ 'Export to Excel' | translate }} </span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M7 8.04435L11.5444 3.5L13.125 5.08065L7 11.2056L0.875 5.08065L2.45565 3.5L7 8.04435Z" />
+    </svg>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <ng-content select=".export-menu"></ng-content>
+  </mat-menu>
+</div>
+<div *ngIf="isPrintReport">
+  <button [matMenuTriggerFor]="printMenu" (click)="reportPrintClick.emit(item)" class="ml-5 btn-secondary small" style="display: inline-block">
+    <span class="mr-5"> Print</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M7 8.04435L11.5444 3.5L13.125 5.08065L7 11.2056L0.875 5.08065L2.45565 3.5L7 8.04435Z" />
+    </svg>
+  </button>
+  <mat-menu #printMenu="matMenu" xPostion="before">
+    <ng-content select=".report-menu"></ng-content>
+  </mat-menu>
+</div>

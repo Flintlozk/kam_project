@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>icon_noti_comment-2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon_noti_comment-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6" opacity="0.536342076">
+            <circle id="Oval" cx="30" cy="30" r="30"></circle>
+        </g>
+        <circle id="Oval" stroke="#F3F4FA" fill="#F3F4FA" cx="30" cy="30" r="29.5"></circle>
+        <g id="icon_btn-comment" transform="translate(14.000000, 14.000000)" fill="#788397" fill-rule="nonzero">
+            <path d="M16,0 C7.17774368,0 0,7.24865972 0,16.1580799 C0,18.1825451 0.368606436,20.1632656 1.09729588,22.0490451 C1.66359495,23.4975694 2.41378378,24.8282205 3.33202408,26.0153681 L1.15078993,31.1802083 C0.975805233,31.5942101 1.0394129,32.0711632 1.31604265,32.4237552 C1.54897393,32.720783 1.90136041,32.8888889 2.26831305,32.8888889 C2.3375818,32.8888889 2.40767745,32.8831719 2.47732784,32.8704531 L10.7410452,31.4141563 C12.3961168,32.0130295 14.1634558,32.3161597 16,32.3161597 C24.8223199,32.3161597 32,25.0675 32,16.1580799 C32,7.24865972 24.8223199,0 16,0 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

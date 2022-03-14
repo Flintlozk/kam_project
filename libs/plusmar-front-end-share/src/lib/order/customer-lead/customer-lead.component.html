@@ -1,0 +1,52 @@
+<div class="customer-lead-container">
+  <ng-container [ngSwitch]="display">
+    <ng-container *ngSwitchCase="'LIST'">
+      <div class="lead-header">
+        <div>{{ totalRows }} {{ 'items' | translate }}</div>
+        <div class="actions">
+          <input autofocus type="text" [placeholder]="'Search' | translate" [formControl]="searchField" class="mr-10" />
+          <div *ngIf="isAllow">
+            <button class="btn-create" [disabled]="isLeadDisabled" (click)="switchView('SUBMISSION')">
+              <svg
+                _ngcontent-acs-c392=""
+                _ngcontent-nyn-c546=""
+                _ngcontent-ucy-c561=""
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="ng-tns-c392-22"
+              >
+                <path
+                  _ngcontent-acs-c392=""
+                  _ngcontent-nyn-c546=""
+                  _ngcontent-ucy-c561=""
+                  d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                  class="ng-tns-c392-22"
+                ></path>
+              </svg>
+              <span class="ml-5"> {{ 'Create new lead' | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <reactor-room-lead-form-list
+        [audience]="audience"
+        [searchField]="searchField"
+        (showFollowLead)="showFollowLead()"
+        (showClosedLead)="showClosedLead($event)"
+        (updateTotalRow)="updateTotalRow($event)"
+      ></reactor-room-lead-form-list>
+    </ng-container>
+    <ng-container *ngSwitchCase="'FORM'">X</ng-container>
+    <ng-container *ngSwitchCase="'SUBMISSION'">
+      <reactor-room-form-submission [audience]="audience" (showClosedLead)="showClosedLead($event)" (cancelSelection)="cancelSelection()"></reactor-room-form-submission>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CLOSED'">
+      <reactor-room-closed-lead-detail *ngIf="leadDetail" (back)="switchView('LIST')" [leadDetail]="leadDetail"></reactor-room-closed-lead-detail>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault></ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,47 @@
+@import 'base';
+
+.detail {
+  padding: 20px;
+
+  .title {
+    color: rgba(85, 78, 226, 1);
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .save-active {
+    background-color: rgba(85, 78, 226, 1);
+
+    &:hover {
+      background-color: rgba(85, 78, 226, 1);
+    }
+  }
+
+  .price {
+    font-weight: 500;
+    font-size: 42px;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+  line-height: 1.5rem;
+  color: #4f7186;
+
+  li {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    .with-color {
+      color: rgba(85, 78, 226, 1);
+      margin-left: 8px;
+    }
+  }
+}
+
+img {
+  width: 15px;
+  margin-right: 10px;
+}

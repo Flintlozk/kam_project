@@ -1,0 +1,33 @@
+<section class="grid gap-4">
+  <div class="grid gap-1" *ngIf="menuSettingStickyForm['controls']['sticky'].value as stickyValue">
+    <span class="font-light">Mode</span>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onSetSickyMode(EStickyMode.NONE)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle *ngIf="stickyValue === EStickyMode.NONE" cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">None</span>
+    </div>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onSetSickyMode(EStickyMode.AUTO)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle *ngIf="stickyValue === EStickyMode.AUTO" cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">Auto</span>
+    </div>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onSetSickyMode(EStickyMode.FIXED)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle *ngIf="stickyValue === EStickyMode.FIXED" cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">Fixed</span>
+    </div>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onSetSickyMode(EStickyMode.SMART)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle *ngIf="stickyValue === EStickyMode.SMART" cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">Smart</span>
+    </div>
+  </div>
+</section>

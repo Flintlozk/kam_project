@@ -1,0 +1,23 @@
+<div class="customer-info">
+  <reactor-room-heading [headingTitle]="'Customer Info' | translate" [Route]="'Customer / Customer Info' | translate"> </reactor-room-heading>
+</div>
+
+<mat-tab-group class="mat-tab-customer" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+  <mat-tab label="Information"
+    ><ng-container *matTabContent>
+      <reactor-room-customer-new [customerId]="customerId" [headerActive]="false" *ngIf="selectedIndex === INDEXES.information"></reactor-room-customer-new>
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="History">
+    <ng-container *matTabContent>
+      <reactor-room-customer-history [customerId]="customerId" [headerActive]="false" *ngIf="selectedIndex === INDEXES.history"></reactor-room-customer-history>
+    </ng-container>
+  </mat-tab>
+
+  <!-- <mat-tab label="Order">
+    <reactor-room-customer-order *matTabContent [customerId]="customerId"></reactor-room-customer-order>
+  </mat-tab>
+  <mat-tab label="Activity">
+    <reactor-room-customer-activity *matTabContent [customerId]="customerId"></reactor-room-customer-activity>
+  </mat-tab> -->
+</mat-tab-group>

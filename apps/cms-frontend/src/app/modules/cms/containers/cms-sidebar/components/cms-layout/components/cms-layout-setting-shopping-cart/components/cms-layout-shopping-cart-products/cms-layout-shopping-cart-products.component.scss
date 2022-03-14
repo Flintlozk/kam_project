@@ -1,0 +1,29 @@
+.layout-shopping-cart-product {
+  .advance-setting-border {
+    border-bottom: 1px solid #bcc4d6;
+    line-height: 2em;
+  }
+  .advanced-button {
+    img {
+      margin-right: 10px;
+    }
+    display: flex;
+    background-color: #f8f8fb;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    border-radius: 2px;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .show-info-grid {
+    grid-template-columns: auto auto auto 1fr;
+  }
+}
+
+.hide-setting {
+  color: white !important;
+  pointer-events: none;
+}

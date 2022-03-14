@@ -1,0 +1,43 @@
+<div
+  class="setting-logistic-flat-shipping"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <div>
+    Use Tracking No.
+    <div class="tracking-type-content">
+      <div *ngFor="let item of trackingTypes">
+        <div class="item" (click)="onUpdateTrackingType(item.trackingType)" [id]="'jt' + item.trackingType">
+          <img [src]="item.trackingType !== logisticTrackingType ? getUnactiveImageUrl(item.trackingType) : getActiveImageUrl(item.trackingType)" [alt]="item.title" />
+          <div>{{ item.title }}</div>
+        </div>
+      </div>
+    </div>
+    <form *ngIf="logisticTrackingType !== 'MANUAL'" [formGroup]="jAndTForm">
+      <div class="content">
+        <div class="description" *ngIf="!logistic?.option?.registered">
+          <div class="text">
+            <span>Please use <span class="blue">ShopID</span> and <span class="blue"> Shop name </span> we provided, Register at the J&T Express branch nearby.</span>
+            <span>Then click on <span class="blue">Verify</span> button.</span>
+          </div>
+          <div class="verify">
+            <button (click)="verifyJAndTExpress()">Verify</button>
+          </div>
+        </div>
+
+        <div class="item" [ngClass]="{ invalid: !jAndTForm.get('shopId').valid && (jAndTForm.get('shopId').touched || jAndTForm.get('shopId').valid || initForm) }">
+          <div class="label">Shop ID</div>
+          <input id="jt-shopid" type="text" formControlName="shopId" [readonly]="true" />
+          <mat-error *ngIf="!jAndTForm.get('shopId').valid" [innerHTML]="shopIdValidationMessage"> </mat-error>
+        </div>
+        <div class="item" [ngClass]="{ invalid: !jAndTForm.get('shopName').valid && (jAndTForm.get('shopName').touched || jAndTForm.get('shopName').valid || initForm) }">
+          <div class="label">Shop name</div>
+          <input id="jt-shopname" type="text" formControlName="shopName" [readonly]="true" />
+          <mat-error *ngIf="!jAndTForm.get('shopName').valid" [innerHTML]="shopNameValidationMessage"> </mat-error>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

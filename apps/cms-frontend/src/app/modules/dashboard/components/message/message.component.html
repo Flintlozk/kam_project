@@ -1,0 +1,55 @@
+<section class="message-container bg-white border border-gray-200 rounded-md">
+  <div class="flex justify-between p-4 text-lg shadow-md">
+    <div class="flex flex-row items-center justify-between gap-2">
+      <img src="../../../../../assets/images/message-logo.png" alt="logo image" class="h-10 w-10" />
+      <span class="font-medium">
+        Messages <br />
+        <span class="text-blue-600 font-light italic text-sm">Commerce</span>
+        <span class="ml-1 font-light text-sm italic">Package</span>
+      </span>
+    </div>
+    <button class="text-base font-light text-green-500 focus:outline-none" (click)="openTabOfMoreCommerce()">more</button>
+  </div>
+  <div class="grid grid-cols-6 overflow-hidden bg-white border border-gray-200 rounded-b-md h-44">
+    <!-- col 1 -->
+    <div class="col-span-1 relative flex flex-col justify-between px-6 text-white custom-background">
+      <img src="../../../../../assets/images/message-shade.png" alt="Shade Image" class="absolute" />
+      <div>
+        <div class="mr-3 pt-3 font-medium text-lg mt-1">Total</div>
+        <div class="mr-3 text-sm font-normal">Customers</div>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="25" viewBox="0 0 34 25" fill="none">
+        <circle cx="9.53241" cy="6.35468" r="6.35468" fill="white" />
+        <path d="M0 23.2757C0 18.0385 4.24558 13.793 9.48276 13.793C14.7199 13.793 18.9655 18.0385 18.9655 23.2757V24.9999H0V23.2757Z" fill="white" />
+        <circle cx="26.2922" cy="10.7765" r="4.74138" fill="white" />
+        <path d="M18.9648 23.7065C18.9648 19.6596 22.2455 16.3789 26.2924 16.3789C30.3393 16.3789 33.62 19.6596 33.62 23.7065V24.9996H18.9648V23.7065Z" fill="white" />
+      </svg>
+      <div class="mb-4 text-3xl font-normal text-right">{{ mainCardTotal }}</div>
+    </div>
+    <ng-container *ngFor="let message of messageData; let idx = index; trackBy: trackByIndex">
+      <div *ngIf="idx === 1" class="col-span-2 grid grid-row-2 pt-3 border border-gray-100">
+        <div class="row-span-1 flex self-center justify-between px-3">
+          <h3 class="text-lg font-medium mr-2.5">{{ message.title }}</h3>
+          <div class="ml-6 text-3xl font-normal">{{ message.value }}</div>
+        </div>
+        <div class="grid grid-cols-2">
+          <div class="border border-gray-100 px-3">
+            <div class="ml-2.5 mt-2.5 font-normal text-lg text-gray-400 text-left">{{ message.children[0].label }}</div>
+            <div class="text-3xl font-normal text-right mr-2.5">{{ message.children[0].value }}</div>
+          </div>
+          <div class="border border-gray-100 px-3">
+            <div class="ml-2.5 mt-2.5 text-lg font-normal text-gray-400 text-left">{{ message.children[1].label }}</div>
+            <div class="text-3xl font-normal text-right mr-2.5">{{ message.children[1].value }}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="idx !== 1" class="col-span-1 flex flex-col justify-between px-3 pt-3 border border-gray-100">
+        <div>
+          <div class="mr-3 text-lg font-medium mt-1">{{ message.title }}</div>
+          <div class="mr-3 text-sm text-gray-400 font-normal mt-1">{{ message.subTitle }}</div>
+        </div>
+        <div class="mb-4 text-3xl font-normal text-right">{{ message.value }}</div>
+      </div>
+    </ng-container>
+  </div>
+</section>

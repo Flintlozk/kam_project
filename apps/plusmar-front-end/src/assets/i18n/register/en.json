@@ -1,0 +1,17 @@
+{
+  "Verification": "Verification",
+  "Change phone": "< Change Phone no.",
+  "Get otp": "Get OTP",
+  "Thanks for register": "Thanks! your mobile number is verified.",
+  "Next": "Next",
+  "We will send OTP": "We will send you a OTP (One Time Password)  on your phone number",
+  "Please enter OPT": "You will get a OTP (One Time Password) via SMS to phone no.",
+  "Verify Success": "Success !",
+  "invalid otp": "In correct OTP",
+  "Send OTP failed": "Something went wrong when we try to send OTP, please recheck tyour phone number try again later. For more information please contact us at 02-029-1200. ",
+  "Resend OTP success": "OTP was resent successfully",
+  "Invalid token": "Something went wrong with this account, please logout and try login again later.  For more information please contact us at 02-029-1200.",
+  "Phone Input": "Your Phone Number",
+  "Invalid phoneNumber": "Invalid phone number. Please check your phone number and try again",
+  "Enter item": "Enter item..."
+}

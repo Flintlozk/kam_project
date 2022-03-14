@@ -1,0 +1,39 @@
+.setting-log {
+  &.cms-theme {
+    ::ng-deep {
+      .filter {
+        .select-option {
+          .mat-select-arrow {
+            background-image: url('../../../../assets/img/drop-down.svg') !important;
+          }
+        }
+      }
+    }
+  }
+  .select-option {
+    padding-bottom: 20px;
+    max-width: 208px;
+  }
+  .table-content {
+    .item {
+      display: flex;
+      align-items: center;
+      .round {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
+        &.add {
+          background: #54b1ff;
+        }
+        &.edit {
+          background: #ff8c10;
+        }
+        &.delete {
+          background: #eb6161;
+        }
+      }
+    }
+  }
+}

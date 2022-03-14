@@ -1,0 +1,12 @@
+<section class="grid gap-4" [formGroup]="themeSettingGeneralForm">
+  <div class="grid gap-1">
+    <div class="text-sm font-light">Theme Name</div>
+    <input type="text" formControlName="name" class="bg-itopplus-300 px-4 h-12 border border-white rounded" />
+  </div>
+  <div class="grid gap-1">
+    <div class="text-sm font-light">Thumbnail</div>
+    <div class="w-full h-52 rounded overflow-hidden">
+      <img [src]="themeSettingGeneralForm['controls']['thumbnail']['controls']['path'].value" class="h-full" alt="Theme Thumbnail" />
+    </div>
+  </div>
+</section>

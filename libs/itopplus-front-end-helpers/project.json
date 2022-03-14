@@ -1,0 +1,30 @@
+{
+  "projectType": "library",
+  "root": "libs/itopplus-front-end-helpers",
+  "sourceRoot": "libs/itopplus-front-end-helpers/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-front-end-helpers/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/itopplus-front-end-helpers/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "less"
+    },
+    "@ngneat/spectator:spectator-component": {
+      "jest": true
+    }
+  },
+  "tags": []
+}

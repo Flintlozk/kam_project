@@ -1,0 +1,13 @@
+@layer components {
+  ::ng-deep table {
+    td,
+    th {
+      @apply px-4 py-2;
+    }
+    tr:nth-child(even) {
+      td {
+        @apply bg-gray-100;
+      }
+    }
+  }
+}

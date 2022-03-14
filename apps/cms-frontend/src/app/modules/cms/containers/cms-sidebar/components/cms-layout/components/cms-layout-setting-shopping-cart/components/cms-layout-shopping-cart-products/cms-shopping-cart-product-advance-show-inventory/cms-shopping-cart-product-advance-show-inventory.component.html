@@ -1,0 +1,62 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content">
+    <mat-tab-group>
+      <mat-tab label="Setting">
+        <div class="grid gap-4 mt-5" [formGroup]="productInvSoldSettingFormGroup">
+          <section>
+            <div class="layout-label">Display</div>
+            <p><mat-checkbox formControlName="inventory">Rating</mat-checkbox></p>
+            <p><mat-checkbox formControlName="sold">Reviews amount</mat-checkbox></p>
+          </section>
+
+          <section class="grid gap-1">
+            <div class="flex justify-between">
+              <div class="text-sm layout-label flex items-center">Style</div>
+              <img class="cursor-pointer" (click)="onScrollAnimation()" src="assets/cms/icon/arrow-right.svg" alt="arrow-right" />
+            </div>
+            <div class="flex overflow-x-auto space-x-8" #animationSlider>
+              <ng-container *ngFor="let skuStyle of productSoldStyleList; let index = index">
+                <img class="p-2 cursor-pointer" (click)="onActiveAnimationStyle(index)" [ngClass]="{ hidden: skuStyle.selected }" [src]="skuStyle.imgURL" alt="style" />
+                <img class="p-2" [ngClass]="{ hidden: !skuStyle.selected }" (click)="onActiveAnimationStyle(index)" [src]="skuStyle.activeImageURL" alt="style-active" />
+              </ng-container>
+            </div>
+          </section>
+
+          <cms-next-cms-element-position [isRemoveJustify]="true"></cms-next-cms-element-position>
+
+          <section>
+            <p><mat-checkbox formControlName="applyAll">Apply all</mat-checkbox></p>
+          </section>
+        </div>
+      </mat-tab>
+      <mat-tab label="Custom">
+        <section class="mt-5">
+          <div [formGroup]="productInventoryCustomFormGroup">
+            <div class="grid w-10/12 gap-2">
+              <div class="flex items-center">
+                <div class="text-sm font-light">Color</div>
+              </div>
+              <div class="flex items-center">
+                <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+                  <input type="color" formControlName="color1" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                  <span class="pl-2">{{ productInventoryCustomFormGroup['controls']['color1'].value }}</span>
+                </div>
+                <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity1" />
+              </div>
+
+              <div class="flex items-center">
+                <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+                  <input type="color" formControlName="color2" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                  <span class="pl-2">{{ productInventoryCustomFormGroup['controls']['color2'].value }}</span>
+                </div>
+                <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity2" />
+              </div>
+            </div>
+          </div>
+
+          <cms-next-cms-layout-text></cms-next-cms-layout-text>
+        </section>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
+</cms-next-cms-popover-layout>

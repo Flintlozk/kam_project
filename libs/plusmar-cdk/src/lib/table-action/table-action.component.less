@@ -1,0 +1,107 @@
+@main-color: #54b1ff;
+@second-color: #60e8ff;
+@third-color: #e2f2ff;
+@text-light-color: #8f9295;
+@text-darker-color: #484b52;
+@text-dark-color: #000000;
+@border-color: #dddfea;
+@reject-color: #fde8df;
+@error-color: #ef5350;
+@disabled-color: #999999;
+@font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+@font-size: 14px;
+@content-bg: #f2f5f9;
+@transition: ~'all ease-in-out 0.3s';
+@default-border: ~'1px solid';
+@desktopmax: ~'screen and (max-width: 1200px)';
+@tabletmax: ~'screen and (max-width: 992px)';
+@tabletmin: ~'screen and (min-width: 992px)';
+@mobilemax: ~'screen and (max-width: 768px)';
+@portrait: ~'screen and (orientation: portrait)';
+@landscape: ~'screen and (orientation: landscape)';
+
+.tooltip {
+  position: relative;
+
+  .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    background-color: @main-color;
+    color: white;
+    text-align: center;
+    border-radius: 15px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 0%;
+    margin-left: -50%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: @main-color transparent transparent transparent;
+    }
+  }
+
+  &:hover .tooltiptext {
+    visibility: visible;
+  }
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  .tooltip {
+    .tooltip();
+    .tooltiptext {
+      left: -50%;
+    }
+    img {
+      width: 20px;
+    }
+    cursor: pointer;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .more {
+    cursor: pointer;
+    position: relative;
+    &.active {
+      button {
+        background: #54b1ff;
+        svg {
+          color: white;
+        }
+      }
+    }
+    button {
+      border: none;
+      border-radius: 100%;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      background: #f3f4fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:focus {
+        outline: none;
+      }
+      svg {
+        color: #54b1ff;
+      }
+    }
+  }
+}
+
+.mat-menu-panel .mat-menu-content:not(:empty) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

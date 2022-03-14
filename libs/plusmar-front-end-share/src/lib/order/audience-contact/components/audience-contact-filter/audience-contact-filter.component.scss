@@ -1,0 +1,212 @@
+@import 'base';
+@import 'buttons';
+
+.collapsed {
+  transform: rotate(180deg);
+}
+
+input {
+  width: 100%;
+  padding: 0px 15px;
+  height: 35px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-tools {
+  display: flex;
+  align-items: center;
+  .more {
+    position: relative;
+
+    .amount {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      height: 20px;
+      width: 20px;
+      background: #f00;
+      margin: auto;
+      display: flex;
+      border-radius: 50%;
+      color: #fff;
+
+      .number {
+        margin: auto;
+      }
+    }
+    margin: 6px 0px 6px 6px;
+    position: relative;
+    &.active {
+      button {
+        background: #54b1ff;
+        svg {
+          color: white;
+        }
+      }
+    }
+
+    &.off-time {
+      button {
+        background: #ffbf00;
+        // animation: 1.5s ripple ease infinite;
+      }
+
+      @keyframes ripple {
+        0% {
+          background-color: #ffbf00;
+        }
+
+        30% {
+          background-color: #fff0c4;
+        }
+
+        60% {
+          background-color: #ffbf00;
+        }
+
+        100% {
+          background-color: #ffbf00;
+        }
+      }
+    }
+    button {
+      border: none;
+      border-radius: 100%;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:focus {
+        outline: none;
+      }
+      svg {
+        color: #54b1ff;
+      }
+      img {
+        max-width: 28px;
+      }
+    }
+  }
+  .more-menu {
+    border-top: none;
+    border-radius: 8px;
+  }
+  .filter-menu {
+    position: absolute;
+    display: flex;
+    top: 40px;
+    right: 12px;
+    max-width: 600px;
+    min-width: 200px;
+    padding: 10px;
+
+    .filter-by-status {
+      min-width: 110px;
+      color: #000;
+
+      .filter-title {
+        display: flex;
+        justify-content: space-between;
+
+        font-size: 12px;
+        font-weight: 500;
+        color: #9d9fac;
+      }
+
+      .filter-customer-status {
+        .custom-checkbox {
+          margin: 6px 0;
+          .input-checkbox {
+            height: 20px;
+          }
+          .title {
+            display: flex;
+            font-size: 14px;
+            margin: 0 6px;
+            align-items: center;
+            white-space: nowrap;
+
+            .tag-color {
+              width: 35px;
+              height: 8px;
+              border-radius: 6px;
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+    }
+
+    .filter-by-tag {
+      min-width: 150px;
+      .filter-title {
+        display: flex;
+        justify-content: space-between;
+
+        font-size: 12px;
+        font-weight: 500;
+        color: #9d9fac;
+
+        button {
+          height: unset;
+        }
+      }
+
+      .filter-customer-tag {
+        .checkbox-group {
+          padding-left: 6px;
+          max-height: calc(100vh - 360px);
+          overflow: auto;
+          overflow-x: hidden;
+          @extend .custom-scroll-bar;
+
+          .seperator {
+            height: 1px;
+            width: 100%;
+            background: #dddfea;
+            margin: 4px 0;
+          }
+          .tag-not-found {
+            color: #9d9fac;
+            margin: 8px auto;
+          }
+          .custom-checkbox {
+            margin: 6px 0;
+            .input-checkbox {
+              height: 20px;
+            }
+            .title {
+              display: flex;
+              font-size: 14px;
+              margin: 0 6px;
+              align-items: center;
+              white-space: nowrap;
+
+              .tag-color {
+                width: 35px;
+                height: 8px;
+                border-radius: 6px;
+                margin-right: 4px;
+              }
+            }
+          }
+        }
+
+        .create-tag {
+          padding-left: 10px;
+          margin-top: 12px;
+          color: $main-color;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

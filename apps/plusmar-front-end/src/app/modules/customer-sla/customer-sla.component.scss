@@ -1,0 +1,324 @@
+@import 'base';
+
+.heading-content {
+  display: flex;
+  align-items: center;
+
+  .zoom {
+    font-size: 14px;
+
+    ::ng-deep.mat-accent .mat-slider-track-fill {
+      background-color: $main-color !important;
+    }
+
+    ::ng-deep.mat-slider-thumb-label {
+      background-color: $main-color !important;
+    }
+
+    ::ng-deep.mat-slider-thumb {
+      background-color: $main-color !important;
+    }
+  }
+
+  .select-option {
+    min-width: 190px;
+  }
+
+  .menu-toggle {
+    // position: absolute;
+    // right: 0px;
+    // top: 55px;
+    // border-top: 2px solid $main-color;
+    // background: white;
+    // border-bottom-left-radius: 8px;
+    // border-bottom-right-radius: 8px;
+    // overflow: hidden;
+    // box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+    // min-width: 200px;
+    // z-index: 99;
+
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 7px 15px;
+      transition: $transition;
+
+      img {
+        width: 18px;
+        padding-right: 10px;
+      }
+
+      .menu-toggle {
+        position: absolute;
+        right: 0px;
+        top: 55px;
+        border-top: 2px solid $main-color;
+        background: white;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+        min-width: 200px;
+        z-index: 99;
+
+        .item {
+          display: flex;
+          align-items: center;
+          padding: 7px 15px;
+          transition: $transition;
+
+          img {
+            width: 18px;
+            padding-right: 10px;
+          }
+
+          &:hover {
+            background: #e2f1ff;
+          }
+
+          &.reject {
+            color: #dc493d;
+          }
+        }
+      }
+    }
+  }
+}
+.customer-sla-container {
+  display: flex;
+  flex-flow: column;
+
+  .filter-tools {
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .sla-filter {
+      display: flex;
+
+      .type {
+        margin: 0 8px;
+        min-width: 64px;
+        padding-right: 5px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        cursor: pointer;
+
+        &.all {
+          color: #353434;
+
+          &.active {
+            border-bottom: 2px solid #353434;
+          }
+        }
+
+        &.almost {
+          color: #353434;
+
+          &.active {
+            border-bottom: 2px solid #353434;
+          }
+        }
+
+        &.over {
+          color: #dc493d;
+
+          &.active {
+            border-bottom: 2px solid #dc493d;
+          }
+        }
+      }
+    }
+  }
+  reactor-room-custom-table {
+    margin: 10px 0;
+  }
+  .tag-lists {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .tag-content {
+      cursor: pointer;
+      display: flex;
+      flex-flow: column;
+      height: 90px;
+      min-width: 145px;
+      background: #fff;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      margin: 5px;
+      padding: 10px;
+      box-shadow: 0 0px 3px 0 rgba(32, 33, 36, 0.1);
+
+      &:hover {
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      &.active {
+        box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
+      }
+      .color {
+        height: 8px;
+        border-radius: 10px;
+
+        &.CODE_62BD4F {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #81bd75 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #62bd4f !important;
+          }
+        }
+        &.CODE_FDCF2C {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #fcda5d !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #fdcf2c !important;
+          }
+        }
+        &.CODE_FF7821 {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #ff9854 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #ff7821 !important;
+          }
+        }
+        &.CODE_FF5B52 {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #ff8b85 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #ff5b52 !important;
+          }
+        }
+        &.CODE_E17FDD {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #e0abdf !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #e17fdd !important;
+          }
+        }
+        &.CODE_BF3F8C {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #bf78a3 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #bf3f8c !important;
+          }
+        }
+        &.CODE_53B1FF {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #87c9ff !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #53b1ff !important;
+          }
+        }
+        &.CODE_544FE3 {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #9694e3 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #544fe3 !important;
+          }
+        }
+        &.CODE_80A6BD {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #a6b4bd !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #80a6bd !important;
+          }
+        }
+        &.CODE_4F7185 {
+          ::ng-deep .mat-progress-bar-buffer {
+            background-color: #697a85 !important;
+          }
+          ::ng-deep .mat-progress-bar-fill::after {
+            background-color: #4f7185 !important;
+          }
+        }
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        .tag-name {
+          display: flex;
+          margin-right: 6px;
+          font-size: 16px;
+
+          .profile {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+          }
+        }
+        .total {
+          margin-left: 6px;
+          text-align: right;
+          font-size: 14px;
+          .label {
+            font-size: 8px;
+          }
+        }
+      }
+
+      .amount {
+        display: flex;
+        justify-content: space-between;
+
+        .before-reach-sla {
+          margin-right: 6px;
+          display: flex;
+          flex-flow: column;
+
+          .number {
+            font-size: 28px;
+
+            &.isOver {
+              color: #dc9f3d;
+            }
+          }
+
+          .label {
+            // margin-top: 1.5px;
+            font-size: 10px;
+
+            &.isOver {
+              color: #dc9f3d;
+            }
+          }
+        }
+        .over-sla {
+          text-align: right;
+          margin-left: 6px;
+          display: flex;
+          flex-flow: column;
+
+          .number {
+            font-size: 28px;
+
+            &.isOver {
+              color: #dc493d;
+            }
+          }
+          .label {
+            font-size: 10px;
+
+            &.isOver {
+              color: #dc493d;
+            }
+          }
+        }
+      }
+    }
+  }
+}

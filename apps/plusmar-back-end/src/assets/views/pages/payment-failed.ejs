@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <%- include ("../partials/head") %>
+    <script>
+        <%if (payload) { %>
+            var payloadData = <%-JSON.stringify(payload); %>
+        <% } %>
+    </script>
+</head>
+
+<body>
+ <style>
+        * {
+            background:#FFF;
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+        }
+
+        body {
+            margin: 15px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+        .wrapper {
+            border: 1px solid rgba(227, 230, 234, 1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .wrapper,
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper .title {
+            font-size: 16px;
+            color: #565E68;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            border: none;
+            padding: 0;
+            text-align:center;
+        }
+        .wrapper-success {
+            background-color: #fff;
+            padding: 50px 15px 65px 15px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;    
+        }
+
+        .powered{
+            margin: 14px 0 ;
+            font-size:11pt;
+        }
+    </style>
+        <div class="wrapper-success" >
+            <%- include ("./payment/failed.ejs") %>
+        </div>
+        <div class="powered">Powered by <a href="http://more-commerce.com/">More Commerce</a></div>
+        <%- include ("../partials/footer",{valuepsid:''}) %>
+</body>
+
+</html>

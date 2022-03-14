@@ -1,0 +1,7 @@
+.btn-primary {
+  @apply bg-light-blue-500 hover:bg-light-blue-450 active:bg-light-blue-600 text-white interactive rounded-2xl px-6 py-3 relative -top-2.5;
+}
+
+.btn-secondary {
+  @apply bg-white hover:bg-light-blue-450 active:bg-light-blue-600 text-light-blue-500 hover:text-white text-white interactive rounded-2xl px-6 py-3 relative -top-2.5;
+}

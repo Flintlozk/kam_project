@@ -1,0 +1,217 @@
+@import 'base';
+@import 'buttons';
+@import 'custom-checkbox';
+@import 'utils';
+
+$text-color: #484b52;
+
+input[type='text'],
+textarea {
+  border: $default-border;
+  padding: 0px 4px;
+  height: 35px;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 18px;
+}
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+  margin-top: 6px;
+  .btn-primary {
+    @extend .btn;
+    background: $main-color;
+    color: white;
+    border: 0px;
+    &:hover {
+      background: darken($main-color, 20%);
+    }
+    &.small {
+      @include small();
+    }
+  }
+
+  .btn-secondary {
+    @extend .btn;
+    padding-right: 5x;
+    background: white;
+    border: 1px solid $main-color;
+    color: $main-color;
+
+    &.transparent {
+      background: transparent;
+    }
+    &.small {
+      @include small();
+    }
+    &:hover {
+      border-color: darken($main-color, 20%);
+      color: darken($main-color, 20%);
+    }
+  }
+}
+
+.private-container {
+  // &.collapsecontent {
+  //   width: calc(100% - 40px) !important;
+  //   height: calc(100% - 182px) !important;
+  // }
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+  // min-height: calc(100vh - 402px);
+  .label {
+    font-size: 12px;
+  }
+  input {
+    // box-shadow: none;
+    border: 1px solid #dddfea;
+    // border-radius: 8px;
+    // padding: 0px;
+    // width: 100%;
+    // height: 35px;
+    // outline: none;
+  }
+
+  .timepicker {
+    border: 1px solid #dddfea;
+    border-radius: 8px;
+
+    input[type='text'],
+    input[type='time'] {
+      border: none;
+      border-radius: 10px;
+
+      &:focus {
+        border: none !important;
+        outline: none;
+      }
+    }
+  }
+
+  ::ng-deep .mat-form-field {
+    width: 100%;
+    min-width: 100px;
+    border: $default-border;
+    border-radius: 8px;
+    height: 35px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    background: white;
+
+    .mat-form-field-wrapper {
+      padding: 0px 10px;
+      width: 100%;
+
+      .mat-form-field-flex {
+        align-items: center;
+
+        .mat-form-field-infix {
+          padding: 0px;
+          width: auto;
+          border: 0px;
+
+          .mat-select-value {
+            // padding: 0px 15px;
+            color: $text-color;
+            font-family: $font-family;
+            font-size: 14px;
+            font-weight: 300;
+          }
+
+          input[type='text'] {
+            border: none;
+            padding: 0;
+
+            &:focus {
+              border: none !important;
+            }
+          }
+        }
+
+        .mat-form-field-label-wrapper {
+          mat-label {
+            color: $text-color;
+          }
+
+          .mat-placeholder-required {
+            display: none;
+          }
+        }
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+  }
+
+  .date-pickers .date-pickup.custom .mat-form-field-wrapper .datepicker-icon {
+    fill: #54b1ff;
+    transition: all ease-in-out 0.3s;
+  }
+
+  textarea.mat-input-element {
+    border: 1px solid #dddfea;
+    min-height: 35px;
+    padding: 6px 3px;
+  }
+
+  .tags-list {
+    display: flex;
+    flex-flow: column;
+    // padding: 8px;
+    // border: 1px solid #dddfea;
+    // border-radius: 7px;
+
+    margin: 10px;
+    border-bottom: 1px solid #dddfea;
+    max-height: 300px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    @include custom-scroll-bar();
+
+    .list {
+      display: flex;
+      min-height: 38px;
+      align-items: center;
+      border: 1px solid #dddfea;
+      cursor: pointer;
+      padding: 4px 10px;
+
+      @media #{$mobilemax} {
+        padding: 10px;
+      }
+
+      .user {
+        margin-left: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        img {
+          height: 38px;
+          width: 38px;
+          // border-radius: 50%;
+        }
+
+        .text {
+          margin-left: 4px;
+        }
+      }
+      .checkbox-group {
+        padding-left: 6px;
+        .custom-checkbox {
+          margin: 6px 0;
+          .input-checkbox {
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+}

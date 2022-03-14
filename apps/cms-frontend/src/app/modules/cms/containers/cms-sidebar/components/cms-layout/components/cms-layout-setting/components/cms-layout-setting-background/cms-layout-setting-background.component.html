@@ -1,0 +1,13 @@
+<section [formGroup]="layoutSettingBackgroundForm">
+  <mat-tab-group class="custom-tab" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab label="Color">
+      <cms-next-cms-layout-setting-background-color></cms-next-cms-layout-setting-background-color>
+    </mat-tab>
+    <mat-tab label="Image">
+      <cms-next-cms-layout-setting-background-image></cms-next-cms-layout-setting-background-image>
+    </mat-tab>
+    <mat-tab label="Video">
+      <cms-next-cms-layout-setting-background-video></cms-next-cms-layout-setting-background-video>
+    </mat-tab>
+  </mat-tab-group>
+</section>

@@ -1,0 +1,61 @@
+{
+  "root": "apps/cms-backend",
+  "sourceRoot": "apps/cms-backend/src",
+  "projectType": "application",
+  "prefix": "cms-backend",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/cms-backend",
+        "main": "apps/cms-backend/src/main.ts",
+        "tsConfig": "apps/cms-backend/tsconfig.app.json",
+        "assets": [
+          "apps/cms-backend/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./libs/shared-assets/generator/",
+            "output": "./assets"
+          }
+        ],
+        "maxWorkers": 1,
+        "memoryLimit": 1024
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/cms-backend/src/environments/environment.ts",
+              "with": "apps/cms-backend/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "cms-backend:build",
+        "port": 9238
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/cms-backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/cms-backend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

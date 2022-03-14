@@ -1,0 +1,15 @@
+@import 'base';
+
+.product-catalog {
+  display: flex;
+  margin: 5px;
+  .catalog {
+    width: 220px;
+    border: $default-border;
+    height: 250px;
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}

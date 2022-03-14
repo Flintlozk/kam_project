@@ -1,0 +1,66 @@
+.right-area {
+  margin: 30px 40px;
+
+  .editor-area {
+    width: 50vw;
+    height: 78vh;
+    background: #ffffff;
+    border: 1px solid #f1f2f6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 24px;
+    .editor {
+      height: 100%;
+    }
+  }
+  .theme-assets {
+    width: 30%;
+    margin-left: 15px;
+    background: #ffffff;
+    border: 1px solid #f1f2f6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: min-content;
+    padding: 24px;
+  }
+  .title-text {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    color: #797f8c;
+    .line {
+      position: absolute;
+      bottom: 0;
+      width: 25px;
+      border-bottom: 2px solid #2ec639;
+    }
+  }
+}
+
+.file {
+  border-bottom: 1px solid #bcc4d6;
+  padding: 0 20px 5px 20px;
+}
+.click {
+  cursor: pointer;
+}
+.click:hover {
+  background: #003366;
+  color: #ffffff;
+}
+.ident {
+  padding-left: 10px;
+}
+.display-image {
+  max-height: 800px;
+  max-width: 700px;
+}
+.display-none {
+  display: none;
+}
+.responsive-iframe {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

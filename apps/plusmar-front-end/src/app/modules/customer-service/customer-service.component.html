@@ -1,0 +1,10 @@
+<reactor-room-heading [headingTitle]="'Customer Service'" [Route]="'Customer Service'">
+  <div class="heading-content"></div>
+</reactor-room-heading>
+<div class="customer-service">
+  <div class="steps">
+    <reactor-room-step *ngFor="let item of steps" [Step]="item" [routerLink]="item.route" routerLinkActive #route="routerLinkActive" [RouteStatus]="route.isActive">
+    </reactor-room-step>
+  </div>
+  <router-outlet></router-outlet>
+</div>

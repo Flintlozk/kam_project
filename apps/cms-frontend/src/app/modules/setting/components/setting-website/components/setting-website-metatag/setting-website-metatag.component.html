@@ -1,0 +1,33 @@
+<section class="bg-white rounded shadow-md">
+  <div class="p-6" [formGroup]="metatagSettingForm">
+    <small class="text-red-500"><i>***Set Javascript, META, after Body, please be careful when entering information in each section.</i></small>
+    <div class="bg-gray-100 my-4 rounded p-8">
+      <p class="text-gray-500">1. META TAG (HEAD , GTM 1st script, Google Analytics)</p>
+      <label for="">
+        <!-- <input formControlName="meta_tag" type="text" class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400" /> -->
+        <ngx-monaco-editor (keyup)="onUserTypeMetaTag()" formControlName="meta_tag" [options]="editorOptionsHTML"></ngx-monaco-editor>
+        <!-- <ngx-monaco-editor formControlName="meta_tag"></ngx-monaco-editor> -->
+      </label>
+    </div>
+    <div class="bg-gray-100 mb-4 rounded p-8">
+      <p class="text-gray-500">2. BODY TAG (Remarketing Tag, GTM 2nd script)</p>
+      <label for="">
+        <ngx-monaco-editor (keyup)="onUserTypeBodyTag()" formControlName="body_tag" [options]="editorOptionsHTML"></ngx-monaco-editor>
+        <!-- <input formControlName="body_tag" type="text" class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400" /> -->
+        <!-- <ngx-monaco-editor formControlName="body_tag"></ngx-monaco-editor> -->
+      </label>
+    </div>
+    <div class="bg-red-100 mb-4 ml-4 rounded p-8">
+      <p>
+        <small class="text-red-500"
+          >3. Setting Javascript in this section, be careful if entering the wrong command will make your website unable to display. No script tag is required.</small
+        >
+      </p>
+      <label for="">
+        <!-- <input formControlName="javascript" type="text" class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400" /> -->
+        <ngx-monaco-editor (keyup)="onUserTypeJavascript()" formControlName="javascript" [options]="editorOptionsJS"></ngx-monaco-editor>
+        <!-- <ngx-monaco-editor formControlName="javascript"></ngx-monaco-editor> -->
+      </label>
+    </div>
+  </div>
+</section>

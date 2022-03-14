@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <%- include ("../partials/head") %>
+    <script>
+        function onCloseSuccessMessage() {
+            MessengerExtensions.requestCloseBrowser(
+                function () {
+                // close
+                },
+                function err(err) {
+                    close();
+                },
+            );
+        }
+    </script>
+</head>
+
+<body>
+ <style>
+        * {
+  box-sizing: border-box;
+  font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+}
+
+svg {
+  fill: currentColor;
+}
+
+body {
+  background: #fff;
+  max-width: 590px;
+  margin: 15px auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+.wrapper-success {
+  background-color: #fff;
+  padding: 50px 15px 65px 15px;
+}
+
+.wrapper-success-title {
+  font-size: 24px;
+  color: #565e68;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.omise-group  {
+  height: auto;
+  flex-flow: column;
+  border-radius: 5px;
+  width: 100%;
+  display: block;
+  padding: 6px;
+  border-bottom: 1px solid rgba(242, 241, 243, 1);
+  align-items: center;
+}
+
+.omise-button {
+  background: #1a53f0 !important;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  height: 40px;
+  width: 100%;
+  margin: auto auto 5px auto;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.omise-button span {
+  font-size: 16px;
+  background: none;
+}
+.title {
+  font-size: 16px;
+  color: #565e68;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;
+}
+
+.toggle {
+  right: 0 !important;
+  z-index: 1002;
+}
+
+.block {
+  position: fixed !important;
+  z-index: 1002;
+  width: 100% !important;
+  top: 0px;
+  height: 100% !important;
+  left: 0px;
+  background: rgba(77, 77, 77, 0.4) !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.powered{
+  margin: 14px 0 ;
+  font-size:11pt;
+}
+
+    </style>
+
+        <!-- <div class="wrapper">
+            <div class="wrapper title">Thank you for your payment.</div>
+        </div> -->
+
+        <div id="payment-process" class="wrapper-success">
+            <div class="content" >
+                <div class="wrapper-success-title">อยู่ระหวางการชำระเงิน</div>
+                <div  class="omise-button" onClick="onCloseSuccessMessage()">
+                    <span>ปิดหน้าต่าง</span>
+                    <!-- <span>Close</span> -->
+                  </div>
+
+                  <span class="powered">Powered by <a href="http://more-commerce.com/">More Commerce</a></span>
+                  <%- include ("../partials/footer",{valuepsid:''}) %>
+            </div>
+        </div>
+
+</body>
+ 
+</html>

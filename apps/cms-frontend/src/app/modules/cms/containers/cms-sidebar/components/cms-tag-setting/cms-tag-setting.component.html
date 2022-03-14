@@ -1,0 +1,21 @@
+<div class="grid gap-1">
+  <div class="font-light text-sm">Tags</div>
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+        {{ tag }}
+        <button matChipRemove>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.719971 0.720001L10.8 10.8M10.8 0.720001L0.719971 10.8" stroke="#000000" stroke-linecap="round" />
+          </svg>
+        </button>
+      </mat-chip>
+      <input #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" />
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filterTags$ | async" [value]="tag">
+        {{ tag }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

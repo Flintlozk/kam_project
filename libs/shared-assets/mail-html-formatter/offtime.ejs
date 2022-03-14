@@ -1,0 +1,66 @@
+<div class="mc-message-body" style="background: #f2f5f9; padding: 20px">
+  <div class="mc-message-wrapper" style="flex-flow: column; background: #fff; max-width: 640px; margin: auto">
+    <div style="padding: 10px">
+      <!-- <div style="display: flex; margin-top: 20px"> -->
+      <!-- <img style="margin: auto; height: 50px" src="https://app.more-commerce.com/assets/img/logo.svg" /> // LINK NOT WORKING Though google Proxy-->
+      <!-- </div> -->
+      <div>
+        <h3>Hi, You may missed messages in <%=shopDetail.shopName%></h3>
+      </div>
+    </div>
+
+    <% Object.keys(messages).map((key) => { var currentAudience = messages[key]; var customerDetail = currentAudience[0].customerDetail%>
+    <div class="container" style="display: flex; max-width: 640px; padding: 10px; border-bottom: 1px solid #dddfea">
+      <div style="width: 40px; height: 40px; border-radius: 50px">
+        <img style="width: 40px; height: 40px; border-radius: 50px" src="<%=customerDetail.profilePic%>" />
+      </div>
+
+      <div class="message-container" style="margin-left: 4px">
+        <div class="detail" style="display: flex">
+          <div class="name">
+            <% if(customerDetail.platform === 'LINEOA' ) {%>
+            <div class="name">
+              <b>
+                <%=customerDetail.firstName + ' ' + (customerDetail.lastName !== null ? customerDetail.lastName : '') + (customerDetail.aliases !== null ? customerDetail.aliases :
+                '')%>
+              </b>
+              <i>(Line OA)</i>
+              <a style="color: #53b1ff" href="<%=currentAudience[0].link%>">show</a>
+            </div>
+            <% } else if (customerDetail.platform === 'FACEBOOKFANPAGE'){%>
+            <div class="name">
+              <b><%=customerDetail.name%></b> <i>(Facebook)</i>
+              <a style="color: #53b1ff" href="<%=currentAudience[0].link%>">show</a>
+            </div>
+            <% } %>
+          </div>
+          <!-- <div class="platform">Facebook</div> -->
+        </div>
+
+        <div class="messages" style="border-radius:6px;padding:12px;<% if(customerDetail.platform === 'LINEOA' ) {%> background:#739ec6; <% }%>">
+          <% for (let audienceIndex = 0; audienceIndex < currentAudience.length; audienceIndex++) { let message = currentAudience[audienceIndex];%>
+          <div class="message" style="display: flex; align-items: flex-end; min-width: 420px; border-radius: 4px; margin: 4px 0px">
+            <div
+              class="text"
+              style="padding: 6px 8px; background: #f2f5f9;<% if(customerDetail.platform === 'LINEOA' ) {%> background:#7ef26b; <% }%> border-radius: 8px; word-break: break-all"
+            >
+              <%=message.text%>
+            </div>
+
+            <% let date = new Date(message.timestamp);let formatDate = date.getDate() + '-' + date.getMonth() + '-' + (Number(date.getFullYear())) + ' ' + ("0" +
+            date.getHours()).slice(-2) + ':' + ("0" + date.getMinutes()).slice(-2) +':'+ ("0" + date.getSeconds()).slice(-2)%>
+            <div
+              class="time"
+              style="font-size: 10pt; color: #8f9295; margin-left: 4px; margin-top: 10px; white-space: nowrap;<% if(customerDetail.platform === 'LINEOA' ) {%> color:#FFF; <% }%>"
+            >
+              <%=formatDate%>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <div style="text-align: right">Sent by <a href="www.more-commerce.com">More-Commerce</a></div>
+</div>

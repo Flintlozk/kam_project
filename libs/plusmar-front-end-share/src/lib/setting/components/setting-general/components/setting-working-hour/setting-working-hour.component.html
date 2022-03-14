@@ -1,0 +1,271 @@
+<div class="setting-working-hour-container">
+  <mat-accordion>
+    <mat-expansion-panel style="border-radius: 15px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="card-content">
+            <div class="content">
+              <div class="icon">
+                <img src="../../../../../../../assets/img/setting/workhour.png" />
+              </div>
+              <div class="ml-15">{{ 'Working hour' | translate }}</div>
+            </div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div class="toggle-contianer">
+            <label class="mode-toggle">
+              <input type="checkbox" [disabled]="!isAllowed" [(ngModel)]="isEnabled" (change)="toggleFeature()" />
+              <span class="slider round" [ngClass]="'active'"> </span>
+            </label>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="setting-working-hour-content">
+        <div *ngIf="isAllowed" class="edit-message">
+          <div class="text-edit-message"></div>
+          <div class="save-button">
+            <button type="submit" class="btn-save" [ngClass]="{ disabled: workingForm.pristine || !workingForm.valid }" (click)="saveSetting()">
+              <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+                  fill="white"
+                  [ngStyle]="{ fill: workingForm.pristine || !workingForm.valid ? '#d7d8df' : '#FFF' }"
+                />
+              </svg>
+              <span>{{ 'Save' | translate }}</span>
+            </button>
+          </div>
+        </div>
+
+        <ng-container [formGroup]="workingForm">
+          <ng-container formGroupName="offTime">
+            <div class="off-time">
+              <div class="toggle">
+                <div class="toggler">
+                  <span class="title">{{ 'Off time' | translate }}</span>
+                  <label class="mode-toggle">
+                    <input type="checkbox" formControlName="isActive" />
+                    <span class="slider round" [ngClass]="'active'"> </span>
+                  </label>
+                </div>
+                <div class="default" (click)="getDefaultOffTimeMessage()">
+                  <div class="icon">
+                    <svg _ngcontent-ljd-c455="" width="18" height="19" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        _ngcontent-ljd-c455=""
+                        d="M5.582 3.08249C8.3331 1.95623 11.5618 3.008 13.0895 5.65408C14.7563 8.54108 13.7671 12.2327 10.8801 13.8995C7.99312 15.5663 4.30152 14.5771 2.63471 11.6901C1.66766 10.0151 1.59422 8.06971 2.26796 6.40424C2.36961 6.15297 2.24831 5.86687 1.99704 5.76522C1.74576 5.66357 1.45966 5.78487 1.35801 6.03614C0.575792 7.96979 0.66004 10.2331 1.78464 12.1809C3.7225 15.5374 8.01443 16.6874 11.3709 14.7496C14.7274 12.8117 15.8774 8.51977 13.9395 5.16329C12.1404 2.04708 8.31218 0.832747 5.08729 2.22563L4.20123 0.690918L3.14999 3.85615L6.41678 4.52837L5.582 3.08249Z"
+                        fill="#53B1FF"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span>
+                    {{ 'Default' | translate }}
+                  </span>
+                </div>
+              </div>
+              <div class="input-text">
+                <div>{{ 'Send response message to the customer' | translate }}</div>
+                <textarea
+                  [ngStyle]="{ 'border-color': (getOffTimeControl.touched || getOffTimeControl.dirty) && getOffTimeControl.invalid ? '#ea6161' : '' }"
+                  formControlName="message"
+                  [rows]="5"
+                ></textarea>
+                <mat-error *ngIf="(getOffTimeControl.touched || getOffTimeControl.dirty) && getOffTimeControl.invalid">Message is required</mat-error>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container formGroupName="notifyList">
+            <div class="notify-email">
+              <div class="toggle">
+                <div class="toggler">
+                  <span class="title">{{ 'Alert' | translate }}</span>
+                  <label class="mode-toggle">
+                    <input type="checkbox" formControlName="isActive" />
+                    <span class="slider round" [ngClass]="'active'"> </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="email-list-container">
+                <div class="text-label">{{ 'Send notify to determined email' | translate }}</div>
+                <reactor-room-working-hour-notify-emails
+                  [emailList]="workingForm.value['notifyList'].emails"
+                  (selectEmail)="addNotifyListEmail($event)"
+                ></reactor-room-working-hour-notify-emails>
+                <div class="email-list">
+                  <ng-container formArrayName="emails" *ngFor="let emails of workingForm.value['notifyList'].emails; let formIndex = index; let isFirst = first; let isLast = last">
+                    <div class="email">
+                      {{ emails.email }}
+
+                      <div class="remove" (click)="removeNotifyListEmail(formIndex)"><img src="assets/img/cancel-icon.svg" /></div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="work-hour">
+            <div class="head">{{ 'Working hours' | translate }}</div>
+            <div class="days">
+              <ng-container *ngFor="let date of dates">
+                <ng-container [formGroupName]="days[date.origin]">
+                  <div class="day">
+                    <div class="toggler">
+                      <span class="title">{{ date.name | translate }}</span>
+                      <label class="mode-toggle">
+                        <input type="checkbox" formControlName="isActive" />
+                        <span class="slider round" [ngClass]="'active'"> </span>
+                      </label>
+                    </div>
+
+                    <div class="setter" *ngIf="workingForm.value[days[date.origin]].isActive">
+                      <div class="toggler">
+                        <span class="title">{{ 'Always open' | translate }}</span>
+                        <label class="mode-toggle">
+                          <input type="checkbox" formControlName="allTimes" />
+                          <span class="slider round" [ngClass]="'active'"> </span>
+                        </label>
+                      </div>
+
+                      <ng-container *ngIf="!workingForm.value[days[date.origin]].allTimes">
+                        <div class="period">
+                          <span class="title">{{ 'Period' | translate }}</span>
+                          <div class="times" [@fadeInOutFaster]>
+                            <ng-container
+                              formArrayName="times"
+                              *ngFor="let time of workingForm.controls[days[date.origin]].get('times')['controls']; let formIndex = index; let isFirst = first; let isLast = last"
+                            >
+                              <div class="time" [@fadeInOutFaster]>
+                                <ng-container [formGroupName]="formIndex">
+                                  <div class="input-time-group">
+                                    <div
+                                      class="time-display"
+                                      (click)="toggleDropDownAndFocused(date.origin, formIndex, true)"
+                                      [ngClass]="{ invalid: time.get('openTime').invalid && isAlert }"
+                                    >
+                                      <ng-container *ngIf="time.get('openTime').value === null">
+                                        <div class="placeholder">{{ 'Open time' }}</div>
+                                      </ng-container>
+                                      <ng-container *ngIf="time.get('openTime').value !== null">
+                                        {{ time.get('openTime').value | date: 'HH:mm' }}
+                                      </ng-container>
+                                    </div>
+
+                                    <div
+                                      class="timepicker"
+                                      *ngIf="showTimepickerStartAt === date.origin + formIndex"
+                                      reactorRoomClickOutside
+                                      (outside)="closeTimerPicker($event, true)"
+                                    >
+                                      <ng-container *ngFor="let timeOption of dropDownList">
+                                        <div
+                                          class="time-select"
+                                          (click)="setValueToDateForm(date.origin, formIndex, 'openTime', timeOption.value)"
+                                          *ngIf="
+                                            isBeforeMaxDate(timeOption.value, time.get('closeTime').value) &&
+                                            isAfterPreviousCloseTime(timeOption.value, days[date.origin], formIndex)
+                                          "
+                                        >
+                                          <span>{{ timeOption.value | date: 'HH:mm' }}</span>
+                                        </div>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                  <!---->
+                                  <span class="to"> {{ 'To' | translate }} </span>
+                                  <!---->
+                                  <div class="input-time-group">
+                                    <div
+                                      class="time-display"
+                                      (click)="toggleDropDownAndFocused(date.origin, formIndex, false)"
+                                      [ngClass]="{ invalid: time.get('closeTime').invalid && isAlert }"
+                                    >
+                                      <ng-container *ngIf="time.get('closeTime').value === null">
+                                        <div class="placeholder">{{ 'Close time' }}</div>
+                                      </ng-container>
+                                      <ng-container *ngIf="time.get('closeTime').value !== null">
+                                        {{ time.get('closeTime').value | date: 'HH:mm' }}
+                                      </ng-container>
+                                    </div>
+                                    <div
+                                      class="timepicker"
+                                      *ngIf="showTimepickerEndAt === date.origin + formIndex"
+                                      reactorRoomClickOutside
+                                      (outside)="closeTimerPicker($event, false)"
+                                    >
+                                      <ng-container *ngFor="let timeOption of dropDownList">
+                                        <div
+                                          class="time-select"
+                                          (click)="setValueToDateForm(date.origin, formIndex, 'closeTime', timeOption.value)"
+                                          *ngIf="
+                                            isAfterMinDate(timeOption.value, time.get('openTime').value) && isBeforeNextOpenTime(timeOption.value, days[date.origin], formIndex)
+                                          "
+                                        >
+                                          <span>{{ timeOption.value | date: 'HH:mm' }}</span>
+                                        </div>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                </ng-container>
+                                <div class="delete" (click)="removeDateRange(date.origin, formIndex)" *ngIf="!isFirst">
+                                  <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-5 cursor-pointer">
+                                    <path
+                                      d="M16.0526 2.99642H12.5368C12.3614 1.56802 11.0675 0.454773 9.50034 0.454773C7.93327 0.454773 6.63953 1.56797 6.46415 2.99642H2.94815C1.52533 2.99642 0.36792 4.08381 0.36792 5.42013V5.72329C0.36792 6.7445 1.04492 7.61857 1.99862 7.97471V19.5765C1.99862 20.9129 3.15617 22.0002 4.57889 22.0002H14.4219C15.8447 22.0002 17.0021 20.9128 17.0021 19.5765V7.97476C17.9558 7.61857 18.6328 6.7445 18.6328 5.72334V5.42017C18.6328 4.08381 17.4753 2.99642 16.0526 2.99642ZM9.50034 1.60421C10.3916 1.60421 11.1356 2.20423 11.3002 2.99642H7.70082C7.86538 2.20419 8.60938 1.60421 9.50034 1.60421ZM15.7783 19.5765C15.7783 20.2791 15.1697 20.8508 14.4218 20.8508H4.57885C3.83101 20.8508 3.22237 20.2791 3.22237 19.5765V8.147H15.7783V19.5765ZM17.4091 5.72329C17.4091 6.42591 16.8004 6.99761 16.0525 6.99761H2.94815C2.20031 6.99761 1.59167 6.42591 1.59167 5.72329V5.42013C1.59167 4.71752 2.20031 4.14581 2.94815 4.14581H16.0526C16.8004 4.14581 17.4091 4.71752 17.4091 5.42013V5.72329Z"
+                                      fill="#D1D2D5"
+                                    ></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9926 11.0001V16.9852H11.9926V11.0001H12.9926Z" fill="#D1D2D5"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99603 11.0001V16.9852H8.99603V11.0001H9.99603Z" fill="#D1D2D5"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.99951 11V16.9851H5.99951V11H6.99951Z" fill="#D1D2D5"></path>
+                                  </svg>
+                                </div>
+                                <div class="add" (click)="addNewDateRange(date.origin)" *ngIf="isLast && time.get('openTime').valid && time.get('closeTime').valid">
+                                  <img src="./assets/setting/u348.png" />
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+
+          <ng-container formGroupName="additional">
+            <div class="additional">
+              <div class="toggle">
+                <div class="toggler">
+                  <span class="title">{{ 'Additional' | translate }}</span>
+                  <label class="mode-toggle">
+                    <input type="checkbox" formControlName="isActive" />
+                    <span class="slider round" [ngClass]="'active'"> </span>
+                  </label>
+                </div>
+              </div>
+              <div class="input-text">
+                <div class="title">{{ 'An additional time on the opening chat This will delay sending out of work message to the customer' | translate }}</div>
+                <!-- <input formControlName="time" /> -->
+                <div class="group">
+                  <reactor-room-timepicker
+                    [timeForm]="workingForm.get('additional')"
+                    [isNumber]="true"
+                    [isCustom]="true"
+                    [selector]="'time'"
+                    [min]="0"
+                    [max]="59"
+                  ></reactor-room-timepicker>
+                  <div class="title">{{ 'minute' | translate }}</div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

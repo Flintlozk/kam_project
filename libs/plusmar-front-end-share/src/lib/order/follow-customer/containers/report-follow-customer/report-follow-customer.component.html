@@ -1,0 +1,44 @@
+<reactor-room-card>
+  <div class="card-content">
+    <div class="paper-control-unit">
+      <div class="select-option">
+        <div class="paper-type">
+          <mat-form-field>
+            <mat-select [(value)]="reportType" (selectionChange)="changeReportType($event)">
+              <!-- <mat-option value="receipt">Receipt</mat-option> -->
+              <mat-option value="label">Shipping Label</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="paper-size">
+          <div class="size" [ngClass]="{ active: reportSize === EnumPaperSize.SIZE_A4 }" (click)="selectReportSize(EnumPaperSize.SIZE_A4)">
+            <img src="assets/img/type2-active.png" style="width: 24px; height: 24px" />
+            <span style="margin-left: 10px">A4</span>
+          </div>
+          <div class="size" [ngClass]="{ active: reportSize === EnumPaperSize.SIZE_100x150 }" (click)="selectReportSize(EnumPaperSize.SIZE_100x150)">
+            <img src="assets/img/type1-active.png" style="width: 24px; height: 24px" />
+            <span style="margin-left: 10px">100x150 mm </span>
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <!-- <button class="btn-cancel" (click)="refreshPDF()">
+          {{ 'Refresh' | translate }}
+        </button> -->
+        <button class="btn-cancel" (click)="backToPreviousPage()">
+          {{ 'Back' | translate }}
+        </button>
+        <!-- <button class="btn-save" type="submit" (click)="printPDF()">
+          <img src="assets/img/u9591.png" class="print-picture" style="filter: brightness(10)" />
+          {{ 'Print' | translate }}
+        </button> -->
+      </div>
+    </div>
+  </div>
+</reactor-room-card>
+
+<div class="error-response" *ngIf="errorMessage !== ''">{{ errorMessage }}</div>
+<div class="print-layout" *ngIf="imageSource">
+  <embed [src]="imageSource | safe" type="application/pdf" width="100%" height="100%" />
+</div>

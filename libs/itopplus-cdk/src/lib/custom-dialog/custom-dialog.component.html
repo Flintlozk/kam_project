@@ -1,0 +1,11 @@
+<div class="custom-dialog" [ngClass]="isFull ? 'full' : ''">
+  <div class="head" *ngIf="head">
+    <ng-content select=".head"></ng-content>
+  </div>
+  <div class="content">
+    <ng-content select=".content"></ng-content>
+  </div>
+  <div class="footer">
+    <ng-content select=".footer"></ng-content>
+  </div>
+</div>

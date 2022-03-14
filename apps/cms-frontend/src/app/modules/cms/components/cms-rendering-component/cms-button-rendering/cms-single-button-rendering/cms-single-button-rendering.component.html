@@ -1,0 +1,18 @@
+<a class="focus:outline-none">
+  <div [ngStyle]="buttonStyleData.container" class="w-full" [ngClass]="[fontFamilyClass, buttonHoverEffectClass]">
+    <button
+      (mouseenter)="mouseEnterHandler()"
+      (mouseleave)="mouseLeaveHandler()"
+      class="flex items-center justify-between focus:outline-none transition-all"
+      [ngStyle]="buttonStyleData.settingBorder"
+    >
+      <span class="pr-2" *ngIf="buttonData?.buttonText?.iconCode && buttonData.buttonText.isIcon && buttonData.buttonText.iconBeforeText">
+        <i class="flex items-center" [ngStyle]="buttonStyleData.icon" [ngClass]="buttonData.buttonText.iconCode"></i>
+      </span>
+      <span [ngStyle]="buttonStyleData.text">{{ buttonData?.buttonText?.text }}</span>
+      <span class="pl-2" *ngIf="buttonData?.buttonText?.iconCode && buttonData.buttonText.isIcon && !buttonData.buttonText.iconBeforeText">
+        <i class="flex items-center" [ngStyle]="buttonStyleData.icon" [ngClass]="buttonData.buttonText.iconCode"></i>
+      </span>
+    </button>
+  </div>
+</a>

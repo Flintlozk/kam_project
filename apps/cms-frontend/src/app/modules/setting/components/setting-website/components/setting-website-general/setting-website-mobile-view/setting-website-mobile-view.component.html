@@ -1,0 +1,88 @@
+<section class="p-8 bg-white">
+  <cms-next-title-underline [title]="'Mobile View'"></cms-next-title-underline>
+  <div class="grid gap-3 p-8 md:grid-cols-3">
+    <div>
+      <div class="grid grid-flow-col auto-cols-max gap-3 mb-8">
+        <div>
+          <svg class="inline-block" xmlns="http://www.w3.org/2000/svg" width="36" height="49" viewBox="0 0 36 49" fill="none">
+            <path d="M1 2C1 1.44771 1.44772 1 2 1H34C34.5523 1 35 1.44772 35 2V12.0204H1V2Z" fill="#8591AA" />
+            <rect x="0.5" y="0.5" width="35" height="48" rx="1.5" stroke="#D6DBE3" />
+          </svg>
+        </div>
+
+        <div>
+          <small>Header</small>
+          <form [formGroup]="mobileHeaderView">
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="fixed_top_menu" />
+
+              <span class="checkmark"></span
+              ><span class="block"
+                >Fixed top menu<br />
+                <div>
+                  <h6>
+                    <small><i> this function will display only mobile and tablet</i></small>
+                  </h6>
+                </div>
+              </span>
+            </label>
+          </form>
+        </div>
+      </div>
+      <div class="grid grid-flow-col auto-cols-max gap-3">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="49" viewBox="0 0 36 49" fill="none">
+            <rect x="0.5" y="0.5" width="35" height="48" rx="1.5" stroke="#D6DBE3" />
+            <path d="M1 2C1 1.44772 1.44772 1 2 1H16C16.5523 1 17 1.44772 17 2V47C17 47.5523 16.5523 48 16 48H1V2Z" fill="#8591AA" />
+          </svg>
+        </div>
+        <div>
+          <small class="pt-8">Sidebar menu</small>
+          <form [formGroup]="mobileSidebarView">
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="sidebar_menu" />
+              <span class="checkmark"></span>Sidebar Menu
+            </label>
+            <label class="checkbox mt-2">
+              <input type="checkbox" formControlName="sidebar_submenu_auto" />
+              <span class="checkmark"></span>Sidebar Sub menu Auto
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-flow-col auto-cols-max gap-3">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="49" viewBox="0 0 36 49" fill="none">
+          <rect x="0.5" y="0.5" width="35" height="48" rx="1.5" stroke="#D6DBE3" />
+          <path d="M1 11H35V47C35 47.5523 34.5523 48 34 48H2C1.44772 48 1 47.5523 1 47V11Z" fill="#8591AA" />
+        </svg>
+      </div>
+      <div>
+        <small>Content</small>
+        <form [formGroup]="mobileContentView">
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="search_button" />
+            <span class="checkmark"></span>Search button
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="side_information" />
+            <span class="checkmark"></span
+            ><span class="block"
+              >side Information<br />
+              <small><i>this function will display only mobile and tablet</i></small>
+            </span>
+          </label>
+          <label class="checkbox mt-2">
+            <input type="checkbox" formControlName="increase_image_size" />
+            <span class="checkmark"></span
+            ><span class="block">
+              Increase the image size<br />
+              <small><i>Make the image is larger (Size Image)</i></small>
+            </span>
+          </label>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

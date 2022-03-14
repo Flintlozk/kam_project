@@ -1,0 +1,193 @@
+<reactor-room-heading [headingTitle]="'CUSTOMER_SLA' | translate" [Route]="'CUSTOMER_SLA'">
+  <div class="heading-content">
+    <!-- INTERVAL! ! ! -->
+
+    <div class="zoom">
+      Zoom
+      <mat-slider min="50" max="100" step="1" value="100" [(ngModel)]="zoomValue" (change)="onDoZoom($event)"></mat-slider>
+    </div>
+    <div class="select-option" style="min-width: 180px">
+      <mat-form-field>
+        <!-- [(ngModel)]="INTERVAL_THRESHOLD" -->
+        <mat-select (valueChange)="selectIntervalFetchTime()" [(value)]="INTERVAL_THRESHOLD">
+          <mat-option [value]="30000"> {{ 'REFRESH_EVERY' | translate }} 30 {{ 'SECOND' | translate }} </mat-option>
+          <mat-option [value]="45000"> {{ 'REFRESH_EVERY' | translate }} 45 {{ 'SECOND' | translate }} </mat-option>
+          <mat-option [value]="60000"> {{ 'REFRESH_EVERY' | translate }} 60 {{ 'SECOND' | translate }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button class="btn-secondary small ml-10" (click)="exportSLA()">
+      <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0 2.32222C0 1.04544 1.06029 0 2.35097 0H9.35453C9.57819 0 9.78328 0.0980123 9.92283 0.235796L9.93251 0.245351L12.7892 3.41025C12.9225 3.54777 13 3.731 13 3.92806V13.6778C13 14.9546 11.9397 16 10.649 16H2.35097C1.06029 16 0 14.9546 0 13.6778V2.32222ZM2.35097 0.941177C1.58373 0.941177 0.951219 1.56712 0.951219 2.32222V13.6778C0.951219 14.4329 1.58373 15.0588 2.35097 15.0588H10.649C11.4163 15.0588 12.0488 14.4329 12.0488 13.6778V4.0029L11.9754 3.92156H9.35362V1.01695L9.28522 0.941177H2.35097ZM7.38807 5.0719L10.1992 8.10252L7.38807 11.1332V9.32502H7.2189C5.88001 9.32502 4.60295 9.87899 3.70039 10.8512L3.43493 11.1373V10.1791C3.43493 8.35703 4.9372 6.88003 6.79041 6.88003H7.38807V5.0719Z"
+        />
+      </svg>
+
+      <span class="ml-5">
+        {{ 'Export SLA' | translate }}
+      </span>
+    </button>
+  </div>
+</reactor-room-heading>
+
+<div class="customer-sla-container">
+  <div class="tag-lists" *ngIf="tags">
+    <ng-container *ngFor="let tag of tags">
+      <div class="tag-content" [ngStyle]="{ zoom: zoomValue + '%' }" (click)="selectTagFilter(tag.id, tag.name)" [ngClass]="{ active: tag.id === currentTag }">
+        <div class="header">
+          <div class="tag-name">
+            <ng-container *ngIf="tag.profileImg">
+              <img class="profile" [src]="tag.profileImg" />
+            </ng-container>
+            {{ tag.name | translate }}
+          </div>
+          <div class="total">
+            <div class="label">Open Chat</div>
+            {{ tag.total || 0 }}
+          </div>
+        </div>
+
+        <div class="color" [ngClass]="tag.color">
+          <mat-progress-bar mode="determinate" [value]="tag.customer | percentage: totalAmount"></mat-progress-bar>
+        </div>
+
+        <div class="amount">
+          <div class="before-reach-sla">
+            <div class="label" [ngClass]="{ isOver: tag.alert }">
+              {{ SLAConfig.alertHour !== 0 ? SLAConfig.hour - SLAConfig.alertHour : (0 | padstart) }}:{{
+                +(SLAConfig.alertMinute !== 0 ? SLAConfig.minute - SLAConfig.alertMinute : 0) | padstart
+              }}hr - {{ SLAConfig.hour | padstart }}:{{ SLAConfig.minute | padstart }}hr
+            </div>
+            <div class="number" [ngClass]="{ isOver: tag.alert }">
+              {{ tag.alert || 0 }}
+            </div>
+          </div>
+          <div style="font-size: 10px; font-weight: 200">|</div>
+          <div class="over-sla">
+            <div class="label" [ngClass]="{ isOver: tag.customer }">
+              {{ 'Over SLA' | translate }} <span *ngIf="SLAConfig">({{ SLAConfig.hour | padstart }}:{{ SLAConfig.minute | padstart }}hr)</span>
+            </div>
+            <div class="number" [ngClass]="{ isOver: tag.customer > 0 }">
+              {{ tag.customer || 0 }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="filter-tools">
+    <div class="sla-filter">
+      <div [ngClass]="{ active: filterBy === 'ALL' }" (click)="changeFilter('ALL')" class="type all">{{ 'All' | translate }}</div>
+      <div [ngClass]="{ active: filterBy === 'ALMOST' }" (click)="changeFilter('ALMOST')" class="type almost">{{ 'Almost' | translate }}</div>
+      <div [ngClass]="{ active: filterBy === 'OVER' }" (click)="changeFilter('OVER')" class="type over">{{ 'Over SLA' | translate }}</div>
+    </div>
+    <reactor-room-audience-contact-filter [enabledSearch]="true" [triggerReady]="triggerReady" (filtersSubmit)="onFilterSubmit($event)"></reactor-room-audience-contact-filter>
+  </div>
+  <reactor-room-custom-table
+    [isLoading]="false"
+    [tableHeader]="tableHeader"
+    [isNoVerticalScroll]="true"
+    [currentIndex]="1"
+    (sortTableMetaData)="sortTableData($event)"
+    [orderMethod]="tableFilters.orderMethod"
+    [tableColSpan]="6"
+    [tableData]="audienceListWithStatus"
+    (selectAll)="selectAllHandler()"
+    [isAllchecked]="isAllchecked"
+  >
+    <ng-container class="table-content" *ngIf="tags && audienceListWithStatus">
+      <ng-container *ngFor="let audience of audienceListWithStatus; let index = index; trackBy: trackBy">
+        <tr [ngClass]="{ unread: audience.notify_status === 'UNREAD' }" [@slideInOut]>
+          <td style="max-width: 350px" (click)="onMouseEnter(null); viewChat(audience)">
+            <ng-container *ngIf="!isMobile">
+              <reactor-room-custom-table-content
+                [style.cursor]="'pointer'"
+                [Selector]="'comment-by'"
+                [firstName]="audience?.first_name"
+                [lastName]="audience?.last_name"
+                [aliases]="audience?.aliases"
+                [platform]="audience?.platform"
+                [image]="audience.profile_pic"
+                [platformImg]="platformImgsObj[audience?.platform]"
+                [audience]="audience"
+              >
+              </reactor-room-custom-table-content>
+            </ng-container>
+            <ng-container *ngIf="isMobile">
+              <reactor-room-custom-table-content
+                [style.cursor]="'pointer'"
+                [Selector]="'follow-list-mobile'"
+                [firstName]="audience?.first_name"
+                [lastName]="audience?.last_name"
+                [aliases]="audience?.aliases"
+                [platform]="audience?.platform"
+                [image]="audience.profile_pic"
+                [platformImg]="platformImgsObj[audience?.platform]"
+                [audience]="audience"
+              >
+              </reactor-room-custom-table-content>
+            </ng-container>
+          </td>
+          <td class="whitespace-nowrap" *ngIf="!isMobile" (click)="onMouseEnter(null); viewChat(audience)">
+            {{ audience.last_platform_activity_date | timeAgo }}
+          </td>
+          <td *ngIf="!isMobile" style="width: 60%" (click)="onMouseEnter(null); viewChat(audience)">
+            <div class="flex items-center status whitespace-nowrap" [style.cursor]="'pointer'" *ngIf="audience?.latestComment || audience?.latestMessage" style="max-width: 300px">
+              <svg
+                style="min-width: 15px"
+                *ngIf="audience?.displayLatestActivity?.sentBy === 'PAGE'"
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+                  fill="#C4C4C4"
+                />
+                <path
+                  d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+                  fill="#C4C4C4"
+                />
+              </svg>
+
+              <div class="ml-5 truncate">
+                {{ audience?.displayLatestActivity?.text }}
+              </div>
+            </div>
+          </td>
+          <!-- <td>
+            {{ audience | json }}
+          </td> -->
+          <td style="width: 50px" *ngIf="!isMobile">
+            <div style="text-align: center" [id]="'peekbox-button-' + index" (click)="onMouseEnter(null); viewChat(audience)">
+              <svg
+                *ngIf="!isMobile"
+                (mouseenter)="onMouseEnter(audience)"
+                (mouseleave)="onMouseLeave()"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M10 1C4.48608 1 0 5.40796 0 10.8258C0 12.057 0.230408 13.2615 0.685791 14.4082C1.03973 15.2891 1.50861 16.0983 2.08252 16.8202L0.719238 19.9609C0.609863 20.2126 0.649658 20.5027 0.82251 20.7172C0.968079 20.8978 1.18835 21 1.41772 21C1.44263 21 1.46771 20.9989 1.49286 20.9965C1.51135 20.9946 1.52991 20.9921 1.54834 20.9888L6.71313 20.1031C7.74756 20.4674 8.85217 20.6517 10 20.6517C10.5843 20.6517 11.1571 20.6023 11.7142 20.5073C12.9545 21.2841 14.4254 21.734 16 21.734C16.8826 21.734 17.7362 21.5974 18.5404 21.3257L22.3904 21.9858L22.3914 21.986C22.4471 21.9958 22.5016 22 22.5538 22C22.8362 22 23.1095 21.8743 23.2914 21.6486C23.5078 21.3802 23.5583 21.0151 23.4207 20.6981L22.4663 18.4993C22.8745 17.9792 23.3726 17.2019 23.6358 16.5468L23.6364 16.5454C24.0008 15.6279 24.0004 14.855 24 13.957V13.8671C24 10.5748 21.9355 7.75427 19.0181 6.5813C17.4034 3.28247 13.9678 1 10 1ZM16 21.0067C14.8425 21.0067 13.7481 20.7401 12.7766 20.2665C16.9441 19.0812 20 15.2975 20 10.8258C20 9.68762 19.8021 8.59412 19.4382 7.57666C21.7206 8.78406 23.2727 11.1537 23.2727 13.8671V13.9253C23.2728 14.8376 23.2729 15.4897 22.9607 16.2764C22.7131 16.8922 22.2036 17.662 21.7614 18.2181L21.6256 18.389L22.7535 20.9877C22.7828 21.0551 22.7728 21.1331 22.7252 21.1921C22.6847 21.2423 22.6216 21.2727 22.5538 21.2727C22.5401 21.2727 22.528 21.2716 22.5176 21.2698L22.5154 21.2694L18.4783 20.5771L18.3892 20.6085C17.6398 20.8723 16.8373 21.0067 16 21.0067ZM5.88232 8H14.1177C14.605 8 15 8.44763 15 9C15 9.55237 14.605 10 14.1177 10H5.88232C5.39496 10 5 9.55237 5 9C5 8.44763 5.39496 8 5.88232 8ZM5.88232 12H14.1177C14.605 12 15 12.4476 15 13C15 13.5524 14.605 14 14.1177 14H5.88232C5.39496 14 5 13.5524 5 13C5 12.4476 5.39496 12 5.88232 12Z"
+                  fill="#53B1FF"
+                />
+              </svg>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </reactor-room-custom-table>
+  <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [pageSizeOptions]="[10, 50, 100]" [length]="total" (changePage)="changePage($event)">
+  </reactor-room-pagination>
+</div>

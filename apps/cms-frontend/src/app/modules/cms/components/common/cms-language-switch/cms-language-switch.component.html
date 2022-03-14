@@ -1,0 +1,39 @@
+<div *ngIf="languageTemplate === 1" class="relative" reactorRoomClickOutside (outside)="onOutsideLanguageSwitcher($event)">
+  <div
+    class="flex items-center justify-center w-10 h-10 transition transform bg-white border border-gray-100 rounded-lg cursor-pointer md:w-12 md:h-12 custom-shadow hover:scale-105"
+    (click)="onToggleStatus()"
+  >
+    <img *ngIf="currentLanguage?.icon" class="w-6 h-6 md:w-8 md:h-8" [src]="currentLanguage?.icon" [alt]="currentLanguage?.name" />
+    <div class="uppercase font-light" *ngIf="!currentLanguage?.icon">{{ currentLanguage?.cultureUI }}</div>
+  </div>
+  <div [@fadeInOutYAnimation] *ngIf="toggleStatus && languageSwitch.length > 1" class="absolute top-0 z-10 grid gap-4 p-2 bg-white rounded-lg mt-14 custom-shadow">
+    <div
+      class="cursor-pointer"
+      (click)="onSelectCurrentLanguage(languageSwitchIndex)"
+      *ngFor="let languageSwitchItem of languageSwitch; trackBy: trackByIndex; let languageSwitchIndex = index"
+    >
+      <img *ngIf="!languageSwitchItem.activeStatus && languageSwitchItem?.icon" class="cursor-pointer" [src]="languageSwitchItem?.icon" [alt]="languageSwitchItem?.name" />
+      <div class="uppercase font-light" *ngIf="!languageSwitchItem?.icon">{{ languageSwitchItem?.cultureUI }}</div>
+    </div>
+  </div>
+</div>
+<div *ngIf="languageTemplate === 2" class="flex items-center absolute bottom-full left-0 pb-4">
+  <ng-container *ngFor="let languageSwitchItem of languageSwitch; trackBy: trackByIndex; let languageSwitchIndex = index">
+    <div
+      [ngClass]="{ 'border-green-500': languageSwitchItem.activeStatus }"
+      (click)="onSelectCurrentLanguage(languageSwitchIndex)"
+      class="flex items-center px-4 cursor-pointer border-b"
+    >
+      <img
+        [ngClass]="{ 'border-green-500': languageSwitchItem.activeStatus }"
+        class="w-4 h-4 border rounded-full mr-2"
+        [src]="languageSwitchItem?.icon"
+        [alt]="languageSwitchItem?.name"
+      />
+      <div [ngClass]="{ 'text-green-500': languageSwitchItem.activeStatus }" class="capitalize font-light">
+        {{ languageSwitchItem?.name }}
+        <span *ngIf="languageSwitchItem.default">(Default)</span>
+      </div>
+    </div>
+  </ng-container>
+</div>

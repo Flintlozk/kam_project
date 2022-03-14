@@ -1,0 +1,48 @@
+@import 'base';
+@import 'buttons';
+.quick-transactions {
+  position: relative;
+  z-index: 0;
+
+  .bank-disabled {
+    opacity: 30%;
+    pointer-events: none;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        box-shadow: none;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 0px 15px;
+        height: 35px;
+      }
+    }
+  }
+  .quick-pay-data {
+    font-size: 12px;
+    font-weight: 300;
+    .sub-text {
+      color: $text-light-color;
+    }
+  }
+}
+
+.opacity-40 {
+  opacity: 40%;
+}
+
+::ng-deep .quick-payment-data-height {
+  .custom-table {
+    max-height: calc(100vh - 500px) !important;
+  }
+}

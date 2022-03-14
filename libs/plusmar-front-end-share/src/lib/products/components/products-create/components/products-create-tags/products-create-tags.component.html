@@ -1,0 +1,17 @@
+<div class="product-create-tags">
+  <reactor-room-card [boxShadow]="'rgb(221, 221, 221) 0px 0px 10px 2px'">
+    <div class="card-content">
+      <div class="head">
+        <div class="count">
+          <span>{{ tagCount }}</span> {{ 'Tags' | translate }}
+        </div>
+        <div class="func">
+          <input autofocus type="text" [placeholder]="'Search' | translate" (keyup)="filterTagData($event)" />
+        </div>
+      </div>
+      <div class="content">
+        <div class="item" *ngFor="let item of tagsData" (click)="onTagClick(item)">{{ item.name }}</div>
+      </div>
+    </div>
+  </reactor-room-card>
+</div>

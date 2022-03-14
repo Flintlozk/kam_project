@@ -1,0 +1,90 @@
+@import '/pages/styles/variable.module.scss';
+@import '/pages/styles/font.module.scss';
+@import '/pages/styles/global.module.scss';
+.mainPageContainer {
+  .feature100percent {
+    background-image: linear-gradient(white, 99.5%, $more_blue10);
+    background-color: $more_blue10;
+
+    .featuresContainer {
+      padding-top: 100px;
+      width: 1440px;
+      margin: 0 auto;
+    }
+
+    &.isFirstComponent {
+      .featuresContainer {
+        padding-top: 250px;
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .mainPageContainer {
+    .feature100percent {
+      .featuresContainer {
+        // padding-top: 250px;
+        width: 85%;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .mainPageContainer {
+    .feature100percent {
+      .featuresContainer {
+        // padding-top: 250px;
+        width: 85%;
+      }
+
+      &.isFirstComponent {
+        .featuresContainer {
+          padding-top: 200px;
+        }
+      }
+    }
+  }
+}
+
+@include tablet_vertical {
+  .mainPageContainer {
+    .feature100percent {
+      .featuresContainer {
+        // padding-top: 250px;
+        width: 85%;
+      }
+
+      &.isFirstComponent {
+        .featuresContainer {
+          padding-top: 160px;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .mainPageContainer {
+    .feature100percent {
+      &.isFirstComponent {
+        .featuresContainer {
+          padding-top: 230px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .mainPageContainer {
+    .feature100percent {
+      &.isFirstComponent {
+        .featuresContainer {
+          padding-top: 180px;
+        }
+      }
+    }
+  }
+}

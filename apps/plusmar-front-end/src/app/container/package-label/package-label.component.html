@@ -1,0 +1,7 @@
+<a id="nav-package-label" *ngIf="activeSubscription" [matTooltip]="'See package details' | translate" class="flex no-underline package-label" [routerLink]="['/setting/owner']">
+  <span class="title">{{ 'Package' | translate }}</span>
+  <span class="subscription-detail">
+    <span>{{ activeSubscription.planName | translate }}</span>
+    <span class="subscription-id"> {{ activeSubscription.id }}</span>
+  </span>
+</a>

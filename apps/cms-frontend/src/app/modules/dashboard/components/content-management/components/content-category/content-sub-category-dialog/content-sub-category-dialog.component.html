@@ -1,0 +1,52 @@
+<div class="content-categories-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head flex justify-between">
+      {{ headLabel }}
+    </div>
+    <div class="content" [formGroup]="subCategoryForm">
+      <div class="flex flex-col gap-4">
+        <label for="category-name">Title: </label>
+        <input class="border w-full p-2" id="category-name" type="text" formControlName="title" />
+      </div>
+      <mat-tab-group class="general-tab mt-2" [(selectedIndex)]="selectedIndex">
+        <ng-container *ngFor="let languagesGroup of languagesForm.controls; let i = index" [formGroup]="languagesGroup">
+          <mat-tab [label]="language | translate">
+            <ng-template mat-tab-label>
+              <img [src]="languagesArray[i].icon" alt="" />
+              <div>&nbsp;{{ languagesArray[i].name }} <span *ngIf="i === 0">&nbsp;(Default)</span></div>
+            </ng-template>
+            <div class="flex flex-col gap-4">
+              <label *ngIf="!isCategory" for="category-name">Sub Category Name</label>
+              <label *ngIf="isCategory" for="category-name">Category Name</label>
+              <input class="border w-full p-2" type="text" formControlName="subCategoryName" />
+            </div>
+            <div class="flex flex-col gap-4">
+              <label for="category-name">Slug</label>
+              <input class="border w-full p-2" type="text" formControlName="slug" />
+            </div>
+            <div class="flex flex-col gap-4">
+              <label for="category-name">Description</label>
+              <input class="border w-full p-2" type="text" formControlName="subCategoryDescription" />
+            </div>
+          </mat-tab>
+        </ng-container>
+      </mat-tab-group>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <button class="px-6 py-2 mr-2 font-light transition transform bg-white rounded-2xl custom-shadow focus:outline-none hover:scale-105" (click)="onNoClick()">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button
+          class="px-6 py-2 font-light text-white transition transform bg-green-500 rounded-2xl custom-shadow focus:outline-none hover:scale-105 disabled:bg-gray-500"
+          (click)="saveSubCategories()"
+          type="submit"
+          [ngClass]="subCategoryForm.valid ? '' : 'disabled'"
+          [disabled]="!subCategoryForm.valid"
+        >
+          {{ 'Save' | translate }}
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

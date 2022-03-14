@@ -1,0 +1,47 @@
+<ng-container *ngIf="getAddressForm?.value">
+  <div
+    [formGroup]="getAddressForm"
+    class="address-form form-item"
+    *ngFor="let field of fields"
+    [ngClass]="{ invalid: !disabled && !getAddressForm.get(field.field).valid && (getAddressForm.get(field.field).touched || getAddressForm.get(field.field).dirty) }"
+  >
+    <mat-form-field floatLabel="never">
+      <div class="label">{{ field.label | translate }}<span *ngIf="isRequired"> *</span></div>
+      <input
+        (keyup)="changeHandler(field.field)"
+        type="text"
+        [attr.aria-label]="field.label"
+        matInput
+        [formControlName]="field.field"
+        [matAutocomplete]="auto"
+        autocomplete="new-password"
+        [readonly]="field.readonly"
+        [ngClass]="field.readonly ? 'readonly' : ''"
+      />
+      <mat-error *ngIf="!disabled && !getAddressForm.get(field.field).valid && (getAddressForm.get(field.field).touched || getAddressForm.get(field.field).dirty)">
+        {{ getString(field.field) }}
+      </mat-error>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectSuggestion($event.option.value)">
+        <mat-option *ngFor="let options of filteredOptions" [value]="options">
+          <div class="flex">
+            <span *ngFor="let option of options | keyvalue" class="flex items-center">
+              <div>{{ option.value }}</div>
+              <div>&nbsp;</div>
+              <div>
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M0.646447 0.989586C0.841709 0.794324 1.15829 0.794324 1.35355 0.989586L5.35355 4.98959C5.54882 5.18485 5.54882 5.50143 5.35355 5.69669L1.35355 9.69669C1.15829 9.89195 0.841709 9.89195 0.646447 9.69669C0.451184 9.50143 0.451184 9.18485 0.646447 8.98959L4.29289 5.34314L0.646447 1.69669C0.451184 1.50143 0.451184 1.18485 0.646447 0.989586Z"
+                    fill="black"
+                  />
+                </svg>
+              </div>
+              <div>&nbsp;</div>
+            </span>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</ng-container>

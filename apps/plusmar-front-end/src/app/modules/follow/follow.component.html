@@ -1,0 +1,48 @@
+<reactor-room-heading [headingTitle]="'Messages'" [Route]="'Messages'">
+  <div class="heading-content">
+    <div class="buttons">
+      <button class="btn-create" (click)="naviagteToChat()">{{ 'Messages' | translate }}</button>
+    </div>
+  </div>
+</reactor-room-heading>
+
+<div class="Audience">
+  <div class="steps overflow-x-auto">
+    <ng-container *ngFor="let step of steps; let idx = index">
+      <div class="card-step" [ngClass]="{ active: step.routeFirstSub === currentRoute, first: idx === 0 || idx === 1, large: step.children.length, small: !step.children.length }">
+        <div class="main" (click)="selectSubTab($event, step.routeBase, step.routeFirstSub, 1)">
+          <div class="main-icon" *ngIf="step?.icon !== null">
+            <img [src]="step?.icon" />
+          </div>
+          <div class="main-count">
+            <div class="step-count">
+              <div class="step">{{ step?.label | translate }}</div>
+            </div>
+          </div>
+          <div class="main-arrow">
+            <div class="count">{{ step?.total }}</div>
+            <div class="label-arrow" *ngIf="step.children.length">
+              <div class="label">{{ step?.text | translate }}</div>
+              <div class="arrow">
+                <img [src]="step?.image" [alt]="step?.text" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="step.children.length">
+          <div class="children">
+            <ng-container *ngFor="let child of step?.children; let i = index">
+              <a [ngClass]="{ active: child.routeParam === currentRoute }" [class]="'item item-' + i" (click)="selectSubTab($event, step.routeBase, child?.routeParam)">
+                <span class="label">{{ child?.label }}</span>
+                <span class="total">{{ child?.total }}</span>
+              </a>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

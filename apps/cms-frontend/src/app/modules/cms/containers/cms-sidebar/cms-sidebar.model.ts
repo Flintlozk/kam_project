@@ -1,0 +1,75 @@
+export enum ESidebarMode {
+  SITE_MANAGE = 'site-manage',
+  SITE_SETTING = 'site-setting',
+  LAYOUT_SETTING = 'layout-setting',
+  LAYOUT_SETTING_MEDIA_GALLERY = 'layout-setting-media-gallery',
+  LAYOUT_SETTING_MEDIA_SLIDER = 'layout-setting-media-slider',
+  LAYOUT_SETTING_CONTENT_MANAGEMENT = 'layout-setting-content-management',
+  LAYOUT_SETTING_CONTENT_MANAGEMENT_LANDING = 'layout-setting-content-management-landing',
+  LAYOUT_SETTING_TEXT = 'layout-setting-text',
+  LAYOUT_SETTING_CONTAINER = 'layout-setting-container',
+  LAYOUT_SETTING_LAYOUT = 'layout-setting-layout',
+  LAYOUT_SETTING_PAGE = 'layout-setting-page',
+  LAYOUT_SETTING_BUTTON = 'layout-setting-button',
+  LAYOUT_SETTING_SHOPPING_CART = 'layout-setting-shopping-cart',
+  LAYOUT_SETTING_EMBEDED = 'layout-setting-embeded',
+  LAYOUT_SETTING_IMAGE = 'layout-setting-image',
+  TEMPLATE_SETTING = 'template-setting',
+  MEDIA_GALLERY_ITEM = 'media-gallery-item',
+  CONTENT_MANAGE = 'content-manage',
+  CONTENT_MANAGE_MEDIA = 'content-manage-media',
+  MENU_CUSTOM = 'menu-custom',
+}
+
+export enum ELandingMode {
+  CONTENT = 'CONTENT',
+  PRODUCT = 'PRODUCT',
+}
+
+export enum ESidebarElement {
+  BORDER = 'Border',
+  SHADOW = 'Shadow',
+  HOVER = 'Hover',
+  EFFECT = 'Effect',
+  OVERLAY = 'Overlay',
+  ADVANCE = 'Advance',
+  BACKGROUND = 'Background',
+  CUSTOMIZE = 'Customize',
+  THEME_SETTING = 'Theme Setting',
+  THEME_COLOR = 'Theme Color',
+  THEME_TEXT = 'Theme Text',
+  THEME_DEVICE = 'Theme Device',
+  THEME_CUSTOMIZE = 'Theme Customize',
+  MEDIA_GALLERY_ITEM_LINK = 'Media Link',
+  MEDIA_GALLERY_ITEM_TEXT = 'Media Text',
+  MEDIA_GALLERY_SETTING = 'Media Gallery Setting',
+  MEDIA_GALLERY_CONTROL = 'Media Gallery Control',
+  CONTENT_MANAGE_GENERAL = 'Content Manage General',
+  CONTENT_MANAGE_CONTENTS = 'Content Manage Contents',
+  CONTENT_MANAGE_LANDING = 'Content Manage Landing',
+  TEXT_GENERAL = 'Text General',
+  TEXT_TYPOGRAPHY = 'Text Typography',
+  TEXT_LINK = 'Text Link',
+  BUTTON_SETTING = 'Button Setting',
+  BUTTON_BORDER = 'Button Border',
+  BUTTON_TEXT = 'Button Text',
+  BUTTON_LINK = 'Button Link',
+  BUTTON_HOVER = 'Button Hover',
+  MENU_HAMBURGER = 'Hamburger Menu',
+  MENU_ICON_FEATURE = 'Icon Feature',
+  MENU_STICKY = 'Sticky Menu',
+  MENU_ANIMATION = 'Menu Animation',
+  MENU_TEXT_ALIGNMENT = 'Menu text Alignment',
+  MENU_STYLE = 'Menu Style',
+  MENU_ICON = 'Menu Icon',
+  MENU_MEGA = 'Mega Menu',
+  SHOPPING_CART_PATTERN = 'Pattern',
+  SHOPPING_CART_PRODUCTS = 'Products',
+  SHOPPING_CART_LANDING_PAGE = 'Landing Page',
+}
+
+export interface ISidebarElement {
+  title: ESidebarElement;
+  status: boolean;
+  belongTo?: ESidebarMode;
+}

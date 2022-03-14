@@ -1,0 +1,54 @@
+{
+  "root": "apps/plusmar-webhook",
+  "sourceRoot": "apps/plusmar-webhook/src",
+  "projectType": "application",
+  "prefix": "plusmar-webhook",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/plusmar-webhook",
+        "main": "apps/plusmar-webhook/src/main.ts",
+        "tsConfig": "apps/plusmar-webhook/tsconfig.app.json",
+        "assets": ["apps/plusmar-webhook/src/assets"],
+        "maxWorkers": 1,
+        "memoryLimit": 1024
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-webhook/src/environments/environment.ts",
+              "with": "apps/plusmar-webhook/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "plusmar-webhook:build",
+        "port": 9231
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-webhook/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-webhook/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

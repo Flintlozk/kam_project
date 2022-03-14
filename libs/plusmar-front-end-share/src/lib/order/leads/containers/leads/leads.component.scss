@@ -1,0 +1,22 @@
+@import 'base';
+
+.steps-container {
+  overflow: auto;
+  @include no-scroll-bar();
+  scroll-behavior: auto;
+  scroll-behavior: smooth;
+}
+
+.steps {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(2, 250px);
+
+  reactor-room-step:focus {
+    outline: none;
+  }
+  @media #{$tabletmax} {
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 220px);
+  }
+}

@@ -1,0 +1,43 @@
+<section class="relative flex flex-col items-center w-full">
+  <h2 class="text-5xl text-center text-gray-700">E-Commerce</h2>
+  <div class="w-24 h-1 my-8 rounded-full bg-primary-500"></div>
+  <div class="w-full max-w-4xl font-light text-center text-gray-700 text-md opacity-90">
+    E - Commerce website system that easy to use system, has Category system for your sale product which manage and control smoothly. Sale page can insert all the detail such as
+    images, descriptions, and prices without confuse making orders.
+  </div>
+  <div class="grid w-full h-full max-w-4xl grid-cols-2 my-8 md:grid-cols-3 lg:grid-cols-4 content-start">
+    <svg class="absolute bottom-0 lg:-ml-24" width="61" height="113" viewBox="0 0 61 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="4.61848" cy="4.61848" r="4.61848" fill="#F5F5F5" />
+      <circle cx="30.5001" cy="4.61848" r="4.61848" fill="#F5F5F5" />
+      <circle cx="56.3814" cy="4.61848" r="4.61848" fill="#F5F5F5" />
+      <circle cx="4.61848" cy="30.5" r="4.61848" fill="#F5F5F5" />
+      <circle cx="30.5001" cy="30.5" r="4.61848" fill="#F5F5F5" />
+      <circle cx="56.3814" cy="30.5" r="4.61848" fill="#F5F5F5" />
+      <circle cx="4.61848" cy="56.3815" r="4.61848" fill="#F5F5F5" />
+      <circle cx="30.5001" cy="56.3813" r="4.61848" fill="#F5F5F5" />
+      <circle cx="56.3814" cy="56.3813" r="4.61848" fill="#F5F5F5" />
+      <circle cx="4.61848" cy="82.2628" r="4.61848" fill="#F5F5F5" />
+      <circle cx="30.5001" cy="82.263" r="4.61848" fill="#F5F5F5" />
+      <circle cx="56.3814" cy="82.263" r="4.61848" fill="#F5F5F5" />
+      <circle cx="4.61848" cy="108.144" r="4.61848" fill="#F5F5F5" />
+      <circle cx="30.5001" cy="108.145" r="4.61848" fill="#F5F5F5" />
+      <circle cx="56.3814" cy="108.145" r="4.61848" fill="#F5F5F5" />
+    </svg>
+    <ng-container *ngFor="let feature of features; trackBy: trackByIndex; let featureIndex = index">
+      <div
+        class="z-10 flex flex-col items-center justify-center p-8 border-gray-100"
+        [ngClass]="{
+          'lg:border-b': featureIndex <= 3,
+          'lg:border-r': featureIndex !== 3
+        }"
+      >
+        <div class="flex items-center h-28"><img [src]="feature.icon" [alt]="feature.title" /></div>
+        <div class="flex flex-col items-center justify-start">
+          <div class="font-light leading-tight text-primary-500">{{ feature.title }}</div>
+          <div class="font-light text-gray-700">{{ feature.subTitle }}</div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="flex flex-col items-center justify-center p-8 text-xl font-light text-gray-400 bg-gray-100">more</div>
+  </div>
+</section>

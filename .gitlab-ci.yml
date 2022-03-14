@@ -1,0 +1,160 @@
+stages:
+  - nlp
+  - build_dependencies
+  - linter
+  - test
+  - affected
+  - build
+  - keep_artifact
+  - deploy_staging
+  - deploy_production
+
+cache: &global_cache
+  key: 'PLUSMAR_PROJECT_MAIN_CACHE'
+  policy: pull-push
+  paths:
+    - build-cheker.txt
+    - node_modules/
+Buil Dependencies Image:
+  stage: build_dependencies
+  image: node:16
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  script:
+    - git prune
+    - apt install -y autoconf
+    - npm install -g @nrwl/cli
+    - npm install -g @angular/cli
+    - npm install
+    - chmod 755 -R ./scripts/**/*.sh
+    - ./scripts/install-docker-cli.sh
+    - echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin
+    - DOCKER_BUILDKIT=1 docker build -f ./scripts/common/main_node_modules/Dockerfile -t itopplus/reactor-room-node-module .
+    - docker push itopplus/reactor-room-node-module
+  only:
+    refs:
+      - develop
+    changes:
+      - package.json
+LINTER:
+  stage: linter
+  image: node:16
+  except:
+    - master
+    - develop
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm install -g @nrwl/cli
+    - chmod 755 -R ./scripts/**/*.sh
+    - git fetch
+    - git branch
+    - nx affected:lint --base=origin/develop --head=HEAD --parallel --maxParallel=3
+TEST:
+  stage: test
+  dependencies:
+    - LINTER
+  image: node:16
+  except:
+    - master
+    - develop
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm install -g @nrwl/cli
+    - chmod 755 -R ./scripts/**/*.sh
+    - sed -i -e 's/const FORCE_EXIT_DELAY = 500;/const FORCE_EXIT_DELAY = 7000;/g' ./node_modules/jest-worker/build/base/BaseWorkerPool.js
+    - ./scripts/build-checker.sh > project-list${CI_PIPELINE_ID}.txt
+    - nx affected:test --base=origin/develop --head=HEAD --exclude=plusmar-website --parallel --maxParallel=3
+Affected Project:
+  stage: affected
+  image: node:16
+  only:
+    - develop
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm install -g @nrwl/cli
+    - chmod 755 -R ./scripts/**/*.sh
+    - ./scripts/build-checker.sh > project-list${CI_PIPELINE_ID}.txt
+    - echo ▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ START AFFECTED ARGUMENTS ▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩
+    - cat project-list${CI_PIPELINE_ID}.txt
+    - echo ▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩  END AFFECTED ARGUMENTS  ▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩
+    - cat AFFECTED_ARGS.txt
+  artifacts:
+    paths:
+      - project-list${CI_PIPELINE_ID}.txt
+      - AFFECTED_ARGS.txt
+Build Image:
+  stage: build
+  image: node:16
+  only:
+    - develop
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm install -g @nrwl/cli
+    - chmod 755 -R ./scripts/**/*.sh
+    - ./scripts/install-docker-cli.sh
+    - nx affected:build $(cat AFFECTED_ARGS.txt) --head=HEAD --exclude=plusmar-website --prod --parallel --maxParallel=3
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin git.itopplus.com:5000
+    - echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin
+    - cat <<< "$CMS_PRIVATE_KEY" > private.pem
+    - cat <<< "$$CMS_PUBLIC_KEY" > public.pem
+    - ./scripts/build-images.sh
+Keep Artifact:
+  stage: keep_artifact
+  image: node:16
+  only:
+    - develop
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  script:
+    - git rev-parse HEAD > build-cheker.txt
+    - cat build-cheker.txt
+
+Deploy Staging:
+  stage: deploy_staging
+  image: google/cloud-sdk
+  only:
+    - develop
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - export ENVSERVER=STAGING
+    - echo $CERTIFICATE_ACCOUNT > ~/kubeconfig.json
+    - echo $SERVICE_ACCOUNT > /tmp/${CI_PIPELINE_ID}.json
+    - gcloud auth activate-service-account --key-file /tmp/${CI_PIPELINE_ID}.json
+    - gcloud container clusters get-credentials itp-k8s --region asia-southeast1 --project itopplus-platform
+    - ./scripts/deploy-staging.sh
+  after_script:
+    - rm /tmp/${CI_PIPELINE_ID}.json
+
+Deploy Production:
+  stage: deploy_production
+  image: google/cloud-sdk
+  when: manual
+  only:
+    - develop
+  script:
+    - chmod 755 -R ./scripts/**/*.sh
+    - export ENVSERVER=PRODUCTION
+    - echo $CERTIFICATE_ACCOUNT > ~/kubeconfig.json
+    - echo $SERVICE_ACCOUNT > /tmp/${CI_PIPELINE_ID}.json
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud container clusters get-credentials itp-k8s	--region asia-southeast1 --project itopplus-platform
+    - ./scripts/deploy-production.sh
+  after_script:
+    - rm /tmp/${CI_PIPELINE_ID}.json
+
+Trigger NLP:
+  stage: nlp
+  only:
+    - nlp
+  trigger:
+    include: scripts/CI/nlp.gitlab-ci.yml

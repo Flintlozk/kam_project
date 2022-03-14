@@ -1,0 +1,27 @@
+@import 'base';
+@import 'buttons';
+
+.payment-shipping-info-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+
+  .content {
+    max-height: 495px !important;
+    @extend .custom-tabs;
+  }
+}

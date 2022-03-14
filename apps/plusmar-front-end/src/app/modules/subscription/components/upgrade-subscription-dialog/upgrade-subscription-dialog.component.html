@@ -1,0 +1,55 @@
+<div class="subscription-plans">
+  <reactor-room-custom-dialog>
+    <div class="head">
+      {{ 'What package you want to use for upgrade your package' | translate }}
+      <img src="assets/img/dismiss-icon.svg" alt="Close" (click)="onNoClick()" />
+    </div>
+    <div class="content">
+      <div class="details">
+        <div></div>
+        <div class="buttons">
+          <button type="button" [ngClass]="[isBusiness ? 'business-active' : 'business-disable ']" (click)="onBusinessClick()">Business</button>
+
+          <button type="button" [ngClass]="[isCommerce ? 'commerce-active' : 'commerce-disable ']" (click)="onCommerceClick()">Commerce</button>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="details">
+        <div></div>
+        <div *ngIf="isCommerce" class="packages">
+          <div class="title">Commerce Plan <img src="assets/img/no-grey.png" alt="for" /> สำหรับร้านค้าซื้อขายออนไลน์</div>
+          <div>จัดการทุกออเดอร์ตั้งแต่เริ่มต้น จนถึงขั้นตอนปิดการขาย</div>
+        </div>
+
+        <div *ngIf="isBusiness" class="packages">
+          <div class="title">Business Plan <img src="assets/img/no-grey.png" alt="for" /> สำหรับธุรกิจขนาดใหญ่ถึงเล็ก</div>
+          <div>จัดการรายชื่อลูกค้า ประวัติการติดต่อ พร้อมต่อยอดการตลาด</div>
+        </div>
+
+        <div></div>
+      </div>
+
+      <reactor-room-upgrade-subscription-business
+        *ngIf="isBusiness"
+        [isSubscriptionBusiness]="isSubscriptionBusiness"
+        [currentPlanID]="currentPlanID"
+        (subscriptionPlanSelect)="onSelectSubscriptionPlan($event)"
+      >
+      </reactor-room-upgrade-subscription-business>
+      <reactor-room-upgrade-subscription-commerce
+        *ngIf="isCommerce"
+        [isSubscriptionBusiness]="isSubscriptionBusiness"
+        [currentPlanID]="currentPlanID"
+        (subscriptionPlanSelect)="onSelectSubscriptionPlan($event)"
+      >
+      </reactor-room-upgrade-subscription-commerce>
+
+      <div class="compare-packages">
+        <span (click)="comparePackages()">
+          {{ 'Compare Packages' | translate }}
+        </span>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

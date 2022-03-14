@@ -1,0 +1,66 @@
+<div class="product-create-categories">
+  <reactor-room-card [boxShadow]="'rgb(221, 221, 221) 0px 0px 10px 2px'">
+    <div class="card-content">
+      <div class="head">
+        <div class="count">
+          <span>{{ categoriesCount }}</span> {{ 'Categories' | translate }}
+        </div>
+        <div class="func">
+          <input autofocus type="text" [placeholder]="'Search' | translate" [(ngModel)]="searchKey" />
+          <button class="btn-add" (click)="openDialog()">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+              />
+            </svg>
+            <span class="ml-5">
+              {{ 'Add' | translate }}
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="categories-tree">
+        <div class="item" *ngIf="categoriesCount">
+          <div class="content">
+            <label class="custom-checkbox">
+              <input type="checkbox" (change)="onCheckAll($event)" />
+              <span class="checkmark"></span>
+            </label>
+            <div class="title">{{ 'All' | translate }}</div>
+          </div>
+        </div>
+        <div *ngIf="filterCategoryData">
+          <div class="item" *ngFor="let categoryData of filterCategoryData.categories">
+            <div class="content">
+              <label class="custom-checkbox">
+                <input type="checkbox" (change)="onCheckBoxClickCategory($event, categoryData)" id="{{ 'catInputID' + categoryData.categoryID }}" />
+                <span class="checkmark"></span>
+              </label>
+              <div class="expand-icon" (click)="onToggleSubCategoryDisplay(categoryData.categoryID)">
+                <span id="{{ 'minus' + categoryData.categoryID }}" style="display: block">-</span>
+                <span id="{{ 'plus' + categoryData.categoryID }}" style="display: none">+</span>
+              </div>
+              <div class="title">{{ categoryData.category }} ({{ categoryData?.subCategories?.length }})</div>
+            </div>
+            <div class="sub-content" style="display: block" id="{{ 'subContentID' + categoryData.categoryID }}">
+              <ng-container *ngFor="let subCategoryData of categoryData.subCategories">
+                <div class="sub" *ngIf="subCategoryData?.subCategoryID">
+                  <div class="border"></div>
+                  <label class="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      (change)="onCheckBoxClickSubCategory($event, categoryData.categoryID, subCategoryData.subCategoryID, subCategoryData.subCategory)"
+                      id="{{ 'subCatInputID' + subCategoryData.subCategoryID }}"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="title">{{ subCategoryData.subCategory }}</div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </reactor-room-card>
+</div>

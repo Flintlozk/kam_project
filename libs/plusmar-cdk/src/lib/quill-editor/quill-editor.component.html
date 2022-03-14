@@ -1,0 +1,57 @@
+<form
+  *ngIf="quillForm"
+  class="quill-editor"
+  [formGroup]="quillForm"
+  [ngClass]="{ invalid: (quillDescriptionFormControl.touched || quillDescriptionFormControl.dirty) && !quillDescriptionFormControl.valid }"
+>
+  <div class="label">{{ 'Description' | translate }}*</div>
+  <quill-editor placeholder="{{ placeholder ? (placeholder | translate) : ('Insert text here ...' | translate) }}" formControlName="description">
+    <div quill-editor-toolbar class="toolbar">
+      <div class="style" (click)="styleToolbarToogle()">
+        <div class="content">
+          {{ 'Style' | translate }}
+          <i class="arrow" [ngClass]="styleToolbarStatus ? 'up' : 'down'"></i>
+        </div>
+      </div>
+      <div class="link">
+        <button class="ql-link"></button>
+      </div>
+      <div class="attatch">
+        <button class="ql-image"></button>
+        <button class="ql-video"></button>
+      </div>
+      <span class="ql-formats style-expand" [ngClass]="styleToolbarStatus ? 'active' : 'inactive'">
+        <select class="ql-font">
+          <option selected></option>
+          <option value="serif"></option>
+          <option value="monospace"></option>
+        </select>
+        <select class="ql-size">
+          <option value="small"></option>
+          <option selected></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+          <button class="ql-strike"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+          <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+      </span>
+    </div>
+  </quill-editor>
+  <mat-error *ngIf="(quillDescriptionFormControl.touched || quillDescriptionFormControl.dirty) && !quillDescriptionFormControl.valid">
+    {{ 'Description is required' | translate }}</mat-error
+  >
+</form>

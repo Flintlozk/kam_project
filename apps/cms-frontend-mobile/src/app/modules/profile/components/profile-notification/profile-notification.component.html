@@ -1,0 +1,11 @@
+<div class="grid gap-3 p-4">
+  <ng-container *ngFor="let notificationDataItem of notificationData; trackBy: trackByIndex">
+    <div class="p-4 bg-white border border-gray-300 rounded-md">
+      <div class="flex items-center justify-between">
+        <h3 class="pr-2 text-xl font-light text-ellipsis">{{ notificationDataItem.title }}</h3>
+        <div class="font-light text-gray-600">{{ notificationDataItem.dateTime }}</div>
+      </div>
+      <div class="pt-2 font-light text-gray-600">{{ notificationDataItem.content }}</div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,214 @@
+<reactor-room-loader block="true" [text]="loadingText" *ngIf="isSaveButtonDisabled"></reactor-room-loader>
+<ng-container class="images-template-container">
+  <div [formGroup]="masterForm" class="flex flex-col px-10">
+    <div class="flex items-center justify-between pb-20">
+      <span class="text-sm counter">{{ totalRows }} {{ 'Image sets' | translate }}</span>
+      <div class="flex items-center main-actions">
+        <button *ngIf="!isItemSetEdit" (click)="editImageSet()" class="border-none btn-secondary transparent small">
+          <svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.375 7.90265H8.625V1.15265C8.625 0.807461 8.34519 0.527649 8 0.527649C7.65481 0.527649 7.375 0.807461 7.375 1.15265V7.90265H0.625C0.279812 7.90265 0 8.18246 0 8.52765C0 8.87284 0.279812 9.15265 0.625 9.15265H7.375V15.9026C7.375 16.2478 7.65481 16.5276 8 16.5276C8.34519 16.5276 8.625 16.2478 8.625 15.9026V9.15265H15.375C15.7202 9.15265 16 8.87284 16 8.52765C16 8.18246 15.7202 7.90265 15.375 7.90265Z"
+            />
+          </svg>
+          <div class="whitespace-no-wrap action-button">
+            {{ 'Create New Set' | translate }}
+          </div>
+        </button>
+        <div class="flex items-center" *ngIf="isItemSetEdit">
+          <button class="btn-secondary transparent small" (click)="closeImagesEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="saveImageSets()">{{ 'Save' | translate }}</button>
+        </div>
+
+        <ng-container formGroupName="filters">
+          <!-- Search -->
+          <div class="pb-0 search">
+            <input autofocus type="text" [matTooltip]="'Search by message or shortcut' | translate" [placeholder]="'Search' | translate" formControlName="search" />
+          </div>
+        </ng-container>
+        <!-- Search -->
+      </div>
+
+      <!-- MOBILE -->
+      <div class="flex items-center main-actions-mobile">
+        <div class="pb-0 search">
+          <ng-container formGroupName="filters">
+            <input autofocus type="text" [matTooltip]="'Search by message or shortcut' | translate" [placeholder]="'Search' | translate" formControlName="search" />
+          </ng-container>
+        </div>
+        <div class="flex w-full">
+          <button *ngIf="!isItemSetEdit" (click)="editImageSet()" class="mx-20 mt-20 border-none btn-secondary transparent small mobile">
+            <svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.375 7.90265H8.625V1.15265C8.625 0.807461 8.34519 0.527649 8 0.527649C7.65481 0.527649 7.375 0.807461 7.375 1.15265V7.90265H0.625C0.279812 7.90265 0 8.18246 0 8.52765C0 8.87284 0.279812 9.15265 0.625 9.15265H7.375V15.9026C7.375 16.2478 7.65481 16.5276 8 16.5276C8.34519 16.5276 8.625 16.2478 8.625 15.9026V9.15265H15.375C15.7202 9.15265 16 8.87284 16 8.52765C16 8.18246 15.7202 7.90265 15.375 7.90265Z"
+              />
+            </svg>
+            <div class="whitespace-no-wrap action-button">
+              {{ 'Create New Set' | translate }}
+            </div>
+          </button>
+        </div>
+        <div class="flex items-center template-actions" *ngIf="isItemSetEdit">
+          <button class="btn-secondary transparent small" (click)="closeImagesEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="saveImageSets()">{{ 'Save' | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <div class="relative flex flex-col template-form mb-15" *ngIf="isItemSetEdit">
+      <div [ngClass]="{ shortcut: masterForm.controls.selected.value.shortcut }" class="images-template-input-container relative top-0 left-0 right-0 flex w-full shadow-md z-1">
+        <div class="absolute items-center template-actions-mobile right-15 top-10" *ngIf="isItemSetEdit">
+          <button class="btn-secondary transparent small" (click)="closeImagesEdit()">{{ 'Close' | translate }}</button>
+          <button class="mx-5 btn-active transparent small" (click)="saveImageSets()">{{ 'Save' | translate }}</button>
+        </div>
+        <ng-container formGroupName="selected">
+          <input
+            #shortcut
+            (keydown)="trimValue($event)"
+            type="text"
+            maxlength="10"
+            formControlName="shortcut"
+            [placeholder]="'Shortcut' | translate"
+            class="w-full rounded-b-none"
+            [ngStyle]="{
+              'border-color':
+                selectedForm?.controls?.shortcut?.errors?.required && (selectedForm?.controls?.shortcut?.dirty || selectedForm?.controls?.shortcut?.touched) ? 'red' : '#dddfea'
+            }"
+          />
+        </ng-container>
+      </div>
+      <div class="images-template-progress-container rounded border-gray flex-col flex-1 flex-shrink-0 rounded-t-none p-16 border-important">
+        <reactor-room-image-input accept=".doc,.docx,.pdf,.ppt,.csv,.xls,image/x-png,image/gif,image/jpeg" [maxFiles]="6" nestedIn="selected" size="70"></reactor-room-image-input>
+      </div>
+    </div>
+
+    <reactor-room-custom-table
+      class="table-full-height"
+      [isLoading]="false"
+      [tableColSpan]="tableHeader.length"
+      [tableData]="masterForm.get('content').value"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [currentIndex]="1"
+      [ngClass]="{ 'edit-opened': isItemSetEdit }"
+    >
+      <tr *ngFor="let data of masterForm.get('content').value; trackBy: trackByID" class="group border-t border-b table-content">
+        <td (click)="selectImageSet(data)" [matTooltip]="'Click and send' | translate">
+          <div class="images-set flex custom-scroll-bar max-w-screen--400">
+            <div *ngFor="let image of data.images; let i = index; trackBy: trackByURL">
+              <ng-container *ngIf="isImageByExtension(image.extension); else elseContent">
+                <div class="thumbnail flex relative mr-20">
+                  <div class="absolute -top-5 -right-5">
+                    <div class="remove-image">
+                      <button
+                        class="flex cursor-pointer border-none transparent interactive p-5 z-0 relative"
+                        [attr.aria-label]="'Remove image' | translate"
+                        (click)="deleteImageFromSet($event, i, data.id)"
+                      >
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="10" cy="10" r="10" fill="#EA6161" />
+                          <path
+                            d="M10.5524 10L14.8856 5.66686C15.0381 5.5143 15.0381 5.26696 14.8856 5.11442C14.733 4.96188 14.4857 4.96186 14.3331 5.11442L9.99999 9.44758L5.66686 5.11442C5.5143 4.96186 5.26696 4.96186 5.11442 5.11442C4.96188 5.26698 4.96186 5.51432 5.11442 5.66686L9.44755 10L5.11442 14.3332C4.96186 14.4857 4.96186 14.7331 5.11442 14.8856C5.19069 14.9619 5.29067 15 5.39065 15C5.49063 15 5.59059 14.9619 5.66688 14.8856L9.99999 10.5525L14.3331 14.8856C14.4094 14.9619 14.5094 15 14.6094 15C14.7093 15 14.8093 14.9619 14.8856 14.8856C15.0381 14.733 15.0381 14.4857 14.8856 14.3332L10.5524 10Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <span class="preview pointer-events-none z-1 relative">
+                      <img [src]="image.url" class="fixed object-cover rounded shadow-xl" />
+                    </span>
+                  </div>
+                  <img width="60" height="60" [src]="image.url" class="object-cover rounded-full" />
+                </div>
+                <span class="mobile-preview pointer-events-none z-1 relative">
+                  <img [src]="image.url" class="fixed object-cover rounded shadow-xl" />
+                </span>
+              </ng-container>
+              <ng-template #elseContent>
+                <div
+                  class="thumbnail flex flex-col relative max-w-60 mr-5"
+                  (mouseenter)="$event.stopPropagation()"
+                  (mouseleave)="$event.stopPropagation()"
+                  [matTooltip]="image.filename"
+                >
+                  <button
+                    class="remove-image absolute -right-5 -top-5 flex cursor-pointer border-none transparent interactive p-5 z-0"
+                    [attr.aria-label]="'Remove image' | translate"
+                    (click)="deleteImageFromSet($event, i, data.id)"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10" cy="10" r="10" fill="#EA6161" />
+                      <path
+                        d="M10.5524 10L14.8856 5.66686C15.0381 5.5143 15.0381 5.26696 14.8856 5.11442C14.733 4.96188 14.4857 4.96186 14.3331 5.11442L9.99999 9.44758L5.66686 5.11442C5.5143 4.96186 5.26696 4.96186 5.11442 5.11442C4.96188 5.26698 4.96186 5.51432 5.11442 5.66686L9.44755 10L5.11442 14.3332C4.96186 14.4857 4.96186 14.7331 5.11442 14.8856C5.19069 14.9619 5.29067 15 5.39065 15C5.49063 15 5.59059 14.9619 5.66688 14.8856L9.99999 10.5525L14.3331 14.8856C14.4094 14.9619 14.5094 15 14.6094 15C14.7093 15 14.8093 14.9619 14.8856 14.8856C15.0381 14.733 15.0381 14.4857 14.8856 14.3332L10.5524 10Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                  <div class="animated group-hover:bg-blue-100 hover:bg-white rounded-full bg-blue-200 w-50 h-50 flex items-center justify-center mr-20">
+                    {{ image.extension }}
+                  </div>
+                  <div class="text-xs truncate mt-5">
+                    {{ image.filename }}
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </td>
+        <td (click)="selectImageSet(data)">
+          <span
+            (mouseenter)="$event.stopPropagation()"
+            (mouseleave)="$event.stopPropagation()"
+            [matTooltip]="data.shortcut ? ('Shortcut' | translate) + data.shortcut : ('No shortcut added' | translate)"
+            [ngClass]="{ 'text-gray-300': !data.shortcut }"
+            class="image-shortcut block text-sm font-light truncate pr-25"
+          >
+            {{ data.shortcut ? ':/' + data.shortcut : ('No shortcut added' | translate) }}
+          </span>
+        </td>
+
+        <td style="padding: 2px; width: 10px">
+          <div class="images-actions flex items-center justify-center action">
+            <reactor-room-table-action>
+              <div class="more-menu">
+                <button
+                  [attr.aria-label]="'Edit' | translate"
+                  (click)="editImageSet(data)"
+                  mat-menu-item
+                  class="item"
+                  class="item w-full border-none transparent flex items-center py-5"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M20.077 7.49704C20.077 9.99732 19.2403 12.3153 18.2843 14.0149C17.8072 14.8631 17.3132 15.5341 16.9047 15.9798C16.7465 16.1524 16.6108 16.2805 16.503 16.3693C16.3952 16.2805 16.2596 16.1524 16.1014 15.9798C15.6928 15.5341 15.1988 14.8631 14.7218 14.0149C13.7657 12.3153 12.9291 9.99732 12.9291 7.49704C12.9291 5.5232 14.5292 3.92308 16.503 3.92308C18.4769 3.92308 20.077 5.5232 20.077 7.49704ZM21.0001 7.49704C21.0001 11.2811 19.2311 14.6229 17.8639 16.2821V21H3.89941V13.355H3V9.0797L5.99266 6.58582H12.0984C12.5196 4.53904 14.3316 3 16.503 3C18.9867 3 21.0001 5.01339 21.0001 7.49704ZM16.503 17.3905C16.6127 17.3905 16.7624 17.3237 16.9408 17.1966V20.0769H4.82249V13.355H8.40833V15.5917H12.9054V13.355H13.3502C14.4705 15.791 15.9666 17.3905 16.503 17.3905ZM3.92308 12.432H12.961C12.6438 11.606 12.3797 10.7066 12.2102 9.75737H3.92308V12.432ZM4.73639 8.83429H12.0782C12.0317 8.40011 12.0064 7.95762 12.006 7.50889H6.32686L4.73639 8.83429ZM17.3787 7.49706C17.3787 7.98072 16.9866 8.3728 16.5029 8.3728C16.0193 8.3728 15.6272 7.98072 15.6272 7.49706C15.6272 7.0134 16.0193 6.62132 16.5029 6.62132C16.9866 6.62132 17.3787 7.0134 17.3787 7.49706ZM18.3017 7.49706C18.3017 8.49052 17.4964 9.29588 16.5029 9.29588C15.5095 9.29588 14.7041 8.49052 14.7041 7.49706C14.7041 6.5036 15.5095 5.69824 16.5029 5.69824C17.4964 5.69824 18.3017 6.5036 18.3017 7.49706Z"
+                    />
+                  </svg>
+
+                  <span class="ml-5">{{ 'Edit' | translate }}</span>
+                </button>
+                <button
+                  [attr.aria-label]="'Delete' | translate"
+                  (click)="deleteImageSets(data.id)"
+                  mat-menu-item
+                  class="item w-full border-none transparent flex items-center py-5"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M4.8 3C4.60631 3 4.43434 3.12712 4.37309 3.31559L3.02309 7.46943C3.0078 7.51649 3 7.56578 3 7.61538V20.5385C3 20.7934 3.20147 21 3.45 21H20.55C20.7985 21 21 20.7934 21 20.5385V13.6154C21 13.3605 20.7985 13.1538 20.55 13.1538H12.1863L13.9637 11.3309L13.3273 10.6782L10.4636 13.6154L13.3273 16.5526L13.9637 15.8999L12.1864 14.0769H20.1V20.0769H3.9V8.07693H20.1V10.8462C20.1 11.1011 20.3015 11.3077 20.55 11.3077C20.7985 11.3077 21 11.1011 21 10.8462V7.61538C21 7.55081 20.9868 7.48695 20.9612 7.42794L19.1612 3.27409C19.089 3.10742 18.9278 3 18.75 3H4.8ZM11.55 7.15385H4.07434L5.12434 3.92308H11.55V7.15385ZM19.8576 7.15385H12.45V3.92308H18.4576L19.8576 7.15385Z"
+                    />
+                  </svg>
+
+                  <span class="ml-5">{{ 'Delete' | translate }}</span>
+                </button>
+              </div>
+            </reactor-room-table-action>
+          </div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+
+    <reactor-room-pagination #paginator (changePage)="changePage($event)" [pageSize]="masterForm.controls.filters.value.pageSize" [length]="totalRows"></reactor-room-pagination>
+  </div>
+</ng-container>

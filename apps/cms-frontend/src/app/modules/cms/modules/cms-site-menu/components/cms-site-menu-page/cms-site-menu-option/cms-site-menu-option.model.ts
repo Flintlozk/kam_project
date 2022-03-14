@@ -1,0 +1,9 @@
+export enum SiteOptionActionTypes {
+  CREATE_NEW = 'CREATE_NEW',
+  HIDE = 'HIDE',
+  DUPLICATE = 'DUPLICATE',
+  RENAME = 'RENAME',
+  SET_HOME_PAGE = 'SET_HOME_PAGE',
+  SETTINGS = 'SETTINGS',
+  DELETE = 'DELETE',
+}

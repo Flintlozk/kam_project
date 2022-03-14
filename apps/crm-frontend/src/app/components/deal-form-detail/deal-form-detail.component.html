@@ -1,0 +1,13 @@
+<mat-card class="card-deal-detail" *ngFor="let taskDeal of taskDealList">
+  <div (click)="onClickOpenEditDealDialog(taskDeal)" style="width: 100%">
+    <div class="card-deal-title">
+      <div>{{ taskDeal.dealtitle }}</div>
+    </div>
+    <div class="card-deal-amount">{{ taskDeal.objective }}</div>
+    <div class="card-deal-dueDate">{{ taskDeal.startDate | date }} - {{ taskDeal.endDate | date }}</div>
+  </div>
+  <div class="flex-column">
+    <img draggable="false" [src]="[taskDeal.profilePic]" [matTooltip]="[taskDeal.name]" />
+    <mat-icon (click)="onClickDeleteDeal(taskDeal)" matTooltip="Delete deal">delete_forever</mat-icon>
+  </div>
+</mat-card>

@@ -1,0 +1,154 @@
+<div class="product-create-variants">
+  <div class="head" *ngIf="!isMultipleVariants">
+    <div class="title">
+      <span *ngIf="isAddingVariants">{{ 'New' | translate }}</span> {{ 'Product Variants' | translate }}
+    </div>
+
+    <div class="attributes" *ngIf="!formMode; else editVariant">
+      *{{ 'Size Color Other' | translate }}
+      <button class="btn-attribute" (click)="openDialog()">{{ 'Attribute' | translate }}</button>
+    </div>
+
+    <ng-template #editVariant>
+      <div class="add-variant">
+        <button class="btn-variant" (click)="openAddVariation()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+            />
+          </svg>
+          {{ 'Add Variation' | translate }}
+        </button>
+      </div>
+    </ng-template>
+  </div>
+  <div class="table w-full" *ngIf="!isAddingVariants || this.storedAttributeData?.attributes?.length">
+    <form [formGroup]="variantForm">
+      <div formArrayName="variants">
+        <reactor-room-custom-table
+          [noDataMessage]="noDataMessage"
+          [tableColSpan]="tableColSpan"
+          [isNoData]="false"
+          [tableHeader]="tableHeader"
+          [tableData]="variantsData"
+          [isNoVerticalScroll]="true"
+        >
+          <ng-container class="table-content">
+            <ng-container *ngFor="let variant of variantsFormArray.controls; trackBy: trackBy; let i = index">
+              <tr [id]="'variantRow' + i">
+                <ng-container [formGroupName]="i">
+                  <td>
+                    <div class="img">
+                      <div class="img-upload" (click)="openVariantImageDialog(i)">
+                        <ng-container *ngIf="variant['controls']['variantImages'].value[0]?.mediaLink; else noGoogleImage">
+                          <img
+                            [src]="
+                              variant['controls']['variantImages'].value[0]?.mediaLink
+                                ? variant['controls']['variantImages'].value[0]?.mediaLink
+                                : 'assets/img/products/icon_upload.jpg'
+                            "
+                            alt="Image Upload"
+                          />
+                        </ng-container>
+                        <ng-template #noGoogleImage>
+                          <img
+                            [src]="variant['controls']['variantImages'].value[0]?.url ? variant['controls']['variantImages'].value[0]?.url : 'assets/img/products/icon_upload.jpg'"
+                            alt="Image Upload"
+                          />
+                        </ng-template>
+                        <div class="count">{{ variant['controls']['variantImages'].length }}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- ////:: marketplace functionality commenting now -->
+                  <!-- <td>
+                    <div class="market-icons">
+                      <ng-container *ngFor="let mergedVariants of variant['controls']['mergedVariants']?.value">
+                        <img [src]="marketPlaceIconObj[mergedVariants.marketPlaceVariantType]" [alt]="mergedVariants.marketPlaceVariantType" />
+                      </ng-container>
+                      <img [src]="marketPlaceIconObj[marketPlaceTypes.MORE_COMMERCE]" [alt]="marketPlaceTypes.MORE_COMMERCE" />
+                    </div>
+                  </td> -->
+                  <td>
+                    <div class="sku" [ngClass]="{ invalid: !variant.get('sku').valid && skuValidationMessage[i] }">
+                      <input type="text" formControlName="sku" (keyup)="eventLookUpOnFocus(i, 'sku')" />
+                      <mat-error *ngIf="!variant.get('sku').valid" [innerHTML]="skuValidationMessage[i]"></mat-error>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="unit-price" [ngClass]="{ invalid: !variant.get('unitPrice').valid && unitPriceValidationMessage[i] }">
+                      <div class="price-with-symbol">
+                        <div class="input-group-prepend">
+                          <span>฿</span>
+                        </div>
+                        <input reactorRoomNumeric decimals="2" type="text" formControlName="unitPrice" (keyup)="eventLookUpOnFocus(i, 'unitPrice')" />
+                      </div>
+                      <mat-error *ngIf="!variant.get('unitPrice').valid" [innerHTML]="unitPriceValidationMessage[i]"> </mat-error>
+                    </div>
+                  </td>
+
+                  <!-- Update Inv -->
+                  <td>
+                    <div [ngClass]="{ invalid: !variant.get('inventory').valid && inventoryValidationMessage[i] }">
+                      <div class="plus-minus">
+                        <button class="btn minus" (click)="minusFunc(i)">-</button>
+                        <input class="input inventory" type="number" reactorRoomNumeric step="1" formControlName="inventory" />
+                        <button class="btn plus active" (click)="plusFunc(i)">+</button>
+                      </div>
+                      <!-- 
+                      <input class="input inventory" type="text" reactorRoomNumeric formControlName="currentInventory" [readonly]="true" /> -->
+                      <!-- <input class="input inventory" type="text" reactorRoomNumeric formControlName="inventory" [readonly]="true" /> -->
+                      <mat-error *ngIf="!variant.get('inventory').valid" [innerHTML]="inventoryValidationMessage[i]"> </mat-error>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="withhold">
+                      <input class="input inventory" type="text" reactorRoomNumeric formControlName="withhold" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="select-items">
+                      <div class="select-option">
+                        <mat-form-field *ngIf="productStatus?.length > 0">
+                          <mat-select formControlName="status" (selectionChange)="eventLookUpOnFocus(i, 'status')">
+                            <mat-option *ngFor="let item of productStatus" [value]="item.value">
+                              {{ item.label | translate }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div id="{{ 'expandItem' + i }}" class="expand-item">
+                        <div class="items">
+                          <ng-container *ngFor="let attrib of variant.get('attributes')['controls']">
+                            <div class="item" *ngIf="attrib?.value?.name">
+                              {{ attrib?.value?.name }}
+                            </div>
+                          </ng-container>
+                        </div>
+                        <div class="expand" *ngIf="variant.get('attributes')['controls'].length > 3" (click)="toggleExpandItem(i)">
+                          <div class="text"><span>+</span>{{ variant.get('attributes')['controls'].length - 3 }}</div>
+                          <svg width="13.2px" height="12px" viewBox="0 0 22 20">
+                            <g id="Plusmar-Inbox" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g id="Inbox" transform="translate(-330.000000, -1466.000000)" stroke="#53B1FF" stroke-width="3">
+                                <g id="icon_double-righatrrow" transform="translate(332.000000, 1467.000000)">
+                                  <polyline id="Path-4" points="0 0 8.5 8.5 0 17.5"></polyline>
+                                  <polyline id="Path-4" points="9 0 17.5 8.5 9 17.5"></polyline>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </reactor-room-custom-table>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+@import 'base';
+
+.setting {
+  .mat-tab-setting {
+    @extend .custom-tabs;
+  }
+  .setting-log {
+    .mat-tab-body-wrapper {
+      margin-top: 10px;
+    }
+  }
+}

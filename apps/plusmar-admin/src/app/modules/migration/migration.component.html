@@ -1,0 +1,27 @@
+<div class="migration-container">
+  <ng-container *ngIf="!show">
+    <div>
+      <div>Fill Password to unlock</div>
+      <div>
+        <label>PWD:</label>
+        <input style="border: 1px solid #000" [(ngModel)]="pwd" (keydown.enter)="unlock()" />
+        <button class="button" (click)="unlock()">Unlock</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="show">
+    <h3>Click to call</h3>
+
+    <div class="button-div">
+      <button class="button" (click)="doMigratePageApplicationScope()">RUN : Migrate page_app_scope for MORE-COMMERCE</button>
+    </div>
+
+    <div class="button-div">
+      <button class="button">RUN : Temp</button>
+    </div>
+
+    <div class="button-div">
+      <button class="button">RUN : Temp</button>
+    </div>
+  </ng-container>
+</div>

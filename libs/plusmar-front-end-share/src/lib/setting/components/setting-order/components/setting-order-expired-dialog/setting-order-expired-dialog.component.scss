@@ -1,0 +1,62 @@
+@import 'base';
+@import 'buttons';
+.setting-order-expired-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    .label {
+      font-size: 12px;
+      font-weight: 200;
+      color: #576f83;
+      span {
+        color: $main-color;
+      }
+    }
+    .func {
+      padding-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      input {
+        height: 35px;
+        padding: 0px 20px;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        max-width: 22px;
+        text-align: center;
+        margin: 0px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .date {
+        height: 35px;
+        border: 1px solid $border-color;
+        border-left: 0px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 0px 20px;
+        background: #f2f5f9;
+        color: #a5a4a4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 200;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<reactor-room-heading [headingTitle]="'New Messages' | translate" [Route]="'New Messages' | translate">
+  <div class="heading-content"></div>
+</reactor-room-heading>
+
+<div class="Audience">
+  <div class="steps">
+    <div
+      class="card-step active"
+      [class]="{ first: idx === 0, large: step.children.length, small: !step.children.length }"
+      *ngFor="let step of steps; let idx = index"
+      (click)="selectSubTab($event, step.routeBase, step.routeFirstSub, 1)"
+    >
+      <div class="main">
+        <div class="main-icon" *ngIf="step?.icon !== null">
+          <img [src]="step?.icon" />
+        </div>
+        <div class="main-count">
+          <div class="step-count">
+            <div class="step">{{ step?.label | translate }}</div>
+          </div>
+        </div>
+        <div class="main-arrow">
+          <div class="count">{{ step?.total }}</div>
+          <div class="label-arrow" *ngIf="step.children.length">
+            <div class="label">{{ step?.text | translate }}</div>
+            <div class="arrow">
+              <img [src]="step?.image" [alt]="step?.text" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="children" *ngIf="step.children.length">
+        <a [class]="'item item-' + i" *ngFor="let child of step?.children; let i = index">
+          <span class="label" (click)="selectSubTab($event, step.routeBase, child?.routeParam)">{{ child?.label }}</span>
+          <span class="total">{{ child?.total }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

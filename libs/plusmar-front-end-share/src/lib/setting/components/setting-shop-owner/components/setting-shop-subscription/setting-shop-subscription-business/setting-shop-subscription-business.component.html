@@ -1,0 +1,24 @@
+<div class="detail business">
+  <div class="title">
+    {{ planName }}
+    <ng-content select=".remain"></ng-content>
+  </div>
+  <div>
+    <span class="price">{{ '23,500' }}</span>
+    /yr
+  </div>
+  <ul>
+    <li>
+      <span><img src="/assets/img/check-purple.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก <span class="with-color">{{ subscriptionLimitAndPrice.maximumPages }} เพจ</span>
+    </li>
+    <li>
+      <span><img src="/assets/img/check-purple.svg" /></span> ผู้ดูแลระบบไม่เกิน <span class="with-color">{{ subscriptionLimitAndPrice.maximumMembers }} คน</span>
+    </li>
+    <li>
+      <span><img src="/assets/img/check-purple.svg" /></span> เก็บรายชื่อลูกค้าไม่เกิน <span class="with-color">{{ subscriptionLimitAndPrice.maximumLeads }} คน</span>
+    </li>
+    <li *ngIf="isEnterpriseBusiness">
+      <span><img src="/assets/img/check-purple.svg" /></span>เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,1052 @@
+@import '/pages/styles/variable.module.scss';
+.normalImage {
+  width: 15px;
+  .rotate {
+    transform: rotate(180deg);
+  }
+}
+.featureTwoSide {
+  width: 100%;
+  display: flex;
+  font-family: 'DM Sans', Prompt !important;
+  padding-bottom: 110px;
+
+  .featureLeft {
+    float: left;
+    width: 50%;
+    padding-top: 60px;
+
+    .imageTitle {
+      padding-bottom: 20px;
+      position: relative;
+      max-width: 85px;
+
+      img {
+        // width: 85px;
+      }
+    }
+
+    .titleLeft {
+      padding-bottom: 20px;
+      color: $more_coolgrey80;
+      font-size: 4rem;
+      font-weight: 600;
+    }
+
+    .detailLeft {
+      padding-bottom: 20px;
+      color: $more_coolgrey70;
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin-right: 75px;
+    }
+
+    .learnMoreButtom {
+      a {
+        font-size: 1.4rem;
+        color: $more_blue60;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .featureRight {
+    width: 50%;
+    & > div {
+      overflow: unset !important;
+    }
+    img {
+      //
+      -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+      filter: drop-shadow(6px 16px 36px #383a4014);
+      width: 100%;
+    }
+  }
+}
+
+.featureCardInfo {
+  font-family: 'DM Sans', Prompt !important;
+
+  .titleInfoHeader {
+    text-align: center;
+    // margin-right: 270px;
+    // margin-left: 270px;
+    font-weight: 500;
+    padding-bottom: 15px;
+    font-size: 3rem;
+
+    .titleInfoNomal {
+      color: $more_coolgrey70;
+    }
+
+    .titleInfoBlue {
+      text-decoration: underline;
+      color: $more_blue60;
+    }
+  }
+
+  .descriptionInfo {
+    margin-right: 350px;
+    margin-left: 350px;
+    text-align: center;
+    font-size: 1.8rem;
+    color: $more_coolgrey60;
+    padding-bottom: 80px;
+  }
+
+  .cardInfoContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-bottom: 80px;
+
+    .CardBlock {
+      border: $more_coolgrey10 solid 1px;
+      border-radius: 24px;
+      width: 24%;
+      cursor: default;
+
+      &:hover {
+        background-color: $more_coolgrey10;
+      }
+
+      .CardInfo {
+        padding: 35px 30px;
+
+        .cardImage {
+          padding-bottom: 15px;
+        }
+
+        .cardTitle {
+          padding-bottom: 15px;
+          font-size: 1.75rem;
+          color: $more_coolgrey80;
+          font-weight: 500;
+        }
+
+        .cardDetail {
+          font-size: 1.35rem;
+          color: $more_coolgrey60;
+          line-height: 1.8;
+        }
+      }
+    }
+  }
+}
+
+.toggleImageContent {
+  padding-bottom: 100px;
+
+  .toggleContentContainer {
+    width: 100%;
+    display: flex;
+
+    .imageLeftSide {
+      width: 50%;
+      float: left;
+
+      .imageBox {
+        width: 100%;
+        height: 550px;
+        border: $more_coolgrey10 solid 1px;
+        background-color: $more_coolgrey10;
+        margin: auto auto;
+        border-radius: 24px;
+
+        img {
+          padding: 63px 69px !important;
+          width: 80% !important;
+          -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+          filter: drop-shadow(6px 16px 36px #383a4014);
+        }
+      }
+    }
+
+    .gapInfo {
+      width: 3%;
+    }
+
+    .contentRightSide {
+      width: 47%;
+
+      .contentListContainer {
+        padding-bottom: 23px;
+
+        &.showListContainer {
+          display: block;
+          -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+          animation-duration: 1.2s;
+          animation-delay: 0;
+        }
+
+        &.hideListContainer {
+          display: none;
+        }
+
+        .titleContentHeader {
+          padding-bottom: 5px;
+
+          img {
+            padding-right: 15px !important;
+            filter: invert(52%) sepia(100%) saturate(3984%) hue-rotate(185deg) brightness(99%) contrast(110%);
+          }
+
+          .titleContent {
+            font-size: 1.6rem;
+            color: $more_coolgrey80;
+            font-weight: 500;
+          }
+        }
+
+        .detailContent {
+          margin-left: 40px;
+          font-size: 1.2rem;
+          color: $more_coolgrey60;
+          font-weight: 400;
+        }
+      }
+
+      .moreButtom {
+        margin-left: 40px;
+        color: $more_blue60;
+        cursor: pointer;
+        font-size: 1.3rem;
+        font-weight: 700;
+
+        &.activeMore {
+          display: block;
+        }
+
+        &.unactiveMore {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .featureTwoSide {
+    width: 100%;
+    display: flex;
+    font-family: 'DM Sans', Prompt !important;
+    padding-bottom: 110px;
+
+    .featureLeft {
+      float: left;
+      width: 50%;
+      padding-top: 40px;
+
+      .imageTitle {
+        max-width: 60px;
+        padding-bottom: 15px;
+
+        img {
+          // width: 60px;
+        }
+      }
+
+      .titleLeft {
+        padding-bottom: 15px;
+        color: $more_coolgrey80;
+        font-size: 4.2vw;
+        font-weight: 600;
+      }
+
+      .detailLeft {
+        padding-bottom: 15px;
+        color: $more_coolgrey70;
+        font-size: 2.2vw;
+        font-weight: 500;
+        margin-right: 6vw;
+      }
+
+      .learnMoreButtom {
+        a {
+          font-size: 1.6vw;
+          color: $more_blue60;
+          text-decoration: none;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .featureRight {
+      width: 50%;
+
+      img {
+        -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+        filter: drop-shadow(6px 16px 36px #383a4014);
+        width: 100%;
+      }
+    }
+  }
+
+  .featureCardInfo {
+    font-family: 'DM Sans', Prompt !important;
+
+    .titleInfoHeader {
+      text-align: center;
+      // margin-right: 12vw;
+      // margin-left: 12vw;
+      font-weight: 500;
+      padding-bottom: 15px;
+      font-size: 2.9vw;
+
+      .titleInfoNomal {
+        color: $more_coolgrey70;
+      }
+
+      .titleInfoBlue {
+        text-decoration: underline;
+        color: $more_blue60;
+      }
+    }
+
+    .descriptionInfo {
+      margin-right: 15vw;
+      margin-left: 15vw;
+      text-align: center;
+      font-size: 2.2vw;
+      color: $more_coolgrey60;
+      padding-bottom: 80px;
+    }
+
+    .cardInfoContainer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      padding-bottom: 80px;
+
+      .CardBlock {
+        border: $more_coolgrey10 solid 1px;
+        border-radius: 24px;
+        width: 24%;
+        cursor: default;
+
+        &:hover {
+          background-color: $more_coolgrey10;
+        }
+
+        .CardInfo {
+          padding: 1.8vw 1.4vw;
+
+          .cardImage {
+            padding-bottom: 15px;
+          }
+
+          .cardTitle {
+            padding-bottom: 15px;
+            font-size: 1.7vw;
+            color: $more_coolgrey80;
+            font-weight: 500;
+          }
+
+          .cardDetail {
+            font-size: 1.35vw;
+            color: $more_coolgrey60;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleImageContent {
+    padding-bottom: 100px;
+    padding-top: 50px;
+
+    .toggleContentContainer {
+      width: 100%;
+      display: flex;
+
+      .imageLeftSide {
+        width: 50%;
+        float: left;
+
+        .imageBox {
+          width: 100%;
+          height: 32vw;
+          border: $more_coolgrey10 solid 1px;
+          background-color: $more_coolgrey10;
+          margin: auto auto;
+          border-radius: 24px;
+
+          img {
+            padding: 3.8vw 4.5vw !important;
+            width: 78% !important;
+            -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+            filter: drop-shadow(6px 16px 36px #383a4014);
+          }
+        }
+      }
+
+      .gapInfo {
+        width: 3%;
+      }
+
+      .contentRightSide {
+        width: 47%;
+
+        .contentListContainer {
+          padding-bottom: 23px;
+
+          &.showListContainer {
+            display: block;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+            animation-duration: 1.2s;
+            animation-delay: 0;
+          }
+
+          &.hideListContainer {
+            display: none;
+          }
+
+          .titleContentHeader {
+            padding-bottom: 5px;
+
+            img {
+              padding-right: 15px !important;
+              filter: invert(52%) sepia(100%) saturate(3984%) hue-rotate(185deg) brightness(99%) contrast(110%);
+            }
+
+            .titleContent {
+              font-size: 1.4vw;
+              color: $more_coolgrey80;
+              font-weight: 500;
+            }
+          }
+
+          .detailContent {
+            margin-left: 2.5vw;
+            font-size: 1.1vw;
+            color: $more_coolgrey60;
+            font-weight: 400;
+          }
+        }
+
+        .moreButtom {
+          margin-left: 2.5vw;
+          color: $more_blue60;
+          cursor: pointer;
+          font-size: 1.3vw;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  .featureTwoSide {
+    padding-bottom: 110px;
+
+    .featureLeft {
+      width: 50%;
+      padding-top: 40px;
+
+      .imageTitle {
+        max-width: 60px;
+        padding-bottom: 15px;
+
+        img {
+          // width: 60px;
+        }
+      }
+
+      .titleLeft {
+        padding-bottom: 15px;
+        font-size: 4.2vw;
+        font-weight: 600;
+      }
+
+      .detailLeft {
+        padding-bottom: 15px;
+        font-size: 2.2vw;
+        font-weight: 500;
+        margin-right: 6vw;
+      }
+
+      .learnMoreButtom {
+        a {
+          font-size: 1.6vw;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .featureRight {
+      width: 50%;
+
+      img {
+        -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+        filter: drop-shadow(6px 16px 36px #383a4014);
+        width: 100%;
+      }
+    }
+  }
+
+  .featureCardInfo {
+    .titleInfoHeader {
+      text-align: center;
+      // margin-right: 15vw;
+      // margin-left: 15vw;
+      font-weight: 500;
+      padding-bottom: 15px;
+      font-size: 2.9vw;
+
+      .titleInfoNomal {
+        color: $more_coolgrey70;
+      }
+
+      .titleInfoBlue {
+        text-decoration: underline;
+        color: $more_blue60;
+      }
+    }
+
+    .descriptionInfo {
+      margin-right: 15vw;
+      margin-left: 15vw;
+      text-align: center;
+      font-size: 1.9vw;
+      padding-bottom: 80px;
+    }
+
+    .cardInfoContainer {
+      padding-bottom: 80px;
+
+      .CardBlock {
+        border: $more_coolgrey10 solid 1px;
+        border-radius: 24px;
+        width: 24%;
+
+        .CardInfo {
+          padding: 1.8vw 1.4vw;
+
+          .cardImage {
+            padding-bottom: 15px;
+          }
+
+          .cardTitle {
+            padding-bottom: 15px;
+            font-size: 1.7vw;
+            font-weight: 500;
+          }
+
+          .cardDetail {
+            font-size: 1.35vw;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleImageContent {
+    padding-bottom: 100px;
+    padding-top: 50px;
+
+    .toggleContentContainer {
+      width: 100%;
+      display: flex;
+
+      .imageLeftSide {
+        width: 50%;
+        float: left;
+
+        .imageBox {
+          width: 100%;
+          height: 32vw;
+          border: $more_coolgrey10 solid 1px;
+          background-color: $more_coolgrey10;
+          margin: auto auto;
+          border-radius: 24px;
+
+          img {
+            padding: 3.8vw 4.5vw !important;
+            width: 78% !important;
+            -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+            filter: drop-shadow(6px 16px 36px #383a4014);
+          }
+        }
+      }
+
+      .gapInfo {
+        width: 3%;
+      }
+
+      .contentRightSide {
+        width: 47%;
+
+        .contentListContainer {
+          padding-bottom: 23px;
+
+          &.showListContainer {
+            display: block;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+            animation-duration: 1.2s;
+            animation-delay: 0;
+          }
+
+          &.hideListContainer {
+            display: none;
+          }
+
+          .titleContentHeader {
+            padding-bottom: 5px;
+
+            img {
+              width: 13px;
+              padding-right: 15px !important;
+              filter: invert(52%) sepia(100%) saturate(3984%) hue-rotate(185deg) brightness(99%) contrast(110%);
+            }
+
+            .titleContent {
+              font-size: 1.5vw;
+              color: $more_coolgrey80;
+              font-weight: 500;
+            }
+          }
+
+          .detailContent {
+            margin-left: 2.5vw;
+            font-size: 1.2vw;
+            color: $more_coolgrey60;
+            font-weight: 400;
+          }
+        }
+
+        .moreButtom {
+          margin-left: 2.5vw;
+          color: $more_blue60;
+          cursor: pointer;
+          font-size: 1.3vw;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+@include tablet_vertical {
+  .featureTwoSide {
+    padding-bottom: 40px;
+
+    .featureLeft {
+      width: 50%;
+      padding-top: 15px;
+
+      .imageTitle {
+        max-width: 40px;
+        padding-bottom: 10px;
+
+        img {
+          // width: 40px;
+        }
+      }
+
+      .titleLeft {
+        padding-bottom: 10px;
+        font-size: 4.2vw;
+        font-weight: 600;
+      }
+
+      .detailLeft {
+        padding-bottom: 10px;
+        font-size: 2.2vw;
+        font-weight: 500;
+        margin-right: 6vw;
+      }
+
+      .learnMoreButtom {
+        a {
+          font-size: 1.9vw;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .featureRight {
+      width: 50%;
+
+      img {
+        -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+        filter: drop-shadow(6px 16px 36px #383a4014);
+        width: 100%;
+      }
+    }
+  }
+
+  .featureCardInfo {
+    .titleInfoHeader {
+      text-align: center;
+      // margin-right: 15vw;
+      // margin-left: 15vw;
+      font-weight: 500;
+      padding-bottom: 15px;
+      font-size: 2.8vw;
+
+      .titleInfoNomal {
+        color: $more_coolgrey70;
+      }
+
+      .titleInfoBlue {
+        text-decoration: underline;
+        color: $more_blue60;
+      }
+    }
+
+    .descriptionInfo {
+      margin-right: 15vw;
+      margin-left: 15vw;
+      text-align: center;
+      font-size: 1.9vw;
+      padding-bottom: 40px;
+    }
+
+    .cardInfoContainer {
+      padding-bottom: 5px;
+
+      .CardBlock {
+        border: $more_coolgrey10 solid 1px;
+        border-radius: 24px;
+        width: 24%;
+
+        .CardInfo {
+          padding: 2vw 1.6vw;
+
+          .cardImage {
+            padding-bottom: 8px;
+
+            img {
+              width: 5vw;
+            }
+          }
+
+          .cardTitle {
+            padding-bottom: 8px;
+            font-size: 1.7vw;
+            font-weight: 500;
+          }
+
+          .cardDetail {
+            font-size: 1.25vw;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleImageContent {
+    padding-bottom: 30px;
+    padding-top: 50px;
+
+    .toggleContentContainer {
+      width: 100%;
+      display: flex;
+
+      .imageLeftSide {
+        width: 50%;
+        float: left;
+
+        .imageBox {
+          width: 100%;
+          height: 32vw;
+          border: $more_coolgrey10 solid 1px;
+          background-color: $more_coolgrey10;
+          margin: auto auto;
+          border-radius: 24px;
+
+          img {
+            padding: 3.8vw 4.5vw !important;
+            width: 78% !important;
+            -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+            filter: drop-shadow(6px 16px 36px #383a4014);
+          }
+        }
+      }
+
+      .gapInfo {
+        width: 3%;
+      }
+
+      .contentRightSide {
+        width: 47%;
+
+        .contentListContainer {
+          padding-bottom: 10px;
+
+          &.showListContainer {
+            display: block;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+            animation-duration: 1.2s;
+            animation-delay: 0;
+          }
+
+          &.hideListContainer {
+            display: none;
+          }
+
+          .titleContentHeader {
+            padding-bottom: 3px;
+
+            img {
+              width: 9px;
+              padding-right: 10px !important;
+              filter: invert(52%) sepia(100%) saturate(3984%) hue-rotate(185deg) brightness(99%) contrast(110%);
+            }
+
+            .titleContent {
+              font-size: 1.5vw;
+              color: $more_coolgrey80;
+              font-weight: 500;
+            }
+          }
+
+          .detailContent {
+            margin-left: 3vw;
+            font-size: 1.2vw;
+            color: $more_coolgrey60;
+            font-weight: 400;
+          }
+        }
+
+        .moreButtom {
+          margin-left: 2.5vw;
+          color: $more_blue60;
+          cursor: pointer;
+          font-size: 1.3vw;
+          font-weight: 700;
+
+          img {
+            width: 9px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .featureTwoSide {
+    flex-direction: column;
+
+    // font-family: 'DM Sans', Prompt !important;
+    // padding-bottom: 110px;
+    .featureLeft {
+      width: 100%;
+      padding-top: 15px;
+      text-align: center;
+
+      .imageTitle {
+        max-width: 15vw;
+        padding-bottom: 10px;
+
+        img {
+          // width: 15vw;
+        }
+      }
+
+      .titleLeft {
+        padding-bottom: 10px;
+        font-size: 10vw;
+        font-weight: 600;
+      }
+
+      .detailLeft {
+        padding-bottom: 10px;
+        font-size: 5vw;
+        font-weight: 500;
+        margin-left: 5vw;
+        margin-right: 5vw;
+      }
+
+      .learnMoreButtom {
+        padding-bottom: 25px;
+        padding-top: 10px;
+
+        a {
+          font-size: 4vw;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .featureRight {
+      width: 100%;
+
+      img {
+        -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+        filter: drop-shadow(6px 16px 36px #383a4014);
+        width: 100%;
+      }
+    }
+  }
+
+  .featureCardInfo {
+    .titleInfoHeader {
+      text-align: center;
+      // margin-right: 15vw;
+      // margin-left: 15vw;
+      font-weight: 500;
+      padding-bottom: 15px;
+      font-size: 7.5vw;
+
+      .titleInfoNomal {
+        display: inline;
+        color: $more_coolgrey70;
+      }
+
+      .titleInfoBlue {
+        text-decoration: underline;
+        color: $more_blue60;
+      }
+    }
+
+    .descriptionInfo {
+      margin-right: 0vw;
+      margin-left: 0vw;
+      text-align: center;
+      font-size: 5.5vw;
+      padding-bottom: 40px;
+    }
+
+    .cardInfoContainer {
+      padding-bottom: 5px;
+      display: block;
+
+      .CardBlock {
+        border: $more_coolgrey10 solid 1px;
+        border-radius: 16px;
+        width: 100%;
+        margin-bottom: 20px;
+
+        .CardInfo {
+          padding: 7vw 6vw;
+
+          .cardImage {
+            padding-bottom: 8px;
+
+            img {
+              width: 16vw;
+            }
+          }
+
+          .cardTitle {
+            padding-bottom: 8px;
+            font-size: 7.3vw;
+            font-weight: 500;
+            color: $more_coolgrey80;
+          }
+
+          .cardDetail {
+            font-size: 5.5vw;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+
+  .toggleImageContent {
+    padding-bottom: 30px;
+    padding-top: 50px;
+
+    .toggleContentContainer {
+      width: 100%;
+      // display: flex;
+      flex-direction: column;
+
+      .imageLeftSide {
+        width: 100%;
+        float: none;
+
+        .imageBox {
+          width: 100%;
+          height: 64vw;
+          border: $more_coolgrey10 solid 1px;
+          background-color: $more_coolgrey10;
+          margin: auto auto;
+          border-radius: 16px;
+
+          img {
+            padding: 6.7vw 5.6vw !important;
+            width: 85% !important;
+            -webkit-filter: drop-shadow(6px 16px 36px #383a4014);
+            filter: drop-shadow(6px 16px 36px #383a4014);
+          }
+        }
+      }
+
+      .gapInfo {
+        width: 0%;
+      }
+
+      .contentRightSide {
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 5px;
+
+        .contentListContainer {
+          padding-bottom: 18px;
+
+          &.showListContainer {
+            display: block;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+            animation-duration: 1.2s;
+            animation-delay: 0;
+          }
+
+          &.hideListContainer {
+            display: none;
+          }
+
+          .titleContentHeader {
+            padding-bottom: 3px;
+
+            img {
+              width: 4vw;
+              padding-right: 6px !important;
+              filter: invert(52%) sepia(100%) saturate(3984%) hue-rotate(185deg) brightness(99%) contrast(110%);
+            }
+
+            .titleContent {
+              font-size: 5vw;
+              color: $more_coolgrey80;
+              font-weight: 500;
+            }
+          }
+
+          .detailContent {
+            margin-left: 5vw;
+            font-size: 3.8vw;
+            color: $more_coolgrey60;
+            font-weight: 400;
+          }
+        }
+
+        .moreButtom {
+          margin-left: 2.5vw;
+          color: $more_blue60;
+          cursor: pointer;
+          font-size: 5vw;
+          font-weight: 700;
+
+          img {
+            width: 4vw !important;
+          }
+        }
+      }
+    }
+  }
+}

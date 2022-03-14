@@ -1,0 +1,48 @@
+<div class="subscription-plans">
+  <div *ngIf="state === 'PHONE'">
+    <div class="heading">
+      <img src="assets/img/register/phone.png" />
+    </div>
+    <div class="heading">
+      <div class="title">
+        {{ 'Phone Input' | translate }}
+      </div>
+    </div>
+    <div class="sub-title">{{ 'We will send OTP' | translate }}</div>
+    <reactor-room-register-phone-number-form (submitPhoneNumber)="submitPhoneNumber($event)"> </reactor-room-register-phone-number-form>
+  </div>
+
+  <div *ngIf="state === 'OTP'">
+    <div class="heading">
+      <img src="assets/img/register/otp.png" />
+    </div>
+    <div class="heading">
+      <div class="title">
+        {{ 'Verification' | translate }}
+      </div>
+    </div>
+    <div class="sub-title">{{ 'Please enter OPT' | translate }} {{ phoneNumber }}</div>
+    <reactor-room-register-otp-form [phoneNumber]="phoneNumber" (isResend)="resend($event)" (isBack)="backToPhoneNumberForm($event)" (isValidateOTPSuccess)="validatingOTP($event)">
+    </reactor-room-register-otp-form>
+  </div>
+
+  <div *ngIf="state === 'SUCCESS'">
+    <div class="heading">
+      <img src="assets/img/register/success.png" />
+    </div>
+    <div class="heading">
+      <div class="title">
+        {{ 'Verify Success' | translate }}
+      </div>
+    </div>
+    <div class="sub-title">{{ 'Thanks for register' | translate }}</div>
+    <div class="next-button">
+      <button (click)="next()" class="btn-create active">
+        {{ 'Next' | translate }}
+        <img src="assets/img/icon_next.svg" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<reactor-room-loader block="true" [text]="'Loading' | translate" *ngIf="isLoading"></reactor-room-loader>

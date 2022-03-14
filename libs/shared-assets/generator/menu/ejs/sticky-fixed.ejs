@@ -1,0 +1,8 @@
+function getMenuJsSettingSticky() {
+  const mainElement = document.getElementById('<%=id%>');
+  const navContainerElement = mainElement?.getElementsByClassName('nav-container')[0];
+  navContainerElement?.classList.add('fixed');
+  navContainerElement?.classList.remove('auto');
+  navContainerElement?.classList.remove('smart');
+}
+getMenuJsSettingSticky();

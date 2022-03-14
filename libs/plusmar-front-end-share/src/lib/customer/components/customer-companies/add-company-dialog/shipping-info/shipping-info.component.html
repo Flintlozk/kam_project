@@ -1,0 +1,74 @@
+<ng-container *ngIf="shippingInfoForm?.value">
+  <form [formGroup]="shippingInfoForm" class="shipping-info-container pt-20">
+    <div class="content form-grid overflow-on-mobile">
+      <div class="item">
+        <div class="shipping-info-label mb-5">{{ 'Use company address' | translate }}</div>
+        <reactor-room-radio class="flex" controlName="use_company_address" [defaultState]="true" [buttons]="radioFields"></reactor-room-radio>
+      </div>
+
+      <div
+        class="item"
+        [ngClass]="{
+          invalid:
+            (shippingInfoForm.controls?.shipping_phone_number?.errors?.phoneinit || shippingInfoForm.controls?.shipping_phone_number?.errors?.required) &&
+            (shippingInfoForm.controls?.shipping_phone_number?.dirty || shippingInfoForm.controls?.shipping_phone_number?.touched)
+        }"
+      >
+        <div class="shipping-info-label">{{ 'Phone number' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="shipping_phone_number" [attr.disabled]="shippingInfoForm.get('use_company_address').value || null" />
+        <mat-error
+          *ngIf="
+            shippingInfoForm.controls?.shipping_phone_number?.errors?.required &&
+            (shippingInfoForm.controls?.shipping_phone_number?.dirty || shippingInfoForm.controls?.shipping_phone_number?.touched)
+          "
+          >{{ 'Phone number is required' | translate }}</mat-error
+        >
+        <mat-error
+          *ngIf="
+            shippingInfoForm.controls?.shipping_phone_number?.errors?.phoneinit &&
+            (shippingInfoForm.controls?.shipping_phone_number?.dirty || shippingInfoForm.controls?.shipping_phone_number?.touched)
+          "
+          >{{ 'Phone number should start with 0 and have 10 characters length' | translate }}</mat-error
+        >
+      </div>
+      <div
+        class="item"
+        [ngClass]="{
+          invalid:
+            (shippingInfoForm.controls?.shipping_email?.errors?.email || shippingInfoForm.controls?.shipping_email?.errors?.required) &&
+            (shippingInfoForm.controls?.shipping_email?.dirty || shippingInfoForm.controls?.shipping_email?.touched)
+        }"
+      >
+        <div class="shipping-info-label">{{ 'Email' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="shipping_email" [attr.disabled]="shippingInfoForm.get('use_company_address').value || null" />
+        <mat-error
+          *ngIf="
+            shippingInfoForm.controls?.shipping_email?.errors?.required && (shippingInfoForm.controls?.shipping_email?.dirty || shippingInfoForm.controls?.shipping_email?.touched)
+          "
+          >{{ 'Email is required' | translate }}</mat-error
+        >
+        <mat-error
+          *ngIf="
+            shippingInfoForm.controls?.shipping_email?.errors?.email && (shippingInfoForm.controls?.shipping_email?.dirty || shippingInfoForm.controls?.shipping_email?.touched)
+          "
+          >{{ 'Email is incorrect' | translate }}</mat-error
+        >
+      </div>
+      <div class="item">
+        <div class="shipping-info-label">{{ 'Fax' | translate }}</div>
+        <input type="text" class="w-full" formControlName="shipping_fax" [attr.disabled]="shippingInfoForm.get('use_company_address').value || null" />
+      </div>
+
+      <div class="item on-line">
+        <div class="shipping-info-label">{{ 'Address' | translate }}</div>
+        <input type="text" class="w-full" formControlName="shipping_address" [attr.disabled]="shippingInfoForm.get('use_company_address').value || null" />
+      </div>
+      <reactor-room-address [fields]="addressFields" class="form-grid on-line" [disabled]="shippingInfoForm.get('use_company_address').value"> </reactor-room-address>
+
+      <div class="item" [ngStyle]="{ visibility: 'hidden' }">
+        <div class="shipping-info-label">{{ 'Country' | translate }}*</div>
+        <input type="text" class="w-full" disabled formControlName="shipping_country" />
+      </div>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,90 @@
+<div class="hover:-translate-y-2 transition-all transform w-116 flex flex-col p-6 bg-gray-200 rounded-2xl">
+  <ng-container *ngIf="data?.bundles[0]?.id">
+    <div class="bg-white rounded-2xl flex items-center justify-center min-h-14">
+      <img style="height: 40px" [src]="data.key !== 'thaipost_cod' ? 'assets/svg/' + data.key + '.svg' : 'assets/svg/thaipost_cod.png'" onerror="this.src='assets/svg/error.svg'" />
+    </div>
+    <div class="flex items-end justify-between pt-6">
+      <div class="flex flex-col">
+        <h5 class="mb-1">Tracking Balance</h5>
+        <h2 class="text-5xl font-medium text-gray-500">
+          <span class="text-5xl">{{ data.spent }} /</span> <span>{{ data.total }}</span>
+        </h2>
+      </div>
+
+      <button
+        (click)="openDialog()"
+        class="
+          interactive-light-blue-shadow
+          h-14
+          w-14
+          flex
+          items-center
+          justify-center
+          bg-light-blue-500
+          hover:bg-light-blue-450
+          active:bg-light-blue-600
+          interactive
+          rounded-xl
+          relative
+          -top-2
+        "
+      >
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10 1C10 0.447715 9.55229 0 9 0C8.44771 0 8 0.447715 8 1V8H1C0.447715 8 0 8.44771 0 9C0 9.55229 0.447715 10 1 10H8V17C8 17.5523 8.44771 18 9 18C9.55229 18 10 17.5523 10 17V10H17C17.5523 10 18 9.55229 18 9C18 8.44771 17.5523 8 17 8H10V1Z"
+            fill="white"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="flex flex-col pt-6 flex-gap-xs">
+      <ng-container *ngFor="let bundle of data?.bundles">
+        <admin-number-bundle [bundle]="bundle" (updated)="emitGetLogisticBundles($event)"></admin-number-bundle>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!data?.bundles[0]?.id">
+    <div class="flex">
+      <div class="bg-white w-full rounded-2xl flex items-center justify-center min-h-14 relative">
+        <img
+          style="height: 40px"
+          [src]="data.key !== 'thaipost_cod' ? 'assets/svg/' + data.key + '.svg' : 'assets/svg/thaipost_cod.png'"
+          onerror="this.src='assets/svg/error.svg'"
+        />
+        <button
+          (click)="openDialog()"
+          class="
+            interactive-light-blue-shadow
+            absolute
+            right-0
+            top-0
+            bottom-0
+            h-14
+            w-14
+            my-auto
+            flex
+            items-center
+            justify-center
+            bg-light-blue-500
+            hover:bg-light-blue-450
+            active:bg-light-blue-600
+            interactive
+            rounded-xl
+          "
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10 1C10 0.447715 9.55229 0 9 0C8.44771 0 8 0.447715 8 1V8H1C0.447715 8 0 8.44771 0 9C0 9.55229 0.447715 10 1 10H8V17C8 17.5523 8.44771 18 9 18C9.55229 18 10 17.5523 10 17V10H17C17.5523 10 18 9.55229 18 9C18 8.44771 17.5523 8 17 8H10V1Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>

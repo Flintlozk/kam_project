@@ -1,0 +1,227 @@
+<div class="items-center justify-center attachment-container" *ngIf="message?.attachments && message?.attachments?.length > 0">
+  <ng-container *ngFor="let attachment of message?.attachments; trackBy: chatboxConfig.trackById">
+    <!-- ? Thumps Up -->
+    <ng-container *ngIf="attachment?.payload?.sticker_id === 369239263222822">
+      <!-- ? Handle thumbs up in message -->
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M69.4287 36.1008C70.7429 37.1626 72 38.2243 72 41.8689C72 45.5134 70.1429 47.0056 68.2858 48.01C68.9144 49.1866 69.4858 50.765 69.1144 52.659C68.5144 55.6148 66.4002 57.2505 64.2859 57.9105C64.8002 59.5462 65.1431 61.7272 63.8859 64.0804C62.5145 66.6631 59.9717 67.9545 56.1147 67.9545H31.5153C26.2868 67.9545 21.7155 65.6587 21.687 61.4116V34.2068C21.687 33.1737 22.5441 32.0545 23.5441 31.4805C24.5155 30.9353 25.2297 30.0457 25.7154 29.0413L32.5724 15.3241C32.9438 14.6641 33.0867 13.9179 33.0295 13.1144L32.6581 3.18525C32.6295 2.64001 32.801 2.09476 33.1724 1.693C33.7724 1.03297 35.4295 -0.00012207 37.9437 -0.00012207C39.6008 -0.00012207 40.6865 0.37294 41.9722 1.06167C46.3435 3.41483 47.4863 9.38381 47.4863 14.1762C47.4863 16.3859 47.0292 20.8052 46.6292 23.2732C46.6006 23.4167 46.7435 23.5602 46.8863 23.5602H61.7431C67.3716 23.5602 70.8858 26.4012 70.8858 30.9353C70.8858 33.1737 70.1715 34.8955 69.4287 36.1008ZM3.37135 28.3518H15.4853C17.3424 28.3518 18.8567 29.8728 18.8567 31.7381V68.6138C18.8567 70.4791 17.3424 72 15.4853 72H3.37135C1.51425 72 0 70.4791 0 68.6138V31.7381C0 29.8728 1.51425 28.3518 3.37135 28.3518Z"
+          fill="#0084FF"
+        />
+      </svg>
+    </ng-container>
+
+    <!-- ? Images Attachments-->
+
+    <ng-container *ngIf="attachment.type === 'image' && attachment?.payload?.sticker_id !== 369239263222822">
+      <img
+        class="image"
+        [src]="attachment.payload.url | paramsRemover: message"
+        onerror="src='assets/img/logo-small.svg'"
+        (error)="imageAttachmentExpired(message)"
+        (click)="chatboxConfig.zoomIn(attachment?.payload?.url, attachment.type)"
+      />
+    </ng-container>
+
+    <!-- ? audio -->
+    <ng-container *ngIf="attachment.type === 'audio'">
+      <audio controls>
+        <source [src]="attachment.payload.url" />
+        {{ 'Your browser does not support the audio element' | translate }}
+      </audio>
+    </ng-container>
+
+    <!-- ? video -->
+    <ng-container *ngIf="attachment.type === 'video'">
+      <video controls width="240" height="220">
+        <source [src]="attachment.payload.url" type="video/mp4" />
+        {{ 'Your browser does not support the audio element' | translate }}
+      </video>
+    </ng-container>
+
+    <!-- ? line Location-->
+
+    <ng-container *ngIf="audience?.platform === EAudiencePlatformType.FACEBOOKFANPAGE">
+      <ng-container *ngIf="attachment.type === 'location'">
+        <div class="location-wrapper">
+          <div class="title">
+            <img src="assets/img/location.png" />
+            {{ attachment.payload.title }}
+          </div>
+          <a class="get-location" target="_blank" [href]="attachment.payload.url">
+            {{ 'Get Location' | translate }}
+          </a>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="audience?.platform === EAudiencePlatformType.LINEOA">
+      <ng-container *ngIf="attachment.type === 'location'">
+        <div class="location-wrapper">
+          <ng-container *ngIf="message?.payload?.events[0]?.message?.address">
+            <div class="title">
+              <img src="assets/img/location.png" />
+              {{ message?.payload?.events[0]?.message?.address | json }}
+            </div>
+          </ng-container>
+          <a class="get-location" target="_blank" [href]="openMap(message?.payload?.events[0]?.message?.latitude, message?.payload?.events[0]?.message?.longitude)">
+            {{ 'Get Location' | translate }}
+          </a>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- ? line sticker -->
+    <ng-container *ngIf="attachment.type === 'sticker'">
+      <img class="image" [src]="'https://stickershop.line-scdn.net/stickershop/v1/sticker/' + message?.payload?.events[0]?.message?.stickerId + '/android/sticker.png'" />
+    </ng-container>
+
+    <!-- ? Images Set Preview Attachment-->
+    <ng-container *ngIf="attachment.type === 'images_set'">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 100 100"
+        enable-background="new 0 0 0 0"
+        xml:space="preserve"
+      >
+        <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+          <animateTransform attributeName="transform" dur="1s" type="translate" values="0 15 ; 0 -15; 0 15" repeatCount="indefinite" begin="0.1" />
+        </circle>
+        <circle fill="#fff" stroke="none" cx="30" cy="50" r="6">
+          <animateTransform attributeName="transform" dur="1s" type="translate" values="0 10 ; 0 -10; 0 10" repeatCount="indefinite" begin="0.2" />
+        </circle>
+        <circle fill="#fff" stroke="none" cx="54" cy="50" r="6">
+          <animateTransform attributeName="transform" dur="1s" type="translate" values="0 5 ; 0 -5; 0 5" repeatCount="indefinite" begin="0.3" />
+        </circle>
+      </svg>
+    </ng-container>
+
+    <!-- ? Fallback type Application-->
+    <!-- <ng-container *ngIf="attachment.type === 'fallback' && attachment.payload !== null">
+                <ng-container *ngIf="attachment?.title?.indexOf('Application') !== -1">
+                  <div class="application-wrapper">
+                    <div class="title">{{ attachment.title }}</div>
+                    {{ attachment | json }}
+                    <a [href]="attachment.payload.url" target="_blank" class="button-container"
+                      ><button class="button">{{ 'Go to Application' | translate }}</button></a
+                    >
+                  </div>
+                </ng-container>
+              </ng-container> -->
+
+    <!-- ? Files Attachments-->
+    <ng-container *ngIf="attachment.type === 'file'">
+      <div class="flex">
+        <div
+          class="flex w-60 mr-10 items-center"
+          [ngClass]="{
+            page: message.sentBy === sender.PAGE,
+            'text-white': audience?.platform !== EAudiencePlatformType.LINEOA && message.sentBy === sender.PAGE,
+            'text-black': (audience?.platform !== EAudiencePlatformType.LINEOA && message.sentBy !== sender.PAGE) || audience?.platform === EAudiencePlatformType.LINEOA
+          }"
+        >
+          <svg width="16" height="17" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M23.6863 9.10493C23.2697 8.69921 22.596 8.70101 22.1816 9.10888L9.39117 21.6987C7.73177 23.3233 5.03666 23.3233 3.37417 21.6966C1.71292 20.0693 1.71292 17.4307 3.37436 15.8041L16.5434 2.84361C17.5794 1.82938 19.2637 1.82938 20.3027 2.84581C21.3414 3.86273 21.3414 5.51154 20.3025 6.52875L9.39317 17.2092L9.39117 17.2113C8.97556 17.6159 8.30389 17.6154 7.88913 17.2093C7.47367 16.8026 7.47367 16.1434 7.88913 15.7366L13.155 10.5802C13.5704 10.1733 13.5704 9.51373 13.1548 9.10698C12.7393 8.70023 12.0655 8.70028 11.6501 9.10713L6.38429 14.2635C5.13786 15.4838 5.13786 17.4621 6.38439 18.6825C7.63087 19.9028 9.65162 19.9028 10.8982 18.6825C10.8996 18.6811 10.9021 18.6781 10.9021 18.6781L21.8072 8.00183C23.6772 6.17103 23.6772 3.20309 21.8072 1.37229C19.9369 -0.457432 16.9056 -0.457432 15.0367 1.37229L1.86763 14.3329C-0.622843 16.7712 -0.622843 20.7285 1.86943 23.1697C4.36334 25.6101 8.40554 25.6101 10.898 23.1699L23.6904 10.5781C24.1048 10.1702 24.1029 9.51065 23.6863 9.10493Z"
+            />
+          </svg>
+        </div>
+        <div class="line-clamp overflow-hidden">
+          <a
+            [ngClass]="{
+              page: message.sentBy === sender.PAGE,
+              'text-white': audience?.platform !== EAudiencePlatformType.LINEOA && message.sentBy === sender.PAGE,
+              'text-black': (audience?.platform !== EAudiencePlatformType.LINEOA && message.sentBy !== sender.PAGE) || audience?.platform === EAudiencePlatformType.LINEOA
+            }"
+            [href]="attachment?.payload?.url | queryRemover"
+            class="link"
+            target="_blank"
+          >
+            {{ optionalFileName || attachment?.payload?.url | generateFilePreview }}
+          </a>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- ? Template-->
+    <ng-container *ngIf="attachment.type === 'template'">
+      <!-- ? Template : receipt-->
+      <div *ngIf="attachment?.payload?.product" class="product-element-wrapper">
+        <ng-container *ngFor="let element of attachment?.payload?.product?.elements">
+          <img [src]="element.image_url" />
+        </ng-container>
+      </div>
+      <!-- ? Template : receipt-->
+      <div *ngIf="attachment?.payload?.template_type === 'receipt'">
+        <div class="receipt-wrapper">
+          <div class="update-date">
+            <span>{{ 'Updated Order' | translate }} {{ attachment?.payload?.timestamp | timeAgo: 'unix' }}</span>
+          </div>
+          <ng-container *ngFor="let element of attachment?.payload?.elements">
+            <div class="product">
+              <div class="product-image">
+                <img [src]="element.image_url" />
+              </div>
+              <div class="detail">
+                <div class="title">{{ element.title }}</div>
+                <div class="sub-title">{{ element.subtitle }}</div>
+                <div class="price">{{ 'QTY' | translate }} {{ element.quantity }} : ฿{{ element.price | formatCurrency }}</div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="spacer">
+            <div></div>
+          </div>
+          <div class="receipt-summary">
+            <div class="title">{{ 'Subtotal' | translate }}</div>
+            <div class="amount">฿{{ attachment?.payload?.summary.subtotal | formatCurrency }}</div>
+          </div>
+          <div class="receipt-summary">
+            <div class="title">{{ 'Shipping' | translate }}</div>
+            <div class="amount">฿{{ attachment?.payload?.summary.shipping_cost | formatCurrency }}</div>
+          </div>
+          <div class="receipt-summary">
+            <div class="title">{{ 'Tax' | translate }}</div>
+            <div class="amount">฿{{ attachment?.payload?.summary.total_tax | formatCurrency }}</div>
+          </div>
+          <div class="spacer">
+            <div></div>
+          </div>
+          <div class="receipt-summary">
+            <div class="title">{{ 'Total Amount' | translate }}</div>
+            <div class="amount">฿{{ attachment?.payload?.summary.total_cost | formatCurrency }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ? Template : button-->
+
+      <div class="buttons-wrapper" *ngIf="attachment?.payload?.template_type === 'button'">
+        <ng-container *ngFor="let button of attachment?.payload?.buttons">
+          <button class="button">{{ button.title }}</button>
+        </ng-container>
+      </div>
+
+      <!-- ? Template : generic -->
+      <div *ngIf="attachment.payload.template_type === 'generic'">
+        <div class="generic-wrapper">
+          <div class="image-wrapper" *ngIf="attachment?.payload?.elements[0]?.image_url">
+            <img src="{{ attachment.payload.elements[0].image_url }}" onerror="src='assets/img/logo-small.svg'" />
+          </div>
+          <div class="title">{{ attachment.payload.elements[0].title }}</div>
+          <div class="subtitle">{{ attachment.payload.elements[0].subtitle }}</div>
+          <ng-container *ngFor="let button of (attachment?.payload?.elements)[0].buttons">
+            <button class="button">{{ button.title }}</button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

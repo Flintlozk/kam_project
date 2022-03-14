@@ -1,0 +1,27 @@
+<a class="card-step no-underline text-gray-900" #cardstep (click)="setCardStepPosition()" [ngClass]="RouteStatus ? 'active' : 'inactive'" [routerLink]="routerLink.split('/')">
+  <div class="step-count">
+    <div class="step">{{ Step?.label | translate }}</div>
+    <ng-container *ngIf="showLastAmount">
+      <div class="count">
+        {{ Step?.total }}
+      </div>
+    </ng-container>
+  </div>
+  <div class="label-arrow">
+    <div class="label">{{ Step?.text | translate }}</div>
+    <div class="arrow">
+      <svg *ngIf="!isLast" width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.36691 0.10791H0L10.1439 10.3597L0 21.1511H6.36691L16.7266 10.3597L6.36691 0.10791Z" attr.fill="{{ isGreyBg ? 'white' : '#EEF1F8' }}" fill-opacity="0.6" />
+        <path d="M19.3061 0H12.7338L23.2049 10.3044L12.7338 21.1511H19.3061L30 10.3044L19.3061 0Z" attr.fill="{{ isGreyBg ? 'white' : '#EEF1F8' }}" />
+      </svg>
+      <svg *ngIf="isLast" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M28.4172 0.906706C27.2083 -0.302235 25.2482 -0.302236 24.0393 0.906706L10.0443 14.9016L5.28467 10.142C4.07573 8.93302 2.11565 8.93302 0.906706 10.142C-0.302235 11.3509 -0.302235 13.311 0.906706 14.5199L7.78393 21.3971C8.40639 22.0196 9.22799 22.3216 10.0437 22.3031C10.8598 22.3219 11.6819 22.02 12.3047 21.3972L28.4172 5.28467C29.6262 4.07573 29.6262 2.11565 28.4172 0.906706Z"
+          attr.fill="{{ isGreyBg ? 'white' : '#EEF1F8' }}"
+        />
+      </svg>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,44 @@
+<section class="grid gap-4" [formGroup]="menuSettingMegaForm">
+  <div class="grid gap-1" style="max-width: 120px">
+    <div class="text-sm font-light flex items-center justify-between">
+      Size
+      <button (click)="onSwitchFontSize()" class="focus:outline-none bg-gray-200 rounded-full font-light text-sm flex items-center px-3 py-1">
+        <span class="pr-2">{{ fontSizeCurrent === 'px' ? 'Pixel' : 'Em' }}</span>
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9.60065 2.85746C9.60065 2.70602 9.53743 2.56077 9.42489 2.45369C9.31234 2.3466 9.1597 2.28644 9.00054 2.28644H2.04528L3.42553 0.97879C3.53854 0.871263 3.60202 0.725427 3.60202 0.573362C3.60202 0.421297 3.53854 0.27546 3.42553 0.167934C3.31253 0.0604076 3.15927 1.13297e-09 2.99946 0C2.83965 -1.13297e-09 2.68638 0.0604076 2.57338 0.167934L0.172943 2.45203C0.0896735 2.53233 0.0332655 2.6343 0.010837 2.74508C-0.0115916 2.85585 0.000964313 2.97046 0.0469203 3.07445C0.0919405 3.17873 0.168393 3.268 0.266643 3.331C0.364893 3.394 0.480544 3.42792 0.59902 3.42849H9.00054C9.1597 3.42849 9.31234 3.36833 9.42489 3.26124C9.53743 3.15415 9.60065 3.00891 9.60065 2.85746ZM11.9531 4.92457C11.9081 4.82029 11.8316 4.73103 11.7334 4.66802C11.6351 4.60502 11.5195 4.5711 11.401 4.57054H2.99946C2.8403 4.57054 2.68766 4.6307 2.57512 4.73779C2.46257 4.84488 2.39935 4.99012 2.39935 5.14156C2.39935 5.29301 2.46257 5.43825 2.57512 5.54534C2.68766 5.65243 2.8403 5.71259 2.99946 5.71259H9.95472L8.57447 7.02024C8.51822 7.07332 8.47357 7.13648 8.44311 7.20606C8.41264 7.27565 8.39696 7.35028 8.39696 7.42566C8.39696 7.50105 8.41264 7.57568 8.44311 7.64527C8.47357 7.71485 8.51822 7.77801 8.57447 7.83109C8.63026 7.88461 8.69663 7.92709 8.76976 7.95608C8.84289 7.98507 8.92132 8 9.00054 8C9.07977 8 9.1582 7.98507 9.23133 7.95608C9.30446 7.92709 9.37083 7.88461 9.42662 7.83109L11.8271 5.54699C11.9103 5.46669 11.9667 5.36472 11.9892 5.25395C12.0116 5.14318 11.999 5.02856 11.9531 4.92457Z"
+            fill="#BCC4D6"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="select-options text" *ngIf="fontSizeCurrent === 'px'">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="size" [(value)]="menuSettingMegaForm['controls']['size'].value">
+          <mat-option *ngFor="let fontSize of fontSizePxData" [value]="fontSize">
+            {{ fontSize }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options text" *ngIf="fontSizeCurrent === 'em'">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="size" [(value)]="menuSettingMegaForm['controls']['size'].value">
+          <mat-option *ngFor="let fontSize of fontSizeEmData" [value]="fontSize">
+            {{ fontSize }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="grid w-10/12 gap-2" formGroupName="color">
+    <div class="text-sm font-light">Color</div>
+    <div class="flex items-center">
+      <div class="flex items-center h-12 p-2 mr-4 border border-gray-100 rounded-md w-36">
+        <input type="color" formControlName="value" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+        <span class="pl-2">{{ menuSettingMegaForm['controls']['color']['controls']['value'].value }}</span>
+      </div>
+      <input class="h-12 text-center border border-gray-100 rounded-md w-14 focus:outline-none" type="text" formControlName="opacity" />
+    </div>
+  </div>
+</section>

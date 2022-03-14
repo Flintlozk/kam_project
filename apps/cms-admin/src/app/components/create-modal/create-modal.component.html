@@ -1,0 +1,28 @@
+<div *ngIf="modalData.type === CreateModalTypeEnum.THEME">
+  <h1 mat-dialog-title>Insert theme name</h1>
+  <div class="overflow">
+    <p>Please enter {{ modalData.type }} name?</p>
+    <input (keyup.enter)="onPressEnter()" matInput [(ngModel)]="modalData.name" />
+    <div mat-dialog-actions>
+      <button mat-button color="primary" [mat-dialog-close]="modalData">Ok</button>
+      <button mat-button color="warn" (click)="onNoClick()">No</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="modalData.type === CreateModalTypeEnum.TEMPLATE">
+  <h1 mat-dialog-title>Select template Type</h1>
+  <div class="overflow">
+    <mat-form-field appearance="outline">
+      <mat-select [(ngModel)]="modalData.templateType" placeholder="Template Type" disableOptionCentering>
+        <mat-option *ngFor="let templateType of templateTypeList" [value]="templateType">
+          {{ templateType }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button color="primary" [mat-dialog-close]="modalData">Ok</button>
+      <button mat-button color="warn" (click)="onNoClick()">No</button>
+    </div>
+  </div>
+</div>

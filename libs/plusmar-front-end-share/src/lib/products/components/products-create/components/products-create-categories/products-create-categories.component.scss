@@ -1,0 +1,151 @@
+@import 'base';
+@import 'custom-checkbox';
+@import 'buttons';
+
+.product-create-categories {
+  position: absolute;
+  top: calc(100% + 20px);
+  z-index: 1;
+  width: 100%;
+  transition: $transition;
+
+  .card-content {
+    grid-template-columns: 1fr;
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .count {
+        padding: 10px 0px;
+        padding-right: 10px;
+      }
+
+      .func {
+        display: flex;
+        align-items: center;
+
+        .btn-add {
+          margin-left: 5px;
+          @extend .btn-active;
+          line-height: 16px;
+        }
+
+        input {
+          width: 100px;
+
+          & {
+            border-color: $border-color !important;
+            background: none !important;
+          }
+        }
+      }
+
+      @media #{$mobilemax} {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .func {
+          flex-direction: column;
+          align-items: flex-start;
+
+          input {
+            width: 100%;
+          }
+
+          .btn-add {
+            margin-left: 0px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+    .categories-tree {
+      margin: 0px -20px;
+      overflow: auto;
+      max-height: 200px;
+      @extend .custom-scroll-bar;
+
+      .item {
+        .content {
+          display: flex;
+          align-items: center;
+          padding: 10px 20px;
+          border-top: 1px solid $border-color;
+
+          .custom-checkbox {
+            margin-right: 10px;
+
+            .checkmark {
+              top: -11px;
+            }
+          }
+
+          .expand-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            border: 1px solid $main-color;
+            color: $main-color;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px;
+            background: white;
+            z-index: 1;
+            font-size: 25px;
+            font-weight: 300;
+          }
+        }
+
+        .sub-content {
+          .sub {
+            display: flex;
+            padding: 10px 20px;
+            padding-left: 75px;
+            border-top: 1px solid $border-color;
+            position: relative;
+
+            .custom-checkbox {
+              margin-right: 10px;
+
+              .checkmark {
+                top: -11px;
+              }
+            }
+
+            .border {
+              position: absolute;
+              width: 16px;
+              height: 1px;
+              background: #dddfea;
+              left: 60px;
+              top: calc(50% - 2px);
+
+              &:before {
+                content: '';
+                width: 1px;
+                height: 44px;
+                display: flex;
+                background: $border-color;
+                position: absolute;
+                bottom: 0px;
+              }
+            }
+          }
+        }
+
+        &:first-child {
+          .content {
+            border: 0px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div class="p-2 flex items-center justify-between bg-gray-400 px-12">
+  <span class="text-white">More-Commerce Admin</span>
+
+  <div class="flex md:my-8">
+    <span class="text-white m-auto">{{ params.name }}</span>
+    <img class="ml-8 mr-8 cursor-pointer rounded-full w-12 h-12 bg-gray-200" [src]="params.profileImg" onerror="src='/assets/svg/avatar-error.svg'" />
+    <span class="text-white m-auto cursor-pointer" (click)="logout()"><b>Log-out</b></span>
+  </div>
+</div>

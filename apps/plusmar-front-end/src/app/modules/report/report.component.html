@@ -1,0 +1,75 @@
+<div class="purchase-order">
+  <reactor-room-heading [headingTitle]="'Purchase Order' | translate" [Route]="'Purchase Order' | translate">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <mat-tab-group class="mat-tab-setting">
+    <mat-tab label="Order">
+      <div class="tabs">
+        <div class="all">
+          <div class="item">
+            <div class="label">{{ allTabData.label }}</div>
+            <div class="values">{{ allTabData.count }}</div>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="item" *ngFor="let item of stepTabData">
+            <div class="label">{{ item.label }}</div>
+            <div class="values details">
+              <div class="count">{{ item.count }}</div>
+              <div class="value">{{ item.value }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="status">
+          <div class="item" *ngFor="let item of statusTabData">
+            <div class="label">{{ item.label }}</div>
+            <div class="values">{{ item.count }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <reactor-room-filter [searchActive]="true"></reactor-room-filter>
+      </div>
+      <div class="table">
+        <reactor-room-custom-table [isLoading]="false" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader">
+          <tr *ngFor="let item of tableData; trackBy: trackBy; let i = index" class="table-content">
+            <td>
+              {{ item.orderNo }}
+            </td>
+            <td>
+              {{ item.createdOrder }}
+            </td>
+            <td>
+              <div class="profile">
+                <img [src]="item.customerImgUrl" [alt]="item.customerName" />
+                {{ item.customerName }}
+              </div>
+            </td>
+            <td>
+              {{ item.total }}
+            </td>
+            <td>
+              {{ item.status }}
+            </td>
+            <td>
+              <div class="more">
+                <div class="img" (click)="clickMoreEvent(i)">
+                  <img src="assets/img/more.svg" alt="More" *ngIf="!item.actionStatus" />
+                  <img src="assets/img/more-active.svg" alt="More" *ngIf="item.actionStatus" />
+                </div>
+                <div class="more-menu" *ngIf="item.actionStatus">
+                  <div class="item" *ngFor="let item of moreMenuData">
+                    <img [src]="item.iconUrl" [alt]="item.label" *ngIf="!item.status" />
+                    <img [src]="item.iconUrlActive" [alt]="item.label" *ngIf="item.status" />
+                    <span [ngClass]="{ disabled: !item.status }">{{ item.label }}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </reactor-room-custom-table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Refund"> dsafdsfd </mat-tab>
+  </mat-tab-group>
+</div>

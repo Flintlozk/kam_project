@@ -1,0 +1,53 @@
+export function getMenuJsMobileHamburger() {
+  const mainElement = document.getElementById('<%=id%>');
+  if (mainElement?.classList.contains('primary-menu')) {
+    const navContainerElement = mainElement?.getElementsByClassName('nav-container')[0];
+    const navElement = mainElement?.getElementsByTagName('NAV')[0];
+    if (!navElement?.getElementsByClassName('hamburger')[0]) {
+      const hamburgerElement = document.createElement('DIV');
+      hamburgerElement?.classList.add('hamburger');
+      navElement?.insertBefore(hamburgerElement, navElement.children[0]);
+      const hamburgerIconElement = document.createElement('DIV');
+      hamburgerIconElement?.classList.add('hamburger-icon');
+      if (hamburgerIconElement) hamburgerIconElement.innerHTML = '<i></i>';
+      hamburgerElement?.appendChild(hamburgerIconElement);
+      const hamburgerTextElement = document.createElement('DIV');
+      hamburgerTextElement?.classList.add('hamburger-text');
+      hamburgerElement?.appendChild(hamburgerTextElement);
+      const hamburgerLogoElement = document.createElement('DIV');
+      hamburgerLogoElement?.classList.add('hamburger-logo');
+      hamburgerElement?.appendChild(hamburgerLogoElement);
+    }
+    const hamburgerIconElement = mainElement?.getElementsByClassName('hamburger-icon')[0];
+    const hamburgerTextElement = mainElement?.getElementsByClassName('hamburger-text')[0];
+    const hamburgerLogoElement = mainElement?.getElementsByClassName('hamburger-logo')[0];
+    const hamburgerIconIElement = hamburgerIconElement?.getElementsByTagName('I')[0];
+    if (navContainerElement?.classList.contains('toggle-active')) {
+      hamburgerIconIElement?.setAttribute('class', '<%=icon.inactiveIcon%>');
+    } else {
+      hamburgerIconIElement?.setAttribute('class', '<%=icon.activeIcon%>');
+    }
+    if ('<%=position%>' === 'right') {
+      navElement?.classList.add('reverse');
+    } else {
+      navElement?.classList.remove('reverse');
+    }
+    if (hamburgerTextElement) hamburgerTextElement.innerHTML = '<%=text%>';
+    if ('<%=isText%>' === 'false') {
+      hamburgerTextElement?.classList.add('hidden');
+      hamburgerLogoElement?.classList.remove('hidden');
+    } else {
+      hamburgerTextElement?.classList.remove('hidden');
+      hamburgerLogoElement?.classList.add('hidden');
+    }
+    hamburgerIconElement?.addEventListener('click', function (event) {
+      navContainerElement?.classList.toggle('toggle-active');
+      if (navContainerElement?.classList.contains('toggle-active')) {
+        hamburgerIconIElement?.setAttribute('class', '<%=icon.inactiveIcon%>');
+      } else {
+        hamburgerIconIElement?.setAttribute('class', '<%=icon.activeIcon%>');
+      }
+    });
+  }
+}
+getMenuJsMobileHamburger();

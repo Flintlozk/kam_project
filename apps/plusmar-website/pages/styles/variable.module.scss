@@ -1,0 +1,52 @@
+@mixin mobile {
+  @media (max-width: 766px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin tablet_vertical {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+@mixin desktop_screen {
+  @media (max-width: 1600px) {
+    @content;
+  }
+}
+@mixin small_desktop {
+  @media (max-width: 1700px) {
+    @content;
+  }
+}
+@mixin medium_desktop {
+  @media (max-width: 1440px) {
+    @content;
+  }
+}
+
+$more_blue100: #092f4a;
+$more_blue90: #073d65;
+$more_blue80: #004e89;
+$more_blue70: #0672c2;
+$more_blue60: #0091ff; //Primary Blue
+$more_blue50: #27a2ff;
+$more_blue40: #53b1ff;
+$more_blue35: #6cbbfd;
+$more_blue30: #9dd5ff;
+$more_blue20: #c7e5fc;
+$more_blue10: #ecf4fa;
+$more_coolgrey100: #1c252c;
+$more_coolgrey90: #2a3740;
+$more_coolgrey80: #384a57;
+$more_coolgrey70: #577083; //Primary Grey
+$more_coolgrey60: #6b879c;
+$more_coolgrey50: #89a5bb;
+$more_coolgrey40: #9ab8ce;
+$more_coolgrey30: #b1c8da;
+$more_coolgrey20: #d3e2ec;
+$more_coolgrey10: #e6eff5;

@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "root": "libs/crm-models-lib",
+  "sourceRoot": "libs/crm-models-lib/src",
+  "prefix": "reactor-room",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/crm-models-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/crm-models-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

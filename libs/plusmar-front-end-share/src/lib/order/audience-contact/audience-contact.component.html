@@ -1,0 +1,104 @@
+<div class="audience-contact-container">
+  <reactor-room-contact-header-menu [audience]="audience" [route]="routeType" *ngIf="!viewControl.mobileView && audience"></reactor-room-contact-header-menu>
+
+  <div class="audience-contact-layout">
+    <!-- [ngClass]="{ calendar: viewControl.calendar, 'private-message-wrapper': viewControl.privateMessge, 'extra-grid': viewControl.extraGrid && !viewControl.mobileView }" -->
+    <reactor-room-audience-contact-list class="contact-list" (changingAudience)="onChangingAudience($event)"></reactor-room-audience-contact-list>
+
+    <!-- content container -->
+    <div class="audience-contact-content">
+      <reactor-room-ui-block-loader [toggle]="toggleLoader"></reactor-room-ui-block-loader>
+
+      <div class="audience-contact-top" *ngIf="viewControl.extraGrid && !viewControl.mobileView" [ngClass]="{ 'collapse-outlet': viewControl.collapseOutlet }">
+        <reactor-room-order-detail class="extra-grid"></reactor-room-order-detail>
+      </div>
+      <div class="audience-contact-bottom" [ngClass]="{ 'extra-grid': viewControl.extraGrid }">
+        <!-- left cmp -->
+        <div class="left-wrapper" [ngClass]="{ 'collapse-outlet': viewControl.collapseOutlet }">
+          <reactor-room-chatbox
+            class="chat-box"
+            *ngIf="audience"
+            [viewMode]="chatViewMode"
+            [extraGrid]="viewControl.extraGrid"
+            [audience]="audience"
+            [audienceId]="audience.id"
+            [togglePrivateMessage]="togglePrivateInChat"
+            (openCalendar)="openCalendarSidebar($event)"
+            [onChangingAudience]="changingAudience"
+            [ngClass]="{ 'collapse-outlet': viewControl.collapseOutlet && !viewControl.mobileView }"
+            #chatbox
+          >
+            <reactor-room-contact-chat-menu *ngIf="viewControl.mobileView" [audience]="audience" [route]="routeType"></reactor-room-contact-chat-menu>
+          </reactor-room-chatbox>
+        </div>
+
+        <!-- right cmp-->
+        <div
+          [@slideInOut]
+          class="right-wrapper animated"
+          [ngClass]="{
+            collapsecontent: viewControl.chatBoxStatus,
+            hide: viewControl.calendar || viewControl.privateMessge,
+            'collapse-outlet': viewControl.collapseOutlet && !viewControl.mobileView
+          }"
+        >
+          <div class="audience-contact-top" *ngIf="viewControl.extraGrid && viewControl.mobileView">
+            <reactor-room-order-detail class="extra-grid"></reactor-room-order-detail>
+          </div>
+          <div class="collapse-inner bg-white rounded shadow-md"></div>
+          <div #thirdDiv class="inner-outlet bg-white rounded shadow-md" [ngClass]="{ 'collapse-outlet': viewControl.collapseOutlet }">
+            <mat-tab-group [disableRipple]="true" class="mat-tab-setting" [(selectedIndex)]="tabIndex" (selectedIndexChange)="handleTabChange($event)">
+              <mat-tab id="audience-contact-tab-1" [label]="mainTabName | translate"> </mat-tab>
+              <mat-tab id="audience-contact-tab-2" [label]="'Tags Notes' | translate"> </mat-tab>
+              <mat-tab id="audience-contact-tab-3" [label]="'Quick Payment' | translate"> </mat-tab>
+              <mat-tab id="audience-contact-tab-4" [label]="'Leads' | translate"> </mat-tab>
+            </mat-tab-group>
+
+            <div class="tab-container" [ngStyle]="{ display: tabIndex === 0 ? 'block' : 'none' }">
+              <router-outlet></router-outlet>
+            </div>
+
+            <div class="tab-container tag-and-notes" *ngIf="tabIndex === 1">
+              <reactor-room-customer-assignee
+                *ngIf="messageTrackMode === EPageMessageTrackMode.TRACK_BY_ASSIGNEE"
+                [assigneeId]="audience?.assigneeID"
+                [audienceId]="audience?.id"
+                [customerId]="audience?.customer_id"
+                (updateAssignee)="onUpdateAssigneeSubmit($event)"
+              ></reactor-room-customer-assignee>
+              <reactor-room-customer-audience-tags [customerId]="audience?.customer_id"></reactor-room-customer-audience-tags>
+              <reactor-room-customer-notes
+                [extraHeight]="messageTrackMode === EPageMessageTrackMode.TRACK_BY_ASSIGNEE"
+                [customerId]="audience?.customer_id"
+              ></reactor-room-customer-notes>
+            </div>
+
+            <div class="tab-container" *ngIf="tabIndex === 2">
+              <reactor-room-quick-pay [parentContainer]="thirdDivContainer" [audienceID]="audienceID" [customerID]="audience?.customer_id" [audience]="audience">
+              </reactor-room-quick-pay>
+            </div>
+            <div class="tab-container" *ngIf="tabIndex === 3">
+              <reactor-room-customer-lead [audience]="audience"></reactor-room-customer-lead>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-wrapper" *ngIf="viewControl.calendar" [ngClass]="{ collapsecontent: viewControl.chatBoxStatus, 'collapse-outlet': viewControl.collapseOutlet }">
+          <reactor-room-add-to-calendar
+            (closeCalendar)="closeCalendar()"
+            *ngIf="!viewControl.collapseOutlet"
+            [message]="message"
+            [audience]="audience"
+          ></reactor-room-add-to-calendar>
+        </div>
+
+        <!-- absolute div-->
+        <!-- <div class="collapse-outlet-button" (click)="toggleCollapseOutlet()" [ngClass]="{ 'collapse-outlet': viewControl.collapseOutlet }">
+          <svg width="21" height="12" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.03 8.10635L1.92365 0L0 1.92365L10.03 11.9537L20.06 1.92365L18.1364 0L10.03 8.10635Z" fill="#54b1ff"></path>
+          </svg>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

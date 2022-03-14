@@ -1,0 +1,205 @@
+<!-- <div class="audience-guests">
+  <div class="header">
+    <div class="flex items-center info">
+      <span *ngIf="selectedIds.length === 0" class="flex items-baseline"> {{ total }} {{ 'Guests' | translate }} </span>
+      <span *ngIf="selectedIds.length > 0" class="flex items-baseline">
+        <span class="flex items-baseline ml-5">{{ selectedIds?.length }} {{ 'selected' | translate }}</span>
+        <div class="flex items-baseline action-group">
+          <span>:</span>
+          <button class="mx-5 btn-secondary transparent small" (click)="removeAudience()">{{ 'Remove' | translate }}</button>
+          <span class="flex items-baseline ml-10"> {{ 'Move to' | translate }}: </span>
+          <button class="mx-5 btn-secondary transparent small" (click)="moveToLeads()">{{ 'Leads' | translate }}</button>
+          <button class="btn-secondary transparent small" (click)="moveToCustomers()">{{ 'Customers' | translate }}</button>
+        </div>
+      </span>
+    </div>
+
+    <div class="func">
+      <div class="search"><input autofocus type="text" [placeholder]="'Search' | translate" [formControl]="searchField" /></div>
+    </div>
+  </div>
+  <reactor-room-custom-table
+    [isLoading]="false"
+    [tableHeader]="tableHeader"
+    [isNoVerticalScroll]="true"
+    [currentIndex]="1"
+    (sortTableMetaData)="sortTableData($event)"
+    [orderMethod]="tableFilters.orderMethod"
+    [tableColSpan]="7"
+    [tableData]="audienceListWithStatus"
+    (selectAll)="selectAllHandler($event)"
+    [isAllchecked]="isAllchecked"
+    (infoboxHandler)="handleLegend($event)"
+    [infoboxHTML]="infoboxHTML"
+  >
+    <ng-container class="table-content" *ngIf="audienceListWithStatus">
+      <tr *ngFor="let audience of audienceListWithStatus; trackBy: trackBy">
+        <td>
+          <div class="first">
+            <label class="custom-checkbox">
+              <input type="checkbox" [checked]="isIdSelected(audience.id)" (change)="selectRow(audience.id, $event)" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <reactor-room-custom-table-content
+            [style.cursor]="'pointer'"
+            [Selector]="'comment-by'"
+            [firstName]="audience?.first_name"
+            [lastName]="audience?.last_name"
+            [platform]="audience?.platform"
+            [image]="audience.profile_pic"
+          >
+          </reactor-room-custom-table-content>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <span>{{ audience.last_platform_activity_date | timeAgo }}</span>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <div class="flex items-center status" [style.cursor]="'pointer'" *ngIf="audience?.latestComment || audience?.latestMessage" style="max-width: 300px">
+            <svg
+              style="min-width: 15px"
+              *ngIf="showLatest(audience?.latestMessage, audience?.latestComment)?.sentBy === 'PAGE'"
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+                fill="#C4C4C4"
+              />
+              <path
+                d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+                fill="#C4C4C4"
+              />
+            </svg>
+
+            <div class="ml-5 truncate" [title]="showLatest(audience?.latestMessage, audience?.latestComment)?.text">
+              {{ showLatest(audience?.latestMessage, audience?.latestComment)?.text }}
+            </div>
+          </div>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <span class="flex items-center">
+            <progress
+              [value]="audience.score"
+              [attr.title]="audience.score"
+              max="100"
+              [ngClass]="{
+                block: audience.score > 0 && audience.score < 21,
+                negative: audience.score > 20 && audience.score < 41,
+                normal: audience.score > 40 && audience.score < 61,
+                moderate: audience.score > 60 && audience.score < 81,
+                high: audience.score > 80 && audience.score < 101
+              }"
+            ></progress>
+            <span class="ml-5">
+              {{ audience.score }}
+            </span>
+          </span>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <span class="flex items-center">
+            <span class="ml-5" *ngIf="audience.domain !== audienceDomainType.AUDIENCE">
+              {{ audience.domain | translate | status: 'domain' }}{{ audience.status | translate | status: 'status' }}
+            </span>
+            <span class="ml-5" *ngIf="audience.domain === audienceDomainType.AUDIENCE">
+              {{
+                audience.status === audienceDomainStatus.LEAD
+                  ? 'Lead : Follow'
+                  : audience.status === audienceDomainStatus.FOLLOW
+                  ? 'Follow'
+                  : audience.status === audienceDomainStatus.INBOX
+                  ? 'New Inbox'
+                  : 'New Comment'
+              }}
+            </span>
+          </span>
+        </td>
+        <td (click)="onRouteChange(audience)">
+          <reactor-room-custom-table-content *ngIf="!isExpired" (click)="onRouteChange(audience)" [Selector]="'detail'"> </reactor-room-custom-table-content>
+
+        </td>
+      </tr>
+    </ng-container>
+  </reactor-room-custom-table>
+  <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="total" (changePage)="changePage($event)"> </reactor-room-pagination>
+  <reactor-room-loader block="true" *ngIf="isLoading"></reactor-room-loader>
+
+  <div class="hidden js-dropdown-copy">
+    <div class="p-20 bg-white rounded-sm shadow-sm info-dropdown">
+      <h4 class="m-0 text-left text-gray-400 text-light">{{ 'Audience score measure' | translate }}</h4>
+      <div class="flex">
+        <ul class="p-0 m-0 text-left list-style-none">
+          <li class="flex items-center py-10">
+            <span class="flex w-12 h-12 rounded-full high"></span>
+            <span class="mx-5">81 - 100</span>
+          </li>
+          <li class="flex items-center py-10 mr-10">
+            <span class="flex w-12 h-12 rounded-full moderate"></span>
+            <span class="mx-5">61 - 80</span>
+          </li>
+          <li class="flex items-center py-10 mr-10">
+            <span class="flex w-12 h-12 rounded-full normal"></span>
+            <span class="mx-5">41 - 60</span>
+          </li>
+          <li class="flex items-center py-10 mr-10">
+            <span class="flex w-12 h-12 rounded-full negative"></span>
+            <span class="mx-5">21 - 40</span>
+          </li>
+          <li class="flex items-center pt-10 mr-10">
+            <span class="flex w-12 h-12 rounded-full blocked"></span>
+            <span class="mx-5">1 - 20</span>
+          </li>
+        </ul>
+
+        <ul class="p-0 m-0 text-left list-style-none">
+          <li class="py-10">
+            {{ 'High potential audience' | translate }}
+          </li>
+          <li class="py-10">
+            {{ 'Moderate audience' | translate }}
+          </li>
+          <li class="py-10">
+            {{ 'Normal audience' | translate }}
+          </li>
+          <li class="py-10">
+            {{ 'Negative audience' | translate }}
+          </li>
+          <li class="py-10">
+            {{ 'Should block audience' | translate }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-group-mobile">
+    <button class="action" *ngIf="selectedIds.length > 0" (click)="activeButtonGroup()">
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="2.5" cy="10.5" r="2.5" fill="#53B1FF" />
+        <circle cx="10.5" cy="10.5" r="2.5" fill="#53B1FF" />
+        <circle cx="18.5" cy="10.5" r="2.5" fill="#53B1FF" />
+      </svg>
+    </button>
+    <div class="button-group" *ngIf="buttonGroupStatus"></div>
+    <div class="button-box" reactorRoomClickOutside (outside)="clickOutsideButtonBox($event)" [@slideBox]="buttonGroupStatus ? 'active' : 'inactive'">
+      <div class="btn-item" (click)="moveToLeads()">
+        <span>{{ 'Move to Leads' | translate }}</span>
+      </div>
+      <div class="btn-item" (click)="moveToCustomers()">
+        <span>{{ 'Move to Customers' | translate }}</span>
+      </div>
+      <div class="btn-item danger" (click)="removeAudience()">
+        <span>{{ 'Remove' | translate }}</span>
+      </div>
+      <div class="seperate"></div>
+      <div class="btn-item cancel" (click)="deactiveButtonGroup()">
+        <span>{{ 'Cancel' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div> -->

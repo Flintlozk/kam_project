@@ -1,0 +1,12 @@
+<div class="plan-commerce">
+  <div class="plan-name">
+    {{ planName }}
+  </div>
+  <div class="price-details">
+    <span class="price">{{ subscriptionPlan.price | moneyFormat }}</span
+    >/yr
+  </div>
+  <span *ngIf="subscriptionPlan.packageType === 'STARTER_COMMERCE'"> สำหรับซื้อขายสินค้าจบในอินบอกซ์ แยกสถานะการซื้อขาย ครบทั้งระบบ </span>
+  <span *ngIf="subscriptionPlan.packageType === 'PRO_PLUS_COMMERCE'"> สำหรับธุรกิจซื้อขายสินค้าขนาดใหญ่ บริหารจัดการลูกค้าได้ในแบบมืออาชีพ </span>
+  <span *ngIf="subscriptionPlan.packageType === 'COMMERCE'"> องค์กรใหญ่ ซื้อขายสินค้าได้ 'ไม่จำกัด' พร้อมเปิดใช้งานทุกฟีเจอร์แบบไม่จำกัด </span>
+</div>

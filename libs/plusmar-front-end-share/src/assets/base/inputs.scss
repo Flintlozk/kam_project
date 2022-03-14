@@ -1,0 +1,42 @@
+.search {
+  display: flex;
+  padding-bottom: 20px;
+  @media #{$mobilemax} {
+    width: calc(100% - 170px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    input {
+      max-width: unset !important;
+    }
+  }
+
+  // margin-right: 10px;
+  input {
+    width: 100%;
+    border: $default-border;
+    padding: 0px 15px;
+    height: 35px;
+    border-radius: 8px;
+    max-width: 250px;
+  }
+
+  &.pb-0 {
+    padding-bottom: 0;
+  }
+}
+
+// input[type='text'],
+// textarea {
+//   border: $default-border;
+//   padding: 0px 15px;
+//   height: 35px;
+//   border-radius: 8px;
+//   font-size: 13.33px;
+// }
+
+input:disabled,
+.mat-input-element:disabled {
+  background-color: #fafafa;
+  border-color: rgba(118, 118, 118, 0.3);
+  color: #7d7d7d;
+}

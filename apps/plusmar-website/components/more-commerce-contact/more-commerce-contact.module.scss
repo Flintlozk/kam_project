@@ -1,0 +1,677 @@
+.mainContainer {
+  width: 98%;
+  font-family: 'DM Sans', sans-serif;
+  padding: 20px;
+  box-shadow: 6px 16px 36px #383a4014;
+  border-radius: 24px;
+
+  .flexContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 3px;
+
+    .titleFont {
+      font-size: 2.75rem;
+      color: $more_coolgrey80;
+      padding-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .descriptionFont {
+      font-size: 1.25rem;
+      color: $more_coolgrey60;
+      padding-right: 30px;
+      padding-bottom: 25px;
+    }
+
+    .yourEmail {
+      font-size: 1rem;
+      color: $more_coolgrey60;
+      padding-bottom: 8px;
+    }
+
+    .inputEmail {
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      border-color: transparent;
+      background-color: $more_blue10;
+      font-size: 1.1rem;
+      // color: $more_coolgrey70; // palce
+    }
+
+    .validateEmail {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      width: 96.5%;
+      // width: 35%;
+      position: relative;
+      background-color: #f7991f;
+      color: #ffffff;
+      padding: 8px 10px;
+      opacity: 0.9;
+      -webkit-animation-name: fadeIn;
+      animation-name: fadeIn;
+      animation-duration: 0.8s;
+      animation-delay: 0;
+    }
+
+    .messageTopic {
+      padding-top: 30px;
+      font-size: 1rem;
+      color: $more_coolgrey60;
+      padding-bottom: 8px;
+    }
+
+    select {
+      &.inputSelect {
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+        font-size: 1.1rem;
+      }
+
+      option {
+        padding: 15px;
+      }
+    }
+
+    .message {
+      padding-top: 30px;
+      font-size: 1rem;
+      color: $more_coolgrey60;
+      padding-bottom: 8px;
+    }
+
+    .inputTextArea {
+      width: 95% !important;
+      height: 150px;
+      min-height: 150px;
+      max-height: 150px;
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      border-color: transparent;
+      background-color: $more_blue10;
+      font-size: 1.1rem;
+    }
+
+    .paddingDiv {
+      padding-bottom: 35px;
+      padding-top: 35px;
+      margin: 0 auto;
+
+      .buttonContact {
+        color: white;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0px 4px 12px #0091ff63;
+        border-radius: 40px;
+        padding: 0.8rem 2.8rem;
+        font-weight: 700;
+        background-color: $more_blue60;
+        font-size: 1.4rem;
+        font-family: 'DM Sans', sans-serif !important;
+
+        &:hover {
+          box-shadow: 0 0 11px white;
+          background: $more_blue50;
+          color: white;
+          border-color: $more_blue50;
+        }
+
+        &:disabled {
+          background: #d5d5d5;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .mainContainer {
+    width: 98%;
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px;
+    box-shadow: 6px 16px 36px #383a4014;
+    border-radius: 8px;
+
+    .flexContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      padding-left: 40px;
+      padding-right: 40px;
+
+      .titleFont {
+        font-size: 3.25vw;
+        color: $more_coolgrey80;
+        padding-bottom: 20px;
+      }
+
+      .descriptionFont {
+        font-size: 1.25vw;
+        color: $more_coolgrey60;
+        padding-right: 30px;
+        padding-bottom: 25px;
+      }
+
+      .yourEmail {
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputEmail {
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .validateEmail {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 96.5%;
+        // width: 35%;
+        position: relative;
+        background-color: #f7991f;
+        color: #ffffff;
+        padding: 8px 10px;
+        opacity: 0.9;
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-duration: 0.8s;
+        animation-delay: 0;
+      }
+
+      .messageTopic {
+        padding-top: 30px;
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      select {
+        &.inputSelect {
+          padding: 15px;
+          border: none;
+          border-color: transparent;
+          background-color: $more_blue10;
+        }
+
+        option {
+          padding: 15px;
+        }
+      }
+
+      .message {
+        padding-top: 30px;
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputTextArea {
+        width: 95% !important;
+        height: 150px;
+        min-height: 150px;
+        max-height: 150px;
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .paddingDiv {
+        padding-bottom: 5px;
+        padding-top: 35px;
+        margin: 0 auto;
+
+        .buttonContact {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 0.8vw 2.8vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 1.4vw;
+          font-family: 'DM Sans', sans-serif !important;
+
+          &:hover {
+            box-shadow: 0 0 11px white;
+            background: $more_blue50;
+            color: white;
+            border-color: $more_blue50;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  .mainContainer {
+    width: 98%;
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px;
+    box-shadow: 6px 16px 36px #383a4014;
+    border-radius: 8px;
+
+    .flexContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .titleFont {
+        font-size: 3.25vw;
+        color: $more_coolgrey80;
+        padding-bottom: 20px;
+      }
+
+      .descriptionFont {
+        font-size: 1.25vw;
+        color: $more_coolgrey60;
+        padding-right: 30px;
+        padding-bottom: 25px;
+      }
+
+      .yourEmail {
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputEmail {
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .validateEmail {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 96.5%;
+        // width: 35%;
+        position: relative;
+        background-color: #f7991f;
+        color: #ffffff;
+        padding: 8px 10px;
+        opacity: 0.9;
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-duration: 0.8s;
+        animation-delay: 0;
+      }
+
+      .messageTopic {
+        padding-top: 30px;
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      select {
+        &.inputSelect {
+          padding: 15px;
+          border: none;
+          border-color: transparent;
+          background-color: $more_blue10;
+        }
+
+        option {
+          padding: 15px;
+        }
+      }
+
+      .message {
+        padding-top: 30px;
+        font-size: 1vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputTextArea {
+        width: 95% !important;
+        height: 150px;
+        min-height: 150px;
+        max-height: 150px;
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .paddingDiv {
+        // padding-bottom: 1px;
+        padding-top: 35px;
+        margin: 0 auto;
+
+        .buttonContact {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 0.8vw 2.8vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 1.4vw;
+          font-family: 'DM Sans', sans-serif !important;
+
+          &:hover {
+            box-shadow: 0 0 11px white;
+            background: $more_blue50;
+            color: white;
+            border-color: $more_blue50;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet_vertical {
+  .mainContainer {
+    width: 98%;
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px;
+    box-shadow: 6px 16px 36px #383a4014;
+    border-radius: 8px;
+
+    .flexContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .titleFont {
+        font-size: 4vw;
+        color: $more_coolgrey80;
+        padding-bottom: 20px;
+      }
+
+      .descriptionFont {
+        font-size: 2vw;
+        color: $more_coolgrey60;
+        padding-right: 30px;
+        padding-bottom: 20px;
+      }
+
+      .yourEmail {
+        font-size: 1.8vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputEmail {
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .validateEmail {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 96.5%;
+        // width: 35%;
+        position: relative;
+        background-color: #f7991f;
+        color: #ffffff;
+        padding: 8px 10px;
+        opacity: 0.9;
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-duration: 0.8s;
+        animation-delay: 0;
+      }
+
+      .messageTopic {
+        padding-top: 30px;
+        font-size: 1.8vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      select {
+        &.inputSelect {
+          padding: 15px;
+          border: none;
+          border-color: transparent;
+          background-color: $more_blue10;
+        }
+
+        option {
+          padding: 15px;
+        }
+      }
+
+      .message {
+        padding-top: 30px;
+        font-size: 1.8vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputTextArea {
+        width: 95% !important;
+        height: 150px;
+        min-height: 150px;
+        max-height: 150px;
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .paddingDiv {
+        // padding-bottom: 1px;
+        padding-top: 35px;
+        margin: 0 auto;
+
+        .buttonContact {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 1vw 4vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 2vw;
+          font-family: 'DM Sans', sans-serif !important;
+
+          &:hover {
+            box-shadow: 0 0 11px white;
+            background: $more_blue50;
+            color: white;
+            border-color: $more_blue50;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .mainContainer {
+    width: 93%;
+    font-family: 'DM Sans', sans-serif;
+    padding: 20px;
+    box-shadow: 6px 16px 36px #383a4014;
+    border-radius: 10px;
+
+    .flexContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .titleFont {
+        font-size: 7vw;
+        color: $more_coolgrey80;
+        padding-bottom: 15px;
+      }
+
+      .descriptionFont {
+        display: none;
+        // font-size: 4vw;
+        // color: $more_coolgrey60;
+        // padding-right: 0px;
+        // padding-bottom: 20px;
+      }
+
+      .yourEmail {
+        font-size: 3.5vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputEmail {
+        border-radius: 6px;
+        padding: 10px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      ::-webkit-input-placeholder {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 4vw;
+      }
+
+      ::-moz-placeholder {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 4vw;
+      }
+
+      :-ms-input-placeholder {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 4vw;
+      }
+
+      :-moz-placeholder {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 4vw;
+      }
+
+      .validateEmail {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 96.5%;
+        // width: 35%;
+        position: relative;
+        background-color: #f7991f;
+        color: #ffffff;
+        padding: 8px 10px;
+        opacity: 0.9;
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-duration: 0.8s;
+        animation-delay: 0;
+      }
+
+      .messageTopic {
+        padding-top: 30px;
+        font-size: 3.5vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      select {
+        &.inputSelect {
+          font-size: 4vw;
+          color: $more_coolgrey60;
+          border-radius: 6px;
+          padding: 10px;
+          border: none;
+          border-color: transparent;
+          background-color: $more_blue10;
+        }
+
+        option {
+          padding: 10px;
+        }
+      }
+
+      .message {
+        padding-top: 30px;
+        font-size: 3.5vw;
+        color: $more_coolgrey60;
+        padding-bottom: 8px;
+      }
+
+      .inputTextArea {
+        border-radius: 6px;
+        width: 91% !important;
+        height: 150px;
+        min-height: 150px;
+        max-height: 150px;
+        padding: 15px;
+        border: none;
+        border-color: transparent;
+        background-color: $more_blue10;
+      }
+
+      .paddingDiv {
+        // padding-bottom: 1px;
+        padding-top: 35px;
+        margin: 0 auto;
+
+        .buttonContact {
+          color: white;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0px 4px 12px #0091ff63;
+          border-radius: 40px;
+          padding: 3vw 10vw;
+          font-weight: 700;
+          background-color: $more_blue60;
+          font-size: 4vw;
+          font-family: 'DM Sans', sans-serif !important;
+
+          &:hover {
+            box-shadow: 0 0 11px white;
+            background: $more_blue50;
+            color: white;
+            border-color: $more_blue50;
+          }
+
+          &:disabled {
+            background: #d5d5d5;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

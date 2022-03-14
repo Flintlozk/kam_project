@@ -1,0 +1,22 @@
+{
+  "Amount": "Amount",
+  "Attribute(s)": "Attribute(s)",
+  "Product Name": "Product Name",
+  "Discount": "Discount",
+  "Price": "Price",
+  "Select Status": "Select Status",
+  "In Stock": "In Stock",
+  "Out of Stock": "Out of Stock",
+  "Member Price": "Member Price",
+  "After Discount": "After Discount",
+  "Open Photo Library": "Open Photo Library",
+  "Select From File Manage": "Select From File Manage",
+  "Product Price is required": "Product Price is required",
+  "Product Discount is required": "Product Discount is required",
+  "Product Amount is required": "Product Amount is required",
+  "Original Price is required": "Original Price is required",
+  "Sale Price is required": "Sale Price is required",
+  "Delete Confirm": "Delete Confirm",
+  "Are you sure to delete this image?": "Are you sure to delete this image?",
+  "Withhold": "Withhold"
+}

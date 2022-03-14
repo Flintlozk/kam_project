@@ -1,0 +1,54 @@
+{
+  "root": "apps/plusmar-back-end",
+  "sourceRoot": "apps/plusmar-back-end/src",
+  "projectType": "application",
+  "prefix": "plusmar-back-end",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/plusmar-back-end",
+        "main": "apps/plusmar-back-end/src/main.ts",
+        "tsConfig": "apps/plusmar-back-end/tsconfig.app.json",
+        "assets": ["apps/plusmar-back-end/src/assets"],
+        "maxWorkers": 1,
+        "memoryLimit": 1024
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-back-end/src/environments/environment.ts",
+              "with": "apps/plusmar-back-end/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "plusmar-back-end:build",
+        "port": 9234
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-back-end/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-back-end/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

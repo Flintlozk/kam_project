@@ -1,0 +1,29 @@
+<div class="comment-dialog">
+  <div class="dialog-title">
+    <div class="title">{{ dialogTitle }}</div>
+    <div class="btn-dismiss" (click)="onNoClick()">
+      <img src="assets/img/dismiss-icon.svg" alt="Dialog Dismiss" />
+    </div>
+  </div>
+  <div class="content">
+    <ng-content select=".dialog-content-container"></ng-content>
+  </div>
+  <div class="chat-box">
+    <div class="icon">
+      <img [src]="shopIcon" alt="Shop Icon" />
+    </div>
+    <input type="text" name="reply" [placeholder]="'Write a reply' | translate" #text />
+    <div class="image-icon">
+      <img src="assets/img/image-icon.svg" alt="Upload Photos" />
+    </div>
+    <div class="attach-icon">
+      <img src="assets/img/attach-icon.svg" alt="Attach Files" />
+    </div>
+    <button class="send-icon">
+      <img src="assets/img/send-icon.svg" alt="Send" (click)="sendMessage(thread)" />
+    </button>
+    <button class="send-icon">
+      <img src="assets/img/send-icon.svg" alt="Send" (click)="sendProduct(thread)" />
+    </button>
+  </div>
+</div>

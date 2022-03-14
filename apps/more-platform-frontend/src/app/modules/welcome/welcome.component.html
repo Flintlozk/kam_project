@@ -1,0 +1,6 @@
+<section class="fixed w-full h-full overflow-scroll from-primary-500 to-primary-100 bg-gradient-to-b no-scroll-bar">
+  <more-platform-welcome-header></more-platform-welcome-header>
+  <div [@routeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</section>

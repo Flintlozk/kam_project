@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script>
+       <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+    </script>
+  </head>
+  <body x-data="{name:payloadData.name}">
+    <h1>Receipt A4</h1>
+    <div>
+      <span>NAME:</span>
+      <span x-text="name"></span>
+    </div>
+  </body>
+</html>
+<!-- http://jsfiddle.net/mturjak/2wk6Q/1949/ -->
+<!-- https://dev.to/damcosset/generate-a-pdf-from-html-and-back-on-the-front-5ff5 -->

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <%- include ("../partials/head") %>
+    <script>
+    </script>
+  </head>
+
+  <body>
+    <style>
+      * {
+        background: #fff;
+        box-sizing: border-box;
+        font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+      }
+
+      body {
+        margin: 15px;
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+      .wrapper {
+        border: 1px solid rgba(227, 230, 234, 1);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .wrapper,
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .wrapper .title {
+        font-size: 18px;
+        color: #565e68;
+        margin: 20px 0px;
+        display: flex;
+        justify-content: center;
+        border: none;
+        padding: 0;
+        text-align: center;
+      }
+      .powered{
+            margin: 14px 0 ;
+            font-size:11pt;
+        }
+    </style>
+
+    <div class="wrapper">
+      <div class="wrapper title">This step was fail.</div>
+    </div>
+    <div class="powered">Powered by <a href="http://more-commerce.com/">More Commerce</a></div>
+    <%- include ("../partials/footer",{valuepsid:''}) %>
+  </body>
+</html>

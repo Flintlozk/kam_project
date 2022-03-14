@@ -1,0 +1,54 @@
+{
+  "root": "apps/plusmar-paper-engine",
+  "sourceRoot": "apps/plusmar-paper-engine/src",
+  "projectType": "application",
+  "prefix": "plusmar-paper-engine",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/plusmar-paper-engine",
+        "main": "apps/plusmar-paper-engine/src/main.ts",
+        "tsConfig": "apps/plusmar-paper-engine/tsconfig.app.json",
+        "assets": ["apps/plusmar-paper-engine/src/assets"],
+        "maxWorkers": 1,
+        "memoryLimit": 1024
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-paper-engine/src/environments/environment.ts",
+              "with": "apps/plusmar-paper-engine/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "plusmar-paper-engine:build",
+        "port": 9232
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-paper-engine/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-paper-engine/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

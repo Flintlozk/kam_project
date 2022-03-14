@@ -1,0 +1,41 @@
+<section
+  class="w-full p-2 relative border border-dashed"
+  (click)="!isViewMode ? onFocusEvent() : null"
+  [ngClass]="{ 'border-gray-300': !onFocus && !isViewMode, 'border-gray-900': onFocus && !isViewMode, 'border-none': isViewMode }"
+>
+  <div [ngClass]="{ hidden: !onFocus || isViewMode }" class="absolute bottom-full left-0 border border-gray-700 bg-white flex items-center">
+    <div class="flex items-center justify-center">
+      <button class="btn-backward" (click)="onNavigate('backward')">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+          <path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path>
+        </svg>
+      </button>
+      <button class="btn-forward" (click)="onNavigate('forward')">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+          <path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path>
+        </svg>
+      </button>
+    </div>
+    <div [matMenuTriggerFor]="option" class="flex items-center justify-center w-10 border-l border-gray-300 cursor-pointer">
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path d="M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"></path>
+      </svg>
+    </div>
+    <mat-menu #option="matMenu">
+      <div class="grid">
+        <button (click)="onRemoveComponent()" class="px-4 py-2 font-light hover:bg-gray-100 text-red-400 text-sm">Remove This Component</button>
+      </div>
+    </mat-menu>
+  </div>
+  <div [ngClass]="{ hidden: onFocus || isViewMode }" class="absolute bg-transparent hover:bg-black hover:bg-opacity-5 w-full h-full left-0 top-0 z-0 group cursor-pointer">
+    <div class="group-hover:flex hidden bottom-full right-0 px-2 font-light text-xs text-white bg-gray-700 z-10 rounded-sm absolute">Embeded</div>
+  </div>
+  <div class="w-full grid">
+    <ng-container>
+      <div [innerHTML]="safeHTML"></div>
+      <ng-container *ngIf="!safeHTML">
+        <div class="font-light italic p-4">No Implemented Embed Code</div>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>

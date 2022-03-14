@@ -1,0 +1,18 @@
+.sidebar {
+  margin-left: 30px;
+  margin-top: 20px;
+  width: 19.5vw;
+  a {
+    width: 60%;
+    margin-top: 12px;
+    display: block;
+    font-size: 14px;
+    border-bottom: 2px solid #e0e0e7;
+    padding: 0 0 5px 20px;
+    text-decoration: none;
+    color: #484b52;
+    &:hover {
+      border-color: #2ec639;
+    }
+  }
+}

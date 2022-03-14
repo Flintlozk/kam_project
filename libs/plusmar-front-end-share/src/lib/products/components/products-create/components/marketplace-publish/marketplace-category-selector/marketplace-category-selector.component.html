@@ -1,0 +1,37 @@
+<div class="category-selector-main">
+  <div *ngIf="categoryLevels.length" class="category-selector" #categorySelectorContainer>
+    <div *ngFor="let categoryLevel of categoryLevels; let level = index" class="category-level">
+      <ng-container *ngIf="categoryLevel[level]">
+        <div *ngFor="let category of categoryLevel[level]">
+          <div class="category-name" [ngClass]="{ 'cat-status-select': selectCategory[level]?.id === category.id }" (click)="onCategoryItemClick(category, level)">
+            <div>
+              {{ category.name }}
+            </div>
+            <div *ngIf="!category.leaf">
+              <svg width="29" height="20" viewBox="0 0 29 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6.02041 0.102051H0L9.59184 9.79593L0 20H6.02041L15.8163 9.79593L6.02041 0.102051Z"
+                  [attr.fill]="selectCategory[level]?.id === category.id ? 'white' : '#53B1FF'"
+                  fill-opacity="0.6"
+                />
+                <path
+                  d="M18.2554 0H12.0408L21.9421 9.74359L12.0408 20H18.2554L28.3674 9.74359L18.2554 0Z"
+                  [attr.fill]="selectCategory[level]?.id === category.id ? 'white' : '#53B1FF'"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="current-selection" *ngIf="selectCategory?.length">
+    <ng-container *ngFor="let selectCat of selectCategory">
+      <span class="title"> {{ selectCat?.name }}</span>
+    </ng-container>
+  </div>
+  <div class="cat-buttons">
+    <button (click)="onCategoryFromSelector()" [disabled]="!isSelectedCategoryLeaf" class="btn btn-save small mr-5">{{ 'Select' | translate }}</button>
+    <button class="btn btn-cancel small" (click)="onCancelCategorySuggestion()">{{ 'Cancel' | translate }}</button>
+  </div>
+</div>

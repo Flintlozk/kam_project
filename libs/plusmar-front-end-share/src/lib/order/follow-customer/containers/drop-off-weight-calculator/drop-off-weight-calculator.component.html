@@ -1,0 +1,64 @@
+<div class="drop-off-weight-calculator">
+  <reactor-room-custom-dialog>
+    <div class="head">Thailand post (Drop off)</div>
+    <div class="content">
+      <div class="order">
+        <div class="list" *ngFor="let list of orderList.orders">
+          <div class="detail">
+            <div class="main">
+              <span *ngIf="!list.aliasOrderId" class="price">{{ list.orderID | orderId }}</span>
+              <span *ngIf="list.aliasOrderId" class="price">{{ list.aliasOrderId }}</span>
+              <span class="weight">{{ 'Weight' | translate }}</span>
+              <span class="weightInput" readonly>{{ list.weight * 1000 }}</span>
+              <span class="gram">≤ {{ list.weightRange }} {{ 'Gram' | translate }}</span>
+            </div>
+            <!---->
+            <div class="sub">
+              <span>฿{{ list.price | formatCurrency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- -->
+      <div class="summary">
+        <label class="title">Shipping Calculate</label>
+        <div class="summary-tab price">
+          <div>{{ 'Your Shipping Price' | translate }}</div>
+          <div>฿{{ orderList.totalPrice | formatCurrency }}</div>
+        </div>
+        <div class="summary-tab credit">
+          <div>{{ 'My Credit' | translate }}</div>
+          <div [ngClass]="{ insufficient: isAlert }">฿{{ budget.currentBudget | formatCurrency }}</div>
+        </div>
+      </div>
+
+      <div class="alert" *ngIf="isAlert">
+        <span class="title">{{ 'Insufficient credit' | translate }} </span>
+        <span class="topup" (click)="openTopUpDialog()"
+          ><u>{{ 'Top up now' | translate }}</u></span
+        >
+      </div>
+
+      <div class="alert" *ngIf="isWeightOutOfRange">
+        <span class="title">{{ 'Weight Out Of Range' | translate }} </span>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel" (click)="onClose()">Close</button>
+        <button class="btn-save" (click)="submitCredit()">
+          <svg _ngcontent-oym-c483="" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              _ngcontent-oym-c483=""
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+              fill="white"
+            ></path>
+          </svg>
+          &nbsp;Submit
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

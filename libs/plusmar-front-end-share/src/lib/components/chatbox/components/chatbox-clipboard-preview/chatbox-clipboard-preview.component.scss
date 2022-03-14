@@ -1,0 +1,82 @@
+@import 'base';
+
+.chatbox-clipboard-preview-container {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  // bottom: 110px;
+  // background: rgba(0, 0, 0, 0.01);
+  bottom: 0;
+  background: #fff;
+  box-shadow: -3px -3px 4px rgba(0, 0, 0, 20%);
+
+  .wrapper {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+
+    &.file {
+      height: 110px;
+
+      .preview {
+        color: red;
+        margin: 0 auto;
+      }
+    }
+
+    &.image {
+      height: 210px;
+
+      .preview {
+        margin: 0 auto;
+
+        display: flex;
+        height: 150px;
+        width: 300px;
+        img {
+          box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+          margin: auto;
+          max-height: 150px;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .control {
+      display: flex;
+      justify-content: center;
+      margin: 12px;
+
+      .button {
+        cursor: pointer;
+        width: 74px;
+        height: 34px;
+        border-radius: 50px;
+        // background-color: transparent;
+        margin: 0 8px;
+        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+        &.send {
+          border: 1px solid $main-color;
+          background-color: $main-color;
+          color: #fff;
+          span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        &.cancel {
+          border: 1px solid $error-color;
+          background-color: #fff;
+          color: $error-color;
+          span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}

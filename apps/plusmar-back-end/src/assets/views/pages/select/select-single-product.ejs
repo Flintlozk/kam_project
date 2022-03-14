@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Selecting Order</title>
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/selectproduct.js?112=112322213"></script>
+    <%- include ("../../partials/head") %>
+    <script>
+        <%if (payload) { %>
+            var payloadData = <%- JSON.stringify(payload); %>
+        <% } %>
+    </script>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+        }
+
+        body {
+            background:#FFF;
+            max-width: 590px;
+            margin: 15px auto;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        label {
+            color: #343D46;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,select {
+            height: 36px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            height: 71px;
+            resize: none;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        .productimage {
+            width:90px;
+            height:90px;
+            border-radius:100%;
+            overflow:hidden;
+            margin:auto;
+            text-align:center;
+            clear:both;
+            margin-bottom:20px;  
+        }
+
+        .productimage img {
+            width:100%;
+            height:100%;
+        }
+
+        input,
+        textarea {
+            color: #333333;
+            border: 1px solid rgba(219, 218, 221, 1);
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            border-radius: 4px;
+
+        }
+
+        select {
+            cursor:pointer;
+            background:#FFF;
+            width:240px;
+            border: 1px solid rgba(219, 218, 221, 1);
+        }
+
+        button {
+            height: 40px;
+            border: none;
+            background-color: #53b1ff ;
+            color: white;
+        }
+
+        button span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .wrapper {
+            border: 1px solid rgba(227, 230, 234, 1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .wrapper,
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #343D46;
+            display: flex;
+            justify-content: flex-start;
+            border: none;
+            padding: 0;
+            margin-bottom: 5px;
+        }
+
+        .product-attrib {
+            font-size: 14px;
+            font-weight: 400;
+            color: #343D46;
+            display: flex;
+            justify-content: flex-start;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+
+        
+
+        .product-price-range {
+            color: #53B1FF;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            height: 40px;
+        }
+
+        .input-group:not(:last-of-type) {
+            margin-bottom: 15px;
+        }
+
+        .input-group,
+        button {
+            width: 100%;
+            display: flex;
+        }
+
+        button {
+            font-size: 15px;
+            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            margin-bottom: 10px;
+            height: 40px;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            background-color: #53b1ff;
+            color: #FFF;
+            cursor:pointer;
+        }
+
+        button .payment {
+            color: #363951;
+            font-weight: 200;
+            font-size: 14px;
+        }
+
+        button .cod {
+            font-size: 14px;
+            color: #9FA2A6;
+        }
+
+        .total span {
+            font-weight: bold;
+            font-size: 16px;
+            color: #514B4B;
+        }
+
+        .variant,
+        .quantity,
+        .price,
+        .shipping,
+        .total {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .variant,
+        .quantity {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+        }
+
+        .variant {
+            margin-bottom: 15px;
+        }
+
+        .price {
+            margin-bottom: 10px;
+        }
+
+        .quantity .picker .click{
+            display:flex
+        }
+        .quantity .picker .click .button{
+            background:#F3F5F9;
+            color:#89898A;   
+            height: 36px;
+            margin: 0;
+            width: 30px;
+            cursor:pointer;
+            font-size:18px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        .quantity .picker .click input {
+            display: inline-flex;
+            text-align: end;
+        }
+
+        .total {
+            margin-bottom: 20px;
+        }
+
+        .variant span,
+        .quantity span {
+            font-size: 16px;
+            color: #343D46;
+        }
+
+        .price span,
+        .shipping span {
+            font-size: 12px;
+            color: #343D46;
+        }
+    </style>
+    <div class="wrapper">
+        <% var product = payload.product %>
+        <div class="productimage">
+            <img src = <%=product.variantImages  %> />
+        </div> 
+        <div class="product-name"><%=  product.productName  %></div>
+        <div class="product-attrib">  <%=  product.variantAttributes ? ` ( ${product.variantAttributes} ) ` :''  %> </div>
+        <div class="product-price-range"><%=`฿${product.variantUnitPrice}`%></div>
+            <input type="hidden" name="psid" id="psid">
+
+            <div class="quantity">
+                <span>Quantity</span>
+                <div class="picker">
+                    <div class="click">
+                        <div class="button" onClick=decreaseVariantQuantity()>-</div>
+                        <input type="text" name="quantity" id="quantity" value="1" oninput=onInputQuantity(this.value)></span>
+                        <div class="button" onClick=increaseVariantQuantity()>+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price"> 
+                <span>Price</span>
+                <span id="price">฿ <%=product.variantUnitPrice%></span>
+            </div>
+
+            <div class="total">
+                <span>Total</span>
+                <span id="total">฿ <%=product.variantUnitPrice%></span>
+            </div>
+
+            <div class="button-group" id="add-button">
+                <button id="add-to-cart-button" class="add-to-cart" onClick="addSingleProductToCart(<%=product.variantID%>)" > 
+                    Add to cart
+                </button>
+            </div>
+            <div class="button-group" id="added-button" style="display:none;text-align:center">
+                    Please close the window
+            </div>
+    </div>
+
+    <input type="hidden" id="viewtype" name="viewtype" value="<%=payload.view%>">
+    <%if (payload.view === 'FACEBOOK_WEBVIEW') { %>
+        <%- include ("../../partials/footer" ,{valuepsid:payload.psid}) %>
+    <%}%>
+</body>
+</html>

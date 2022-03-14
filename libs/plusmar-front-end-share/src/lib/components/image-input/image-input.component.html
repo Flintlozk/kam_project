@@ -1,0 +1,64 @@
+<ng-container [formGroup]="parentForm" *ngIf="parentForm">
+  <div class="flex items-center">
+    <div class="relative flex flex-col mr-10" *ngFor="let photo of imagesArray.controls; let i = index">
+      <div class="relative flex flex-col justify-center items-center">
+        <button class="flex cursor-pointer border-none transparent interactive absolute -top-5 -right-5 p-5" [attr.aria-label]="'Remove image' | translate" (click)="remove(i)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="10" fill="#EA6161" />
+            <path
+              d="M10.5524 10L14.8856 5.66686C15.0381 5.5143 15.0381 5.26696 14.8856 5.11442C14.733 4.96188 14.4857 4.96186 14.3331 5.11442L9.99999 9.44758L5.66686 5.11442C5.5143 4.96186 5.26696 4.96186 5.11442 5.11442C4.96188 5.26698 4.96186 5.51432 5.11442 5.66686L9.44755 10L5.11442 14.3332C4.96186 14.4857 4.96186 14.7331 5.11442 14.8856C5.19069 14.9619 5.29067 15 5.39065 15C5.49063 15 5.59059 14.9619 5.66688 14.8856L9.99999 10.5525L14.3331 14.8856C14.4094 14.9619 14.5094 15 14.6094 15C14.7093 15 14.8093 14.9619 14.8856 14.8856C15.0381 14.733 15.0381 14.4857 14.8856 14.3332L10.5524 10Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+        <ng-container *ngIf="isImageByExtension(photo.value.extension); else notImagePreview">
+          <img
+            [width]="+size + 2"
+            [height]="+size + 2"
+            [src]="photo.value.url"
+            [alt]="photo.value.url"
+            onerror="src='assets/img/customer/customer_error.svg'"
+            class="object-cover rounded-full"
+          />
+        </ng-container>
+        <ng-template #notImagePreview>
+          <div class="flex flex-col">
+            <div [matTooltip]="photo.value.filename" [style.width.px]="+size" [style.height.px]="+size" class="bg-blue-200 rounded-full flex items-center justify-center">
+              .{{ photo.value.extension }}
+            </div>
+            <div class="text-xs max-w-60 truncate mt-5">
+              {{ photo.value.filename }}
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+      <mat-error *ngIf="imagesArray?.controls[i]?.errors?.sizeExceeded">
+        {{ 'Size exceeded' | translate }}
+      </mat-error>
+      <mat-error *ngIf="imagesArray?.controls[i]?.errors?.wrongType">
+        {{ 'Please use valid image' | translate }}
+      </mat-error>
+    </div>
+
+    <ng-container *ngIf="imagesArray?.value?.length <= maxFiles - 1">
+      <div class="image-input rounded-full">
+        <label class="img-upload flex interactive-xs">
+          <ng-container *ngIf="accept === 'image/x-png,image/gif,image/jpeg'; else notImage">
+            <img class="base" [width]="size" [height]="size" src="assets/img/image-upload.svg" style="cursor: pointer" alt="Image Product" />
+          </ng-container>
+          <ng-template #notImage>
+            <img class="base" [width]="size" [height]="size" src="assets/img/file-upload-icon.svg" style="cursor: pointer" alt="Image Product" />
+          </ng-template>
+
+          <ng-container *ngIf="multiple">
+            <input type="file" multiple #fileUpload [accept]="accept" style="display: none" (change)="onFileChange($event)" />
+          </ng-container>
+          <ng-container *ngIf="!multiple">
+            <input type="file" #fileUpload [accept]="accept" style="display: none" (change)="onFileChange($event)" />
+          </ng-container>
+        </label>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

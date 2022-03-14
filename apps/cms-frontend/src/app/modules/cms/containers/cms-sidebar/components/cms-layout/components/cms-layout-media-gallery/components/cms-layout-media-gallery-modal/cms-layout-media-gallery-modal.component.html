@@ -1,0 +1,17 @@
+<section class="flex flex-col h-full">
+  <div class="flex items-center justify-between pb-8">
+    <h3 class="mr-4 text-lg">Select Gallery Pattern</h3>
+    <button class="focus:outline-none" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L11.08 11.08M11.08 1L1 11.08" stroke="#C4C4C4" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="pb-8 grid w-full max-w-screen-xl grid-cols-5 gap-4">
+    <ng-container *ngFor="let mediaGallery of mediaGalleryList; trackBy: trackByIndex; let mediaGalleryIndex = index">
+      <div (click)="onSelectMediaElement(mediaGalleryIndex)" class="border rounded-lg hover:border-green-500 p-4">
+        <img [src]="mediaGallery.gallery.galleryPatternUrl" [alt]="mediaGallery.gallery.galleryPatternId" />
+      </div>
+    </ng-container>
+  </div>
+</section>

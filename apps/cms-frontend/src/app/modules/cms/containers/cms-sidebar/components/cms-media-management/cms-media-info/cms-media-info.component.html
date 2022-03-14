@@ -1,0 +1,26 @@
+<section class="flex flex-col h-full" [formGroup]="mediaInfo">
+  <div class="flex items-center justify-between pb-8">
+    <h3 class="mr-4 text-lg">File Information</h3>
+    <button class="focus:outline-none" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L11.08 11.08M11.08 1L1 11.08" stroke="#C4C4C4" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="w-full grid gap-4">
+    <div class="grid gap-1">
+      <div class="font-light text-sm">File Name*</div>
+      <input type="text" formControlName="name" placeholder="File Name" class="border rounded px-4 py-2 focus:outline-none" />
+    </div>
+    <div class="grid gap-1">
+      <div class="font-light text-sm">File Description</div>
+      <textarea placeholder="File Description" formControlName="description" rows="4" class="border rounded px-4 py-2 focus:outline-none"></textarea>
+    </div>
+    <cms-next-cms-tag-setting [tags]="data.tags" (tagsEvent$)="tagsEvent($event)"></cms-next-cms-tag-setting>
+  </div>
+  <div class="flex items-center justify-end pt-8">
+    <button (click)="onConfirm()" class="px-6 py-2 font-light text-white transition transform focus:outline-none rounded-2xl custom-shadow hover:scale-105 bg-green-500">
+      ConFirm
+    </button>
+  </div>
+</section>

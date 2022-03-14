@@ -1,0 +1,19 @@
+<div class="container-column" style="padding-left: 20px">
+  <div>
+    <input matInput (click)="$event.stopPropagation()" placeholder="Search Assignees..." />
+  </div>
+  <div>Workflow Owner</div>
+  <div *ngFor="let Owner of memberFlow; trackBy: trackByIndex">
+    <div class="container-member-flow" *ngIf="Owner.rolename === 'WORKFLOW_OWNER'">
+      <img [src]="Owner.profilePic" class="img-profile-picture" />
+      <label class="name-member-flow">{{ Owner.username }}</label>
+    </div>
+  </div>
+  <div>Workflow Member</div>
+  <div *ngFor="let Owner of memberFlow; trackBy: trackByIndex">
+    <div class="container-member-flow" *ngIf="Owner.rolename !== 'WORKFLOW_OWNER'">
+      <img [src]="Owner.profilePic" class="img-profile-picture" />
+      <label class="name-member-flow">{{ Owner.username }}</label>
+    </div>
+  </div>
+</div>

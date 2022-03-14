@@ -1,0 +1,51 @@
+.title-company-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: #153342;
+  margin-bottom: 10px;
+}
+.assignee-add {
+  display: flex;
+  flex-direction: row;
+
+  .group-assignee {
+    padding-left: 5px;
+    .img-assignee {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
+  }
+  .add-group-assignee {
+    padding-left: 5px;
+  }
+}
+.form-search-assignee {
+  width: 80%;
+  margin-left: 20px;
+  .option-search-assignee {
+    font-size: 14px;
+  }
+}
+.input-auto-complete-assignee {
+  padding: 10px 10px 10px 10px;
+}
+::ng-deep .mat-card.card-recent-comment {
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 7px 7px 7px 7px;
+}
+::ng-deep .mat-menu-panel.mat-menu-search-tag {
+  background-color: white;
+  height: 200px;
+  width: 400px;
+  .form-field-side-nav-menu {
+    padding-left: 20px;
+    width: 100%;
+    width: auto;
+    .search-assign {
+      margin-bottom: 10px;
+      border-bottom: whitesmoke 5px;
+    }
+  }
+}

@@ -1,0 +1,188 @@
+<div class="quick-details" [ngStyle]="{ height: containerHeight }">
+  <reactor-room-quick-pay-disable *ngIf="!isBankEnable"></reactor-room-quick-pay-disable>
+  <div class="quick-pay-details" [ngClass]="{ 'bank-disabled': isBankEnable === false }">
+    <div>
+      <reactor-room-custom-table
+        [tableHeader]="orderItemsTableHeader"
+        [tableColSpan]="orderItemsTableHeader.length"
+        [bgHeaderColorClass]="'custom-table-bg-color-light'"
+        [tableData]="orderItems"
+        [isLoading]="isLoading"
+      >
+        <ng-container *ngFor="let order of orderItems; let i = index" class="table-content">
+          <tr>
+            <td>
+              <div>{{ order.name }}</div>
+            </td>
+            <td>{{ order.itemPrice | currency }}</td>
+            <td>
+              {{ order.discount | currency }}
+            </td>
+            <td>
+              {{ order.isVat ? ('Yes' | translate) : ('No' | translate) }}
+            </td>
+          </tr>
+        </ng-container>
+      </reactor-room-custom-table>
+      <div class="payment-and-summary mt-10">
+        <div class="payment">
+          <div>
+            <div class="text-secondary">{{ 'Payment link expire date' | translate }}</div>
+            <div>{{ order.expiredAt | timeAgo: 'utc' }}</div>
+          </div>
+          <div>
+            <div class="text-secondary">{{ 'Payment link by' | translate }}</div>
+            <div>{{ userName }}</div>
+          </div>
+
+          <ng-container *ngIf="isPaid">
+            <div>
+              <div class="text-secondary">{{ 'Payment Method' | translate }}</div>
+              <div>{{ 'Bank Transfer' | translate }}</div>
+            </div>
+
+            <div>
+              <div class="text-secondary">{{ 'Payment' | translate }} {{ 'Time' | translate }}</div>
+              <div>{{ paymentDetails.paidDate }} {{ paymentDetails.paidTime }}</div>
+            </div>
+
+            <div>
+              <div class="text-secondary">{{ 'Money' | translate }}</div>
+              <div>{{ paymentDetails.paidAmount | currency }}</div>
+            </div>
+          </ng-container>
+
+          <div class="payment mt-10" *ngIf="isCancel">
+            <div class="text-danger">{{ 'Cancel payment link by' }}</div>
+            <div>{{ userName }} {{ cancelDetails.updatedAt | timeAgo: 'utc' }}</div>
+            <div class="cancel-desc" *ngIf="cancelDetails.cancelReason">{{ cancelDetails.cancelReason }}</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <div class="summary-item">
+            <div>{{ 'Discount' | translate }}</div>
+            <div class="border-dotted">{{ order.discount | currency }}</div>
+          </div>
+
+          <div class="summary-item">
+            <div>{{ 'Total' | translate }}</div>
+            <div class="border-dotted">{{ this.amountTotal | currency }}</div>
+          </div>
+          <div class="summary-item">
+            <div>{{ 'VAT' }} ({{ order.tax }}%)</div>
+            <div class="border-dotted">{{ this.vatTotal | currency }}</div>
+          </div>
+          <div class="summary-item" *ngIf="isWithHoldingTax">
+            <div>{{ 'Withholding Tax' }} ({{ withHoldingTax }}%)</div>
+            <div class="border-dotted">{{ this.withHoldingTaxTotal | currency }}</div>
+          </div>
+          <div class="summary-item">
+            <div>{{ 'Grand Total' | translate }}</div>
+            <div class="border-dotted">{{ order.totalPrice | currency }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-10">
+    <form *ngIf="paymentForm && isUnpaid" [formGroup]="paymentForm">
+      <div class="quick-pay-payment-method">
+        <div class="method">
+          <div>
+            <div>{{ 'Payment Method' | translate }}</div>
+            <div class="select-option">
+              <mat-form-field>
+                <mat-select formControlName="method">
+                  <mat-option *ngFor="let payment of paymentMethod" [value]="payment.value"> {{ payment.label | translate }} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-error class="error-label">{{ quickPayPaymentSaveError?.methodErrorMessage | translate }}</mat-error>
+          </div>
+
+          <div>
+            <div>{{ 'Bank Account' | translate }}</div>
+            <div class="select-option">
+              <mat-form-field>
+                <mat-select formControlName="bankAccountID">
+                  <mat-option *ngFor="let bank of bankAccounts" [value]="bank.id">
+                    <div class="flex">
+                      <img class="mr-10" [src]="bank.image" [alt]="bank.type" />
+                      <div>{{ bank.account_name }} : {{ bank.account_id }}</div>
+                    </div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-error class="error-label">{{ quickPayPaymentSaveError?.bankAccountIDErrorMessage | translate }}</mat-error>
+          </div>
+
+          <div class="datetime">
+            <div>
+              <div>{{ 'Datetime' | translate }}</div>
+              <reactor-room-datepicker (setDate)="setDate($event)" [minDate]="minDate" [maxDate]="maxDate" [value]="expireDate"></reactor-room-datepicker>
+              <mat-error class="error-label">{{ quickPayPaymentSaveError?.dateErrorMessage | translate }}</mat-error>
+            </div>
+            <div>
+              <div></div>
+              <input type="time" formControlName="time" class="mr-5 time" />
+              <mat-error class="error-label">{{ quickPayPaymentSaveError?.timeErrorMessage | translate }}</mat-error>
+            </div>
+          </div>
+          <div class="unit-price">
+            <div>
+              <div>{{ 'Money' | translate }}*</div>
+              <div class="price-with-symbol">
+                <div class="input-group-prepend">
+                  <span>{{ currencySymbol }}</span>
+                </div>
+                <input reactorRoomNumeric formControlName="amount" decimals="2" type="text" />
+              </div>
+            </div>
+            <mat-error class="error-label">{{ quickPayPaymentSaveError?.amountErrorMessage | translate }}</mat-error>
+          </div>
+        </div>
+        <div class="payment-slip" (click)="openImageDialog()">
+          <img [src]="paymentFileUrl || slipDefault" alt="Payment Slip" />
+          <mat-error class="error-label">{{ quickPayPaymentSaveError?.fileErrorMessage | translate }}</mat-error>
+        </div>
+        <div class="hidden">
+          <ng-container formGroupName="slip">
+            <div class="payment-slip" (click)="slipFile.click()">
+              <input class="hidden" accept="image/*" #slipFile type="file" (change)="onFileChange($event, 'slip')" />
+              <img [src]="paymentFileUrl || slipDefault" alt="Payment Slip" />
+              <mat-error class="error-label">{{ quickPayPaymentSaveError?.fileErrorMessage | translate }}</mat-error>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="quickpay-footer" *ngIf="isUnpaid">
+  <div class="cursor-pointer text-danger cancel-bill" (click)="onCancelBill()">
+    {{ 'Cancel the bill' | translate }}
+  </div>
+  <div class="buttons">
+    <button type="button" class="btn-cancel" (click)="onCancelClick()">
+      {{ 'Cancel' | translate }}
+    </button>
+    <button (click)="onConfirmPayment()" type="submit" class="btn-save">
+      <svg class="mr-5" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M15.7657 0.239312C15.4533 -0.0797705 14.9468 -0.0797705 14.6343 0.239312L5.04982 10.0277L1.3657 6.26526C1.0533 5.94618 0.546796 5.94621 0.234328 6.26526C-0.0781093 6.58431 -0.0781093 7.10159 0.234328 7.42067L4.48414 11.7608C4.79645 12.0798 5.30332 12.0796 5.61551 11.7608L15.7657 1.39475C16.0781 1.0757 16.0781 0.558394 15.7657 0.239312Z"
+          fill="white"
+        />
+      </svg>
+
+      {{ 'Confirm Payment' | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="quickpay-cancel-button" *ngIf="!isUnpaid && isBankEnable">
+  <button type="button" class="btn-cancel" (click)="onCancelClick()">
+    {{ 'Cancel' | translate }}
+  </button>
+</div>

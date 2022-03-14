@@ -1,0 +1,32 @@
+.card-deal-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card-deal-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 300;
+    padding-bottom: 10px;
+  }
+  .card-deal-amount {
+    color: #0ec2f2;
+    font-weight: 300;
+    padding-bottom: 10px;
+  }
+  .card-deal-dueDate {
+    color: #777777;
+    font-weight: 300;
+    padding-bottom: 10px;
+  }
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}

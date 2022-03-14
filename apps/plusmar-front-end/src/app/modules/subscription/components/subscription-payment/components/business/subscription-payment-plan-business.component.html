@@ -1,0 +1,12 @@
+<div class="plan-business">
+  <div class="plan-name">
+    {{ planName }}
+  </div>
+  <div class="price-details">
+    <span class="price">{{ subscriptionPlan.price | moneyFormat }}</span
+    >/yr
+  </div>
+  <span *ngIf="subscriptionPlan.packageType === 'SME_BUSINESS'"> สำหรับบริษัทที่มีการจัดการลูกค้าจากอินบอกซ์ เพื่อติดตามการขาย </span>
+  <span *ngIf="subscriptionPlan.packageType === 'BUSINESS'"> สำหรับองค์กรธุรกิจที่มีลูกค้ามาจากหลายช่องทาง บริหารจัดการในที่เดียว </span>
+  <span *ngIf="subscriptionPlan.packageType === 'ENTERPRISE_BUSINESS'"> องค์กรขนาดใหญ่ ที่เติบโตแบบ 'ไม่จำกัด' พร้อมเปิดใช้งานทุกฟีเจอร์แบบไม่จำกัด </span>
+</div>

@@ -1,0 +1,41 @@
+<reactor-room-card [padding]="'0px'" *ngFor="let social of socialCards">
+  <div class="card-content connect">
+    <div class="content">
+      <div *ngIf="social.id" class="logo-img">
+        <img [src]="social.picture" [attr.alt]="social.label" style="border-radius: 50%" />
+      </div>
+      <div *ngIf="!social.id" class="img" style="cursor: pointer" (click)="showDialogNotify(social)">
+        <img [src]="social.logoUrl" [attr.alt]="social.label" />
+      </div>
+      <div class="text">
+        <div class="label-group">
+          <div class="label">
+            {{ social.label }} <span *ngIf="social.type === socialTypes.FACEBOOK">{{ 'Page-s' | translate }}</span>
+          </div>
+          <button type="button" class="connected" *ngIf="social.id">
+            <span>{{ 'Connected' | translate }}</span>
+          </button>
+          <button type="button" class="connect-to" *ngIf="checkSocialCanConnect(social)" (click)="sendConnectEvent(social.type)">
+            <span>{{ 'Connect' | translate }}</span>
+          </button>
+        </div>
+
+        <div class="disable-text" *ngIf="!social.id">{{ social.notLinkMessage | translate }}</div>
+        <div class="pages" *ngIf="social.id">
+          <div [class]="'item ' + social.type + '-text'">
+            <span>{{ social.name }}</span>
+          </div>
+        </div>
+        <div class="update-token" *ngIf="social.id && social.type === socialTypes.FACEBOOK" (click)="revokeToken()">
+          <span>[ {{ 'Update Token' | translate }} ]</span>
+        </div>
+        <div class="update-token" *ngIf="social.id && social.type === socialTypes.LINE" (click)="copyWebhookUrl()">
+          <span>[ {{ 'Webhook Url' | translate }} ]</span>
+        </div>
+        <div class="update-token" (click)="sendConnectEvent(social.type)" *ngIf="social.id && (social.type === socialTypes.LAZADA || social.type === socialTypes.SHOPEE)">
+          <span>{{ 'Re-Connect' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</reactor-room-card>

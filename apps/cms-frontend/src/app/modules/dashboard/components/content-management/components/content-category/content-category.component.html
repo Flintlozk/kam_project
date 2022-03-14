@@ -1,0 +1,215 @@
+<section class="content-category">
+  <div class="head">
+    <div class="text">{{ totalRows }} {{ 'Categories' | translate }}</div>
+    <div class="controls">
+      <div class="relative flex items-center">
+        <input [formControl]="searchField" autofocus type="text" placeholder="Search..." class="h-12 pl-4 pr-12 border rounded-md focus:outline-none" />
+        <svg class="absolute right-0 mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+            fill="#BCC4D6"
+          />
+        </svg>
+      </div>
+      <button
+        *ngIf="this.selectedCategoriesIds.length > 0"
+        class="flex items-center bg-red-500 px-4 py-2 font-light text-white transition transform rounded-2xl custom-shadow focus:outline-none hover:scale-105"
+        (click)="deleteMultipleCategories()"
+      >
+        <svg width="16" height="19" viewBox="0 0 16 19" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.1925 3.0465H10.3976C10.2582 1.85315 9.22962 0.923096 7.98384 0.923096C6.73811 0.923096 5.70965 1.85311 5.57023 3.0465H2.7752C1.64414 3.0465 0.72406 3.95495 0.72406 5.07137V5.95945C0.72406 6.81261 1.26224 7.54284 2.02038 7.84038L2.02037 16.9752C2.02037 18.0917 2.94055 19.0001 4.07155 19.0001H11.8962C13.0272 19.0001 13.9473 18.0916 13.9473 16.9752L13.9473 7.84042C14.7054 7.54284 15.2437 6.81261 15.2437 5.95948V5.07141C15.2437 3.95495 14.3235 3.0465 13.1925 3.0465ZM7.98384 1.88338C8.69237 1.88338 9.28377 2.38467 9.41463 3.0465H6.55332C6.68414 2.38463 7.27558 1.88338 7.98384 1.88338ZM12.9745 16.9752C12.9745 17.5622 12.4906 18.0399 11.8962 18.0399H4.07151C3.47702 18.0399 2.99318 17.5622 2.99318 16.9752L2.99319 7.98432H12.9745L12.9745 16.9752ZM14.2709 5.95945C14.2709 6.54644 13.787 7.02407 13.1925 7.02407H2.7752C2.18071 7.02407 1.69687 6.54644 1.69687 5.95945V5.07137C1.69687 4.48438 2.18071 4.00675 2.7752 4.00675H13.1925C13.787 4.00675 14.2709 4.48438 14.2709 5.07137V5.95945Z"
+          />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99472 10.0001V15.0004H8.99634V10.0001H9.99472Z" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00345 10.0001V15.0004H6.00507V10.0001H7.00345Z" />
+        </svg>
+        <span class="ml-2"
+          >Delete <span>({{ this.selectedCategoriesIds.length }})</span></span
+        >
+      </button>
+      <button
+        class="flex items-center px-4 py-2 font-light text-white transition transform bg-green-500 rounded-2xl custom-shadow focus:outline-none hover:scale-105"
+        [class.hidden]="!toggleButton"
+        (click)="toggleAddCategories()"
+      >
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M7.08681 0H8.44097C8.56134 0 8.62153 0.0601852 8.62153 0.180556V16.0694C8.62153 16.1898 8.56134 16.25 8.44097 16.25H7.08681C6.96644 16.25 6.90625 16.1898 6.90625 16.0694V0.180556C6.90625 0.0601852 6.96644 0 7.08681 0Z"
+            fill="#F1F2F6"
+          />
+          <path
+            d="M0.180556 7.26758H15.3472C15.4676 7.26758 15.5278 7.32776 15.5278 7.44813V8.8023C15.5278 8.92267 15.4676 8.98286 15.3472 8.98286H0.180556C0.0601852 8.98286 0 8.92267 0 8.8023V7.44813C0 7.32776 0.0601852 7.26758 0.180556 7.26758Z"
+            fill="#F1F2F6"
+          />
+        </svg>
+        <span class="ml-2">Categories</span>
+      </button>
+      <div class="flex items-center justify-end" [class.hidden]="toggleButton">
+        <input
+          autofocus
+          type="text"
+          name="categoryName"
+          id="category_1"
+          [placeholder]="'Enter New Category' | translate"
+          [formControl]="categoryForm"
+          class="p-2 w-96 focus:outline-none"
+        />
+        <button
+          class="flex items-center justify-center w-8 h-8 ml-2 mr-2 transition transform bg-white rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          (click)="toggleAddCategories()"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L11 11M1 11L11 1" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button
+          class="flex items-center justify-center w-8 h-8 transition transform bg-green-500 rounded-lg focus:outline-none custom-shadow hover:scale-105"
+          (click)="addCategories()"
+        >
+          <svg width="16" height="11" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="table w-full" *ngIf="tableData">
+    <reactor-room-custom-table
+      [isLoading]="false"
+      [isNoData]="isDataEmpty"
+      [tableData]="tableData"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [tableColSpan]="tableHeader.length"
+      [isNoVerticalScroll]="true"
+      [isAllchecked]="isAllchecked"
+      (selectAll)="selectAllHandler($event)"
+      [orderMethod]="tableFilter.orderMethod"
+      (sortTableMetaData)="sortTableData($event)"
+    >
+      <ng-container *ngFor="let data of tableData; trackBy: trackBy; let catIndex = index" class="table-content w-full">
+        <tr>
+          <td>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="{{ 'catInputID' + catIndex }}" (change)="selectCategoryRow(data, catIndex, $event)" [checked]="data.checked" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <span>{{ data.name }}</span>
+            <div *ngIf="data.subCategories" class="sub-attribute mt-4" [ngClass]="{ hidden: data.subCategories.length < 1 }">
+              <ng-container *ngFor="let subItem of data.subCategories; trackBy: subTrackBy; let subIndex = index">
+                <div class="sub-attr-item">
+                  <label class="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="{{ 'catInputID' + catIndex + subIndex }}"
+                      (change)="selectSubCategoryRow(subItem, catIndex, subIndex, $event)"
+                      [checked]="subItem.checked"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="flex justify-between ml-2 w-full">
+                    <span class="ml-2">{{ subItem.name }}</span>
+                    <button
+                      [matMenuTriggerFor]="categoryOption"
+                      #matMenu="matMenuTrigger"
+                      class="absolute -right-11 flex items-center justify-center w-6 h-6 ml-2 transition transform bg-white rounded-md hover:bg-black btn-option focus:outline-none hover:scale-105 group"
+                    >
+                      <svg class="fill-current text-black group-hover:text-white" width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="1" cy="1" rx="1" ry="1" transform="rotate(-90 1 1)"></ellipse>
+                        <ellipse cx="4" cy="1" rx="1" ry="1" transform="rotate(-90 4 1)"></ellipse>
+                        <ellipse cx="7" cy="1" rx="1" ry="1" transform="rotate(-90 7 1)"></ellipse>
+                      </svg>
+                      <mat-menu #categoryOption="matMenu">
+                        <section class="-my-2">
+                          <button (click)="openEditDialog(subItem, data.subCategories)" class="flex items-center w-full px-4 py-2 focus:outline-none hover:bg-gray-100">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+                                fill="#AAB2C2"
+                              />
+                            </svg>
+                            <span class="ml-2">Edit</span>
+                          </button>
+                          <button (click)="deleteCategory(subItem._id)" class="flex items-center w-full px-4 py-2 focus:outline-none hover:bg-gray-100">
+                            <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M13.5577 2.375H10.3846V1.78125C10.3846 0.79748 9.60974 0 8.65385 0H6.34615C5.39026 0 4.61538 0.79748 4.61538 1.78125V2.375H1.44231C0.645757 2.375 0 3.03959 0 3.85938V5.04688C0 5.37481 0.258281 5.64062 0.576923 5.64062H14.4231C14.7417 5.64062 15 5.37481 15 5.04688V3.85938C15 3.03959 14.3542 2.375 13.5577 2.375ZM5.76923 1.78125C5.76923 1.45395 6.02812 1.1875 6.34615 1.1875H8.65385C8.97187 1.1875 9.23077 1.45395 9.23077 1.78125V2.375H5.76923V1.78125Z"
+                                fill="#AAB2C2"
+                              />
+                              <path d="M1 6H14V14C14 16.2091 12.2091 18 10 18H5C2.79086 18 1 16.2091 1 14V6Z" fill="#AAB2C2" />
+                              <path d="M5 9L10 14M5 14L10 9" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                            <span class="ml-2">Delete</span>
+                          </button>
+                        </section>
+                      </mat-menu>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+          <td class="w-4">
+            <button
+              [matMenuTriggerFor]="categoryOption"
+              #matMenu="matMenuTrigger"
+              class="flex items-center justify-center w-6 h-6 ml-2 transition transform bg-white rounded-md hover:bg-black btn-option focus:outline-none hover:scale-105 group"
+            >
+              <svg class="fill-current text-black group-hover:text-white" width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="1" cy="1" rx="1" ry="1" transform="rotate(-90 1 1)"></ellipse>
+                <ellipse cx="4" cy="1" rx="1" ry="1" transform="rotate(-90 4 1)"></ellipse>
+                <ellipse cx="7" cy="1" rx="1" ry="1" transform="rotate(-90 7 1)"></ellipse>
+              </svg>
+              <mat-menu #categoryOption="matMenu">
+                <section class="-my-2">
+                  <button (click)="openEditDialog(data, data.subCategories)" class="flex items-center w-full px-4 py-2 focus:outline-none hover:bg-gray-100">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+                        fill="#AAB2C2"
+                      />
+                    </svg>
+                    <span class="ml-2">Edit</span>
+                  </button>
+                  <button (click)="addSubCategoryDialog(data, data.subCategories)" class="flex items-center w-full px-4 py-2 focus:outline-none hover:bg-gray-100">
+                    <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M2.43779 0C1.68651 0 1.92504 0.105302 2.10091 0.292739C2.27678 0.480177 2.37558 0.734396 2.37558 0.999473V7.49737C2.37558 7.76244 2.47439 8.01666 2.65026 8.2041C2.82613 8.39154 3.06466 8.49684 3.31338 8.49684H9.8068L8.58767 7.20752C8.41108 7.01931 8.31188 6.76405 8.31188 6.49789C8.31188 6.23173 8.41108 5.97647 8.58767 5.78827C8.76426 5.60006 9.00377 5.49433 9.25351 5.49433C9.50324 5.49433 9.74275 5.60006 9.91934 5.78827L12.7327 8.78669C12.8181 8.88174 12.885 8.99383 12.9297 9.11651C13.0234 9.35985 13.0234 9.63278 12.9297 9.87611C12.885 9.9988 12.8181 10.1109 12.7327 10.2059L9.91934 13.2044C9.83216 13.298 9.72844 13.3724 9.61416 13.4231C9.49988 13.4739 9.37731 13.5 9.25351 13.5C9.12971 13.5 9.00713 13.4739 8.89285 13.4231C8.77857 13.3724 8.67485 13.298 8.58767 13.2044C8.49978 13.1114 8.43001 13.0009 8.3824 12.8791C8.33479 12.7573 8.31028 12.6267 8.31028 12.4947C8.31028 12.3628 8.33479 12.2322 8.3824 12.1104C8.43001 11.9886 8.49978 11.878 8.58767 11.7851L9.8068 10.4958H3.31338C2.56722 10.4958 1.85163 10.1799 1.32402 9.61757C0.796408 9.05526 0.5 8.2926 0.5 7.49737V0.999473C0.5 0.734396 0.598802 0.480177 0.774672 0.292739C0.950541 0.105302 2.18907 0 2.43779 0Z"
+                        fill="#AAB2C2"
+                      />
+                    </svg>
+
+                    <span class="ml-2">Sub Category</span>
+                  </button>
+                  <button (click)="deleteCategory(data._id)" class="flex items-center w-full px-4 py-2 focus:outline-none hover:bg-gray-100">
+                    <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M13.5577 2.375H10.3846V1.78125C10.3846 0.79748 9.60974 0 8.65385 0H6.34615C5.39026 0 4.61538 0.79748 4.61538 1.78125V2.375H1.44231C0.645757 2.375 0 3.03959 0 3.85938V5.04688C0 5.37481 0.258281 5.64062 0.576923 5.64062H14.4231C14.7417 5.64062 15 5.37481 15 5.04688V3.85938C15 3.03959 14.3542 2.375 13.5577 2.375ZM5.76923 1.78125C5.76923 1.45395 6.02812 1.1875 6.34615 1.1875H8.65385C8.97187 1.1875 9.23077 1.45395 9.23077 1.78125V2.375H5.76923V1.78125Z"
+                        fill="#AAB2C2"
+                      />
+                      <path d="M1 6H14V14C14 16.2091 12.2091 18 10 18H5C2.79086 18 1 16.2091 1 14V6Z" fill="#AAB2C2" />
+                      <path d="M5 9L10 14M5 14L10 9" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <span class="ml-2">Delete</span>
+                  </button>
+                </section>
+              </mat-menu>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </reactor-room-custom-table>
+    <reactor-room-pagination
+      [pageSize]="tableFilter.pageSize"
+      [pageSizeOptions]="[10, 50, 100]"
+      [pageIndex]="tableFilter.currentPage"
+      [length]="totalRows"
+      (changePage)="changePage($event)"
+    >
+    </reactor-room-pagination>
+  </div>
+</section>

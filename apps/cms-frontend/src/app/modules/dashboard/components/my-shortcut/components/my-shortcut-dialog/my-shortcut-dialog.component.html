@@ -1,0 +1,59 @@
+<section class="relative">
+  <div class="flex justify-between">
+    <div class="relative mb-8 text-lg">
+      Add Shortcut
+      <div class="absolute w-8 h-1 mt-1 bg-green-500 max-h-0.5"></div>
+    </div>
+    <button class="flex items-center justify-center w-8 h-8 ml-8 transition transform bg-gray-100 rounded-lg focus:outline-none hover:scale-105" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.719971 0.720001L10.8 10.8M10.8 0.720001L0.719971 10.8" stroke="#CACCCF" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="grid gap-6 overflow-scroll max-h-96 no-scroll-bar">
+    <ng-container *ngFor="let shortcut of shortcuts; let shortcutIndex = index; trackBy: trackByIndex">
+      <div class="flex items-center justify-between cursor-pointer" (click)="onToggleChildNode(shortcutIndex)">
+        <div class="flex items-center" [ngClass]="{ 'opacity-50': shortcut.isDefault }">
+          <label class="checkbox">
+            <input
+              type="checkbox"
+              [attr.disabled]="shortcut.isDefault ? shortcut.isDefault : null"
+              [checked]="shortcut.isActive || shortcut.isDefault"
+              (change)="checkboxShortcut$.next(shortcut.shortcutId)"
+            />
+            <span class="checkmark"></span>
+          </label>
+          <img *ngIf="!shortcut.isActive || shortcut.isDefault" [src]="shortcut.imgUrl" [alt]="shortcut.title" class="w-6" />
+          <img *ngIf="shortcut.isActive && !shortcut.isDefault" [src]="shortcut.imgActiveUrl" [alt]="shortcut.title" class="w-6" />
+          <div class="pl-2 font-light" [ngClass]="{ 'text-green-500': shortcut.isActive && !shortcut.isDefault }">{{ shortcut.title }}</div>
+        </div>
+        <div class="flex items-center w-4 h-4 mr-2 transition-all duration-300 transform" [ngClass]="{ '-scale-y-100': shortcut.isToggle }">
+          <svg class="w-full" *ngIf="shortcut.childNode.length" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17.2379L24.7379 7.5L28.125 10.8871L15 24.0121L1.875 10.8871L5.2621 7.5L15 17.2379Z" fill="#2EC639" />
+          </svg>
+        </div>
+      </div>
+      <ng-container *ngIf="shortcut.childNode.length && shortcut.isToggle">
+        <ng-container *ngFor="let child of shortcut.childNode; let childIndex = index; trackBy: trackByIndex">
+          <div class="flex items-center ml-9">
+            <label class="checkbox">
+              <input type="checkbox" [checked]="child.isActive" (change)="checkboxShortcut$.next(child.shortcutId)" />
+              <span class="checkmark"></span>
+            </label>
+            <img *ngIf="!child.isActive" [src]="child.imgUrl" [alt]="child.title" class="w-6" />
+            <img *ngIf="child.isActive" [src]="child.imgActiveUrl" [alt]="child.title" class="w-6" />
+            <div class="pl-2 font-light" [ngClass]="{ 'text-green-500': child.isActive }">{{ child.title }}</div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="flex justify-center w-full mt-6">
+    <button
+      (click)="applyButton$.next(null)"
+      class="px-8 py-2 text-lg font-light text-white transition transform bg-green-500 rounded-lg custom-shadow focus:outline-none hover:scale-105"
+    >
+      Apply
+    </button>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+<reactor-room-custom-table
+  *ngIf="audienceList$ | async as audienceList"
+  [isLoading]="false"
+  [tableColSpan]="4"
+  [tableData]="audienceList"
+  [isNoVerticalScroll]="true"
+  [tableHeader]="tableHeader"
+>
+  <tr *ngFor="let audience of audienceList; trackBy: trackBy" class="table-content" #tableContent (click)="redirectToDetail(audience)">
+    <td>
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [platform]="audience?.platform"
+        [firstName]="audience?.first_name"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      >
+      </reactor-room-custom-table-content>
+    </td>
+    <td>{{ audience.updated_at | timeAgo: 'utc' }}</td>
+    <td>
+      <span *ngIf="audience.status === 'FOLLOW'"
+        ><b>{{ 'Step' | translate }} 1 </b> : {{ 'Follow' | translate }}</span
+      >
+      <span *ngIf="audience.status === 'WAITING_FOR_PAYMENT'"
+        ><b>{{ 'Step' | translate }} 2 </b> : {{ 'Waiting for Payment' | translate }}</span
+      >
+      <span *ngIf="audience.status === 'CONFIRM_PAYMENT'"
+        ><b>{{ 'Step' | translate }} 3 </b> : {{ 'Confirm Payment' | translate }}</span
+      >
+      <span *ngIf="audience.status === 'WAITING_FOR_SHIPMENT'"
+        ><b>{{ 'Step' | translate }} 4 </b> : {{ 'Waiting for shipment' | translate }}</span
+      >
+    </td>
+    <td>
+      <reactor-room-custom-table-content [Selector]="'detail'"> </reactor-room-custom-table-content>
+    </td>
+  </tr>
+</reactor-room-custom-table>

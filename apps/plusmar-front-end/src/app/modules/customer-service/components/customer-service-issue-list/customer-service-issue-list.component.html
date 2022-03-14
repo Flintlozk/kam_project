@@ -1,0 +1,100 @@
+<div class="customer-service-issue-list">
+  <div class="head">
+    <div class="label">Step 1: {{ tableData?.length }} Issues</div>
+    <div class="buttons">
+      <button class="btn-issue" (click)="openIssueTypeDialog()">
+        <img src="assets/img/customer-service/issue-icon.png" alt="Issue Type" />
+        Issue Type
+      </button>
+      <button class="btn-new-issue" [routerLink]="'/customer-service/create-new-issue'">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+          />
+        </svg>
+        <span class="ml-5"> Create New Issue </span>
+      </button>
+    </div>
+  </div>
+  <div class="filter">
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="issueType[0].id">
+          <mat-option *ngFor="let data of issueType" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="priorityData[0].id">
+          <mat-option *ngFor="let data of priorityData" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="assignee[0].id">
+          <mat-option *ngFor="let data of assignee" [value]="data.id">
+            {{ data.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <mat-form-field>
+        <mat-select [(value)]="status[0].id">
+          <mat-option *ngFor="let data of status" [value]="data.id">
+            {{ data.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <input autofocus type="text" [placeholder]="'Search' | translate" />
+  </div>
+  <div class="table">
+    <reactor-room-custom-table [isLoading]="false" [tableColSpan]="false" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader">
+      <tr *ngFor="let data of tableData; trackBy: trackBy; let i = index" class="table-content">
+        <td>{{ data.id }}</td>
+        <td>{{ data.issue }}</td>
+        <td>{{ data.issueType }}</td>
+        <td>{{ data.assignee }}</td>
+        <td>{{ data.date }}</td>
+        <td>
+          <div class="status">
+            <div class="round" [ngClass]="{ open: data.status == 1, progress: data.status == 2 }"></div>
+            <span *ngIf="data.status == 1">{{ 'Open' | translate }}</span>
+            <span *ngIf="data.status == 2">{{ 'In progress' | translate }}</span>
+          </div>
+        </td>
+        <td>
+          <div class="action">
+            <div class="tooltip">
+              <img src="assets/img/customer-service/manage-icon.png" alt="Manage" (click)="openIssueInfo(i)" />
+              <span class="tooltiptext">{{ 'Manage' | translate }}</span>
+            </div>
+            <div class="more">
+              <div class="img" (click)="clickMoreEvent(i)">
+                <img src="assets/img/more.svg" alt="More" *ngIf="!data.actionMoreStatus" />
+                <img src="assets/img/more-active.svg" alt="More" *ngIf="data.actionMoreStatus" />
+              </div>
+              <div class="more-menu" *ngIf="data.actionMoreStatus">
+                <div class="item" (click)="openSendEmailDialog(i)">
+                  <img src="assets/img/customer-service/email-icon.svg" alt="Send Email" />
+                  <span>{{ 'Send Email' | translate }}</span>
+                </div>
+                <div class="item">
+                  <img src="assets/img/trash-icon.svg" alt="Delete" />
+                  <span>{{ 'Delete' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+  </div>
+</div>

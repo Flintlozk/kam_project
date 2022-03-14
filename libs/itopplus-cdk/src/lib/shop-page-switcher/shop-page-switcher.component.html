@@ -1,0 +1,97 @@
+<section
+  class="shop-page-container"
+  [ngClass]="{
+    inactive: !menuStatus,
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <!--  -->
+  <div class="owner-page-list" reactorRoomClickOutside (outside)="clickOutsidePageListEvent($event)">
+    <div
+      class="owner"
+      *ngIf="userContext && facebookPageData && facebookPageData.length > 0"
+      (click)="togglePageList()"
+      [ngClass]="{ active: tooglePageListStatus, 'py-2.5 px-8': true }"
+    >
+      <div class="icon">
+        <div class="round" [matTooltip]="'Current page' | translate">
+          <img [src]="pageImgUrlActive" [alt]="pageTitleActive" onerror="src='assets/img/logo-small.png'" />
+        </div>
+        <div class="text">{{ pageTitleActive | translate }}</div>
+      </div>
+      <svg [matTooltip]="'See full pages list' | translate" class="toogle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8 9.19355L13.1935 4L15 5.80645L8 12.8065L1 5.80645L2.80645 4L8 9.19355Z"
+          [attr.fill]="theme === themeType.CMS ? '#22c55e' : '#53B0FF'"
+        />
+      </svg>
+    </div>
+
+    <div class="page-list" *ngIf="tooglePageListStatus && userContext && facebookPageData.length > 0">
+      <ng-container *ngFor="let item of facebookPageData; let i = index">
+        <div [ngClass]="[item.pageActiveStatus ? 'page-list-item active' : 'page-list-item']" (click)="setPageItemStatus(item)">
+          <div class="icon">
+            <svg *ngIf="item.pageActiveStatus" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.7657 0.239312C15.4533 -0.0797705 14.9468 -0.0797705 14.6343 0.239312L5.04982 10.0277L1.3657 6.26526C1.0533 5.94618 0.546796 5.94621 0.234328 6.26526C-0.0781093 6.58431 -0.0781093 7.10159 0.234328 7.42067L4.48414 11.7608C4.79645 12.0798 5.30332 12.0796 5.61551 11.7608L15.7657 1.39475C16.0781 1.0757 16.0781 0.558394 15.7657 0.239312Z"
+                [attr.fill]="theme === themeType.CMS ? '#22c55e' : '#54b1ff'"
+              />
+            </svg>
+
+            <svg
+              class="warning-icon"
+              *ngIf="item.pageWizardStep !== EnumWizardStep.SETUP_SUCCESS"
+              width="16"
+              height="14"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              matTooltipPosition="above"
+              matTooltipClass="tooltip-above"
+              [matTooltip]="'Not Finish Wizard' | translate"
+            >
+              <path
+                fill="#EA6161"
+                d="M9 0a9 9 0 100 18A9 9 0 009 0zm0 14.745c-.704 0-1.185-.542-1.185-1.245 0-.723.502-1.245 1.185-1.245.722 0 1.185.522 1.185 1.245 0 .704-.463 1.245-1.185 1.245zm.466-4.754c-.179.611-.743.622-.932 0-.216-.717-.987-3.439-.987-5.207 0-2.332 2.919-2.343 2.919 0-.001 1.779-.813 4.57-1 5.207z"
+              ></path>
+            </svg>
+          </div>
+          <div class="img">
+            <img [src]="item.pageImgUrl ? item.pageImgUrl : 'assets/img/profile-img.png'" [alt]="item.pageTitle" onerror="src='assets/img/logo-small.png'" />
+          </div>
+
+          <div class="title">
+            <div class="noti" *ngIf="item.pageTotalNotify > 0">{{ item.pageTotalNotify }}</div>
+            {{ item.pageTitle | translate }}
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="isOwner && enableCreateShop" class="page-list-item" routerLinkActive="active" (click)="createPage()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 8H15M8 1V15" stroke="#53B1FF" stroke-width="1.4" stroke-linecap="round" />
+        </svg>
+
+        <div class="title">{{ 'Create New Shop' | translate }}</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="create" *ngIf="userContext && !facebookPageData && enableCreateShop" (click)="createPage()">
+    <div class="icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M7.99999 0.299988C8.38659 0.299988 8.69999 0.613388 8.69999 0.999988V7.29999H15C15.3866 7.29999 15.7 7.61339 15.7 7.99999C15.7 8.38659 15.3866 8.69999 15 8.69999H8.69999V15C8.69999 15.3866 8.38659 15.7 7.99999 15.7C7.61339 15.7 7.29999 15.3866 7.29999 15V8.69999H0.999988C0.613388 8.69999 0.299988 8.38659 0.299988 7.99999C0.299988 7.61339 0.613388 7.29999 0.999988 7.29999H7.29999V0.999988C7.29999 0.613388 7.61339 0.299988 7.99999 0.299988Z"
+          fill="#53B1FF"
+        />
+      </svg>
+    </div>
+    <div class="text">
+      {{ 'Create New Shop' | translate }}
+    </div>
+  </div>
+</section>

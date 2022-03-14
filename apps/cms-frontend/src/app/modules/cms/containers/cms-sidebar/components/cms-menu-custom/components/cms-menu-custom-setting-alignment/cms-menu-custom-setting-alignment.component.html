@@ -1,0 +1,71 @@
+<section class="grid gap-4">
+  <div class="grid gap-1">
+    <div class="text-sm font-light">Alignment</div>
+    <div class="flex items-center">
+      <ng-container *ngFor="let align of textAlignmentData; let index = index">
+        <button
+          (click)="onTextAlignment(index)"
+          [ngClass]="{ 'bg-green-500': align.selected, 'bg-gray-100 hover:bg-gray-200': !align.selected }"
+          class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+        >
+          <svg
+            *ngIf="align.value === ETextAlignment.LEFT"
+            [ngClass]="{ 'text-white': align.selected, 'text-gray-400': !align.selected }"
+            class="fill-current"
+            width="16"
+            height="15"
+            viewBox="0 0 16 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="16" height="3" rx="1.5" />
+            <rect y="12" width="16" height="3" rx="1.5" />
+            <rect y="6" width="10" height="3" rx="1.5" />
+          </svg>
+          <svg
+            *ngIf="align.value === ETextAlignment.CENTER"
+            [ngClass]="{ 'text-white': align.selected, 'text-gray-400': !align.selected }"
+            class="fill-current"
+            width="16"
+            height="15"
+            viewBox="0 0 16 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="16" height="3" />
+            <rect y="12" width="16" height="3" />
+            <rect x="3" y="6" width="10" height="3" />
+          </svg>
+          <svg
+            *ngIf="align.value === ETextAlignment.RIGHT"
+            [ngClass]="{ 'text-white': align.selected, 'text-gray-400': !align.selected }"
+            class="fill-current"
+            width="16"
+            height="15"
+            viewBox="0 0 16 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="16" height="3" />
+            <rect y="12" width="16" height="3" />
+            <rect x="6" y="6" width="10" height="3" />
+          </svg>
+          <svg
+            *ngIf="align.value === ETextAlignment.JUSTIFY"
+            [ngClass]="{ 'text-white': align.selected, 'text-gray-400': !align.selected }"
+            class="fill-current"
+            width="16"
+            height="15"
+            viewBox="0 0 16 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="16" height="3" />
+            <rect y="12" width="16" height="3" />
+            <rect y="6" width="16" height="3" />
+          </svg>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</section>

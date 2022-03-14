@@ -1,0 +1,24 @@
+.templateGroup {
+  display: grid;
+  width: 100%;
+  max-width: 1280px;
+  grid-gap: 0.5rem;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.imgSection {
+  display: flex;
+  max-height: 12rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.img {
+  display: block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+}

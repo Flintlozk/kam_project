@@ -1,0 +1,493 @@
+$font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+$font-size: 14px;
+$cms-primary: rgb(34 197 94);
+$main-color: #22c55e;
+
+.wrapword {
+  white-space: -moz-pre-wrap !important;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  white-space: pre-wrap;
+  /* css-3 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap;
+  /* Newer versions of Chrome/Safari*/
+  word-break: break-all;
+  white-space: normal;
+}
+
+.custom-shadow {
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin no-scroll-bar() {
+  scroll-behavior: smooth;
+  -ms-scroll-behavior: smooth;
+  -moz-scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  -o-scroll-behavior: smooth;
+  /* width */
+  &::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  }
+}
+
+.no-scroll-bar {
+  @include no-scroll-bar();
+}
+
+//custom mat select option
+@layer components {
+  .mat-select-panel-wrap {
+    .mat-select-panel .mat-option {
+      .mat-option-text {
+        .img {
+          @apply flex;
+        }
+        .img-active {
+          @apply hidden;
+        }
+      }
+    }
+    .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+      @apply bg-green-100;
+      .mat-option-text {
+        .img {
+          @apply hidden;
+        }
+        .img-active {
+          @apply flex;
+        }
+      }
+    }
+  }
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    @apply text-purple-500;
+  }
+  .select-options {
+    &.no-select {
+      .mat-form-field {
+        @apply w-0 h-0 overflow-hidden absolute z-0;
+      }
+    }
+    .mat-form-field {
+      font-family: $font-family;
+      @apply w-full;
+      .mat-form-field-wrapper {
+        @apply pb-0;
+        .mat-form-field-flex {
+          @apply h-12 py-0 px-3 bg-white border border-gray-100 font-light rounded-md flex items-center;
+          .mat-form-field-infix {
+            @apply m-0 p-0 border-0 relative w-full;
+            &::after {
+              @apply border-none m-0 flex bg-no-repeat absolute right-0;
+              content: '';
+              width: 11px;
+              height: 6px;
+              background-image: url('/assets/shared/down-icon.svg');
+              background-size: 11px 6px;
+              top: calc(50% - 3px);
+            }
+            .mat-select-arrow {
+              @apply border-0;
+            }
+          }
+        }
+      }
+      .mat-form-field-underline {
+        @apply hidden;
+      }
+    }
+  }
+  .select-options-style {
+    .mat-form-field {
+      font-family: $font-family;
+      .mat-form-field-wrapper {
+        @apply pb-0;
+        .mat-form-field-flex {
+          @apply h-9 px-3 py-0 bg-gray-500 rounded-md flex items-center;
+          .mat-form-field-infix {
+            @apply m-0 p-0 border-0 relative w-28;
+            .mat-select-value {
+              @apply text-white font-light text-sm;
+            }
+            &::after {
+              @apply border-none m-0 flex bg-no-repeat absolute right-0;
+              content: '';
+              width: 3px;
+              height: 7px;
+              background-image: url('/assets/shared/down-icon-style.svg');
+              background-size: 3px 7px;
+              top: calc(50% - 3px);
+            }
+            .mat-select-arrow {
+              @apply border-0;
+            }
+          }
+        }
+      }
+      .mat-form-field-underline {
+        @apply hidden;
+      }
+    }
+  }
+}
+
+//custom quill editor
+@layer components {
+  .ql-container.ql-snow,
+  .ql-container.ql-bubble {
+    @apply border-none;
+    .ql-editor {
+      @apply p-0 text-gray-700;
+      @include no-scroll-bar();
+      &.ql-blank::before {
+        @apply left-0 top-0;
+      }
+    }
+    .ql-tooltip {
+      &:not(.ql-flip) .ql-tooltip-arrow {
+        border-bottom: 6px solid #4a5568;
+      }
+      .ql-toolbar {
+        .ql-formats {
+          @apply flex items-center justify-center flex-wrap m-0 bg-gray-700 p-2;
+          .ql-picker {
+            @apply font-light text-sm;
+            .ql-picker-options {
+              @apply bg-gray-700;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//invalid Validations
+@layer components {
+  .invalid-message {
+    @apply hidden;
+  }
+  .invalid-validation {
+    @apply relative;
+    .invalid-title {
+      @apply text-red-500;
+    }
+    .invalid-message {
+      @apply flex absolute left-0 px-2 text-xs font-light text-white rounded bg-red-500 mt-1 z-10;
+      top: 100%;
+      &::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(100% - 1px);
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #f56565 transparent;
+      }
+    }
+    .invalid-input {
+      @apply border-red-500;
+    }
+    input {
+      @apply border-red-500;
+    }
+    .mat-form-field .mat-form-field-wrapper .mat-form-field-flex {
+      @apply border-red-500;
+    }
+  }
+}
+
+//custom checkbox
+@layer components {
+  .checkbox {
+    @apply flex relative cursor-pointer text-base transition-all duration-100 select-none text-gray-500 font-light;
+
+    /* Hide the browser's default checkbox */
+    input {
+      @apply absolute opacity-0 cursor-pointer w-0 h-0;
+
+      /* When the checkbox is checked, add a blue background */
+      &:checked ~ .checkmark {
+        @apply bg-green-500 border-none;
+      }
+      /* Show the checkmark when checked */
+      &:checked ~ .checkmark:after {
+        @apply block;
+      }
+      &:disabled ~ .checkmark {
+        @apply bg-gray-300;
+      }
+    }
+    /* Create a custom checkbox */
+    .checkmark {
+      @apply w-6 h-6 bg-white border border-gray-300 rounded-md mr-2;
+      /* Create the checkmark/indicator (hidden when not checked) */
+      &:after {
+        @apply absolute hidden;
+        content: '';
+      }
+      /* Style the checkmark/indicator */
+      &:after {
+        left: 7px;
+        top: 1px;
+        width: 8px;
+        height: 14px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+//custom date range
+@layer components {
+  .mat-calendar-content {
+    .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+      @apply border-green-500;
+    }
+    .mat-calendar-body-selected {
+      @apply bg-green-500;
+    }
+    .mat-calendar-body-in-range::before {
+      @apply bg-green-100;
+    }
+  }
+  .date-range {
+    .mat-form-field {
+      @apply relative w-full;
+      line-height: unset;
+    }
+    .mat-form-field-wrapper {
+      @apply p-0;
+      .mat-form-field-flex {
+        @apply h-12 py-0 px-3 bg-white border border-gray-100 font-light rounded-md flex items-center;
+        .mat-form-field-infix {
+          @apply m-0 p-0 border-0 relative;
+        }
+      }
+      .mat-form-field-prefix,
+      .mat-form-field-suffix {
+        @apply hidden;
+      }
+    }
+    .mat-form-field-underline {
+      @apply hidden;
+    }
+    button {
+      @apply absolute right-0 top-0 transition transform cursor-pointer hover:scale-105;
+    }
+  }
+}
+
+//custom mat-menu
+@layer components {
+  .cdk-overlay-pane {
+    .mat-menu-panel {
+      @apply min-h-0;
+    }
+  }
+}
+
+//input Type Number
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+//custom slider
+@layer components {
+  .slider {
+    @apply w-full h-3 rounded-md outline-none bg-gray-100 transition appearance-none flex items-center;
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border: 0;
+    background: url('/assets/cms/slider-handler.svg');
+    cursor: ew-resize;
+  }
+  .slider::-ms-track {
+    background: transparent;
+    color: transparent;
+  }
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border: 0;
+    background: url('/assets/cms/slider-handler.svg');
+    cursor: ew-resize;
+  }
+  .slider::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    @apply text-green-500;
+    height: 25px;
+    -webkit-appearance: none;
+    margin-top: -1px;
+  }
+  /** FF*/
+  .slider::-moz-range-progress {
+    @apply bg-green-500;
+  }
+  /* IE*/
+  .slider::-ms-fill-lower {
+    @apply bg-green-500;
+  }
+}
+
+//custom tabs
+@layer components {
+  .custom-tab {
+    font-family: $font-family;
+    .mat-tab-header {
+      @apply border-none;
+      .mat-tab-label-container {
+        .mat-tab-labels {
+          .mat-tab-label {
+            margin-left: 5px;
+            border-bottom: 2px solid #fff;
+            @apply text-white;
+            font-family: $font-family;
+            @apply min-w-0 opacity-100 p-0 h-10 flex-1 font-light;
+            &.mat-tab-label-active {
+              @apply text-green-500;
+            }
+          }
+        }
+        .mat-ink-bar {
+          @apply bg-green-500;
+        }
+      }
+    }
+    .mat-tab-body-wrapper {
+      @apply pt-6;
+      font-family: $font-family;
+    }
+  }
+}
+
+//general tabs
+@layer components {
+  .general-tab {
+    font-family: $font-family;
+    .mat-tab-header {
+      .mat-tab-label-container {
+        .mat-tab-labels {
+          .mat-tab-label {
+            font-family: $font-family;
+            @apply font-light;
+            &.mat-tab-label-active {
+              @apply text-green-500;
+            }
+          }
+        }
+        .mat-ink-bar {
+          @apply bg-green-500;
+        }
+      }
+    }
+    .mat-tab-body-wrapper {
+      @apply pt-6;
+      font-family: $font-family;
+    }
+  }
+}
+@layer components {
+  .custom-checkbox {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: transform 0.1s ease;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+
+      &:checked ~ .checkmark {
+        background-color: #fff;
+        border: 1px solid #22c55e;
+        //border: none;
+      }
+
+      &:disabled ~ .checkmark {
+        background-color: gray;
+      }
+
+      /* Show the checkmark when checked */
+      &:checked ~ .checkmark:after {
+        display: block;
+      }
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      height: 19px;
+      width: 19px;
+      background-color: white;
+      border: 1px solid #dcdfea;
+      border-radius: 5px;
+
+      /* Create the checkmark/indicator (hidden when not checked) */
+      &:after {
+        content: '';
+        position: absolute;
+        display: none;
+      }
+
+      /* Style the checkmark/indicator */
+      &:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+
+        border: solid #22c55e;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+
+    /* Style the checkmark/indicator */
+    &:after {
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+
+      border: solid #22c55e;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+}

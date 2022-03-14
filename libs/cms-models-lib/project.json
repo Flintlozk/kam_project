@@ -1,0 +1,37 @@
+{
+  "projectType": "library",
+  "root": "libs/cms-models-lib",
+  "sourceRoot": "libs/cms-models-lib/src",
+  "prefix": "cms-next",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/cms-models-lib/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/cms-models-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "generate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx graphql-codegen --require --config libs/cms-models-lib/codegen.yml"
+          }
+        ]
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

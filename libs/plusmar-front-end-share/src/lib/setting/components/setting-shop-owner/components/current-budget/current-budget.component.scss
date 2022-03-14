@@ -1,0 +1,41 @@
+@import 'base';
+.current-budget-container {
+  &.social-theme {
+    background: #e2f2ff;
+  }
+  &.cms-theme {
+    background: #abebc6;
+  }
+  border-radius: 10px;
+  min-width: 304px;
+  .title {
+    padding: 10px 20px;
+    font-size: 14px;
+    .time {
+      font-size: 10px;
+      color: #c3c5ca;
+    }
+  }
+  .budget {
+    padding: 6px;
+    font-size: 40px;
+    color: #343d46;
+    text-align: right;
+  }
+}
+
+.current-budget-description {
+  font-size: 12px;
+  padding: 6px;
+  color: $text-grey-color;
+  &.social-theme {
+    span {
+      color: $main-color;
+    }
+  }
+  &.cms-theme {
+    span {
+      color: #22c55e;
+    }
+  }
+}

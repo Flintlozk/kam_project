@@ -1,0 +1,87 @@
+@import 'base';
+@import 'buttons';
+
+.products-tags-manage-dialog {
+  .footer {
+    float: right;
+    margin-top: 10px;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        @extend .btn-active;
+
+        &.disabled {
+          @extend .btn-disabled;
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 20px;
+
+    .label {
+      padding-bottom: 10px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #576f83;
+    }
+
+    .tags {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 20px;
+
+      .tag-item {
+        width: 80%;
+        display: grid;
+        grid-template-columns: auto 20px 20px;
+        grid-gap: 10px;
+        align-items: center;
+        background: white;
+        z-index: 1;
+      }
+
+      input {
+        border: 1px solid $border-color;
+        padding: 0px 15px;
+        border-radius: 8px;
+        height: 30px;
+
+        &::placeholder {
+          font-style: italic;
+        }
+      }
+
+      img {
+        width: 20px;
+      }
+
+      .add {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background: $main-color;
+        border-radius: 100%;
+
+        img {
+          width: 13px;
+        }
+
+        &.disabled {
+          @extend .disable-div;
+        }
+      }
+    }
+  }
+}

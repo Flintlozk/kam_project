@@ -1,0 +1,6 @@
+<div class="flex items-center justify-center w-full h-screen">
+  <div class="w-6/12 p-20 shadow-md flex flex-col justify-between items-center">
+    <h1 class="text-4xl py-6">More-Commerce Admin</h1>
+    <reactor-room-facebook-login [appID]="facebookAppID" [facebookScope]="facebookLoginScope" (response)="facebookLogin($event)"> </reactor-room-facebook-login>
+  </div>
+</div>

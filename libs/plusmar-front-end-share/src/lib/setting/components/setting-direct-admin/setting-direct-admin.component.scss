@@ -1,0 +1,162 @@
+@import 'base';
+@import 'buttons';
+.setting-direct-admin {
+  &.cms-theme {
+    .save-active {
+      @include btn-active-cms();
+    }
+    .revoke,
+    .remove,
+    .activate {
+      color: lighten(#22c55e, 30%) !important;
+      &:hover {
+        color: #22c55e !important;
+      }
+
+      &:active {
+        color: #22c55e;
+      }
+    }
+    .approve {
+      background: #22c55e !important;
+    }
+  }
+  &.social-theme {
+    .save-active {
+      @include btn-active();
+    }
+  }
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+
+    .count {
+      padding-right: 15px;
+    }
+
+    img {
+      width: 18px;
+      padding-right: 5px;
+    }
+  }
+
+  .table-content {
+    span {
+      font-weight: 300;
+    }
+
+    .alias-input {
+      border: none;
+      outline: none;
+      background: none;
+      border-bottom: 1px solid #484b52;
+    }
+
+    .remove {
+      display: flex;
+      cursor: pointer;
+      color: #9ab8ce;
+
+      &:hover {
+        color: red;
+
+        img {
+          filter: none;
+          -webkit-filter: none;
+        }
+      }
+
+      margin-right: 10px;
+
+      img {
+        width: 18px;
+        cursor: pointer;
+        margin-right: 10px;
+        filter: opacity(0.7) grayscale(1);
+      }
+    }
+
+    .revoke {
+      display: flex;
+      cursor: pointer;
+      color: #9ab8ce;
+
+      &:hover {
+        color: #6cbbfd;
+
+        img {
+          filter: none;
+          -webkit-filter: none;
+        }
+      }
+
+      &:active {
+        color: #27a2ff;
+      }
+
+      img {
+        width: 18px;
+        cursor: pointer;
+        margin-right: 10px;
+        filter: opacity(0.7) grayscale(1);
+      }
+    }
+
+    .activate {
+      display: flex;
+      cursor: pointer;
+      color: #9ab8ce;
+      padding-top: 0px;
+      &:hover {
+        color: #27a2ff;
+
+        img {
+          filter: none;
+          -webkit-filter: none;
+        }
+      }
+
+      margin-right: 10px;
+
+      img {
+        width: 18px;
+        cursor: pointer;
+        margin-right: 10px;
+        filter: opacity(0.7) grayscale(1);
+      }
+    }
+    .button-group {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+
+      .activate {
+        margin-left: 10px;
+      }
+    }
+    .status {
+      display: flex;
+      align-items: center;
+
+      .round {
+        border-radius: 100%;
+        width: 8px;
+        height: 8px;
+        background: $border-color;
+        margin-right: 10px;
+        flex-shrink: 0;
+        flex-shrink: 0;
+
+        &.pending {
+          background: #fbb936;
+        }
+
+        &.approve {
+          background: $main-color;
+        }
+      }
+    }
+  }
+}

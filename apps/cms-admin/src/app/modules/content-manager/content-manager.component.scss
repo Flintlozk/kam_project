@@ -1,0 +1,33 @@
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding-top: 20px;
+  .grid-item {
+    padding: 10px;
+    border-radius: 10px;
+    background: #eee;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      background-color: #ddd;
+    }
+    .img-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        position: absolute;
+        height: 100%;
+      }
+    }
+    .title {
+      font-size: large;
+      margin-top: 10px;
+    }
+  }
+}

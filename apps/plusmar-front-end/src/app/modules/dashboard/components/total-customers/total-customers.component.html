@@ -1,0 +1,21 @@
+<reactor-room-card [withTitle]="true" [paddingBottom]="padding" [padding]="padding">
+  <div class="card-title">
+    {{ 'Order' | translate }}
+    <span class="all-time">({{ 'All Time' | translate }})</span>
+  </div>
+  <div class="card-content">
+    <div class="total-customers" id="cards-container">
+      <div class="cards">
+        <reactor-room-step
+          *ngFor="let item of steps; let i = index"
+          [isLast]="i >= steps.length - 1"
+          [TotalAsync]="item.total"
+          [Step]="item"
+          [routerLink]="item?.route"
+          [isGreyBg]="true"
+        >
+        </reactor-room-step>
+      </div>
+    </div>
+  </div>
+</reactor-room-card>

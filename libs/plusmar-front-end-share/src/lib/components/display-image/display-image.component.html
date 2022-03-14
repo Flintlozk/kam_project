@@ -1,0 +1,20 @@
+<div class="image-modal" *ngIf="data.type === 'image'">
+  <img [src]="data.url | queryRemover" class="content" #imageRef (mousewheel)="zoomPan($event)" />
+  <div class="option">
+    <a [href]="data.url | queryRemover" target="_blank">{{ 'Preview' | translate }}</a>
+    <div (click)="download(data.url)">{{ 'Download' | translate }}</div>
+  </div>
+  <div class="closeButton" (click)="onClose()">
+    <svg width="12" height="12" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.55245 5.00002L9.88558 0.66686C10.0381 0.514302 10.0381 0.266958 9.88558 0.114419C9.73302 -0.0381201 9.48568 -0.0381396 9.33314 0.114419L4.99999 4.44758L0.666859 0.114419C0.5143 -0.0381396 0.266957 -0.0381396 0.114419 0.114419C-0.03812 0.266977 -0.0381395 0.514321 0.114419 0.66686L4.44755 5L0.114419 9.33316C-0.0381395 9.48572 -0.0381395 9.73307 0.114419 9.88561C0.190688 9.96188 0.290668 10 0.390648 10C0.490629 10 0.590589 9.96188 0.666878 9.88561L4.99999 5.55246L9.33312 9.88561C9.40939 9.96188 9.50937 10 9.60935 10C9.70933 10 9.80929 9.96188 9.88558 9.88561C10.0381 9.73305 10.0381 9.4857 9.88558 9.33316L5.55245 5.00002Z"
+        fill="white"
+      />
+    </svg>
+    <span>{{ 'Close' | translate }}</span>
+  </div>
+</div>
+
+<div class="pdf-modal" *ngIf="data.type === 'file'">
+  <iframe [src]="data.url | safe" type="application/pdf"></iframe>
+</div>

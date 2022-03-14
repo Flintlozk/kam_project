@@ -1,0 +1,71 @@
+<div class="product-variant-merge-dialog">
+  <reactor-room-custom-dialog>
+    <ng-container class="head">
+      <div class="title">{{ 'Match Product Variant' | translate }}</div>
+    </ng-container>
+    <ng-container class="content">
+      <div class="content-container" #contentContainer>
+        <div class="main-variant-product">
+          <img [src]="imgURL" alt="" />
+          <div class="main-variant-detail">
+            <div>{{ moreCommerceVariant.variantAttributes }}</div>
+            <div class="sub-detail">
+              <div class="price">{{ 'Price' | translate }}: {{ '฿ ' + moreCommerceVariant.variantUnitPrice }}</div>
+              <div class="market-place-icons">
+                <img [src]="marketPlaceIconObj[moreCommerceVariant.variantMarketPlaceType]" [alt]="moreCommerceVariant.variantMarketPlaceType" />
+
+                <ng-container *ngFor="let mergedVariantData of moreCommerceVariant?.mergedVariantData">
+                  <img [src]="marketPlaceIconObj[mergedVariantData.mergedMarketPlaceType]" [alt]="mergedVariantData.mergedMarketPlaceType" />
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="merge-divider relative">
+          <div class="merge-text">{{ 'Merge To' | translate }}</div>
+        </div>
+
+        <div class="market-place-list" *ngIf="productVariantMarketPlaceList.length; else noMarketPlaceList">
+          <ng-container *ngFor="let marketPlaceItem of productVariantMarketPlaceList; trackBy: trackByIndex; let index = index">
+            <div
+              class="market-place-list-item"
+              [ngClass]="{ 'market-place-item-disable': marketPlaceItem.isDisabled, selected: marketPlaceItem.isSelected && !marketPlaceItem.isDisabled }"
+              (click)="selectVariantToMerge(marketPlaceItem, contentContainer)"
+            >
+              <div class="market-place-list-detail">
+                {{ marketPlaceItem.variantAttributes }}
+                <div class="sub-detail">
+                  <div class="price">{{ 'Price' | translate }}: {{ '฿ ' + marketPlaceItem.variantUnitPrice }}</div>
+                  <div class="market-place-icons">
+                    <img [src]="marketPlaceIconObj[marketPlaceItem.variantMarketPlaceType]" [alt]="marketPlaceItem.variantMarketPlaceType" />
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="marketPlaceItem.isSelected && !marketPlaceItem.isDisabled"><img src="../assets/img/check-circle.svg" alt="Checked" /></div>
+            </div>
+            <div *ngIf="index === mergedProductVariantCount - 1" class="merge-divider relative"></div>
+          </ng-container>
+        </div>
+        <ng-template #noMarketPlaceList>
+          <div class="market-place-list" class="flex justify-center">
+            <div>
+              {{ 'No Products to merge' | translate }}
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel mr-5" (click)="onActionClick$.next(cancelFlag)">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button class="btn-create active" (click)="onActionClick$.next(mergeFlag)">
+          <span class="ml-5">
+            {{ 'Confirm' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

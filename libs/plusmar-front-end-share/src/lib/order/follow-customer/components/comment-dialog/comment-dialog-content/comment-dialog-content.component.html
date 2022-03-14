@@ -1,0 +1,17 @@
+<div class="comment-dialog-content">
+  <div class="head">
+    <div class="title">
+      <img [src]="senderProfilePic" alt="Profile Image" />
+      <div class="info">
+        {{ senderName }}<br />
+        <span>{{ lastMessage }}</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <ng-content select=".dialog-buttons"></ng-content>
+    </div>
+  </div>
+  <div class="content">
+    <ng-content select=".content"></ng-content>
+  </div>
+</div>

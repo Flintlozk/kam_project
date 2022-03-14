@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="left">
+    <div class="title">
+      <img src="assets/img/wizard/more-logo.png" alt="more-logo" />
+      <div class="progress-bar-content">
+        <ng-container *ngFor="let step of steps">
+          <div class="progress-bar" [ngClass]="step.active || step.stepType === currentStep ? 'success' : ''"></div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="steps-content">
+      <ng-container *ngFor="let step of steps">
+        <div class="step" [ngClass]="currentStep === step.stepType ? 'active' : ''">
+          <div>
+            <img class="logo" [src]="step.imgUrl" />
+          </div>
+          <div>
+            <div class="title">
+              {{ step.title }}
+            </div>
+            <div class="details">
+              {{ step.details }}
+            </div>
+          </div>
+          <div>
+            <div *ngIf="step.active || currentStep === step.stepType" class="button">
+              <button type="button" (click)="selectStep.emit(step.stepType)" class="btn-setting" [ngClass]="currentStep === step.stepType ? 'display' : ''">
+                <span class="ml-5"> {{ step.button }} </span>
+              </button>
+            </div>
+          </div>
+          <div class="check-img">
+            <img *ngIf="step.active" src="assets/img/wizard/check.png" />
+            <img *ngIf="!step.active" src="assets/img/wizard/uncheck.png" />
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="right">
+    <div *ngIf="stepDetail" class="step-detail">
+      <div class="content">
+        <div class="title">{{ stepDetail.title }}</div>
+        <div class="details">{{ stepDetail.detail }}</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="53" height="5">
+          <path fill="none" stroke="#e3eff7" strokeWidth="2" d="M1055 313h50" transform="translate(-1054 -311)"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="step-img">
+          <img class="bg-img" src="assets/img/wizard/bg.png" alt="step-1" />
+          <img class="details-img" [src]="stepDetail.imgUrl" alt="step-1" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

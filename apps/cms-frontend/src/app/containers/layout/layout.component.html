@@ -1,0 +1,11 @@
+<div class="flex flex-col h-full bg-gray-100">
+  <cms-next-header></cms-next-header>
+  <div class="flex flex-1 h-full overflow-scroll no-scroll-bar">
+    <cms-next-sidebar></cms-next-sidebar>
+    <div class="w-full overflow-scroll no-scroll-bar">
+      <div class="m-auto" [ngStyle]="{ 'max-width.px': maxContentWidth }">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

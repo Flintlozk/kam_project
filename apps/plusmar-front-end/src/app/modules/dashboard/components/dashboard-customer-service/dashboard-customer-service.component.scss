@@ -1,0 +1,87 @@
+@import 'base';
+.card-title {
+  .sub {
+    color: #758a99;
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
+.card-content {
+  padding: 20px;
+  padding-top: 0px;
+  .sum {
+    font-size: 2em;
+  }
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    padding-bottom: 20px;
+    .progress-bar-item {
+      height: 13px;
+      &:first-child {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      &:last-child {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+  }
+  .info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 30px;
+    //Grid Area Defines Positions
+    grid-template-areas: 'a c' 'b d';
+    .info-item:first-child {
+      grid-area: a;
+    }
+    .info-item:nth-child(2) {
+      grid-area: b;
+    }
+    .info-item:nth-child(3) {
+      grid-area: c;
+    }
+    .info-item:last-child {
+      grid-area: d;
+    }
+    &.business {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'a' 'b' 'c' 'd';
+      grid-row-gap: 10px;
+    }
+    @media #{$mobilemax} {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'a' 'b' 'c' 'd';
+      grid-row-gap: 10px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      .title {
+        display: flex;
+        padding-right: 10px;
+        align-items: center;
+        min-width: 100px;
+        .round {
+          width: 8px;
+          height: 8px;
+          border-radius: 100%;
+          flex-shrink: 0;
+          margin-right: 10px;
+          flex-shrink: 0;
+        }
+      }
+      .value {
+        background: #f0f2f6;
+        padding: 3px 10px;
+        border-radius: 5px;
+        text-align: center;
+        min-width: 40px;
+      }
+    }
+  }
+}

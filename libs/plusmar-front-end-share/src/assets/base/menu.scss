@@ -1,0 +1,50 @@
+.export-menu,
+.more-menu,
+.menu-toggle {
+  background: white;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  min-width: 230px;
+  border-top: 2px solid $main-color;
+  box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+  padding: 5px 0;
+  z-index: 99;
+
+  .item {
+    display: flex;
+    align-items: center;
+    padding: 6px 15px;
+    cursor: pointer;
+    transition: $transition;
+    font-weight: 300;
+    font-size: 15px;
+    color: #484b52;
+
+    span {
+      padding-left: 5px;
+    }
+
+    img {
+      width: 20px;
+      margin-right: 5px;
+    }
+
+    .disabled {
+      color: #d5d7dc;
+    }
+
+    &:hover {
+      background: #e2f1ff;
+      color: $main-color;
+    }
+
+    &.disabled {
+      color: #d6d7dc;
+      cursor: default;
+
+      &:hover {
+        color: #d6d7dc;
+      }
+    }
+  }
+}

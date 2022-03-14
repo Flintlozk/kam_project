@@ -1,0 +1,18 @@
+.setting-openapi-message {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 20px;
+
+  .menu {
+    padding-bottom: 10px;
+    .title {
+      font-weight: 500;
+      padding-bottom: 15px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 5px;
+    }
+  }
+}

@@ -1,0 +1,329 @@
+<div
+  class="setting-payment"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <!-- Bank Transfer -->
+  <div class="line">
+    <div class="title">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 80 80">
+          <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
+            <g transform="translate(7 9)">
+              <path stroke="#9AA6B2" strokeWidth="3" d="M17 28v-4c0-5.523 4.477-10 10-10h12"></path>
+              <path stroke="#53B1FF" strokeWidth="3" d="M50 31v4c0 5.523-4.477 10-10 10H30h0"></path>
+              <circle *ngIf="theme === themeType.SOCIAL" cx="49" cy="17" r="16.5" fill="#53B1FF" stroke="#FFF"></circle>
+              <circle *ngIf="theme === themeType.CMS" cx="49" cy="17" r="16.5" fill="#22c55e" stroke="#FFF"></circle>
+              <text fill="#FFF" fontFamily="Prompt-SemiBold, Prompt" fontSize="20" fontWeight="500">
+                <tspan x="43.32" y="24">$</tspan>
+              </text>
+              <circle cx="17" cy="43" r="15" stroke="#9AA6B2" strokeWidth="4"></circle>
+              <text fill="#9AA6B2" fontFamily="Prompt-SemiBold, Prompt" fontSize="20" fontWeight="500">
+                <tspan x="11.32" y="50">$</tspan>
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="text">{{ 'Bank Transfer' | translate }}</div>
+    </div>
+    <div class="mode">
+      <div
+        id="bank-transfer-open-dialog"
+        *ngIf="isAllowed"
+        class="btn-add"
+        [ngClass]="{
+          'cms-theme': theme === themeType.CMS
+        }"
+        (click)="openDialog(false, true, '')"
+      >
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+          />
+        </svg>
+        <span class="ml-5">
+          {{ 'Add' | translate }}
+        </span>
+      </div>
+
+      <label
+        id="bank-transfer-toggle"
+        class="mode-toggle"
+        [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)"
+        (click)="!isAllowed ? '' : isBankDisabled && isBankTransferActive ? openError() : !isAnyBank ? openDialog(true, true, '') : isAnyBankActive ? '' : openNoBankActiveError()"
+      >
+        <div>
+          <input
+            type="checkbox"
+            (change)="togglePaymentGateway(EnumPaymentType.BANK_ACCOUNT)"
+            [(ngModel)]="gatewayEnabled['BANK_ACCOUNT']"
+            [disabled]="isBankDisabled || !isAllowed"
+          />
+          <span class="slider round" [ngClass]="gatewayEnabled['BANK_ACCOUNT'] && !isAllowed ? 'not-allow' : gatewayEnabled['BANK_ACCOUNT'] && isAllowed ? 'active' : ''"> </span>
+        </div>
+      </label>
+      <div id="bank-transfer-collapse" class="btn-toogle" (click)="togglePaymentSetting(EnumPaymentType.BANK_ACCOUNT)" [ngClass]="{ active: moreStatus['BANK_ACCOUNT'] }">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.68315L1.23899 0.166687L0 1.32512L5 6.00002L10 1.32512L8.76101 0.166687L5 3.68315Z" fill="white" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="more" *ngIf="moreStatus['BANK_ACCOUNT']">
+    <reactor-room-setting-bank-transfer-detail
+      [theme]="theme"
+      [isBankTransferActive]="isBankTransferActive"
+      [isAllowed]="isAllowed"
+      (bankAccountUpdated)="handleBankAccountUpdated($event)"
+    >
+    </reactor-room-setting-bank-transfer-detail>
+  </div>
+  <!-- Bank Transfer -->
+
+  <!-- COD -->
+  <div class="line">
+    <div class="title">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 80 80">
+          <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
+            <g fill="#9AA6B2" fillRule="nonzero" transform="translate(13 24)">
+              <path
+                d="M47.564 0H13.016c-.793 0-1.436.642-1.436 1.433v18.728a8.622 8.622 0 00-4.99 2.772h-.752V21.5c0-.792-.643-1.433-1.436-1.433H1.436a1.434 1.434 0 100 2.866h1.53v17.2h-1.53a1.434 1.434 0 100 2.867h2.966c.793 0 1.436-.642 1.436-1.433v-1.434H7.05C16.205 43.026 15.86 43 16.27 43h19.714c2.97 0 5.05-2.945 4.06-5.733h7.52c.793 0 1.436-.642 1.436-1.434v-34.4C49 .642 48.357 0 47.564 0zm-9.948 38.595c0 .794-.646 1.44-1.44 1.44h-19.55c-9.182-2.906-8.835-2.88-9.247-2.88H5.94V25.64h1.44a1.44 1.44 0 001.159-.585c2.28-3.091 6.919-3.094 9.201 0a1.44 1.44 0 001.16.585h7.198c.794 0 1.44.646 1.44 1.44 0 .793-.646 1.439-1.44 1.439h-8.639a1.44 1.44 0 00-1.44 1.44c0 3.968 3.23 7.197 7.2 7.197h12.958c.794 0 1.44.645 1.44 1.439zm8.414-3.997H22.967a4.315 4.315 0 01-4.061-2.876h6.932a4.315 4.315 0 004.306-4.313 4.315 4.315 0 00-4.306-4.314h-6.494a8.615 8.615 0 00-4.99-2.781V2.966h10.048v8.626c0 .795.643 1.438 1.436 1.438h8.613c.792 0 1.435-.643 1.435-1.438V2.966H46.03v31.632z"
+              ></path>
+            </g>
+            <circle *ngIf="theme === themeType.SOCIAL" cx="56.5" cy="24.5" r="13.5" fill="#53B1FF" stroke="#FFF" strokeWidth="2"></circle>
+            <circle *ngIf="theme === themeType.CMS" cx="56.5" cy="24.5" r="13.5" fill="#22c55e" stroke="#FFF" strokeWidth="2"></circle>
+            <g fill="#FFF" fontFamily="Prompt-SemiBold, Prompt" fontSize="20" fontWeight="500" transform="translate(51 10)">
+              <text>
+                <tspan x="0" y="22">$</tspan>
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="text">{{ 'Cash on Delivery' | translate }}</div>
+    </div>
+    <div class="mode">
+      <label
+        id="cod-toggle"
+        class="mode-toggle"
+        (click)="!isClosable && gatewayEnabled['CASH_ON_DELIVERY'] ? openError() : ''"
+        [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)"
+      >
+        <div>
+          <input
+            type="checkbox"
+            (change)="togglePaymentGateway(EnumPaymentType.CASH_ON_DELIVERY)"
+            [(ngModel)]="gatewayEnabled['CASH_ON_DELIVERY']"
+            [disabled]="(!isClosable && gatewayEnabled['CASH_ON_DELIVERY']) || !isAllowed"
+          />
+          <span
+            class="slider round"
+            [ngClass]="gatewayEnabled['CASH_ON_DELIVERY'] && !isAllowed ? 'not-allow' : gatewayEnabled['CASH_ON_DELIVERY'] && isAllowed ? 'active' : ''"
+          ></span>
+        </div>
+      </label>
+      <div id="cod-collapse" class="btn-toogle" (click)="togglePaymentSetting(EnumPaymentType.CASH_ON_DELIVERY)" [ngClass]="{ active: moreStatus['CASH_ON_DELIVERY'] }">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.68315L1.23899 0.166687L0 1.32512L5 6.00002L10 1.32512L8.76101 0.166687L5 3.68315Z" fill="white" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="more" *ngIf="moreStatus['CASH_ON_DELIVERY']">
+    <reactor-room-setting-cod-detail [theme]="theme" [codDetail]="codDetail" (codUpdated)="onCodUpdated($event)" [isAllowed]="isAllowed"></reactor-room-setting-cod-detail>
+  </div>
+
+  <!-- COD -->
+
+  <!-- Paypal -->
+  <div class="line">
+    <div class="title">
+      <div class="icon">
+        <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M28.9309 33.1532C28.782 34.1405 28.0357 34.1405 27.3139 34.1405H26.9031L27.1912 32.2971C27.2086 32.1857 27.3037 32.1037 27.4154 32.1037H27.6036C28.095 32.1037 28.5592 32.1037 28.7984 32.3864C28.9416 32.5557 28.985 32.8066 28.9309 33.1532V33.1532ZM28.6167 30.5773H25.8943C25.7081 30.5773 25.5497 30.7141 25.5207 30.8999L24.4198 37.9527C24.3981 38.0918 24.5046 38.2177 24.6439 38.2177H26.0407C26.171 38.2177 26.282 38.1219 26.3023 37.9919L26.6145 35.9924C26.6435 35.8066 26.8019 35.6698 26.9881 35.6698H27.8496C29.6427 35.6698 30.6776 34.793 30.9481 33.0552C31.0699 32.2952 30.953 31.698 30.6008 31.2799C30.2136 30.8203 29.5274 30.5773 28.6167 30.5773"
+            fill="#459ADB"
+          />
+          <path
+            d="M9.5139 33.1532C9.3651 34.1405 8.61876 34.1405 7.89691 34.1405H7.4862L7.7743 32.2971C7.79169 32.1857 7.88679 32.1037 7.99843 32.1037H8.18669C8.67809 32.1037 9.14225 32.1037 9.3815 32.3864C9.52466 32.5557 9.56799 32.8066 9.5139 33.1532V33.1532ZM9.19976 30.5773H6.47729C6.29115 30.5773 6.13267 30.7141 6.10367 30.8999L5.00283 37.9527C4.98109 38.0918 5.08755 38.2177 5.227 38.2177H6.52683C6.71297 38.2177 6.87145 38.0809 6.90045 37.895L7.19755 35.9924C7.2265 35.8066 7.38497 35.6698 7.57112 35.6698H8.43262C10.2258 35.6698 11.2607 34.793 11.5312 33.0552C11.6529 32.2952 11.5361 31.698 11.1839 31.2799C10.7967 30.8203 10.1105 30.5773 9.19976 30.5773Z"
+            fill="#253B7D"
+          />
+          <path
+            d="M15.52 35.6852C15.394 36.4377 14.8028 36.9429 14.0486 36.9429C13.6705 36.9429 13.3678 36.82 13.1732 36.5873C12.9804 36.3567 12.9078 36.0282 12.969 35.6623C13.0863 34.9165 13.6871 34.395 14.4298 34.395C14.8 34.395 15.1006 34.519 15.2989 34.7538C15.4987 34.9903 15.5771 35.3211 15.52 35.6852V35.6852ZM17.3367 33.1216H16.0331C15.9214 33.1216 15.8263 33.2037 15.809 33.3152L15.7516 33.6835L15.6605 33.55C15.3781 33.1359 14.749 32.9977 14.1207 32.9977C12.6806 32.9977 11.4502 34.1004 11.2108 35.6468C11.0862 36.4184 11.2631 37.1557 11.6961 37.6703C12.0939 38.1431 12.6616 38.34 13.3379 38.34C14.4988 38.34 15.1426 37.5865 15.1426 37.5865L15.0844 37.9526C15.0626 38.0917 15.1691 38.2177 15.3086 38.2177H16.4825C16.6686 38.2177 16.8271 38.081 16.8561 37.8952L17.5609 33.3865C17.5826 33.2474 17.4761 33.1216 17.3367 33.1216Z"
+            fill="#253B7D"
+          />
+          <path
+            d="M34.9369 35.6852C34.8111 36.4377 34.2198 36.9429 33.4656 36.9429C33.0875 36.9429 32.7849 36.82 32.5902 36.5873C32.3974 36.3567 32.3248 36.0282 32.386 35.6623C32.5034 34.9165 33.1042 34.395 33.8469 34.395C34.2171 34.395 34.5176 34.519 34.716 34.7538C34.9157 34.9903 34.9941 35.3211 34.9369 35.6852V35.6852ZM36.7537 33.1216H35.4501C35.3385 33.1216 35.2434 33.2037 35.226 33.3152L35.1686 33.6835L35.0776 33.55C34.7952 33.1359 34.166 32.9977 33.5377 32.9977C32.0975 32.9977 30.8673 34.1004 30.6278 35.6468C30.5032 36.4184 30.6801 37.1557 31.1131 37.6703C31.5109 38.1431 32.0786 38.34 32.7549 38.34C33.9157 38.34 34.5597 37.5865 34.5597 37.5865L34.5014 37.9526C34.4796 38.0917 34.5861 38.2177 34.7256 38.2177H35.8996C36.0856 38.2177 36.2441 38.081 36.2732 37.8952L36.9778 33.3865C36.9996 33.2474 36.8931 33.1216 36.7537 33.1216"
+            fill="#459ADB"
+          />
+          <path
+            d="M24.2797 33.1216H22.9694C22.8441 33.1216 22.7269 33.1845 22.6565 33.2892L20.8491 35.9786L20.0831 33.3942C20.0352 33.2326 19.8878 33.1216 19.7208 33.1216H18.4327C18.2772 33.1216 18.1678 33.2762 18.2178 33.425L19.6607 37.7035L18.3036 39.6381C18.1971 39.7899 18.3046 40 18.4887 40H19.7978C19.9218 40 20.0381 39.9386 20.1086 39.8355L24.4663 33.4816C24.5705 33.3295 24.4628 33.1216 24.2797 33.1216Z"
+            fill="#253B7D"
+          />
+          <path
+            d="M38.2902 30.771L37.1728 37.9528C37.1512 38.0919 37.2577 38.2177 37.3971 38.2177H38.5207C38.7069 38.2177 38.8653 38.0809 38.8943 37.895L39.9961 30.8424C40.0178 30.7032 39.9113 30.5773 39.7718 30.5773H38.5144C38.4026 30.5773 38.3075 30.6594 38.2902 30.771Z"
+            fill="#459ADB"
+          />
+          <path
+            d="M30.9877 10.798C31.2632 9.02277 30.9858 7.81481 30.0354 6.7207C28.989 5.51606 27.0987 4.99999 24.6802 4.99999H17.6598C17.1655 4.99999 16.7447 5.36338 16.6676 5.85671L13.7443 24.5856C13.6866 24.9551 13.9693 25.2892 14.3396 25.2892H18.6736L18.3745 27.2058C18.324 27.529 18.5713 27.8214 18.8953 27.8214H22.5484C22.9808 27.8214 23.3489 27.5035 23.4163 27.072L23.4521 26.8844L24.1403 22.4754L24.1847 22.2317C24.252 21.8002 24.6201 21.4824 25.0525 21.4824H25.5991C29.1381 21.4824 31.9092 20.0296 32.719 15.8284C33.0573 14.073 32.8824 12.6076 31.9876 11.5775C31.717 11.2658 31.3804 11.0082 30.9877 10.798"
+            fill="#459ADB"
+          />
+          <path
+            d="M30.9877 10.798C31.2632 9.02276 30.9858 7.8148 30.0354 6.72069C28.989 5.51605 27.0987 4.99998 24.6802 4.99998H17.6598C17.1655 4.99998 16.7447 5.36336 16.6676 5.85669L13.7443 24.5855C13.6866 24.9551 13.9693 25.2892 14.3396 25.2892H18.6736L19.7623 18.3144L19.7286 18.533C19.8056 18.0398 20.2229 17.6764 20.7171 17.6764H22.777C26.8225 17.6764 29.9902 16.0159 30.9158 11.2134C30.9433 11.0712 30.9667 10.9335 30.9877 10.798"
+            fill="#232D62"
+          />
+          <path
+            d="M20.9319 10.8215C20.9782 10.5249 21.1666 10.282 21.4204 10.159C21.5358 10.1032 21.6646 10.0722 21.7998 10.0722H27.3028C27.9548 10.0722 28.5626 10.1152 29.1184 10.2057C29.2772 10.2316 29.4318 10.2613 29.5819 10.2949C29.732 10.3286 29.8777 10.3662 30.0188 10.4079C30.0894 10.4286 30.1587 10.4505 30.227 10.4734C30.4998 10.565 30.7538 10.6729 30.9877 10.798C31.2632 9.02276 30.9858 7.8148 30.0354 6.72069C28.989 5.51605 27.0987 4.99998 24.6802 4.99998H17.6598C17.1655 4.99998 16.7447 5.36336 16.6676 5.85669L13.7443 24.5855C13.6866 24.9551 13.9693 25.2892 14.3396 25.2892H18.6736L19.7623 18.3144L20.9319 10.8215Z"
+            fill="#253B7D"
+          />
+        </svg>
+      </div>
+      <div class="text">{{ 'Pay online using credit/debit card through Paypal' | translate }}</div>
+    </div>
+    <div class="mode">
+      <label
+        id="paypal-toggle"
+        class="mode-toggle"
+        (click)="!isAllowed ? '' : !isClosable && gatewayEnabled['PAYPAL'] ? openError() : !isPaypalValid ? openPaypalError() : ''"
+        [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)"
+      >
+        <input
+          type="checkbox"
+          (change)="togglePaymentGateway(EnumPaymentType.PAYPAL)"
+          [(ngModel)]="gatewayEnabled['PAYPAL']"
+          [disabled]="(!isClosable && gatewayEnabled['PAYPAL']) || !isPaypalValid || !isAllowed"
+        />
+        <span class="slider round" [ngClass]="gatewayEnabled['PAYPAL'] && !isAllowed ? 'not-allow' : gatewayEnabled['PAYPAL'] && isAllowed ? 'active' : ''"></span>
+      </label>
+      <div id="paypal-collapse" class="btn-toogle" (click)="togglePaymentSetting(EnumPaymentType.PAYPAL)" [ngClass]="{ active: moreStatus['PAYPAL'] }">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.68315L1.23899 0.166687L0 1.32512L5 6.00002L10 1.32512L8.76101 0.166687L5 3.68315Z" fill="white" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="more" *ngIf="moreStatus['PAYPAL']">
+    <reactor-room-setting-paypal-detail [theme]="theme" [paypalDetail]="paypalDetail" [isAllowed]="isAllowed"> </reactor-room-setting-paypal-detail>
+  </div>
+  <!-- Paypal -->
+
+  <!-- Omise -->
+  <div class="line">
+    <div class="title">
+      <div class="icon">
+        <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21.9594 24.8519C20.8234 24.8519 19.9563 24.1312 19.9563 22.8488C19.9563 21.5664 20.8663 20.8274 22.0176 20.8274C23.1688 20.8274 24.0113 21.5607 24.0113 22.8305C24.0113 24.1004 23.083 24.8519 21.9591 24.8519H21.9594ZM21.9777 21.7769C21.4587 21.7769 21.1961 22.1926 21.1961 22.8397C21.1961 23.4868 21.4647 23.8872 21.9841 23.8872C22.5035 23.8872 22.7657 23.4841 22.7657 22.8305C22.7657 22.177 22.4971 21.7739 21.9777 21.7739V21.7769ZM29.2023 22.5095C29.2023 22.0577 29.007 21.8989 28.6893 21.8989C28.4629 21.905 28.2433 21.9902 28.0787 22.1432V24.7327H26.8267V22.5092C26.8267 22.0574 26.6253 21.8986 26.3077 21.8986C26.0836 21.8981 25.8669 21.9784 25.6971 22.1246V24.7323H24.4451L24.4512 20.9092H25.7032V21.3978C26.0391 21.0497 26.4118 20.8359 26.9062 20.8419C27.3792 20.8419 27.7857 21.0683 27.9689 21.5198C28.3169 21.1042 28.7569 20.848 29.2759 20.848C30.015 20.848 30.4546 21.3427 30.4485 22.1551L30.4424 24.7445H29.1908L29.2023 22.5095ZM31.713 20.4304C31.2548 20.4304 30.9739 20.1921 30.9739 19.7647C30.9739 19.3186 31.2612 19.0929 31.713 19.0929C32.1648 19.0929 32.452 19.3193 32.452 19.7707C32.452 20.1982 32.1773 20.4304 31.713 20.4304ZM31.0899 20.919H32.3418L32.3357 24.7421H31.0838L31.0899 20.919ZM34.3507 24.8699C33.8317 24.8699 33.1477 24.7539 32.7507 24.534L32.995 23.6301C33.421 23.8555 33.8936 23.9788 34.3754 23.9903C34.7173 23.9903 34.8883 23.8865 34.8883 23.6848C34.8883 23.4651 34.6744 23.3915 34.247 23.2938C33.3674 23.1168 32.8119 22.7991 32.8119 22.0604C32.8119 21.3518 33.4285 20.8507 34.4791 20.8507C34.9799 20.8507 35.6395 20.9974 36.0119 21.1805L35.7618 22.0726C35.3344 21.853 34.8214 21.7306 34.4609 21.7306C34.1554 21.7306 33.9966 21.832 33.9966 22.0111C33.9966 22.2125 34.2287 22.2983 34.644 22.3835C35.5294 22.5788 36.0633 22.8721 36.0609 23.6294C36.067 24.3072 35.4685 24.8695 34.351 24.8695L34.3507 24.8699ZM38.5226 23.9575C38.9382 23.9575 39.3775 23.8108 39.756 23.5912L39.8776 24.5563C39.4992 24.7516 38.9653 24.8617 38.4057 24.8617C37.1294 24.8617 36.2988 24.1531 36.2988 22.8829C36.2988 21.6495 37.1476 20.8429 38.3448 20.8487C39.4137 20.8487 39.9999 21.49 39.9999 22.4369C39.9999 22.6383 39.9756 22.9377 39.9205 23.1026L37.5264 23.1391V23.1573C37.5629 23.6763 37.9049 23.9575 38.5219 23.9575H38.5226ZM38.8402 22.443C38.8402 21.9912 38.6571 21.7222 38.2658 21.7165C37.8383 21.7165 37.5758 22.0888 37.5325 22.5166L38.8395 22.5105L38.8402 22.443Z"
+            fill="#2E374D"
+          />
+          <path
+            d="M15.8406 17.8582C13.363 15.3806 9.33576 15.3806 6.85818 17.8582C4.38061 20.3358 4.38061 24.363 6.85818 26.8406C9.33576 29.3182 13.363 29.3182 15.8406 26.8406C18.3182 24.363 18.3182 20.3358 15.8406 17.8582ZM14.8498 22.4886L11.4893 25.8491C11.4082 25.9302 11.2821 25.9302 11.201 25.8491L7.8405 22.4886C7.7594 22.4075 7.7594 22.2815 7.8405 22.2004L11.201 18.8398C11.2821 18.7587 11.4082 18.7587 11.4893 18.8398L14.8498 22.2004C14.9309 22.2815 14.9309 22.4075 14.8498 22.4886V22.4886Z"
+            fill="#2176FF"
+          />
+          <path
+            d="M17.7018 22.3355C17.7018 20.6507 17.0351 19.029 15.846 17.8396C14.837 16.8306 13.2062 16.8214 12.1972 17.8305L11.2061 18.8124C11.2427 18.778 11.291 18.7587 11.3412 18.7584C11.3957 18.7602 11.4473 18.7828 11.4855 18.8216L15.8277 23.1732C16.0675 23.4127 16.2578 23.697 16.3875 24.0101C16.5173 24.3231 16.5842 24.6587 16.5842 24.9976C16.5842 25.3365 16.5173 25.672 16.3875 25.9851C16.2578 26.2981 16.0675 26.5825 15.8277 26.822C17.026 25.6325 17.7018 24.02 17.7018 22.3355ZM6.84903 26.8095C7.85804 27.8185 9.48881 27.8185 10.5069 26.8186L11.4889 25.8184C11.4169 25.8995 11.2818 25.8995 11.2007 25.8275L7.84925 22.4761C7.80431 22.4399 7.78607 22.3771 7.78607 22.323C7.78607 22.2689 7.80397 22.2149 7.84013 22.1787L6.86694 23.1519C5.85793 24.1609 5.84881 25.7917 6.84903 26.8098V26.8095Z"
+            fill="#1A53F0"
+          />
+        </svg>
+      </div>
+      <div class="text">Omise</div>
+    </div>
+    <div class="mode">
+      <label
+        id="omise-toggle"
+        class="mode-toggle"
+        (click)="!isAllowed ? '' : !isClosable && gatewayEnabled['OMISE'] ? openError() : !isOmiseValid ? openOmiseError() : ''"
+        [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)"
+      >
+        <input
+          type="checkbox"
+          (change)="togglePaymentGateway(EnumPaymentType.OMISE)"
+          [(ngModel)]="gatewayEnabled['OMISE']"
+          [disabled]="(!isClosable && gatewayEnabled['OMISE']) || !isOmiseValid || !isAllowed"
+        />
+        <span class="slider round" [ngClass]="gatewayEnabled['OMISE'] && !isAllowed ? 'not-allow' : gatewayEnabled['OMISE'] && isAllowed ? 'active' : ''"></span>
+      </label>
+      <div id="omise-collapse" class="btn-toogle" (click)="togglePaymentSetting(EnumPaymentType.OMISE)" [ngClass]="{ active: moreStatus['OMISE'] }">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.68315L1.23899 0.166687L0 1.32512L5 6.00002L10 1.32512L8.76101 0.166687L5 3.68315Z" fill="white" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="more" *ngIf="moreStatus['OMISE']">
+    <reactor-room-setting-omise-detail [theme]="theme" [omiseDetail]="omiseDetail" [isAllowed]="isAllowed"> </reactor-room-setting-omise-detail>
+  </div>
+  <!-- Omise -->
+
+  <!-- 2C2P -->
+  <div class="line disable">
+    <div class="title">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" xml:space="preserve" y="0" x="0" id="Layer_2" version="1.1" viewBox="-37.365 -18.875 323.83 113.25">
+          <style id="style108" type="text/css">
+            .st0 {
+              fill: #0497ca;
+            }
+          </style>
+          <g transform="translate(-.2 -54.2)" id="g120">
+            <g id="g112">
+              <path
+                id="path110"
+                d="M183.1 54.3h39.6c8.8 0 15.4 1.9 19.9 5.7 4.5 3.8 6.7 9.3 6.7 16.5 0 3.6-.6 6.9-1.7 9.8-1.1 3-2.8 5.5-4.9 7.6-2.2 2.1-4.9 3.8-8.1 4.9-3.2 1.2-7 1.8-11.2 1.8h-26.1v28.9h-14.2zm39 34c2.5 0 4.6-.3 6.3-.9 1.7-.6 3-1.4 4.1-2.5 1-1.1 1.8-2.3 2.2-3.7.4-1.4.7-3 .7-4.6 0-1.5-.2-2.9-.7-4.2-.5-1.3-1.2-2.3-2.1-3.2-.9-.9-2.1-1.6-3.5-2.1s-3.1-.8-4.9-.8h-26.8v22h24.7z"
+                class="st0"
+              />
+            </g>
+            <path
+              id="path114"
+              d="M118.7 108.3c-1.5 2-3.2 3.7-5.2 5-1.9 1.3-4.1 2.3-6.5 2.9-2.4.6-4.9 1-7.6 1-3.1 0-5.8-.3-8.3-1-2.5-.7-4.6-1.6-6.5-2.7-1.9-1.2-3.5-2.6-4.9-4.2-1.4-1.6-2.2-2.7-3-4.5-.9-1.9-1.5-3.8-1.9-5.9-.4-2.1-.6-4.1-.6-6.3 0-4.5.6-8.4 1.8-11.8 1.2-3.4 3-6.2 5.2-8.4 2.3-2.2 5-3.9 8.2-5 3.2-1.1 6.8-1.7 10.8-1.7 3.1 0 5.9.4 8.4 1.1 2.5.7 4.7 1.7 6.6 3 1.9 1.3 3.5 2.8 4.7 4.6 1.3 1.8 2.2 3.8 2.8 5.9h13.5c-.6-3.4-1.6-6.4-3-9-1.4-2.6-3.1-4.9-5-6.8-2-1.9-4.1-3.5-6.5-4.9-2.4-1.3-4.8-2.4-7.4-3.2-2.5-.8-5.1-1.4-7.6-1.7-2.5-.3-5-.5-7.2-.5-4.2 0-8 .4-11.6 1.3-3.5.9-6.7 2.1-9.6 3.7-2.9 1.6-5.4 3.5-7.6 5.8-2.2 2.3-4 4.8-5.5 7.5-1.5 2.8-2.6 5.7-3.3 8.9-.7 3.2-1.1 6.5-1.1 10 0 4.7.5 8.8 1.6 12.5 1.1 3.7 2.5 6.9 4.4 9.7 1.8 2.8 4 5.2 6.5 7.2s5.2 3.6 8.1 4.8c2.9 1.2 5.9 2.1 9 2.7 3.1.6 6.2.9 9.3.9 4.9 0 9.4-.7 13.5-2.2 4.1-1.5 7.8-3.4 10.9-5.9 3.2-2.5 5.8-5.4 7.9-8.8 1.4-2.3 2.5-5.2 3.3-8.1H121c-.7 1.7-1.5 3.1-2.3 4.1z"
+              class="st0"
+            />
+            <path
+              id="path116"
+              d="M18.3 117.2c1-1.2 2.2-2.4 3.5-3.4 1.4-1 2.9-2 4.5-3 1.6-.9 3.3-1.8 5.1-2.7 1.8-.9 3.5-1.7 5.3-2.6 2.1-.9 4.1-1.9 6.2-2.9 2.1-1 4-2.1 5.9-3.2 1.9-1.1 3.7-2.4 5.3-3.8 1.6-1.4 3.1-2.9 4.3-4.7 1.2-1.7 2.2-3.6 2.9-5.7.7-2.1 1-4.4 1-6.9 0-3.4-.6-6.6-1.8-9.5-1.2-2.9-3-5.5-5.5-7.6-2.4-2.2-5.5-3.8-9.2-5.1-3.7-1.2-8.1-1.8-13.1-1.8-5.3 0-9.9.7-13.8 2.1-3.9 1.4-7.1 3.3-9.7 5.9-2.6 2.5-4.5 5.5-5.7 9-1 2.9-1.6 6-1.8 9.4h13.7c.2-1.7.5-3.3 1.1-4.8.7-2.1 1.9-3.9 3.3-5.4 1.5-1.5 3.3-2.7 5.6-3.5 2.2-.8 4.9-1.3 8-1.3 2 0 3.8.2 5.6.7 1.8.5 3.4 1.2 4.7 2.2 1.4 1 2.4 2.3 3.2 3.9.8 1.6 1.2 3.6 1.2 5.9 0 2-.5 3.8-1.6 5.4-1 1.6-2.4 3.1-4.1 4.4-1.7 1.4-3.7 2.6-5.9 3.8-2.2 1.2-4.5 2.3-6.8 3.5-2 1-4.1 2.1-6.3 3.3-2.2 1.2-4.4 2.5-6.5 4-2.1 1.5-4.2 3.1-6.1 4.9-1.9 1.8-3.6 3.8-5.2 6-1.5 2.2-2.7 4.6-3.7 7.3-.9 2.6-1.5 5.5-1.7 8.7h123.1v-12.3h-105z"
+              class="st0"
+            />
+            <path
+              id="path118"
+              d="M142.7 113.8c1.4-1 2.9-2 4.5-3 1.6-.9 3.3-1.8 5.1-2.7 1.8-.9 3.5-1.7 5.3-2.6 2.1-.9 4.1-1.9 6.2-2.9 2.1-1 4-2.1 5.9-3.2 1.9-1.1 3.7-2.4 5.3-3.8 1.6-1.4 3.1-2.9 4.3-4.7 1.2-1.7 2.2-3.6 2.9-5.7.7-2.1 1-4.4 1-6.9 0-3.4-.6-6.6-1.8-9.5-1.2-2.9-3-5.5-5.5-7.6-2.4-2.2-5.5-3.8-9.2-5.1-3.7-1.2-8.1-1.8-13.1-1.8-5.3 0-9.6.7-13.5 2.1-3.9 1.4-7.1 3.3-9.7 5.9-2.6 2.5-4.5 5.5-5.7 9-1 2.8-1.6 5.9-1.8 9.2h13.5c.2-1.6.6-3.2 1.1-4.6.7-2.1 1.9-3.9 3.3-5.4 1.5-1.5 3.3-2.7 5.6-3.5 2.2-.8 4.9-1.3 8-1.3 2 0 3.8.2 5.6.7 1.8.5 3.4 1.2 4.7 2.2 1.4 1 2.4 2.3 3.2 3.9.8 1.6 1.2 3.6 1.2 5.9 0 2-.5 3.8-1.6 5.4-1 1.6-2.4 3.1-4.1 4.4-1.7 1.4-3.7 2.6-5.9 3.8-2.2 1.2-4.5 2.3-6.8 3.5-2 1-4.1 2.1-6.3 3.3-2.2 1.2-4.4 2.5-6.5 4-2.1 1.5-4.2 3.1-6.1 4.9-1.9 1.8-3.6 3.8-5.2 6-1.5 2.2-2.7 4.6-3.7 7.3-.9 2.6-1.5 5.5-1.7 8.7h61.9v-12.3h-44c1-1.5 2.2-2.6 3.6-3.6z"
+              fill="#94c83d"
+            />
+          </g>
+        </svg>
+      </div>
+      <div class="text">{{ 'Pay online using credit/debit card through 2C2P' | translate }}</div>
+    </div>
+    <div class="mode">
+      <!-- <label
+        id="2c2p-toggle"
+        class="mode-toggle"
+        (click)="!isAllowed ? '' : !isClosable && gatewayEnabled['PAYMENT_2C2P'] ? openError() : !is2C2PValid ? open2C2PError() : ''"
+        [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)"
+      > -->
+      <label id="2c2p-toggle" class="mode-toggle" [matTooltip]="isAllowed ? '' : ('Permission Denied' | translate)">
+        <!-- <input
+          type="checkbox"
+          (change)="togglePaymentGateway(EnumPaymentType.PAYMENT_2C2P)"
+          [(ngModel)]="gatewayEnabled['PAYMENT_2C2P']"
+          [disabled]="(!isClosable && gatewayEnabled['PAYMENT_2C2P']) || !is2C2PValid || !isAllowed"
+        /> -->
+        <!-- <span class="slider round" [ngClass]="gatewayEnabled['PAYMENT_2C2P'] && !isAllowed ? 'not-allow' : gatewayEnabled['PAYMENT_2C2P'] && isAllowed ? 'active' : ''"></span> -->
+        <input type="checkbox" value="false" [disabled]="true" />
+        <span class="slider round" [ngClass]="'not-allow'"></span>
+      </label>
+      <!-- <div id="2c2p-collapse" class="btn-toogle" (click)="togglePaymentSetting(EnumPaymentType.PAYMENT_2C2P)" [ngClass]="{ active: moreStatus['PAYMENT_2C2P'] }">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 3.68315L1.23899 0.166687L0 1.32512L5 6.00002L10 1.32512L8.76101 0.166687L5 3.68315Z" fill="white" />
+        </svg>
+      </div> -->
+    </div>
+  </div>
+  <!-- <div class="more" *ngIf="moreStatus['PAYMENT_2C2P']">
+    <reactor-room-setting-2c2p-detail [payment2C2PDetail]="payment2C2PDetail" [isAllowed]="isAllowed"> </reactor-room-setting-2c2p-detail>
+  </div> -->
+  <!-- 2C2P -->
+</div>

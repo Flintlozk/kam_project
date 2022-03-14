@@ -1,0 +1,68 @@
+@transition: ~'all ease-in-out 0.3s';
+
+.modal-backdrop {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 1;
+  transform: scale(1);
+  pointer-events: none;
+  overflow-y: auto;
+
+  .modal-background {
+    padding: 20px 0;
+    margin: auto;
+  }
+
+  .modal {
+    opacity: 0;
+    background: white;
+    padding: 20px;
+    max-width: 80vw;
+    margin: auto;
+  }
+
+  &.active {
+    pointer-events: all;
+    background: rgba(0, 0, 0, 0.7);
+    // .modal-background {
+    .modal {
+      opacity: 1;
+      animation: blowUpModal 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+  }
+
+  &.out {
+    .modal {
+      animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+  }
+}
+
+@keyframes blowUpModal {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes blowUpModalTwo {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

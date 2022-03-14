@@ -1,0 +1,105 @@
+@import 'base';
+.setting-paypal-detail {
+  .svg-position {
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    margin-top: -50px;
+  }
+  .card-content {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    @media #{$mobilemax} {
+      justify-content: space-between;
+    }
+    .content {
+      width: 40%;
+      padding-left: 10%;
+      .line {
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+        border-bottom: 1px dotted $border-color;
+        &:nth-child(3) {
+          border-bottom: 0px;
+        }
+        .text {
+          width: 250px;
+          padding-right: 15px;
+          color: #576f83;
+        }
+        .calc {
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            padding: 0px 10px;
+          }
+        }
+      }
+      img.edit {
+        width: 20px;
+        cursor: pointer;
+        position: absolute;
+        left: calc(100% + 20px);
+        top: 10px;
+      }
+      @media #{$mobilemax} {
+        width: 80%;
+        padding-left: 0px;
+        .line {
+          .text {
+            width: auto;
+          }
+        }
+      }
+    }
+    .description {
+      padding-top: 30px;
+      .title {
+        font-size: 1.1em;
+        padding-bottom: 20px;
+        .border {
+          margin-top: 5px;
+          border-bottom: 2px solid $main-color;
+          width: 30px;
+        }
+      }
+      table {
+        border-spacing: 0px;
+        a {
+          color: $main-color;
+        }
+        td {
+          padding: 20px 15px;
+          vertical-align: top;
+        }
+        tr:nth-child(odd) {
+          td {
+            background: #f2f4f6;
+          }
+        }
+        tr {
+          td:nth-child(1) {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            width: 30%;
+            text-align: right;
+          }
+          td:nth-child(2) {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            width: 70%;
+          }
+        }
+      }
+    }
+
+    svg {
+      padding-top: 10px;
+      padding-left: 15px;
+    }
+  }
+}

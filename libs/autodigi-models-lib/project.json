@@ -1,0 +1,23 @@
+{
+  "root": "libs/autodigi-models-lib",
+  "sourceRoot": "libs/autodigi-models-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/autodigi-models-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/autodigi-models-lib"],
+      "options": {
+        "jestConfig": "libs/autodigi-models-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

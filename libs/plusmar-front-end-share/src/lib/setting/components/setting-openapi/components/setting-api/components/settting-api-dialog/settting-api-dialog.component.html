@@ -1,0 +1,26 @@
+<div class="setting-api-dialog">
+  <reactor-room-custom-dialog>
+    <div class="head">
+      {{ 'More-Commerce Open API' }}
+    </div>
+    <div class="content">
+      <div class="item">
+        <div class="label">{{ 'Client ID' | translate }}</div>
+        <input type="text" [(ngModel)]="data.api_client_id" disabled />
+      </div>
+      <div class="copy">
+        <span (click)="onCopyKey(data.api_client_id)"> {{ 'Copy' | translate }}</span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="item">
+        <div class="label">{{ 'Client Secret' | translate }}</div>
+        <input type="text" [(ngModel)]="data.api_client_secret" disabled />
+      </div>
+      <div class="copy">
+        <div (click)="onCopyKey(data.api_client_secret)">{{ 'Copy' | translate }}</div>
+      </div>
+    </div>
+    <div class="footer"></div>
+  </reactor-room-custom-dialog>
+</div>

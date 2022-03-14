@@ -1,0 +1,39 @@
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.assignee-add {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  mat-label {
+    padding-right: 10px;
+  }
+  img {
+    width: 32px;
+    height: 32px;
+    padding-right: 10px;
+  }
+}
+.actionButton {
+  margin-bottom: 10px;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.button-add-appointment {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  background-color: #0ec2f2;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  .form-appointment-detail {
+    background-color: #0ec2f2;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+  }
+}

@@ -1,0 +1,53 @@
+<div class="admin-sla-statistic-container">
+  <ng-container *ngFor="let label of barLabels; let first = first; let last = last">
+    <ng-container *ngIf="label.enabled">
+      <div class="card-container" [ngClass]="{ first: first, last: last }" *ngIf="label.index !== 1">
+        <div class="left">
+          <!-- <ng-container *ngIf="last">
+            <div class="circle">2rd</div>
+          </ng-container> -->
+        </div>
+        <div class="right">
+          <div class="title">
+            <span>{{ label.title1 | translate }}</span>
+            <ng-container *ngIf="label.title2 !== null">
+              <span>/</span>
+              <span class="red"> {{ label.title2 }}</span>
+            </ng-container>
+          </div>
+          <div class="amount">
+            <span [ngClass]="{ red: label.index === 3 && label.amount1 > 0 }">
+              {{ label.amount1 }}
+            </span>
+            <ng-container *ngIf="label.amount2 !== null">
+              <span>/</span>
+              <span class="red"> {{ label.amount3 }} </span>
+            </ng-container>
+            <ng-container *ngIf="label.amount3 !== null">
+              <span>/</span>
+              <span class="red"> {{ label.amount3 }} </span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="card-container" [ngClass]="{ first: first, last: last }" *ngIf="label.index === 1">
+        <div class="wait-for-open">
+          <div class="top">
+            <div class="text">{{ 'Unassign' | translate }}</div>
+            <div class="amount">{{ label.amount1 }}</div>
+          </div>
+          <div class="bottom">
+            <div class="card almost">
+              <div class="text">{{ 'Almost over' | translate }}</div>
+              <div class="amount">{{ label.amount2 }}</div>
+            </div>
+            <div class="card over">
+              <div class="text">{{ 'Over SLA' | translate }}</div>
+              <div class="amount">{{ label.amount3 }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

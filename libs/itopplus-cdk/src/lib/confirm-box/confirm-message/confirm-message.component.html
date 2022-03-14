@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  {{ data.message }}
+</div>
+<div mat-dialog-actions class="flex-center">
+  <div>
+    <button mat-button (click)="onNoClick()">{{ data.secoundButton }}</button>
+    <span style="padding-left: 10px"></span>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>{{ data.firstButton }}</button>
+  </div>
+</div>

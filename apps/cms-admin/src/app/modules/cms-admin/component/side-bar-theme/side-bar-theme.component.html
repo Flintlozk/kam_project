@@ -1,0 +1,338 @@
+<div class="sidebar">
+  <div style="color: #cdcdd4" class="flex-container">
+    <a class="options" (click)="selectedThemeInfoTab()" [ngClass]="{ selected: this.selectedTab === EnumSelectThemeSetting.SELECTTHEMEINFO }">Theme Info</a>
+    <a class="options" (click)="selectedGlobalSettingTab()" [ngClass]="{ selected: this.selectedTab === EnumSelectThemeSetting.SELECTGLOBALSETTING }">Globe Setting</a>
+  </div>
+  <div [formGroup]="themeRenderingForm" class="theme-info">
+    <div *ngIf="selectedTab === EnumSelectThemeSetting.SELECTTHEMEINFO">
+      <div class="menu" style="padding-bottom: 20px">
+        <div class="label-name" style="padding-bottom: 10px">Theme Name*</div>
+        <input formControlName="name" class="input-theme" style="color: #484b52; height: 30px" type="text" />
+      </div>
+      <div id="thumnail" *ngIf="typeOfFile === 'html'">
+        <div class="label-name" style="padding-bottom: 10px">Thumbnail</div>
+        <img class="preview-image" id="blah" [src]="imageSrc || '../../../../../assets/images/image\ 22.png'" />
+        <div style="text-align: center; margin-top: 10px">
+          <label for="upload-file" class="custom-file-upload">
+            <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M20 5C24.4183 5 28 8.58172 28 13C28 17.4183 24.4183 21 20 21C15.5817 21 12 17.4183 12 13C12 8.58172 15.5817 5 20 5ZM20.2778 7.71158C20.1002 7.65169 19.8998 7.65169 19.7224 7.71158C19.6353 7.74047 19.5562 7.78269 19.4894 7.83585L16.4307 10.2757C16.4247 10.2803 16.4189 10.2849 16.4129 10.2899C16.1363 10.5183 16.1442 10.8824 16.4307 11.103C16.7172 11.3238 17.1739 11.3175 17.4505 11.0889L19.2789 9.63038V16.8693C19.2789 17.1869 19.6017 17.4444 20.0001 17.4444C20.3983 17.4444 20.7211 17.1869 20.7211 16.8693V9.63038L22.5495 11.0889C22.5553 11.0938 22.5612 11.0984 22.5672 11.103C22.8537 11.3237 23.3103 11.3173 23.5871 11.0889C23.8637 10.8604 23.8558 10.4963 23.5693 10.2757L20.5106 7.83585C20.444 7.78269 20.3648 7.74047 20.2778 7.71158Z"
+                fill="white"
+              />
+              <path
+                d="M11.6844 0.168288C15.6502 -0.652764 19.519 1.60333 21 5.34798C20.8168 5.33553 20.632 5.32927 20.4456 5.32927C20.0183 5.32927 19.599 5.36217 19.1899 5.42551C18.1879 3.46042 16.3019 2.06224 14.0746 1.79466C10.4247 1.3561 7.1236 4.07403 6.7014 7.86519C6.65476 8.3029 6.29868 8.63404 5.87486 8.63404C3.57835 8.61992 1.70585 10.5423 1.69226 12.9278C1.67888 15.3131 3.52927 17.2582 5.82579 17.2723H9.98364C10.4429 17.2723 10.8153 17.659 10.8153 18.1361C10.8153 18.6133 10.4429 19 9.98364 19H5.82579C2.86698 19.0021 0.37742 16.6985 0.038773 13.6452C-0.329075 10.3276 1.96176 7.32847 5.15539 6.94615C5.81403 3.52447 8.38997 0.85035 11.6844 0.168288Z"
+                fill="white"
+              />
+            </svg>
+            Upload
+          </label>
+          <input id="upload-file" type="file" (change)="readURL($event)" />
+        </div>
+      </div>
+      <div class="menu">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+          <div class="label-name">Devices</div>
+          <img (click)="onClickChangeDeviceStage()" src="../../../../../assets/shared/devices/add-devices.svg" alt="add-devices-button" />
+        </div>
+        <div *ngIf="this.addDeviceStage">
+          <div class="add-device-form">
+            <input style="margin: 5px; padding: 0px" type="number" [formControl]="deviceForm" class="add-device-input" (keyup.enter)="onClickConfirmAddDevice()" />
+            <div class="add-device-text">Create New Device</div>
+          </div>
+          <div class="decline-accept-group">
+            <div (click)="onClickChangeDeviceStage()" class="decline">
+              <img src="../../../../../assets/shared/devices/decline.svg" alt="decline" />
+            </div>
+            <div (click)="onClickConfirmAddDevice()" class="accept">
+              <img src="../../../../../assets/shared/devices/accept.svg" alt="accept" />
+            </div>
+          </div>
+        </div>
+        <reactor-room-devices-list [devices]="devices" [mode]="selectedTab" [selectedIndex]="selectedIndex" (parentHandler)="onClickDevices($event)"></reactor-room-devices-list>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === EnumSelectThemeSetting.SELECTGLOBALSETTING" class="Globe-Setting">
+      <div id="selectedText">
+        <div class="button-header">
+          <button class="flex-container justify-space-between" (click)="selectText()">
+            <div>Text</div>
+            <div *ngIf="!selectedText">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" transform="rotate(-90 10 10)" fill="white" />
+                <circle cx="10" cy="10" r="9.5" transform="rotate(-90 10 10)" stroke="white" stroke-opacity="0.8" />
+                <path d="M15 12L10 7L5 12" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div *ngIf="selectedText">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <form *ngIf="selectedText">
+          <div id="devices-base-text-size" [formArray]="devices">
+            <div [formGroup]="devices.controls[selectedIndex]">
+              <div style="padding-bottom: 29px">Base Text Size</div>
+              <div style="color: #75787e">Devices</div>
+              <reactor-room-devices-list
+                [devices]="devices"
+                [mode]="selectedTab"
+                [selectedIndex]="selectedIndex"
+                (parentHandler)="onClickDevices($event)"
+              ></reactor-room-devices-list>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+                <div style="padding: 10px">
+                  <div>Size</div>
+                  <input formControlName="baseFontSize" style="width: 50%" type="number" matInput placeholder="0" />
+                </div>
+                <div style="padding: 10px">
+                  <div>DefaultFontFamily</div>
+                  <select (input)="changeDefaultFontFamily(defaultFontFamily.value)" #defaultFontFamily>
+                    <option *ngFor="let font of fontList" [value]="font" [selected]="font === themeRenderingForm.value.settings.defaultFontFamily">{{ font }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="close-line"></div>
+            </div>
+          </div>
+
+          <div style="padding-bottom: 25px">Text</div>
+          <div *ngFor="let text of fontSelectedForm.controls; let i = index">
+            <div [formGroup]="text">
+              <div class="label-name">{{ text.value.type }}</div>
+              <div style="display: flex; margin: 10px 0 15px 0px; gap: 10px">
+                <select name="title" formControlName="familyCode">
+                  <option *ngFor="let font of fontList" [value]="font">{{ font }}</option>
+                </select>
+                <img *ngIf="i !== selectedSetting" (click)="onClickSetting(i)" src="../../../../../assets/shared/setting-button.svg" alt="setting" />
+                <img *ngIf="i === selectedSetting" (click)="onClickUnSelectSetting()" src="../../../../../assets/shared/selected-setting-button.svg" alt="setting" />
+              </div>
+              <div *ngIf="i === selectedSetting">
+                <div id="style">
+                  <div style="padding-bottom: 9px">Style</div>
+                  <select style="height: 40px; width: 50%" name="style" formControlName="style" value="text.value.fontUnit">
+                    <option *ngFor="let style of styleList" [value]="style">{{ style }}</option>
+                  </select>
+                </div>
+                <div id="sizeAndUnit">
+                  <div style="padding-top: 20px">Size</div>
+                  <div style="display: flex">
+                    <div style="padding-right: 9px; width: 30%; height: 40px">
+                      <input step="0.1" type="number" list="fontsizes" formControlName="size" value="text.value.fontSize" style="width: 100%; height: 100%; text-align: center" />
+                      <datalist id="fontsizes">
+                        <option *ngFor="let size of fontSize" [value]="size">{{ size }}</option>
+                      </datalist>
+                    </div>
+                    <div *ngIf="text.value.unit === UnitEnum.EM" class="em-buntton">
+                      <div class="font-em-button">em</div>
+                    </div>
+                    <div *ngIf="text.value.unit !== UnitEnum.EM" (click)="onClickUnselectEMUnit(i)" class="unselect-em-buntton">
+                      <div class="unselect-font-em-button">em</div>
+                    </div>
+                    <div *ngIf="text.value.unit === UnitEnum.PX" class="px-button">
+                      <div class="font-px-button">px</div>
+                    </div>
+                    <div *ngIf="text.value.unit !== UnitEnum.PX" (click)="onClickUnselectPXUnit(i)" class="unselect-px-button">
+                      <div class="unselect-font-px-button">px</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="lineheightandspacing" style="display: flex; gap: 10px">
+                  <div id="linehegiht" style="width: 50%">
+                    <div style="white-space: nowrap; padding-top: 9px">line Height(em)</div>
+                    <input type="number" formControlName="lineHeight" value="text.value.lineHeight" style="width: 100%; height: 40px; font-size: 14px" />
+                  </div>
+                  <div id="linehegiht" style="width: 50%">
+                    <div style="white-space: nowrap; padding-top: 9px">Letter Spacing(em)</div>
+                    <input type="number" formControlName="letterSpacing" value="text.value.letterSpacing" style="width: 100%; height: 40px; font-size: 14px" />
+                  </div>
+                </div>
+                <div class="close-line-green"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="selectedColor" [formArray]="colorSelectedForm">
+        <div class="button-header">
+          <button class="flex-container justify-space-between" (click)="selectColor()">
+            <div>Color</div>
+            <div *ngIf="!selectedColor">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" transform="rotate(-90 10 10)" fill="white" />
+                <circle cx="10" cy="10" r="9.5" transform="rotate(-90 10 10)" stroke="white" stroke-opacity="0.8" />
+                <path d="M15 12L10 7L5 12" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div *ngIf="selectedColor">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <form>
+          <div *ngIf="selectedColor && selectedTheme">
+            <div style="display: flex; padding-bottom: 20px">
+              <div style="width: 50%" class="em-buntton">
+                <div class="font-em-button">DARK-THEME</div>
+              </div>
+              <div style="width: 50%" (click)="selectTheme()" class="unselect-px-button">
+                <div class="unselect-font-px-button">LIGHT-THEME</div>
+              </div>
+            </div>
+            <div class="label-name">Color Palettes</div>
+            <div class="grid-container">
+              <ng-container *ngFor="let color of colorSelectedForm.controls; let i = index">
+                <div class="colorpicker" [style.backgroundColor]="color.value.dark.color"></div>
+              </ng-container>
+            </div>
+            <div class="label-name" style="padding-top: 20px">Background Color Palettes</div>
+            <div class="grid-container">
+              <ng-container *ngFor="let color of colorSelectedForm.controls; let i = index">
+                <div class="colorpicker" [style.backgroundColor]="color.value.dark.bgColor"></div>
+              </ng-container>
+            </div>
+            <div class="mt-2" *ngFor="let color of colorSelectedForm.controls; let i = index">
+              <div class="label-name">{{ color.value.type }}</div>
+              <div style="gap: 10px; display: grid; grid-template-columns: repeat(2, 1fr)" [formGroup]="color.controls.dark">
+                <div>
+                  <div>text</div>
+                  <div class="selected-color-picker-area" style="align-items: center; gap: 10px; width: 100%; display: flex">
+                    <div style="width: 15%; display: flex">
+                      <input
+                        [(colorPicker)]="color.value.dark.color"
+                        [style.background]="color.value.dark.color"
+                        (colorPickerChange)="color.controls.dark.controls.color.setValue($event)"
+                        class="selected-colorpicker"
+                        formControlName="color"
+                        READONLY
+                      />
+                    </div>
+                    <div style="width: 85%; font-size: 10px">
+                      {{ color.controls.dark.controls.color.value }}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>background</div>
+                  <div class="selected-color-picker-area flex-container" style="align-items: center; gap: 10px; width: 100%">
+                    <div style="width: 15%; display: flex">
+                      <input
+                        [(colorPicker)]="color.value.dark.bgColor"
+                        [style.background]="color.value.dark.bgColor"
+                        (colorPickerChange)="color.controls.dark.controls.bgColor.setValue($event)"
+                        class="selected-colorpicker"
+                        formControlName="color"
+                        READONLY
+                      />
+                    </div>
+                    <div style="width: 85%; font-size: 10px">
+                      {{ color.controls.dark.controls.bgColor.value }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="selectedColor && !selectedTheme">
+            <div style="display: flex; padding-bottom: 20px">
+              <div style="width: 50%" (click)="selectTheme()" class="unselect-em-buntton">
+                <div class="unselect-font-em-button">DARK-THEME</div>
+              </div>
+              <div style="width: 50%" class="px-button">
+                <div class="font-px-button">LIGHT-THEME</div>
+              </div>
+            </div>
+            <div class="label-name">Color Palettes</div>
+            <div class="grid-container">
+              <ng-container *ngFor="let color of colorSelectedForm.controls; let i = index">
+                <div class="colorpicker" [style.backgroundColor]="color.value.light.color"></div>
+              </ng-container>
+            </div>
+            <div class="label-name" style="padding-top: 20px">Background Color Palettes</div>
+            <div class="grid-container">
+              <ng-container *ngFor="let color of colorSelectedForm.controls; let i = index">
+                <div class="colorpicker" [style.backgroundColor]="color.value.light.bgColor"></div>
+              </ng-container>
+            </div>
+            <div class="mt-2" *ngFor="let color of colorSelectedForm.controls; let i = index">
+              <div class="label-name">{{ color.value.type }}</div>
+              <div style="gap: 10px; display: grid; grid-template-columns: repeat(2, 1fr)" [formGroup]="color.controls.light">
+                <div>
+                  <div>text</div>
+                  <div class="selected-color-picker-area flex-container" style="align-items: center; gap: 10px; width: 100%">
+                    <div style="width: 15%; display: flex">
+                      <input
+                        [(colorPicker)]="color.value.light.color"
+                        [style.background]="color.value.light.color"
+                        (colorPickerChange)="color.controls.light.controls.color.setValue($event)"
+                        class="selected-colorpicker"
+                        formControlName="color"
+                        READONLY
+                      />
+                    </div>
+                    <div style="width: 85%; font-size: 10px">
+                      {{ color.controls.light.controls.color.value }}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>background</div>
+                  <div class="selected-color-picker-area flex-container" style="align-items: center; gap: 10px; width: 100%">
+                    <div style="width: 15%; display: flex">
+                      <input
+                        [(colorPicker)]="color.value.light.bgColor"
+                        [style.background]="color.value.light.bgColor"
+                        (colorPickerChange)="color.controls.light.controls.bgColor.setValue($event)"
+                        class="selected-colorpicker"
+                        formControlName="color"
+                        READONLY
+                      />
+                    </div>
+                    <div style="width: 85%; font-size: 10px">
+                      {{ color.controls.light.controls.bgColor.value }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="selectedIntegration">
+        <div class="button-header" style="margin: 20px 0px">
+          <button class="flex-container justify-space-between" (click)="selectIntegration()">
+            <div>Integration</div>
+            <div *ngIf="!selectedIntegration">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" transform="rotate(-90 10 10)" fill="white" />
+                <circle cx="10" cy="10" r="9.5" transform="rotate(-90 10 10)" stroke="white" stroke-opacity="0.8" />
+                <path d="M15 12L10 7L5 12" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div *ngIf="selectedIntegration">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="white" />
+                <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+                <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <form style="display: flex; flex-direction: column" *ngIf="selectedIntegration" [formGroup]="integrationForm">
+          <mat-slide-toggle formControlName="googleFont">googleFont</mat-slide-toggle>
+          <mat-slide-toggle formControlName="fontAwesome">fontAwesome</mat-slide-toggle>
+        </form>
+        <div *ngIf="selectedIntegration"></div>
+      </div>
+    </div>
+  </div>
+</div>

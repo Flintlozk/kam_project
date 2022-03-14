@@ -1,0 +1,122 @@
+<div *ngIf="mode === TemplateTypeEnum.HEADER || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Header</div>
+    <svg (click)="onClickChangeModeHeader()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.HEADER; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === TemplateTypeEnum.SECTION || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Section</div>
+    <svg (click)="onClickChangeModeSection()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.SECTION; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === TemplateTypeEnum.GALLERY || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Gallery</div>
+    <svg (click)="onClickChangeModeGallery()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.GALLERY; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === TemplateTypeEnum.VIDEO || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Video</div>
+    <svg (click)="onClickChangeModeVideo()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.VIDEO; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === TemplateTypeEnum.PAGE || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Page</div>
+    <svg (click)="onClickChangeModePage()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.PAGE; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === TemplateTypeEnum.FOOTER || mode === TemplateTypeEnum.ALL">
+  <div style="display: flex; justify-content: space-between">
+    <div>Footer</div>
+    <svg (click)="onClickChangeModeFooter()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 0C2.23858 0 0 2.23858 0 5V19C0 21.7614 2.23858 24 5 24H19C21.7614 24 24 21.7614 24 19V5C24 2.23858 21.7614 0 19 0H5ZM9 12C9 11.1716 8.32843 10.5 7.5 10.5C6.67157 10.5 6 11.1716 6 12C6 12.8284 6.67157 13.5 7.5 13.5C8.32843 13.5 9 12.8284 9 12ZM12 10.5C12.8284 10.5 13.5 11.1716 13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5ZM18 12C18 11.1716 17.3284 10.5 16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12Z"
+        fill="#484B52"
+      />
+    </svg>
+  </div>
+  <div class="templateGroup">
+    <div style="width: 100%" *ngFor="let template of groupView?.FOOTER; trackBy: trackByIndex">
+      <div class="imgSection">
+        <img [src]="template.thumbnail" [alt]="template.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+    </div>
+  </div>
+</div>
+<cms-next-page-pagination *ngIf="mode !== TemplateTypeEnum.ALL" [allPagesNumber]="allPages" (changePage)="onPageChange($event)"></cms-next-page-pagination>

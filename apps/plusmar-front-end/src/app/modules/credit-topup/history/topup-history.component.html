@@ -1,0 +1,34 @@
+<div class="setting-shop-owner">
+  <div class="cards">
+    <div class="main">
+      <reactor-room-custom-table [isLoading]="false" [tableData]="histories" [tableColSpan]="4" [isNoVerticalScroll]="true" [tableHeader]="tableHeader">
+        <tr *ngFor="let history of histories; trackBy: trackBy" class="table-content" #tableContent>
+          <td>{{ history.createdAt | timeAgo: 'utc' }}</td>
+          <td>{{ history.description }}</td>
+          <td>฿{{ history.balance | formatCurrency }}</td>
+          <td *ngIf="history.status === enumTopUpStatus.APPROVED">
+            <span style="color: #2ec639">{{ 'Approved' | translate }}</span>
+          </td>
+          <td *ngIf="history.status === enumTopUpStatus.VOIDED">
+            <span style="color: #ea6161">{{ 'Voided' | translate }}</span>
+          </td>
+        </tr>
+      </reactor-room-custom-table>
+    </div>
+    <div class="main">
+      <reactor-room-card>
+        <div class="card-content">
+          <div class="subscription-remain">
+            <div class="subscription-label">
+              {{ 'My Credit' | translate }}
+            </div>
+
+            <reactor-room-credit-topup></reactor-room-credit-topup>
+          </div>
+
+          <reactor-room-current-budget></reactor-room-current-budget>
+        </div>
+      </reactor-room-card>
+    </div>
+  </div>
+</div>

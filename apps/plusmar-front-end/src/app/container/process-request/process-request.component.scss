@@ -1,0 +1,172 @@
+.full-body {
+  width: 100%;
+  height: 100%;
+  background: #f3f5f9;
+  -webkit-animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s;
+  -ms-animation: fadein 0.5s;
+  -o-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.wrapper {
+  width: 200px;
+  height: 60px;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper span {
+  position: absolute;
+  top: 75px;
+  font-family: 'prompt';
+  font-size: 20px;
+  letter-spacing: 9px;
+  color: #54b1ff;
+  text-align: center;
+  left: 0px;
+}
+
+.progress-container {
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.progress {
+  background-color: rgb(229, 233, 235);
+  height: 0.5em;
+  position: relative;
+  width: 45em;
+}
+
+.progress-bar {
+  background-size: 45em 0.25em;
+  height: 100%;
+  position: relative;
+  background-image: linear-gradient(to right, rgba(157, 213, 255, 0.96), rgb(108, 187, 252), rgba(83, 178, 255, 0.98), rgb(39, 161, 255), rgb(6, 113, 194), rgba(0, 78, 137, 0.98));
+  background-image: -o-linear-gradient(
+    to right,
+    rgba(157, 213, 255, 0.96),
+    rgb(108, 187, 252),
+    rgba(83, 178, 255, 0.98),
+    rgb(39, 161, 255),
+    rgb(6, 113, 194),
+    rgba(0, 78, 137, 0.98)
+  );
+  background-image: -ms-linear-gradient(
+    to right,
+    rgba(157, 213, 255, 0.96),
+    rgb(108, 187, 252),
+    rgba(83, 178, 255, 0.98),
+    rgb(39, 161, 255),
+    rgb(6, 113, 194),
+    rgba(0, 78, 137, 0.98)
+  );
+  background-image: -webkit-linear-gradient(
+    to right,
+    rgba(157, 213, 255, 0.96),
+    rgb(108, 187, 252),
+    rgba(83, 178, 255, 0.98),
+    rgb(39, 161, 255),
+    rgb(6, 113, 194),
+    rgba(0, 78, 137, 0.98)
+  );
+  background-image: -moz-linear-gradient(
+    to right,
+    rgba(157, 213, 255, 0.96),
+    rgb(108, 187, 252),
+    rgba(83, 178, 255, 0.98),
+    rgb(39, 161, 255),
+    rgb(6, 113, 194),
+    rgba(0, 78, 137, 0.98)
+  );
+  animation: cssload-width 3.45s cubic-bezier(0.45, 0, 1, 1) infinite;
+  -o-animation: cssload-width 3.45s cubic-bezier(0.45, 0, 1, 1) infinite;
+  -ms-animation: cssload-width 3.45s cubic-bezier(0.45, 0, 1, 1) infinite;
+  -webkit-animation: cssload-width 3.45s cubic-bezier(0.45, 0, 1, 1) infinite;
+  -moz-animation: cssload-width 3.45s cubic-bezier(0.45, 0, 1, 1) infinite;
+}
+
+@keyframes cssload-width {
+  0%,
+  100% {
+    transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@-o-keyframes cssload-width {
+  0%,
+  100% {
+    -o-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@-ms-keyframes cssload-width {
+  0%,
+  100% {
+    -ms-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes cssload-width {
+  0%,
+  100% {
+    -webkit-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@-moz-keyframes cssload-width {
+  0%,
+  100% {
+    -moz-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+/* footer  */

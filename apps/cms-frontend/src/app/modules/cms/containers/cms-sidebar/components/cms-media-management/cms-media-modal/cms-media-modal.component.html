@@ -1,0 +1,36 @@
+<section class="flex flex-col h-full">
+  <div class="flex items-center justify-between pb-8">
+    <h3 class="mr-4 text-lg">Select Media</h3>
+    <button class="focus:outline-none" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L11.08 11.08M11.08 1L1 11.08" stroke="#C4C4C4" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <cms-next-cms-media-management
+    [isSingleAction]="isSingleAction"
+    (selectedMediaListEvent)="selectedMediaListEvent($event)"
+    (currentMediaSourceEvent)="currentMediaSourceEvent($event)"
+    (selectedMediaEvent)="selectedMediaEvent($event)"
+  ></cms-next-cms-media-management>
+  <div class="flex items-center justify-end pt-8" *ngIf="currentMediaSource !== EMediaSources.DELETED">
+    <button
+      *ngIf="!isSingleAction"
+      (click)="onAddMediaToPage()"
+      [disabled]="!selectedMediaList.length"
+      [ngClass]="{ 'bg-green-500': selectedMediaList.length, 'bg-gray-500 cursor-not-allowed': !selectedMediaList.length }"
+      class="px-6 py-2 font-light text-white transition transform focus:outline-none rounded-2xl custom-shadow hover:scale-105"
+    >
+      Add To Page
+    </button>
+    <button
+      *ngIf="isSingleAction"
+      (click)="onSetMediaToPage()"
+      [disabled]="!selectedMedia"
+      [ngClass]="{ 'bg-green-500': selectedMedia, 'bg-gray-500 cursor-not-allowed': !selectedMedia }"
+      class="px-6 py-2 font-light text-white transition transform focus:outline-none rounded-2xl custom-shadow hover:scale-105"
+    >
+      Set To Page
+    </button>
+  </div>
+</section>

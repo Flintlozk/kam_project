@@ -1,0 +1,29 @@
+<div class="chatbox-audience-seperator-container">
+  <div
+    *ngIf="reason && reason?.reason !== null"
+    class="reason-container"
+    [ngClass]="{
+      line: platform === EAudiencePlatformType.LINEOA,
+      facebook: platform === EAudiencePlatformType.FACEBOOKFANPAGE
+    }"
+  >
+    <div class="type">{{ 'Reason' | translate }}: {{ reason.reason | textTrim: 30 }}</div>
+    <div class="description">{{ reason.close_detail | textTrim: 30 }}</div>
+    <div class="more-button">
+      {{ 'More detail' | translate }}
+      <div class="more-detail-tooltip-arrow"></div>
+      <div class="more-detail-tooltip">
+        <div class="detail">ID : {{ previousAudienceID }}<br />{{ 'Reason' | translate }} : {{ reason.reason }}<br />{{ reason.close_detail }}</div>
+        <div class="dotted"></div>
+        <div class="user">
+          <div class="open-by">{{ 'Open audience by' | translate }} : {{ reason.open_by }} {{ reason.created_at | timeAgo: 'utc' }}</div>
+          <div class="close-by">{{ 'Close audience by' | translate }} : {{ reason.close_by }} {{ reason.closed_at | timeAgo: 'utc' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="break-audience">
+    <!-- WIP : Split Conversation -->
+  </div>
+</div>

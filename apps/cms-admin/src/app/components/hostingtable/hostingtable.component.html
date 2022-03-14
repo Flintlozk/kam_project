@@ -1,0 +1,61 @@
+<table mat-table [dataSource]="hostingData" class="mat-elevation-z8">
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef>
+      <div>No.<img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></div>
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ownerID">
+    <th mat-header-cell *matHeaderCellDef>ownerID <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.ownerID }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="domainName">
+    <th mat-header-cell *matHeaderCellDef>domainName <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.domainName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="domainExpireDate">
+    <th mat-header-cell *matHeaderCellDef>domainExpireDate <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.domainExpireDate }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="domainService">
+    <th mat-header-cell *matHeaderCellDef>domainService <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.domainService }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="systemExpireData">
+    <th mat-header-cell *matHeaderCellDef>systemExpireData <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.systemExpireData }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="usedHarddisk">
+    <th mat-header-cell *matHeaderCellDef>usedHarddisk <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.usedHarddisk }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createDate">
+    <th mat-header-cell *matHeaderCellDef>createDate <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="package">
+    <th mat-header-cell *matHeaderCellDef>package <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ element.package }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>action <img src="../../../assets/shared/sort-button.svg" alt="sort-button" /></th>
+    <td mat-cell *matCellDef="let element">{{ 'test' }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

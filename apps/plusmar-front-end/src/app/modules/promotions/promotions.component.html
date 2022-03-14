@@ -1,0 +1,108 @@
+<div class="promotions">
+  <reactor-room-heading [headingTitle]="'Promotions' | translate" [Route]="'Promotions' | translate">
+    <div class="heading-content">
+      <button class="btn btn-create" [routerLink]="['/promotions/create']">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.4531 6.45313H7.54688V0.546875C7.54688 0.244836 7.30204 0 7 0C6.69796 0 6.45313 0.244836 6.45313 0.546875V6.45313H0.546875C0.244836 6.45313 0 6.69796 0 7C0 7.30204 0.244836 7.54688 0.546875 7.54688H6.45313V13.4531C6.45313 13.7552 6.69796 14 7 14C7.30204 14 7.54688 13.7552 7.54688 13.4531V7.54688H13.4531C13.7552 7.54688 14 7.30204 14 7C14 6.69796 13.7552 6.45313 13.4531 6.45313Z"
+            fill="white"
+          />
+        </svg>
+        <span class="label">
+          {{ 'Create New Promotion' | translate }}
+        </span>
+      </button>
+    </div>
+  </reactor-room-heading>
+  <div class="header">
+    <div class="info">{{ promotionsDataTable ? promotionsDataTable.length : 0 }} {{ 'Promotions' | translate }}</div>
+    <div class="func">
+      <div class="select-options">
+        <mat-form-field>
+          <mat-select [(value)]="selectOptionData[0].id">
+            <mat-option *ngFor="let data of selectOptionData" [value]="data.id">
+              {{ data.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="search"><input autofocus type="text" [placeholder]="'Search' | translate" /></div>
+      <div class="btn-delete" [ngClass]="{ active: isAllchecked }">
+        <img src="assets/img/trash-icon.svg" alt="Delete All" />
+        {{ 'Delete All' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="table">
+    <reactor-room-custom-table
+      [isLoading]="false"
+      [isNoData]="false"
+      [tableData]="promotionsDataTable"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      (selectAll)="selectAllHandler($event)"
+      [isAllchecked]="isAllchecked"
+    >
+      <ng-container *ngFor="let data of promotionsDataTable; trackBy: trackBy; let i = index" class="table-content">
+        <tr>
+          <td class="checkbox">
+            <div class="first">
+              <label class="custom-checkbox">
+                <input type="checkbox" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="title">
+              {{ data.promotionTitle }}<br />
+              <span>{{ data.promotionDetail }}</span>
+            </div>
+          </td>
+          <td>
+            {{ data.promotionCoupon }}
+          </td>
+          <td>
+            {{ data.startDate }}
+          </td>
+          <td>
+            {{ data.endDate }}
+          </td>
+          <td>
+            <div class="status">
+              {{ data.status }}
+            </div>
+          </td>
+          <td class="info-td">
+            <div class="info">
+              <div class="tooltip">
+                <img src="assets/img/share-icon.png" alt="Share" />
+                <span class="tooltiptext">{{ 'Share' | translate }}</span>
+              </div>
+              <div class="tooltip">
+                <img src="assets/img/edit-icon.svg" alt="Edit" />
+                <span class="tooltiptext">{{ 'Edit' | translate }}</span>
+              </div>
+              <div class="more">
+                <img src="assets/img/more-active.svg" alt="Option" [matMenuTriggerFor]="optionSelect" />
+                <mat-menu #optionSelect="matMenu" yPosition="below">
+                  <ng-container *ngFor="let item of moreOptionData; let j = index">
+                    <button mat-menu-item>
+                      <div class="option-select-item">
+                        <img [src]="item.imgUrl" [alt]="item.title" />
+                        <span>{{ item.title }}</span>
+                      </div>
+                    </button>
+                  </ng-container>
+                </mat-menu>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr></tr
+      ></ng-container>
+    </reactor-room-custom-table>
+    <reactor-room-pagination #paginator [pageSize]="3" [length]="10"> </reactor-room-pagination>
+  </div>
+</div>

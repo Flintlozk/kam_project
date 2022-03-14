@@ -1,0 +1,80 @@
+<div class="header">
+  <div class="info">
+    <div class="text">{{ totalRows }} {{ 'Lead-s' | translate }}</div>
+  </div>
+  <div class="func">
+    <reactor-room-filter [searchActive]="true" (handleFilterUpdate)="handleFilterUpdate($event)"></reactor-room-filter>
+  </div>
+</div>
+<reactor-room-custom-table
+  [isLoading]="false"
+  [tableHeader]="tableHeader"
+  [tableColSpan]="5"
+  [isNoData]="false"
+  [isNoVerticalScroll]="true"
+  (selectAll)="selectAllHandler($event)"
+  [isAllchecked]="isAllchecked"
+  [orderMethod]="tableFilters.orderMethod"
+  [currentIndex]="currentIndex"
+  (sortTableMetaData)="sortTableData($event)"
+  [tableData]="audienceList"
+>
+  <tr *ngFor="let audience of audienceList; trackBy: trackBy" class="table-content" #tableContent>
+    <td>
+      <div class="first">
+        <label class="custom-checkbox">
+          <input type="checkbox" [checked]="isIdSelected(audience.id)" (change)="selectRow(audience.id, $event)" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </td>
+    <td (click)="navigateToLeadsInfo(audience)">
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [firstName]="audience?.first_name"
+        [platform]="audience?.platform"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      ></reactor-room-custom-table-content>
+    </td>
+
+    <!-- <td>{{ 'Form B' }}</td> -->
+    <td (click)="navigateToLeadsInfo(audience)">{{ audience.created_at | timeAgo: 'utc' }}</td>
+    <!-- <td>
+      <div class="status" *ngIf="audience.submissions | async as submissions">
+        <div class="round" [ngClass]="submissions.length <= 1 ? 'new' : 'old'"></div>
+        <div class="text" *ngIf="submissions.length <= 1">{{ 'New Lead' | translate }}</div>
+        <div class="text" *ngIf="submissions.length > 1">{{ 'Old Lead' | translate }}</div>
+      </div>
+    </td> -->
+    <td (click)="navigateToLeadsInfo(audience)" style="width: 10%">
+      <div class="actions">
+        <button (click)="navigateToLeadsInfo(audience)" id="leads-follow-action-button" class="flex items-center justify-center transparent border-none cursor-pointer p-0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M17.2168 1.61961L3.09199 15.7444C3.09199 15.7444 3.03907 20.4708 3.03393 20.6613C3.02878 20.8519 3.17516 21.0039 3.37016 20.9976C3.49643 20.9935 4.70883 20.98 6.07369 20.9647C6.81652 20.9564 7.6045 20.9476 8.28713 20.9395L22.3964 6.8302C22.8756 6.35105 22.7931 5.91267 22.3758 5.49535L18.4808 1.60031C18.1098 1.22936 17.6907 1.15769 17.2168 1.61961ZM4.24433 19.7872L4.28614 16.2473L14.4963 6.03716L17.9943 9.53524L7.78422 19.7454L4.24433 19.7872Z"
+              fill="url(#paint0_linear)"
+            />
+            <defs>
+              <linearGradient id="paint0_linear" x1="3.1276" y1="20.9039" x2="20.456" y2="3.57553" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#55B2FF" />
+                <stop offset="1" stop-color="#87D6FF" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </button>
+      </div>
+    </td>
+  </tr>
+</reactor-room-custom-table>
+<reactor-room-pagination
+  #paginator
+  [pageSize]="tableFilters.pageSize"
+  [pageSizeOptions]="[10, 50, 100]"
+  [length]="totalRows"
+  (changePage)="changePage($event)"
+></reactor-room-pagination>

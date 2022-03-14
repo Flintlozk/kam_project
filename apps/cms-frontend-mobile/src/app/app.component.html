@@ -1,0 +1,8 @@
+<cms-next-layout *ngIf="!plainLayout">
+  <div [@routeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</cms-next-layout>
+<div *ngIf="plainLayout" [@routeAnimation]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

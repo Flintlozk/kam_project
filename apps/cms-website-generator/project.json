@@ -1,0 +1,52 @@
+{
+  "root": "apps/cms-website-generator",
+  "sourceRoot": "apps/cms-website-generator/src",
+  "projectType": "application",
+  "prefix": "cms-website-generator",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/cms-website-generator",
+        "main": "apps/cms-website-generator/src/main.ts",
+        "tsConfig": "apps/cms-website-generator/tsconfig.app.json",
+        "assets": ["apps/cms-website-generator/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/cms-website-generator/src/environments/environment.ts",
+              "with": "apps/cms-website-generator/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "cms-website-generator:build",
+        "port": 9237
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/cms-website-generator/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/cms-website-generator/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,52 @@
+{
+  "root": "apps/cms-api",
+  "sourceRoot": "apps/cms-api/src",
+  "projectType": "application",
+  "prefix": "cms-api",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/cms-api",
+        "main": "apps/cms-api/src/main.ts",
+        "tsConfig": "apps/cms-api/tsconfig.app.json",
+        "assets": ["apps/cms-api/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/cms-api/src/environments/environment.ts",
+              "with": "apps/cms-api/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "cms-api:build",
+        "port": 9239
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/cms-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/cms-api/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

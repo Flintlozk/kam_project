@@ -1,0 +1,148 @@
+<ng-container *ngIf="companyInfoForm?.value">
+  <form [formGroup]="companyInfoForm" class="company-info-container pt-20">
+    <div class="content form-grid overflow-on-mobile">
+      <div class="item on-line flex justify-center items-center">
+        <div class="relative mx-20">
+          <button
+            *ngIf="companyInfoForm?.value?.company_logo"
+            (click)="removeCompanyLogo($event)"
+            style="width: 20px; height: 20px"
+            class="interactive cursor-pointer transparent border-none absolute p-0 -right-10 -top-10 z-10"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#EA6161" />
+              <path
+                d="M10.5524 10L14.8856 5.66686C15.0381 5.5143 15.0381 5.26696 14.8856 5.11442C14.733 4.96188 14.4857 4.96186 14.3331 5.11442L9.99999 9.44758L5.66686 5.11442C5.5143 4.96186 5.26696 4.96186 5.11442 5.11442C4.96188 5.26698 4.96186 5.51432 5.11442 5.66686L9.44755 10L5.11442 14.3332C4.96186 14.4857 4.96186 14.7331 5.11442 14.8856C5.19069 14.9619 5.29067 15 5.39065 15C5.49063 15 5.59059 14.9619 5.66688 14.8856L9.99999 10.5525L14.3331 14.8856C14.4094 14.9619 14.5094 15 14.6094 15C14.7093 15 14.8093 14.9619 14.8856 14.8856C15.0381 14.733 15.0381 14.4857 14.8856 14.3332L10.5524 10Z"
+                fill="white"
+              />
+            </svg>
+          </button>
+          <label>
+            <span class="mx-auto relative flex self-end h-full">
+              <img
+                class="mt-auto max-h-110 object-contain"
+                [src]="companyInfoForm?.value?.company_logo"
+                onerror="src='assets/img/customer/customer_error.svg'"
+                style="max-width: 40px; max-height: 40px"
+              />
+            </span>
+            <input
+              type="file"
+              name="fileUpload"
+              accept="image/x-png,image/gif,image/jpeg"
+              (change)="onFileChange($event)"
+              style="display: none; max-width: 40px; max-height: 40px"
+            />
+            <mat-error *ngIf="companyInfoForm.controls?.company_logo_file?.errors?.sizeExceeded">{{ 'Size exceeded' | translate }}</mat-error>
+            <mat-error *ngIf="companyInfoForm.controls?.company_logo_file?.errors?.wrongType">{{ 'Please use valid image' | translate }}</mat-error>
+          </label>
+        </div>
+      </div>
+
+      <div
+        class="item"
+        [ngClass]="{
+          invalid: companyInfoForm.controls?.company_name?.errors?.required && (companyInfoForm.controls?.company_name?.dirty || companyInfoForm.controls?.company_name?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Company name' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="company_name" />
+        <mat-error
+          *ngIf="companyInfoForm.controls?.company_name?.errors?.required && (companyInfoForm.controls?.company_name?.dirty || companyInfoForm.controls?.company_name?.touched)"
+          >{{ 'Company name is required' | translate }}</mat-error
+        >
+      </div>
+
+      <div
+        class="item"
+        [ngClass]="{
+          invalid: companyInfoForm.controls?.branch_name?.errors?.required && (companyInfoForm.controls?.branch_name?.dirty || companyInfoForm.controls?.branch_name?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Branch name' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="branch_name" />
+        <mat-error
+          *ngIf="companyInfoForm.controls?.branch_name?.errors?.required && (companyInfoForm.controls?.branch_name?.dirty || companyInfoForm.controls?.branch_name?.touched)"
+          >{{ 'Branch name is required' | translate }}</mat-error
+        >
+      </div>
+      <div
+        class="item"
+        [ngClass]="{
+          invalid: companyInfoForm.controls?.tax_id?.errors?.required && (companyInfoForm.controls?.tax_id?.dirty || companyInfoForm.controls?.tax_id?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Tax ID' | translate }}</div>
+        <input type="text" class="w-full" formControlName="tax_id" />
+        <mat-error *ngIf="companyInfoForm.controls?.tax_id?.errors?.required && (companyInfoForm.controls?.tax_id?.dirty || companyInfoForm.controls?.tax_id?.touched)">{{
+          'Tax ID is required' | translate
+        }}</mat-error>
+      </div>
+      <div
+        class="item"
+        [ngClass]="{
+          invalid: companyInfoForm.controls?.branch_id?.errors?.required && (companyInfoForm.controls?.branch_id?.dirty || companyInfoForm.controls?.branch_id?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Branch ID' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="branch_id" />
+        <mat-error *ngIf="companyInfoForm.controls?.branch_id?.errors?.required && (companyInfoForm.controls?.branch_id?.dirty || companyInfoForm.controls?.branch_id?.touched)">{{
+          'Branch ID is required' | translate
+        }}</mat-error>
+      </div>
+      <div
+        class="item"
+        [ngClass]="{
+          invalid:
+            (companyInfoForm.controls?.phone_number?.errors?.phoneinit || companyInfoForm.controls?.phone_number?.errors?.required) &&
+            (companyInfoForm.controls?.phone_number?.dirty || companyInfoForm.controls?.phone_number?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Phone number' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="phone_number" />
+        <mat-error
+          *ngIf="companyInfoForm.controls?.phone_number?.errors?.required && (companyInfoForm.controls?.phone_number?.dirty || companyInfoForm.controls?.phone_number?.touched)"
+        >
+          {{ 'Phone number is required' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="companyInfoForm.controls?.phone_number?.errors?.phoneinit && (companyInfoForm.controls?.phone_number?.dirty || companyInfoForm.controls?.phone_number?.touched)"
+          >{{ 'Phone number should start with 0 and have 10 characters length' | translate }}</mat-error
+        >
+      </div>
+      <div
+        class="item"
+        [ngClass]="{
+          invalid:
+            (companyInfoForm.controls?.email?.errors?.email || companyInfoForm.controls?.email?.errors?.required || companyInfoForm.controls?.email?.errors?.pattern) &&
+            (companyInfoForm.controls?.email?.dirty || companyInfoForm.controls?.email?.touched)
+        }"
+      >
+        <div class="company-info-label">{{ 'Email' | translate }}*</div>
+        <input type="text" class="w-full" formControlName="email" />
+        <mat-error *ngIf="companyInfoForm.controls?.email?.errors?.required && (companyInfoForm.controls?.email?.dirty || companyInfoForm.controls?.email?.touched)">{{
+          'Email is required' | translate
+        }}</mat-error>
+        <mat-error *ngIf="companyInfoForm.controls?.email?.errors?.email && (companyInfoForm.controls?.email?.dirty || companyInfoForm.controls?.email?.touched)">{{
+          'Email is incorrect' | translate
+        }}</mat-error>
+        <mat-error *ngIf="companyInfoForm.controls?.email?.errors?.pattern && (companyInfoForm.controls?.email?.dirty || companyInfoForm.controls?.email?.touched)">{{
+          'Email is incorrect (mail@ex.com)' | translate
+        }}</mat-error>
+      </div>
+      <div class="item">
+        <div class="company-info-label">{{ 'Fax' | translate }}</div>
+        <input type="text" class="w-full" formControlName="fax" />
+      </div>
+      <div class="item" [ngStyle]="{ visibility: 'hidden' }">
+        <div class="company-info-label">{{ 'Country' | translate }}*</div>
+        <input type="text" class="w-full" disabled formControlName="country" />
+      </div>
+      <div class="item on-line">
+        <div class="company-info-label">{{ 'Address' | translate }}</div>
+        <input type="text" class="w-full" formControlName="address" />
+      </div>
+      <reactor-room-address [fields]="addressFields" class="form-grid on-line"> </reactor-room-address>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,42 @@
+<section class="grid gap-3 sm:grid-cols-1 md:grid-cols-3" *ngIf="configGeneral" [formGroup]="generalSettingForm">
+  <!-- general-grid on section -->
+  <cms-next-setting-website-temp
+    (readyToPatch)="patchFormValue($event)"
+    class="px-4 py-4 sm:col-span-3 md:col-span-1 bg-white shadow-md"
+    [(parentGroup)]="generalSettingForm"
+  ></cms-next-setting-website-temp>
+  <cms-next-setting-website-icon-upload
+    (readyToPatch)="patchFormValue($event)"
+    [(formGroup)]="generalSettingForm"
+    class="px-4 py-8 sm:col-span-3 md:col-span-1 bg-white shadow-md"
+  ></cms-next-setting-website-icon-upload>
+  <cms-next-setting-website-email-sender
+    [(formGroup)]="generalSettingForm"
+    (readyToPatch)="patchFormValue($event)"
+    class="px-4 sm:col-span-3 md:col-span-1 py-8 bg-white shadow-md"
+  ></cms-next-setting-website-email-sender>
+  <cms-next-setting-website-general-view
+    [(formGroup)]="generalSettingForm"
+    (readyToPatch)="patchFormValue($event)"
+    class="col-span-3 shadow-md"
+  ></cms-next-setting-website-general-view>
+  <cms-next-setting-website-mobile-view
+    [(formGroup)]="generalSettingForm"
+    (readyToPatch)="patchFormValue($event)"
+    class="col-span-3 shadow-md"
+  ></cms-next-setting-website-mobile-view>
+  <!-- 3 layout grid row span -->
+  <div class="grid gap-3 sm:grid-cols-1 md:grid-cols-3 col-span-3">
+    <cms-next-setting-website-language class="px-8 py-8 bg-white sm:col-span-1 md:col-span-2 shadow-md"></cms-next-setting-website-language>
+    <cms-next-setting-website-search
+      (readyToPatch)="patchFormValue($event)"
+      [(formGroup)]="generalSettingForm"
+      class="row-span-2 sm:col-span-1 bg-white shadow-md"
+    ></cms-next-setting-website-search>
+    <cms-next-setting-website-notifications
+      (readyToPatch)="patchFormValue($event)"
+      [(formGroup)]="generalSettingForm"
+      class="bg-white sm:col-span-1 md:col-span-2 shadow-md"
+    ></cms-next-setting-website-notifications>
+  </div>
+</section>

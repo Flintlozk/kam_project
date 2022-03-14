@@ -1,0 +1,38 @@
+<section class="flex items-center text-white">
+  <button
+    (click)="buttonUndo$.next(null)"
+    class="mr-2 focus:outline-none"
+    [disabled]="undoRedoData.currentUndoStep === 0"
+    [ngClass]="{ 'cursor-not-allowed opacity-40': undoRedoData.currentUndoStep === 0 }"
+  >
+    <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M7.57229 27.9921C11.0723 27.9921 14.5723 27.9921 18.011 27.9921C20.7585 27.9921 23.8473 27.9396 26.0348 26.0233C28.3535 24.0283 30.3748 20.7383 30.3748 17.5796C30.3718 15.4016 29.6002 13.2945 28.196 11.6296C25.7723 8.75081 23.1123 7.10581 19.306 7.05331C13.601 6.97456 7.87854 7.15831 2.16479 7.15831H1.77979"
+        stroke="#ffffff"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path d="M1.00977 7.15852L9.49727 1.75977" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+      <path d="M1.00977 7.15869L9.49727 12.5662" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+  <button
+    (click)="buttonRedo$.next(null)"
+    class="focus:outline-none"
+    [disabled]="undoRedoData.currentRedoStep === 0"
+    [ngClass]="{ 'cursor-not-allowed opacity-40': undoRedoData.currentRedoStep === 0 }"
+  >
+    <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M24.4277 27.9921C20.9277 27.9921 17.4277 27.9921 13.989 27.9921C11.2415 27.9921 8.15271 27.9396 5.96521 26.0233C3.64646 24.0283 1.62521 20.7383 1.62521 17.5796C1.62822 15.4016 2.39978 13.2945 3.80396 11.6296C6.22771 8.75081 8.88771 7.10581 12.694 7.05331C18.399 6.97456 24.1215 7.15831 29.8352 7.15831H30.2202"
+        stroke="#ffffff"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path d="M30.9902 7.15852L22.5027 1.75977" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+      <path d="M30.9902 7.15869L22.5027 12.5662" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+</section>

@@ -1,0 +1,26 @@
+function getMenuJsMobileFeatureIcon() {
+    const mainElement = document?.getElementById("<%=id%>");
+    if(mainElement?.classList?.contains('primary-menu')) {
+      const navContainerElement = mainElement?.getElementsByClassName('nav-container')[0];
+      const navElement = mainElement?.getElementsByTagName('NAV')[0];
+      if(!navElement?.getElementsByClassName('icons-feature')[0]) {
+        const iconsFeatureElement = document?.createElement('DIV');
+        iconsFeatureElement?.classList?.add('icons-feature');
+        navElement?.insertBefore(iconsFeatureElement, navElement.children[2]);
+      }
+      const iconsFeatureElement = mainElement?.getElementsByClassName('icons-feature')[0];
+      var iconList = <%- JSON.stringify(icons) %>;
+      if(iconsFeatureElement) iconsFeatureElement.innerHTML = getMenuJsMobileFeatureIconIconsHTML(iconList, <%=isSearch%>, <%=isLanguage%>);
+    }
+  }
+  function getMenuJsMobileFeatureIconIconsHTML(icons, isSearch, isLanguage) {
+    let innerHTML = '';
+    for (let index = 0; index < icons.length; index++) {
+      const icon = icons[index];
+      innerHTML += '<i class="icon-feature ' + icon + '"></i>'; 
+    }
+    if (isSearch) innerHTML += '<i class="icon-feature fas fa-search"></i>';
+    if (isLanguage) innerHTML += '<i class="icon-feature fas fa-globe"></i>';
+    return innerHTML;
+  }
+  getMenuJsMobileFeatureIcon();

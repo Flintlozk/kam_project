@@ -1,0 +1,71 @@
+<div class="content">
+  <div class="title-group">
+    <div class="title-number"><span>1</span></div>
+    <div class="title-label">ที่อยู่จัดส่ง</div>
+    <!-- <div class="title-label">Delivery address</div> -->
+  </div>
+
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">ชื่อผู้รับ<span style="font-size: 10px; color: red">*</span></label>
+    <!-- <label class="address-fill-from-label">Name<span style="font-size:10px;color:red">*</span></label> -->
+    <input class="address-fill-from-input" type="text" id="name" name="name" x-model="customer.name" autocomplete="off" />
+  </div>
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">เบอร์ติดต่อ<span style="font-size: 10px; color: red">*</span></label>
+    <!-- <label class="address-fill-from-label">Phone No.<span style="font-size:10px;color:red">*</span></label> -->
+    <input
+      class="address-fill-from-input"
+      inputmode="tel"
+      type="tel"
+      id="phone_number"
+      name="phone_number"
+      x-model="customer.phone_number"
+      pattern="[0-9]*"
+      min="9"
+      max="10"
+      autocomplete="off"
+      required
+    />
+  </div>
+
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">รหัสไปรษณีย์<span style="font-size: 10px; color: red">*</span></label>
+    <!-- <label class="address-fill-from-label">Postal code<span style="font-size:10px;color:red">*</span></label> -->
+    <input
+      class="address-fill-from-input"
+      inputmode="numeric"
+      type="text"
+      id="post_code"
+      name="post_code"
+      x-model="customer.location.post_code"
+      pattern="[0-9]*"
+      autocomplete="off"
+      required
+    />
+  </div>
+
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">อำเภอ</label>
+    <!-- <label class="address-fill-from-label">District<span style="font-size:10px;color:red">*</span></label> -->
+    <input readonly class="address-from-input" type="text" id="district" name="district" placeholder="" x-model="customer.location.district" autocomplete="off" required />
+  </div>
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">เขต / แขวง</label>
+    <!-- <label class="address-fill-from-label">City<span style="font-size:10px;color:red">*</span></label> -->
+    <input readonly class="address-from-input" type="text" id="city" name="city" placeholder="" x-model="customer.location.city" autocomplete="off" required />
+  </div>
+  <div class="address-fill-from">
+    <label class="address-from-label">จังหวัด</label>
+    <!-- <label class="address-fill-from-label">Province<span style="font-size:10px;color:red">*</span></label> -->
+    <input readonly class="address-from-input" type="text" id="province" name="province" placeholder="" x-model="customer.location.province" autocomplete="off" required />
+  </div>
+
+  <div class="address-fill-from">
+    <label class="address-fill-from-label">ที่อยู่ <span style="font-size: 10px; color: red">*</span><span style="font-size: 10px; margin-top: 3px">(250 ตัวอักษร)</span></label>
+    <!-- <label class="address-fill-from-label">Address <span style="font-size:10px;color:red">*</span><span style="font-size:10px;margin-top:3px;">(250 characters)</span></label> -->
+    <textarea class="address-fill-from-input" rows="4" id="address" name="address" maxlength="250" x-model="customer.location.address" autocomplete="off"></textarea>
+  </div>
+
+  <div class="caution-address">* <i>กรุณาตรวจสอบข้อมูลการจัดส่งอีกครั้ง ก่อนดำเนินการยืนยัน.</i></div>
+  <!-- <div class="caution-address">* <i>Please check the validity of the address before confirm.</i></div> -->
+</div>

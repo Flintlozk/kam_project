@@ -1,0 +1,102 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/plusmar-admin",
+  "sourceRoot": "apps/plusmar-admin/src",
+  "prefix": "admin",
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "apps/plusmar-admin/webpack.config.js"
+        },
+        "outputPath": "dist/apps/plusmar-admin",
+        "index": "apps/plusmar-admin/src/index.html",
+        "main": "apps/plusmar-admin/src/main.ts",
+        "polyfills": "apps/plusmar-admin/src/polyfills.ts",
+        "tsConfig": "apps/plusmar-admin/tsconfig.app.json",
+        "aot": true,
+        "assets": ["apps/plusmar-admin/src/favicon.ico", "apps/plusmar-admin/src/assets"],
+        "styles": ["apps/plusmar-admin/src/styles.scss", "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["zen-observable", "graphql-tag", "dayjs/locale/th", "subscriptions-transport-ws", "chart.js", "joi-date-dayjs", "lodash"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-admin/src/environments/environment.ts",
+              "with": "apps/plusmar-admin/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "15mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "20kb",
+              "maximumError": "50kb"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "browserTarget": "plusmar-admin:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "plusmar-admin:build:production"
+        },
+        "development": {
+          "browserTarget": "plusmar-admin:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "plusmar-admin:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-admin/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-admin/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,28 @@
+<div class="flex flex-col w-full h-full bg-gray-200">
+  <div class="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-200">
+    <svg class="w-8 focus:outline-none" [routerLink]="['/content/file-manage']" width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M9.09811 13.4437L5.37197 9.77036L4.93778 9.34233H5.54748H24.375C24.7408 9.34233 25.0909 9.19903 25.3485 8.94508C25.606 8.69125 25.75 8.34774 25.75 7.99033C25.75 7.63291 25.606 7.28941 25.3485 7.03557C25.0909 6.78162 24.7408 6.63833 24.375 6.63833H5.54748H4.93778L5.37197 6.21029L9.09652 2.5385C9.34566 2.28342 9.48287 1.94295 9.47976 1.59029C9.47665 1.23694 9.33291 0.898204 9.07835 0.647249C8.82367 0.396181 8.47842 0.25315 8.11677 0.250051C7.75582 0.246959 7.40872 0.383518 7.14978 0.629316L0.651322 7.03572C0.651313 7.03573 0.651304 7.03574 0.651295 7.03575C0.393922 7.28956 0.25 7.633 0.25 7.99033C0.25 8.34767 0.393932 8.69112 0.651322 8.94494L7.15136 15.3529C7.40895 15.6068 7.75901 15.75 8.12476 15.75C8.49048 15.75 8.84053 15.6068 9.09811 15.3529V13.4437ZM9.09811 13.4437C9.3555 13.6976 9.49944 14.041 9.49944 14.3983M9.09811 13.4437L9.49944 14.3983M9.49944 14.3983C9.49944 14.7557 9.35552 15.0991 9.09817 15.3529L9.49944 14.3983Z"
+        fill="#484B52"
+        stroke="white"
+        stroke-width="0.5"
+      />
+    </svg>
+    <div class="px-2 text-lg font-light text-gray-700">{{ imageData.title }}.{{ imageData.extension }}</div>
+    <svg (click)="onActiveToggleLayout()" class="w-8 focus:outline-none" width="12" height="32" viewBox="0 0 12 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="12" height="32" fill="white" />
+      <circle cx="6" cy="16" r="3" fill="#BCBFC8" />
+      <circle cx="6" cy="26" r="3" fill="#BCBFC8" />
+      <circle cx="6" cy="6" r="3" fill="#BCBFC8" />
+    </svg>
+  </div>
+  <div class="flex items-center h-full overflow-scroll no-scroll-bar">
+    <img class="w-full" [src]="imageData.file" [alt]="imageData.title" onerror="this.src='assets/images/shared/no-image.svg'" />
+  </div>
+</div>
+<ng-container>
+  <cms-next-option-toggle-layout [optionToggleLayoutStatus]="optionToggleLayoutStatus" (optionToggleLayoutStatusEvent)="optionToggleLayoutStatusEvent($event)">
+    <button class="option-item">{{ 'Save To Device' | translate }}</button>
+    <button class="option-item danger">{{ 'Delete' | translate }}</button>
+  </cms-next-option-toggle-layout>
+</ng-container>

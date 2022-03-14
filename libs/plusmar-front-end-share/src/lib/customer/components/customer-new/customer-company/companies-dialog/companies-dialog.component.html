@@ -1,0 +1,67 @@
+<div class="bg-white rounded-md p-20 px-15">
+  <div class="dialog-header">
+    {{ 'Customer companies' | translate }}
+  </div>
+  <div [formGroup]="filterForm" *ngIf="filterForm" class="flex flex-col px-10 pt-15">
+    <div class="flex items-center justify-between py-10">
+      <span class="text-sm counter">{{ totalRows }} {{ 'Companies' | translate }}</span>
+
+      <div [formGroup]="filterForm" *ngIf="filterForm" class="pb-0 search">
+        <input autofocus type="text" name="Search" [placeholder]="'Search' | translate" formControlName="search" />
+      </div>
+    </div>
+    <reactor-room-custom-table
+      [tableColSpan]="5"
+      [tableData]="tableData"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [orderMethod]="filterForm.value.orderMethod"
+      [currentIndex]="1"
+      (sortTableMetaData)="sortTableData($event)"
+      (selectAll)="selectAllHandler($event)"
+      [isAllchecked]="isAllchecked"
+    >
+      <tr *ngFor="let data of tableData; trackBy: trackBy" class="table-content">
+        <td class="p-5-important px-10-important">
+          <div class="first">
+            <label class="custom-checkbox">
+              <input type="checkbox" [checked]="isIdSelected(data)" (change)="selectRow(data, $event)" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </td>
+        <td class="open-info p-5-important">
+          <div class="customer-profile flex items-center">
+            <img width="30" height="30" [src]="data.company_logo" class="image rounded-full mr-10" alt="profile" onerror="src='assets/img/customer/customer_error.svg'" />
+            <div class="content">
+              {{ data.company_name }}
+            </div>
+          </div>
+        </td>
+        <td class="p-5-important">{{ data.branch_name }}</td>
+        <td class="p-5-important">{{ data.customers_amount || 0 }}</td>
+      </tr>
+    </reactor-room-custom-table>
+    <reactor-room-pagination #paginator [pageSize]="filterForm.value.pageSize" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>
+    <div class="footer">
+      <div class="flex justify-end">
+        <button class="btn-cancel" type="reset" (click)="dialogRef.close(false)">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button class="btn-active ml-5" type="submit" (click)="updateCompaniesList()">
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9.83643 18.3939C14.807 18.3939 18.8364 14.3644 18.8364 9.39388C18.8364 4.42331 14.807 0.393875 9.83643 0.393875C4.86584 0.393875 0.836426 4.42331 0.836426 9.39388C0.836426 14.3644 4.86584 18.3939 9.83643 18.3939ZM14.6481 5.2159C14.8746 4.98447 15.2421 4.98447 15.4686 5.2159C15.6952 5.44731 15.6952 5.82248 15.4686 6.05388L8.10706 13.5719C7.88074 13.8032 7.51306 13.8033 7.28662 13.5719L4.20435 10.4242C3.97778 10.1928 3.97778 9.81766 4.20435 9.58626C4.43103 9.35487 4.79834 9.35484 5.0249 9.58626L7.6969 12.315L14.6481 5.2159Z"
+              fill="white"
+            />
+          </svg>
+          <span class="ml-5">
+            {{ 'Ok' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

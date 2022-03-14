@@ -1,0 +1,9 @@
+export { SettingDirectAdminComponent } from './setting-direct-admin/setting-direct-admin.component';
+export { SettingInvalidComponent } from './setting-invalid/setting-invalid.component';
+export { SettingAdvanceModule } from './setting-advance/setting-advance.module';
+export { SettingLogComponent } from './setting-log/setting-log.component';
+export { SettingLogisticComponent } from './setting-logistic/setting-logistic.component';
+export { SettingOrderComponent } from './setting-order/setting-order.component';
+export { SettingPaymentComponent } from './setting-payment/setting-payment.component';
+export { SettingShopOwnerComponent } from './setting-shop-owner/setting-shop-owner.component';
+export { SettingTaxComponent } from './setting-tax/setting-tax.component';

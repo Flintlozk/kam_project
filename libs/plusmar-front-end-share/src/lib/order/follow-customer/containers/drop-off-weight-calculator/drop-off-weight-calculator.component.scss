@@ -1,0 +1,104 @@
+@import 'base';
+@import 'buttons';
+.drop-off-weight-calculator {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-save {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    .order {
+      display: flex;
+      flex-direction: column;
+      margin: 0 6px 14px 6px;
+
+      max-height: 260px;
+      display: block;
+      overflow: auto;
+
+      .list {
+        width: 100%;
+        display: flex;
+        font-size: 14px;
+        margin: 10px 0;
+
+        .detail {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+
+          .main {
+            font-weight: 300;
+            .price {
+              border-right: 1px solid #dddfea;
+              padding-right: 12px;
+            }
+            .weight {
+              margin: 0 12px;
+            }
+            .gram {
+              margin: 0 12px;
+            }
+            .weightInput {
+              max-width: 50px;
+              text-align: center;
+              padding: 4px 12px;
+              margin: 0 12px;
+              border: 1px solid #dddfea;
+              border-radius: 6px;
+            }
+          }
+          .sub {
+            display: flex;
+            align-self: center;
+          }
+        }
+      }
+    }
+    .summary {
+      .title {
+        font-size: 12px;
+        color: $text-light-color;
+      }
+      .summary-tab {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        background: $third-color;
+        padding: 8px;
+        margin: 3px 0;
+        border-radius: 5px;
+
+        &.price {
+          background: $third-color;
+        }
+        &.credit {
+          background: #f3f5f9;
+          .insufficient {
+            color: $danger-color;
+          }
+        }
+      }
+    }
+    .alert {
+      text-align: right;
+      .title {
+        font-size: 13px;
+        color: $danger-color;
+      }
+      .topup {
+        cursor: pointer;
+        font-size: 13px;
+      }
+    }
+  }
+}

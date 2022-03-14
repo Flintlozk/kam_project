@@ -1,0 +1,44 @@
+<section>
+  <div class="flex flex-wrap gap-x-4 p-8">
+    <div>
+      <div class="grid grid-flow-col gap-3">
+        <svg class="sm:hidden md:inline-block" xmlns="http://www.w3.org/2000/svg" width="68" height="45" viewBox="0 0 68 45" fill="none">
+          <rect x="0.5" y="0.5" width="67" height="44" rx="1.5" stroke="#D6DBE3" />
+          <rect x="8" y="8" width="21" height="29" rx="2" fill="#D6DBE3" />
+          <path d="M12.5 28.18C14.5 26.6133 19.5 24.179 25 28.1792" stroke="#8591AA" stroke-linecap="round" />
+          <path d="M12 16L16 20" stroke="#8591AA" stroke-linecap="round" />
+          <path d="M12 20L16 16" stroke="#8591AA" stroke-linecap="round" />
+          <path d="M21 16L25 20" stroke="#8591AA" stroke-linecap="round" />
+          <path d="M21 20L25 16" stroke="#8591AA" stroke-linecap="round" />
+          <rect x="32" y="16" width="27" height="4" fill="#8591AA" />
+          <rect x="32" y="23" width="27" height="2" fill="#B1B8C6" />
+          <rect x="32" y="27" width="27" height="2" fill="#B1B8C6" />
+        </svg>
+        <div>
+          <p>Temporarily closed the website</p>
+          <small><i>“Under Construction Website” Message</i></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-hidden">
+      <label>
+        <input type="checkbox" #tc name="" class="hidden" id="" [formControl]="temp_close" />
+        <button
+          (click)="tc.click()"
+          type="checkbox"
+          id="btn_tc"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': temp_close.value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{ 'bg-gray-300': !temp_close.value, 'bg-white right-0 mr-2': temp_close.value }"
+          ></div>
+        </button>
+      </label>
+
+      <!-- <span class="checkmark"></span> -->
+    </div>
+  </div>
+</section>

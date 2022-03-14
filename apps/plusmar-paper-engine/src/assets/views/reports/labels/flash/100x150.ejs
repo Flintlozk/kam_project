@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/stylesheet.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="/javascript/jsbarcode.min.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      window.onload = function () {
+        const option = {displayValue: false,format:'CODE39'};
+        JsBarcode('#trackNo', payloadData.trackingNo , option);
+        JsBarcode('#trackNo2', payloadData.trackingNo , option);
+      };
+    </script>
+  </head>
+  <body x-data="{payloadData:payloadData}">
+    <page size="100x150" code="flash">
+      <div class="container">
+        <div class="flash-code-100x150">
+          <div class="main">
+            <div class="text" x-text="payloadData.labelDetail.expandedSortCode.ext1 + '-'">#ext_s1-</div>
+            <div class="code" x-text="payloadData.labelDetail.expandedSortCode.ext2">#ext_s2</div>
+            <div class="text" x-text="'-' + payloadData.labelDetail.expandedSortCode.ext3">-#ext_s3</div>
+          </div>
+        </div>
+        <div class="barcode s100x150">
+          <img id="trackNo" alt="barcode" />
+          <div class="" x-text="payloadData.trackingNo"></div>
+        </div>
+        <div class="table-line">
+          <div class="big line flash">
+            <div class="dst">DST</div>
+            <div class="text" x-text="payloadData.labelDetail.expandedDstStoreName.ext1+'-'">#ext_d1</div>
+            <div class="text" x-text="payloadData.labelDetail.expandedDstStoreName.ext2">#ext_d2</div>
+          </div>
+          <div class="flex span">
+            <div class="addr">
+              <div>ผู้ส่ง&nbsp;&nbsp;&nbsp;<span x-text="payloadData.pageName">#pageName</span></div>
+              <div x-text="payloadData.pagePhoneNumber">#pagePhoneNumber</div>
+              <div
+                x-text="payloadData.sourceLocation.address + ' ' +
+              payloadData.customerLocation.district +' ' +
+              payloadData.customerLocation.city +' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+              >
+                #address + #district + #city + #province + #post_code
+              </div>
+            </div>
+            <div class="label" x-text="payloadData.labelDetail.sortingLineCode">#sortingLineCode</div>
+          </div>
+          <div class="line">
+            <div>ผู้รับ&nbsp;&nbsp;&nbsp;<span x-text="payloadData.customerName">#pageName</span> <span x-text="payloadData.customerPhoneNumber">#pagePhoneNumber</span></div>
+
+            <div
+              x-text="payloadData.sourceLocation.address + ' ' +
+            payloadData.customerLocation.district +' ' +
+            payloadData.customerLocation.city +' ' +
+            payloadData.customerLocation.province + ' ' +
+            payloadData.customerLocation.post_code
+          "
+            >
+              #address + #district + #city + #province + #post_code
+            </div>
+          </div>
+          <div class="grid-2-2-2 line no-padding">
+            <div class="divider"></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="grid-2-2-2">
+          <div class="time">Pickup Time:</div>
+          <div>Print:</div>
+        </div>
+        <div class="barcode s100x150">
+          <img id="trackNo" alt="barcode" />
+          <div class="" x-text="payloadData.trackingNo"></div>
+        </div>
+        <div class="table-line">
+          <div class="grid-2-2-2 line no-padding">
+            <div class="divider p-5">
+              <div>ผู้รับ&nbsp;&nbsp;&nbsp;<span x-text="payloadData.customerName">#pageName</span></div>
+              <div x-text="payloadData.customerPhoneNumber">#pagePhoneNumber</div>
+              <div
+                x-text="payloadData.sourceLocation.address + ' ' +
+            payloadData.customerLocation.district +' ' +
+            payloadData.customerLocation.city +' ' +
+            payloadData.customerLocation.province + ' ' +
+            payloadData.customerLocation.post_code
+          "
+              >
+                #address + #district + #city + #province + #post_code
+              </div>
+            </div>
+            <div class="p-5">ลายเซ็นต์ผู้รับ</div>
+          </div>
+        </div>
+      </div>
+    </page>
+  </body>
+</html>

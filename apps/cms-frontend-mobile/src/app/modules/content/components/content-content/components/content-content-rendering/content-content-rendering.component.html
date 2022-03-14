@@ -1,0 +1,55 @@
+<div class="grid gap-2">
+  <div class="relative flex items-center h-40 overflow-hidden bg-white rounded-md">
+    <img class="w-full" src="assets/images/shared/sample.jpg" onerror="this.src='assets/images/shared/no-image.svg'" />
+    <button
+      (click)="imageUpload.click()"
+      class="absolute bottom-0 right-0 flex items-center justify-center w-10 h-10 mb-2 mr-2 bg-opacity-75 rounded-full bg-green-500 focus:outline-none"
+    >
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.0871 3.80166L12.7123 0.426879C12.524 0.238566 12.2189 0.238566 12.0306 0.426879L0.942003 11.5155C0.851605 11.6059 0.800752 11.7283 0.800752 11.8564L0.799805 15.2321C0.799805 15.3597 0.850657 15.4826 0.941055 15.573C1.03145 15.6634 1.15432 15.7142 1.28193 15.7142L4.65766 15.7133C4.7857 15.7133 4.90813 15.6624 4.99853 15.572L16.0871 4.4834C16.2755 4.29509 16.2755 3.99001 16.0871 3.80166ZM9.7841 4.05309L12.4609 6.72992L4.55399 14.6369L1.87622 14.6378L1.87716 11.96L9.7841 4.05309Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+    <input #imageUpload type="file" id="img" name="img" accept="image/*" class="hidden" />
+  </div>
+  <div class="relative p-4 text-gray-700 bg-white rounded-md">
+    <div class="overflow-scroll no-scroll-bar max-h-40">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti quidem ipsum ab cumque quas repellendus maxime dolore provident hic natus, error odit, iste esse sapiente
+      molestiae aut itaque alias eum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sunt quod accusantium amet, rerum eligendi harum laboriosam ullam nisi veniam
+      dolore consectetur adipisci sit. Sequi veniam hic omnis vitae molestias! Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque in maxime dolorem veniam, recusandae
+      numquam at possimus nulla nesciunt sapiente. Quisquam, deserunt placeat reprehenderit accusantium sequi tempora natus beatae nisi!
+    </div>
+    <button
+      (click)="onEditContentDialog()"
+      class="absolute bottom-0 right-0 flex items-center justify-center w-10 h-10 mb-2 mr-2 bg-opacity-75 rounded-full bg-green-500 focus:outline-none"
+    >
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.0871 3.80166L12.7123 0.426879C12.524 0.238566 12.2189 0.238566 12.0306 0.426879L0.942003 11.5155C0.851605 11.6059 0.800752 11.7283 0.800752 11.8564L0.799805 15.2321C0.799805 15.3597 0.850657 15.4826 0.941055 15.573C1.03145 15.6634 1.15432 15.7142 1.28193 15.7142L4.65766 15.7133C4.7857 15.7133 4.90813 15.6624 4.99853 15.572L16.0871 4.4834C16.2755 4.29509 16.2755 3.99001 16.0871 3.80166ZM9.7841 4.05309L12.4609 6.72992L4.55399 14.6369L1.87622 14.6378L1.87716 11.96L9.7841 4.05309Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="relative p-4 text-gray-700 bg-white rounded-md">
+    <div class="overflow-scroll no-scroll-bar max-h-40">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti quidem ipsum ab cumque quas repellendus maxime dolore provident hic natus, error odit, iste esse sapiente
+      molestiae aut itaque alias eum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sunt quod accusantium amet, rerum eligendi harum laboriosam ullam nisi veniam
+      dolore consectetur adipisci sit. Sequi veniam hic omnis vitae molestias! Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque in maxime dolorem veniam, recusandae
+      numquam at possimus nulla nesciunt sapiente. Quisquam, deserunt placeat reprehenderit accusantium sequi tempora natus beatae nisi!
+    </div>
+    <button
+      (click)="onEditContentDialog()"
+      class="absolute bottom-0 right-0 flex items-center justify-center w-10 h-10 mb-2 mr-2 bg-opacity-75 rounded-full bg-green-500 focus:outline-none"
+    >
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.0871 3.80166L12.7123 0.426879C12.524 0.238566 12.2189 0.238566 12.0306 0.426879L0.942003 11.5155C0.851605 11.6059 0.800752 11.7283 0.800752 11.8564L0.799805 15.2321C0.799805 15.3597 0.850657 15.4826 0.941055 15.573C1.03145 15.6634 1.15432 15.7142 1.28193 15.7142L4.65766 15.7133C4.7857 15.7133 4.90813 15.6624 4.99853 15.572L16.0871 4.4834C16.2755 4.29509 16.2755 3.99001 16.0871 3.80166ZM9.7841 4.05309L12.4609 6.72992L4.55399 14.6369L1.87622 14.6378L1.87716 11.96L9.7841 4.05309Z"
+          fill="white"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

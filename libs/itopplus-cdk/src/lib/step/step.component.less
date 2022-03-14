@@ -1,0 +1,59 @@
+@import '../assets/styles/properties';
+.card-step {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 8px;
+  padding: 0px;
+  height: 100%;
+  cursor: pointer;
+  transition: @transition;
+  .step-count {
+    padding: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    .step {
+      padding-right: 15px;
+      font-weight: 300;
+    }
+    .count {
+      padding: 3px 15px;
+      border-radius: 15px;
+      background: #f0f3f9;
+      text-align: center;
+      transition: all ease-in-out 0.3s;
+    }
+  }
+  .label-arrow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 20px;
+    padding-top: 0px;
+    .label {
+      font-weight: 450;
+      padding-right: 15px;
+      font-size: 1.2em;
+      line-height: 22px;
+    }
+    .arrow {
+      img {
+        width: 30px;
+      }
+    }
+  }
+  &.active,
+  &:hover {
+    background: @main-color;
+    color: white;
+    .count {
+      background: white !important;
+      color: @main-color;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}

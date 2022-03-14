@@ -1,0 +1,65 @@
+<h1>
+  Converted to Task Leads
+  <svg width="1500" height="1" viewBox="0 0 1500 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="-4.37114e-08" y1="0.5" x2="1500" y2="0.499892" stroke="#B7B6B6" />
+  </svg>
+</h1>
+<div class="inactive">
+  <table mat-table [dataSource]="inActiveData" class="mat-elevation-z0 inactive">
+    <ng-container matColumnDef="Select">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row"></td>
+    </ng-container>
+    <ng-container matColumnDef="Company">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">{{ lead.companyname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Main_Contact">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">
+        <div *ngIf="lead.primaryContactList">
+          <div>{{ lead.primaryContactList[0]?.name }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Phone_no">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">
+        <div *ngIf="lead.primaryContactList">
+          <div>{{ lead.primaryContactList[0]?.phoneNumber }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="E_mail">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">
+        <div *ngIf="lead.primaryContactList">
+          <div>{{ lead.primaryContactList[0]?.email }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Importor">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">
+        <div class="importor">
+          <img class="img-importor" draggable="false" [src]="[lead?.profilePic]" />
+          {{ lead?.createBy }}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Opentask">
+      <th class="inactive" mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let lead">
+        <button mat-raised-button color="primary" [disabled]="true" class="color" (click)="onClickOpenTask(lead)">Open task</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<section class="pb-10">
+  <h3 class="pb-2 text-2xl">{{ siteTitle }}</h3>
+  <div class="select-options-style">
+    <mat-form-field appearance="fill">
+      <mat-select [(value)]="siteStatusDropdown[0].value">
+        <mat-option *ngFor="let siteStatus of siteStatusDropdown" [value]="siteStatus.value">
+          {{ siteStatus.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</section>

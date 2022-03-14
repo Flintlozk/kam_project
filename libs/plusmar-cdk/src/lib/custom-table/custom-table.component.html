@@ -1,0 +1,62 @@
+<div class="table-relative">
+  <div class="custom-table" [ngClass]="[templateStyle]" [ngStyle]="{ 'max-height': tableHeight, 'min-height': tableMinHeight, 'max-width': tableWidth }">
+    <table [@filterAnimation]="tableData?.length" [ngClass]="{ 'addition-head': additionHead }">
+      <tr class="sticky" [ngClass]="[bgHeaderColorClass, templateStyle ? 'bg-blue-200' : '']">
+        <th
+          *ngFor="let header of tableHeader; let i = index"
+          [ngClass]="{ 'border-bottom-radius-0': templateStyle, 'w-10': header?.isSelectAll && i === 0, 'w-4': i === tableHeader.length - 1 }"
+        >
+          <div class="header-label" [ngClass]="{ active: i === currentIndex }" [ngStyle]="{ 'justify-content': header.align || 'left' }">
+            <div *ngIf="header?.isSelectAll; else isRegularCell">
+              <label class="custom-checkbox" *ngIf="tableData?.length" [matTooltip]="'Select all' | translate">
+                <input type="checkbox" [checked]="isAllchecked" (change)="onSelectAll($event)" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
+            <ng-template #isRegularCell>
+              <div class="title">{{ header.title | translate }}</div>
+
+              <button class="p-2 border-none transparent flex items-center relative cursor-pointer" *ngIf="header.infoboxId" (click)="infoboxHandler.emit($event)">
+                <svg class="pointer-events-none" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 0C3.582 0 0 3.582 0 8C0 12.418 3.582 16 8 16C12.418 16 16 12.418 16 8C16 3.582 12.418 0 8 0ZM8 13.1067C7.37467 13.1067 6.94667 12.6247 6.94667 12C6.94667 11.3573 7.39267 10.8933 8 10.8933C8.642 10.8933 9.05333 11.3573 9.05333 12C9.05333 12.6253 8.642 13.1067 8 13.1067ZM8.41467 8.88067C8.25533 9.424 7.75333 9.43333 7.586 8.88067C7.39333 8.24333 6.70867 5.824 6.70867 4.25267C6.70867 2.17933 9.30267 2.16933 9.30267 4.25267C9.302 5.83333 8.58067 8.31533 8.41467 8.88067Z"
+                    fill="#53B1FF"
+                  />
+                </svg>
+                <span class="js-dropdown dropdown absolute" reactorRoomClickOutside (outside)="infoboxHandler.emit($event)" [innerHTML]="infoboxHTML"></span>
+              </button>
+
+              <div
+                class="sort"
+                [matTooltip]="('Sort by' | translate) + ' ' + (header?.title?.toLowerCase() | translate)"
+                (click)="sortTableData($event, i, getOrderMethod(i))"
+                [ngClass]="orderMethod?.toLowerCase() || 'desc'"
+                *ngIf="header?.sort"
+              >
+                <div class="icon-up-down up" [ngClass]="{ active: orderMethod === 'asc' && currentIndex === i }"></div>
+                <div class="icon-up-down down" [ngClass]="{ active: orderMethod === 'desc' && currentIndex === i }"></div>
+              </div>
+            </ng-template>
+          </div>
+        </th>
+      </tr>
+      <tbody *ngIf="isLoading">
+        <tr>
+          <td [attr.colspan]="tableColSpan" style="text-align: center">{{ 'Loading' | translate }}...</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="(isNoData || tableData?.length === 0) && isLoading === false">
+        <tr>
+          <td [attr.colspan]="tableColSpan" style="text-align: center">
+            {{ 'No data available' | translate }}
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!isLoading">
+        <ng-content select=".table-content"></ng-content>
+        <ng-content select=".table-content-group-wrapper"></ng-content>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+@import '../assets/styles/properties';
+.quill-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+quill-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  word-break: break-word;
+  .toolbar {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    content: @text-color;
+    position: relative;
+    .style {
+      padding-right: 15px;
+      border-right: @default-border;
+      cursor: pointer;
+      .content {
+        display: flex;
+        align-items: center;
+        .arrow {
+          border: solid @text-color;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          margin-left: 5px;
+          margin-top: -3px;
+          transition: @transition;
+          &.down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+          }
+          &.up {
+            margin-top: 3px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+          }
+        }
+      }
+    }
+    .link {
+      padding-left: 10px;
+    }
+    .style-expand {
+      position: absolute;
+      background: white;
+      border: 1px solid @border-color;
+      margin: 0px !important;
+      bottom: calc(100% + 10px);
+      left: 0px;
+      z-index: 1;
+      border-radius: 8px;
+      box-shadow: @default-shadow;
+      padding: 10px;
+      transition: @transition;
+      transform-origin: left bottom;
+      &.inactive {
+        transform: scale(0);
+      }
+      &.active {
+        transform: scale(1);
+      }
+    }
+  }
+  .ql-editor {
+    min-height: 100px;
+  }
+}
+.invalid {
+  .label {
+    color: @danger-color !important;
+  }
+  input {
+    border-color: @danger-color !important;
+    & {
+      background-image: url('../assets/images/danger-icon.png');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+    }
+  }
+  .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-color: @danger-color !important;
+    & {
+      background-image: url('../assets/images/danger-icon.png');
+      background-size: 15px 15px;
+      background-repeat: no-repeat;
+      background-position: right;
+      background-position-x: calc(100% - 15px);
+      background-position-y: 15px;
+    }
+  }
+  mat-error {
+    font-size: 10px;
+    font-weight: 300;
+    color: @danger-color !important;
+    padding-top: 5px;
+    display: block;
+  }
+}

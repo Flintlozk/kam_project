@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="82px" height="85px" viewBox="0 0 82 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>Group 16</title>
+    <desc>Created with Sketch.</desc>
+    <g id="More-commerce" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Menu" transform="translate(-77.000000, -536.000000)" stroke="#74787C">
+            <g id="Group-16" transform="translate(79.000000, 538.000000)">
+                <path d="M39,16 C26.8497355,16 17,25.8497355 17,38 C17,47.0443204 22.5079603,55.0651164 30.750451,58.4015817 L32.0000277,58.907396 L32,67 L47,67 C47,67 47,67 47,66.9998553 L47.0006122,58.5409248 L48.1662167,58.0059186 C55.9225497,54.4458036 61,46.6846427 61,38 C61,25.8497355 51.1502645,16 39,16 Z" id="Combined-Shape" stroke-width="4"></path>
+                <path d="M40,24.5881159 C46,25.7259825 49,28.8138478 49,33.8517119" id="Path-35" stroke-width="3" stroke-linecap="round"></path>
+                <path d="M30.5,71.5 L30.5,77 C30.5,79.9769645 34.4948063,82.5 39.5,82.5 C44.5051937,82.5 48.5,79.9769645 48.5,77 L48.5,71.5 L30.5,71.5 Z" id="Combined-Shape" fill="#74787C"></path>
+                <line x1="8" y1="14" x2="16.8666452" y2="14" id="Path-37" stroke-width="4" stroke-linecap="round" transform="translate(12.433323, 14.000000) rotate(32.000000) translate(-12.433323, -14.000000) "></line>
+                <line x1="62" y1="14" x2="70.8666452" y2="14" id="Path-37" stroke-width="4" stroke-linecap="round" transform="translate(66.433323, 14.000000) rotate(-32.000000) translate(-66.433323, -14.000000) "></line>
+                <line x1="0" y1="34.5" x2="8.86664524" y2="34.5" id="Path-37" stroke-width="4" stroke-linecap="round"></line>
+                <line x1="35" y1="4.5" x2="43.8666452" y2="4.5" id="Path-37" stroke-width="4" stroke-linecap="round" transform="translate(39.433323, 4.500000) rotate(90.000000) translate(-39.433323, -4.500000) "></line>
+                <line x1="69" y1="34.5" x2="77.8666452" y2="34.5" id="Path-37" stroke-width="4" stroke-linecap="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>

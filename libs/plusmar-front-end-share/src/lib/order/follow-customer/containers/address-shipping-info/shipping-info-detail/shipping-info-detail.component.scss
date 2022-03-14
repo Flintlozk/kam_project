@@ -1,0 +1,46 @@
+@import 'base';
+.shipping-info-detail {
+  .shipping {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    .item {
+      &.on-line {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+      .label {
+        font-size: 12px;
+        padding-bottom: 10px;
+        font-weight: 300;
+        color: #8798a6;
+      }
+      input {
+        width: calc(100% - 32px);
+        height: 35px;
+        padding: 0px 15px;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+
+        &.error {
+          border-color: red;
+        }
+      }
+      .select-option {
+        width: calc(100% - 2px);
+      }
+    }
+  }
+  .form-readonly {
+    font-size: 16px;
+    border: 1px solid #f2f1f3;
+    outline: none;
+    background: #f2f5f9;
+    color: black;
+    // margin: 0px 6px 12px 6px;
+    border-radius: 5px;
+    min-height: 30px;
+    height: 80%;
+    width: 90%;
+  }
+}

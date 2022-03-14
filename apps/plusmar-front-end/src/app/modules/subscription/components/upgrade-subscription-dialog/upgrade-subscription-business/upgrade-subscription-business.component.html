@@ -1,0 +1,93 @@
+<div class="content">
+  <div class="detail sme">
+    <div class="title">SME</div>
+    <div>
+      <span class="price">23,500</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 1 เพจ
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> ผู้ดูแลระบบไม่เกิน 3 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> เก็บรายชื่อลูกค้าไม่เกิน 2,000 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 2" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="currentPlanID > 2" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID === 1" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(2)">Subscribe</button>
+    </div>
+  </div>
+  <div class="detail business">
+    <div class="title">BUSINESS</div>
+    <div>
+      <span class="price">27,800</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 1 เพจ
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> ผู้ดูแลระบบไม่เกิน 5 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> เก็บรายชื่อลูกค้าไม่เกิน 5,000 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span>เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล Unlimited
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 3" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="currentPlanID > 3" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID < 3" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(3)">Subscribe</button>
+    </div>
+  </div>
+
+  <div class="detail enterprise">
+    <div class="title">ENTERPRISE</div>
+    <div>
+      <span class="price">35,800</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 2 เพจ <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> ผู้ดูแลระบบ <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> เก็บรายชื่อลูกค้า <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-purple.svg" /></span> เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 4" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="currentPlanID > 4" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID < 4" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(4)">Subscribe</button>
+    </div>
+  </div>
+</div>

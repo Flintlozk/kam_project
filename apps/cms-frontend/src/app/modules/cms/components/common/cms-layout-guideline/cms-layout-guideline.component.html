@@ -1,0 +1,63 @@
+<div class="absolute w-full h-full left-0 top-0 group guideline" [ngClass]="{ ' border-4 border-green-500': onFocus }">
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: isChildEnter || onFocus, hidden: !isChildEnter && !onFocus }">
+    <div class="flex items-center justify-between absolute h-12 bg-gray-700 w-full bottom-full left-0">
+      <div #dragHandler class="flex items-center cursor-move flex-1 drag-handler">
+        <button class="right-full absolute flex items-center justify-center h-12 w-12 focus:outline-none bg-gray-700 cursor-move">
+          <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="2" cy="2" r="2" fill="#797F8C" />
+            <circle cx="2" cy="8" r="2" fill="#797F8C" />
+            <circle cx="2" cy="14" r="2" fill="#797F8C" />
+            <circle cx="8" cy="2" r="2" fill="#797F8C" />
+            <circle cx="8" cy="8" r="2" fill="#797F8C" />
+            <circle cx="8" cy="14" r="2" fill="#797F8C" />
+          </svg>
+        </button>
+        <button (click)="onDecreaseDropIndex()" class="flex items-center justify-center h-12 w-12 focus:outline-none bg-green-300">
+          <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M1 5L5.74101 1.07281C5.83466 0.99524 6.01817 0.976724 6.15089 1.03145C6.17805 1.04265 6.20177 1.05646 6.22103 1.07229L11 5"
+              stroke="white"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+            <path d="M6 1.83114C6 1.15391 6 1.87952 6 4.00796C6 6.1364 6 9.32906 6 13.5859" stroke="white" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button (click)="onIncreaseDropIndex()" class="flex items-center justify-center h-12 w-12 focus:outline-none bg-green-400">
+          <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10 9L5.73309 12.9272C5.64881 13.0048 5.48365 13.0233 5.3642 12.9685C5.33975 12.9573 5.31841 12.9435 5.30108 12.9277L1 9"
+              stroke="white"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5.5625 12.7271C5.5625 13.4808 5.5625 12.6733 5.5625 10.3046C5.5625 7.93595 5.5625 5.73734 5.5625 1"
+              stroke="white"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+        <div [ngClass]="{ 'bg-green-500': !themeOption, 'bg-green-900': themeOption }" class="flex items-center justify-center h-12 px-4 focus:outline-none">
+          <svg width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="12" height="19" fill="white" fill-opacity="0.58" />
+            <rect x="12" width="12" height="19" fill="white" fill-opacity="0.79" />
+          </svg>
+          <span *ngIf="!themeOption" class="ml-4 text-lg text-white font-light">Layout</span>
+          <span *ngIf="themeOption" class="ml-4 text-lg text-white font-light">{{ themeOption.themeIdentifier }}</span>
+        </div>
+        <div class="flex items-center justify-center h-12 px-4 focus:outline-none">
+          <span class="ml-4 text-lg text-white font-light">Name: {{ title }}</span>
+        </div>
+      </div>
+      <button *ngIf="!themeOption" class="focus:outline-none justify-self-end px-4 flex-shrink-0" (click)="onRemoveCurrentComponent()">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="11" fill="#AAB2C2" />
+          <path d="M6 6L16 16M16 6L6 16" stroke="white" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute w-full h-full bg-green-500 opacity-40" [ngClass]="{ hidden: isChildEnter || onFocus }"></div>
+  </div>
+</div>

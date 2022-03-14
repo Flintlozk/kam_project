@@ -1,0 +1,137 @@
+<reactor-room-loader block="true" [text]="tagLoaderText" *ngIf="tagLoader"></reactor-room-loader>
+<div class="customers-tags">
+  <div class="head">
+    <div class="text">{{ totalRows }} {{ 'Tags' | translate }}</div>
+    <div class="controls">
+      <input autofocus type="text" [placeholder]="'Search' | translate" [formControl]="searchField" />
+      <button class="btn-delete" (click)="openDeleteConfirmDialog()" [ngClass]="{ active: selectedIds.length }" [disabled]="!selectedIds.length">
+        <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.1925 3.0465H10.3976C10.2582 1.85315 9.22962 0.923096 7.98384 0.923096C6.73811 0.923096 5.70965 1.85311 5.57023 3.0465H2.7752C1.64414 3.0465 0.72406 3.95495 0.72406 5.07137V5.95945C0.72406 6.81261 1.26224 7.54284 2.02038 7.84038L2.02037 16.9752C2.02037 18.0917 2.94055 19.0001 4.07155 19.0001H11.8962C13.0272 19.0001 13.9473 18.0916 13.9473 16.9752L13.9473 7.84042C14.7054 7.54284 15.2437 6.81261 15.2437 5.95948V5.07141C15.2437 3.95495 14.3235 3.0465 13.1925 3.0465ZM7.98384 1.88338C8.69237 1.88338 9.28377 2.38467 9.41463 3.0465H6.55332C6.68414 2.38463 7.27558 1.88338 7.98384 1.88338ZM12.9745 16.9752C12.9745 17.5622 12.4906 18.0399 11.8962 18.0399H4.07151C3.47702 18.0399 2.99318 17.5622 2.99318 16.9752L2.99319 7.98432H12.9745L12.9745 16.9752ZM14.2709 5.95945C14.2709 6.54644 13.787 7.02407 13.1925 7.02407H2.7752C2.18071 7.02407 1.69687 6.54644 1.69687 5.95945V5.07137C1.69687 4.48438 2.18071 4.00675 2.7752 4.00675H13.1925C13.787 4.00675 14.2709 4.48438 14.2709 5.07137V5.95945Z"
+          />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99472 10.0001V15.0004H8.99634V10.0001H9.99472Z" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00345 10.0001V15.0004H6.00507V10.0001H7.00345Z" />
+        </svg>
+        <span class="label"> {{ 'Delete All' | translate }} ({{ selectedIds.length }}) </span>
+      </button>
+      <button class="btn-create" (click)="openTagManageDialog(addMode)">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+          />
+        </svg>
+
+        <span class="label">
+          {{ 'Create New Tags' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="table">
+    <reactor-room-custom-table
+      [isLoading]="isLoading"
+      [isNoData]="isNoData"
+      [tableData]="tagsData"
+      [tableHeader]="tableHeader"
+      [isNoVerticalScroll]="true"
+      [tableColSpan]="tableColSpan"
+      (selectAll)="selectAllHandler($event)"
+      [orderMethod]="tableFilters.orderMethod"
+      (sortTableMetaData)="sortTableData($event)"
+      [isAllchecked]="isAllchecked"
+      [currentIndex]="1"
+    >
+      <ng-container *ngFor="let data of tagsData; trackBy: trackBy; let i = index" class="table-content">
+        <tr>
+          <td class="checkbox">
+            <div class="first">
+              <label class="custom-checkbox">
+                <input type="checkbox" [checked]="isIdSelected(data.id)" (change)="selectRow(data.id, $event)" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center">
+              <div class="current-color" [ngStyle]="{ 'background-color': colorEnums[data.color] }"></div>
+              {{ data.name }}
+            </div>
+          </td>
+          <td>
+            <ng-container *ngFor="let user of data?.users">
+              <img [matTooltip]="user.userName" style="height: 34px; width: 34px; border-radius: 50%; margin-right: 4px" [src]="user.profileImg" alt="bobble" />
+            </ng-container>
+          </td>
+          <td class="action">
+            <div class="flex">
+              <div class="tooltip" style="margin-right: 8px">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="21px"
+                  height="24px"
+                  viewBox="0 0 61 66"
+                  version="1.1"
+                  (click)="editAssignee(data)"
+                >
+                  <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+                  <title>icon_dark_menu_CRM</title>
+                  <desc>Created with Sketch.</desc>
+                  <g id="Symbol" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Inbox" transform="translate(-624.000000, -1371.000000)" fill-rule="nonzero" stroke="#55B2FF" stroke-width="3">
+                      <g id="Dark_Active" transform="translate(164.000000, 1351.000000)">
+                        <g id="icon_dark_menu_CRM" transform="translate(462.000000, 21.000000)">
+                          <path
+                            d="M28.5,28.1800766 C20.9783385,28.1800766 14.8589744,22.0199908 14.8589744,14.4482759 C14.8589744,6.87656092 20.9783385,0.716475096 28.5,0.716475096 C36.0216615,0.716475096 42.1410256,6.87656092 42.1410256,14.4482759 C42.1410256,22.0199908 36.0216615,28.1800766 28.5,28.1800766 Z"
+                            id="Shape"
+                          />
+                          <path
+                            d="M49.7756933,43.7868835 C45.0940933,39.0989356 38.8878067,36.5172414 32.3,36.5172414 L24.7,36.5172414 C18.11232,36.5172414 11.9059067,39.0989356 7.22430667,43.7868835 C2.56563333,48.4518465 0,54.6095875 0,61.1262199 C0,62.1610462 0.850693333,63 1.9,63 L55.1,63 C56.1493067,63 57,62.1610462 57,61.1262199 C57,54.6095875 54.4343667,48.4518465 49.7756933,43.7868835 Z"
+                            id="Shape"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <span class="tooltiptext">{{ 'Assign' | translate }}</span>
+              </div>
+              <div class="tooltip" style="margin-right: 4px">
+                <svg width="24" height="24" viewBox="0 0 24 24" class="cursor-pointer" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="editTag(data)">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17.2168 1.61961L3.09199 15.7444C3.09199 15.7444 3.03907 20.4708 3.03393 20.6613C3.02878 20.8519 3.17516 21.0039 3.37016 20.9976C3.49643 20.9935 4.70883 20.98 6.07369 20.9647C6.81652 20.9564 7.6045 20.9476 8.28713 20.9395L22.3964 6.8302C22.8756 6.35105 22.7931 5.91267 22.3758 5.49535L18.4808 1.60031C18.1098 1.22936 17.6907 1.15769 17.2168 1.61961ZM4.24433 19.7872L4.28614 16.2473L14.4963 6.03716L17.9943 9.53524L7.78422 19.7454L4.24433 19.7872Z"
+                    fill="url(#paint0_linear)"
+                  />
+                  <defs>
+                    <linearGradient id="paint0_linear" x1="3.1276" y1="20.9039" x2="20.456" y2="3.57553" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#55B2FF" />
+                      <stop offset="1" stop-color="#87D6FF" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <span class="tooltiptext">{{ 'Edit' | translate }}</span>
+              </div>
+              <div class="tooltip" style="margin-right: 4px">
+                <svg width="19" height="22" (click)="deleteSingleTag(data.id)" viewBox="0 0 19 22" class="ml-5 cursor-pointer" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16.0526 2.99642H12.5368C12.3614 1.56802 11.0675 0.454773 9.50034 0.454773C7.93327 0.454773 6.63953 1.56797 6.46415 2.99642H2.94815C1.52533 2.99642 0.36792 4.08381 0.36792 5.42013V5.72329C0.36792 6.7445 1.04492 7.61857 1.99862 7.97471V19.5765C1.99862 20.9129 3.15617 22.0002 4.57889 22.0002H14.4219C15.8447 22.0002 17.0021 20.9128 17.0021 19.5765V7.97476C17.9558 7.61857 18.6328 6.7445 18.6328 5.72334V5.42017C18.6328 4.08381 17.4753 2.99642 16.0526 2.99642ZM9.50034 1.60421C10.3916 1.60421 11.1356 2.20423 11.3002 2.99642H7.70082C7.86538 2.20419 8.60938 1.60421 9.50034 1.60421ZM15.7783 19.5765C15.7783 20.2791 15.1697 20.8508 14.4218 20.8508H4.57885C3.83101 20.8508 3.22237 20.2791 3.22237 19.5765V8.147H15.7783V19.5765ZM17.4091 5.72329C17.4091 6.42591 16.8004 6.99761 16.0525 6.99761H2.94815C2.20031 6.99761 1.59167 6.42591 1.59167 5.72329V5.42013C1.59167 4.71752 2.20031 4.14581 2.94815 4.14581H16.0526C16.8004 4.14581 17.4091 4.71752 17.4091 5.42013V5.72329Z"
+                    fill="#D1D2D5"
+                  />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9926 11.0001V16.9852H11.9926V11.0001H12.9926Z" fill="#D1D2D5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99603 11.0001V16.9852H8.99603V11.0001H9.99603Z" fill="#D1D2D5" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.99951 11V16.9851H5.99951V11H6.99951Z" fill="#D1D2D5" />
+                </svg>
+                <span class="tooltiptext">{{ 'Delete' | translate }}</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr></tr>
+      </ng-container>
+    </reactor-room-custom-table>
+    <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [pageSizeOptions]="[10, 50, 100]" [length]="totalRows" (changePage)="changePage($event)">
+    </reactor-room-pagination>
+  </div>
+</div>

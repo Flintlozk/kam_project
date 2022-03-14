@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/stylesheet.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="/javascript/jsbarcode.min.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      window.onload = function () {
+        const option = {displayValue: false,format:'CODE39'};
+        JsBarcode('#trackNo', payloadData.trackingNo , option);
+        JsBarcode('#orderID', payloadData.aliasOrderID , option);
+      };
+    </script>
+  </head>
+  <body x-data="{payloadData:payloadData}">
+    <page size="A4">
+      <div class="grid-2-6-4">
+        <div class="shop-info">
+          <p class="instruction">* กรณีจัดส่งสินค้าไม่สำเร็จ กรุณาส่งคืน...</p>
+          <p class="description">ชื่อที่อยู่ผู้ส่ง</p>
+          <p class="title" x-text="payloadData.pageName">pageName</p>
+          <p class="shop-details">
+            <span
+              x-text="payloadData.sourceLocation.address + ' ' +
+              payloadData.customerLocation.district +' ' +
+              payloadData.customerLocation.city +' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+            >
+              #address + #district + #city + #province + #post_code</span
+            ><br />
+            <span>เบอร์โทร: <span x-text="payloadData.pagePhoneNumber">#pagePhoneNumber</span></span>
+          </p>
+        </div>
+        <div class="flash-code">
+          <div class="main">
+            <div class="text" x-text="payloadData.labelDetail.expandedSortCode.ext1 + '-'">#ext_s1</div>
+            <div class="code" x-text="payloadData.labelDetail.expandedSortCode.ext2">#ext_s2</div>
+            <div class="text" x-text="'-' + payloadData.labelDetail.expandedSortCode.ext3">#ext_s3</div>
+          </div>
+          <div class="sub">
+            <div class="dst">DST</div>
+            <div class="code" x-text="payloadData.labelDetail.expandedDstStoreName.ext1+'-'">#ext_d1</div>
+            <div class="text" x-text="payloadData.labelDetail.expandedDstStoreName.ext2">#ext_d2</div>
+          </div>
+        </div>
+      </div>
+      <div class="delivery-tracking">
+        <div class="container">
+          <div class="label">ชื่อที่อยู่ผู้รับ</div>
+          <div class="details delivery">
+            <div class="info">
+              <div class="name" x-text="payloadData.customerName">#customerName</div>
+              <div
+                x-text="
+              payloadData.customerLocation.address + ' ' +
+              payloadData.customerLocation.district + ' ' +
+              payloadData.customerLocation.city + ' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+              >
+                #address + #district + #city + #province + #post_code
+              </div>
+              <div>เบอร์โทร: <span x-text="payloadData.customerPhoneNumber">#customerPhoneNumber</span></div>
+            </div>
+            <div class="postal">
+              <div class="postal-code">
+                <div x-text="payloadData.customerLocation.post_code[0]">0</div>
+                <div x-text="payloadData.customerLocation.post_code[1]">1</div>
+                <div x-text="payloadData.customerLocation.post_code[2]">2</div>
+                <div x-text="payloadData.customerLocation.post_code[3]">3</div>
+                <div x-text="payloadData.customerLocation.post_code[4]">4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="label">Tracking No.</div>
+          <div class="details tracking">
+            <div class="barcode">
+              <img class="barcode-img" id="trackNo" alt="barcode" />
+              <div class="code" x-text="payloadData.trackingNo">#trackingNo</div>
+            </div>
+            <img src="/images/flash.png" alt="Logo" />
+          </div>
+        </div>
+      </div>
+      <div class="grid-2-col">
+        <div class="barcode">
+          <img class="barcode-img" id="orderID" alt="barcode" />
+          <div class="details">
+            <div>เลขที่ใบสั่งซื้อ</div>
+            <div x-text="payloadData.aliasOrderID">#aliasOrderID</div>
+          </div>
+        </div>
+        <div class="cod-acc">
+          <div class="special-label" x-text="payloadData.labelDetail.sortingLineCode">#sortingLineCode</div>
+        </div>
+      </div>
+      <div class="order-detail">
+        <div class="title">**หากต้องการเปลี่ยนหรือคืนสินค้า กรุณาติดต่อบริษัทที่ท่านสั่งซื้อโดยตรง</div>
+        <table cellspacing="0">
+          <tr>
+            <th>#</th>
+            <th>รายการ</th>
+            <th>ตัวเลือก</th>
+            <th>จำนวน</th>
+          </tr>
+          <template x-for="product in payloadData.products" :key="product">
+            <tr>
+              <td x-text="product.index">#index</td>
+              <td x-text="product.productName">#product</td>
+              <td x-text="product.attributes">#attributes</td>
+              <td x-text="product.quantity">#quantity</td>
+            </tr>
+          </template>
+        </table>
+      </div>
+    </page>
+  </body>
+</html>

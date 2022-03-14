@@ -1,0 +1,35 @@
+<reactor-room-custom-table
+  *ngIf="audienceList$ | async as audienceList"
+  [isNoVerticalScroll]="true"
+  [isLoading]="false"
+  [tableColSpan]="6"
+  [tableData]="audienceList"
+  [isNoData]="false"
+  [tableHeader]="tableHeader"
+>
+  <tr *ngFor="let audience of audienceList; trackBy: trackBy" class="table-content" #tableContent (click)="redirectToDetail(audience.id)">
+    <td>
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [platform]="audience?.platform"
+        [firstName]="audience?.first_name"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      >
+      </reactor-room-custom-table-content>
+    </td>
+    <td>
+      {{ audience.updated_at | timeAgo: 'utc' }}
+    </td>
+    <td [ngStyle]="{ color: audience.payment_type ? '#000' : '#EA6161' }">
+      {{ audience.payment_type ? EnumPaymentTypename[audience.payment_type] : 'Unselect' }}
+    </td>
+    <td>{{ audience.total_price ? '฿' + audience.total_price : '-' }}</td>
+    <td [ngStyle]="{ color: audience.is_paid ? '#000' : '#EA6161' }">{{ audience.is_paid ? 'Paid' : 'Unpaid' }}</td>
+    <td>
+      <reactor-room-custom-table-content (click)="redirectToDetail(audience.id)" [Selector]="'detail'"> </reactor-room-custom-table-content>
+    </td>
+  </tr>
+</reactor-room-custom-table>

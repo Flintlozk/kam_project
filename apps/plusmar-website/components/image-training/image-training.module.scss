@@ -1,0 +1,167 @@
+@import '/pages/styles/variable.module.scss';
+.mainContainer {
+  width: 100%;
+  // height: 500px;
+  background-color: $more_coolgrey10;
+  .innerContainer {
+    width: 1440px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    .titleText {
+      text-align: center;
+      font-size: 3rem;
+      color: $more_blue60;
+      font-weight: 600;
+    }
+    .descriptText {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: $more_coolgrey80;
+      line-height: 2.5;
+    }
+    .flexContainer {
+      width: 100%;
+      // display: flex;
+      padding-top: 55px;
+      text-align: center;
+      .workshopImage {
+        padding-bottom: 10px;
+        padding-left: 16px;
+        display: inline-block;
+        width: 23%;
+        img {
+          width: 95%;
+        }
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .mainContainer {
+    width: 100%;
+    // height: 500px;
+    background-color: $more_coolgrey10;
+    .innerContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-top: 80px;
+      padding-bottom: 80px;
+      .titleText {
+        text-align: center;
+        font-size: 3vw;
+        color: $more_blue60;
+        font-weight: 600;
+      }
+      .descriptText {
+        text-align: center;
+        font-size: 1.7vw;
+        font-weight: 400;
+        color: $more_coolgrey80;
+        line-height: 2.5;
+      }
+      .flexContainer {
+        width: 100%;
+        // display: flex;
+        padding-top: 55px;
+        text-align: center;
+        .workshopImage {
+          padding-bottom: 10px;
+          display: inline-block;
+          width: 23%;
+          img {
+            width: 95%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    width: 100%;
+    height: 100%;
+    background-color: $more_coolgrey10;
+    .innerContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      // position: relative;
+      .titleText {
+        text-align: center;
+        font-size: 4vw;
+        color: $more_blue60;
+        font-weight: 600;
+      }
+      .descriptText {
+        text-align: center;
+        font-size: 2.3vw;
+        font-weight: 400;
+        color: $more_coolgrey80;
+        line-height: 2.5;
+      }
+      .flexContainer {
+        width: 100%;
+        display: inline-block;
+        padding-top: 55px;
+        text-align: center;
+        .workshopImage {
+          padding-bottom: 10px;
+          display: flex;
+          width: 46%;
+          float: left;
+          img {
+            width: 95%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .mainContainer {
+    width: 100%;
+    height: 100%;
+    background-color: $more_coolgrey10;
+    .innerContainer {
+      width: 85%;
+      margin: 0 auto;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      // position: relative;
+      .titleText {
+        text-align: center;
+        font-size: 8vw;
+        color: $more_blue60;
+        font-weight: 600;
+      }
+      .descriptText {
+        text-align: center;
+        font-size: 6vw;
+        font-weight: 400;
+        color: $more_coolgrey80;
+        line-height: 1.5;
+      }
+      .flexContainer {
+        width: 100%;
+        display: inline-block;
+        padding-top: 55px;
+        text-align: center;
+        .workshopImage {
+          padding-bottom: 10px;
+          display: flex;
+          width: 90%;
+          float: left;
+          img {
+            width: 95%;
+          }
+        }
+      }
+    }
+  }
+}

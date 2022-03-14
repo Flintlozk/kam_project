@@ -1,0 +1,7 @@
+<div (click)="onClick($event)" class="modal-backdrop" [ngClass]="{ active: isModalShown, out: !isModalShown }">
+  <div class="modal-background">
+    <div #insideElement class="modal">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

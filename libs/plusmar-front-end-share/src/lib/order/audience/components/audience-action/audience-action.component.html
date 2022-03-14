@@ -1,0 +1,100 @@
+<ng-container *ngIf="selector === 'HEADER'">
+  <reactor-room-heading [headingTitle]="'Messages' | translate" [Route]="('Messages' | translate) + ' / ' + 'Detail' | translate">
+    <div class="heading-content">
+      <button class="btn-back" (click)="onCancel()" id="audience-action-close-button">{{ '<<' }} {{ 'Back' | translate }}</button>
+      <ng-container *ngIf="!isLeadFormSubmitted">
+        <button class="btn-follow" reactorRoomClickOutside (click)="toggleMoveTo()" (outside)="clickOutsideToggleMoveToEvent($event)" *ngIf="!isContactFormSent">
+          <span class="ml-5"> {{ 'Move to' | translate }}... </span>
+          <div class="more-menu menu-toggle" *ngIf="moveToMenu" [@slideInOut]>
+            <ng-container *ngIf="audience.status !== AudienceDomainStatus.REJECT && audience.status !== AudienceDomainStatus.CLOSED">
+              <div mat-menu-item class="item" *ngIf="redirectRoute === 'MESSAGE' && audience.status !== 'COMMENT'" (click)="redirectToFollows()">
+                <reactor-room-svg [name]="'icon_service'"></reactor-room-svg>
+                <span class="ml-10">
+                  {{ 'Follow' | translate }}
+                </span>
+              </div>
+              <div *ngIf="!isSubscriptionBusiness && audience.status !== 'COMMENT'" mat-menu-item class="item" (click)="validateIsOrderCreatable()">
+                <reactor-room-svg [name]="'open_order'"></reactor-room-svg>
+                <span class="ml-10 text-left">
+                  {{ 'Open Order' | translate }}
+                  <p *ngIf="isSubscriptionFree && totalPO$ | async as totalPO" class="m-0 text-gray-300 text-left text-xs">Limit {{ totalPO.length }}/{{ maximumOrders }}</p>
+                </span>
+              </div>
+              <!-- <div mat-menu-item class="item" (click)="toggleAddLeadForm()">
+                <reactor-room-svg [name]="'icon_Leads'"></reactor-room-svg>
+                <span class="ml-10">
+                  {{ 'Lead' | translate }}
+                </span>
+              </div> -->
+            </ng-container>
+            <ng-container *ngIf="audience.status === AudienceDomainStatus.REJECT || audience.status === AudienceDomainStatus.CLOSED">
+              <div mat-menu-item class="item" (click)="openNewChat()">
+                <reactor-room-svg [name]="'icon_service'"></reactor-room-svg>
+                <span class="ml-10">
+                  {{ 'Follow' | translate }}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="!isLeadFormSubmitted && (audience.status === AudienceDomainStatus.INBOX || audience.status === AudienceDomainStatus.COMMENT)">
+        <button [class]="!isContactFormSent ? 'btn-close' : 'btn-reject reject'" (click)="rejectAudience()" *ngIf="redirectRoute === 'MESSAGE'">
+          <img *ngIf="isContactFormSent" src="assets/img/reject-icon.svg" alt="" />
+          {{ !isContactFormSent ? ('Not Customer' | translate) : ('Reject' | translate) }}
+        </button>
+      </ng-container>
+
+      <button
+        class="btn-close-follow"
+        (click)="closeFollowedAudience()"
+        *ngIf="redirectRoute === 'FOLLOW' && audience.status !== AudienceDomainStatus.REJECT && audience.status !== AudienceDomainStatus.CLOSED"
+      >
+        <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9.28601" cy="9" r="9" fill="#2EC639" />
+          <path
+            d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+            fill="white"
+          />
+        </svg>
+
+        <span class="ml-5"> </span>
+        {{ 'Close Follow' | translate }}
+      </button>
+    </div>
+  </reactor-room-heading>
+</ng-container>
+
+<ng-container class="buttons" *ngIf="selector === 'BUTTON'">
+  <div class="btn-item" (click)="redirectToFollows()" *ngIf="redirectRoute === 'MESSAGE'">
+    <reactor-room-svg name="'icon_service'"></reactor-room-svg>
+    <span style="margin-left: 5px">{{ 'Follow' | translate }}</span>
+  </div>
+
+  <div class="btn-item" (click)="validateIsOrderCreatable()" [ngClass]="{ first: redirectRoute !== 'MESSAGE' }">
+    <reactor-room-svg [name]="'open_order'"></reactor-room-svg>
+    <span style="margin-left: 5px"> {{ 'Open Order' | translate }}</span>
+  </div>
+
+  <!-- <div class="btn-item last" (click)="toggleAddLeadFormMobile()">
+    <reactor-room-svg [name]="'icon_Leads'"></reactor-room-svg>
+    <span style="margin-left: 5px"> {{ 'Lead' | translate }}</span>
+  </div> -->
+
+  <div class="btn-item danger reject" (click)="closeAudience()" *ngIf="redirectRoute === 'MESSAGE'">
+    <span> {{ !isContactFormSent ? ('Not Customer' | translate) : ('Reject' | translate) }} </span>
+  </div>
+
+  <div class="btn-item valid reject" (click)="closeFollowedAudience()" *ngIf="redirectRoute === 'FOLLOW'">
+    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9.28601" cy="9" r="9" fill="#2EC639" />
+      <path
+        d="M14.9182 4.822C14.6916 4.59058 14.3243 4.59058 14.0977 4.822L7.14643 11.9211L4.47449 9.19237C4.24792 8.96095 3.88058 8.96098 3.65396 9.19237C3.42736 9.42376 3.42736 9.79892 3.65396 10.0303L6.73616 13.178C6.96267 13.4094 7.33028 13.4093 7.5567 13.178L14.9182 5.65999C15.1448 5.4286 15.1448 5.05342 14.9182 4.822Z"
+        fill="white"
+      />
+    </svg>
+    &nbsp;
+    <span>{{ 'Close Follow' | translate }}</span>
+  </div>
+</ng-container>

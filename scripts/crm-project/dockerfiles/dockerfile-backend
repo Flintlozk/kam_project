@@ -1,0 +1,6 @@
+FROM itopplus/reactor-room-node-module
+ENV INSTALL_PROJECT_PATH /project
+WORKDIR $INSTALL_PROJECT_PATH
+ADD ./dist/apps/crm-backend .
+ADD ./package.json .
+CMD ["node","main.js"]

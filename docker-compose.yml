@@ -1,0 +1,82 @@
+version: '3.3'
+services:
+  natsjs1:
+    container_name: natsjs1
+    hostname: natsjs1
+    image: itopplus/nats
+    command: '--server_name S1 --config /etc/nats/nats-server.conf --js'
+    networks:
+      - nats
+    ports:
+      - 4222:4222
+    volumes:
+      - './tools/docker/NATS/nats-server.conf:/etc/nats/nats-server.conf'
+      - NATS1:/data/nats-server/jetstream
+  natsjs2:
+    container_name: natsjs2
+    hostname: natsjs2
+    image: itopplus/nats
+    command: '--server_name S2 --config /etc/nats/nats-server.conf --js'
+    networks:
+      - nats
+    ports:
+      - 4223:4222
+    volumes:
+      - NATS2:/data/nats-server/jetstream
+      - './tools/docker/NATS/nats-server.conf:/etc/nats/nats-server.conf'
+  redis:
+    image: 'redis'
+    container_name: 'redis-reactor'
+    networks:
+      - web-docker-network
+    ports:
+      - '6379:6379'
+  openresty:
+    image: openresty/openresty:1.19.9.1-5-alpine-fat
+    container_name: openresty
+    environment:
+      - TZ=Asia/Bangkok
+    volumes:
+      - /Users/Shared/fileStorage:/Users/Shared/fileStorage
+      - ./tools/docker/openresty/conf:/usr/local/openresty/nginx/conf
+      - ./tools/docker/openresty/conf.d:/etc/nginx/conf.d
+      - ./tools/docker/openresty/html:/usr/share/nginx/html
+      - ./tools/certificate:/etc/nginx/cert
+      - ./tools/docker/openresty/site-enabled:/etc/nginx/sites-enabled
+      - CACHE:/data/cache/image
+    ports:
+      - 8443:8443
+      - 8080:8080
+    networks:
+      - web-docker-network
+  # mongodb:
+  #   image: 'mongo:4'
+  #   container_name: 'mongodb-reactor'
+  #   ports:
+  #     - '27030:27017'
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=reactor
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=example
+  #   volumes:
+  #     - MONGO_DB:/data/db:ro,cached
+  #   networks:
+  #     - web-docker-network
+  # pgadmin:
+  #   container_name: pgadmin_container
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: 'itopplus'
+  #     PGADMIN_DEFAULT_PASSWORD: 'itopplus'
+  #   volumes:
+  #     - PGADMIN:/root/.pgadmin:ro,cached
+  #   ports:
+  #     - '5050:80'
+  #   restart: unless-stopped
+volumes:
+  NATS1:
+  NATS2:
+  CACHE:
+networks:
+  web-docker-network:
+  nats:

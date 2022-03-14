@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Enter Shipping Address | More-Commerce</title>
+    <link rel="stylesheet" href="style/style-address.css">
+    <%- include ("../../partials/head") %>
+    <script>
+
+            <%if (payload) { %>
+                var payloadData = <%- JSON.stringify(payload); %>
+            <% } %>
+
+            window.onload = function () {
+                var buttonId = 'submit';
+                var formId = 'form';
+                var form = document.getElementById(formId);
+                if (form) {
+                    form.addEventListener('submit', function (event) {
+                        var option = 'EDIT_SHIPPING_ADDRESS';
+
+                        var inputFields = ['psid', 'name', 'phone_number', 'address','province','district', 'post_code'];
+                        
+                        var { audienceId,type } = payloadData;
+                        var response_type = 'ADD_ADDRESS'
+                        action = '1'
+
+                         let payload = Object.assign({
+                            psid,
+                            action,
+                            audienceId,
+                            response_type
+                        });
+
+                        payload = Object.assign(payload, { type: option });
+                        inputFields.forEach(id => {
+                            var { value } = document.getElementById(id);
+                            payload[id] = value;
+                        });
+
+                        var params = new URLSearchParams(payload).toString();
+                        form.action = `purchase/postback?${params}`;
+
+                        MessengerExtensions.requestCloseBrowser(function (){
+                            event.target.submit(); 
+                        });
+                    });
+                }
+            }
+ 
+    </script>
+</head>
+
+<body>
+    <form action="/purchase/postback" method="POST" id="form">
+        <% var customer = payload.customer %>
+        <input type="hidden" name="psid" id="psid">
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="<%=customer.name%>">
+
+        <label for="phone_number">Phone No.<span style="color:red">*</span></label>
+        <input type="tel" id="phone_number" name="phone_number" value="<%=customer.phone_number%>" pattern="[0-9]*" min="9" max="10" required>
+
+        <label for="address">Address<span style="color:red">*</span></label>
+        <input type="text" id="address" name="address" placeholder="" value="<%=customer.location.address%>" required>
+        
+        <label for="address">District<span style="color:red">*</span></label>
+        <input type="text" id="district" name="district" placeholder="" value="<%=customer.location.district%>" required>
+
+        <label for="address">Province<span style="color:red">*</span></label>
+        <input type="text" id="province" name="province" placeholder="" value="<%=customer.location.province%>" required>
+
+        <label for="post_code">Postal code<span style="color:red">*</span></label>
+        <input name="post_code" id="post_code" type="text" value="<%=customer.location.post_code%>" pattern="[0-9]*" required>
+
+        <button type="submit" id="submit">
+            <span>Confirm</span>
+        </button>
+    </form>
+    <%- include ("../../partials/footer") %>
+</body>
+
+</html>

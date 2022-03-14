@@ -1,0 +1,22 @@
+<reactor-room-heading [headingTitle]="'Order' | translate" [Route]="'Order' | translate">
+  <div class="heading-content"></div>
+</reactor-room-heading>
+<div class="follow-customer">
+  <div class="steps-container" id="follow-steps-container">
+    <div class="steps">
+      <reactor-room-step
+        (cardStepOffsetLeft)="cardStepOffsetLeft($event)"
+        *ngFor="let step of steps; let idx = index"
+        [Step]="step"
+        [routerLink]="step.route"
+        routerLinkActive
+        #route="routerLinkActive"
+        [RouteStatus]="route.isActive"
+        [isLast]="idx === steps.length - 1"
+        [showLastAmount]="idx !== steps.length - 1"
+      >
+      </reactor-room-step>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,92 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content">
+    <div [formGroup]="showMediaFormGroup">
+      <section class="grid gap-4">
+        <div class="grid gap-1">
+          <div class="layout-label">Image Scale</div>
+          <div class="select-options">
+            <mat-form-field appearance="fill">
+              <mat-select formControlName="imageScale">
+                <mat-option *ngFor="let size of backgroundSize" [value]="size.value">
+                  {{ size.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-1">
+          <div class="grid gap-1">
+            <div class="layout-label">Width (px)</div>
+            <div class="relative input-border p-2">
+              <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                <div class="cursor-pointer" (click)="increaseNumber('widthPx')">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+
+                <div class="cursor-pointer" (click)="descreaseNumber('widthPx')">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <input type="text" reactorRoomNumeric formControlName="widthPx" class="w-full focus:outline-none pr-6" />
+            </div>
+          </div>
+
+          <div class="grid gap-1">
+            <div class="layout-label">Height (px)</div>
+            <div class="relative input-border p-2">
+              <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                <div class="cursor-pointer" (click)="increaseNumber('heightPx')">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="cursor-pointer" (click)="descreaseNumber('heightPx')">
+                  <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <input type="text" reactorRoomNumeric formControlName="heightPx" class="w-full focus:outline-none pr-6" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-1">
+          <div class="flex justify-between">
+            <div class="text-sm layout-label flex items-center">Hover Animation</div>
+            <img class="cursor-pointer" (click)="onScrollAnimation()" src="assets/cms/icon/arrow-right.svg" alt="arrow-right" />
+          </div>
+          <div class="flex overflow-x-auto space-x-8" #animationSlider>
+            <ng-container *ngFor="let animation of hoverAnimations; let index = index">
+              <img class="p-2 cursor-pointer" (click)="onActiveAnimationStyle(index)" [ngClass]="{ hidden: animation.selected }" [src]="animation.imgURL" alt="animation" />
+              <img class="p-2" [ngClass]="{ hidden: !animation.selected }" (click)="onActiveAnimationStyle(index)" [src]="animation.activeImageURL" alt="animation-active" />
+            </ng-container>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p><mat-checkbox formControlName="applyAll">Apply all</mat-checkbox></p>
+      </section>
+    </div>
+  </ng-container>
+</cms-next-cms-popover-layout>
+
+<!-- 
+<div
+(click)="onActiveTextHoverStyle(index)"
+[ngClass]="{ 'bg-gray-100 hover:bg-gray-300': !style.status, 'bg-green-100': style.status }"
+class="relative flex items-center justify-center h-24 transition rounded-md"
+>
+<img style="max-width: 70px" *ngIf="style.status" [src]="style.iconActive" [alt]="style.style" />
+<img style="max-width: 70px" *ngIf="!style.status" [src]="style.icon" [alt]="style.style" />
+<svg *ngIf="style.status" class="absolute top-0 right-0 mt-2 mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+  <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+</div> -->

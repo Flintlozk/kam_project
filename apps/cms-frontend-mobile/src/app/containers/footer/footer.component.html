@@ -1,0 +1,11 @@
+<cms-next-first-guide></cms-next-first-guide>
+<footer class="px-2 pt-3 pb-12 bg-white border-t-2 border-gray-200">
+  <div class="flex items-center justify-around">
+    <ng-container *ngFor="let footerItem of footerItems; trackBy: trackByIndex; let footerItemIndex = index">
+      <div class="relative flex items-center justify-center cursor-pointer focus:outline-none" [routerLink]="[footerItem.routerLink]" routerLinkActive #rla="routerLinkActive">
+        <img [@iconFade]="rla.isActive" [src]="rla.isActive ? footerItem.imgActiveUrl : footerItem.imgUrl" [alt]="footerItem.label" />
+        <div [@iconFade]="rla.isActive" *ngIf="rla.isActive" class="absolute bottom-0 -mb-8 text-green-500">{{ footerItem.label | translate }}</div>
+      </div>
+    </ng-container>
+  </div>
+</footer>

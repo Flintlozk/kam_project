@@ -1,0 +1,220 @@
+<section class="grid grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-2 lg:grid-cols-3">
+  <ng-container *ngFor="let productAttributesFormArrayItem of productAttributesFormArray.controls; trackBy: trackByIndex; let productAttributesFormArrayItemIndex = index">
+    <ng-container [formGroup]="productAttributesFormArrayItem">
+      <div class="w-full overflow-hidden rounded-md">
+        <div class="px-4 py-1 text-gray-700 bg-gray-300">SKU: {{ productAttributesFormArrayItem['controls']['sku']?.value }}</div>
+        <div class="grid grid-cols-2 overflow-hidden bg-white">
+          <div class="relative flex justify-center bg-gray-200">
+            <img
+              class="h-full"
+              onerror="this.src='assets/images/shared/no-image.svg'"
+              [src]="productAttributesFormArrayItem['controls']['image']?.value"
+              [alt]="productAttributesFormArrayItem['controls']['sku']?.value"
+            />
+            <button
+              (click)="onActiveToggleLayout(productAttributesFormArrayItemIndex)"
+              class="absolute bottom-0 right-0 flex items-center justify-center w-10 h-10 mb-2 mr-2 bg-opacity-75 rounded-full bg-green-500 focus:outline-none"
+            >
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16.0871 3.80166L12.7123 0.426879C12.524 0.238566 12.2189 0.238566 12.0306 0.426879L0.942003 11.5155C0.851605 11.6059 0.800752 11.7283 0.800752 11.8564L0.799805 15.2321C0.799805 15.3597 0.850657 15.4826 0.941055 15.573C1.03145 15.6634 1.15432 15.7142 1.28193 15.7142L4.65766 15.7133C4.7857 15.7133 4.90813 15.6624 4.99853 15.572L16.0871 4.4834C16.2755 4.29509 16.2755 3.99001 16.0871 3.80166ZM9.7841 4.05309L12.4609 6.72992L4.55399 14.6369L1.87622 14.6378L1.87716 11.96L9.7841 4.05309Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="px-4 py-6">
+            <div>
+              <div class="font-light text-gray-600">{{ 'Status' | translate }}</div>
+              <mat-form-field appearance="fill" class="w-full select-option">
+                <select matNativeControl required formControlName="status">
+                  <option value="" disabled selected>{{ 'Select Status' | translate }}</option>
+                  <option *ngFor="let productStatusDataItem of productStatusData; trackBy: trackByIndex; let index = index" [value]="productStatusDataItem.value">
+                    {{ productStatusDataItem.title | translate }}
+                  </option>
+                </select>
+              </mat-form-field>
+            </div>
+            <div
+              class="pt-5"
+              [ngClass]="{
+                'invalid-validation':
+                  productAttributesFormArrayItem['controls']['price'].invalid && formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.priceErrorMessage
+              }"
+            >
+              <div class="invalid-message">
+                {{ formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.priceErrorMessage | translate }}
+              </div>
+              <div class="font-light text-gray-600 invalid-title">{{ 'Price' | translate }}</div>
+              <div class="flex items-center">
+                <span class="font-light text-gray-600 invalid-title">{{ currencySign }}</span>
+                <input class="w-full px-4 text-xl font-light text-gray-700 border-b border-gray-300 focus:outline-none" type="number" formControlName="price" />
+              </div>
+            </div>
+            <div
+              class="pt-5"
+              [ngClass]="{
+                'invalid-validation':
+                  productAttributesFormArrayItem['controls']['discount'].invalid && formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.discountErrorMessage
+              }"
+            >
+              <div class="invalid-message">
+                {{ formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.discountErrorMessage | translate }}
+              </div>
+              <div class="font-light text-gray-600 invalid-title">{{ 'Discount' | translate }}</div>
+              <div class="flex items-center">
+                <span class="flex-shrink-0 font-light text-gray-600 invalid-title">{{ currencySign }} -</span>
+                <input class="w-full px-4 pl-1 text-xl font-light text-gray-700 border-b border-gray-300 focus:outline-none" type="number" formControlName="discount" />
+              </div>
+            </div>
+            <div
+              class="pt-5"
+              [ngClass]="{
+                'invalid-validation':
+                  productAttributesFormArrayItem['controls']['amount'].invalid && formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.amountErrorMessage
+              }"
+            >
+              <div class="invalid-message">
+                {{ formAttributeErrorMessage[productAttributesFormArrayItemIndex]?.amountErrorMessage | translate }}
+              </div>
+              <div class="font-light text-gray-600 invalid-title">{{ 'Amount' | translate }}</div>
+              <div class="flex items-center">
+                <button
+                  (click)="substractProductAmount(productAttributesFormArrayItemIndex)"
+                  class="flex items-center justify-center flex-shrink-0 w-8 h-8 bg-gray-300 rounded-full focus:outline-none"
+                >
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M11.9389 5.3502H0.563883C0.50333 5.3502 0.439548 5.3654 0.39161 5.41334C0.343673 5.46128 0.328467 5.52506 0.328467 5.58561V6.60124C0.328467 6.66179 0.343673 6.72557 0.39161 6.77351C0.439548 6.82145 0.50333 6.83665 0.563883 6.83665H11.9389C11.9994 6.83665 12.0632 6.82145 12.1112 6.77351C12.1591 6.72557 12.1743 6.66179 12.1743 6.60124V5.58561C12.1743 5.52506 12.1591 5.46128 12.1112 5.41334C12.0632 5.3654 11.9994 5.3502 11.9389 5.3502Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="0.2"
+                    />
+                  </svg>
+                </button>
+                <input class="w-full text-xl font-light text-center text-gray-700 border-none focus:outline-none" type="number" formControlName="amount" />
+                <button
+                  (click)="addProductAmount(productAttributesFormArrayItemIndex)"
+                  class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full focus:outline-none bg-green-500"
+                >
+                  <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6.7592 0.9H5.74357C5.68302 0.9 5.61924 0.915206 5.5713 0.963143C5.52336 1.01108 5.50815 1.07486 5.50815 1.13542V13.0521C5.50815 13.1126 5.52336 13.1764 5.5713 13.2244C5.61924 13.2723 5.68302 13.2875 5.74357 13.2875H6.7592C6.81975 13.2875 6.88353 13.2723 6.93147 13.2244C6.97941 13.1764 6.99461 13.1126 6.99461 13.0521V1.13542C6.99461 1.07486 6.97941 1.01108 6.93147 0.963143C6.88353 0.915206 6.81975 0.9 6.7592 0.9Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="0.2"
+                    />
+                    <path
+                      d="M11.9389 6.3502H0.563883C0.50333 6.3502 0.439548 6.3654 0.39161 6.41334C0.343673 6.46128 0.328467 6.52506 0.328467 6.58561V7.60124C0.328467 7.66179 0.343673 7.72557 0.39161 7.77351C0.439548 7.82145 0.50333 7.83665 0.563883 7.83665H11.9389C11.9994 7.83665 12.0632 7.82145 12.1112 7.77351C12.1591 7.72557 12.1743 7.66179 12.1743 7.60124V6.58561C12.1743 6.52506 12.1591 6.46128 12.1112 6.41334C12.0632 6.3654 11.9994 6.3502 11.9389 6.3502Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="0.2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container
+          *ngIf="productAttributesFormArray.controls[productAttributesFormArrayItemIndex]['controls']['productVariants']['controls'] as productVariantsFormArrayTemplate"
+        >
+          <div class="p-4 bg-gray-200" [@fadeBoxAnimation] *ngIf="productAttributesFormArrayItem['controls']['productVariantStatus']?.value">
+            <h3 class="pb-2 text-lg text-gray-700">{{ 'Member Price' | translate }}</h3>
+            <div class="grid gap-5">
+              <ng-container *ngFor="let productVariant of productVariantsFormArrayTemplate; let productVariantIndex = index; trackBy: trackByIndex">
+                <ng-container [formGroup]="productVariant">
+                  <div class="grid gap-4 custom-grid-template">
+                    <div
+                      [ngClass]="{
+                        'invalid-validation':
+                          productVariant['controls']['originalPrice'].invalid &&
+                          (formVariantErrorMessage[productAttributesFormArrayItemIndex] || [])[productVariantIndex]?.originalPriceErrorMessage
+                      }"
+                    >
+                      <div class="invalid-message">
+                        {{ (formVariantErrorMessage[productAttributesFormArrayItemIndex] || [])[productVariantIndex]?.originalPriceErrorMessage | translate }}
+                      </div>
+                      <div class="font-light text-gray-600 invalid-title text-ellipsis">{{ productVariant['controls']['title'].value }}</div>
+                      <div class="flex items-center">
+                        <span class="font-light text-gray-600 invalid-title">{{ currencySign }}</span>
+                        <input
+                          type="number"
+                          formControlName="originalPrice"
+                          class="w-full px-2 text-xl font-light text-gray-700 bg-gray-200 border-b border-gray-500 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                    <div class="w-full mt-10 bg-gray-500 custom-height"></div>
+                    <div
+                      [ngClass]="{
+                        'invalid-validation':
+                          productVariant['controls']['salePrice'].invalid &&
+                          (formVariantErrorMessage[productAttributesFormArrayItemIndex] || [])[productVariantIndex]?.salePriceErrorMessage
+                      }"
+                    >
+                      <div class="invalid-message">
+                        {{ (formVariantErrorMessage[productAttributesFormArrayItemIndex] || [])[productVariantIndex]?.salePriceErrorMessage | translate }}
+                      </div>
+                      <div class="font-light text-gray-600 invalid-title">{{ 'After Discount' | translate }}</div>
+                      <div class="flex items-center">
+                        <span class="font-light text-gray-600 invalid-title">{{ currencySign }}</span>
+                        <input
+                          type="number"
+                          formControlName="salePrice"
+                          class="w-full px-2 text-xl font-light text-gray-700 bg-gray-200 border-b border-gray-500 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <div (click)="toggleVariantStatus(productAttributesFormArrayItemIndex)" class="flex items-center justify-between px-4 pb-2 text-white bg-gray-300">
+            <ng-container *ngIf="productVariantsFormArrayTemplate.length">
+              <div>
+                <div class="flex flex-wrap items-center" [@fadeBoxAnimation] *ngIf="!productAttributesFormArrayItem['controls']['productVariantStatus']?.value">
+                  <ng-container *ngFor="let productVariant of productVariantsFormArrayTemplate; trackBy: trackByIndex">
+                    <div class="flex-grow-0 px-2 py-0 m-2 mb-0 ml-0 text-sm font-light rounded odd:bg-orange-500 even:bg-blue-500">
+                      {{ productVariant['controls']['title'].value }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <button
+                class="mt-2 transition-all duration-300 ease-in-out focus:outline-none"
+                [style.transform]="productAttributesFormArrayItem['controls']['productVariantStatus']?.value ? 'scaleY(-1)' : 'scaleY(1)'"
+              >
+                <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.255743 7.99812L0.779844 8.48548C0.944789 8.63768 1.16424 8.72153 1.39878 8.72153C1.63318 8.72153 1.85289 8.63768 2.01784 8.48548L7.99642 2.96418L13.9819 8.49161C14.1466 8.64381 14.3663 8.72754 14.6007 8.72754C14.8351 8.72754 15.055 8.64381 15.2198 8.49161L15.744 8.00725C16.0853 7.69228 16.0853 7.17921 15.744 6.86424L8.61757 0.259502C8.45288 0.10742 8.23343 0.000265396 7.99694 0.000265375L7.99421 0.000265375C7.75967 0.000265355 7.54022 0.10754 7.37554 0.259502L0.255743 6.84634C0.0907985 6.99842 0.000260486 7.2072 1.13988e-07 7.42367C9.50526e-08 7.64026 0.0907985 7.84616 0.255743 7.99812Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container>
+          <cms-next-option-toggle-layout
+            class="flex justify-center"
+            [optionToggleLayoutStatus]="productAttributesFormArrayItem['controls']['productImageStatus']?.value"
+            (optionToggleLayoutStatusEvent)="optionToggleLayoutStatusEvent($event, productAttributesFormArrayItemIndex)"
+          >
+            <button class="option-item">{{ 'Open Photo Library' | translate }}</button>
+            <button (click)="onImageFileManageDialog(productAttributesFormArrayItemIndex)" class="option-item">{{ 'Select From File Manage' | translate }}</button>
+            <button
+              class="option-item danger"
+              *ngIf="productAttributesFormArrayItem['controls']['image']?.value"
+              (click)="onRemoveImageAttribute(productAttributesFormArrayItemIndex)"
+            >
+              {{ 'Remove' | translate }}
+            </button>
+          </cms-next-option-toggle-layout>
+          <input #imageUpload type="file" accept="image/*" class="hidden" />
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

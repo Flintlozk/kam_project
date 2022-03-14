@@ -1,0 +1,34 @@
+<div class="drop-off-complete">
+  <reactor-room-custom-dialog [head]="false">
+    <div class="content">
+      <div class="container">
+        <div class="title">
+          <span>Drop off </span>
+          <span class="blue">Successfully !</span>
+        </div>
+        <div class="detail">
+          <div class="row">
+            <span>Order No. </span><span>{{ data?.result?.aliasOrderId }}</span>
+          </div>
+          <div class="row">
+            <span>Tracking No. </span><span class="blue">{{ data?.result?.trackingNo }}</span>
+          </div>
+          <div class="row">
+            <span>Remaining Credit </span>
+            <span class="blue">฿{{ data?.result?.remainingCredit | formatCurrency }} </span>
+            <span class="red">(-฿{{ data?.result?.totalPrice | formatCurrency }})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <button class="btn-cancel" (click)="onClose()">Close</button>
+        <button class="btn-save" (click)="onSubmit()">
+          <img src="assets/img/printer_w.png" />
+          Print
+        </button>
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

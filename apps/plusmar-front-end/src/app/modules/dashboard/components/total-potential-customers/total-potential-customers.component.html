@@ -1,0 +1,51 @@
+<reactor-room-card [height]="'100%'" [padding]="'0px'">
+  <!-- <div class="card-content">
+    <div class="title">{{ 'Customers' | translate }}</div>
+    <div class="donut-chart">
+      <canvas
+        *ngIf="data?.new_customers + data?.old_customers"
+        reactorRoomDoughnutChart
+        [firstLabel]="'New' | translate"
+        [secondLabel]="'Old' | translate"
+        [mainColor]="'#758A98'"
+        [secondColor]="'#DCE4E7'"
+        [firstData]="data?.new_customers"
+        [secondData]="data?.old_customers"
+        [attr.width]="width"
+        [attr.height]="height"
+      ></canvas>
+      <div class="donut-chart-info" width="150px" height="150px">
+        <div class="label">{{ 'Customers' | translate }}</div>
+        <div class="value">{{ data?.new_customers + data?.old_customers }}</div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="info-item new">
+        <div class="label">{{ 'New' | translate }}</div>
+        <div class="value">{{ data?.new_customers }}</div>
+      </div>
+      <div class="info-item old">
+        <div class="label">{{ 'Old' | translate }}</div>
+        <div class="value">{{ data?.old_customers }}</div>
+      </div>
+    </div>
+  </div> -->
+  <div class="card-content">
+    <svg width="54" height="62" viewBox="0 0 54 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M30.5035 36.2807C36.725 36.2807 42.5861 38.7264 47.0073 43.1674C51.4068 47.5866 53.8298 53.42 53.8298 59.5933C53.8298 60.5737 53.0264 61.3684 52.0355 61.3684H1.79433C0.80338 61.3684 0 60.5737 0 59.5933C0 53.42 2.42294 47.5866 6.82251 43.1674C11.2437 38.7264 17.105 36.2807 23.3262 36.2807H30.5035ZM30.5035 39.8309H23.3262C13.0401 39.8309 4.56656 47.7493 3.6676 57.8183H50.1622C49.2632 47.7493 40.7897 39.8309 30.5035 39.8309ZM26.7199 0C35.6459 0 42.9078 7.27204 42.9078 16.2105C42.9078 25.149 35.6459 32.4211 26.7199 32.4211C17.7938 32.4211 10.5319 25.149 10.5319 16.2105C10.5319 7.27204 17.7938 0 26.7199 0ZM26.7199 3.60234C19.7774 3.60234 14.1292 9.25837 14.1292 16.2105C14.1292 23.1627 19.7774 28.8187 26.7199 28.8187C33.6623 28.8187 39.3105 23.1627 39.3105 16.2105C39.3105 9.25837 33.6623 3.60234 26.7199 3.60234Z"
+        fill="url(#paint0_linear)"
+      />
+      <defs>
+        <linearGradient id="paint0_linear" x1="0" y1="30.6842" x2="53.8298" y2="30.6842" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#60E9FF" />
+          <stop offset="1" stop-color="#53B1FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="title">
+      <div class="sub">{{ 'Total Customers' | translate }}</div>
+      <div class="val">{{ data?.all_customers }}</div>
+    </div>
+  </div>
+</reactor-room-card>

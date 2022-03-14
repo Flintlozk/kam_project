@@ -1,0 +1,58 @@
+@import 'base';
+.setting-cod-detail {
+  .card-content {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    @media #{$mobilemax} {
+      justify-content: space-between;
+    }
+    .payment-content {
+      width: 40%;
+      padding-left: 10%;
+      .line {
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+        &:first-child {
+          border-bottom: 1px dotted $border-color;
+        }
+        .text {
+          width: 250px;
+          padding-right: 15px;
+          color: #576f83;
+        }
+        .calc {
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            padding: 0px 10px;
+          }
+        }
+      }
+      img.edit {
+        width: 20px;
+        cursor: pointer;
+        position: absolute;
+        left: calc(100% + 20px);
+        top: calc(50% - 10px);
+      }
+      @media #{$mobilemax} {
+        width: 80%;
+        padding-left: 0px;
+        .line {
+          .text {
+            width: auto;
+          }
+        }
+      }
+    }
+
+    svg {
+      padding-top: 10px;
+      padding-left: 15px;
+    }
+  }
+}

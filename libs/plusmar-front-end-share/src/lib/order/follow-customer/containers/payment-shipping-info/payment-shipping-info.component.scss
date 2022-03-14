@@ -1,0 +1,34 @@
+@import 'base';
+@import 'buttons';
+
+.payment-shipping-info-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-left: 10px;
+      }
+
+      .btn-save {
+        @include btn-active();
+        margin-left: 10px;
+        &.paid {
+          background: #71d27b;
+        }
+        &.unpaid {
+          background: #ef5350;
+        }
+      }
+    }
+  }
+
+  .content {
+    max-height: 495px !important;
+    @extend .custom-tabs;
+  }
+}

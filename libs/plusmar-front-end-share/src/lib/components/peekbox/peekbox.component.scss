@@ -1,0 +1,30 @@
+@import 'base';
+@import 'buttons';
+@import 'custom-checkbox';
+
+.peekbox-container {
+  position: relative;
+  .close-button {
+    position: absolute;
+    color: #dc493d;
+    z-index: 1230;
+    left: 0;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .chat-box {
+    width: 100%; // OUTER
+
+    .chat-box {
+      .head {
+        font-size: 0.8rem;
+      }
+      .content {
+        font-size: 0.9rem;
+        min-height: 395px !important; // #SET_HEIGHT
+        max-height: 395px !important; // #SET_HEIGHT
+      }
+    }
+  }
+}

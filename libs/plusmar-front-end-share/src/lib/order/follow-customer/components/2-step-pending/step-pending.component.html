@@ -1,0 +1,38 @@
+<reactor-room-custom-table
+  [isLoading]="false"
+  [tableColSpan]="4"
+  [isNoVerticalScroll]="true"
+  [tableData]="audienceList"
+  [isNoData]="false"
+  [tableHeader]="tableHeader"
+  *ngIf="audienceList$ | async as audienceList"
+>
+  <tr *ngFor="let audience of audienceList; trackBy: trackBy" class="table-content" #tableContent (click)="redirectToDetail(audience)">
+    <!-- <td>
+      <reactor-room-custom-table-content [Selector]="'status'" [Status]="'status...'">
+      </reactor-room-custom-table-content>
+    </td> -->
+    <td>
+      <reactor-room-custom-table-content
+        [Selector]="'comment-by'"
+        [platform]="audience?.platform"
+        [firstName]="audience?.first_name"
+        [lastName]="audience?.last_name"
+        [aliases]="audience?.aliases"
+        [image]="audience.profile_pic"
+        [platformImg]="platformImgsObj[audience?.platform]"
+      >
+      </reactor-room-custom-table-content>
+    </td>
+    <td>{{ audience.updated_at | timeAgo: 'utc' }}</td>
+    <td *ngIf="audience.product_amount > 0; else emptyProduct">
+      {{ audience.interested_product | stringCutter: audience.product_amount:1 }}
+    </td>
+    <ng-template #emptyProduct>
+      <td>-</td>
+    </ng-template>
+    <td>
+      <reactor-room-custom-table-content [Selector]="'detail'"> </reactor-room-custom-table-content>
+    </td>
+  </tr>
+</reactor-room-custom-table>

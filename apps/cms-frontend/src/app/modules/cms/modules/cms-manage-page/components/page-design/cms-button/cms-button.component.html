@@ -1,0 +1,24 @@
+<section>
+  <div
+    (click)="onActivateChildContainer()"
+    [ngClass]="{ 'bg-green-100 hover:bg-green-100': pageDesignMenu.isActive }"
+    class="flex items-center justify-between px-4 py-2 transition bg-itopplus-300 rounded cursor-pointer design-section hover:bg-gray-200 hover:text-itopplus-200 text-white"
+  >
+    <div class="flex items-center">
+      <div class="flex items-center justify-center h-10 mr-4 w-14">
+        <img [src]="pageDesignMenu.isActive ? pageDesignMenu.activeIcon : pageDesignMenu.icon" [alt]="pageDesignMenu.title" />
+      </div>
+      <div class="font-base">{{ pageDesignMenu.title }}</div>
+    </div>
+    <div class="transition transform stroke-current icon-toggle" [ngClass]="{ 'text-gray-300': !pageDesignMenu.isActive, 'text-green-500 -rotate-90': pageDesignMenu.isActive }">
+      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 11L6 6L1 1" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div [@fadeBoxAnimation] [ngClass]="{ hidden: !pageDesignMenu.isActive }" class="pt-2 pb-4">
+    <div #button class="cursor-move hover:bg-green-100 p-4 bg-white border border-gray-100 rounded-md flex items-center justify-center">
+      <div class="focus:outline-none px-10 py-4 rounded-full bg-gray-700 border hover:border-gray-500 transition text-lg font-light">Button</div>
+    </div>
+  </div>
+</section>

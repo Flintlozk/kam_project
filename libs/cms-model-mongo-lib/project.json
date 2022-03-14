@@ -1,0 +1,23 @@
+{
+  "root": "libs/cms-model-mongo-lib",
+  "sourceRoot": "libs/cms-model-mongo-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/cms-model-mongo-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/cms-model-mongo-lib"],
+      "options": {
+        "jestConfig": "libs/cms-model-mongo-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

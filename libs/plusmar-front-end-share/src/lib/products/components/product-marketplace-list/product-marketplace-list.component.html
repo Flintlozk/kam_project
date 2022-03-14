@@ -1,0 +1,165 @@
+<div class="product-marketplace-list">
+  <div class="nav">
+    <div class="conncted-marketplace">
+      <div class="connect-button lazada" *ngIf="!lazadaIsConnected" (click)="openLazadaConnect()">
+        <img src="assets/img/icon-lazadaoa.svg" />{{ 'Connect to Lazada' | translate }}
+      </div>
+      <div class="connect-button shopee" *ngIf="!shopeeIsConnected" (click)="openShopeeConnect()">
+        <img src="assets/img/icon-shopeeoa.svg" />{{ 'Connect to Shopee' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div *ngIf="connected" class="product-num">
+      {{ this.tableForProduct.totalRows }} {{ 'Products' | translate }} <span class="limit">({{ 'Limit' | translate }} {{ maximumProducts }} {{ 'items' | translate }})</span>
+    </div>
+    <div *ngIf="connected" class="func">
+      <div class="select-option">
+        <mat-form-field>
+          <mat-select (selectionChange)="marketPlaceTypeDropDown$.next($event.value)" [(value)]="marketPlaceTypeDefault">
+            <mat-option *ngFor="let item of marketPlaceTypeDropdown; trackBy: tableForProduct.trackBy" [value]="item.value">
+              {{ item.label | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <input type="text" [placeholder]="'Search' | translate" [formControl]="searchField" />
+      <button
+        class="btn-delete"
+        (click)="openDeleteConfirmDialog()"
+        [ngClass]="[tableForProduct.tableSelectedIDs.length ? 'active' : '']"
+        [disabled]="!tableForProduct.tableSelectedIDs.length"
+      >
+        <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.1925 3.0465H10.3976C10.2582 1.85315 9.22962 0.923096 7.98384 0.923096C6.73811 0.923096 5.70965 1.85311 5.57023 3.0465H2.7752C1.64414 3.0465 0.72406 3.95495 0.72406 5.07137V5.95945C0.72406 6.81261 1.26224 7.54284 2.02038 7.84038L2.02037 16.9752C2.02037 18.0917 2.94055 19.0001 4.07155 19.0001H11.8962C13.0272 19.0001 13.9473 18.0916 13.9473 16.9752L13.9473 7.84042C14.7054 7.54284 15.2437 6.81261 15.2437 5.95948V5.07141C15.2437 3.95495 14.3235 3.0465 13.1925 3.0465ZM7.98384 1.88338C8.69237 1.88338 9.28377 2.38467 9.41463 3.0465H6.55332C6.68414 2.38463 7.27558 1.88338 7.98384 1.88338ZM12.9745 16.9752C12.9745 17.5622 12.4906 18.0399 11.8962 18.0399H4.07151C3.47702 18.0399 2.99318 17.5622 2.99318 16.9752L2.99319 7.98432H12.9745L12.9745 16.9752ZM14.2709 5.95945C14.2709 6.54644 13.787 7.02407 13.1925 7.02407H2.7752C2.18071 7.02407 1.69687 6.54644 1.69687 5.95945V5.07137C1.69687 4.48438 2.18071 4.00675 2.7752 4.00675H13.1925C13.787 4.00675 14.2709 4.48438 14.2709 5.07137V5.95945Z"
+          />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99472 10.0001V15.0004H8.99634V10.0001H9.99472Z" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00345 10.0001V15.0004H6.00507V10.0001H7.00345Z" />
+        </svg>
+
+        <span class="label"> {{ 'Delete All' | translate }} ({{ tableForProduct.tableSelectedIDs.length }}) </span>
+      </button>
+      <button class="btn-update active" [ngClass]="{ 'pointer-events-none': isUpdating }" (click)="updateProductClick$.next(null)">
+        <img src="assets/img/update-icon.svg" alt="" srcset="" [ngClass]="{ 'update-rotate pointer-events-none': isUpdating }" />
+        <span class="ml-10">
+          {{ updateText }}
+        </span>
+      </button>
+      <button class="btn-import active relative" [disabled]="isUpdating" (click)="importProductClick$.next(null)">
+        <div class="button-badge" *ngIf="!isUpdating">{{ this.notImportedCount }}</div>
+        <img src="assets/img/import-icon.svg" alt="Import" srcset="" />
+        <span class="ml-5"> {{ 'Import Products' | translate }} </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="table w-full">
+    <reactor-room-custom-table
+      [isLoading]="tableForProduct.isLoading"
+      [isNoData]="tableForProduct.isNoData"
+      [tableData]="tableData"
+      [tableHeader]="tableForProduct.productTableHeader"
+      [tableColSpan]="tableForProduct.productTableColSpan"
+      [orderMethod]="tableForProduct.commonTableFilters.orderMethod"
+      [isNoVerticalScroll]="true"
+      (sortTableMetaData)="sortTableData($event)"
+      (selectAll)="tableForProduct.selectAllHandler($event)"
+      [isAllchecked]="tableForProduct.isAllchecked"
+    >
+      <ng-container *ngFor="let data of tableData; let i = index" class="table-content">
+        <tr>
+          <td>
+            <div class="first">
+              <label class="custom-checkbox">
+                <input type="checkbox" [checked]="tableForProduct.isIdSelected(data.id)" (change)="tableForProduct.selectRow(data.id, $event.target.checked)" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="first">
+              <ng-container>
+                <img class="default-img" src="assets/img/image-icon.svg" alt="Product" />
+              </ng-container>
+              <div class="content">
+                <div class="title">{{ data.name }}</div>
+                <div class="sub">
+                  {{ 'Price' | translate }}: {{ data.price }}
+                  <img [src]="data.marketPlaceIcon" [attr.alt]="data.marketPlaceType" />
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>{{ data.variants }}</td>
+          <td>N/A</td>
+          <td>{{ data.inventory }}</td>
+          <td>
+            <div class="status">
+              <ng-container *ngIf="data.active">
+                <div class="round"></div>
+                {{ 'Selling' | translate }}
+              </ng-container>
+              <ng-container *ngIf="!data.active">
+                <div class="round out"></div>
+                {{ 'Inactive' | translate }}
+              </ng-container>
+            </div>
+          </td>
+          <td class="disable-pointer">
+            <div class="items-center buttons">
+              <div class="button" (click)="toggleVariantButton(i, data.id)" [ngClass]="{ active: toggleStatus[i] }">
+                <img src="assets/img/down-button.svg" alt="" />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <ng-container *ngIf="toggleStatus[i]">
+          <tr class="variant-head">
+            <td colspan="7">{{ 'Product Variants' | translate }}</td>
+          </tr>
+          <ng-container>
+            <ng-container *ngFor="let variant of data?.variantList; let variantDataIndex = index">
+              <tr class="variant-item">
+                <td></td>
+                <td>
+                  <div class="first">
+                    <div class="content">
+                      <div class="title">{{ variant.name || 'N/A' }}</div>
+                      <div class="sub">{{ 'Price' | translate }}: ฿ {{ variant.unitPrice }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td></td>
+                <td>N/A</td>
+                <td>{{ variant.inventory }}</td>
+                <td>
+                  <div class="status">
+                    <ng-container *ngIf="variant.active">
+                      <div class="round"></div>
+                      {{ 'Selling' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="!variant.active">
+                      <div class="round out"></div>
+                      {{ 'Inactive' | translate }}
+                    </ng-container>
+                  </div>
+                </td>
+                <td class="variant-options"></td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </reactor-room-custom-table>
+  </div>
+  <ng-container class="footer">
+    <reactor-room-pagination
+      #paginator
+      [pageSize]="tableForProduct.commonTableFilters.pageSize"
+      [length]="tableForProduct.totalRows"
+      [pageSizeOptions]="[10, 50, 100]"
+      (changePage)="changePage($event)"
+    ></reactor-room-pagination>
+  </ng-container>
+</div>

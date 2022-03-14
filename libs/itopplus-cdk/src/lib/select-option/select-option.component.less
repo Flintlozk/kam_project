@@ -1,0 +1,58 @@
+@import '../assets/styles/properties';
+.select-option {
+  .mat-form-field {
+    width: 100%;
+    border: @default-border;
+    border-radius: 8px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    font-family: @font-family;
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+      width: 100%;
+
+      .mat-form-field-flex {
+        .mat-form-field-infix {
+          padding: 0px;
+          width: auto;
+          border: 0px;
+
+          .mat-select-value {
+            padding: 0px 15px;
+            font-size: 0.9em;
+            color: @text-color;
+            font-family: @font-family;
+          }
+
+          .mat-select-arrow {
+            background-image: url('../assets/images/down-icon.svg');
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: right;
+            width: 15px;
+            height: 15px;
+            border: 0px;
+            margin: 0px;
+            margin-right: 15px;
+          }
+        }
+
+        .mat-form-field-label-wrapper {
+          mat-label {
+            color: @text-color;
+          }
+
+          .mat-placeholder-required {
+            display: none;
+          }
+        }
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+  }
+}

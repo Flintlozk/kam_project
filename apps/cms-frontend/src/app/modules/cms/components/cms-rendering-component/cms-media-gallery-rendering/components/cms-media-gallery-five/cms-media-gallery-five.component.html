@@ -1,0 +1,20 @@
+<section #mediaGallery>
+  <cms-next-cms-grid-slider-control [loopLength]="mediaGalleryLoop.length" [elementRef]="mediaGalleryRef ? mediaGalleryRef : null" [pageSliderControl]="mediaGalleryInput.control">
+    <section [ngStyle]="columnStyle" class="center w-full">
+      <ng-container *ngFor="let mediaGalleryLoopItem of mediaGalleryLoop; let firstIndex = index; trackBy: trackByIndex">
+        <section class="w-full row-style media-fade" [ngStyle]="rowStyle">
+          <ng-container *ngFor="let mediaGallery of mediaGalleryLoopItem; let secondIndex = index; trackBy: trackByIndex">
+            <cms-next-cms-media-gallery-item-rendering
+              (generalTextSettingEvent)="generalTextSettingEvent($event)"
+              (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+              [itemIndex]="firstIndex + secondIndex"
+              [generalTextAllSetting]="generalTextAllSetting"
+              [generalTextAllSettingTrigger]="generalTextAllSettingTrigger"
+              [galleryListItem]="mediaGallery"
+            ></cms-next-cms-media-gallery-item-rendering>
+          </ng-container>
+        </section>
+      </ng-container>
+    </section>
+  </cms-next-cms-grid-slider-control>
+</section>

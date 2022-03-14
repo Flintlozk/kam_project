@@ -1,0 +1,152 @@
+@import 'base';
+@import 'custom-checkbox';
+@import 'buttons';
+
+.customer {
+  font-size: 1em;
+  color: $text-darker-color;
+
+  &-status {
+    display: flex;
+    justify-content: center;
+    background: #d0d1d4;
+    border-radius: 4px;
+    max-width: 83px;
+    width: 100%;
+    color: white;
+    font-size: 12px;
+    padding: 5px 0px;
+
+    &.blocked {
+      background: #dc493d;
+    }
+  }
+
+  .header {
+    color: $text-darker-color;
+    font-size: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .info {
+      padding-bottom: 20px;
+      margin-right: 10px;
+
+      @media #{$mobilemax} {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+.customer-table {
+  margin-top: 50px;
+}
+
+.action-icon {
+  align-items: center;
+  justify-content: center;
+
+  .action-img {
+    width: 22px;
+    padding-right: 10px;
+  }
+
+  .delete-img {
+    width: 24px;
+  }
+}
+
+.customer-type {
+  text-transform: capitalize;
+}
+
+.customer-type-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 15px;
+  position: relative;
+  top: 6px;
+  flex-shrink: 0;
+
+  &.low {
+    background-color: #c6d9e9;
+  }
+
+  &.medium {
+    background-color: #fbb936;
+  }
+
+  &.high {
+    background-color: $main-color;
+  }
+}
+
+.action-button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+
+  svg {
+    transition: all 0.3s ease;
+    fill: $text-darker-color;
+  }
+
+  &:hover svg {
+    fill: $main-color;
+  }
+}
+
+.open-info {
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: $main-color;
+  }
+}
+
+.customer-profile {
+  .profile {
+    position: relative;
+  }
+  .content {
+    .profile-name {
+      margin-top: 5px;
+      color: $main-color;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .tag-color {
+      width: 35px;
+      height: 8px;
+      border-radius: 6px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.cdk-overlay-pane .mat-menu-panel {
+  min-height: unset;
+}
+
+.customer {
+  .header {
+    .func {
+      display: flex;
+      flex-direction: row-reverse;
+
+      .filter-menu {
+        margin: 0 10px 10px 10px;
+      }
+    }
+  }
+}

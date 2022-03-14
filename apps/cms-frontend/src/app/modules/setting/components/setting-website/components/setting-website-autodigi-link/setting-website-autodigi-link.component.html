@@ -1,0 +1,46 @@
+<section class="grid link-autodigi">
+  <div class="px-4 py-8 bg-white">
+    <cms-next-title-underline [title]="'Link Autodigi website'"></cms-next-title-underline>
+
+    <div>Set Primary website to obtain statistic from Autodigi</div>
+
+    <ng-container *ngIf="isLink && !isLinkProcessing">
+      <div class="grid">
+        <div class="grid grid-cols-2 gap-x-10 gap-y-2" [formGroup]="websiteGroup" *ngIf="websiteGroup">
+          <div class="px-4">
+            <div class="px-2 py-2">
+              <ng-container formArrayName="linkedWebsite" *ngFor="let unlink of getLinkWebsiteGroup.controls; let linkIndex = index; trackBy: trackByIndex">
+                <ng-container [formGroupName]="linkIndex">
+                  <div class="website-list h-12 my-2 border rounded-lg p-1 flex justify-between">
+                    <input type="text" formControlName="websiteName" readonly />
+                    <!-- <button class="p-1 border bg-red-400" (click)="doUnlink(linkIndex)">-</button> -->
+                    <button
+                      class="px-6 py-2 font-light text-white transition transform bg-yellow-400 shadow-lg focus:outline-none rounded-2xl hover:scale-105"
+                      (click)="doSetPrimary(linkIndex)"
+                      *ngIf="!unlink.value.isPrimary"
+                    >
+                      Set as primary
+                    </button>
+                    <div *ngIf="unlink.value.isPrimary" class="text-yellow-400 flex self-center">⭐</div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="w-30">
+          <button class="px-6 py-2 font-light text-white transition transform bg-red-400 shadow-lg focus:outline-none rounded-2xl hover:scale-105" (click)="unlinkAutodigi()">
+            Unlink Autodigi
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isLink && !isLinkProcessing">
+      <button (click)="linkAutodigiWebsite()" class="px-6 py-2 rounded-lg custom-shadow font-light bg-green-500 text-white text-lg">Link Account</button>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+@import 'base';
+@import 'buttons';
+@import 'utils';
+
+.product-add-variants {
+  color: $text-darker-color;
+
+  .heading-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn-cancel {
+      margin-right: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+  }
+
+  .product-details {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    grid-template-columns: 32px auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    display: grid;
+    margin-bottom: 20px;
+    .divider {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      border-bottom: 0.5px solid $border-color;
+    }
+    .product-icon {
+      margin-right: 5px;
+      img {
+        width: 32px;
+      }
+    }
+    .product-title {
+      font-weight: 400;
+    }
+    .product-value {
+      font-weight: 300;
+    }
+  }
+
+  .variant-list {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+
+    .no-attribute {
+      .title {
+        font-size: 20px;
+      }
+      .current-variant {
+        table {
+          position: relative;
+          margin: 5px auto;
+          padding: 0;
+          width: 100%;
+          height: auto;
+          border-collapse: collapse;
+          text-align: center;
+
+          .img-container {
+            display: flex;
+            justify-content: center;
+            img {
+              border-radius: 50%;
+              width: 60px;
+              height: 60px;
+              overflow: hidden;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid $border-color;
+            }
+          }
+        }
+      }
+    }
+
+    .with-variant {
+      .title {
+        font-size: x-large;
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 20px;
+      }
+
+      .variants {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+
+        .attr-title {
+          font-size: large;
+        }
+      }
+    }
+  }
+}

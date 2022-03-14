@@ -1,0 +1,9 @@
+<cms-next-home-audience-card>
+  <div class="title">{{ 'Total Visitor' | translate }}</div>
+  <div class="content">
+    <div class="relative flex items-end justify-center w-full" style="width: 99%">
+      <canvas cmsNextDoughnutChart [labels]="labels" [colors]="colors" [data]="data" width="200px" height="200px"></canvas>
+      <div class="absolute bottom-0 mb-16 text-lg font-light leading-tight text-center">{{ 'Visitor' | translate }}<br />{{ total }}</div>
+    </div>
+  </div>
+</cms-next-home-audience-card>

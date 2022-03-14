@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/stylesheet.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer type="text/javascript" src="/javascript/alpine.min.js"></script>
+    <script defer type="text/javascript" src="/javascript/jsbarcode.min.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%-JSON.stringify(payload); %>
+      <% } %>
+
+      window.onload = function () {
+        const option = {displayValue: false,format:'CODE39'};
+        JsBarcode('#trackNo', payloadData.trackingNo , option);
+        // JsBarcode('#orderID', payloadData.aliasOrderID , option);
+      };
+    </script>
+  </head>
+  <body x-data="{payloadData:payloadData}">
+    <page size="100x150">
+      <div class="section-line">
+        <div class="line">
+          <div class="grid-2-col">
+            <div class="barcode">
+              <img src="/images/morecommerce.svg" alt="Logo" style="width: 80px" />
+              <!-- <img id="orderID" alt="barcode" /> -->
+              <div class="details" style="display: flex">
+                <div style="margin-right: 4px">เลขที่ใบสั่งซื้อ</div>
+                <div x-text="payloadData.aliasOrderID"></div>
+              </div>
+            </div>
+            <div class="logo"><img src="/images/jandt.png" alt="Logo" style="max-width: 140px" /></div>
+          </div>
+        </div>
+        <div class="line">
+          <div class="shop-info">
+            <p class="description" style="color: #000">ชื่อที่อยู่ผู้ส่ง</p>
+            <p class="title" x-text="payloadData.pageName"></p>
+            <p class="details">
+              <span
+                style="color: #000"
+                x-text="payloadData.sourceLocation.address + ' ' +
+              payloadData.customerLocation.district +' ' +
+              payloadData.customerLocation.city +' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code"
+              ></span
+              ><br />
+              <span style="color: #000">เบอร์โทร: <span x-text="payloadData.pagePhoneNumber"></span></span>
+            </p>
+          </div>
+        </div>
+        <div class="line delivery-tracking">
+          <div class="label">ชื่อที่อยู่ผู้รับ</div>
+          <div class="details delivery">
+            <div class="info">
+              <div class="name" x-text="payloadData.customerName"></div>
+              <div
+                class="address"
+                x-text="
+              payloadData.customerLocation.address + ' ' +
+              payloadData.customerLocation.district + ' ' +
+              payloadData.customerLocation.city + ' ' +
+              payloadData.customerLocation.province + ' ' +
+              payloadData.customerLocation.post_code
+            "
+              ></div>
+              <div class="phone">เบอร์โทร: <span x-text="payloadData.customerPhoneNumber"></span></div>
+            </div>
+            <div class="postal">
+              <div class="postal-code">
+                <div x-text="payloadData.customerLocation.post_code[0]"></div>
+                <div x-text="payloadData.customerLocation.post_code[1]"></div>
+                <div x-text="payloadData.customerLocation.post_code[2]"></div>
+                <div x-text="payloadData.customerLocation.post_code[3]"></div>
+                <div x-text="payloadData.customerLocation.post_code[4]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="line delivery-tracking">
+          <div class="label">Tracking No.</div>
+          <div class="details tracking">
+            <div class="barcode">
+              <img id="trackNo" alt="barcode" />
+              <div class="code" x-text="payloadData.trackingNo"></div>
+            </div>
+            <div class="shipping-code" x-text="payloadData.labelDetail.sortingcode"></div>
+          </div>
+        </div>
+      </div>
+    </page>
+  </body>
+</html>

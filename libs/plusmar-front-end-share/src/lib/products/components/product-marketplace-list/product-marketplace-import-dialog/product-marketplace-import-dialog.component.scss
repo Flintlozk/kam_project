@@ -1,0 +1,97 @@
+@import 'base';
+@import 'custom-checkbox';
+@import 'buttons';
+.product-import-dialog {
+  .counter-search-bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .counter {
+      font-weight: 300;
+      font-size: 14px;
+    }
+
+    .filter-input {
+      display: flex;
+      .select-option {
+        width: 180px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .title {
+    font-weight: 300;
+    font-size: 16px;
+  }
+
+  .footer-border-top {
+    border-top: $default-border;
+  }
+
+  .table {
+    tr {
+      font-weight: 300;
+      font-size: 14px;
+    }
+    .data-tr {
+      .title {
+        font-weight: 400;
+        font-size: 16px;
+      }
+      td {
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+        &:last-child {
+          border-right: 1px solid $border-color;
+        }
+        &:first-child {
+          border-left: 1px solid $border-color;
+        }
+
+        .product-name {
+          font-size: 16px;
+        }
+
+        .variant-count {
+          color: $text-light-color;
+          font-size: 12px;
+        }
+      }
+    }
+    .first {
+      display: flex;
+      align-items: center;
+
+      .custom-checkbox {
+        @extend .custom-checkbox;
+
+        .checkmark {
+          top: -10px;
+        }
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+
+      .default-img {
+        filter: contrast(0.5);
+        width: 30px;
+        height: 30px;
+        border-radius: 0px;
+      }
+
+      &:hover {
+        color: $main-color;
+        cursor: pointer;
+      }
+    }
+  }
+}

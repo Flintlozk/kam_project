@@ -1,0 +1,23 @@
+<div class="setting-customer-sla-container">
+  <mat-accordion>
+    <mat-expansion-panel style="border-radius: 15px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="card-content">
+            <div class="content">
+              <div class="ml-15">Receive incoming comment</div>
+            </div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <div class="toggle-contianer">
+            <label class="mode-toggle">
+              <input type="checkbox" [disabled]="!isAllowed" [(ngModel)]="isEnabled" (change)="toggleFeature()" />
+              <span class="slider round" [ngClass]="'active'"> </span>
+            </label>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

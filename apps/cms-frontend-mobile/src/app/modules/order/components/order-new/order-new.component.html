@@ -1,0 +1,16 @@
+<div class="py-2">
+  <ng-container *ngFor="let orderNewDataItem of orderNewData; trackBy: trackByIndex">
+    <cms-next-order-template>
+      <ng-container class="date-time">{{ orderNewDataItem.date }}</ng-container>
+      <ng-container class="template-items">
+        <ng-container *ngFor="let detailsItem of orderNewDataItem.details; trackBy: trackByIndex">
+          <cms-next-order-template-item [imgUrl]="detailsItem.imgUrl" [fullName]="detailsItem.fullName" [orderCode]="detailsItem.orderCode" [hhmm]="detailsItem.hhmm">
+            <div class="template-item-content">
+              <cms-next-order-inform-payment></cms-next-order-inform-payment>
+            </div>
+          </cms-next-order-template-item>
+        </ng-container>
+      </ng-container>
+    </cms-next-order-template>
+  </ng-container>
+</div>

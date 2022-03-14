@@ -1,0 +1,14 @@
+.container-member-flow {
+  display: flex;
+  flex-direction: row;
+  .img-profile-picture {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    padding: 10px 10px 10px 10px;
+  }
+  .name-member-flow {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

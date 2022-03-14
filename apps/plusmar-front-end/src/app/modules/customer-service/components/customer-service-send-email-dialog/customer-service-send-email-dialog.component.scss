@@ -1,0 +1,104 @@
+@import 'base';
+@import 'buttons';
+.customer-service-send-email-dialog {
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+      .btn-send {
+        @include btn-active();
+      }
+    }
+  }
+  .content {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 20px;
+    .item {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 10px;
+      .label {
+        font-size: 12px;
+        font-weight: 300;
+        color: #8091a0;
+      }
+      input,
+      textarea {
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 12px 15px;
+        width: calc(100% - 30px);
+      }
+      .attach {
+        display: grid;
+        grid-template-columns: repeat(2, 30px);
+        padding-left: 15px;
+        img {
+          width: 20px;
+          cursor: pointer;
+        }
+        .tooltip {
+          .tooltiptext {
+            left: -14px;
+          }
+        }
+      }
+      .common-chips {
+        position: relative;
+        .profile-list {
+          position: absolute;
+          left: 0px;
+          top: calc(100% + 10px);
+          box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+          border-radius: 8px;
+          background: white;
+          z-index: 1;
+          min-width: 250px;
+          max-height: 200px;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          @include custom-scroll-bar();
+          .item {
+            display: flex;
+            align-items: center;
+            transition: $transition;
+            padding: 10px 20px;
+            border-bottom: 1px solid $border-color;
+            cursor: pointer;
+            img {
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 100%;
+              margin-right: 5px;
+            }
+            .profile {
+              font-weight: 300;
+              .email {
+                color: #576f83;
+                font-size: 12px;
+                font-weight: 300;
+              }
+            }
+            &:last-child {
+              border-bottom: 0px;
+            }
+            &:hover {
+              border-color: #e2f1ff;
+              background: #e2f1ff;
+              .name {
+                color: $main-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

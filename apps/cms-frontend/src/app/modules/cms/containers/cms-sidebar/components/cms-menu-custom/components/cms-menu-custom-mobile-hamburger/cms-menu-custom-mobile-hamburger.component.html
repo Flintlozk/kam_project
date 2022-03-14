@@ -1,0 +1,262 @@
+<section class="grid gap-4" [formGroup]="menuMobileHamburgerForm">
+  <div class="grid gap-1">
+    <span class="font-light">Configure Icon</span>
+    <div class="flex justify-between items-end">
+      <ng-container *ngIf="menuMobileHamburgerForm['controls']['icon']['controls']['iconGroup'].value as iconGroupFormValue">
+        <ng-container *ngIf="iconGroupFormValue === EMenuHamburgerGroup.GROUP_1">
+          <ng-container *ngTemplateOutlet="GROUP_1; context: { isActive: true, isFromMenu: false }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="iconGroupFormValue === EMenuHamburgerGroup.GROUP_2">
+          <ng-container *ngTemplateOutlet="GROUP_2; context: { isActive: true, isFromMenu: false }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="iconGroupFormValue === EMenuHamburgerGroup.GROUP_3">
+          <ng-container *ngTemplateOutlet="GROUP_3; context: { isActive: true, isFromMenu: false }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="iconGroupFormValue === EMenuHamburgerGroup.GROUP_4">
+          <ng-container *ngTemplateOutlet="GROUP_4; context: { isActive: true, isFromMenu: false }"></ng-container>
+        </ng-container>
+      </ng-container>
+      <div [matMenuTriggerFor]="menuIconGroups" class="text-green-500 cursor-pointer focus:outline-none">Change Icon</div>
+      <mat-menu #menuIconGroups="matMenu">
+        <div class="p-4">
+          <div class="font-bold pb-2">Menu Icon Groups</div>
+          <div class="grid grid-cols-2 gap-2" *ngIf="menuMobileHamburgerForm['controls']['icon']['controls']['iconGroup'].value as iconGroupFormValue">
+            <ng-container *ngTemplateOutlet="GROUP_1; context: { isActive: iconGroupFormValue === EMenuHamburgerGroup.GROUP_1, isFromMenu: true }"></ng-container>
+            <ng-container *ngTemplateOutlet="GROUP_2; context: { isActive: iconGroupFormValue === EMenuHamburgerGroup.GROUP_2, isFromMenu: true }"></ng-container>
+            <ng-container *ngTemplateOutlet="GROUP_3; context: { isActive: iconGroupFormValue === EMenuHamburgerGroup.GROUP_3, isFromMenu: true }"></ng-container>
+            <ng-container *ngTemplateOutlet="GROUP_4; context: { isActive: iconGroupFormValue === EMenuHamburgerGroup.GROUP_4, isFromMenu: true }"></ng-container>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+  <div class="grid gap-1">
+    <span class="font-light">Appearance</span>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onActiveMenuAppearanceText(false)">
+      <svg *ngIf="!menuMobileHamburgerForm['controls']['isText'].value" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <svg *ngIf="menuMobileHamburgerForm['controls']['isText'].value" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">Logo</span>
+    </div>
+    <div class="flex items-center cursor-pointer focus:outline-none" (click)="onActiveMenuAppearanceText(true)">
+      <svg *ngIf="menuMobileHamburgerForm['controls']['isText'].value" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+        <circle cx="6" cy="6" r="2.65" fill="#2EC639" stroke="#2EC639" stroke-width="0.7" />
+      </svg>
+      <svg *ngIf="!menuMobileHamburgerForm['controls']['isText'].value" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+      </svg>
+      <span class="pl-2">Text</span>
+    </div>
+    <input *ngIf="menuMobileHamburgerForm['controls']['isText'].value" class="border rounded px-4 py-1 mr-6 focus:outline-none" type="text" formControlName="text" />
+  </div>
+  <div class="grid gap-1">
+    <span class="font-light">Position</span>
+    <div class="flex items-center">
+      <ng-container *ngFor="let position of positionData; let index = index">
+        <button
+          (click)="onPosition(index)"
+          [ngClass]="{ 'bg-green-500': position.selected, 'bg-gray-100 hover:bg-gray-200': !position.selected }"
+          class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+        >
+          <svg
+            *ngIf="position.value === EPosition.LEFT"
+            [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+            class="fill-current stroke-current"
+            width="20"
+            height="22"
+            viewBox="0 0 20 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M1 1V21" stroke-linecap="round" fill="none" />
+            <rect x="4" y="7" width="16" height="3" rx="1.5" stroke="none" />
+            <rect x="4" y="13" width="10" height="3" rx="1.5" stroke="none" />
+          </svg>
+          <svg
+            *ngIf="position.value === EPosition.RIGHT"
+            [ngClass]="{ 'text-white': position.selected, 'text-gray-400': !position.selected }"
+            class="fill-current stroke-current"
+            width="20"
+            height="22"
+            viewBox="0 0 20 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M19 1V21" stroke-linecap="round" fill="none" />
+            <rect y="7" width="16" height="3" rx="1.5" stroke="none" />
+            <rect x="6" y="13" width="10" height="3" rx="1.5" stroke="none" />
+          </svg>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #GROUP_1 let-isActive="isActive" let-isFromMenu="isFromMenu">
+  <div
+    (click)="onActiveIconGroup(EMenuHamburgerGroup.GROUP_1, isFromMenu)"
+    class="flex items-center relative"
+    [ngClass]="{ 'px-4 py-6 bg-gray-50 hover:bg-gray-200 border rounded cursor-pointer transition': isFromMenu }"
+  >
+    <svg class="absolute right-1 top-1" *ngIf="isFromMenu && isActive" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+      <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="14"
+        height="13"
+        viewBox="0 0 14 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="1" x2="13" y2="1" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="6.10156" x2="13" y2="6.10156" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="11.1992" x2="13" y2="11.1992" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center ml-2">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="16"
+        height="13"
+        viewBox="0 0 16 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="-1" x2="16.7439" y2="-1" transform="matrix(0.732791 0.680454 -0.732791 0.680454 1 1)" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="-1" x2="16.7439" y2="-1" transform="matrix(0.732791 -0.680454 0.732791 0.680454 1.99707 13.0742)" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template #GROUP_2 let-isActive="isActive" let-isFromMenu="isFromMenu">
+  <div
+    (click)="onActiveIconGroup(EMenuHamburgerGroup.GROUP_2, isFromMenu)"
+    class="flex items-center relative"
+    [ngClass]="{ 'px-4 py-6 bg-gray-50 hover:bg-gray-200 border rounded cursor-pointer transition': isFromMenu }"
+  >
+    <svg class="absolute right-1 top-1" *ngIf="isFromMenu && isActive" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+      <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="14"
+        height="13"
+        viewBox="0 0 14 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="1" x2="7" y2="1" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="6.10156" x2="13" y2="6.10156" stroke-width="2" stroke-linecap="round" />
+        <line x1="7" y1="11.1992" x2="13" y2="11.1992" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center ml-2">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="16"
+        height="13"
+        viewBox="0 0 16 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="-1" x2="16.7439" y2="-1" transform="matrix(0.732791 0.680454 -0.732791 0.680454 1 1)" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="-1" x2="16.7439" y2="-1" transform="matrix(0.732791 -0.680454 0.732791 0.680454 1.99707 13.0742)" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template #GROUP_3 let-isActive="isActive" let-isFromMenu="isFromMenu">
+  <div
+    (click)="onActiveIconGroup(EMenuHamburgerGroup.GROUP_3, isFromMenu)"
+    class="flex items-center relative"
+    [ngClass]="{ 'px-4 py-6 bg-gray-50 hover:bg-gray-200 border rounded cursor-pointer transition': isFromMenu }"
+  >
+    <svg class="absolute right-1 top-1" *ngIf="isFromMenu && isActive" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+      <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="14"
+        height="13"
+        viewBox="0 0 14 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="1" y1="1" x2="13" y2="1" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="6.10156" x2="9" y2="6.10156" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="11.1992" x2="5" y2="11.1992" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center ml-2">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="8"
+        height="12"
+        viewBox="0 0 8 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M7 1L2 6.41667L7 11" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template #GROUP_4 let-isActive="isActive" let-isFromMenu="isFromMenu">
+  <div
+    (click)="onActiveIconGroup(EMenuHamburgerGroup.GROUP_4, isFromMenu)"
+    class="flex items-center relative"
+    [ngClass]="{ 'px-4 py-6 bg-gray-50 hover:bg-gray-200 border rounded cursor-pointer transition': isFromMenu }"
+  >
+    <svg class="absolute right-1 top-1" *ngIf="isFromMenu && isActive" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+      <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="14"
+        height="13"
+        viewBox="0 0 14 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="4" y1="1" x2="10" y2="1" stroke-width="2" stroke-linecap="round" />
+        <line x1="1" y1="6.10156" x2="13" y2="6.10156" stroke-width="2" stroke-linecap="round" />
+        <line x1="4" y1="11.1992" x2="10" y2="11.1992" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div [ngClass]="{ 'bg-green-200': isActive, 'bg-gray-200': !isActive }" class="w-10 h-10 rounded flex items-center justify-center ml-2">
+      <svg
+        [ngClass]="{ 'text-green-500': isActive, 'text-gray-500': !isActive }"
+        class="stroke-current"
+        width="16"
+        height="12"
+        viewBox="0 0 16 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="3" y1="6.10156" x2="15" y2="6.10156" stroke-width="2" stroke-linecap="round" />
+        <path d="M7 1L2 6.41667L7 11" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</ng-template>

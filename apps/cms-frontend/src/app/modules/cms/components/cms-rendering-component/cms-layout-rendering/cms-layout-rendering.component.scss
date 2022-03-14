@@ -1,0 +1,132 @@
+@layer components {
+  :host {
+    @apply relative w-full z-0;
+    &.cdk-drag-preview {
+      @apply rounded-md bg-green-100 border-none;
+      box-sizing: border-box;
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+::ng-deep {
+  .mobile {
+    cms-next-cms-layout-rendering {
+      grid-template-areas:
+        'column1'
+        'column2'
+        'column3'
+        'column4';
+      .column-1 {
+        grid-area: column1;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-2 {
+        grid-area: column2;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-3 {
+        grid-area: column3;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-4 {
+        grid-area: column4;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+    }
+  }
+  .tablet {
+    cms-next-cms-layout-rendering {
+      grid-template-areas:
+        'column1 column2'
+        'column3 column4';
+      .column-1 {
+        grid-area: column1;
+      }
+      .column-2 {
+        grid-area: column2;
+      }
+      .column-3 {
+        grid-area: column3;
+      }
+      .column-4 {
+        grid-area: column4;
+      }
+      &[column-grid='repeat(3, 1fr)'] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        //OPTIONAL
+        .column-3 {
+          grid-column-start: 1;
+          grid-column-end: 4;
+        }
+      }
+      &[column-grid='repeat(4, 1fr)'] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+  }
+  @media screen and (max-width: 481px) {
+    cms-next-cms-layout-rendering {
+      grid-template-areas:
+        'column1'
+        'column2'
+        'column3'
+        'column4';
+      .column-1 {
+        grid-area: column1;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-2 {
+        grid-area: column2;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-3 {
+        grid-area: column3;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+      .column-4 {
+        grid-area: column4;
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    cms-next-cms-layout-rendering {
+      grid-template-areas:
+        'column1 column2'
+        'column3 column4';
+      .column-1 {
+        grid-area: column1;
+      }
+      .column-2 {
+        grid-area: column2;
+      }
+      .column-3 {
+        grid-area: column3;
+      }
+      .column-4 {
+        grid-area: column4;
+      }
+      &[column-grid='repeat(3, 1fr)'] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        //OPTIONAL
+        .column-3 {
+          grid-column-start: 1;
+          grid-column-end: 4;
+        }
+      }
+      &[column-grid='repeat(4, 1fr)'] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+  }
+}

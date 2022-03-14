@@ -1,0 +1,85 @@
+<div class="relative" [formGroup]="dialogForm" reactorRoomClickOutside (outside)="onClickOutside($event)">
+  <a class="underline setting-text" (click)="toggle()">Setting</a>
+  <div class="setting-dialog" [@translateY] *ngIf="toggleStatus">
+    <div class="flex w-full justify-between mb-4">
+      <div class="self-start items-center">
+        <span class="mr-2">
+          <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M13.6706 5.40595L12.5946 5.17203C12.501 4.88556 12.3851 4.60614 12.2483 4.33698L12.844 3.41039C12.9504 3.24483 12.927 3.02747 12.7879 2.8884L11.1116 1.2121C10.9725 1.07303 10.7552 1.04964 10.5896 1.15602L9.66302 1.75171C9.39386 1.61488 9.11444 1.49899 8.82797 1.40543L8.59406 0.329407C8.55229 0.137146 8.38203 0 8.18529 0H5.81471C5.61797 0 5.44771 0.137146 5.40595 0.329407L5.17203 1.40543C4.88556 1.49899 4.60614 1.61488 4.33698 1.75171L3.41039 1.15602C3.24483 1.04964 3.02747 1.07303 2.8884 1.2121L1.2121 2.8884C1.07303 3.02747 1.04964 3.24483 1.15602 3.41039L1.75171 4.33698C1.61488 4.60614 1.49899 4.88556 1.40543 5.17203L0.329407 5.40595C0.137146 5.44782 0 5.61797 0 5.81471V8.18529C0 8.38203 0.137146 8.55219 0.329407 8.59406L1.40543 8.82797C1.49899 9.11444 1.61488 9.39386 1.75171 9.66302L1.15602 10.5896C1.04964 10.7552 1.07303 10.9725 1.2121 11.1116L2.8884 12.7879C3.02747 12.927 3.24483 12.9504 3.41039 12.844L4.33698 12.2483C4.60614 12.3851 4.88556 12.501 5.17203 12.5946L5.40595 13.6706C5.44771 13.8629 5.61797 14 5.81471 14H8.18529C8.38203 14 8.55229 13.8629 8.59406 13.6706L8.82797 12.5946C9.11444 12.501 9.39386 12.3851 9.66302 12.2483L10.5896 12.844C10.7552 12.9504 10.9725 12.9271 11.1116 12.7879L12.7879 11.1116C12.927 10.9725 12.9504 10.7552 12.844 10.5896L12.2483 9.66302C12.3851 9.39386 12.501 9.11444 12.5946 8.82797L13.6706 8.59406C13.8629 8.55219 14 8.38203 14 8.18529V5.81471C14 5.61797 13.8629 5.44782 13.6706 5.40595ZM9.50996 7C9.50996 8.38396 8.38396 9.50996 7 9.50996C5.61604 9.50996 4.49004 8.38396 4.49004 7C4.49004 5.61604 5.61604 4.49004 7 4.49004C8.38396 4.49004 9.50996 5.61604 9.50996 7Z"
+              fill="#BCC4D6"
+            />
+          </svg>
+        </span>
+        <span class=""> Settings</span>
+      </div>
+      <div class="self-end">
+        <!-- <button class="mr-2">
+          <img src="assets/cms/setting/website/general/btn-cancel.svg" alt="">
+        </button>
+        <button>
+          <img src="assets/cms/setting/website/general/btn-accept.svg" alt="">
+        </button> -->
+      </div>
+    </div>
+
+    <div>
+      <div class="pb-6">
+        <small class="text-gray-500">Main Converter</small>
+        <div class="select-options">
+          <mat-form-field class="w-full" appearance="none">
+            <mat-select [value]="selectedConverter">
+              <mat-select-trigger>
+                <img class="inline" width="26" height="26" [src]="selectedConverter.icon" />{{
+                  ' ' + selectedConverter.isoCode + '(' + selectedConverter.symbol + ') - ' + selectedConverter.fullName
+                }}
+              </mat-select-trigger>
+
+              <mat-option (click)="onConverterChange(langIndex)" [value]="currency" *ngFor="let currency of mainConverter; let langIndex = index"
+                ><img class="inline" [src]="currency.icon" />{{ ' ' + currency.isoCode + '(' + currency.symbol + ') - ' + currency.fullName }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <small class="text-gray-500 mb-4">Currency Converter</small>
+
+      <div class="relative flex items-center pb-2">
+        <div class="relative flex items-center w-full">
+          <input autofocus [formControl]="searchField" type="text" placeholder="Search..." class="w-full h-12 pl-4 pr-12 border rounded-md focus:outline-none" />
+          <svg class="absolute right-0 mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+              fill="#BCC4D6"
+            />
+          </svg>
+        </div>
+      </div>
+      <ng-container [formArrayName]="'selected_main_converter'">
+        <div class="p-2 max-h-64 overflow-y-scroll custom-scroll-bar">
+          <div class="p-2 my-1" *ngFor="let currency of list; let converterIndex = index">
+            <ng-container [formGroupName]="currency.index">
+              <label class="checkbox"
+                ><input type="checkbox" class="checkmark" formControlName="selected" /><span class="checkmark"></span
+                ><img width="26" height="26" class="inline" [src]="currency.icon" />
+                <div class="pl-4">
+                  <span>
+                    {{ currency.isoCode + '(' + currency.symbol + ') - ' + currency.fullName }}
+                    <br /><span
+                      ><i
+                        ><small class="text-gray-500">{{ currency.country }}</small></i
+                      ></span
+                    ></span
+                  >
+                </div>
+              </label>
+            </ng-container>
+          </div>
+          <ng-container *ngIf="list.length === 0">
+            <small class="font-light">No Language found</small>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

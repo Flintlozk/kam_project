@@ -1,0 +1,33 @@
+.general-grid {
+  grid-template-columns: 7fr 3fr;
+}
+
+:host ::ng-deep .checkbox input:checked ~ .checkmark {
+  border: solid 1px rgb(34, 197, 94);
+  background-color: white;
+  width: 14px;
+  height: 14px;
+}
+:host ::ng-deep input[type='checkbox']:disabled ~ .checkmark {
+  background-color: rgb(80, 79, 78);
+  border: unset;
+}
+:host ::ng-deep input[type='checkbox']:disabled ~ .checkmark::after {
+  border: solid rgb(130, 128, 126);
+  border-width: 0 1px 1px 0;
+}
+:host ::ng-deep .checkbox .checkmark {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+:host ::ng-deep .checkbox .checkmark:after {
+  border: solid rgb(34, 197, 94);
+  left: 3.25px;
+  top: 2.5px;
+  border-width: 0 1px 1px 0;
+  width: 7.5px;
+  height: 5px;
+  transform: rotate(315deg) scaleX(-1);
+}

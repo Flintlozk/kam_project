@@ -1,0 +1,18 @@
+<div class="admin-reasons-closed-base-container">
+  <div class="title">{{ 'CLOSED_CASE_TYPE' | translate }}</div>
+  <div #chart class="chart-content">
+    <canvas
+      id="canvas-bara-chart"
+      width="100%"
+      style="height: auto"
+      height="350"
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [type]="barChartType"
+    ></canvas>
+  </div>
+</div>

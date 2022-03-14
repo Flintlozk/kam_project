@@ -1,0 +1,51 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content">
+    <mat-tab-group>
+      <mat-tab label="Setting">
+        <div class="grid gap-4 mt-5" [formGroup]="productSkuSettingFormGroup">
+          <section>
+            <div class="layout-label">Display</div>
+            <p><mat-checkbox formControlName="product_code">Product Code</mat-checkbox></p>
+            <p><mat-checkbox formControlName="product_sku">SKU</mat-checkbox></p>
+          </section>
+
+          <section class="grid gap-1">
+            <div class="flex justify-between">
+              <div class="text-sm layout-label flex items-center">Style</div>
+              <img class="cursor-pointer" (click)="onScrollAnimation()" src="assets/cms/icon/arrow-right.svg" alt="arrow-right" />
+            </div>
+            <div class="flex overflow-x-auto space-x-8" #animationSlider>
+              <ng-container *ngFor="let skuStyle of productCodeSkuStyleList; let index = index">
+                <img class="p-2 cursor-pointer" (click)="onActiveAnimationStyle(index)" *ngIf="!skuStyle.selected; else styleSelected" [src]="skuStyle.imgURL" alt="style" />
+                <ng-template #styleSelected>
+                  <img class="p-2" (click)="onActiveAnimationStyle(index)" [src]="skuStyle.activeImageURL" alt="style-active" />
+                </ng-template>
+              </ng-container>
+            </div>
+          </section>
+
+          <section class="grid gap-2">
+            <label class="layout-label">Layout</label>
+            <div class="grid grid-2">
+              <mat-radio-group class="grid" formControlName="layout">
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductLayoutTypes.INSIDE_IMAGE"> Inside Image </mat-radio-button>
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductLayoutTypes.OUTSIDE_IMAGE"> Outside Image </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </section>
+
+          <cms-next-cms-element-position [isRemoveJustify]="true"></cms-next-cms-element-position>
+
+          <section>
+            <p><mat-checkbox formControlName="applyAll">Apply all</mat-checkbox></p>
+          </section>
+        </div>
+      </mat-tab>
+      <mat-tab label="Custom">
+        <section class="mt-5">
+          <cms-next-cms-layout-text></cms-next-cms-layout-text>
+        </section>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
+</cms-next-cms-popover-layout>

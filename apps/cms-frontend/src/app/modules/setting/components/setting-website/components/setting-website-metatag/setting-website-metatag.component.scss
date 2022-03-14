@@ -1,0 +1,25 @@
+::ng-deep ngx-monaco-editor {
+  .editor-container {
+    .monaco-editor {
+      .overflow-guard {
+        .margin {
+          background-color: #7d8595;
+          .margin-view-overlays {
+            div {
+              .active-line-number.line-numbers {
+                color: black;
+              }
+              .line-numbers {
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+ngx-monaco-editor {
+  height: 300px;
+  resize: vertical;
+}

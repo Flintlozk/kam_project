@@ -1,0 +1,29 @@
+[
+  {
+    "object": "page",
+    "entry": [
+      {
+        "id": "106821459400821",
+        "time": 1643099376781,
+        "messaging": [
+          {
+            "sender": {
+              "id": "101021509165195"
+            },
+            "recipient": {
+              "id": "106821459400821"
+            },
+            "timestamp": 1643099376565,
+            "message": {
+              "mid": "m_ySP_P5rRGt3ufPFieQu_SCadSVfCnbKiHzi5Ste8uNVLxDO1yglbnQE5xZHy-D4uWv4qmqa-oUhxI00clOeUQg",
+              "text": "1",
+              "tags": {
+                "source": "customer_chat_plugin"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

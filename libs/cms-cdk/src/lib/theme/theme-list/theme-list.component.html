@@ -1,0 +1,35 @@
+<div class="theme-list">
+  <ng-container *ngFor="let theme of themes; trackBy: trackByIndex; let themeIndex = index">
+    <div (click)="buttonSelectTheme$.next(themeIndex)" class="theme" [ngClass]="{ themeSeclectHover: theme.isSelected, themeNoneSelectHover: !theme.isSelected }">
+      <div class="imgSection">
+        <img class="img" [src]="theme.html[0]?.thumbnail?.path" [alt]="theme.name" onerror="src='assets/shared/default-theme.svg'" />
+      </div>
+      <div class="themeNameSection">
+        <div class="themeName">{{ theme.name }}</div>
+        <div class="items-center button-group" [ngClass]="{ button: theme.isSelected, none: !theme.isSelected }">
+          <button
+            style="display: none"
+            class="flex items-center justify-center w-10 h-10 mr-2 transition-transform transform bg-white shadow rounded-xl focus:outline-none hover:scale-105"
+          >
+            <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M21.8602 6.42369C21.6637 6.16134 16.9808 0 10.9999 0C5.01902 0 0.335931 6.16134 0.139606 6.42344C-0.0465353 6.67232 -0.0465353 7.00989 0.139606 7.25878C0.335931 7.52112 5.01902 13.6825 10.9999 13.6825C16.9808 13.6825 21.6637 7.52108 21.8602 7.25899C22.0466 7.01014 22.0466 6.67232 21.8602 6.42369ZM10.9999 12.267C6.59435 12.267 2.77867 8.17764 1.64915 6.84075C2.77721 5.50269 6.5849 1.41542 10.9999 1.41542C15.4052 1.41542 19.2207 5.50411 20.3507 6.84171C19.2226 8.17973 15.4149 12.267 10.9999 12.267Z"
+                fill="#2EC639"
+              />
+              <path
+                d="M11 3.43542C9.05639 3.43542 7.4751 4.97659 7.4751 6.87085C7.4751 8.76511 9.05639 10.3063 11 10.3063C12.9435 10.3063 14.5248 8.76511 14.5248 6.87085C14.5248 4.97659 12.9435 3.43542 11 3.43542ZM11 9.18087C9.69299 9.18087 8.62979 8.14462 8.62979 6.87085C8.62979 5.59708 9.69303 4.56082 11 4.56082C12.3069 4.56082 13.3701 5.59708 13.3701 6.87085C13.3701 8.14462 12.3069 9.18087 11 9.18087Z"
+                fill="#2EC639"
+              />
+              <ellipse cx="10.76" cy="6.71429" rx="2.76" ry="2.71429" fill="#2EC639" />
+            </svg>
+          </button>
+          <button class="button">
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 4.96L6.74359 10L15 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

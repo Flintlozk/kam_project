@@ -1,0 +1,135 @@
+<div class="product-add-variants">
+  <reactor-room-loader block="true" [text]="loadingText" *ngIf="tableForProduct.isLoading"></reactor-room-loader>
+  <reactor-room-heading [headingTitle]="headingTitle" [Route]="routeTitle">
+    <div class="heading-content">
+      <button class="btn btn-cancel" (click)="goToProduct()">{{ 'Cancel' | translate }}</button>
+      <button class="btn btn-active" (click)="saveVariations()">
+        <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+            fill="white"
+          />
+        </svg>
+        {{ 'Save Variants' | translate }}
+      </button>
+    </div>
+  </reactor-room-heading>
+
+  <div class="product-details">
+    <ng-container *ngFor="let detail of productDetails; let i = index">
+      <div class="product-icon flex items-center">
+        <img [src]="detail.icon" [alt]="detail.key" />
+      </div>
+      <div class="product-title">
+        {{ detail.key }}
+      </div>
+      <div class="product-value">
+        <ng-container *ngIf="detail.id === 'image'; else notImageTemplate">
+          <img class="avatar" [src]="detail.value" [alt]="detail.key" />
+        </ng-container>
+        <ng-template #notImageTemplate>
+          {{ detail.value }}
+        </ng-template>
+      </div>
+      <div class="divider" *ngIf="i !== productDetails.length - 1"></div>
+    </ng-container>
+  </div>
+
+  <div class="variant-list">
+    <div *ngIf="isNoAttribute; else attributeExists">
+      <div class="no-attribute">
+        <div class="title">{{ 'Current Variant Details' | translate }}</div>
+        <div class="current-variant">
+          <table>
+            <tr>
+              <th>{{ 'Image' || translate }}</th>
+              <th>SKU</th>
+              <th>{{ 'Unit Price' || translate }}</th>
+              <th>{{ 'Inventory' || translate }}</th>
+            </tr>
+            <tr *ngFor="let variant of product.variants">
+              <td class="img-container"><img [src]="variant?.variantImages[0]?.mediaLink || noImage" alt="" srcset="" /></td>
+              <td>{{ variant?.variantSKU }}</td>
+              <td>฿ {{ variant?.variantUnitPrice }}</td>
+              <td>{{ variant?.variantInventory }}</td>
+            </tr>
+          </table>
+        </div>
+        <div></div>
+
+        <div [formGroup]="addVariantForm">
+          <reactor-room-product-create-variants
+            [productID]="this.productID"
+            [formMode]="formMode"
+            [productStatus]="productStatus"
+            [patchVariantData]="patchVariantData"
+            [isAddingVariants]="true"
+          ></reactor-room-product-create-variants>
+        </div>
+      </div>
+    </div>
+    <ng-template #attributeExists>
+      <div class="with-variant">
+        <div class="title">{{ 'Variations' | translate }}</div>
+        <div class="divider"></div>
+        <!-- variant 1 -->
+        <div class="variants">
+          <div class="variant-1">
+            <div class="flex justify-between">
+              <div class="attr-title">
+                {{ productAttribute1?.attributeName }}
+                <button *ngIf="cancelButtons[attributeIndex1] && !cancelButtons[attributeIndex2]" (click)="onClickCancelButtons(attributeIndex1)" class="button-link">
+                  {{ 'Remove' | translate }}
+                </button>
+              </div>
+              <div>
+                <button class="btn btn-cancel small" (click)="openAttributeDialog(productAttribute1, attributeIndex1)">
+                  {{ 'Add' | translate }} / {{ 'Edit' | translate }} {{ 'Attribute' | translate }} {{ attributeIndex1 + 1 }}
+                </button>
+              </div>
+            </div>
+
+            <mat-chip-list *ngIf="productAttribute1?.subAttributes?.length">
+              <ng-container *ngFor="let subAttr of productAttribute1?.subAttributes">
+                <mat-chip *ngIf="subAttr.subAttributeName">
+                  {{ subAttr?.subAttributeName }}
+                </mat-chip>
+              </ng-container>
+            </mat-chip-list>
+          </div>
+
+          <!-- variant 2 -->
+          <div class="variant-2">
+            <div class="flex justify-between" *ngIf="cancelButtons[attributeIndex1]">
+              <div class="attr-title">
+                {{ productAttribute2?.attributeName }}
+                <span>
+                  <button *ngIf="cancelButtons[attributeIndex2]" (click)="onClickCancelButtons(attributeIndex2)" class="button-link">{{ 'Remove' | translate }}</button></span
+                >
+              </div>
+              <button class="btn btn-cancel small" (click)="openAttributeDialog(productAttribute2, attributeIndex2)">
+                {{ 'Add' | translate }} / {{ 'Edit' | translate }} {{ 'Attribute' | translate }} {{ attributeIndex2 + 1 }}
+              </button>
+            </div>
+            <mat-chip-list>
+              <mat-chip *ngFor="let subAttr of productAttribute2?.subAttributes">
+                {{ subAttr.subAttributeName }}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <div [formGroup]="addVariantForm">
+          <reactor-room-product-create-variants
+            *ngIf="isShowVariants"
+            [productID]="this.productID"
+            [formMode]="formMode"
+            [productStatus]="productStatus"
+            [patchVariantData]="patchVariantData"
+            [isAddingVariants]="isAddingVariants"
+            [isMultipleVariants]="isMultipleVariants"
+          ></reactor-room-product-create-variants>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

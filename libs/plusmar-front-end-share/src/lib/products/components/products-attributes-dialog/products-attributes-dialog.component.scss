@@ -1,0 +1,59 @@
+@import 'base';
+@import 'buttons';
+
+.products-attributes-dialog {
+  .content {
+    .item {
+      padding-top: 20px;
+
+      .label {
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icon {
+          color: red;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          img {
+            width: 20px;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .chips {
+        display: grid;
+        grid-gap: 10px;
+      }
+
+      .btn-add {
+        margin-top: 20px;
+        padding: 10px 25px;
+        @extend .btn-active;
+
+        &.disabled {
+          @extend .btn-disabled;
+          pointer-events: none;
+        }
+
+        width: 60px;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .buttons {
+      display: flex;
+      .btn-save {
+        @extend .btn-active;
+        margin-left: 10px;
+      }
+    }
+  }
+}

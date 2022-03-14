@@ -1,0 +1,16 @@
+<div>
+  <reactor-room-header [Topic]="name" (parentHandler)="addNewPattern()"> </reactor-room-header>
+  <cms-next-page-pagination [allPagesNumber]="allPages" (changePage)="onPageChange($event)"></cms-next-page-pagination>
+  <div class="grid-5">
+    <ng-container *ngFor="let pattern of patterns; let index = index">
+      <div class="grid-item" (click)="onSelectPattern(pattern._id)">
+        <div class="img-container">
+          <img [src]="pattern.patternUrl" onerror="src='assets/images/no-image.svg'" />
+        </div>
+        <div class="title">
+          {{ pattern.patternName }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

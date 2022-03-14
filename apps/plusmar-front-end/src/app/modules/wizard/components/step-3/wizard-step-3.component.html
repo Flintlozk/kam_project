@@ -1,0 +1,89 @@
+<div class="wizard-step-3">
+  <div class="content">
+    <div class="title-container">
+      <div class="title">{{ 'Step 3' | translate }}: {{ 'Logistic' | translate }}</div>
+      <div class="sub-title">{{ 'Select Logistics for serving your customers' | translate }}</div>
+    </div>
+
+    <ng-container *ngIf="!loading">
+      <div class="divider">
+        <svg xmlns="http://www.w3.org/2000/svg" width="53" height="5">
+          <path fill="none" stroke="#e3eff7" strokeWidth="2" d="M1055 313h50" transform="translate(-1054 -311)"></path>
+        </svg>
+      </div>
+      <div class="card-content first">
+        <div class="logistic-system">
+          <div>Logistic System</div>
+          <div class="control">
+            <div class="radios">
+              <label class="radio-button"
+                >{{ 'Yes' | translate }}
+                <input
+                  type="radio"
+                  name="radio"
+                  [(ngModel)]="pageFeeInfo.flat_status"
+                  [value]="false"
+                  [checked]="!pageFeeInfo.flat_status"
+                  (ngModelChange)="updatePageFlatStatus(false)"
+                />
+                <span class="checkmark"></span>
+              </label>
+
+              <label class="radio-button"
+                >{{ 'No' | translate }}
+                <input
+                  type="radio"
+                  name="radio"
+                  [(ngModel)]="pageFeeInfo.flat_status"
+                  [value]="true"
+                  [checked]="pageFeeInfo.flat_status"
+                  (ngModelChange)="updatePageFlatStatus(true)"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="pageFeeInfo.flat_status">
+          <reactor-room-logistic-system [setReturnUpdate]="true" (systemUpdate)="onLogisticSystemUpdate($event)"></reactor-room-logistic-system>
+        </ng-container>
+      </div>
+
+      <div *ngIf="!pageFeeInfo.flat_status" class="logistic-container">
+        <div class="title">Please select logistics</div>
+        <div class="logistic-detail">
+          <ng-container *ngFor="let item of logistics">
+            <ng-container *ngIf="item.delivery_type !== 'ALPHA'">
+              <div class="item" (click)="setActiveStatus(item.id, !item.status)" [ngClass]="item.status ? 'active' : ''">
+                <div class="header">
+                  <img [src]="item.status ? 'assets/img/wizard/check-blue.png' : 'assets/img/wizard/uncheck-blue.png'" />
+                </div>
+                <div class="body">
+                  <img [src]="getImageUrl(item.delivery_type)" />
+                  <div>
+                    <span>{{ item.name }}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div class="button">
+        <button class="btn-edit" (click)="cancel.emit(true)">
+          <span class="ml-5"> Cancel </span>
+        </button>
+        <button class="btn-save" (click)="onSave()">
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+              fill="white"
+            />
+          </svg>
+          <span class="ml-5"> Save </span>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

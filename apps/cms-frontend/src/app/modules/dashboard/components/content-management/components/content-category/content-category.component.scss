@@ -1,0 +1,105 @@
+$transition: all ease-in-out 0.3s;
+$mobilemax: 'screen and (max-width: 768px)';
+.content-category {
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      grid-gap: 10px;
+      align-items: center;
+      input {
+        box-shadow: none;
+        border: 1px solid #bcc4d6 !important;
+        border-radius: 8px;
+        padding: 0px 15px;
+        height: 35px;
+        &:focus {
+          border: 1px solid #22c55e !important;
+        }
+        @media #{$mobilemax} {
+          display: none;
+        }
+      }
+    }
+    @media #{$mobilemax} {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 10px;
+      .text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        input {
+          margin-left: 10px;
+          width: calc(50% - 10px);
+        }
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        .btn-delete {
+          margin: 0px;
+          min-width: unset;
+          height: 37px;
+          padding: 4.5px 10px;
+          font-size: 12px;
+        }
+        .btn-create {
+          margin: 0px;
+          min-width: unset !important;
+          height: 37px !important;
+          padding: 4.5px 10px !important;
+          font-size: 12px !important;
+        }
+        svg {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .table {
+    padding-top: 20px;
+    .sub-attribute {
+      padding-left: 25px;
+      padding-top: 5px;
+      .sub-attr-item {
+        display: flex;
+        align-items: center;
+        padding-bottom: 0.7rem;
+        position: relative;
+
+        &:after {
+          content: '';
+          width: 20px;
+          height: 1px;
+          background: #dddfea;
+          right: 100%;
+          bottom: 1.4rem;
+          position: absolute;
+        }
+
+        &:before {
+          content: '';
+          height: 31px;
+          width: 1px;
+          background: #dddfea;
+          position: absolute;
+          left: -20px;
+          bottom: 1.4rem;
+        }
+      }
+    }
+    @media #{$mobilemax} {
+      padding-top: 10px;
+    }
+    td {
+      vertical-align: top;
+    }
+  }
+}

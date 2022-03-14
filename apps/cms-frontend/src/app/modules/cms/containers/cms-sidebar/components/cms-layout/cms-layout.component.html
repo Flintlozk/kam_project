@@ -1,0 +1,93 @@
+<section class="grid gap-4">
+  <div class="flex items-center justify-between">
+    <span>LAYOUT F</span>
+    <button (click)="onDismiss()" class="transition transform focus:outline-none hover:scale-105">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="flex items-center">
+    <ng-container *ngFor="let tab of layoutTabs; let index = index">
+      <button
+        *ngIf="tab.status"
+        (click)="onSidebarLayoutTabHandler(tab.title)"
+        class="flex items-center justify-center w-8 h-8 mr-2 focus:outline-none rounded-xl"
+        [ngClass]="{ 'bg-gray-700': tab.selected }"
+      >
+        <svg
+          *ngIf="tab.title === ESidebarLayoutTab.LAYOUT_DETAIL"
+          class="fill-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+          />
+        </svg>
+        <svg
+          *ngIf="tab.title === ESidebarLayoutTab.LAYOUT_DESIGN"
+          class="fill-current stroke-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="16"
+          height="18"
+          viewBox="0 0 16 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.02155 13.2486C8.61341 13.9278 8.61809 14.7528 9.03422 15.4552C9.47774 16.2139 10.3077 16.6826 11.2067 16.6819C12.1057 16.6814 12.9349 16.2118 13.3775 15.4526C13.7915 14.7517 13.7953 13.9301 13.3877 13.2553C13.3833 13.2479 13.3786 13.2408 13.3735 13.234L11.4338 10.619C11.3801 10.5492 11.2946 10.5092 11.2049 10.5118C11.1153 10.5092 11.0299 10.5491 10.9761 10.6187L9.03642 13.2301C9.03105 13.236 9.0261 13.2422 9.02155 13.2486ZM9.5021 13.535L11.2045 11.2401L12.9074 13.5424C13.2097 14.0512 13.2029 14.6475 12.8881 15.1805C12.5459 15.7698 11.9032 16.1345 11.2061 16.1349C10.5092 16.1354 9.86592 15.7715 9.52289 15.1828C9.20642 14.6481 9.19899 14.0481 9.5021 13.535Z"
+          />
+          <path
+            d="M15 3.20663C15 1.99001 13.9921 1 12.7535 1C12.1101 1 11.4961 1.27195 11.0693 1.74619L6.21509 7.15C5.0148 6.82821 3.68932 7.11269 2.72817 8.03332C1.66731 9.04934 1.80532 10.104 1.92667 11.0344C2.05441 12.0106 2.16464 12.8537 1.13198 13.8429C1.02347 13.9469 0.977329 14.0984 1.01063 14.244C1.04354 14.3893 1.15076 14.5076 1.29389 14.5563C1.65619 14.6801 2.17957 14.7544 2.78842 14.7544C4.32138 14.7544 6.39695 14.2818 7.80899 12.9292C8.49642 12.2707 8.87498 11.402 8.87498 10.4829C8.87498 10.1874 8.82258 9.90132 8.74701 9.62165L14.2403 4.86058C14.7231 4.44173 15 3.83867 15 3.20663ZM7.19802 8.6486C7.71498 9.14381 7.99996 9.79514 7.99996 10.483C7.99996 11.1683 7.71544 11.8184 7.19802 12.314C5.72531 13.7241 3.50448 13.9797 2.26031 13.8702C3.03917 12.7941 2.90544 11.7718 2.79481 10.9249C2.68074 10.0537 2.59057 9.36539 3.33911 8.6486C4.42089 7.61201 6.11621 7.61283 7.19802 8.6486ZM12.7535 1.85952C13.5097 1.85952 14.125 2.46385 14.125 3.20669C14.125 3.59279 13.9558 3.96085 13.6614 4.21641L8.3898 8.78533C8.22953 8.51628 8.04475 8.259 7.80902 8.03334C7.58248 7.81622 7.33067 7.64634 7.06971 7.49831L11.7251 2.31529C11.9858 2.02571 12.3605 1.85952 12.7535 1.85952Z"
+            stroke-width="0.7"
+          />
+          <path
+            d="M7.19943 12.3136C5.72672 13.7237 3.50589 13.9793 2.26172 13.8698C3.04058 12.7938 2.90685 11.7714 2.79622 10.9245C2.68215 10.0533 2.59198 9.36502 3.34052 8.64822C4.4223 7.61164 6.11762 7.61246 7.19943 8.64822C7.71639 9.14344 8.00137 9.79476 8.00137 10.4826C8.00137 11.1679 7.71685 11.818 7.19943 12.3136Z"
+            stroke-width="0.7"
+          />
+        </svg>
+        <svg
+          *ngIf="tab.title === ESidebarLayoutTab.LAYOUT_SETTING"
+          class="fill-current"
+          [ngClass]="{ 'text-white': tab.selected, 'text-gray-400': !tab.selected }"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+          />
+          <path
+            d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+            [attr.fill]="tab.selected ? 'black' : 'white'"
+          />
+        </svg>
+      </button>
+    </ng-container>
+  </div>
+  <div [ngClass]="{ hidden: currentLayoutTab !== ESidebarLayoutTab.LAYOUT_DETAIL }">
+    <cms-next-cms-layout-content-management *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_CONTENT_MANAGEMENT"></cms-next-cms-layout-content-management>
+    <cms-next-cms-layout-content-management-landing
+      *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_CONTENT_MANAGEMENT_LANDING"
+    ></cms-next-cms-layout-content-management-landing>
+    <cms-next-cms-layout-text *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_TEXT"></cms-next-cms-layout-text>
+    <cms-next-cms-layout-column *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_LAYOUT"> </cms-next-cms-layout-column>
+    <cms-next-cms-layout-media-gallery *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_MEDIA_GALLERY"></cms-next-cms-layout-media-gallery>
+    <cms-next-cms-layout-media-slider *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_MEDIA_SLIDER"></cms-next-cms-layout-media-slider>
+    <cms-next-cms-layout-setting-button *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_BUTTON"></cms-next-cms-layout-setting-button>
+    <cms-next-cms-layout-setting-shopping-cart *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_SHOPPING_CART"></cms-next-cms-layout-setting-shopping-cart>
+  </div>
+  <div [ngClass]="{ hidden: currentLayoutTab !== ESidebarLayoutTab.LAYOUT_DESIGN }">
+    <cms-next-cms-layout-design [designLayout]="sidebarLayoutMode"> </cms-next-cms-layout-design>
+  </div>
+  <div [ngClass]="{ hidden: currentLayoutTab !== ESidebarLayoutTab.LAYOUT_SETTING }">
+    <cms-next-cms-layout-setting [settingLayout]="sidebarLayoutMode"></cms-next-cms-layout-setting>
+  </div>
+</section>

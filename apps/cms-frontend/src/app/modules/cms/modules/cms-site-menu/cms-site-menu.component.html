@@ -1,0 +1,25 @@
+<section class="flex flex-col w-full">
+  <div class="grid grid-cols-2 gap-2">
+    <ng-container *ngFor="let cmsSiteFilter of cmsSiteFilters; trackBy: trackByIndex; let cmsSiteFilterIndex = index">
+      <div
+        (click)="onPageFilterSelect(cmsSiteFilterIndex)"
+        class="flex items-center justify-center p-2 transition bg-gray-200 rounded cursor-pointer"
+        [ngClass]="{ 'bg-green-500': cmsSiteFilter.isActive }"
+      >
+        <img
+          class="mr-2"
+          *ngIf="cmsSiteFilter.icon && cmsSiteFilter.iconActive"
+          [src]="cmsSiteFilter.isActive ? cmsSiteFilter.iconActive : cmsSiteFilter.icon"
+          [alt]="cmsSiteFilter.title"
+        />
+        <div class="font-light transition" [ngClass]="{ 'text-white': cmsSiteFilter.isActive }">{{ cmsSiteFilter.title }}</div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-container>
+    <div class="mt-4">
+      <cms-next-cms-site-menu-page *ngIf="currentActiveType === ECmsSiteTypes.PAGE"></cms-next-cms-site-menu-page>
+      <cms-next-cms-site-menu-popup *ngIf="currentActiveType === ECmsSiteTypes.POPUP"></cms-next-cms-site-menu-popup>
+    </div>
+  </ng-container>
+</section>

@@ -1,0 +1,64 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+**/dist
+/dist
+/tmp
+/out-tsc
+.next
+devatom.sh
+dev-heng.sh
+ngrokatom.yaml
+devpk.sh
+ngrokpk.yaml
+# dependencies
+node_modules
+
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.angular/cache
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+devatom.sh
+# System Files
+.DS_Store
+Thumbs.db
+tsconfig.nx-tmp
+checker
+
+.favorites.json
+usr/bin/google-chrome
+libs/__ngcc_entry_points__.json
+
+apps/nlp-analysis/**/__pycache__
+apps/nlp-analysis/nlp/static
+
+/tools/environment/.env
+
+_site
+
+scripts/CI-playground
+/target
+/apps/wasm-rust/target

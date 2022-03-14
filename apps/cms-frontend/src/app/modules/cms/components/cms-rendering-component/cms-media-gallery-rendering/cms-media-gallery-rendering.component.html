@@ -1,0 +1,62 @@
+<div
+  class="guideline absolute w-full h-full left-0 top-0 group flex items-center justify-center group"
+  (dblclick)="onMediaGalleryFocusEvent()"
+  [ngClass]="{ 'border border-green-500 ': onFocus }"
+>
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: isChildEnter || onFocus, hidden: !isChildEnter && !onFocus }">
+    <div
+      [ngClass]="{ 'bg-green-500': !onFocus && !themeOption, 'bg-green-900': !onFocus && themeOption, 'bg-gray-700': onFocus }"
+      class="absolute left-0 px-2 py-1 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none flex items-center justify-between"
+    >
+      <span *ngIf="themeOption">{{ themeOption.themeIdentifier }}</span>
+      <span *ngIf="!themeOption">Gallery</span>
+      <button *ngIf="!isThemeGlobal" (click)="onRemoveCurrentComponent()" class="focus:outline-none pl-4">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="7" cy="7" r="7" fill="#AAB2C2" />
+          <path d="M3.81641 3.81641L10.18 10.18M10.18 3.81641L3.81641 10.18" stroke="white" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute w-full h-full bg-green-500 opacity-40 cursor-move" [ngClass]="{ hidden: onFocus || isChildEnter }"></div>
+  </div>
+</div>
+<div (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()" class="z-10 w-full">
+  <ng-container *ngIf="mediaGalleryFormValue.gallery.galleryPatternId === mediaGalleryType.GALLERY_1">
+    <cms-next-cms-media-gallery-one
+      (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+      [mediaGalleryInput]="mediaGalleryFormValue"
+      [changeDetectorTrigger]="changeDetectorTrigger"
+    ></cms-next-cms-media-gallery-one>
+  </ng-container>
+  <ng-container *ngIf="mediaGalleryFormValue.gallery.galleryPatternId === mediaGalleryType.GALLERY_2">
+    <cms-next-cms-media-gallery-two
+      (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+      [mediaGalleryInput]="mediaGalleryFormValue"
+      [changeDetectorTrigger]="changeDetectorTrigger"
+    ></cms-next-cms-media-gallery-two>
+  </ng-container>
+  <ng-container *ngIf="mediaGalleryFormValue.gallery.galleryPatternId === mediaGalleryType.GALLERY_3">
+    <cms-next-cms-media-gallery-three
+      (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+      [mediaGalleryInput]="mediaGalleryFormValue"
+      [changeDetectorTrigger]="changeDetectorTrigger"
+    ></cms-next-cms-media-gallery-three>
+  </ng-container>
+  <ng-container *ngIf="mediaGalleryFormValue.gallery.galleryPatternId === mediaGalleryType.GALLERY_4">
+    <cms-next-cms-media-gallery-four
+      (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+      [mediaGalleryInput]="mediaGalleryFormValue"
+      [changeDetectorTrigger]="changeDetectorTrigger"
+    ></cms-next-cms-media-gallery-four>
+  </ng-container>
+  <ng-container *ngIf="mediaGalleryFormValue.gallery.galleryPatternId === mediaGalleryType.GALLERY_5">
+    <cms-next-cms-media-gallery-five
+      (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+      [mediaGalleryInput]="mediaGalleryFormValue"
+      [changeDetectorTrigger]="changeDetectorTrigger"
+    ></cms-next-cms-media-gallery-five>
+  </ng-container>
+  <div class="bg-gray-100 flex items-center justify-center p-2 rounded-lg" *ngIf="!mediaGalleryFormValue.gallery.gallleryList.length">
+    <img class="opacity-50" [src]="mediaGalleryFormValue.gallery.galleryPatternUrl" [alt]="mediaGalleryFormValue.gallery.galleryPatternId" />
+  </div>
+</div>

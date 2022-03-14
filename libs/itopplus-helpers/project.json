@@ -1,0 +1,22 @@
+{
+  "root": "libs/itopplus-helpers",
+  "sourceRoot": "libs/itopplus-helpers/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/itopplus-helpers/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/itopplus-helpers"],
+      "options": {
+        "jestConfig": "libs/itopplus-helpers/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

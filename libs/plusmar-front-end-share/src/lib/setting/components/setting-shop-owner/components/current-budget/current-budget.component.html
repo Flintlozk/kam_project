@@ -1,0 +1,41 @@
+<div
+  class="current-budget-container"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <div class="title">
+    <div style="display: flex; justify-content: space-between">
+      <span>{{ 'Available Budget' | translate }}</span>
+      <span (click)="toHistory()" style="cursor: pointer">
+        <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.72533 5.13824L9.72351 9.76747C9.72351 9.94323 9.78955 10.1112 9.90702 10.2353L13.0418 13.5463L13.9275 12.6106L10.9762 9.49346L10.978 5.13824H9.72533Z" />
+          <path
+            d="M10.8037 0C6.18001 0 2.35331 3.40115 1.71241 7.80747H5.50516e-05L2.38076 10.628L4.76043 7.80747H3.03983C3.66827 4.12087 6.90551 1.30126 10.8037 1.30126C15.1504 1.30126 18.6863 4.80342 18.6863 9.10873C18.6863 13.414 15.1504 16.9162 10.8037 16.9162C8.36032 16.9162 6.09462 15.8208 4.58774 13.9109L3.5524 14.7114C5.31004 16.939 7.95295 18.2174 10.8037 18.2174C15.8746 18.2174 20 14.1307 20 9.10873C20 4.08676 15.8746 0 10.8037 0Z"
+          />
+        </svg>
+        {{ 'History' | translate }}
+      </span>
+    </div>
+    <div class="update">
+      <span class="time"
+        ><i>{{ 'Latest Update' | translate }} {{ budget.updatedAt | timeAgo: 'utc' }}</i></span
+      >
+    </div>
+  </div>
+  <div class="budget">฿{{ budget.currentBudget | formatCurrency }}</div>
+</div>
+
+<div
+  class="current-budget-description"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <!-- (1) *  If you want to use ,(2) service. You have to minimum top up is only , 200 , (3) baht.  -->
+  <!-- (4)* Your credit can be used all facebook page only this subscription.  -->
+  <div>{{ 'SUBSCRIPTION_NOTE_1' | translate }} “<span>drop off</span>” {{ 'SUBSCRIPTION_NOTE_2' | translate }} <span> 200</span> {{ 'SUBSCRIPTION_NOTE_3' | translate }}</div>
+  <div>{{ 'SUBSCRIPTION_NOTE_4' | translate }}</div>
+</div>

@@ -1,0 +1,12 @@
+<div id="list-devices" class="list-devices" [ngClass]="{ preveiw: isPreviewMode }">
+  <div *ngFor="let device of devices.controls; let i = index" class="device" (click)="childHanlder(i)" [ngClass]="{ selected: i === selectedIndex }">
+    <div class="selected-device">
+      <img *ngIf="!isPreviewMode" src="../../../../../assets/shared/devices/selected.svg" alt="selected" />
+    </div>
+    <div class="container">
+      <img [src]="getImagePath(device.value.icon)" />
+      <div *ngIf="mode === 'SELECTGLOBALSETTING'" class="centered">{{ device.value.baseFontSize }} px</div>
+    </div>
+    <div>>{{ device.value.minwidth }}</div>
+  </div>
+</div>

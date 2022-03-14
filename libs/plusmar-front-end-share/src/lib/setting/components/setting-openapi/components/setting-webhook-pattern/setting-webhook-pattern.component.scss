@@ -1,0 +1,112 @@
+@import 'base';
+@import 'switch';
+@import 'buttons';
+
+.setting-webhook-pattern-container {
+  .toggle-contianer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    .mode-toggle {
+      @extend .switch;
+    }
+  }
+  .card-content {
+    width: 50%;
+  }
+  .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .content-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    .mode-toggle {
+      @include switch();
+      margin-top: 10px;
+    }
+    .btn-add {
+      @include btn-active();
+      min-width: 70px;
+      height: 35px;
+      padding: 0px 10px;
+      margin-right: 5px;
+    }
+  }
+
+  .setting-webhook-pattern-content {
+    width: 100%;
+    .webhook-label {
+      .webhook-message {
+        display: inline-block;
+      }
+
+      .save-button {
+        display: flex;
+        .btn-save {
+          margin-left: 10px;
+          @include btn-active();
+
+          &.disabled {
+            @extend .btn-disabled;
+          }
+        }
+      }
+    }
+    .webhook-pattern-content {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 8px;
+
+      input {
+        box-sizing: border-box !important;
+        border: 1px solid #dddfea;
+        border-radius: 8px;
+        height: 40px;
+        padding: 0px 15px;
+        width: 100%;
+        max-width: 640px;
+        &:focus {
+          outline: none;
+          border: 1px solid #54b1ff !important;
+        }
+      }
+
+      .btn-test {
+        @include btn-active();
+      }
+    }
+  }
+
+  ::ng-deep.mat-expansion-panel-header {
+    font-size: unset;
+    font-weight: unset;
+    height: 69px;
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+    border-top: 5px solid #f2f5f9;
+  }
+  ::ng-deep.mat-expansion-panel:not {
+    box-shadow: unset;
+  }
+  ::ng-deep.mat-expansion-panel {
+    box-shadow: unset;
+  }
+  ::ng-deep.mat-expansion-panel-header-description,
+  ::ng-deep.mat-expansion-indicator::after {
+    color: white;
+  }
+  ::ng-deep .mat-expansion-indicator {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    background: $main-color;
+    border-radius: 50px;
+  }
+}

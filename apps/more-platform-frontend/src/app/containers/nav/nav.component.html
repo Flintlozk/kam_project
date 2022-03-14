@@ -1,0 +1,15 @@
+<div class="grid grid-cols-3 pb-8 justify-items-center md:justify-items-start md:grid-cols-1 md:gap-8 md:pb-0">
+  <ng-container *ngFor="let navigationItem of navigation; trackBy: trackByIndex">
+    <div [routerLink]="[navigationItem.route]" routerLinkActive #rla="routerLinkActive" class="w-16 h-16 focus:outline-none">
+      <div
+        class="flex items-center justify-center w-full h-full transition-all duration-300 ease-in-out bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
+        [ngClass]="{ 'bg-primary-500 shadow hover:bg-primary-500': rla.isActive }"
+      >
+        <div class="relative">
+          <div *ngIf="navigationItem.isStatus" class="absolute top-0 right-0 w-2 h-2 bg-red-500 border border-white rounded-full"></div>
+          <img [src]="rla.isActive ? navigationItem.imgActiveUrl : navigationItem.imgUrl" [alt]="navigationItem.route" />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

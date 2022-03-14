@@ -1,0 +1,209 @@
+<section
+  *ngIf="
+    sidebarMode === ESidebarMode.CONTENT_MANAGE &&
+    sidebarLayoutMode !== ESidebarMode.LAYOUT_SETTING_TEXT &&
+    sidebarLayoutMode !== ESidebarMode.LAYOUT_SETTING_EMBEDED &&
+    sidebarLayoutMode !== ESidebarMode.LAYOUT_SETTING_IMAGE
+  "
+  class="grid gap-2"
+  [formGroup]="contentManageForm"
+>
+  <div class="grid gap-4">
+    <div class="grid gap-1">
+      <div class="mr-5 text-sm font-light">Publish This Content</div>
+      <div>
+        <input type="checkbox" formControlName="isPublish" #isPublish class="hidden" />
+        <button
+          (click)="isPublish.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManageForm['controls']['isPublish'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{ 'bg-gray-300': !contentManageForm['controls']['isPublish'].value, 'bg-white right-0 mr-2': contentManageForm['controls']['isPublish'].value }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div>
+      <div class="pb-1 font-light">Default Name*</div>
+      <input type="text" placeholder="Name..." formControlName="name" class="w-full px-4 py-2 border border-gray-100 rounded focus:outline-none" />
+    </div>
+    <ng-container formArrayName="language">
+      <ng-container *ngFor="let language of contentManageForm['controls']['language']['controls']; let i = index">
+        <ng-container *ngIf="currentLang === language['controls']['cultureUI'].value" [formGroupName]="i">
+          <div>
+            <div class="pb-1 font-light">Title*</div>
+            <input type="text" placeholder="Title..." formControlName="title" class="w-full px-4 py-2 border border-gray-100 rounded focus:outline-none" />
+          </div>
+          <div>
+            <div class="pb-1 font-light">Sub title</div>
+            <input type="text" placeholder="Sub Title..." formControlName="subTitle" class="w-full px-4 py-2 border border-gray-100 rounded focus:outline-none" />
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <div>
+      <div class="pb-1 font-light">Cover Page <span class="text-green-500 font-light">1400*450px</span></div>
+      <div class="flex flex-col items-center">
+        <div class="w-full overflow-hidden bg-gray-100 rounded h-44">
+          <img class="w-full h-full" *ngIf="contentManageForm['controls']['coverImage'].value" [src]="contentManageForm['controls']['coverImage'].value" />
+        </div>
+        <button
+          (click)="onMediaGalleryDialog()"
+          class="flex items-center justify-center px-4 py-2 mt-4 transition transform bg-green-500 rounded-2xl custom-shadow focus:outline-none hover:scale-105"
+        >
+          <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M20 5C24.4183 5 28 8.58172 28 13C28 17.4183 24.4183 21 20 21C15.5817 21 12 17.4183 12 13C12 8.58172 15.5817 5 20 5ZM20.2778 7.71158C20.1002 7.65169 19.8998 7.65169 19.7224 7.71158C19.6353 7.74047 19.5562 7.78269 19.4894 7.83585L16.4307 10.2757C16.4247 10.2803 16.4189 10.2849 16.4129 10.2899C16.1363 10.5183 16.1442 10.8824 16.4307 11.103C16.7172 11.3238 17.1739 11.3175 17.4505 11.0889L19.2789 9.63038V16.8693C19.2789 17.1869 19.6017 17.4444 20.0001 17.4444C20.3983 17.4444 20.7211 17.1869 20.7211 16.8693V9.63038L22.5495 11.0889C22.5553 11.0938 22.5612 11.0984 22.5672 11.103C22.8537 11.3237 23.3103 11.3173 23.5871 11.0889C23.8637 10.8604 23.8558 10.4963 23.5693 10.2757L20.5106 7.83585C20.444 7.78269 20.3648 7.74047 20.2778 7.71158Z"
+              fill="white"
+            />
+            <path
+              d="M11.6844 0.168288C15.6502 -0.652764 19.519 1.60333 21 5.34798C20.8168 5.33553 20.632 5.32927 20.4456 5.32927C20.0183 5.32927 19.599 5.36217 19.1899 5.42551C18.1879 3.46042 16.3019 2.06224 14.0746 1.79466C10.4247 1.3561 7.1236 4.07403 6.7014 7.86519C6.65476 8.3029 6.29868 8.63404 5.87486 8.63404C3.57835 8.61992 1.70585 10.5423 1.69226 12.9278C1.67888 15.3131 3.52927 17.2582 5.82579 17.2723H9.98364C10.4429 17.2723 10.8153 17.659 10.8153 18.1361C10.8153 18.6133 10.4429 19 9.98364 19H5.82579C2.86698 19.0021 0.37742 16.6985 0.038773 13.6452C-0.329075 10.3276 1.96176 7.32847 5.15539 6.94615C5.81403 3.52447 8.38997 0.85035 11.6844 0.168288Z"
+              fill="white"
+            />
+          </svg>
+          <span class="ml-2 text-lg text-white">Upload</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-2 grid-cols-2">
+      <div class="grid gap-1">
+        <div class="mr-5 text-sm font-light">Pin Content First</div>
+        <div>
+          <input type="checkbox" formControlName="isPin" #isPin class="hidden" />
+          <button
+            (click)="isPin.click()"
+            class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+            [ngClass]="{ 'bg-green-500 border-green-500': contentManageForm['controls']['isPin'].value }"
+          >
+            <div
+              class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+              [ngClass]="{ 'bg-gray-300': !contentManageForm['controls']['isPin'].value, 'bg-white right-0 mr-2': contentManageForm['controls']['isPin'].value }"
+            ></div>
+          </button>
+        </div>
+      </div>
+      <div class="grid gap-1">
+        <div class="mr-5 text-sm font-light">Priority</div>
+        <input class="px-4 h-10 rounded border w-full focus:outline-none bg-transparent" type="number" formControlName="priority" />
+      </div>
+    </div>
+    <div class="grid gap-1">
+      <div class="font-light">Start Date</div>
+      <div class="date-range">
+        <mat-form-field appearance="fill">
+          <input matInput [matDatepicker]="startDate" formControlName="startDate" />
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+          <button (click)="startDate.open()" class="focus:outline-none">
+            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="19" height="17.6667" rx="2.5" fill="#BCC4D6" stroke="#BCC4D6" />
+              <path d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H17C18.3807 0.5 19.5 1.61929 19.5 3V4.83333H0.5V3Z" fill="white" fill-opacity="0.7" stroke="#BCC4D6" />
+              <rect x="4" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="8.5" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="13" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="4" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="8.5" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="13" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+            </svg>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <div class="mr-5 text-sm font-light">End Date</div>
+      <div>
+        <input type="checkbox" formControlName="isEndDate" #isEndDate class="hidden" />
+        <button
+          (click)="isEndDate.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManageForm['controls']['isEndDate'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{ 'bg-gray-300': !contentManageForm['controls']['isEndDate'].value, 'bg-white right-0 mr-2': contentManageForm['controls']['isEndDate'].value }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-1" *ngIf="contentManageForm['controls']['isEndDate'].value">
+      <div class="font-light">End Date</div>
+      <div class="date-range">
+        <mat-form-field appearance="fill">
+          <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+          <button (click)="endDate.open()" class="focus:outline-none">
+            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="19" height="17.6667" rx="2.5" fill="#BCC4D6" stroke="#BCC4D6" />
+              <path d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H17C18.3807 0.5 19.5 1.61929 19.5 3V4.83333H0.5V3Z" fill="white" fill-opacity="0.7" stroke="#BCC4D6" />
+              <rect x="4" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="8.5" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="13" y="8" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="4" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="8.5" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+              <rect x="13" y="12.2002" width="3" height="2.8" rx="0.7" fill="white" fill-opacity="0.7" />
+            </svg>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+    <cms-next-cms-category-setting (categoryIdsEvent$)="categoryIdsEvent($event)" [categoryIds]="contentManageForm['controls']['categories'].value"></cms-next-cms-category-setting>
+    <cms-next-cms-tag-setting [tags]="contentManageForm['controls']['tags'].value" (tagsEvent$)="tagsEvent($event)"></cms-next-cms-tag-setting>
+    <div class="grid gap-3">
+      <button (click)="onToggleSEO()" class="flex items-center justify-between px-4 py-3 bg-gray-400 rounded focus:outline-none">
+        <span class="font-light text-white">SEO</span>
+        <svg class="transition transform" [ngClass]="{ ' -rotate-90': isSEOToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="10" fill="white" />
+          <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+          <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+      <ng-container *ngIf="isSEOToggle">
+        <ng-container formArrayName="language">
+          <ng-container *ngFor="let language of contentManageForm['controls']['language']['controls']; let i = index">
+            <ng-container *ngIf="currentLang === language['controls']['cultureUI'].value" [formGroupName]="i">
+              <div class="grid p-4 border border-gray-200 rounded">
+                <div class="text-2xl text-indigo-700 truncate">
+                  {{ language['controls']['title'].value }}
+                </div>
+                <div class="font-light truncate">
+                  {{ language['controls']['subTitle'].value }}
+                </div>
+              </div>
+              <div>
+                <div class="pb-1 font-light">Keyword</div>
+                <input type="text" placeholder="Enter keyword..." formControlName="keyword" class="w-full px-4 py-2 border border-gray-100 rounded focus:outline-none" />
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="grid gap-3">
+      <button (click)="onToggleCSS()" class="flex items-center justify-between px-4 py-3 bg-gray-400 rounded focus:outline-none">
+        <span class="font-light text-white">CSS</span>
+        <svg class="transition transform" [ngClass]="{ ' -rotate-90': isCSSToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="10" fill="white" />
+          <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+          <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div *ngIf="isCSSToggle">
+        <div #monacoContainer class="grid gap-1">
+          <div class="font-light text-sm">
+            Using Custom CSS with id #{{ contentManageForm['controls']['_id'].value ? contentManageForm['controls']['_id'].value : 'tempContentId' }}
+          </div>
+          <ngx-monaco-editor [options]="editorOptions" formControlName="customCSS"></ngx-monaco-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<cms-next-cms-layout-text [isContentEditor]="true" *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_TEXT"></cms-next-cms-layout-text>
+<cms-next-cms-layout-embeded [isContentEditor]="true" *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_EMBEDED"></cms-next-cms-layout-embeded>
+<cms-next-cms-layout-image [isContentEditor]="true" *ngIf="sidebarLayoutMode === ESidebarMode.LAYOUT_SETTING_IMAGE"></cms-next-cms-layout-image>
+<section [innerHtml]="safeCSS"></section>

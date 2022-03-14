@@ -1,0 +1,42 @@
+<div
+  class="guideline absolute w-full h-full left-0 top-0 group flex items-center justify-center group"
+  (dblclick)="onContentManagementFocusEvent()"
+  [ngClass]="{ 'border border-green-500 ': onFocus }"
+>
+  <div class="w-full h-full group-hover:flex" [ngClass]="{ flex: isChildEnter || onFocus, hidden: !isChildEnter && !onFocus }">
+    <div
+      [ngClass]="{ 'bg-green-500': !onFocus, 'bg-gray-700': onFocus }"
+      class="absolute right-0 px-2 py-1 text-sm font-light text-white rounded-t cursor-pointer bottom-full focus:outline-none flex items-center justify-between"
+    >
+      <button *ngIf="contentManagementValue.landing._id && contentCategoryData.length" (click)="onOpenLandingPage()" class="mr-2 border-r pr-2 flex items-center">
+        Open Landing Page
+        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 ml-1" viewBox="0 0 512 512">
+          <path d="M448 256L272 88v96C103.57 184 64 304.77 64 424c48.61-62.24 91.6-96 208-96v96z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+        </svg>
+      </button>
+      Content Management
+      <button (click)="onRemoveCurrentComponent()" class="focus:outline-none pl-4">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="7" cy="7" r="7" fill="#AAB2C2" />
+          <path d="M3.81641 3.81641L10.18 10.18M10.18 3.81641L3.81641 10.18" stroke="white" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute w-full h-full bg-green-500 opacity-40 cursor-move" [ngClass]="{ hidden: onFocus || isChildEnter }"></div>
+  </div>
+</div>
+<div (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()" class="w-full">
+  <ng-container *ngIf="contentCategoryData.length">
+    <cms-next-cms-content-manage-display [display]="contentManagementValue.general.advance.display"></cms-next-cms-content-manage-display>
+    <cms-next-cms-content-manage-layout
+      [changeDetectorTrigger]="changeDetectorTrigger"
+      [changeDetectorPatternTrigger]="changeDetectorPatternTrigger"
+      [contentManagementValue]="contentManagementValue"
+      [contentCategoryData]="contentCategoryData"
+    ></cms-next-cms-content-manage-layout>
+    <cms-next-cms-content-manage-bottom [bottom]="contentManagementValue.general.advance.bottom"></cms-next-cms-content-manage-bottom>
+  </ng-container>
+  <div *ngIf="!contentCategoryData.length" class="bg-gray-100 flex items-center justify-center p-2 rounded-lg">
+    <img class="opacity-50" [src]="contentManagementValue.general.pattern.patternUrl" [alt]="contentManagementValue.general.pattern._id" />
+  </div>
+</div>

@@ -1,0 +1,1383 @@
+@import '/pages/styles/variable.module.scss';
+.pricingModeContainer {
+  width: 1380px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+
+  .priceModeCard {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', Prompt;
+
+    .priceCardBorder {
+      width: 32.3%;
+      height: max-content;
+      border: $more_coolgrey10 solid 2px;
+      border-radius: 24px;
+
+      div {
+        .priceTitle {
+          font-size: 1.75rem;
+          font-weight: 900;
+          font-family: 'DM Sans', sans-serif;
+          padding-bottom: 10px;
+        }
+        .pricePrice {
+          font-size: 3.5rem;
+          color: $more_coolgrey80;
+          font-family: 'DM Sans', sans-serif;
+          padding-bottom: 10px;
+          font-weight: 700;
+          .smallYear {
+            font-family: 'DM Sans', Prompt;
+            font-size: 1.5rem;
+          }
+        }
+        .priceDescription {
+          font-size: 1.3rem;
+          color: $more_coolgrey70;
+          line-height: 2rem;
+          padding-bottom: 25px;
+          font-weight: 500;
+        }
+        .priceButton {
+          padding-bottom: 17px;
+        }
+        .priceInfo {
+          color: $more_coolgrey70;
+          font-size: 1.2rem;
+
+          .infoList {
+            display: flex;
+            padding-bottom: 20px;
+            .nameInfo {
+              width: 75%;
+              float: left;
+              font-weight: 400;
+              .freeColor {
+                color: #f9813d;
+                font-weight: 500;
+              }
+            }
+            .valueInfo {
+              font-weight: 500;
+              width: 25%;
+              float: right;
+            }
+          }
+        }
+      }
+
+      .freeType {
+        margin: 30px 25px;
+        .priceTitle {
+          color: #f9813d;
+        }
+
+        .priceDescription {
+          margin-right: 43px;
+        }
+        .priceButton {
+          .freeButton {
+            width: 100%;
+            // margin-top: 20px;
+            // margin-left: 7%;
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif !important;
+            color: white;
+            cursor: pointer;
+            border: 1px solid #f9813d;
+            border-radius: 40px;
+            padding: 0.8rem 4rem;
+            font-weight: 700;
+            background-color: #f9813d;
+            font-size: 1.25rem;
+            box-shadow: 0px 4px 12px #f9813d42;
+            &:hover {
+              background: #fa8e50;
+              color: white;
+              border-color: #fa8e50;
+            }
+
+            &:disabled {
+              background: #d5d5d5;
+              color: black;
+            }
+          }
+        }
+        .priceInfo {
+          .infoList {
+            .nameInfo {
+            }
+            .valueInfo {
+              color: #f9813d;
+              .dashNormal {
+                color: $more_coolgrey70;
+              }
+              .freeChecker {
+                width: 16px;
+              }
+            }
+          }
+        }
+      }
+      .businessType {
+        margin: 30px 25px;
+        margin-bottom: 15px;
+        .priceTitle {
+          color: #534fdb;
+        }
+        .pricePrice {
+        }
+        .priceDescription {
+          margin-right: 15px;
+        }
+        .priceButton {
+          .businessButton {
+            width: 100%;
+            // margin-top: 20px;
+            // margin-left: 9%;
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif !important;
+            color: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0px 4px 12px #534fdb63;
+            border-radius: 40px;
+            padding: 0.8rem 4rem;
+            font-weight: 700;
+            background-color: #534fdb;
+            font-size: 1.25rem;
+
+            &:hover {
+              background: #615edf;
+              color: white;
+              border-color: #615edf;
+            }
+
+            &:disabled {
+              background: #d5d5d5;
+              color: black;
+            }
+          }
+        }
+        .priceInfo {
+          .infoList {
+            .nameInfo {
+            }
+            .valueInfo {
+              color: #534fdb;
+              .dashNormal {
+                color: $more_coolgrey70;
+              }
+              .businessChecker {
+                width: 16px;
+              }
+            }
+          }
+        }
+      }
+      .commerceType {
+        margin: 30px 25px;
+        margin-bottom: 15px;
+        .priceTitle {
+          color: $more_blue60;
+        }
+        .pricePrice {
+        }
+        .priceDescription {
+          margin-right: 24px;
+        }
+        .priceButton {
+          .commerceButton {
+            width: 100%;
+            // margin-top: 20px;
+            // margin-left: 9%;
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif !important;
+            color: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0px 4px 12px #0091ff63;
+            border-radius: 40px;
+            padding: 0.8rem 4rem;
+            font-weight: 700;
+            background-color: $more_blue60;
+            font-size: 1.25rem;
+
+            &:hover {
+              background: $more_blue50;
+              color: white;
+              border-color: $more_blue50;
+            }
+
+            &:disabled {
+              background: #d5d5d5;
+              color: black;
+            }
+          }
+        }
+        .priceInfo {
+          .infoList {
+            .nameInfo {
+            }
+            .valueInfo {
+              color: $more_blue60;
+              .commerceChecker {
+                width: 16px;
+              }
+            }
+          }
+        }
+      }
+      .cardFooter {
+        width: 100%;
+        // height: 100px;
+        padding-bottom: 60px;
+        background-color: $more_coolgrey10;
+        border-bottom-left-radius: 21px;
+        border-bottom-right-radius: 21px;
+        .cardFooterContainer {
+          padding: 25px;
+          .cardFooterLeft {
+            font-weight: 500;
+            width: 85%;
+            float: left;
+            .cardFooterText1 {
+              font-size: 1.2rem;
+            }
+            .cardFooterText2 {
+              font-size: 1.5rem;
+              .percentNumber {
+                font-size: 1.8rem;
+              }
+            }
+          }
+          .cardFooterRight {
+            float: right;
+          }
+
+          .cardFooterContainer2 {
+            .cardFooterLeft {
+              color: #534fdb;
+              .cardFooterText1 {
+              }
+              .cardFooterText2 {
+                .percentNumber {
+                }
+              }
+            }
+            .cardFooterRight {
+              margin-top: 32px;
+              .cardFooterArrow {
+              }
+            }
+          }
+          .cardFooterContainer3 {
+            .cardFooterLeft {
+              color: $more_blue60;
+              .cardFooterText1 {
+              }
+              .cardFooterText2 {
+                .percentNumber {
+                }
+              }
+            }
+            .cardFooterRight {
+              margin-top: 40px;
+              .cardFooterArrow {
+                .imageArrow {
+                  filter: invert(40%) sepia(98%) saturate(2372%) hue-rotate(186deg) brightness(100%) contrast(110%);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include small_desktop {
+  .pricingModeContainer {
+    width: 95%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+
+    .priceModeCard {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'DM Sans', Prompt;
+
+      .priceCardBorder {
+        width: 32.3%;
+        height: max-content;
+        border: $more_coolgrey10 solid 2px;
+        border-radius: 24px;
+
+        div {
+          .priceTitle {
+            font-size: 1.75vw;
+            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+          }
+          .pricePrice {
+            font-size: 3.5vw;
+            color: $more_coolgrey80;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+            font-weight: 700;
+            .smallYear {
+              font-family: 'DM Sans', Prompt;
+              font-size: 1.5vw;
+            }
+          }
+          .priceDescription {
+            font-size: 1.3vw;
+            color: $more_coolgrey70;
+            line-height: 2vw;
+            padding-bottom: 25px;
+            font-weight: 500;
+          }
+          .priceButton {
+            padding-bottom: 17px;
+          }
+          .priceInfo {
+            color: $more_coolgrey70;
+            font-size: 1.125vw;
+
+            .infoList {
+              display: flex;
+              padding-bottom: 20px;
+              .nameInfo {
+                margin-right: 1vw;
+                width: 90%;
+                float: left;
+                font-weight: 400;
+                .freeColor {
+                  color: #f9813d;
+                  font-weight: 500;
+                }
+              }
+              .valueInfo {
+                font-size: 1vw;
+                font-weight: 500;
+                //   width: 20%;
+                float: right;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        .freeType {
+          margin: 30px 25px;
+          .priceTitle {
+            color: #f9813d;
+          }
+
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .freeButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: 1px solid #f9813d;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: #f9813d;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #f9813d;
+                .dashNormal {
+                  color: $more_coolgrey70;
+                }
+              }
+            }
+          }
+        }
+        .businessType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: #534fdb;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .businessButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #534fdb63;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: #534fdb;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #534fdb;
+                .businessChecker {
+                  width: 12px;
+                }
+              }
+            }
+          }
+        }
+        .commerceType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .commerceButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #0091ff63;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: $more_blue60;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: $more_blue60;
+                .commerceChecker {
+                  width: 12px;
+                }
+              }
+            }
+          }
+        }
+        .cardFooter {
+          width: 100%;
+          padding-bottom: 6vw;
+          background-color: $more_coolgrey10;
+          border-bottom-left-radius: 21px;
+          border-bottom-right-radius: 21px;
+          .cardFooterContainer {
+            padding: 1vw;
+            .cardFooterLeft {
+              width: 85%;
+              .cardFooterText1 {
+                font-size: 1.2vw;
+              }
+              .cardFooterText2 {
+                font-size: 1.5vw;
+                .percentNumber {
+                  font-size: 1.7vw;
+                }
+              }
+            }
+
+            .cardFooterContainer2 {
+              .cardFooterLeft {
+                margin-top: 1vw;
+                margin-left: 1vw;
+              }
+              .cardFooterRight {
+                margin-top: 2.6vw;
+              }
+            }
+            .cardFooterContainer3 {
+              .cardFooterLeft {
+                margin-top: 1vw;
+                margin-left: 1vw;
+              }
+              .cardFooterRight {
+                margin-top: 3.4vw;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
+  .pricingModeContainer {
+    width: 95%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+
+    .priceModeCard {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'DM Sans', Prompt;
+
+      .priceCardBorder {
+        width: 32.3%;
+        height: max-content;
+        border: $more_coolgrey10 solid 2px;
+        border-radius: 24px;
+
+        div {
+          .priceTitle {
+            font-size: 1.75vw;
+            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 1vw;
+          }
+          .pricePrice {
+            font-size: 3.5vw;
+            color: $more_coolgrey80;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 1vw;
+            font-weight: 700;
+            .smallYear {
+              font-family: 'DM Sans', Prompt;
+              font-size: 1.5vw;
+            }
+          }
+          .priceDescription {
+            font-size: 1.3vw;
+            color: $more_coolgrey70;
+            line-height: 2vw;
+            padding-bottom: 1.6vw;
+            font-weight: 500;
+          }
+          .priceButton {
+            padding-bottom: 0.6vw;
+          }
+          .priceInfo {
+            color: $more_coolgrey70;
+            font-size: 1.125vw;
+
+            .infoList {
+              display: flex;
+              padding-bottom: 1.4vw;
+              .nameInfo {
+                margin-right: 1vw;
+                width: 90%;
+                float: left;
+                font-weight: 400;
+                .freeColor {
+                  color: #f9813d;
+                  font-weight: 500;
+                }
+              }
+              .valueInfo {
+                font-size: 1vw;
+                font-weight: 500;
+                //   width: 20%;
+                float: right;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        .freeType {
+          margin: 30px 25px;
+          .priceTitle {
+            color: #f9813d;
+          }
+
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .freeButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: 1px solid #f9813d;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: #f9813d;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #f9813d;
+                .dashNormal {
+                  color: $more_coolgrey70;
+                }
+              }
+            }
+          }
+        }
+        .businessType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: #534fdb;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .businessButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #534fdb63;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: #534fdb;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #534fdb;
+                .businessChecker {
+                  width: 9px;
+                }
+              }
+            }
+          }
+        }
+        .commerceType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .commerceButton {
+              width: 100%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #0091ff63;
+              border-radius: 40px;
+              padding: 0.8vw 4vw;
+              font-weight: 700;
+              background-color: $more_blue60;
+              font-size: 1.25vw;
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: $more_blue60;
+                .commerceChecker {
+                  width: 9px;
+                }
+              }
+            }
+          }
+        }
+        .cardFooter {
+          width: 100%;
+          padding-bottom: 6vw;
+          background-color: $more_coolgrey10;
+          border-bottom-left-radius: 21px;
+          border-bottom-right-radius: 21px;
+          .cardFooterContainer {
+            padding-left: 1.2vw;
+            .cardFooterLeft {
+              width: 85%;
+              .cardFooterText1 {
+                font-size: 1.1vw;
+              }
+              .cardFooterText2 {
+                font-size: 1.4vw;
+                .percentNumber {
+                  font-size: 1.6vw;
+                }
+              }
+            }
+
+            .cardFooterContainer2 {
+              .cardFooterLeft {
+                margin-top: 1vw;
+              }
+              .cardFooterRight {
+                float: left;
+                margin-top: 2.4vw;
+                .cardFooterArrow {
+                  .imageArrow {
+                    width: 18px !important;
+                  }
+                }
+              }
+            }
+            .cardFooterContainer3 {
+              .cardFooterLeft {
+                margin-top: 1vw;
+                color: $more_blue60;
+              }
+              .cardFooterRight {
+                float: left;
+                margin-top: 3vw;
+                .cardFooterArrow {
+                  .imageArrow {
+                    width: 16px !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .pricingModeContainer {
+    // width: 1100px;
+    // overflow-x: hidden;
+  }
+  .pricingModeContainer {
+    width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 0px;
+    overflow-x: hidden;
+    .priceModeCard {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'DM Sans', Prompt;
+
+      .priceCardBorder {
+        width: 32.3%;
+        height: max-content;
+        border: $more_coolgrey10 solid 2px;
+        border-radius: 24px;
+
+        div {
+          .priceTitle {
+            font-size: 1.25rem;
+            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+          }
+          .pricePrice {
+            font-size: 3rem;
+            color: $more_coolgrey80;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+            font-weight: 700;
+            .smallYear {
+              font-family: 'DM Sans', Prompt;
+              font-size: 1.4rem;
+            }
+          }
+          .priceDescription {
+            font-size: 1.1rem;
+            color: $more_coolgrey70;
+            line-height: 1.5;
+            padding-bottom: 25px;
+            font-weight: 500;
+          }
+          .priceButton {
+            padding-bottom: 17px;
+          }
+          .priceInfo {
+            color: $more_coolgrey70;
+            font-size: 1rem;
+
+            .infoList {
+              display: flex;
+              padding-bottom: 20px;
+              .nameInfo {
+                width: 80%;
+                float: left;
+                font-weight: 400;
+                .freeColor {
+                  color: #f9813d;
+                  font-weight: 500;
+                }
+              }
+              .valueInfo {
+                font-size: 1rem;
+                font-weight: 500;
+                width: 25%;
+                float: right;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        .freeType {
+          margin: 30px 25px;
+          .priceTitle {
+            color: #f9813d;
+          }
+
+          .priceDescription {
+            margin-right: 20px;
+          }
+          .priceButton {
+            .freeButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 7%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: 1px solid #f9813d;
+              border-radius: 40px;
+              padding: 0.6rem 3rem;
+              font-weight: 700;
+              background-color: #f9813d;
+              font-size: 1.1rem;
+
+              &:hover {
+                background: #fa8e50;
+                color: white;
+                border-color: #fa8e50;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #f9813d;
+                .dashNormal {
+                  color: $more_coolgrey70;
+                }
+              }
+            }
+          }
+        }
+        .businessType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: #534fdb;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 15px;
+          }
+          .priceButton {
+            .businessButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 9%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #534fdb63;
+              border-radius: 40px;
+              padding: 0.6rem 3rem;
+              font-weight: 700;
+              background-color: #534fdb;
+              font-size: 1.1rem;
+
+              &:hover {
+                background: #615edf;
+                color: white;
+                border-color: #615edf;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #534fdb;
+                .businessChecker {
+                  width: 16px;
+                }
+              }
+            }
+          }
+        }
+        .commerceType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: $more_blue60;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 24px;
+          }
+          .priceButton {
+            .commerceButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 9%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #0091ff63;
+              border-radius: 40px;
+              padding: 0.6rem 3rem;
+              font-weight: 700;
+              background-color: $more_blue60;
+              font-size: 1.1rem;
+
+              &:hover {
+                background: $more_blue50;
+                color: white;
+                border-color: $more_blue50;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: $more_blue60;
+                .commerceChecker {
+                  width: 16px;
+                }
+              }
+            }
+          }
+        }
+        .cardFooter {
+          width: 100%;
+          // height: 100px;
+          padding-bottom: 60px;
+          background-color: $more_coolgrey10;
+          border-bottom-left-radius: 21px;
+          border-bottom-right-radius: 21px;
+          .cardFooterContainer {
+            padding: 10px;
+            padding-left: 15px;
+            .cardFooterLeft {
+              font-weight: 500;
+              width: 90%;
+              float: left;
+              .cardFooterText1 {
+                font-size: 0.9rem;
+              }
+              .cardFooterText2 {
+                font-size: 1.1rem;
+                .percentNumber {
+                  font-size: 1.3rem;
+                }
+              }
+            }
+            .cardFooterRight {
+              float: right;
+            }
+
+            .cardFooterContainer2 {
+              .cardFooterLeft {
+                color: #534fdb;
+                .cardFooterText1 {
+                }
+                .cardFooterText2 {
+                  .percentNumber {
+                  }
+                }
+              }
+              .cardFooterRight {
+                margin-top: 32px;
+                .cardFooterArrow {
+                }
+              }
+            }
+            .cardFooterContainer3 {
+              .cardFooterLeft {
+                color: $more_blue60;
+                .cardFooterText1 {
+                }
+                .cardFooterText2 {
+                  .percentNumber {
+                  }
+                }
+              }
+              .cardFooterRight {
+                margin-top: 40px;
+                .cardFooterArrow {
+                  .imageArrow {
+                    filter: invert(40%) sepia(98%) saturate(2372%) hue-rotate(186deg) brightness(100%) contrast(110%);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .pricingModeContainer {
+    width: 260%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    overflow-x: hidden;
+    .priceModeCard {
+      display: flex;
+      justify-content: center;
+      font-family: 'DM Sans', Prompt;
+
+      .priceCardBorder {
+        margin-right: 23px !important;
+        width: 29.5%;
+        height: max-content;
+        border: $more_coolgrey10 solid 2px;
+        border-radius: 24px;
+
+        div {
+          .priceTitle {
+            font-size: 4vw;
+            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+          }
+          .pricePrice {
+            font-size: 9vw;
+            color: $more_coolgrey80;
+            font-family: 'DM Sans', sans-serif;
+            padding-bottom: 10px;
+            font-weight: 700;
+            .smallYear {
+              font-family: 'DM Sans', Prompt;
+              font-size: 5vw;
+            }
+          }
+          .priceDescription {
+            font-size: 3.8vw;
+            color: $more_coolgrey70;
+            line-height: 1.5;
+            padding-bottom: 25px;
+            font-weight: 500;
+          }
+          .priceButton {
+            padding-bottom: 17px;
+          }
+          .priceInfo {
+            color: $more_coolgrey70;
+            font-size: 3.4vw;
+
+            .infoList {
+              display: flex;
+              padding-bottom: 20px;
+              .nameInfo {
+                width: 80%;
+                float: left;
+                font-weight: 400;
+                .freeColor {
+                  color: #f9813d;
+                  font-weight: 500;
+                }
+              }
+              .valueInfo {
+                font-size: 3.5vw;
+                font-weight: 500;
+                width: 20%;
+                float: right;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        .freeType {
+          margin: 30px 25px;
+          .priceTitle {
+            color: #f9813d;
+          }
+
+          .priceDescription {
+            margin-right: 10px;
+          }
+          .priceButton {
+            .freeButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 7%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: 1px solid #f9813d;
+              border-radius: 40px;
+              padding: 0.5rem 3rem;
+              font-weight: 700;
+              background-color: #f9813d;
+              font-size: 1.05rem;
+
+              &:hover {
+                background: #fa8e50;
+                color: white;
+                border-color: #fa8e50;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #f9813d;
+                .dashNormal {
+                  color: $more_coolgrey70;
+                }
+              }
+            }
+          }
+        }
+        .businessType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: #534fdb;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 0px;
+          }
+          .priceButton {
+            .businessButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 9%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #534fdb63;
+              border-radius: 40px;
+              padding: 0.6rem 3rem;
+              font-weight: 700;
+              background-color: #534fdb;
+              font-size: 1.1rem;
+
+              &:hover {
+                background: #615edf;
+                color: white;
+                border-color: #615edf;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: #534fdb;
+                .businessChecker {
+                  width: 13px;
+                }
+              }
+            }
+          }
+        }
+        .commerceType {
+          margin: 30px 25px;
+          margin-bottom: 15px;
+          .priceTitle {
+            color: $more_blue60;
+          }
+          .pricePrice {
+          }
+          .priceDescription {
+            margin-right: 5px;
+          }
+          .priceButton {
+            .commerceButton {
+              width: 100%;
+              // margin-top: 20px;
+              // margin-left: 9%;
+              margin-bottom: 20px;
+              font-family: 'DM Sans', sans-serif !important;
+              color: white;
+              cursor: pointer;
+              border: none;
+              box-shadow: 0px 4px 12px #0091ff63;
+              border-radius: 40px;
+              padding: 0.6rem 3rem;
+              font-weight: 700;
+              background-color: $more_blue60;
+              font-size: 1.1rem;
+
+              &:hover {
+                background: $more_blue50;
+                color: white;
+                border-color: $more_blue50;
+              }
+
+              &:disabled {
+                background: #d5d5d5;
+                color: black;
+              }
+            }
+          }
+          .priceInfo {
+            .infoList {
+              .nameInfo {
+              }
+              .valueInfo {
+                color: $more_blue60;
+                .commerceChecker {
+                  width: 13px;
+                }
+              }
+            }
+          }
+        }
+        .cardFooter {
+          width: 100%;
+          // height: 100px;
+          padding-bottom: 13vw;
+          background-color: $more_coolgrey10;
+          border-bottom-left-radius: 21px;
+          border-bottom-right-radius: 21px;
+          .cardFooterContainer {
+            padding: 10px;
+            padding-left: 15px;
+            .cardFooterLeft {
+              font-weight: 500;
+              width: 90%;
+              float: left;
+              .cardFooterText1 {
+                font-size: 3.2vw;
+              }
+              .cardFooterText2 {
+                font-size: 3.8vw;
+                .percentNumber {
+                  font-size: 5vw;
+                }
+              }
+            }
+            .cardFooterRight {
+              float: right;
+            }
+
+            .cardFooterContainer2 {
+              .cardFooterLeft {
+                color: #534fdb;
+                .cardFooterText1 {
+                }
+                .cardFooterText2 {
+                  .percentNumber {
+                  }
+                }
+              }
+              .cardFooterRight {
+                margin-top: 6vw;
+                .cardFooterArrow {
+                }
+              }
+            }
+            .cardFooterContainer3 {
+              .cardFooterLeft {
+                color: $more_blue60;
+                .cardFooterText1 {
+                }
+                .cardFooterText2 {
+                  .percentNumber {
+                  }
+                }
+              }
+              .cardFooterRight {
+                margin-top: 6vw;
+                .cardFooterArrow {
+                  .imageArrow {
+                    filter: invert(40%) sepia(98%) saturate(2372%) hue-rotate(186deg) brightness(100%) contrast(110%);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 431px) {
+}
+
+@media (max-width: 375px) {
+}

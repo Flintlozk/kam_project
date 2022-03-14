@@ -1,0 +1,80 @@
+<div class="flex items-center justify-end pb-4" *ngIf="isContentEditor">
+  <button (click)="onDismissContentEditor()" class="transition transform focus:outline-none hover:scale-105">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+    </svg>
+  </button>
+</div>
+<section [formGroup]="layoutImageForm" class="grid gap-4">
+  <div class="grid gap-1">
+    <div class="txt-sm font-light">Image</div>
+    <div class="border w-full h-36 flex items-center justify-center relative rounded overflow-hidden">
+      <img class="absolute w-full" *ngIf="layoutImageForm['controls']['imgUrl'].value" [src]="layoutImageForm['controls']['imgUrl'].value" />
+    </div>
+    <div class="flex justify-center">
+      <button
+        (click)="onMediaGalleryDialog()"
+        class="flex items-center justify-center px-4 py-2 mt-4 transition transform bg-green-500 rounded-2xl custom-shadow focus:outline-none hover:scale-105"
+      >
+        <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M20 5C24.4183 5 28 8.58172 28 13C28 17.4183 24.4183 21 20 21C15.5817 21 12 17.4183 12 13C12 8.58172 15.5817 5 20 5ZM20.2778 7.71158C20.1002 7.65169 19.8998 7.65169 19.7224 7.71158C19.6353 7.74047 19.5562 7.78269 19.4894 7.83585L16.4307 10.2757C16.4247 10.2803 16.4189 10.2849 16.4129 10.2899C16.1363 10.5183 16.1442 10.8824 16.4307 11.103C16.7172 11.3238 17.1739 11.3175 17.4505 11.0889L19.2789 9.63038V16.8693C19.2789 17.1869 19.6017 17.4444 20.0001 17.4444C20.3983 17.4444 20.7211 17.1869 20.7211 16.8693V9.63038L22.5495 11.0889C22.5553 11.0938 22.5612 11.0984 22.5672 11.103C22.8537 11.3237 23.3103 11.3173 23.5871 11.0889C23.8637 10.8604 23.8558 10.4963 23.5693 10.2757L20.5106 7.83585C20.444 7.78269 20.3648 7.74047 20.2778 7.71158Z"
+            fill="white"
+          />
+          <path
+            d="M11.6844 0.168288C15.6502 -0.652764 19.519 1.60333 21 5.34798C20.8168 5.33553 20.632 5.32927 20.4456 5.32927C20.0183 5.32927 19.599 5.36217 19.1899 5.42551C18.1879 3.46042 16.3019 2.06224 14.0746 1.79466C10.4247 1.3561 7.1236 4.07403 6.7014 7.86519C6.65476 8.3029 6.29868 8.63404 5.87486 8.63404C3.57835 8.61992 1.70585 10.5423 1.69226 12.9278C1.67888 15.3131 3.52927 17.2582 5.82579 17.2723H9.98364C10.4429 17.2723 10.8153 17.659 10.8153 18.1361C10.8153 18.6133 10.4429 19 9.98364 19H5.82579C2.86698 19.0021 0.37742 16.6985 0.038773 13.6452C-0.329075 10.3276 1.96176 7.32847 5.15539 6.94615C5.81403 3.52447 8.38997 0.85035 11.6844 0.168288Z"
+            fill="white"
+          />
+        </svg>
+        <span class="ml-2 text-lg text-white">Load From Media</span>
+      </button>
+    </div>
+  </div>
+  <div class="flex items-center">
+    <div class="mr-5 text-sm font-light">Image Caption</div>
+    <div>
+      <input type="checkbox" formControlName="isCaption" #isCaption class="hidden" />
+      <button
+        (click)="isCaption.click()"
+        class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+        [ngClass]="{ 'bg-green-500 border-green-500': layoutImageForm['controls']['isCaption'].value }"
+      >
+        <div
+          class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+          [ngClass]="{
+            'bg-gray-300': !layoutImageForm['controls']['isCaption'].value,
+            'bg-white right-0 mr-2': layoutImageForm['controls']['isCaption'].value
+          }"
+        ></div>
+      </button>
+    </div>
+  </div>
+  <div [ngClass]="{ hidden: !layoutImageForm['controls']['isCaption'].value }" class="grid gap-1">
+    <div class="font-light text-sm">Caption Type</div>
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="captionType">
+          <mat-option *ngFor="let type of captionType" [value]="type.value">
+            {{ type.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <ng-container formGroupName="language">
+    <div class="grid gap-1">
+      <div class="txt-sm font-light">Image Title</div>
+      <input formControlName="title" type="text" class="bg-transparent border rounded px-4 py-2" />
+    </div>
+    <div class="grid gap-1">
+      <div class="txt-sm font-light">Image Alt</div>
+      <input formControlName="alt" type="text" class="bg-transparent border rounded px-4 py-2" />
+    </div>
+    <div class="grid gap-1">
+      <div class="txt-sm font-light">Image Caption</div>
+      <input formControlName="caption" type="text" class="bg-transparent border rounded px-4 py-2" />
+    </div>
+  </ng-container>
+</section>

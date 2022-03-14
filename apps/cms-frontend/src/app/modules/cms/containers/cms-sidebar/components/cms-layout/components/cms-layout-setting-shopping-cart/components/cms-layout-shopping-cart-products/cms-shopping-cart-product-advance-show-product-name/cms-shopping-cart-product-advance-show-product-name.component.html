@@ -1,0 +1,60 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content">
+    <mat-tab-group>
+      <mat-tab label="Setting">
+        <div class="grid gap-4 mt-5" [formGroup]="productNameSettingFormGroup">
+          <div class="grid gap-2">
+            <label class="layout-label">Display</label>
+            <div class="grid gap-2">
+              <mat-radio-group class="grid" formControlName="display">
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductNameTypes.FULL_NAME"> Product full name </mat-radio-button>
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductNameTypes.SHORT_NAME"> Product short name </mat-radio-button>
+              </mat-radio-group>
+
+              <div class="grid gap-1 ml-5" *ngIf="isLimitTextFlow">
+                <div class="layout-label">Limit text line</div>
+                <div class="relative input-border p-2">
+                  <div class="absolute grid inset-y-0 items-center pl-2 right-0 mr-2">
+                    <div class="cursor-pointer" (click)="increaseNumber('limitTextLine')">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+
+                    <div class="cursor-pointer" (click)="descreaseNumber('limitTextLine')">
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  <input type="text" reactorRoomNumeric formControlName="limitTextLine" class="w-full focus:outline-none pr-6" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-2">
+            <label class="layout-label">Layout</label>
+            <div class="grid grid-2">
+              <mat-radio-group class="grid" formControlName="layout">
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductLayoutTypes.INSIDE_IMAGE"> Inside Image </mat-radio-button>
+                <mat-radio-button class="text-one" [value]="ShoppingCartProductLayoutTypes.OUTSIDE_IMAGE"> Outside Image </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <cms-next-cms-element-position [isRemoveJustify]="true"></cms-next-cms-element-position>
+
+          <section>
+            <p><mat-checkbox formControlName="applyAll">Apply all</mat-checkbox></p>
+          </section>
+        </div>
+      </mat-tab>
+      <mat-tab label="Custom">
+        <section class="mt-5">
+          <cms-next-cms-layout-text></cms-next-cms-layout-text>
+        </section>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
+</cms-next-cms-popover-layout>

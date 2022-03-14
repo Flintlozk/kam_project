@@ -1,0 +1,89 @@
+<div class="nav" (window:resize)="onResize($event)">
+  <div class="controls">
+    <div class="controls">
+      <div class="upgrade" *ngIf="isDisplayUpgrade">
+        <reactor-room-upgrade></reactor-room-upgrade>
+      </div>
+      <div class="language">
+        <reactor-room-language-switch></reactor-room-language-switch>
+      </div>
+      <div class="ecosystem">
+        <reactor-room-ecosystem></reactor-room-ecosystem>
+      </div>
+
+      <div class="account-menu" reactorRoomClickOutside (outside)="clickOutsideAccountMenuEvent($event)">
+        <div class="account" (click)="accountToogle()" [ngClass]="{ active: accountToogleStatus }">
+          <img class="account-image" *ngIf="userSubscriptionsContext" [src]="userSubscriptionsContext.profileImage" />
+          <div class="text" *ngIf="userSubscriptionsContext">
+            <div class="name">{{ userSubscriptionsContext.name }}</div>
+
+            <span *ngIf="activeSubscription && activeSubscription.role === EnumUserSubscriptionType.OWNER">{{ 'Owner' | translate }}</span>
+            <span *ngIf="activeSubscription && activeSubscription.role === EnumUserSubscriptionType.MEMBER">{{ 'Member' | translate }}</span>
+          </div>
+          <svg class="toogle" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7 8.04435L11.5444 3.5L13.125 5.08065L7 11.2056L0.875 5.08065L2.45565 3.5L7 8.04435Z" fill="#53B0FF" />
+          </svg>
+
+          <div class="account-menu" *ngIf="accountToogleStatus">
+            <div class="packages-summary-item">{{ userSubscriptions.length }} {{ 'Packages...' | translate }}</div>
+            <div [ngClass]="[item.id == activeSubscription.id ? 'item active' : 'item']" *ngFor="let item of userSubscriptions; let i = index">
+              <div class="subscription-list-item" (click)="setSubscriptionItemStatus(item)">
+                <div>
+                  <svg *ngIf="item.id == activeSubscription.id" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M15.7657 0.239312C15.4533 -0.0797705 14.9468 -0.0797705 14.6343 0.239312L5.04982 10.0277L1.3657 6.26526C1.0533 5.94618 0.546796 5.94621 0.234328 6.26526C-0.0781093 6.58431 -0.0781093 7.10159 0.234328 7.42067L4.48414 11.7608C4.79645 12.0798 5.30332 12.0796 5.61551 11.7608L15.7657 1.39475C16.0781 1.0757 16.0781 0.558394 15.7657 0.239312Z"
+                      fill="#54B1FF"
+                    />
+                  </svg>
+                </div>
+                <div class="title">
+                  <span *ngIf="item.role === EnumUserSubscriptionType.OWNER">{{ 'Owner' | translate }}</span>
+                  <span *ngIf="item.role === EnumUserSubscriptionType.MEMBER">{{ 'Member' | translate }}</span>
+                </div>
+                <div class="title">{{ item.planName | translate }}</div>
+                <div class="subscription-id">{{ item.id }}</div>
+                <div class="expire-detail">
+                  <span *ngIf="item.isCountDown && item.packageType !== EnumSubscriptionPackageType.FREE"
+                    >{{ 'remaining' | translate }} {{ item.daysRemaining }} {{ 'days' | translate }}</span
+                  >
+                  <span *ngIf="item.isExpire">{{ 'expired' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!hasSub" class="item">
+              <div class="create-subscription-item" (click)="createSubscription()">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                  />
+                </svg>
+                <span class="ml-5">{{ 'Create my subscription' | translate }}</span>
+              </div>
+            </div>
+            <div class="item logout">
+              <div class="subscription-list-item" (click)="logout()">
+                <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M0 11.5C0 17.8406 5.19335 23 11.5758 23C16.3649 23 20.5932 20.1376 22.3496 15.708C22.5095 15.3054 22.3095 14.8496 21.9045 14.6907C21.4983 14.5339 21.0404 14.7294 20.8805 15.1341C19.3641 18.9594 15.7115 21.4318 11.5758 21.4318C6.06353 21.4318 1.57851 16.976 1.57851 11.5C1.57851 6.02403 6.06353 1.56817 11.5758 1.56817C15.7115 1.56817 19.3641 4.04065 20.8805 7.86709C21.0414 8.27158 21.4992 8.46722 21.9045 8.31025C22.3095 8.1504 22.5095 7.69557 22.3496 7.29319C20.5932 2.86241 16.3649 0 11.5758 0C5.19335 0 0 5.15935 0 11.5ZM12.1637 16.4514C11.9596 16.4514 11.7557 16.3754 11.6004 16.2222L7.45115 12.152C7.24883 12.0072 7.1167 11.7691 7.1167 11.5C7.1167 11.2312 7.24853 10.9933 7.45047 10.8485L11.6004 6.77764C11.9117 6.47227 12.4164 6.47227 12.7279 6.77764C13.0392 7.08301 13.0392 7.57809 12.7279 7.88346L9.85526 10.7014H23.2099C23.6468 10.7014 24.0014 11.0592 24.0014 11.5C24.0014 11.9408 23.6468 12.2986 23.2099 12.2986H9.85447L12.7279 15.1173C13.0392 15.4227 13.0392 15.9178 12.7279 16.2231C12.5717 16.3754 12.3676 16.4514 12.1637 16.4514Z"
+                    fill="#EA6161"
+                  />
+                </svg>
+
+                <span class="whitespace-no-wrap logout">{{ 'Log Out' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="activeSubscription && activeSubscription.isExpire" class="expired-label" (window:resize)="onResize($event)">
+  <span>
+    {{ 'Your package expired' | translate }}
+  </span>
+</div>
+
+<reactor-room-loader block="true" [text]="loadingText" *ngIf="isLoading"></reactor-room-loader>

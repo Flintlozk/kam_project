@@ -1,0 +1,8 @@
+FROM itopplus/reactor-room-node-module
+ENV INSTALL_PROJECT_PATH /project
+WORKDIR $INSTALL_PROJECT_PATH
+ADD ./dist/apps/cms-backend .
+ADD ./package.json .
+ADD ./private.pem .
+ADD ./public.pem .
+CMD ["node","main.js"]

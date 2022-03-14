@@ -1,0 +1,130 @@
+<section class="content-list">
+  <div class="relative flex items-center p-4 bg-white rounded shadow mb-6">
+    <svg class="absolute right-0 mr-4" width="69" height="31" viewBox="0 0 69 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="66.7016" cy="2.29851" r="2.29851" transform="rotate(90 66.7016 2.29851)" fill="#EBEBF2" />
+      <circle cx="66.7016" cy="15.1794" r="2.29851" transform="rotate(90 66.7016 15.1794)" fill="#EBEBF2" />
+      <circle cx="66.7016" cy="28.0602" r="2.29851" transform="rotate(90 66.7016 28.0602)" fill="#EBEBF2" />
+      <circle cx="53.821" cy="2.29851" r="2.29851" transform="rotate(90 53.821 2.29851)" fill="#EBEBF2" />
+      <circle cx="53.821" cy="15.1794" r="2.29851" transform="rotate(90 53.821 15.1794)" fill="#EBEBF2" />
+      <circle cx="53.821" cy="28.0592" r="2.29851" transform="rotate(90 53.821 28.0592)" fill="#EBEBF2" />
+      <circle cx="40.9404" cy="2.29851" r="2.29851" transform="rotate(90 40.9404 2.29851)" fill="#EBEBF2" />
+      <circle cx="40.9404" cy="15.1794" r="2.29851" transform="rotate(90 40.9404 15.1794)" fill="#EBEBF2" />
+      <circle cx="40.9404" cy="28.0592" r="2.29851" transform="rotate(90 40.9404 28.0592)" fill="#EBEBF2" />
+      <circle cx="28.0598" cy="2.29851" r="2.29851" transform="rotate(90 28.0598 2.29851)" fill="#EBEBF2" />
+      <circle cx="28.0599" cy="15.1794" r="2.29851" transform="rotate(90 28.0599 15.1794)" fill="#EBEBF2" />
+      <circle cx="28.0599" cy="28.0592" r="2.29851" transform="rotate(90 28.0599 28.0592)" fill="#EBEBF2" />
+      <circle cx="15.1793" cy="2.29851" r="2.29851" transform="rotate(90 15.1793 2.29851)" fill="#EBEBF2" />
+      <circle cx="15.1792" cy="15.1794" r="2.29851" transform="rotate(90 15.1792 15.1794)" fill="#EBEBF2" />
+      <circle cx="15.1792" cy="28.0592" r="2.29851" transform="rotate(90 15.1792 28.0592)" fill="#EBEBF2" />
+      <circle cx="2.29866" cy="2.29851" r="2.29851" transform="rotate(90 2.29866 2.29851)" fill="#EBEBF2" />
+      <circle cx="2.29854" cy="15.1794" r="2.29851" transform="rotate(90 2.29854 15.1794)" fill="#EBEBF2" />
+      <circle cx="2.29854" cy="28.0592" r="2.29851" transform="rotate(90 2.29854 28.0592)" fill="#EBEBF2" />
+    </svg>
+    <div class="relative flex items-center">
+      <input [formControl]="searchForm" autofocus type="text" placeholder="Search..." class="h-12 pl-4 pr-12 border rounded-md focus:outline-none" />
+      <svg class="absolute right-0 mr-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+          fill="#BCC4D6"
+        />
+      </svg>
+    </div>
+  </div>
+  <reactor-room-custom-table
+    [isLoading]="false"
+    [isNoData]="isDataEmpty"
+    [tableData]="contentsList"
+    [tableHeader]="tableHeader"
+    [isNoVerticalScroll]="true"
+    [tableColSpan]="tableHeader.length"
+    [isNoVerticalScroll]="true"
+    [isAllchecked]="false"
+    [orderMethod]="tableFilter.orderMethod"
+    (sortTableMetaData)="sortTableData($event)"
+    [tableHeader]="tableHeader"
+    [tableData]="contentsList"
+  >
+    <ng-container class="table-content">
+      <ng-container *ngFor="let contents of contentsList; trackBy: trackByIndex; let index = index">
+        <tr>
+          <td>{{ contents.name }}</td>
+          <td>{{ contents.displayCategories }}</td>
+          <td>{{ contents.startDate }}</td>
+          <td>
+            <ng-container *ngIf="contents.isPublish">Published</ng-container>
+            <ng-container *ngIf="!contents.isPublish">Unpublished</ng-container>
+          </td>
+          <td class="w-32">
+            <div class="grid grid-cols-3 gap-4">
+              <button
+                [routerLink]="['/' + RouteLinkEnum.SHORTCUT_WEBSITE_MANAGEMENT + '/' + RouteLinkEnum.SHORTCUT_CONTENT_MANAGEMENT + '/' + contents._id]"
+                routerLinkActive="router-link-active"
+                class="flex items-center justify-center w-8 h-8 transition transform bg-white rounded-md group focus:outline-none hover:scale-105 hover:bg-gray-900"
+              >
+                <svg class="text-gray-400 fill-current group-hover:text-white" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.1909 0.128157C10.3618 -0.0427191 10.6386 -0.0427191 10.8095 0.128157L13.8718 3.19046C14.0427 3.36136 14.0427 3.6382 13.8718 3.80908L3.80995 13.871C3.72792 13.953 3.61683 13.9991 3.50064 13.9991L0.43748 14C0.32169 14 0.210199 13.9539 0.128172 13.8718C0.046144 13.7898 0 13.6783 0 13.5625L0.000859827 10.4994C0.000859827 10.3832 0.0470039 10.2721 0.129031 10.1901L10.1909 0.128157ZM10.5788 0.976744L8.7907 2.76483L11.2352 5.2093L13.0233 3.42125L10.5788 0.976744Z"
+                    fill=""
+                  />
+                </svg>
+              </button>
+              <button class="flex items-center justify-center w-8 h-8 transition transform bg-white rounded-md group focus:outline-none hover:scale-105 hover:bg-gray-900">
+                <svg
+                  [ngClass]="{ 'text-red-500 group-hover:text-red-500': contents.isPin, 'text-gray-400 group-hover:text-white': !contents.isPin }"
+                  class="fill-current"
+                  width="12"
+                  height="15"
+                  viewBox="0 0 12 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 1C0 0.447715 0.447715 0 1 0H11C11.5523 0 12 0.447715 12 1V13.8548C12 14.7044 11.0077 15.1669 10.357 14.6207L6.64297 11.5027C6.27115 11.1906 5.72885 11.1906 5.35703 11.5027L1.64297 14.6207C0.992316 15.1669 0 14.7044 0 13.8548V1Z"
+                  />
+                </svg>
+              </button>
+              <button
+                [matMenuTriggerFor]="actionMoreMenu"
+                #menu="matMenuTrigger"
+                [ngClass]="{ 'bg-gray-900': menu.menuOpen, 'bg-white': !menu.menuOpen }"
+                class="flex items-center justify-center w-8 h-8 transition transform rounded-md group focus:outline-none hover:scale-105 hover:bg-gray-900"
+              >
+                <svg
+                  [ngClass]="{ 'text-white': menu.menuOpen, 'text-gray-400': !menu.menuOpen }"
+                  class="fill-current group-hover:text-white"
+                  width="16"
+                  height="4"
+                  viewBox="0 0 16 4"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="2" cy="2" r="2" />
+                  <circle cx="14" cy="2" r="2" />
+                  <circle cx="8" cy="2" r="2" />
+                </svg>
+              </button>
+              <mat-menu #actionMoreMenu="matMenu">
+                <section class="-my-2 bg-white rounded-md">
+                  <button (click)="onConfirmDeleteDialog(index)" class="flex items-center w-full px-4 py-3 transition focus:outline-none hover:bg-gray-100">
+                    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M12.6538 2.125H9.69231V1.59375C9.69231 0.713535 8.96909 0 8.07692 0H5.92308C5.03091 0 4.30769 0.713535 4.30769 1.59375V2.125H1.34615C0.602707 2.125 0 2.71963 0 3.45312V4.51562C0 4.80904 0.241063 5.04688 0.538462 5.04688H13.4615C13.7589 5.04688 14 4.80904 14 4.51562V3.45312C14 2.71963 13.3973 2.125 12.6538 2.125ZM5.38462 1.59375C5.38462 1.3009 5.62625 1.0625 5.92308 1.0625H8.07692C8.37375 1.0625 8.61539 1.3009 8.61539 1.59375V2.125H5.38462V1.59375Z"
+                        fill="#AAB2C2"
+                      />
+                      <path
+                        d="M0.933319 5.36816H13.0667V12.105C13.0667 14.3141 11.2758 16.105 9.06665 16.105H4.93332C2.72418 16.105 0.933319 14.3141 0.933319 12.105V5.36816Z"
+                        fill="#AAB2C2"
+                      />
+                      <path d="M4.66666 8.05273L9.33332 12.5264M4.66666 12.5264L9.33332 8.05273" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="ml-2">Delete</span>
+                  </button>
+                </section>
+              </mat-menu>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </reactor-room-custom-table>
+</section>

@@ -1,0 +1,30 @@
+.login-test-container {
+  margin: 50px;
+  display: flex;
+  flex-flow: column;
+  .button-container {
+    .button-group {
+      margin: 4px 0;
+
+      &.back {
+        margin-top: 12px;
+      }
+      button {
+        background-color: transparent;
+        border: 1px solid grey;
+        color: grey;
+
+        &.online {
+          border: 1px solid #54b1ff;
+          color: #54b1ff;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #54b1ff;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

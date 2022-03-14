@@ -1,0 +1,8 @@
+<more-platform-layout *ngIf="!fullLayout">
+  <div [@routeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</more-platform-layout>
+<div *ngIf="fullLayout" [@routeAnimation]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

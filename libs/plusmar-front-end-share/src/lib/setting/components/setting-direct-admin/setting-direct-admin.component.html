@@ -1,0 +1,226 @@
+<div
+  class="setting-direct-admin"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS,
+    'social-theme': theme === themeType.SOCIAL
+  }"
+>
+  <div class="head">
+    <div class="count">{{ tableData?.length }} {{ 'Members' | translate }}</div>
+    <button *ngIf="isAllowed" [ngClass]="isInvitable ? 'save-active' : 'btn-inactive'" (click)="isInvitable ? openDialog() : ''" [disabled]="!isInvitable">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+        />
+      </svg>
+      <span class="ml-5">
+        {{ 'Invite' | translate }}
+      </span>
+    </button>
+  </div>
+  <div class="table w-full">
+    <reactor-room-custom-table [isLoading]="false" [isNoData]="false" [tableData]="tableData" [tableHeader]="tableHeader" [tableColSpan]="6">
+      <tr *ngFor="let item of tableData; trackBy: trackBy" class="table-content">
+        <td>
+          <span>{{ item.name }}</span>
+        </td>
+        <td>
+          <div class="flex">
+            <span *ngIf="item.alias && item.is_active">{{ item.alias }}</span>
+            <span *ngIf="!item.alias && item.is_active" (click)="openChangeUserAliasDialog(item)"
+              ><i>{{ 'Set alias' | translate }}</i></span
+            >
+            <svg
+              *ngIf="item.is_active && isAllowed"
+              style="margin-left: 8px; margin-top: -2px"
+              (click)="openChangeUserAliasDialog(item)"
+              _ngcontent-kww-c498=""
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="edit"
+            >
+              <path
+                _ngcontent-kww-c498=""
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.9659 0.294462L0.0532027 13.2001C0.0532027 13.2001 0.00482531 17.5185 0.000120317 17.6926C-0.00458468 17.8668 0.129237 18.0056 0.307501 17.9998C0.422936 17.9961 1.53125 17.9837 2.77895 17.9698C3.45806 17.9622 4.17846 17.9541 4.80254 17.9468L17.7011 5.05531C18.1391 4.61752 18.0637 4.21697 17.6822 3.83567L14.1214 0.276834C13.7823 -0.0621027 13.3992 -0.127579 12.9659 0.294462ZM1.10666 16.8939L1.14488 13.6596L10.4788 4.33071L13.6768 7.52686L4.34278 16.8557L1.10666 16.8939Z"
+                fill="url(#edit)"
+              ></path>
+              <defs _ngcontent-kww-c498="">
+                <linearGradient _ngcontent-kww-c498="" id="edit" x1="0.0857386" y1="17.9143" x2="15.9184" y2="2.07288" gradientUnits="userSpaceOnUse">
+                  <stop *ngIf="theme === themeType.SOCIAL" stop-color="#55B2FF" />
+                  <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#87D6FF" />
+                  <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+                  <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </td>
+        <td>
+          <span>{{ item.email }}</span>
+        </td>
+        <td>
+          <div class="flex">
+            <span *ngIf="item.notify_email && item.is_active">{{ item.notify_email }}</span>
+            <span *ngIf="!item.notify_email && item.is_active" (click)="openChangeUserNotifyEmailDialog(item)"
+              ><i>{{ 'Set notify email' | translate }}</i></span
+            >
+            <svg
+              *ngIf="item.is_active && isAllowed"
+              style="margin-left: 8px; margin-top: -2px"
+              (click)="openChangeUserNotifyEmailDialog(item)"
+              _ngcontent-kww-c498=""
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="edit"
+            >
+              <path
+                _ngcontent-kww-c498=""
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.9659 0.294462L0.0532027 13.2001C0.0532027 13.2001 0.00482531 17.5185 0.000120317 17.6926C-0.00458468 17.8668 0.129237 18.0056 0.307501 17.9998C0.422936 17.9961 1.53125 17.9837 2.77895 17.9698C3.45806 17.9622 4.17846 17.9541 4.80254 17.9468L17.7011 5.05531C18.1391 4.61752 18.0637 4.21697 17.6822 3.83567L14.1214 0.276834C13.7823 -0.0621027 13.3992 -0.127579 12.9659 0.294462ZM1.10666 16.8939L1.14488 13.6596L10.4788 4.33071L13.6768 7.52686L4.34278 16.8557L1.10666 16.8939Z"
+                fill="url(#edit)"
+              ></path>
+              <defs _ngcontent-kww-c498="">
+                <linearGradient _ngcontent-kww-c498="" id="edit" x1="0.0857386" y1="17.9143" x2="15.9184" y2="2.07288" gradientUnits="userSpaceOnUse">
+                  <stop *ngIf="theme === themeType.SOCIAL" stop-color="#55B2FF" />
+                  <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#87D6FF" />
+                  <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+                  <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </td>
+        <td>
+          <div class="flex">
+            <span>{{ item.role | translate }}</span>
+            <ng-container *ngIf="item.is_active && item.role !== 'OWNER' && isAllowed">
+              <svg
+                *ngIf="item.is_active"
+                style="margin-left: 8px"
+                (click)="openChangeUserRoleDialog(item)"
+                _ngcontent-kww-c498=""
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="edit"
+              >
+                <path
+                  _ngcontent-kww-c498=""
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.9659 0.294462L0.0532027 13.2001C0.0532027 13.2001 0.00482531 17.5185 0.000120317 17.6926C-0.00458468 17.8668 0.129237 18.0056 0.307501 17.9998C0.422936 17.9961 1.53125 17.9837 2.77895 17.9698C3.45806 17.9622 4.17846 17.9541 4.80254 17.9468L17.7011 5.05531C18.1391 4.61752 18.0637 4.21697 17.6822 3.83567L14.1214 0.276834C13.7823 -0.0621027 13.3992 -0.127579 12.9659 0.294462ZM1.10666 16.8939L1.14488 13.6596L10.4788 4.33071L13.6768 7.52686L4.34278 16.8557L1.10666 16.8939Z"
+                  fill="url(#edit)"
+                ></path>
+                <defs _ngcontent-kww-c498="">
+                  <linearGradient _ngcontent-kww-c498="" id="edit" x1="0.0857386" y1="17.9143" x2="15.9184" y2="2.07288" gradientUnits="userSpaceOnUse">
+                    <stop *ngIf="theme === themeType.SOCIAL" stop-color="#55B2FF" />
+                    <stop *ngIf="theme === themeType.SOCIAL" offset="1" stop-color="#87D6FF" />
+                    <stop *ngIf="theme === themeType.CMS" offset="1" stop-color="#1FA92F" />
+                    <stop *ngIf="theme === themeType.CMS" stop-color="#22c55e" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </ng-container>
+          </div>
+        </td>
+
+        <td>
+          <div class="status">
+            <div
+              class="round"
+              [ngClass]="{
+                approve: item.is_active,
+                pending: !item.is_active
+              }"
+            ></div>
+            <span *ngIf="item.is_active">
+              {{ 'Approve' | translate }}
+            </span>
+            <span *ngIf="!item.is_active">
+              {{ 'Pending' | translate }}
+            </span>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="isAllowed" class="button-group">
+            <div *ngIf="item.is_active && item.role !== 'OWNER'" class="remove" (click)="item.user_id ? openConfirmRemoveDialog(item.user_id) : ''">
+              <img src="assets/img/remove.png" alt="Delete" />
+              {{ 'Remove' | translate }}
+            </div>
+            <div *ngIf="!item.is_active" class="revoke" (click)="item.user_id ? openConfirmRevokeByIDDialog(item.user_id) : openConfirmRevokeByEmailDialog(item.email)">
+              <img src="assets/img/revoke.png" alt="Delete" />
+              {{ 'Revoke' | translate }}
+            </div>
+            <div *ngIf="!item.is_active" class="activate" (click)="item.email ? openConfirmActivateDialog(item.email) : ''">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="18px" viewBox="0 0 70 68" version="1.1">
+                <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+                <title>Group 12</title>
+                <desc>Created with Sketch.</desc>
+                <g id="More-commerce" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Direct-Message" transform="translate(-617.000000, -684.000000)">
+                    <g id="Group-12" transform="translate(619.000000, 686.000000)">
+                      <path
+                        d="M28.5,28 C21.0561,28 15,21.7196 15,14 C15,6.2804 21.0561,0 28.5,0 C35.9439,0 42,6.2804 42,14 C42,21.7196 35.9439,28 28.5,28 Z"
+                        id="Path"
+                        stroke="#9799A5"
+                        stroke-width="3"
+                        fill-rule="nonzero"
+                      />
+                      <path
+                        *ngIf="theme === themeType.SOCIAL"
+                        d="M47,43 C42.5888818,43 39,46.5888818 39,51 C39,55.4111182 42.5888818,59 47,59 C51.4111182,59 55,55.4111182 55,51 C55,46.5888818 51.4111182,43 47,43 Z M47,56 C44.2428758,56 42,53.7570502 42,51 C42,48.2429498 44.2429498,46 47,46 C49.7570502,46 52,48.2429498 52,51 C52,53.7570502 49.7571242,56 47,56 Z"
+                        id="Shape"
+                        fill="#53B1FF"
+                        fill-rule="nonzero"
+                      />
+                      <path
+                        *ngIf="theme === themeType.CMS"
+                        d="M47,43 C42.5888818,43 39,46.5888818 39,51 C39,55.4111182 42.5888818,59 47,59 C51.4111182,59 55,55.4111182 55,51 C55,46.5888818 51.4111182,43 47,43 Z M47,56 C44.2428758,56 42,53.7570502 42,51 C42,48.2429498 44.2429498,46 47,46 C49.7570502,46 52,48.2429498 52,51 C52,53.7570502 49.7571242,56 47,56 Z"
+                        id="Shape"
+                        fill="#22c55e"
+                        fill-rule="nonzero"
+                      />
+                      <path
+                        d="M46,39 C41.8543971,34.8598619 26.8325287,35.4644085 21,36.5355915 C7.11508195,39.0856501 0,49.8455531 0,62.5355915 C0,63.5355915 5,63.5355915 8,63.5355915 C11.7979695,63.5355915 25.1313029,63.5237277 48,63.5"
+                        id="Path-3"
+                        stroke="#9799A5"
+                        stroke-width="3"
+                      />
+                      <path
+                        *ngIf="theme === themeType.SOCIAL"
+                        d="M67.7331105,50.145531 C67.3578985,49.6086618 58.4178606,37 46.9998154,37 C35.5817703,37 26.6413222,49.6086618 26.2665203,50.1450162 C25.9111599,50.6543427 25.9111599,51.3451425 26.2665203,51.854469 C26.6413222,52.3913382 35.5817703,65 46.9998154,65 C58.4178606,65 67.3578985,52.3912524 67.7331105,51.854898 C68.0889632,51.3456573 68.0889632,50.6543427 67.7331105,50.145531 Z M47,62 C38.5194034,62 31.1743062,53.7093577 29,50.9990225 C31.171494,48.2863071 38.5012062,40 47,40 C55.4801831,40 62.8247839,48.2891972 65,51.0009775 C62.828506,53.7136079 55.4987938,62 47,62 Z"
+                        id="Shape"
+                        fill="#53B1FF"
+                        fill-rule="nonzero"
+                      />
+                      <path
+                        *ngIf="theme === themeType.CMS"
+                        d="M67.7331105,50.145531 C67.3578985,49.6086618 58.4178606,37 46.9998154,37 C35.5817703,37 26.6413222,49.6086618 26.2665203,50.1450162 C25.9111599,50.6543427 25.9111599,51.3451425 26.2665203,51.854469 C26.6413222,52.3913382 35.5817703,65 46.9998154,65 C58.4178606,65 67.3578985,52.3912524 67.7331105,51.854898 C68.0889632,51.3456573 68.0889632,50.6543427 67.7331105,50.145531 Z M47,62 C38.5194034,62 31.1743062,53.7093577 29,50.9990225 C31.171494,48.2863071 38.5012062,40 47,40 C55.4801831,40 62.8247839,48.2891972 65,51.0009775 C62.828506,53.7136079 55.4987938,62 47,62 Z"
+                        id="Shape"
+                        fill="#22c55e"
+                        fill-rule="nonzero"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              {{ 'Activate Link' | translate }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+  </div>
+</div>
+<reactor-room-loader block="true" [text]="loadingText" *ngIf="isLoading"></reactor-room-loader>

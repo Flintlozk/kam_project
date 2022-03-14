@@ -1,0 +1,128 @@
+<div class="generic-dialog" [ngClass]="{ error: data.isError }">
+  <div [ngSwitch]="data.dialogMode">
+    <div class="container" *ngSwitchCase="GenericDialogMode.CONFIRM">
+      <div class="title">
+        <span>{{ 'Confirmation' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container refund" *ngSwitchCase="GenericDialogMode.REFUND">
+      <div class="title">
+        <span>{{ 'Refund' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container" *ngSwitchCase="GenericDialogMode.SAVE_SUCCESS">
+      <div class="title">
+        <span>{{ 'Successfully' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container reject" *ngSwitchCase="GenericDialogMode.FAILED">
+      <div class="title">
+        <span>{{ 'Something went wrong' | translate }}</span>
+      </div>
+      <div class="content">{{ data.text }} {{ 'Please try again' | translate }}</div>
+    </div>
+    <div class="container reject" *ngSwitchCase="GenericDialogMode.REJECT">
+      <div class="title">
+        <span color="#000;">{{ 'Confirm Reject' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container reject" *ngSwitchCase="GenericDialogMode.CAUTION">
+      <div class="title">
+        <span color="#000;">{{ 'Caution' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container reject" *ngSwitchCase="GenericDialogMode.NOT_CUSTOMER">
+      <div class="title">
+        <span color="#000;">{{ 'Not Customer' | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text }}
+      </div>
+    </div>
+    <div class="container reject" *ngSwitchCase="GenericDialogMode.COPY">
+      <div class="title">
+        <span color="#000;">{{ data.title | translate }}</span>
+      </div>
+      <div class="content">
+        {{ data.text | translate }}
+      </div>
+      <div class="copy" *ngIf="data.value">
+        <input readonly matInput value="{{ data.value }}" #userInput (click)="copyInputMessage(userInput)" /><button value="copy" (click)="copyInputMessage(userInput)">
+          {{ 'Copy' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div [ngSwitch]="data.buttonMode">
+    <div class="footer" *ngSwitchCase="GenericButtonMode.OK">
+      <div class="primary-button" (click)="onSubmit()">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M17.4434 0.556566C16.7013 -0.185522 15.4982 -0.185522 14.7561 0.556566L6.16555 9.14711L3.24391 6.22547C2.50182 5.48338 1.29865 5.48338 0.556567 6.22547C-0.185521 6.96756 -0.185523 8.17072 0.556565 8.91281L4.77803 13.1343C5.16013 13.5164 5.66446 13.7017 6.16515 13.6904C6.6661 13.7019 7.17075 13.5166 7.55304 13.1343L17.4434 3.24391C18.1855 2.50182 18.1855 1.29865 17.4434 0.556566Z"
+            fill="white"
+          />
+        </svg>
+        {{ 'Ok' | translate }}
+      </div>
+    </div>
+
+    <div class="footer" *ngSwitchCase="GenericButtonMode.YES_NO">
+      <div class="secondary-button" (click)="onClose()">
+        {{ 'No' | translate }}
+      </div>
+      &nbsp;
+      <div class="primary-button" (click)="onSubmit()">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M17.4434 0.556566C16.7013 -0.185522 15.4982 -0.185522 14.7561 0.556566L6.16555 9.14711L3.24391 6.22547C2.50182 5.48338 1.29865 5.48338 0.556567 6.22547C-0.185521 6.96756 -0.185523 8.17072 0.556565 8.91281L4.77803 13.1343C5.16013 13.5164 5.66446 13.7017 6.16515 13.6904C6.6661 13.7019 7.17075 13.5166 7.55304 13.1343L17.4434 3.24391C18.1855 2.50182 18.1855 1.29865 17.4434 0.556566Z"
+            fill="white"
+          />
+        </svg>
+        {{ 'Yes' | translate }}
+      </div>
+    </div>
+    <div class="footer" *ngSwitchCase="GenericButtonMode.CLOSE">
+      <div class="primary-button" (click)="onClose()">
+        {{ 'Close' | translate }}
+      </div>
+    </div>
+
+    <div class="footer" *ngSwitchCase="GenericButtonMode.CONFIRM">
+      <div class="secondary-button" (click)="onClose()">
+        {{ 'No' | translate }}
+      </div>
+      &nbsp;
+      <div class="primary-button" (click)="onSubmit()">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M17.4434 0.556566C16.7013 -0.185522 15.4982 -0.185522 14.7561 0.556566L6.16555 9.14711L3.24391 6.22547C2.50182 5.48338 1.29865 5.48338 0.556567 6.22547C-0.185521 6.96756 -0.185523 8.17072 0.556565 8.91281L4.77803 13.1343C5.16013 13.5164 5.66446 13.7017 6.16515 13.6904C6.6661 13.7019 7.17075 13.5166 7.55304 13.1343L17.4434 3.24391C18.1855 2.50182 18.1855 1.29865 17.4434 0.556566Z"
+            fill="white"
+          />
+        </svg>
+        {{ 'Yes' | translate }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div style="display: flex; flex-direction: row">
+  <mat-card>
+    <reactor-room-deal-form [uuidTask]="uuidTask" [uuidDeal]="uuidDeal" [allAssignee]="allAssignee" [actionType]="actionType" [dealDetail]="dealDetail"></reactor-room-deal-form>
+  </mat-card>
+  <mat-card>
+    <reactor-room-task-card [taskItem]="taskItem"> </reactor-room-task-card>
+    <textarea matInput cdkTextareaAutosize type="text" formControlName="noteDetail" #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" value=""> </textarea>
+  </mat-card>
+</div>

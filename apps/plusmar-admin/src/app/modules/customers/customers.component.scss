@@ -1,0 +1,29 @@
+.customer-container {
+  // max-height: calc(100vh - 210px);
+  margin: 16px;
+}
+
+tr {
+  border: 1px solid #000 !important;
+}
+td {
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.package {
+  font-size: 16px;
+}
+.balance {
+  font-size: 18px;
+}
+
+.search {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 6px;
+  width: 100%;
+
+  & > input {
+    width: 100%;
+  }
+}

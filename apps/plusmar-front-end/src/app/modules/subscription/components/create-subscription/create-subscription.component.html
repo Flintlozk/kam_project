@@ -1,0 +1,32 @@
+<div class="subscription-plans">
+  <div *ngIf="isBackable" class="menu-back">
+    <div *ngIf="isBackable" class="back" (click)="back()">
+      {{ 'Back' | translate }}
+    </div>
+    <div class="language">
+      <reactor-room-language-switch></reactor-room-language-switch>
+    </div>
+  </div>
+  <div *ngIf="!isBackable" class="menu-logout">
+    <div class="language">
+      <reactor-room-language-switch></reactor-room-language-switch>
+    </div>
+    <div *ngIf="!isBackable" class="logout" (click)="logout()">
+      {{ 'Logout' | translate }}
+    </div>
+  </div>
+  <div class="heading">
+    {{ 'Pricing' | translate }}
+  </div>
+
+  <reactor-room-create-subscription-plan
+    (subscriptionPlanSelect)="onSelectSubscriptionPlan($event)"
+    [isSubscriptionFree]="isSubscriptionFree"
+    [isSubscriptionBusiness]="isSubscriptionBusiness"
+    [isSubscriptionCommerce]="isSubscriptionCommerce"
+    [isSubscriptionNoPlan]="isSubscriptionNoPlan"
+  >
+  </reactor-room-create-subscription-plan>
+  <reactor-room-subscription-features></reactor-room-subscription-features>
+  <reactor-room-loader block="true" [text]="'Loading' | translate" *ngIf="isLoading"></reactor-room-loader>
+</div>

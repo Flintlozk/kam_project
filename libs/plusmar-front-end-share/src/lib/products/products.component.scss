@@ -1,0 +1,6 @@
+@import 'base';
+.products {
+  .mat-tab-products {
+    @extend .custom-tabs;
+  }
+}

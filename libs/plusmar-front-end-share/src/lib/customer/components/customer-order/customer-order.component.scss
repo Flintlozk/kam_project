@@ -1,0 +1,63 @@
+@import 'base';
+
+.customer-info {
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .func {
+      input {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+
+        &:focus {
+          outline: none;
+          border-color: $text-darker-color;
+        }
+      }
+    }
+  }
+
+  .table-content {
+    .order {
+      .date {
+        color: $text-light-color;
+      }
+    }
+
+    .logistic {
+      .content {
+        display: flex;
+        align-items: center;
+
+        .img {
+          padding-right: 10px;
+
+          img {
+            width: 120px;
+          }
+        }
+
+        .infos {
+          .info {
+            color: $text-light-color;
+          }
+        }
+      }
+    }
+
+    .payment {
+      .paid {
+        color: green;
+        white-space: nowrap;
+      }
+
+      .unpaid {
+        color: red;
+        white-space: nowrap;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<section class="flex flex-col h-full">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <ng-container *ngFor="let tab of cmsThemeTab; trackBy: trackByIndex; let tabIndex = index">
+        <div
+          [ngClass]="{ 'bg-green-500 hover:bg-green-500 text-white': tab.status }"
+          (click)="onSelectCmsThemeTab(tabIndex)"
+          class="font-light px-4 rounded-md py-1 mr-2 focus:outline-none cursor-pointer hover:bg-gray-100 transition"
+        >
+          {{ tab.title }}
+        </div>
+      </ng-container>
+    </div>
+    <button class="focus:outline-none" (click)="onNoClick()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L11.08 11.08M11.08 1L1 11.08" stroke="#C4C4C4" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="grid max-h-full grid-cols-3 gap-4 mt-4 overflow-scroll xl:grid-cols-5 no-scroll-bar">
+    <ng-container *ngFor="let element of cmsThemeElements; trackBy: trackByIndex; let elementIndex = index">
+      <div (click)="onSelectThemeElement(elementIndex)" class="p-4 transition border border-gray-100 rounded-md cursor-pointer focus:outline-none hover:border-green-500">
+        <div>
+          <img [src]="element.image" [alt]="element.templateId" />
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

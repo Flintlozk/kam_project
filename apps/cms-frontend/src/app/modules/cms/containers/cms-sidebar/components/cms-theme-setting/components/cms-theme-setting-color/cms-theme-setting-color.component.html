@@ -1,0 +1,59 @@
+<section class="grid gap-6" [formGroup]="themeSettingColorForm" *ngIf="themeSettingColorForm['controls']['color'] as colorFormArray">
+  <div class="grid gap-1">
+    <div class="font-light text-sm">Color Palettes</div>
+    <div class="grid grid-cols-4 rounded overflow-hidden">
+      <ng-container *ngFor="let colorItem of colorFormArray.value">
+        <div *ngIf="themeMode === EnumThemeMode.LIGHT" class="h-8 w-full" [ngStyle]="{ backgroundColor: colorItem.light.color, opacity: colorItem.light.opacity }"></div>
+        <div *ngIf="themeMode === EnumThemeMode.DARK" class="h-8 w-full" [ngStyle]="{ backgroundColor: colorItem.dark.color, opacity: colorItem.dark.opacity }"></div>
+      </ng-container>
+    </div>
+    <div class="font-light text-sm">Background Color Palettes</div>
+    <div class="grid grid-cols-4 rounded overflow-hidden">
+      <ng-container *ngFor="let colorItem of colorFormArray.value">
+        <div *ngIf="themeMode === EnumThemeMode.LIGHT" class="h-8 w-full" [ngStyle]="{ backgroundColor: colorItem.light.bgColor, opacity: colorItem.light.bgOpacity }"></div>
+        <div *ngIf="themeMode === EnumThemeMode.DARK" class="h-8 w-full" [ngStyle]="{ backgroundColor: colorItem.dark.bgColor, opacity: colorItem.dark.bgOpacity }"></div>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container formArrayName="color">
+    <ng-container *ngFor="let colorItem of colorFormArray['controls']; let index = index">
+      <ng-container [formGroupName]="index">
+        <div class="grid gap-1">
+          <div class="font-light text-sm">{{ colorItem['controls']['type'].value }}</div>
+          <div *ngIf="themeMode === EnumThemeMode.LIGHT">
+            <div class="grid grid-cols-2 gap-2" formGroupName="light">
+              <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="color" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ colorItem['controls']['light']['controls']['color'].value }}</span>
+              </div>
+              <input type="number" formControlName="opacity" placeholder="1" class="bg-transparent rounded h-12 px-4 border border-white focus:outline-none w-18" />
+            </div>
+            <div class="grid grid-cols-2 gap-2" formGroupName="light">
+              <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="bgColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ colorItem['controls']['light']['controls']['bgColor'].value }}</span>
+              </div>
+              <input type="number" formControlName="bgOpacity" placeholder="1" class="bg-transparent rounded h-12 px-4 border border-white focus:outline-none w-18" />
+            </div>
+          </div>
+          <div *ngIf="themeMode === EnumThemeMode.DARK">
+            <div class="grid grid-cols-2 gap-2" formGroupName="dark">
+              <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="color" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ colorItem['controls']['dark']['controls']['color'].value }}</span>
+              </div>
+              <input type="number" formControlName="opacity" placeholder="1" class="bg-transparent rounded h-12 px-4 border border-white focus:outline-none w-18" />
+            </div>
+            <div class="grid grid-cols-2 gap-2" formGroupName="dark">
+              <div class="flex items-center h-12 p-2 border border-gray-100 rounded-md w-36">
+                <input type="color" formControlName="bgColor" class="focus:outline-none border-gray-200 border-2 focus:border-green-500" />
+                <span class="pl-2">{{ colorItem['controls']['dark']['controls']['bgColor'].value }}</span>
+              </div>
+              <input type="number" formControlName="bgOpacity" placeholder="1" class="bg-transparent rounded h-12 px-4 border border-white focus:outline-none w-18" />
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</section>

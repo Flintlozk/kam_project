@@ -1,0 +1,415 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/utilities';
+@import './assets/base/base.scss';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  font-family: $font-family;
+  font-size: $font-size;
+}
+
+//Dialog Global Style
+// .cdk-overlay-container {
+//   .cdk-overlay-dark-backdrop {
+//     background: rgba(77, 77, 77, 0.9);
+
+//     & ~ .cdk-global-overlay-wrapper .cdk-overlay-pane {
+//       max-width: 80%;
+//       width: 100%;
+//       // @media #{$mobilemax} {
+//       //   max-width: 100% !important;
+//       // }
+//     }
+//   }
+
+//   .mat-dialog-container {
+//     border-radius: 0px;
+//     box-shadow: none;
+//     padding: 0px;
+//     background: none;
+//   }
+// }
+
+.cms mat-tooltip-component {
+  & .mat-tooltip {
+    background-color: $main-color;
+    &:before {
+      border-color: transparent transparent $main-color transparent;
+    }
+  }
+}
+.cms {
+  .datepicker-icon {
+    fill: $main-color !important;
+    &:hover {
+      fill: #c3c4ca;
+    }
+
+    &:active {
+      fill: #c7c8cf;
+    }
+  }
+}
+
+body {
+  margin: 0;
+  @apply text-gray-700;
+}
+
+.ql-container {
+  font-size: unset !important;
+}
+
+.ql-font-racing {
+  font-family: 'Racing Sans One';
+}
+
+.ql-font-prompt {
+  font-family: 'Prompt';
+}
+
+.ql-font-quantico {
+  font-family: 'Quantico';
+}
+
+.ql-font-colombo {
+  font-family: 'Post No Bills Colombo';
+}
+
+.ql-font-neucha {
+  font-family: 'Neucha';
+}
+
+.text-hover-style-1 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 0 0 currentColor, 0 0 1px currentColor;
+  }
+}
+.text-hover-style-2 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 0 0 currentColor, 0 0 2px currentColor;
+  }
+}
+.text-hover-style-3 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 0 0 white, 0 0 2px white;
+  }
+}
+.text-hover-style-4 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 1px 0px currentColor;
+  }
+}
+
+.text-hover-style-5 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 1px 0px white;
+  }
+}
+.text-hover-style-6 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 2px 0px 5px currentColor;
+  }
+}
+.text-hover-style-7 {
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    text-shadow: 0px 1px currentColor;
+  }
+}
+
+.mat-snack-bar-container {
+  box-shadow: none !important;
+  background: none !important;
+}
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+
+.mat-form-field-type-mat-select {
+  .mat-form-field-label {
+    padding-left: 17px;
+  }
+}
+
+@layer components {
+  .cdk-drag-animating {
+    transition: none;
+  }
+  .cdk-drag-preview {
+    @apply rounded-md bg-white border-none;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  cms-next-cms-edit-rendering .cdk-drag-placeholder {
+    opacity: 0px;
+    width: 100% !important;
+    height: 7px !important;
+    overflow: hidden !important;
+    padding: 0px !important;
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(34, 197, 94);
+      left: 0px;
+      top: 0px;
+    }
+    .guideline {
+      display: none !important;
+    }
+  }
+  .drag-invalid {
+    border: 3px solid red !important;
+    &.rendering-item,
+    .rendering-item {
+      -webkit-transform: none !important;
+      transform: none !important;
+    }
+    .cdk-drag-placeholder,
+    .guideline {
+      display: none !important;
+    }
+  }
+  .drag-valid {
+    border: 3px solid green !important;
+  }
+  .on-drag {
+    .guideline {
+      display: none !important;
+    }
+  }
+}
+
+.s-resize {
+  cursor: s-resize;
+}
+.n-resize {
+  cursor: n-resize;
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(-200px);
+    opacity: 0;
+    z-index: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveUp {
+  from {
+    transform: translateY(200px);
+    opacity: 0;
+    z-index: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.layout-label {
+  color: #75787e;
+}
+
+.text-one {
+  color: #484b52;
+}
+
+.input-border {
+  border: 1px solid #f4f4f9;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: $cms-primary !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: $cms-primary !important; /*inner circle color change*/
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $cms-primary !important; /*outer ring color change*/
+}
+
+// .mat-checkbox .mat-checkbox-frame {
+//   border-color: black;
+//   background-color: #dddddd;
+// }
+
+// .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+// .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//   margin-top: 1px;
+//   margin-left: 1px;
+//   width: 18px;
+//   height: 18px;
+// }
+
+// .mat-checkbox-checked {
+//   .mat-checkbox-checkmark {
+//     background: #ffffff;
+//     .mat-checkbox-checkmark-path {
+//       stroke: #2baf35;
+//       stroke-width: 5px;
+//     }
+//   }
+// }
+
+// .mat-checkbox-ripple .mat-ripple-element {
+//   background-color: black !important;
+// }
+
+// .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//   background-color: white !important;
+// }
+
+// .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+//   background-color: white !important;
+// }
+.setting-text {
+  font-weight: 300;
+  color: rgb(107, 114, 128);
+  user-select: none;
+  cursor: pointer;
+}
+
+.radio {
+  position: relative;
+  display: block;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+  .radio-item {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+    border-radius: 9999px;
+    border-color: rgb(229, 231, 235);
+    border-style: solid;
+    border-width: 1px;
+    &:after {
+      content: '';
+      display: none;
+      position: absolute;
+      border-radius: 9999px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #22c55e;
+      width: 8px;
+      height: 8px;
+    }
+  }
+  input:checked + .radio-item:after {
+    display: block;
+  }
+}
+
+.setting-dialog {
+  position: absolute;
+  background-color: #ffff;
+  border-radius: 0.25rem;
+  left: calc(-317px / 2);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  min-width: 317px;
+  max-width: 317px;
+  z-index: 9999;
+  padding: 1rem 1rem;
+  .logo-thumbnail {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    background: url('assets/cms/setting/website/general/image-upload.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .current-convert-section {
+    max-height: 265px;
+    min-height: 265px;
+  }
+  .shop-cart-icon {
+    width: 86px;
+    height: 62px;
+    text-align: center;
+    margin: 0.25rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    button {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &:hover button {
+      display: block;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
+}
+
+@mixin custom-scroll-bar() {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: whitesmoke;
+    border-radius: 8px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #dddfea;
+    border-radius: 8px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $main-color;
+  }
+}
+
+.custom-scroll-bar {
+  @include custom-scroll-bar();
+}

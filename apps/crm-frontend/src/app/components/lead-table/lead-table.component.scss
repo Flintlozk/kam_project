@@ -1,0 +1,84 @@
+* {
+  font-family: Prompt;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+}
+.table_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button {
+  height: 30px;
+  align-self: center;
+  font-size: 14px;
+  margin: 0px 10px 0px 10px;
+}
+ng-container:hover {
+  border: none;
+  cursor: pointer;
+}
+table:hover {
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  th,
+  td {
+    overflow: hidden;
+    width: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  tr {
+    th {
+      color: #153342;
+    }
+  }
+  ::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border: 1px solid #0ec2f2;
+    background: #ffffff;
+    box-sizing: border-box;
+    size: 20px;
+    border-radius: 6px;
+  }
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    background-color: #0ec2f2 !important;
+    border-radius: 6px;
+  }
+  .importor {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    .img-importor {
+      height: 40px;
+      padding: 16px;
+      border-radius: 25px;
+    }
+  }
+  ng-container:hover {
+    border: none;
+    cursor: pointer;
+  }
+  margin: 10px 30px 10px 30px;
+  background-color: rgba(249, 249, 249, 1);
+  width: 100%;
+  .mat-cell,
+  .mat-header-cell {
+    border: none !important;
+  }
+  .inactive {
+    height: 0px;
+  }
+  .mat-row:hover {
+    transform: scale(1);
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+}
+.color {
+  background-color: rgba(14, 194, 242, 1);
+}

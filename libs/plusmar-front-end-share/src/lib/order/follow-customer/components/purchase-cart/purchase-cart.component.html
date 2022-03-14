@@ -1,0 +1,290 @@
+<!-- <reactor-room-card class="" [padding]="'0px'"> -->
+<div class="purchase-cart">
+  <div class="card-content">
+    <div class="header">
+      <div class="title">
+        <div>Order list <span style="color: #ea6161; font-size: 14px; margin-left: 4px" *ngIf="orderService.currentStatus === EnumPurchaseOrderStatus.REJECT">Rejected</span></div>
+        <div class="underline"></div>
+      </div>
+      <div class="title-menu">
+        <!-- *ngIf="
+          (orderService.shippingDetail?.type === 'THAILAND_POST' && orderService.stepIndex > orderService.stepFour && orderService.shippingDetail !== null) ||
+          (orderService.shippingDetail?.type !== 'THAILAND_POST' && orderService.stepIndex > orderService.stepThree && orderService.shippingDetail !== null)
+        " -->
+        <ng-container *ngIf="orderService.stepIndex > orderService.stepThree">
+          <reactor-room-open-report
+            *ngIf="orderService.stepIndex > orderService.stepThree"
+            [buttonLabel]="'Print'"
+            [isCOD]="orderService?.paymentDetail?.type === EnumPaymentType.CASH_ON_DELIVERY"
+            [type]="EnumPaperType.LABEL"
+            [shippingDetail]="orderService.shippingDetail"
+            [route]="originRoute"
+          ></reactor-room-open-report>
+        </ng-container>
+      </div>
+    </div>
+    <form class="products" [ngClass]="{ 'extra-grid': orderService.extraGrid }" [formGroup]="orderService.orderInfo">
+      <div class="updating-cart" *ngIf="orderService.isLoading">
+        <reactor-room-loader class="loader"></reactor-room-loader>
+      </div>
+
+      <reactor-room-cart-errors></reactor-room-cart-errors>
+
+      <reactor-room-cart-caution></reactor-room-cart-caution>
+
+      <div class="update-cart" *ngIf="orderService.initUpdate">
+        <div class="update-wrapper">
+          <div class="update">
+            <div class="text">
+              <span class="bold">Updating Order. </span> <span class="normal"><b>Click “Send” button</b> to send and update current customer order</span>
+            </div>
+          </div>
+          <button class="button" (click)="updatePurchaseCart()">Send</button>
+        </div>
+      </div>
+
+      <table [@slideInOut]>
+        <thead>
+          <tr>
+            <th class="item-detail">Products</th>
+            <th class="item-price">Unit Price</th>
+            <th class="item-qty">Quantity</th>
+            <th class="item-price">Total Price</th>
+            <th class="item-action" *ngIf="orderService.enableUpdateProduct && orderService.orderProductInfo.length > 1"></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="products" class="product-body-lists" [ngClass]="{ collapsed: collapsed }">
+          <tr class="product-item" *ngFor="let product of orderService.orderProductInfo; let idx = index" [formGroupName]="idx">
+            <td class="item-detail">
+              <div class="product">
+                <!-- Product Image -->
+                <div class="image">
+                  <img [src]="product?.value?.productImage ? product?.value?.productImage : 'assets/img/logo-small.svg'" onerror="this.src = 'assets/img/logo-small.svg'" />
+                </div>
+                <div class="detail">
+                  <!-- Product Title -->
+                  <div class="title">
+                    {{ product.value.productName }}
+                  </div>
+                  <!-- Product Attribute -->
+                  <div class="attribute">
+                    {{ product.value.attributes }}
+                  </div>
+                  <!-- Product Ientory -->
+                  <div class="inventory">
+                    <span>
+                      <svg width="19px" height="19px" viewBox="0 0 220 220" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+                        <title>icon_Stock</title>
+                        <desc>Created with Sketch.</desc>
+                        <g id="icon_Stock" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="package" transform="translate(39.000000, 39.000000)" fill="#788397" fill-rule="nonzero">
+                            <path
+                              d="M25.2535352,0 C21.0728555,0 17.1892109,2.07591797 14.8692305,5.55769141 L3.49397656,22.6209883 C3.00807031,23.3487383 2.77482422,24.1865937 2.387375,24.9612148 L66.8398438,24.9612148 L66.8398438,0 L25.2535352,0 Z"
+                              id="Path"
+                            ></path>
+                            <path
+                              d="M138.506023,22.6207109 L127.130492,5.55769141 C124.810789,2.07591797 120.649801,0 116.469121,0 L75.1601562,0 L75.1601562,24.9609375 L139.612625,24.9609375 C139.225176,24.1865938 138.99193,23.3487383 138.506023,22.6207109 Z"
+                              id="Path"
+                            ></path>
+                            <path
+                              d="M141.87048,33.28125 L0.129519531,33.28125 C0.116761719,33.5799492 0,33.8586797 0,34.1587656 L0,129.519531 C0,136.401539 5.59846094,142 12.4804688,142 L129.519531,142 C136.401539,142 142,136.401539 142,129.519531 L142,34.1587656 C142,33.8586797 141.883238,33.5799492 141.87048,33.28125 Z M87.640625,74.8828125 L54.359375,74.8828125 C47.4773672,74.8828125 41.8789062,69.2843516 41.8789062,62.4023438 C41.8789062,55.5203359 47.4773672,49.921875 54.359375,49.921875 L87.640625,49.921875 C94.5226328,49.921875 100.121094,55.5203359 100.121094,62.4023438 C100.121094,69.2843516 94.5226328,74.8828125 87.640625,74.8828125 Z"
+                              id="Shape"
+                            ></path>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                    <span [ngStyle]="{ 'text-align': 'center', color: product.value.stock ? '#343d46' : 'red' }">{{ product.value.stock }}</span>
+                    <span *ngIf="product.value.stock - product.value.inventory > 0"
+                      >&nbsp;(<span [ngStyle]="{ 'text-align': 'center', color: '#dc493d' }">-{{ product.value.stock - product.value.inventory }}</span
+                      >)</span
+                    >
+                  </div>
+                  <div class="product-caution" *ngIf="product.value.caution && orderService.stepIndex < orderService.stepFour">
+                    <i>{{ product.value.caution.join(', ') }}</i>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <!-- UPrice -->
+            <td class="item-price">฿{{ product.value.unitPrice | formatCurrency }}</td>
+
+            <!-- QTY -->
+            <td class="item-qty" *ngIf="orderService.enableUpdateProduct">
+              <div class="feature">
+                <div class="plus-minus">
+                  <!-- <button class="btn-action minus" [ngClass]="product.value.quantity > 1 ? 'active' : 'inactive'" type="button" (click)="minusFunc(product)">-</button> -->
+                  <button class="btn-action minus" [ngClass]="'active'" type="button" (click)="minusFunc(product)">-</button>
+                  <input class="input" type="number" step="1" max="" min="0" formControlName="quantity" (keyup)="onInputProductAmount(product)" />
+                  <button class="btn-action plus" [ngClass]="'active'" type="button" (click)="plusFunc(product)">+</button>
+                  <!-- <button class="btn-action plus" [ngClass]="product.value.quantity < product.value.inventory ? 'active' : 'inactive'" type="button" (click)="plusFunc(product)"> -->
+                  <!-- + -->
+                  <!-- </button> -->
+                </div>
+              </div>
+            </td>
+            <td *ngIf="!orderService.enableUpdateProduct" class="item-qty-80">
+              {{ product.value.quantity }}
+            </td>
+
+            <!-- Total Price -->
+            <td class="item-price">฿{{ product.value.quantity * product.value.unitPrice | formatCurrency }}</td>
+
+            <!-- Remove Product -->
+            <td class="item-action" *ngIf="orderService.enableUpdateProduct && orderService.orderProductInfo.length > 1">
+              <div class="delete" (click)="removeProduct(idx)">
+                <img src="assets/img/trash-icon.svg" />
+              </div>
+            </td>
+          </tr>
+
+          <tr class="product-item empty" *ngIf="!orderService.orderProductInfo.length"></tr>
+        </tbody>
+      </table>
+
+      <div
+        class="add-product-empty"
+        *ngIf="orderService.enableUpdateProduct && orderService.orderProductInfo.length === 0 && orderService.currentStatus !== EnumPurchaseOrderStatus.REJECT"
+        (click)="addNewProduct()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180px" height="160px" viewBox="0 0 62 60" version="1.1">
+          <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+          <title>icon_dark_menu_SalePage</title>
+          <desc>Created with Sketch.</desc>
+          <g id="Symbol" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Inbox" transform="translate(-314.000000, -1374.000000)" fill-rule="nonzero" stroke="#e2f2ff" stroke-width="3">
+              <g id="Dark_Active" transform="translate(164.000000, 1351.000000)">
+                <g id="icon_dark_menu_SalePage" transform="translate(151.000000, 24.000000)">
+                  <g id="shopping-cart" transform="translate(0.222222, 0.600000)">
+                    <path
+                      d="M21.7780291,43.4 C17.9117311,43.4 14.7777778,46.3100995 14.7777778,49.9002334 C14.7777778,53.4899006 17.9117311,56.4 21.7780291,56.4 C25.6438246,56.4 28.7777778,53.4899006 28.7777778,49.9002334 C28.7737567,46.3119664 25.6423167,43.4037339 21.7780291,43.4 L21.7780291,43.4 Z"
+                      id="Shape"
+                    />
+                    <path
+                      d="M57.52007,12.0341083 L12.6830883,12.0341083 L11.7689286,7.02790418 C11.205453,3.94615533 8.73627916,1.53549117 5.58508172,0.99056846 L2.2706945,0.419442943 C1.57974253,0.29910383 0.920535661,0.749890234 0.797523387,1.42534203 C0.675007099,2.10127916 1.13531109,2.7461609 1.82626306,2.86650002 L5.15305068,3.43762553 C7.2521956,3.80155437 8.89550066,5.40914902 9.26751365,7.46267775 L13.7624218,32.2695184 C14.2931603,35.2377214 16.9294918,37.4028549 20.0097588,37.3999719 L46.6756453,37.3999719 C49.4771506,37.4081926 51.9512845,35.6142664 52.7583046,32.9900973 L58.726384,13.6363654 C58.8369957,13.2588499 58.7670573,12.8522202 58.5359133,12.5309924 C58.2943529,12.2199546 57.9188679,12.0365346 57.52007,12.0341083 Z"
+                      id="Shape"
+                    />
+                    <path
+                      d="M44.7780291,43.4 C40.9117311,43.4 37.7777778,46.3100995 37.7777778,49.9002334 C37.7777778,53.4899006 40.9117311,56.4 44.7780291,56.4 C48.6438246,56.4 51.7777778,53.4899006 51.7777778,49.9002334 C51.7737567,46.3119664 48.6423167,43.4037339 44.7780291,43.4 L44.7780291,43.4 Z"
+                      id="Shape"
+                    />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <div class="text">
+          <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z" fill="#54b1ff" />
+          </svg>
+          Add Products
+        </div>
+      </div>
+    </form>
+    <div class="add-product" *ngIf="orderService.enableUpdateProduct && orderService.orderProductInfo.length > 0">
+      <div class="add-product" (click)="addNewProduct()">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42857 5.57143V0H5.57143V5.57143H0V7.42857H5.57143V13H7.42857V7.42857H13V5.57143H7.42857Z" fill="#54b1ff" />
+        </svg>
+        <div>Add Products</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <!-- <div clas="seperator"></div> -->
+    <div>
+      <div class="summary">
+        <div class="top-section">
+          <div class="radio-container item">
+            <div class="title">
+              <span>{{ 'Select logistic and payment instead of customer' | translate }}</span>
+              <span style="color: #54b1ff; cursor: pointer" [matTooltip]="autoModeDefination" matTooltipClass="'automode-defination'"> (?)</span>
+              <span *ngIf="orderService.stepIndex > orderService.stepTwo">: {{ orderService.isAutomate ? ('No' | translate) : ('Yes' | translate) }}</span>
+            </div>
+
+            <div class="radio-grouped" *ngIf="orderService.stepIndex <= orderService.stepTwo && !orderService.isPaid">
+              <label class="radio-group" for="manualInputFalse"
+                >{{ 'Yes' | translate }}
+                <input
+                  type="radio"
+                  id="manualInputFalse"
+                  name="manualInput"
+                  value="0"
+                  (click)="enabledAutoOrder(false)"
+                  [checked]="!orderService.isAutomate"
+                  [disabled]="orderService.stepIndex > orderService.stepTwo"
+                />
+                <span class="checkmark" [ngClass]="{ disabled: orderService.stepIndex > orderService.stepOne }"></span>
+              </label>
+              <label class="radio-group" for="manualInputTrue"
+                >{{ 'No' | translate }}
+                <input
+                  type="radio"
+                  id="manualInputTrue"
+                  name="manualInput"
+                  value="1"
+                  (click)="enabledAutoOrder(true)"
+                  [checked]="orderService.isAutomate"
+                  [disabled]="this.orderService.stepIndex > orderService.stepTwo"
+                />
+                <span class="checkmark" [ngClass]="{ disabled: orderService.stepIndex > orderService.stepOne }"></span>
+              </label>
+            </div>
+          </div>
+          <!-- <div class="input-group">Auto</div> -->
+        </div>
+        <div class="bottom-section animated" [ngClass]="{ collapsed: !collapsed }">
+          <!-- <div class="input-group">
+          <div class="input">Discount<input type="text" value="" disabled /></div>
+        </div> -->
+          <div class="input-group">
+            <div class="input">Subtotal<input type="text" value="฿{{ orderService.getPrice.subtotal | formatCurrency }}" disabled /></div>
+          </div>
+          <div class="input-group">
+            <div class="input">Vat ({{ orderService.orderInfo.value.tax }}%)<input type="text" value="฿{{ orderService.getPrice.tax | formatCurrency }}" disabled /></div>
+          </div>
+          <!-- <div class="input-group">
+          <div class="input">Total amount<input type="text" value="" disabled /></div>
+        </div>
+        <div class="input-group">
+          <div class="input">Withholding tax 3%<input type="text" value="" disabled /></div>
+        </div> -->
+          <div class="input-group">
+            <div class="input">
+              Shipping
+              <!-- <ng-container *ngIf="orderService.freeShipping">
+                <span>(Free)</span>
+              </ng-container>
+              <ng-container *ngIf="!orderService.enableLogistic">
+                <span style="font-size: 11px">*Flat Rate</span>
+              </ng-container> -->
+              <input type="text" value="฿{{ orderService.getPrice.shipping | formatCurrency }}" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-amount">
+        <div class="content">
+          <div>Grand Total</div>
+          <div class="flex item-center">
+            <div>฿{{ orderService.getPrice.total | formatCurrency }}</div>
+            <button
+              (click)="collapsed = !collapsed"
+              [ngClass]="{ collapsed: collapsed }"
+              class="interactive animated cursor-pointer ml-20 border-none transparent flex items-center justify-center"
+            >
+              <svg width="21" height="12" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.03 8.10635L1.92365 0L0 1.92365L10.03 11.9537L20.06 1.92365L18.1364 0L10.03 8.10635Z" fill="#fff"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </reactor-room-card> -->

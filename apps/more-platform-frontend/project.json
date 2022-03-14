@@ -1,0 +1,110 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/more-platform-frontend",
+  "sourceRoot": "apps/more-platform-frontend/src",
+  "prefix": "more-platform",
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "apps/cms-frontend/webpack.config.js"
+        },
+        "outputPath": "dist/apps/more-platform-frontend",
+        "index": "apps/more-platform-frontend/src/index.html",
+        "main": "apps/more-platform-frontend/src/main.ts",
+        "polyfills": "apps/more-platform-frontend/src/polyfills.ts",
+        "tsConfig": "apps/more-platform-frontend/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/more-platform-frontend/src/favicon.ico",
+          "apps/more-platform-frontend/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./libs/shared-assets/",
+            "output": "./assets"
+          }
+        ],
+        "styles": ["apps/more-platform-frontend/src/styles.scss"],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["chart.js", "zen-observable", "graphql-tag", "lodash", "dayjs/locale/th", "joi-date-dayjs"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/more-platform-frontend/src/environments/environment.ts",
+              "with": "apps/more-platform-frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "8mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "9kb",
+              "maximumError": "10kb"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "browserTarget": "more-platform-frontend:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "more-platform-frontend:build:production"
+        },
+        "development": {
+          "browserTarget": "more-platform-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "more-platform-frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/more-platform-frontend/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/more-platform-frontend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

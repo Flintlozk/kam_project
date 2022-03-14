@@ -1,0 +1,7 @@
+<ng-container [formGroup]="parentForm">
+  <label *ngFor="let button of buttons" class="radio-button mr-30" [matTooltip]="button.tooltip | translate">
+    {{ button.label | translate }}
+    <input type="radio" [attr.name]="controlName" [value]="button.value" [formControlName]="controlName" [disabled]="button.disabled" />
+    <span class="checkmark"></span>
+  </label>
+</ng-container>

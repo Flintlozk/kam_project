@@ -1,0 +1,37 @@
+@import 'variables';
+@import 'breakpoints';
+@import 'buttons';
+@import 'base';
+
+.mat-tab-customer {
+  @extend .custom-tabs;
+
+  .mat-tab-body-wrapper {
+    margin-top: 30px;
+    font-family: $font-family !important;
+    color: $text-darker-color;
+  }
+
+  .information-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+      padding-bottom: 30px;
+    }
+
+    .save {
+      padding-bottom: 30px;
+
+      .btn-save {
+        @include btn-active();
+
+        .label {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

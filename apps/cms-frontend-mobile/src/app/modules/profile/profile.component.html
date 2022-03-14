@@ -1,0 +1,41 @@
+<div class="flex flex-col h-full">
+  <div class="p-4 bg-white rounded-b-lg shadow-lg">
+    <div class="flex flex-col items-center justify-center text-center">
+      <img
+        (click)="imageUpload.click()"
+        class="w-24 h-24 rounded-full xxs:w-32 xxs:h-32"
+        [src]="profileData.profileImage"
+        [alt]="profileData.profileTitle"
+        onerror="this.src='assets/images/shared/no-image-square.svg'"
+      />
+      <input #imageUpload type="file" accept="image/*" class="hidden" />
+      <h3 class="pt-2 text-xl font-light">{{ profileData.profileTitle }}</h3>
+      <div class="font-light text-gray-500">{{ profileData.profileEmail }}</div>
+    </div>
+    <div class="grid grid-cols-4 pt-4">
+      <ng-container *ngFor="let profileRoutingDataItem of profileRoutingData; trackBy: trackByIndex">
+        <div
+          [routerLink]="[profileRoutingDataItem.routeLink]"
+          routerLinkActive="router-link-active"
+          #rla="routerLinkActive"
+          class="flex flex-col items-center justify-center focus:outline-none"
+        >
+          <div class="relative">
+            <img
+              [@iconFade]="rla.isActive"
+              [src]="rla.isActive ? profileRoutingDataItem.imgUrlActive : profileRoutingDataItem.imgUrl"
+              [alt]="profileRoutingDataItem.title | translate"
+            />
+            <div *ngIf="profileRoutingDataItem.hasNotification" class="absolute top-0 right-0 w-2 h-2 bg-orange-500 rounded-full"></div>
+          </div>
+          <div class="pt-2 font-light text-gray-600 transition duration-300 ease-in-out text-ellipsis" [ngClass]="{ 'text-green-500': rla.isActive }">
+            {{ profileRoutingDataItem.title | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div [@routeAnimation]="prepareRoute(outletOrder)" class="flex-1 overflow-auto no-scroll-bar">
+    <router-outlet #outletOrder="outlet"></router-outlet>
+  </div>
+</div>

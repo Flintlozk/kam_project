@@ -1,0 +1,30 @@
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  border: 0 !important;
+  padding: 10px 0 !important;
+
+  .mat-form-field-label-wrapper {
+    padding: 0 !important;
+  }
+  mat-select {
+    .mat-select-trigger {
+      .mat-select-arrow-wrapper {
+        transform: unset !important;
+      }
+    }
+  }
+}
+::ng-deep cms-next-heading {
+  section {
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+    z-index: 9;
+    background-color: #f3f4f6;
+  }
+}
+:host ::ng-deep .mat-tab-header {
+  top: 6rem;
+  z-index: 9;
+  position: sticky;
+  background-color: #f3f4f6;
+}

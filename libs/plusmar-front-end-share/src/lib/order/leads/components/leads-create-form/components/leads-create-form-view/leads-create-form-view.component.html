@@ -1,0 +1,219 @@
+<reactor-room-card [height]="'100%'" [padding]="'0px'">
+  <div class="card-content">
+    <form [formGroup]="leadCreateFormView">
+      <div class="title">
+        <input [ngStyle]="{ 'font-family': styleFont }" type="text" formControlName="formName" [placeholder]="'Form name' | translate" />
+        <img src="assets/img/add-image-upload.png" alt="Banner Upload" (click)="selectFile.click()" />
+        <input type="file" (change)="uploadImage($event)" style="display: none" #selectFile />
+      </div>
+      <div class="container">
+        <div *ngIf="imageBanner" class="banner">
+          <img [src]="imageBanner" class="img-banner" />
+          <div class="dismiss" (click)="dismissImageBanner()">
+            <img src="assets/img/dismiss-blank-icon.svg" alt="Dismiss" class="dismiss-icon" />
+          </div>
+        </div>
+        <ng-container *ngFor="let itemLayout of leadCreateFormView.value.fieldArray">
+          <div class="item-layout">
+            <div
+              class="item input"
+              [ngClass]="{ 'empty-value': !itemLayout.formLabel }"
+              *ngIf="itemLayout.formType == 'textbox' || itemLayout.formType == 'phone' || itemLayout.formType == 'telephone' || itemLayout.formType == 'number'"
+            >
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <input
+                type="text"
+                disabled
+                [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }"
+                [ngClass]="{ underline: itemLayout.designSectionsStatus && styleVisibility === 'underline' }"
+              />
+            </div>
+            <div class="item textarea" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'textarea'">
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <textarea
+                rows="5"
+                disabled
+                [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }"
+                [ngClass]="{ underline: itemLayout.designSectionsStatus && styleVisibility === 'underline' }"
+              ></textarea>
+            </div>
+            <div class="item title" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'title'">
+              <div class="title-label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+              </div>
+              <div class="title-description" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formValue.title" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formValue.title }}
+                </span>
+                <span *ngIf="!itemLayout.formValue.title" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Description optional' | translate }}
+                </span>
+              </div>
+            </div>
+            <div
+              class="item paragraph"
+              [ngClass]="{ 'empty-value': !itemLayout.formValue.paragraph }"
+              *ngIf="itemLayout.formType == 'paragraph'"
+              [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }"
+            >
+              <span *ngIf="itemLayout.formValue.paragraph" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                {{ itemLayout.formValue.paragraph }}
+              </span>
+              <span *ngIf="!itemLayout.formValue.paragraph" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                {{ 'Description optional' | translate }}
+              </span>
+            </div>
+            <div class="item date-picker" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'calendar'">
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <div class="date-range" [ngClass]="{ underline: itemLayout.designSectionsStatus && styleVisibility === 'underline' }">
+                <ng-container *ngIf="!itemLayout.formValue.dateRangeStatus">
+                  <div class="date-select" [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }">
+                    <span [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">{{ 'Choose a date' | translate }}</span>
+                    <img src="assets/img/date-picker-icon.svg" alt="Calendar" />
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="itemLayout.formValue.dateRangeStatus">
+                  <div class="date-select" [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }">
+                    <span [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">{{ 'Choose a date' | translate }}</span>
+                    <img src="assets/img/date-picker-icon.svg" alt="Calendar" />
+                  </div>
+                  <div class="date-select" [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }">
+                    <span [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">{{ 'Choose a date' | translate }}</span>
+                    <img src="assets/img/date-picker-icon.svg" alt="Calendar" />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="item checkbox" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'checkbox'">
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <div class="checkbox-items">
+                <div class="checkbox-item" *ngFor="let checkboxItem of itemLayout.formValue.checkBoxItem; let checkboxItemIndex = index">
+                  <label class="custom-checkbox">
+                    <input type="checkbox" disabled [attr.checked]="checkboxItemIndex == 0 ? '' : null" />
+                    <span
+                      class="checkmark"
+                      [ngStyle]="itemLayout.designSectionsStatus && { background: checkboxItemIndex == 0 ? styleBackground : '', 'border-color': styleBorderColor }"
+                    ></span>
+                  </label>
+                  <span *ngIf="checkboxItem" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                    {{ checkboxItem }}
+                  </span>
+                  <span *ngIf="!checkboxItem" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }"> Input Field {{ checkboxItemIndex + 1 }}... </span>
+                </div>
+                <div class="checkbox-item" *ngIf="itemLayout.formValue.otherCheckbox">
+                  <label class="custom-checkbox">
+                    <input type="checkbox" disabled />
+                    <span class="checkmark" [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor }"></span>
+                  </label>
+                  <span [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                    {{ 'Other' | translate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="item radio" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'radio'">
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <div class="radio-items">
+                <div class="radio-item" *ngFor="let radioItem of itemLayout.formValue.radioItem; let radioItemIndex = index">
+                  <label class="radio-button">
+                    <input type="radio" name="radio" disabled [attr.checked]="radioItemIndex == 0 ? '' : null" />
+                    <span
+                      class="checkmark"
+                      [ngStyle]="itemLayout.designSectionsStatus && { background: radioItemIndex == 0 ? styleBackground : '', 'border-color': styleBorderColor }"
+                    ></span>
+                  </label>
+                  <span *ngIf="radioItem" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                    {{ radioItem }}
+                  </span>
+                  <span *ngIf="!radioItem" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                    {{ 'Input Field' | translate }} {{ radioItemIndex + 1 }}...
+                  </span>
+                </div>
+                <div class="radio-item" *ngIf="itemLayout.formValue.otherRadio">
+                  <label class="radio-button">
+                    <input type="radio" name="radio" disabled />
+                    <span class="checkmark" [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor }"></span>
+                  </label>
+                  <span [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                    {{ 'Other' | translate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="item dropdown" [ngClass]="{ 'empty-value': !itemLayout.formLabel }" *ngIf="itemLayout.formType == 'dropdown'">
+              <div class="label" [ngStyle]="itemLayout.designSectionsStatus && { color: styleColor }">
+                <span *ngIf="itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ itemLayout.formLabel }}
+                </span>
+                <span *ngIf="!itemLayout.formLabel" [ngStyle]="itemLayout.designSectionsStatus && { 'font-family': styleFont }">
+                  {{ 'Input Field' | translate }}
+                </span>
+                <span class="required" *ngIf="itemLayout.required">*</span>
+              </div>
+              <div
+                class="dropdown-option"
+                [ngStyle]="itemLayout.designSectionsStatus && { 'border-color': styleBorderColor, background: styleBackground }"
+                [ngClass]="{ underline: itemLayout.designSectionsStatus && styleVisibility === 'underline' }"
+              >
+                <img src="assets/img/down-icon.svg" alt="Down" />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="footer">
+          <span *ngIf="leadCreateFormView.value.endingMessage" [ngStyle]="{ 'font-family': styleFont }">
+            {{ leadCreateFormView.value.endingMessage }}
+          </span>
+          <span class="placeholder" *ngIf="!leadCreateFormView.value.endingMessage" [ngStyle]="{ 'font-family': styleFont }">
+            {{ 'Write ending message' | translate }}
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</reactor-room-card>

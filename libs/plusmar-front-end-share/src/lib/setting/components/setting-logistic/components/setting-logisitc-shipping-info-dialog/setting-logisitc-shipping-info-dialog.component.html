@@ -1,0 +1,46 @@
+<div class="setting-logisitc-shipping-info-dialog">
+  <reactor-room-custom-dialog isFull="true">
+    <div class="head">
+      {{ info.title }}
+      <img src="assets/img/dismiss-icon.svg" alt="Close" (click)="onClose()" />
+    </div>
+    <div class="content">
+      <div>Latest update : 01/07/2018</div>
+      <div class="">
+        or <span class="title">Service Rate </span> :
+        <a [ngClass]="selectClass()" target="_blank" [href]="info.serviceRate"> {{ info.serviceRate }}</a>
+      </div>
+
+      <div class="thai-post-regis">
+        <div class="title" [ngClass]="selectClass()">
+          <div class="text">{{ info.value }}</div>
+          <img *ngIf="info.imgUrl" [ngClass]="selectClass()" [src]="info.imgUrl" alt="infos" />
+        </div>
+      </div>
+
+      <table *ngIf="info.id === EnumLogisticDeliveryProviderType.THAILAND_POST">
+        <tr>
+          <th>Weight (Gram)</th>
+          <th>BKK/GBKK/Same Proveince (Baht)</th>
+          <th>Different Proveince (Baht)</th>
+        </tr>
+
+        <tr *ngFor="let item of tableData" class="table-content">
+          <td>{{ item.weight }}</td>
+          <td>
+            {{ item.same }}
+          </td>
+          <td>
+            {{ item.diff }}
+          </td>
+        </tr>
+      </table>
+      <div class="info-img-container" *ngIf="info.id === EnumLogisticDeliveryProviderType.FLASH_EXPRESS">
+        <img src="assets/img/logistic/flash-rate.png" />
+      </div>
+      <div class="info-img-container" *ngIf="info.id === EnumLogisticDeliveryProviderType.J_AND_T">
+        <img class="j-and-t-img" src="assets/img/logistic/j&t_shipping_info.jpg" />
+      </div>
+    </div>
+  </reactor-room-custom-dialog>
+</div>

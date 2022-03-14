@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>More-Commerce</title>
+    <%- include ("../../partials/head") %>
+    <script defer type="text/javascript" src="javascript/alpine.min.js"></script>
+    <link rel="stylesheet" href="style/style-step2.css" />
+    <script defer type="text/javascript" src="javascript/javascript.js"></script>
+    <script defer type="text/javascript" src="javascript/step2js.js"></script>
+    <script>
+      <%if (payload) { %>
+          var payloadData = <%- JSON.stringify(payload); %>
+      <% } %>
+    </script>
+
+    <script>
+      function initOrderData() {
+        return {
+          orderList: payloadData.quickPay.orderItems,
+          orderTotals: payloadData.quickPay.totals,
+          order: payloadData.quickPay.order,
+          bankDetails: payloadData.bankDetails,
+        };
+       
+      }
+
+      function closeWindow() {
+        MessengerExtensions.requestCloseBrowser(
+                function () {
+                  close();
+                },
+                function err(err) {
+                    close();
+                },
+            );
+      }
+
+      function copyAccountID(accountID){
+        var input = document.createElement('input');
+        input.setAttribute('value', accountID);
+        document.body.appendChild(input);
+        input.select();
+        var result = document.execCommand('copy');
+        document.body.removeChild(input);
+        var snackBarElement = document.getElementById("snackbar");
+        snackBarElement.className = "show";
+        setTimeout(function(){ snackBarElement.className = snackBarElement.className.replace("show", ""); }, 3000);
+        return result;
+      }
+    </script>
+    <style>
+
+      ._4bmm {
+         width: 100% !important;
+         padding: 0px !important;
+       }
+
+      .bank-details {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        height: 78px;
+      }
+
+      .bank-icon{
+        margin-right: 20px;
+      }
+
+      .bank-image{
+        width: 40px;
+      }
+      .bank-text{
+        font-size: 12px;
+      }
+
+      .bank-acc-details{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .bank-acc-number{
+        display: flex;
+        align-items: center;
+      }
+
+      .pdpa {
+        right: 0px;
+      }
+
+      .text-sm{
+        font-size: 12px;
+      }
+
+      .item-table {
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      .item-table td {
+        word-wrap:break-word ;
+      }
+    </style>
+  </head>
+
+  <body x-data="initOrderData()">
+
+    <div id="snackbar">คัดลอกหมายเลขบัญชีแล้ว</div>
+    
+
+    <div id="pipeline-step2-container" style="display: block">
+      <%- include ("./step2-loader.ejs")%>
+      <div class="wrapper" id="container">
+        <input type="hidden" name="psid" id="psid" x-model="psid" />
+        <div class="content" >
+          <div class="title-group">
+            <div class="title-number"><span>1</span></div>
+            <div class="title-label">รายการสินค้าในตะกร้า</div>
+          </div>
+          <div class="products-container">
+            <table class="item-table bg-white">
+              <tbody>
+              <tr>
+                <th class="p-5">Item</th>
+                <th class="p-5">Amount</th>
+                <template x-if="+orderTotals.discountTotal">
+                  <th class="p-5">Discount</th>
+                </template>
+                <th class="p-5">VAT</th>
+              </tr>
+            <template x-for="(orderItem,index) of orderList" :key="orderItem.id">
+              <tr align="center">
+                <td class="p-5" x-text="orderItem.name"></td>
+                <td class="p-5" x-text="'฿' + orderItem.itemPrice"></td>
+                <template x-if="+orderTotals.discountTotal">
+                  <td class="p-5" x-text="'฿' + orderItem.discount"></td>
+                </template>
+                <td class="p-5" x-text="orderItem.isVat ? 'Yes' : 'No'"></td>
+              </tr>
+            </template>
+          </div>
+        </tbody>
+        </table>
+        </div>
+        <div class="content mt-10">
+          <div class="title-group">
+            <div class="title-number"><span>2</span></div>
+            <div class="title-label">โอนเงินผ่านธนาคาร</div>
+          </div>
+          <div class="products-container">
+            <template x-for="(bank,index) of bankDetails" :key="bank.id">
+            <div class="bank-details bg-white cursor-pointer"  @click="copyAccountID(bank.account_id)">
+              <div class="bank-icon">
+                <div>
+                  <div class="image-preview">
+                    <img class="bank-image" x-bind:src="bank.image" />
+                  </div>
+                  <span class="bank-text" x-text="bank.type"></span>
+                </div>
+              </div>
+              <div class="bank-acc-details">
+                <div class="bank-acc-number">
+                  <span class="mr-5" x-text="bank.account_id"></span>
+                  <img width="14px" src="images/copy-icon.png" alt="">
+                </div>
+                <div class="text-sm" x-text="bank.account_name"></div>
+            </div>
+          </div>
+          </template>
+        </div>
+      </div>
+      <div class="separator"></div>
+      <div class="js-summary-wrapper summary-wrapper left-0">
+        <button onclick="toggleSummaryDetails()" class="summary-show-button bg-blue group border-none absolute p-0 cursor-pointer -top-26">
+          <svg class="interactive absolute left-0 right-0 z-10 m-auto top-10" width="20" height="11" viewBox="0 0 20 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M19.2803 10.591C18.9874 10.8839 18.5126 10.8839 18.2197 10.591L9.75 2.12133L1.28033 10.591C0.987436 10.8839 0.512564 10.8839 0.219669 10.591C-0.0732231 10.2981 -0.073223 9.82323 0.219669 9.53034L9.75 7.7307e-06L19.2803 9.53034C19.5732 9.82323 19.5732 10.2981 19.2803 10.591Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+        <table class="summary-details px-14 py-10" >
+          <tbody class="js-summary-details left-0 animated flex flex-col h-0 overflow-hidden">
+            <template x-if="+orderTotals.discountTotal">
+              <tr class="inline-table">
+                <td>Discount</td>
+                <td id="discount"  x-text="'฿' + orderTotals.discountTotal">></td>
+              </tr>
+            </template>
+            <tr class="inline-table">
+              <td>Total amount</td>
+              <td id="tax-price" x-text="'฿' + orderTotals.amountTotal"></td>
+            </tr>
+
+            <template  x-if="+orderTotals.withHoldingTaxTotal > 0">
+            <tr class="inline-table">
+              <td>Withholding Tax <span id="withholding-tax" x-text="order.withHoldingTax"></span>%</td>
+              <td id="tax-withholding" x-text="'฿' + orderTotals.withHoldingTaxTotal"></td>
+            </tr>
+          </template>
+            
+            <tr class="inline-table" id="summary-tax">
+              <td>Vat <span id="tax-amount" x-text="order.tax"></span>%</td>
+              <td id="tax-price" x-text="'฿' + orderTotals.vatTotal"></td>
+            </tr>
+          </tbody>
+          <tbody class="js-grand-total summary-main summary-total">
+            <tr id="summary-total" class="inline-table w-full">
+              <td>Grand total</td>
+              <td id="total-amount" x-text="'฿' + orderTotals.grandTotal"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <hr class="w-full border-none m-0" style="border-top: 1px dotted #c7e6ff" />
+
+        <div class="powered-by flex flex-col text-left px-20 py-10">
+          <span class="">Powered by <a href="http://more-commerce.com/">More Commerce</a></span>
+        </div>
+
+        <button class="js-summary-confirm summary-confirm" id="step2-confirm-button" onClick="closeWindow()">
+          <span class="mr-5" id="step2-confirm-button-title">Close</span>
+          <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.36691 0.10791H0L10.1439 10.3597L0 21.1511H6.36691L16.7266 10.3597L6.36691 0.10791Z" fill="#EEF1F8" fill-opacity="0.6" />
+            <path d="M19.3061 0H12.7338L23.2049 10.3044L12.7338 21.1511H19.3061L30 10.3044L19.3061 0Z" fill="#EEF1F8" />
+          </svg>
+        </button>
+
+        <div id="paypal-group" class="paypal-group" style="display: none; background: #f3f5f9">
+          <div id="paypal-button" class="payment"></div>
+        </div>
+
+      </div>
+    </div>
+    <%- include ("../pdpa/pdpamodal") %>
+  </body>
+</html>

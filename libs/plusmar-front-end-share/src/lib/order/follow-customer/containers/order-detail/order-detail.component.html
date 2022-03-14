@@ -1,0 +1,190 @@
+<div class="order-detail" *ngIf="orderInfo" [@slideInOut]>
+  <div class="order">
+    <div class="top">{{ 'Order No' | translate }}</div>
+    <div class="des">
+      <span *ngIf="!aliasOrderId">
+        {{ order.orderNo | orderId }}
+      </span>
+      <span *ngIf="aliasOrderId">
+        {{ aliasOrderId }}
+        <input type="hidden" [value]="order.orderNo" />
+      </span>
+      <div class="sub">{{ 'Created Order' | translate }} : {{ order.orderDate | timeAgo: 'utc' }}</div>
+    </div>
+  </div>
+  <div class="address-container">
+    <div class="display-address" *ngIf="order.orderAddress !== ''; else elseTemplate">
+      <div class="item name">
+        <div>
+          {{ order.orderName }}
+          <span
+            *ngIf="orderService.enableAddressConfig"
+            [ngClass]="{ 'on-focus-field': orderService.focusClass === 'ADDRESS' }"
+            class="edit-address"
+            style="cursor: pointer"
+            (click)="openShippingInfoDialog()"
+            >{{ 'Edit Address' | translate }}
+            <img style="cursor: pointer" src="assets/img/edit-icon.svg" alt="Edit" />
+          </span>
+        </div>
+      </div>
+
+      <div class="item">
+        <span>{{ 'Phone' | translate }}:&nbsp;</span>
+        <div>{{ order.orderPhone }}</div>
+      </div>
+      <div class="item address">
+        <span>{{ 'Address' | translate }}:&nbsp;</span>
+        <div>{{ order.orderAddress }}</div>
+      </div>
+
+      <div class="item logistic-select" *ngIf="orderService.enableUpdateMethod">
+        <div class="title">{{ 'Logistic Method' | translate }}</div>
+        <div *ngIf="orderService.enableLogistic">
+          <img class="img_dec" *ngIf="orderService.shippingDetail" [src]="orderService.returnLogisticIcon(orderService.shippingDetail.type)" />
+          <ng-container>
+            <form [formGroup]="orderService.logisticList" class="date-tabs" style="min-width: 200px">
+              <div class="select-option">
+                <mat-form-field [ngClass]="{ 'on-focus-field': orderService.focusClass === 'LOGISTIC' }">
+                  <mat-select (valueChange)="onLogisticChanges($event)" formControlName="logisticID">
+                    <mat-option *ngFor="let logistic of orderService.logistics" [value]="logistic.id">
+                      <img style="width: 24px" [src]="orderService.returnLogisticIcon(logistic.delivery_type)" />
+                      <span> {{ logistic.name }}</span>
+                      <span *ngIf="logistic.fee_type === 'FLAT_RATE'" style="color: #363951"> +{{ logistic.delivery_fee }}฿</span>
+                      <span *ngIf="logistic.cod_status" style="color: #363951"> (COD)</span>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </form>
+          </ng-container>
+        </div>
+        <div class="date-tabs">
+          <div class="select-option">
+            <div *ngIf="!orderService.enableLogistic">
+              <span>Delivery fee (ค่าจัดส่ง)</span>
+              <span
+                ><b>&nbsp;+฿{{ orderService.deliveryFee }} </b></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!orderService.enableUpdateMethod">
+        <div class="item logistic" *ngIf="!orderService.flatRate">
+          <div>
+            <img class="img_dec" [src]="orderService.returnLogisticIcon(orderService.shippingDetail.type)" />
+            <div class="text">{{ orderService.shippingDetail.name }}</div>
+          </div>
+        </div>
+        <div class="item logistic" *ngIf="orderService.flatRate">
+          <div>
+            <span>Delivery fee (ค่าจัดส่ง)</span>
+            <span
+              ><b>&nbsp;+฿{{ orderService.deliveryFee }} </b></span
+            >
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-template #elseTemplate>
+      <div class="address">
+        <div class="item caution">
+          <span>{{ 'Please provide shipping address' | translate }}&nbsp;</span>
+          <!-- <div class="edit-address"> -->
+          <span
+            [ngClass]="{ 'on-focus-field': orderService.focusClass === 'ADDRESS' }"
+            (click)="openShippingInfoDialog()"
+            class="edit-address"
+            style="cursor: pointer"
+            *ngIf="orderService.enableAddressConfig"
+            >{{ 'Edit Address' | translate }}
+            <img src="assets/img/edit-icon.svg" alt="Edit" />
+          </span>
+          <!-- </div> -->
+        </div>
+        <div class="item name">
+          <span>{{ 'Name' | translate }}:&nbsp;</span>
+          <div>{{ order.orderName }}</div>
+        </div>
+        <div class="item phone">
+          <span>{{ 'Phone' | translate }}:&nbsp;</span>
+          <div>{{ order.orderPhone }}</div>
+        </div>
+        <div class="item address">
+          <span>{{ 'Address' | translate }}:&nbsp;</span>
+          <div>{{ order.orderAddress }}</div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="payment" *ngIf="order.orderAddress !== ''">
+    <div class="left">
+      <ng-container [ngSwitch]="order.type">
+        <img class="img_dec" *ngSwitchCase="'PAYMENT_2C2P'" src="assets/img/payment/2c2p.svg" alt="Paypal" />
+        <img class="img_dec" *ngSwitchCase="'OMISE'" src="assets/img/payment/omise.svg" alt="Paypal" />
+        <img class="img_dec" *ngSwitchCase="'PAYPAL'" src="assets/img/payment/paypal.svg" alt="Paypal" />
+        <img class="img_dec" *ngSwitchCase="'CASH_ON_DELIVERY'" src="assets/img/payment/COD.svg" alt="COD" />
+        <img class="img_dec" *ngSwitchCase="'BANK_ACCOUNT'" [src]="order.bankLogo ? order.bankLogo : 'assets/img/payment/bank-transfer.svg'" alt="Banking" />
+        <img class="img_dec" *ngSwitchDefault src="assets/img/order-detail-icon.png" alt="Order Detail" />
+      </ng-container>
+    </div>
+    <div class="right">
+      <div class="detail">
+        <div class="title">{{ 'Payment Method' | translate }}</div>
+        <ng-container *ngIf="orderService.enableUpdateMethod">
+          <form [formGroup]="orderService.paymentList" class="date-tabs">
+            <div class="select-option">
+              <mat-form-field [ngClass]="{ 'on-focus-field': orderService.focusClass === 'PAYMENT' }">
+                <mat-select (valueChange)="onPaymentChanges($event)" formControlName="paymentID" readonly="true">
+                  <mat-option *ngFor="let payment of orderService.payments" [value]="payment.id">
+                    <div style="display: flex">
+                      <img *ngIf="payment.type !== 'Select Payment'" style="width: 24px" [src]="payment.logo" />
+                      <span>{{ payment.name }}</span>
+                    </div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="paymentDetail && orderService.stepIndex >= 2 && !orderService.enableUpdateMethod">
+          <div class="title" *ngIf="paymentDetail" [ngSwitch]="order.type">
+            <div class="title" *ngSwitchCase="'PAYPAL'">Paypal</div>
+            <div class="title" *ngSwitchCase="'PAYMENT_2C2P'">2C2P</div>
+            <div class="title" *ngSwitchCase="'OMISE'">OMISE</div>
+            <div class="title" *ngSwitchCase="'CASH_ON_DELIVERY'">{{ 'Cash on Delivery' | translate }}</div>
+            <div class="title" *ngSwitchCase="'BANK_ACCOUNT'">{{ 'Bank Transfer' | translate }}: {{ order.bankAccountId ? order.bankAccountId : '-' }}</div>
+            <div class="title" *ngSwitchDefault>{{ '' }}</div>
+          </div>
+
+          <div class="date" *ngIf="order.paymentDate">
+            {{ 'Date' | translate }}:
+            {{ order.paymentDate | timeAgo: 'utc':'DD/MM/YYYY' }}
+            <ng-container [ngSwitch]="order.type">
+              <ng-container *ngSwitchCase="'CASH_ON_DELIVERY'">
+                {{ order.paymentTime }}
+              </ng-container>
+              <ng-container *ngSwitchCase="'BANK_ACCOUNT'">
+                {{ order.paymentTime }}
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{ order.paymentTime }}
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="date" *ngIf="!order.paymentDate">{{ 'Date' | translate }}: -</div>
+
+          <div class="status">
+            <div class="text">
+              {{ 'Payment Status' | translate }}: <span [ngStyle]="{ color: order.isPaid ? '#53b1ff' : '#dc493d' }">{{ order.isPaid ? 'Paid' : ('Unpaid' | translate) }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <img class="config-icon" *ngIf="orderService.enableConfig" src="assets/img/edit-icon.svg" alt="Edit" (click)="openPaymentShippingInfoDialog()" />
+    </div>
+  </div>
+</div>

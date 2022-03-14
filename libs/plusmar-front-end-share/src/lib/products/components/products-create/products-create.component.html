@@ -1,0 +1,183 @@
+<reactor-room-loader block="true" [text]="loadingText" *ngIf="isLoading"></reactor-room-loader>
+<div class="product-create" [ngClass]="{ 'py-6': projectScope }">
+  <form [formGroup]="productForm">
+    <reactor-room-heading [headingTitle]="headingTitle" [Route]="routeTitle">
+      <div class="heading-content">
+        <button class="btn btn-cancel" (click)="goToListProduct()">{{ 'Cancel' | translate }}</button>
+        <button class="btn btn-save" (click)="saveProductForm()">
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+              fill="white"
+            />
+          </svg>
+          {{ 'Save' | translate }}
+        </button>
+      </div>
+    </reactor-room-heading>
+    <reactor-room-card>
+      <div class="card-content">
+        <div class="edit-product-link" *ngIf="formMode && !isVariantInventoryZero">
+          <div class="edit-link">
+            {{ 'Product Link' | translate }} :
+            <span>{{ this.sharedLink }}</span>
+          </div>
+          <div class="copy-text" *ngIf="this.sharedLink" (click)="copyRefLinkToClipboard()">
+            {{ 'Copy link' | translate }}
+          </div>
+        </div>
+        <div class="content-product">
+          <div class="product-form">
+            <div class="item" [ngClass]="{ invalid: !productForm.get('name').valid && productErrorMessages['nameValidationMessage'] }">
+              <div class="label">{{ 'Product Name' | translate }}*</div>
+              <input type="text" formControlName="name" (keyup)="eventLookUpOnFocus('name')" />
+              <mat-error *ngIf="!productForm.get('name').valid" [innerHTML]="productErrorMessages['nameValidationMessage']"> </mat-error>
+            </div>
+            <div class="item" [ngClass]="{ invalid: !productForm.get('code').valid && productErrorMessages['codeValidationMessage'] }">
+              <div class="label">{{ 'Product Code' | translate }}*</div>
+              <input type="text" formControlName="code" (keyup)="eventLookUpOnFocus('code')" />
+              <mat-error *ngIf="!productForm.get('code').valid && !productForm.get('code').pending" [innerHTML]="productErrorMessages['codeValidationMessage']"> </mat-error>
+            </div>
+            <div class="item" [ngClass]="{ invalid: !productForm.get('weight').valid && productErrorMessages['weightValidationMessage'] }">
+              <div class="label">{{ 'Package Weight' | translate }} (g)*</div>
+              <input type="text" reactorRoomNumeric decimals="2" formControlName="weight" (keyup)="eventLookUpOnFocus('weight')" />
+              <mat-error *ngIf="!productForm.get('weight').valid" [innerHTML]="productErrorMessages['weightValidationMessage']"> </mat-error>
+            </div>
+            <div class="item dimension" formGroupName="dimension">
+              <div class="column" [ngClass]="{ invalid: !productForm.get('dimension.length').valid && productErrorMessages['lengthValidationMessage'] }">
+                <div class="label">{{ 'Length' | translate }} (cm)*</div>
+                <input type="text" reactorRoomNumeric decimals="2" formControlName="length" (keyup)="eventLookUpOnFocus('dimension.length')" />
+                <mat-error *ngIf="!productForm.get('dimension.length').valid" [innerHTML]="productErrorMessages['lengthValidationMessage']"> </mat-error>
+              </div>
+              <div class="column" [ngClass]="{ invalid: !productForm.get('dimension.width').valid && productErrorMessages['widthValidationMessage'] }">
+                <div class="label">{{ 'Width' | translate }} (cm)*</div>
+                <input type="text" reactorRoomNumeric decimals="2" formControlName="width" (keyup)="eventLookUpOnFocus('dimension.width')" />
+                <mat-error *ngIf="!productForm.get('dimension.width').valid" [innerHTML]="productErrorMessages['widthValidationMessage']"> </mat-error>
+              </div>
+              <div class="column" [ngClass]="{ invalid: !productForm.get('dimension.height').valid && productErrorMessages['heightValidationMessage'] }">
+                <div class="label">{{ 'Height' | translate }} (cm)*</div>
+                <input type="text" reactorRoomNumeric decimals="2" formControlName="height" (keyup)="eventLookUpOnFocus('dimension.height')" />
+                <mat-error *ngIf="!productForm.get('dimension.height').valid" [innerHTML]="productErrorMessages['heightValidationMessage']"> </mat-error>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="label">{{ 'Dangerous Goods' | translate }}*</div>
+              <div class="radio-buttons">
+                <div class="buttons">
+                  <label class="radio-button"
+                    >{{ 'Yes' | translate }}
+                    <input type="radio" [value]="true" formControlName="dangerous" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio-button"
+                    >{{ 'No' | translate }}
+                    <input type="radio" [value]="false" formControlName="dangerous" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="item cost-status">
+              <div class="column">
+                <div class="label">{{ 'Status' | translate }}*</div>
+                <div class="select-option">
+                  <mat-form-field>
+                    <mat-select formControlName="status">
+                      <mat-option *ngFor="let item of productStatus" [value]="item.value">
+                        {{ item.label | translate }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="item one-line categories" [ngClass]="{ invalid: !productForm.get('categories').valid && productErrorMessages['categoriesValidationMessage'] }">
+              <div class="label">{{ 'Categories' | translate }} *</div>
+              <div reactorRoomClickOutside (outside)="clickOutsideCatEvent($event)">
+                <div class="chips" (click)="categoryActive()" [ngClass]="{ active: categoryCreateStatus }">
+                  <reactor-room-custom-chips
+                    [componentType]="'CATEGORY'"
+                    [placeholder]="('Categories' | translate) + '...'"
+                    [dataFromSelector]="categoryDataFromSelector"
+                    [dataList]="categoriesData"
+                    [disabled]="true"
+                    (chipEvent)="categoryDataFromInput($event)"
+                  >
+                  </reactor-room-custom-chips>
+                  <mat-error [innerHTML]="productErrorMessages['categoriesValidationMessage']"> </mat-error>
+                </div>
+                <reactor-room-products-create-categories
+                  [ngStyle]="{ display: categoryCreateStatus ? 'block' : 'none' }"
+                  [removedChip]="removedChipOfCategory"
+                ></reactor-room-products-create-categories>
+              </div>
+            </div>
+            <div class="item one-line tags" [ngClass]="{ invalid: !productForm.get('tags').valid && productErrorMessages['tagsValidationMessage'] }">
+              <div class="label">{{ 'Tag' | translate }} *</div>
+              <div reactorRoomClickOutside (outside)="clickOutsideTagEvent($event)">
+                <div class="chips" (click)="tagActive()" [ngClass]="{ active: tagCreateStatus }">
+                  <reactor-room-custom-chips
+                    [placeholder]="('Tags' | translate) + '...'"
+                    [dataFromSelector]="tagDataFromSelector"
+                    [componentType]="'TAG'"
+                    [dataList]="tagsData"
+                    [removeChipOnError]="removeChipOnError"
+                    (chipEvent)="tagDataFromInput($event)"
+                    (chipQueryString)="tagSearch($event)"
+                    [patchTagData]="patchTagData"
+                  ></reactor-room-custom-chips>
+                  <mat-error [innerHTML]="productErrorMessages['tagsValidationMessage']"> </mat-error>
+
+                  <reactor-room-products-create-tags [ngStyle]="{ display: tagCreateStatus ? 'block' : 'none' }"></reactor-room-products-create-tags>
+                </div>
+              </div>
+            </div>
+            <div class="item one-line" [ngClass]="{ invalid: !productForm.get('images').valid && productErrorMessages['imagesValidationMessage'] }">
+              <div class="label">{{ '4 MB max file size' | translate }} *</div>
+
+              <div class="item-uploads" formArrayName="images">
+                <label class="img-upload">
+                  <img class="base" src="assets/img/image-upload.png" style="cursor: pointer" alt="Image Product" />
+                  <input
+                    type="file"
+                    multiple
+                    #fileUpload
+                    id="fileUpload"
+                    name="fileUpload"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    style="display: none"
+                    (change)="onFileChange($event)"
+                  />
+                </label>
+                <div class="img-upload" *ngFor="let photo of productImageFormArray.controls; let i = index">
+                  <div class="icon-dismiss" (click)="clearProductPicture(i)"><img src="assets/img/cancel-icon.svg" /></div>
+
+                  <ng-container *ngIf="photo.value?.mediaLink; else imageBase">
+                    <img [src]="photo.value?.mediaLink" alt="Image Product" />
+                  </ng-container>
+                  <ng-template #imageBase><img [src]="photo['controls']?.url?.value" alt="Image Product" /> </ng-template>
+                </div>
+              </div>
+              <mat-error *ngIf="!productForm.get('images').valid" [innerHTML]="productErrorMessages['imagesValidationMessage']"> </mat-error>
+              <ng-container *ngIf="productImageError">
+                <mat-error *ngIf="productImageError['maxArrayLength']">{{ 'Please upload only 5 images' | translate }} </mat-error>
+              </ng-container>
+            </div>
+          </div>
+          <div class="description">
+            <div class="text-editor">
+              <reactor-room-quill-editor></reactor-room-quill-editor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </reactor-room-card>
+    <reactor-room-product-create-variants
+      [productID]="this.userIdParam"
+      [formMode]="formMode"
+      [productStatus]="productStatus"
+      [patchVariantData]="patchVariantData"
+    ></reactor-room-product-create-variants>
+  </form>
+</div>

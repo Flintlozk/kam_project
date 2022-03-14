@@ -1,0 +1,15 @@
+<div class="cms-admin-navbar-container">
+  <div class="nav-item1">
+    <reactor-room-logo> </reactor-room-logo>
+  </div>
+  <div class="nav-item2">Welcome to Admin Setting</div>
+  <div class="nav-item3">
+    <div class="profile-area" (click)="showLogout()">
+      <img src="../../../assets/images/model-3 1.png" alt="" />
+      <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5.5 5L10 1" stroke="#BCBFC8" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div class="log-out-btn-position" [style.display]="this.logoutButton ? 'block' : 'none'" (click)="logout()">Log out</div>
+</div>

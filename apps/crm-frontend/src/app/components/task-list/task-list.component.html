@@ -1,0 +1,37 @@
+<div>
+  <div *ngFor="let group of taskItem; let i = index; trackBy: trackByIndex">
+    <mat-expansion-panel class="group-name-task-table" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-chip [ngStyle]="{ 'background-color': group.color }"> {{ group.statename }} </mat-chip>
+          <div class="count-task-by-state">{{ group.taskCard.length }} TASKS</div></mat-panel-title
+        >
+      </mat-expansion-panel-header>
+
+      <table mat-table [dataSource]="group.taskCard" class="table-task-list">
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef style="width: 800px">title</th>
+          <td mat-cell *matCellDef="let taskDetail">{{ taskDetail.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignee">
+          <th mat-header-cell *matHeaderCellDef style="width: 400px">assignee</th>
+          <td mat-cell *matCellDef="let taskDetail">
+            <div class="cell-assignee">
+              <div *ngFor="let assignee of taskDetail.assignee">
+                <img class="img-profile-assignee" draggable="false" [src]="[assignee.profilePic]" />
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="dueDate">
+          <th mat-header-cell *matHeaderCellDef>dueDate</th>
+          <td mat-cell *matCellDef="let taskDetail">{{ taskDetail.dueDate | date }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnTask"></tr>
+        <tr mat-row></tr>
+        <tr mat-row *matRowDef="let row; columns: columnTask" (click)="openToggle(row)"></tr>
+      </table>
+    </mat-expansion-panel>
+  </div>
+</div>

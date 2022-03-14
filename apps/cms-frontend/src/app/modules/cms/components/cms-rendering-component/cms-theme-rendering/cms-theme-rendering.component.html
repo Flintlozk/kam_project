@@ -1,0 +1,5 @@
+<!-- <div class="absolute w-full h-full left-0 top-0 guideline" [ngClass]="{ 'border-4 border-green-500': onFocus }"></div> -->
+<section class="w-full h-full flex-1 flex flex-col" [ngClass]="{ 'border-4 border-green-500': onFocus }">
+  <ng-container #themeInsertPoint></ng-container>
+  <ng-content></ng-content>
+</section>

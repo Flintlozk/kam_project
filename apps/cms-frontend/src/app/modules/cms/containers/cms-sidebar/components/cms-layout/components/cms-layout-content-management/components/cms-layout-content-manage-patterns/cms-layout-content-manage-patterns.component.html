@@ -1,0 +1,22 @@
+<section>
+  <div class="flex w-full justify-between items-center mb-4">
+    <span class="font-light text-sm">Select Pattern</span>
+    <button (click)="onDismissIsSelectPatterns()" class="focus:outline-none">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div class="pb-4 grid grid-cols-2 gap-4 overflow-auto max-h-80 no-scroll-bar" (scroll)="onElementScroll($event)">
+    <ng-container *ngFor="let pattern of contentManagementPaterns; trackBy: trackByIndex; let patternIndex = index">
+      <div
+        [ngClass]="{ 'bg-green-200 cursor-default': pattern.status, 'cursor-pointer': !pattern.status }"
+        (click)="!pattern.status ? onSelectPattern(patternIndex) : null"
+        class="border rounded-lg hover:border-green-500 p-4 flex items-center justify-center flex-col bg-white"
+      >
+        <img [src]="pattern.patternUrl" [alt]="pattern._id" />
+        <div class="text-center font-light text-gray-500 text-sm pt-1">{{ pattern.patternName }}</div>
+      </div>
+    </ng-container>
+  </div>
+</section>

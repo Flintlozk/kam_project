@@ -1,0 +1,15 @@
+.migration-container {
+  .button {
+    color: #fff;
+    background: #000;
+    border: 1px solid #000;
+
+    &:hover {
+      background: #666 !important;
+    }
+  }
+
+  .button-div {
+    margin-top: 5px;
+  }
+}

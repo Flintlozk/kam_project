@@ -1,0 +1,158 @@
+<% 
+    function splitDigit(accountId){
+        if(accountId.length === 10){
+            return accountId.substring(0,3) + '-' +accountId.substring(3,6) +'-' + accountId.substring(6,10)
+        }else{
+            return accountId
+        }
+    }
+
+    function justCall(){
+        console.log(payload)
+    }
+%>
+
+<div class="content" id="payment">
+    <div class="title-group">
+        <div class="title-number">3</div>
+        <div class="title-label" >ช่องทางการชำระเงิน</div>
+        <!-- <div class="title-label" >Select a Payment</div> -->
+    </div> 
+
+
+    <% if(payments.length < 1) { %>
+        <div class="cod-warning-minimum">
+            <div>
+                ไม่พบช่องทางการชำระเงิน กรุณาติดต่อร้านค้าเพื่อดำเนินการต่อ
+            </div>
+        </div>
+    <% } %>
+
+    <% for(var paymentIndex=0; paymentIndex<payments.length; paymentIndex++) { %>
+        <% if(payments[paymentIndex].type === 'BANK_ACCOUNT'){ %>
+            <div class="payment-group" onclick="selectPaymentMethod('<%=payments[paymentIndex].type%>','Bank_Transfer','<%=payments[paymentIndex].id%>')">
+                <input 
+                    id="Bank_Transfer" 
+                    type="radio" 
+                    name="paymentMethod"  
+                    value="BANK_ACCOUNT" 
+                    onchange="selectPaymentMethod('<%=payments[paymentIndex].type%>',this.id,'<%=payments[paymentIndex].id%>')" 
+                    <%if (paymentID === payments[paymentIndex].id) {%>
+                        checked
+                    <%}%>
+                >
+                <img src="./images/payment/icon_BankTransfer.png">
+                <label class="payment" for="Bank_Transfer">Bank Transfer</label>
+            </div>
+            <div id="bank-group" class="bank-group" style="display:none;">
+                <label style="color:#565E68;font-size:12px;margin-bottom:8px;">* select to copy account number</label>
+                <% for(var accountIndex=0; accountIndex<accounts.length; accountIndex++) { %>
+                    <button class="bank-account" type="button"  onClick="onCopyAccount(<%=accountIndex%>)">
+                        <div class="bank">
+                            <img class="bank-icon" src="./images/bank/<%=accounts[accountIndex].bank_type%>.png">
+                        </div>
+
+                        <div class="bank-account-info">
+                            <div class="bank-account-number" id="accountid<%=accountIndex%>"> 
+                                <%=splitDigit(accounts[accountIndex].account_id)%>
+                            </div>
+                            <div><%=accounts[accountIndex].account_name%></div> 
+                        </div>
+                    </button>
+                <% } %>
+            </div>
+        <% } %>
+
+        <% if(payments[paymentIndex].type === 'CASH_ON_DELIVERY'){ %>
+            <div class="payment-group" id="COD_OPTION" style="display: none;" onclick="selectPaymentMethod('<%=payments[paymentIndex].type%>','Cash_On_Delivery','<%=payments[paymentIndex].id%>')">
+                <input 
+                    id="Cash_On_Delivery" 
+                    type="radio" 
+                    name="paymentMethod" 
+                    value="CASH_ON_DELIVERY" 
+                    onchange="selectPaymentMethod('<%=payments[paymentIndex].type%>',this.id,'<%=payments[paymentIndex].id%>')"
+                    <%if (paymentID === payments[paymentIndex].id) {%>
+                        checked
+                    <%}%>
+                >
+                <img src="./images/payment/icon_COD.png">
+                <label class="payment" for="Cash_On_Delivery">Cash on Delivery</label>
+            </div>
+        <% } %>
+
+        <% if(payments[paymentIndex].type === 'PAYPAL'){ %>
+            <div class="payment-group" onclick="selectPaymentMethod('<%=payments[paymentIndex].type%>','PAYPAL','<%=payments[paymentIndex].id%>')">
+                <input 
+                    id="PAYPAL" 
+                    type="radio"  
+                    name="paymentMethod" 
+                    value="PAYPAL"
+                    onchange="selectPaymentMethod('<%=payments[paymentIndex].type%>',this.id,'<%=payments[paymentIndex].id%>')"
+                    <%if (paymentID === payments[paymentIndex].id) {%>
+                        checked
+                    <%}%>
+                >
+                <img src="./images/payment/paypal.png">
+                <label class="payment" for="PAYPAL">Paypal</label>
+            </div>
+        <% } %>
+
+        <% if(payments[paymentIndex].type === 'PAYMENT_2C2P'){ %>
+            <div class="payment-group" onclick="selectPaymentMethod('<%=payments[paymentIndex].type%>','PAYMENT_2C2P','<%=payments[paymentIndex].id%>')" >
+                <input 
+                    id="PAYMENT_2C2P" 
+                    type="radio"  
+                    name="paymentMethod" 
+                    value="PAYMENT_2C2P"
+                    onchange="selectPaymentMethod('<%=payments[paymentIndex].type%>',this.id,'<%=payments[paymentIndex].id%>')"
+                    <%if (paymentID === payments[paymentIndex].id) {%>
+                        checked
+                    <%}%>
+                >
+                <img class="ccpp" src="./images/payment/2c2p.png">
+                <label class="payment" for="PAYMENT_2C2P">2C2P</label>
+            </div>
+            <form id="myform" method="post" action="<%=payment2C2PRedirectApi%>">        
+               <input type="hidden" id="version" name="version" value=""  />
+                <input type="hidden" id="order_id" name="order_id" value=""  />
+                <input type="hidden" id="merchant_id" name="merchant_id" value=""  />
+                <input type="hidden" id="currency" name="currency" value=""  />
+                <input type="hidden" id="payment_description" name="payment_description" value=""  />
+                <input type="hidden" id="amount" name="amount" value=""  />
+                <input type="hidden" id="result_url_1" name="result_url_1" value=""  />
+                <input type="hidden" id="result_url_2" name="result_url_2" value=""  />
+                <input type="hidden" id="payment_option" name="payment_option" value=""  />
+                <input type="hidden" id="request_3ds" name="request_3ds" value=""  />
+                <input type="hidden" id="hash_value" name="hash_value" value="" />
+            </form>  
+     
+        <% } %>
+
+        <% if(payments[paymentIndex].type === 'OMISE'){ %>
+            <div class="payment-group" onclick="selectPaymentMethod('<%=payments[paymentIndex].type%>','OMISE','<%=payments[paymentIndex].id%>')" >
+                <input 
+                    id="OMISE" 
+                    type="radio"  
+                    name="paymentMethod" 
+                    value="OMISE"
+                    onchange="selectPaymentMethod('<%=payments[paymentIndex].type%>',this.id,'<%=payments[paymentIndex].id%>')"
+                    <%if (paymentID === payments[paymentIndex].id) {%>
+                        checked
+                    <%}%>
+                >
+                <img src="./images/payment/omise.png">
+                <label class="payment" for="OMISE">OMISE</label>
+            </div>
+        <% } %>
+    <% } %>
+    <% if(payload.notMetMinimumCOD) { %>
+        <div class="cod-warning-minimum">
+            <div>
+                <i>** ยอดรวมราคาสินค้าไม่ถึงขั้นต่ำของการจัดส่งปลายทาง</i>
+            </div>
+            <div>
+                <i>*** ไม่สามารถเลือกจัดส่งปลายทางได้ </i>
+            </div>
+        </div>
+        <% } %>
+</div>

@@ -1,0 +1,3 @@
+#!/bin/sh
+sed 's/_ENV_/'"production"'/g; s/_SIZE_/'"1"'/g; s/_TAG_/'"$CI_PIPELINE_ID"'/g; s/_MONGODB_/'"$MONGODB"'/g; s/_PG_URL_READ_/'"$PG_URL_READ"'/g; s/_PG_URL_WRITE_/'"$PG_URL_WRITE"'/g; s/_REDIS_HOST_/'"$REDIS_HOST"'/g; s/_WEB_VIEW_URL_/'"$WEB_VIEW_URL"'/g; s/_BACKEND_URL_/'"$BACKEND_URL"'/g; s/_ORIGIN_/'"$ORIGIN"'/g; s/_ADMINORIGIN_/'"$ADMINORIGIN"'/g; s/_PAYAL_AUTH_API_/'"$PAYAL_AUTH_API"'/g; s/_PAYPAL_ORDER_API_/'"$PAYPAL_ORDER_API"'/g; s/_WEBVIEWKEY_/'"$WEBVIEWKEY"'/g; s/_FLASH_EXPRESS_KEY_/'"$FLASH_EXPRESS_KEY"'/g; s/_J_AND_T_KEY_/'"$J_AND_T_KEY"'/g; s/_NLP_API_/'"$NLP_API"'/g' ./scripts/plusmar-project/yml/backend.tpl.yml > backend.yml
+kubectl apply -f backend.yml --namespace=plusmar

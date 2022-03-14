@@ -1,0 +1,702 @@
+<section [formGroup]="siteSettingForm">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M13.6706 5.40595L12.5946 5.17203C12.501 4.88556 12.3851 4.60614 12.2483 4.33698L12.844 3.41039C12.9504 3.24483 12.927 3.02747 12.7879 2.8884L11.1116 1.2121C10.9725 1.07303 10.7552 1.04964 10.5896 1.15602L9.66302 1.75171C9.39386 1.61488 9.11444 1.49899 8.82797 1.40543L8.59406 0.329407C8.55229 0.137146 8.38203 0 8.18529 0H5.81471C5.61797 0 5.44771 0.137146 5.40595 0.329407L5.17203 1.40543C4.88556 1.49899 4.60614 1.61488 4.33698 1.75171L3.41039 1.15602C3.24483 1.04964 3.02747 1.07303 2.8884 1.2121L1.2121 2.8884C1.07303 3.02747 1.04964 3.24483 1.15602 3.41039L1.75171 4.33698C1.61488 4.60614 1.49899 4.88556 1.40543 5.17203L0.329407 5.40595C0.137146 5.44782 0 5.61797 0 5.81471V8.18529C0 8.38203 0.137146 8.55219 0.329407 8.59406L1.40543 8.82797C1.49899 9.11444 1.61488 9.39386 1.75171 9.66302L1.15602 10.5896C1.04964 10.7552 1.07303 10.9725 1.2121 11.1116L2.8884 12.7879C3.02747 12.927 3.24483 12.9504 3.41039 12.844L4.33698 12.2483C4.60614 12.3851 4.88556 12.501 5.17203 12.5946L5.40595 13.6706C5.44771 13.8629 5.61797 14 5.81471 14H8.18529C8.38203 14 8.55229 13.8629 8.59406 13.6706L8.82797 12.5946C9.11444 12.501 9.39386 12.3851 9.66302 12.2483L10.5896 12.844C10.7552 12.9504 10.9725 12.9271 11.1116 12.7879L12.7879 11.1116C12.927 10.9725 12.9504 10.7552 12.844 10.5896L12.2483 9.66302C12.3851 9.39386 12.501 9.11444 12.5946 8.82797L13.6706 8.59406C13.8629 8.55219 14 8.38203 14 8.18529V5.81471C14 5.61797 13.8629 5.44782 13.6706 5.40595ZM9.50996 7C9.50996 8.38396 8.38396 9.50996 7 9.50996C5.61604 9.50996 4.49004 8.38396 4.49004 7C4.49004 5.61604 5.61604 4.49004 7 4.49004C8.38396 4.49004 9.50996 5.61604 9.50996 7Z"
+          fill="#AAB2C2"
+        />
+      </svg>
+      <h3 class="text-lg ml-2">Settings</h3>
+    </div>
+    <div class="flex items-center">
+      <button
+        (click)="onUpdateWebPageDetails()"
+        [disabled]="this.isSaving"
+        [ngClass]="{ 'cursor-not-allowed bg-gray-200': this.isSaving, 'bg-green-500': !this.isSaving }"
+        class="focus:outline-none mr-2 px-4 py-1 text-white font-light transform transition hover:scale-105 rounded"
+      >
+        Update
+      </button>
+      <button (click)="onDismissSettingMode()" class="focus:outline-none transform transition hover:scale-105">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2L13.0526 13.0526M13.0526 2L2 13.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="pt-6 grid gap-3">
+    <button (click)="onTogglePage()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">Page</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isPageToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div class="pb-4 grid" [ngClass]="{ flex: isPageToggle, hidden: !isPageToggle }">
+        <div class="pb-6">
+          <div class="font-light pb-2">Page Name</div>
+          <input type="text" formControlName="pageName" class="w-full px-4 py-2 rounded-md border focus:outline-none" />
+        </div>
+        <div class="pb-6" formGroupName="config">
+          <div class="font-light pb-2">Display Name</div>
+          <input type="text" formControlName="displayName" class="w-full px-4 py-2 rounded-md border focus:outline-none" />
+        </div>
+        <div class="grid gap-x-2 gap-y-6 grid-cols-2 items-center">
+          <div class="font-light">Open New Tab</div>
+          <div>
+            <input type="checkbox" formControlName="isOpenNewTab" #isOpenNewTab class="hidden" />
+            <button
+              (click)="isOpenNewTab.click()"
+              class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+              [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['isOpenNewTab'].value }"
+            >
+              <div
+                class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                [ngClass]="{ 'bg-gray-400': !siteSettingForm['controls']['isOpenNewTab'].value, 'bg-white right-0 mr-2': siteSettingForm['controls']['isOpenNewTab'].value }"
+              ></div>
+            </button>
+          </div>
+          <div class="font-light">Mantenance Page</div>
+          <div>
+            <input type="checkbox" formControlName="isMaintenancePage" #isMaintenancePage class="hidden" />
+            <button
+              (click)="isMaintenancePage.click()"
+              class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+              [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['isMaintenancePage'].value }"
+            >
+              <div
+                class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                [ngClass]="{
+                  'bg-gray-400': !siteSettingForm['controls']['isMaintenancePage'].value,
+                  'bg-white right-0 mr-2': siteSettingForm['controls']['isMaintenancePage'].value
+                }"
+              ></div>
+            </button>
+          </div>
+          <div class="font-light">ThemeLayoutMode</div>
+          <div [formGroup]="themeLayoutModeForm">
+            <input formControlName="useThemeLayoutMode" type="checkbox" #useThemeLayoutMode class="hidden" />
+            <button
+              (click)="useThemeLayoutMode.click()"
+              class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+              [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value }"
+            >
+              <div
+                class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                [ngClass]="{
+                  'bg-gray-400': !siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value,
+                  'bg-white right-0 mr-2': siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value
+                }"
+              ></div>
+            </button>
+          </div>
+          <div *ngIf="siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value">
+            <div [formGroup]="themeLayoutModeForm">
+              <div *ngIf="siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value">
+                <div class="font-light">ThemeLayoutIndex</div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value">
+            <div [formGroup]="themeLayoutModeForm">
+              <div *ngIf="siteSettingForm['controls']['themeLayoutMode']['controls']['useThemeLayoutMode'].value">
+                <input
+                  style="color: black"
+                  class="px-4 py-2 border rounded font-light focus:outline-none w-full"
+                  placeholder="Enter Index"
+                  type="number"
+                  formControlName="themeLayoutIndex"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <button (click)="onToggleIcon()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">Icon</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isIconToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div class="pb-4 grid" [ngClass]="{ flex: isIconToggle, hidden: !isIconToggle }">
+        <div class="grid gap-4 pt-6 items-center">
+          <div class="flex items-center">
+            <div class="font-light pr-4">Icon</div>
+            <div>
+              <input type="checkbox" formControlName="isIcon" #isIcon class="hidden" />
+              <button
+                (click)="isIcon.click()"
+                class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['isIcon'].value }"
+              >
+                <div
+                  class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                  [ngClass]="{ 'bg-gray-400': !siteSettingForm['controls']['isIcon'].value, 'bg-white right-0 mr-2': siteSettingForm['controls']['isIcon'].value }"
+                ></div>
+              </button>
+            </div>
+          </div>
+          <div class="grid gap-2">
+            <div class="font-light">Menu Icon</div>
+            <div class="w-24 h-24 flex items-center justify-center border rounded-md">
+              <svg *ngIf="!siteSettingForm['controls']['pageIcon'].value" width="35" height="32" viewBox="0 0 35 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9.15147 25.397C6.80716 25.397 4.72186 23.893 3.96465 21.6539L3.91343 21.4852C3.73485 20.8922 3.66004 20.3936 3.66004 19.8947V9.89062L0.10751 21.7727C-0.349394 23.5203 0.691778 25.3322 2.43868 25.815L25.0825 31.8912C25.3651 31.9645 25.6477 31.9997 25.9261 31.9997C27.3845 31.9997 28.7171 31.0298 29.0906 29.6005L30.4098 25.397H9.15147Z"
+                  fill="#E4E5EE"
+                />
+                <path
+                  d="M31.3426 0H9.39597C7.37999 0 5.73828 1.63209 5.73828 3.63651V19.6362C5.73828 21.6406 7.37999 23.2727 9.39597 23.2727H31.3426C33.3589 23.2727 35.0006 21.6406 35.0006 19.6362V3.63651C35.0006 1.63209 33.3589 0 31.3426 0ZM9.39597 2.90916H31.3426C31.7466 2.90916 32.0743 3.23488 32.0743 3.63651V13.9622L27.4524 8.6007C26.9621 8.02915 26.2525 7.72366 25.4903 7.70635C24.7324 7.71061 24.0214 8.04513 23.5356 8.62413L18.1015 15.1083L16.3312 13.3526C15.3306 12.3579 13.702 12.3579 12.7027 13.3526L8.66459 17.3657V3.63651C8.66459 3.23488 8.99224 2.90916 9.39597 2.90916Z"
+                  fill="#E4E5EE"
+                />
+              </svg>
+              <i class="text-5xl" *ngIf="siteSettingForm['controls']['pageIcon'].value" [ngClass]="siteSettingForm['controls']['pageIcon'].value"></i>
+            </div>
+          </div>
+          <div class="relative flex items-center">
+            <svg class="absolute right-4" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16 15.165L11.5291 10.6705C12.598 9.38086 13.1289 7.72907 13.0118 6.05821C12.8946 4.38734 12.1383 2.82582 10.8999 1.69799C9.66159 0.570153 8.03638 -0.0373085 6.36187 0.00177548C4.68735 0.0408594 3.09225 0.723485 1.90787 1.90787C0.723485 3.09225 0.0408594 4.68735 0.00177548 6.36187C-0.0373085 8.03638 0.570153 9.66159 1.69799 10.8999C2.82582 12.1383 4.38734 12.8946 6.05821 13.0118C7.72907 13.1289 9.38086 12.598 10.6705 11.5291L15.165 16L16 15.165ZM1.19578 6.5253C1.19578 5.47122 1.50835 4.44081 2.09396 3.56437C2.67958 2.68794 3.51193 2.00484 4.48578 1.60146C5.45962 1.19808 6.53121 1.09254 7.56503 1.29818C8.59886 1.50382 9.54849 2.01141 10.2938 2.75676C11.0392 3.5021 11.5468 4.45173 11.7524 5.48556C11.9581 6.51938 11.8525 7.59097 11.4491 8.56482C11.0458 9.53866 10.3627 10.371 9.48622 10.9566C8.60978 11.5422 7.57938 11.8548 6.5253 11.8548C5.11182 11.8548 3.75624 11.2933 2.75676 10.2938C1.75728 9.29436 1.19578 7.93877 1.19578 6.5253Z"
+                fill="#BCC4D6"
+              />
+            </svg>
+            <input type="text" [formControl]="searchIconFormControl" placeholder="Search Icon..." class="w-full h-full border rounded focus:outline-none py-2 pl-4 pr-10" />
+          </div>
+          <div class="max-h-80 overflow-scroll">
+            <div class="grid grid-cols-3">
+              <ng-container *ngFor="let icon of iconList">
+                <div (click)="onSelectedIcon(icon)" class="flex items-center justify-start flex-col p-4 cursor-pointer transition hover:bg-green-100">
+                  <i class="text-3xl" [ngClass]="icon"></i>
+                  <div class="text-sm font-light text-center">{{ icon }}</div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <button (click)="onToggleContent()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">Content</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isContentToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div class="pb-4 grid" *ngIf="isContentToggle">
+        <div class="grid gap-4 pt-6">
+          <div class="flex items-center">
+            <div class="font-light pr-4">Mega Menu</div>
+            <div>
+              <input type="checkbox" formControlName="isMega" #isMega class="hidden" />
+              <button
+                (click)="isMega.click()"
+                class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['isMega'].value }"
+              >
+                <div
+                  class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                  [ngClass]="{ 'bg-gray-400': !siteSettingForm['controls']['isMega'].value, 'bg-white right-0 mr-2': siteSettingForm['controls']['isMega'].value }"
+                ></div>
+              </button>
+            </div>
+          </div>
+          <div class="grid gap-6" *ngIf="siteSettingForm['controls']['isMega'].value">
+            <div class="grid gap-2" formGroupName="mega">
+              <div class="font-light text-sm">Mega Primary</div>
+              <div class="select-options">
+                <mat-form-field appearance="fill">
+                  <mat-select formControlName="primaryType" [(value)]="siteSettingForm['controls']['mega']['controls']['primaryType'].value">
+                    <mat-option *ngFor="let megaMenu of megaMenuType" [value]="megaMenu.value">
+                      {{ megaMenu.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <ng-container *ngIf="siteSettingForm['controls']['mega']['controls']['primaryType'].value === eMegaMenuType.IMAGE_TEXT">
+              <div class="grid gap-4 z-0">
+                <div class="relative">
+                  <div class="absolute w-full h-full" style="z-index: -10">
+                    <img
+                      class="w-full h-full"
+                      *ngIf="siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['image'].value"
+                      [src]="siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['image'].value"
+                    />
+                  </div>
+                  <div class="grid gap-1 grid-cols-3">
+                    <ng-container *ngFor="let position of backgroundPosition; let index = index">
+                      <div (click)="onSelectedBackgroundPostion(index)" class="h-24 flex items-center justify-center bg-gray-200 cursor-pointer bg-opacity-70">
+                        <div class="w-6 h-6 rounded transition" [ngClass]="{ 'bg-green-500': position.selected, 'bg-white': !position.selected }"></div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <button
+                    (click)="onMediaGalleryDialog()"
+                    class="flex items-center justify-center px-4 py-2 mt-4 transition transform bg-green-500 rounded-2xl custom-shadow focus:outline-none hover:scale-105"
+                  >
+                    <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M20 5C24.4183 5 28 8.58172 28 13C28 17.4183 24.4183 21 20 21C15.5817 21 12 17.4183 12 13C12 8.58172 15.5817 5 20 5ZM20.2778 7.71158C20.1002 7.65169 19.8998 7.65169 19.7224 7.71158C19.6353 7.74047 19.5562 7.78269 19.4894 7.83585L16.4307 10.2757C16.4247 10.2803 16.4189 10.2849 16.4129 10.2899C16.1363 10.5183 16.1442 10.8824 16.4307 11.103C16.7172 11.3238 17.1739 11.3175 17.4505 11.0889L19.2789 9.63038V16.8693C19.2789 17.1869 19.6017 17.4444 20.0001 17.4444C20.3983 17.4444 20.7211 17.1869 20.7211 16.8693V9.63038L22.5495 11.0889C22.5553 11.0938 22.5612 11.0984 22.5672 11.103C22.8537 11.3237 23.3103 11.3173 23.5871 11.0889C23.8637 10.8604 23.8558 10.4963 23.5693 10.2757L20.5106 7.83585C20.444 7.78269 20.3648 7.74047 20.2778 7.71158Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M11.6844 0.168288C15.6502 -0.652764 19.519 1.60333 21 5.34798C20.8168 5.33553 20.632 5.32927 20.4456 5.32927C20.0183 5.32927 19.599 5.36217 19.1899 5.42551C18.1879 3.46042 16.3019 2.06224 14.0746 1.79466C10.4247 1.3561 7.1236 4.07403 6.7014 7.86519C6.65476 8.3029 6.29868 8.63404 5.87486 8.63404C3.57835 8.61992 1.70585 10.5423 1.69226 12.9278C1.67888 15.3131 3.52927 17.2582 5.82579 17.2723H9.98364C10.4429 17.2723 10.8153 17.659 10.8153 18.1361C10.8153 18.6133 10.4429 19 9.98364 19H5.82579C2.86698 19.0021 0.37742 16.6985 0.038773 13.6452C-0.329075 10.3276 1.96176 7.32847 5.15539 6.94615C5.81403 3.52447 8.38997 0.85035 11.6844 0.168288Z"
+                        fill="white"
+                      />
+                    </svg>
+                    <span class="ml-2 text-lg text-white">Load From Media</span>
+                  </button>
+                </div>
+              </div>
+              <ng-container formGroupName="mega">
+                <div class="flex items-center" formGroupName="primaryOption">
+                  <div class="font-light pr-4">Top Title</div>
+                  <div>
+                    <input type="checkbox" formControlName="isTopTitle" #isTopTitle class="hidden" />
+                    <button
+                      (click)="isTopTitle.click()"
+                      class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                      [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isTopTitle'].value }"
+                    >
+                      <div
+                        class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                        [ngClass]="{
+                          'bg-gray-400': !siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isTopTitle'].value,
+                          'bg-white right-0 mr-2': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isTopTitle'].value
+                        }"
+                      ></div>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <div
+                [ngClass]="{ hidden: !siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isTopTitle'].value }"
+                class="grid gap-2"
+                formGroupName="config"
+              >
+                <div class="text-sm font-light">Top Title</div>
+                <ng-container formGroupName="primaryMega">
+                  <input type="text" class="w-full border rounded focus:outline-none px-2 py-4" placeholder="Enter Your Title..." formControlName="topTitle" />
+                </ng-container>
+              </div>
+              <div class="grid gap-2" formGroupName="config">
+                <div class="text-sm font-light">Description</div>
+                <ng-container formGroupName="primaryMega">
+                  <textarea class="w-full border rounded focus:outline-none p-4" placeholder="Enter Your Description..." formControlName="description"></textarea>
+                </ng-container>
+              </div>
+              <ng-container formGroupName="mega">
+                <div class="grid gap-2" formGroupName="primaryOption">
+                  <div class="text-sm font-light">Link Type</div>
+                  <div class="select-options">
+                    <mat-form-field appearance="fill">
+                      <mat-select
+                        (selectionChange)="onLinkTypeChange($event)"
+                        formControlName="linkType"
+                        [(value)]="siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['linkType'].value"
+                      >
+                        <mat-option *ngFor="let linkType of linkTypeData" [value]="linkType.value">
+                          {{ linkType.title }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <ng-container *ngIf="currentLinkType === ElinkType.URL">
+                    <input placeholder="Enter URL..." type="text" formControlName="linkUrl" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.PAGE">
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select A Page" formControlName="linkUrl">
+                          <mat-option *ngFor="let page of pageData" [value]="page.value">
+                            {{ page.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.PRODUCT">
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select A Product Page" formControlName="linkUrl">
+                          <mat-option *ngFor="let page of productPageData" [value]="page.value">
+                            {{ page.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.CONTENT">
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select A Content" formControlName="linkUrl">
+                          <mat-option *ngFor="let page of contentPageData" [value]="page.value">
+                            {{ page.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.POPUP">
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select A Popup" formControlName="linkUrl">
+                          <mat-option *ngFor="let page of popupPageData" [value]="page.value">
+                            {{ page.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.ANCHOR">
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select A Page" formControlName="linkParent">
+                          <mat-option *ngFor="let page of pageData" [value]="page.value">
+                            {{ page.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="select-options">
+                      <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select An Anchor" formControlName="linkUrl">
+                          <mat-option *ngFor="let anchor of anchorData" [value]="anchor.value">
+                            {{ anchor.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="currentLinkType === ElinkType.EMAIL">
+                    <input placeholder="Enter Email..." type="email" formControlName="linkUrl" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+                  </ng-container>
+                </div>
+              </ng-container>
+              <ng-container formGroupName="mega">
+                <div class="flex items-center" formGroupName="primaryOption">
+                  <div class="font-light pr-4">Allow HTML</div>
+                  <div>
+                    <input type="checkbox" formControlName="isHTML" #isHTML class="hidden" />
+                    <button
+                      (click)="isHTML.click()"
+                      class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                      [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value }"
+                    >
+                      <div
+                        class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                        [ngClass]="{
+                          'bg-gray-400': !siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value,
+                          'bg-white right-0 mr-2': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value
+                        }"
+                      ></div>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="grid gap-2" formGroupName="config" [ngClass]="{ hidden: !siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value }">
+                <div class="text-sm font-light flex items-center">HTML</div>
+                <ng-container formGroupName="primaryMega">
+                  <ngx-monaco-editor [options]="editorOptions" formControlName="html"></ngx-monaco-editor>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="siteSettingForm['controls']['mega']['controls']['primaryType'].value === eMegaMenuType.CUSTOM">
+              <div class="grid gap-4">
+                <ng-container formGroupName="mega">
+                  <div class="flex items-center" formGroupName="primaryOption">
+                    <div class="font-light pr-4">Allow HTML</div>
+                    <div>
+                      <input type="checkbox" formControlName="isHTML" #isHTML class="hidden" />
+                      <button
+                        (click)="isHTML.click()"
+                        class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                        [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value }"
+                      >
+                        <div
+                          class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                          [ngClass]="{
+                            'bg-gray-400': !siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value,
+                            'bg-white right-0 mr-2': siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value
+                          }"
+                        ></div>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="grid gap-2" formGroupName="config" *ngIf="siteSettingForm['controls']['mega']['controls']['primaryOption']['controls']['isHTML'].value">
+                  <div class="text-sm font-light flex items-center">HTML</div>
+                  <ng-container formGroupName="primaryMega">
+                    <ngx-monaco-editor [options]="editorOptions" formControlName="html"></ngx-monaco-editor>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+            <div class="grid gap-2" formGroupName="mega">
+              <div class="font-light text-sm">Mega Footer</div>
+              <div class="select-options">
+                <mat-form-field appearance="fill">
+                  <mat-select formControlName="footerType" [(value)]="siteSettingForm['controls']['mega']['controls']['footerType'].value">
+                    <mat-option *ngFor="let megaMenu of megaMenuType" [value]="megaMenu.value">
+                      {{ megaMenu.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <ng-container *ngIf="siteSettingForm['controls']['mega']['controls']['footerType'].value === eMegaMenuType.IMAGE_TEXT">
+              <div class="grid gap-4">
+                <ng-container formGroupName="mega">
+                  <div class="flex items-center" formGroupName="footerOption">
+                    <div class="font-light pr-4">Allow HTML</div>
+                    <div>
+                      <input type="checkbox" formControlName="isFooterHTML" #isFooterHTML class="hidden" />
+                      <button
+                        (click)="isFooterHTML.click()"
+                        class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                        [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value }"
+                      >
+                        <div
+                          class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                          [ngClass]="{
+                            'bg-gray-400': !siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value,
+                            'bg-white right-0 mr-2': siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value
+                          }"
+                        ></div>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="grid gap-2" formGroupName="config" *ngIf="siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value">
+                  <div class="text-sm font-light flex items-center">HTML</div>
+                  <ng-container formGroupName="footerMega">
+                    <ngx-monaco-editor [options]="editorOptions" formControlName="html"></ngx-monaco-editor>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="siteSettingForm['controls']['mega']['controls']['footerType'].value === eMegaMenuType.CUSTOM">
+              <div class="grid gap-4">
+                <ng-container formGroupName="mega">
+                  <div class="flex items-center" formGroupName="footerOption">
+                    <div class="font-light pr-4">Allow HTML</div>
+                    <div>
+                      <input type="checkbox" formControlName="isFooterHTML" #isFooterHTML class="hidden" />
+                      <button
+                        (click)="isFooterHTML.click()"
+                        class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+                        [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value }"
+                      >
+                        <div
+                          class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                          [ngClass]="{
+                            'bg-gray-400': !siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value,
+                            'bg-white right-0 mr-2': siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value
+                          }"
+                        ></div>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="grid gap-2" formGroupName="config" *ngIf="siteSettingForm['controls']['mega']['controls']['footerOption']['controls']['isFooterHTML'].value">
+                  <div class="text-sm font-light flex items-center">HTML</div>
+                  <ng-container formGroupName="footerMega">
+                    <ngx-monaco-editor [options]="editorOptions" formControlName="html"></ngx-monaco-editor>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <button (click)="onTogglePermission()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">Permission</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isPermissionToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div class="pb-4 grid" [ngClass]="{ flex: isPermissionToggle, hidden: !isPermissionToggle }">
+        <div class="rounded-lg bg-gray-100 flex items-center justify-between w-full text-gray-300">
+          <button
+            (click)="onActiveEveryonePermission()"
+            [ngClass]="{ 'bg-green-500 text-white cursor-not-allowed': isEveryonePermission }"
+            class="flex-1 font-light focus:outline-none py-2 rounded-lg transition"
+          >
+            Everyone
+          </button>
+          <button
+            (click)="onActivePasswordPermission()"
+            [ngClass]="{ 'bg-green-500 text-white cursor-not-allowed': isPasswordPermission }"
+            class="flex-1 font-light focus:outline-none py-2 rounded-lg transition"
+          >
+            Password
+          </button>
+          <button
+            (click)="onActiveMemberPermission()"
+            [ngClass]="{ 'bg-green-500 text-white cursor-not-allowed': isMemberPermission }"
+            class="flex-1 font-light focus:outline-none py-2 rounded-lg transition"
+          >
+            Member
+          </button>
+        </div>
+        <div class="pt-4" *ngIf="isEveryonePermission">
+          <div class="font-light">Everyone can see this page</div>
+        </div>
+        <div class="pt-4" *ngIf="isPasswordPermission" formGroupName="permission">
+          <div [ngClass]="{ 'bg-green-500': siteSettingForm['controls']['permission'].valid }" class="p-2 bg-red-500 rounded-md mb-4">
+            <input
+              formControlName="password"
+              autofocus
+              placeholder="Enter Page Password..."
+              type="text"
+              class="w-full px-2 py-1 font-light text-green-500 bg-white border-none rounded-md focus:outline-none"
+            />
+            <div class="mt-2 text-sm font-light text-white">Current Password</div>
+          </div>
+        </div>
+        <div class="pt-4 grid gap-2 grid-cols-2 items-center" *ngIf="isMemberPermission" formGroupName="permission">
+          <div class="font-light">Only Paid Member</div>
+          <div>
+            <input type="checkbox" formControlName="onlyPaidMember" #onlyPaidMember class="hidden" />
+            <button
+              (click)="onlyPaidMember.click()"
+              class="relative w-20 border border-gray-400 rounded-xl p-2 h-9 focus:outline-none transition duration-500"
+              [ngClass]="{ 'bg-green-500 border-green-500': siteSettingForm['controls']['permission']['controls']['onlyPaidMember'].value }"
+            >
+              <div
+                class="w-5 h-5 rounded absolute top-0 mt-2 transition duration-700"
+                [ngClass]="{
+                  'bg-gray-400': !siteSettingForm['controls']['permission']['controls']['onlyPaidMember'].value,
+                  'bg-white right-0 mr-2': siteSettingForm['controls']['permission']['controls']['onlyPaidMember'].value
+                }"
+              ></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <button (click)="onToggleSeo()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">SEO</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isSeoToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div class="pb-4 grid gap-4" formGroupName="config" [ngClass]="{ flex: isSeoToggle, hidden: !isSeoToggle }">
+        <div>
+          <div class="font-light pb-2">Preview</div>
+          <div class="border rounded p-2">
+            <div class="text-blue-700 text-2xl text-ellipsis w-72">
+              <ng-container *ngIf="siteSettingForm['controls']['config']['controls']['seo']['controls']['title'].value">
+                {{ siteSettingForm['controls']['config']['controls']['seo']['controls']['title'].value }}
+              </ng-container>
+            </div>
+            <div class="font-light text-green-600 text-ellipsis w-72">
+              {{ siteSettingForm['controls']['config']['controls']['seo']['controls']['shortUrl'].value }}
+            </div>
+            <div class="font-light">
+              {{ siteSettingForm['controls']['config']['controls']['seo']['controls']['description'].value }}
+            </div>
+          </div>
+        </div>
+        <ng-container formGroupName="seo">
+          <div>
+            <div class="font-light pb-2">SEO Title</div>
+            <input class="px-4 py-2 border rounded font-light focus:outline-none w-full" placeholder="Enter SEO Title..." type="text" formControlName="title" />
+          </div>
+          <div>
+            <div class="font-light pb-2">Description</div>
+            <textarea
+              class="px-4 py-2 border rounded font-light focus:outline-none w-full"
+              placeholder="Enter Description..."
+              type="text"
+              formControlName="description"
+              rows="4"
+            ></textarea>
+          </div>
+          <div>
+            <div class="font-light pb-2">URL Suffix</div>
+            <input class="px-4 py-2 border rounded font-light focus:outline-none w-full" placeholder="Enter Last Part of Url..." type="text" formControlName="shortUrl" />
+          </div>
+          <div>
+            <div class="font-light pb-2">Keyword</div>
+            <input class="px-4 py-2 border rounded font-light focus:outline-none w-full" placeholder="Enter Keyword.." type="text" formControlName="keyword" />
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <button (click)="onToggleSocial()" class="px-4 py-3 rounded bg-gray-400 flex items-center justify-between focus:outline-none">
+      <span class="text-white font-light">Social Share</span>
+      <svg class="transform transition" [ngClass]="{ ' -rotate-90': isSocialToggle }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container>
+      <div [ngClass]="{ flex: isSocialToggle, hidden: !isSocialToggle }">
+        <div class="border rounded grid gap-2 w-full border-gray-100">
+          <div class="w-full h-72 bg-gray-100 relative social-image">
+            <input class="hidden" type="file" accept="image/*" #socialShare (change)="onSelectSocialShareImage($event.target)" />
+            <img class="w-full h-full" *ngIf="siteSettingForm['controls']['socialShare'].value" [src]="siteSettingForm['controls']['socialShare'].value" [alt]="pageName" />
+            <div class="absolute rounded-t rounder-r w-full h-full bg-gray-700 opacity-50 hidden overlay top-0"></div>
+            <div class="absolute rounded-t rounder-r w-full h-full items-center justify-center hidden overlay top-0">
+              <button
+                (click)="socialShare.click()"
+                class="flex items-center px-4 py-2 bg-green-500 rounded-lg custom-shadow transform transition hover:scale-105 focus:outline-none"
+              >
+                <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M20 5C24.4183 5 28 8.58172 28 13C28 17.4183 24.4183 21 20 21C15.5817 21 12 17.4183 12 13C12 8.58172 15.5817 5 20 5ZM20.2778 7.71158C20.1002 7.65169 19.8998 7.65169 19.7224 7.71158C19.6353 7.74047 19.5562 7.78269 19.4894 7.83585L16.4307 10.2757C16.4247 10.2803 16.4189 10.2849 16.4129 10.2899C16.1363 10.5183 16.1442 10.8824 16.4307 11.103C16.7172 11.3238 17.1739 11.3175 17.4505 11.0889L19.2789 9.63038V16.8693C19.2789 17.1869 19.6017 17.4444 20.0001 17.4444C20.3983 17.4444 20.7211 17.1869 20.7211 16.8693V9.63038L22.5495 11.0889C22.5553 11.0938 22.5612 11.0984 22.5672 11.103C22.8537 11.3237 23.3103 11.3173 23.5871 11.0889C23.8637 10.8604 23.8558 10.4963 23.5693 10.2757L20.5106 7.83585C20.444 7.78269 20.3648 7.74047 20.2778 7.71158Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M11.6844 0.168288C15.6502 -0.652764 19.519 1.60333 21 5.34798C20.8168 5.33553 20.632 5.32927 20.4456 5.32927C20.0183 5.32927 19.599 5.36217 19.1899 5.42551C18.1879 3.46042 16.3019 2.06224 14.0746 1.79466C10.4247 1.3561 7.1236 4.07403 6.7014 7.86519C6.65476 8.3029 6.29868 8.63404 5.87486 8.63404C3.57835 8.61992 1.70585 10.5423 1.69226 12.9278C1.67888 15.3131 3.52927 17.2582 5.82579 17.2723H9.98364C10.4429 17.2723 10.8153 17.659 10.8153 18.1361C10.8153 18.6133 10.4429 19 9.98364 19H5.82579C2.86698 19.0021 0.37742 16.6985 0.038773 13.6452C-0.329075 10.3276 1.96176 7.32847 5.15539 6.94615C5.81403 3.52447 8.38997 0.85035 11.6844 0.168288Z"
+                    fill="white"
+                  />
+                </svg>
+                <span class="text-white ml-2">Upload</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid gap-1">
+            <div class="font-light text-green-600 text-ellipsis w-80 px-2">
+              <span *ngIf="siteSettingForm['controls']['config']['controls']['seo']['controls']['shortUrl'].value">/</span
+              >{{ siteSettingForm['controls']['config']['controls']['seo']['controls']['shortUrl'].value }}
+            </div>
+            <div class="text-blue-700 text-2xl text-ellipsis w-80 px-2 pb-4">
+              <ng-container *ngIf="siteSettingForm['controls']['config']['controls']['seo']['controls']['title'].value">
+                {{ siteSettingForm['controls']['config']['controls']['seo']['controls']['title'].value }}
+              </ng-container>
+            </div>
+            <div class="text-ellipsis w-80 px-2 pb-4">
+              <ng-container *ngIf="siteSettingForm['controls']['config']['controls']['seo']['controls']['description'].value">
+                {{ siteSettingForm['controls']['config']['controls']['seo']['controls']['description'].value }}
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<div class="grid gap-4">
+  <div class="font-light text-sm">Categories</div>
+  <mat-form-field class="cms-chip-list" appearance="none">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let selectedCategory of selectedCategories" (removed)="remove(selectedCategory)">
+        {{ selectedCategory?.name }}
+        <button matChipRemove>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.719971 0.720001L10.8 10.8M10.8 0.720001L0.719971 10.8" stroke="#ffffff" stroke-linecap="round" />
+          </svg>
+        </button>
+      </mat-chip>
+      <input #categoryInput [formControl]="categoriesCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" />
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let category of categories$ | async" [value]="category">
+        {{ category?.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

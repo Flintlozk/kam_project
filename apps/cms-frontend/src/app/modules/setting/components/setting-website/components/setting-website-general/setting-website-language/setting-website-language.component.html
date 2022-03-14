@@ -1,0 +1,50 @@
+<!-- <p>setting-website-language works!</p> -->
+
+<div>
+  <div [formGroup]="generalSettingForm">
+    <div *ngIf="generalSettingForm['controls']['language'] as languageFormArray" formArrayName="language">
+      <cms-next-title-underline [title]="'Language Website'"></cms-next-title-underline>
+      Default language<br />
+      <div class="select-options w-64 py-4">
+        <mat-form-field appearance="none">
+          <mat-select [value]="defaultLanguage?.get('name').value" class="w-16">
+            <mat-select-trigger>
+              <img class="inline w-8 h-8" [src]="defaultLanguage?.get('icon').value" [alt]="defaultLanguage?.get('icon')" /> {{ defaultLanguage?.get('cultureUI').value }} -
+              {{ defaultLanguage?.get('name').value }}
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let languages of languageFormArray.controls; let langIndex = index"
+              [value]="languages['controls']['name'].value"
+              (click)="onChangeDefaultLanguage(langIndex)"
+            >
+              <img class="inline-block" [src]="languages['controls']['icon'].value" [alt]="languages['controls']['icon'].name" /> {{ languages.value.cultureUI }} -
+              {{ languages.value.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="grid md:grid-cols-3 md:px-8 gap-y-2">
+        <ng-container *ngFor="let language of languageFormArray.controls; trackBy: trackByIndex; let i = index">
+          <ng-container [formGroupName]="i">
+            <div class="grid language-grid-cols-4 gap-2 items-center group">
+              <label class="checkbox">
+                <input [attr.disabled]="language['controls']['default'].value ? true : null" type="checkbox" formControlName="selected" />
+                <span class="checkmark"></span>
+              </label>
+
+              <div class="w-8 h-8 rounded-full">
+                <img class="w-full h-full" [src]="language['controls']['icon'].value" [alt]="language['controls']['icon'].name" />
+              </div>
+
+              <div class="flex items-center">
+                <div class="font-light uppercase">{{ language['controls']['cultureUI'].value }}</div>
+                <span>&nbsp;-&nbsp;</span>
+                <div class="font-light capitalize">{{ language['controls']['name'].value }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

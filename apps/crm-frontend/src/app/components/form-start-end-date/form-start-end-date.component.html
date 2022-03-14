@@ -1,0 +1,14 @@
+<mat-form-field appearance="fill" class="example-form-field">
+  <mat-label>Enter start and end date of deal</mat-label>
+  <mat-date-range-input [formGroup]="dateForm" [rangePicker]="rangePicker">
+    <input matStartDate formControlName="startDate" placeholder="Start date" />
+    <input matEndDate formControlName="endDate" placeholder="End date" />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #rangePicker>
+    <mat-date-range-picker-actions>
+      <button mat-button matDateRangePickerCancel>Cancel</button>
+      <button mat-raised-button color="primary" matDateRangePickerApply (click)="updateDealDate()">Apply</button>
+    </mat-date-range-picker-actions>
+  </mat-date-range-picker>
+</mat-form-field>

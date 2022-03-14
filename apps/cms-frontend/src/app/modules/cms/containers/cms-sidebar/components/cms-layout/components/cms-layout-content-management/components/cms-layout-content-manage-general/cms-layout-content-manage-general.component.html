@@ -1,0 +1,567 @@
+<section [formGroup]="contentManagementGeneralForm" class="grid gap-4">
+  <div class="border p-4 rounded-md flex justify-center items-center flex-col bg-white">
+    <div class="font-light text-lg text-gray-700 pb-2">{{ contentManagementGeneralForm['controls']['pattern']['controls']['patternName'].value }}</div>
+    <img
+      class="round-md max-w-full"
+      [src]="contentManagementGeneralForm['controls']['pattern']['controls']['patternUrl'].value"
+      [alt]="contentManagementGeneralForm['controls']['pattern']['controls']['_id'].value"
+    />
+  </div>
+  <div *ngIf="!isSelectPatterns" (click)="onIsSelectPattern()" class="cursor-pointer flex w-full justify-end text-green-500 underline">Select Patterns</div>
+  <div class="w-full" [ngClass]="{ hidden: !isSelectPatterns }">
+    <cms-next-cms-layout-content-manage-patterns
+      (patternIdEvent)="patternIdEvent($event)"
+      (isSelectPatternsEvent)="isSelectPatternsEvent($event)"
+      [patternId]="contentManagementGeneralForm['controls']['pattern']['controls']['_id'].value"
+    ></cms-next-cms-layout-content-manage-patterns>
+  </div>
+  <div class="grid gap-1" *ngIf="contentManagementGeneralForm['controls']['pattern']['controls']['patternStyle']['controls']['primary']['controls']['status'].value">
+    <div class="font-light text-sm">Primary content amount</div>
+    <div class="border rounded px-4 py-2 flex items-center justify-between w-36">
+      {{ contentManagementGeneralForm['controls']['pattern']['controls']['patternStyle']['controls']['primary']['controls']['maxContent'].value }}
+      <div class="flex flex-col items-center justify-center">
+        <button (click)="onAdjustMaxContent('primary', 'up')" class="py-1">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button (click)="onAdjustMaxContent('primary', 'down')" class="py-1">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="grid gap-1" *ngIf="contentManagementGeneralForm['controls']['pattern']['controls']['patternStyle']['controls']['secondary']['controls']['status'].value">
+    <div class="font-light text-sm">Secondary content amount</div>
+    <div class="border rounded px-4 py-2 flex items-center justify-between w-36">
+      {{ contentManagementGeneralForm['controls']['pattern']['controls']['patternStyle']['controls']['secondary']['controls']['maxContent'].value }}
+      <div class="flex flex-col items-center justify-center">
+        <button (click)="onAdjustMaxContent('secondary', 'up')" class="py-1">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 5L5.5 1L1 5" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button (click)="onAdjustMaxContent('secondary', 'down')" class="py-1">
+          <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5.5 5L10 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="!toggleAdvanceSetting" class="flex items-center justify-center w-full py-3 bg-gray-100 rounded text-gray-700" (click)="onToggleAdvanceSetting()">
+    <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+        fill="#797F8C"
+      />
+      <path
+        d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+        fill="white"
+      />
+    </svg>
+    Advance Setting
+  </button>
+  <div *ngIf="toggleAdvanceSetting" class="flex items-center justify-between py-3">
+    <div class="flex items-center">
+      <svg class="mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.44535 0C5.84443 0 5.33623 0.429916 5.23689 1.0224L5.12399 1.69136C4.94562 1.75438 4.76842 1.82733 4.59378 1.9099L4.02918 1.50775C3.82303 1.35939 3.57737 1.28024 3.32049 1.28024C2.99429 1.28024 2.68688 1.40799 2.455 1.63988L1.63458 2.4604C1.20872 2.8821 1.15254 3.54582 1.50235 4.03726L1.90438 4.59973C1.82844 4.76112 1.75976 4.92711 1.69899 5.0963L1.01625 5.21208C0.420243 5.31248 -0.00657368 5.82133 7.62939e-05 6.42279V7.57956C7.62939e-05 8.18037 0.43007 8.68858 1.02244 8.78802L1.70422 8.90167C1.7635 9.06659 1.83239 9.23247 1.91037 9.3976L1.5079 9.96274C1.1598 10.4517 1.21535 11.1149 1.64013 11.5396L2.46055 12.3601C2.69244 12.592 2.99984 12.7198 3.32593 12.7198C3.58474 12.7198 3.83136 12.6406 4.03922 12.491L4.59987 12.0902C4.76126 12.1662 4.92725 12.2348 5.09644 12.2956L5.21222 12.9785C5.31145 13.5701 5.81976 14 6.42057 14H7.58236C8.18317 14 8.69138 13.5701 8.79082 12.9777L8.90457 12.2951C9.06511 12.2373 9.22148 12.1731 9.3723 12.103L9.9463 12.5116C10.1523 12.6598 10.398 12.739 10.6549 12.739C10.9811 12.739 11.2885 12.6112 11.5204 12.3793L12.3408 11.5588C12.7667 11.1372 12.8228 10.4734 12.473 9.98196L12.0753 9.42868C12.1528 9.26697 12.2224 9.10162 12.2837 8.93393L12.9788 8.81537C13.5701 8.71614 14 8.20793 14 7.60712V6.448C14 5.84718 13.5701 5.33897 12.9777 5.23953L12.3086 5.12663C12.2488 4.95648 12.1811 4.78975 12.1058 4.62772L12.5144 4.05371C12.8625 3.56473 12.8068 2.90154 12.3821 2.47685L11.5598 1.65718C11.3305 1.42476 11.023 1.2968 10.6936 1.2968C10.4348 1.2968 10.1881 1.37584 9.98027 1.52548L9.42592 1.92474C9.2641 1.84709 9.09886 1.77756 8.93128 1.71635L8.81261 1.02122C8.71349 0.429916 8.20528 0 7.60447 0H6.44535Z"
+          fill="#797F8C"
+        />
+        <path
+          d="M7 3.9375C8.68868 3.9375 10.0625 5.31132 10.0625 7C10.0625 8.68868 8.68868 10.0625 7 10.0625C5.31132 10.0625 3.9375 8.68868 3.9375 7C3.9375 5.31132 5.31132 3.9375 7 3.9375ZM7 9.13957C8.17974 9.13957 9.13957 8.17974 9.13957 7C9.13957 5.82026 8.17974 4.86043 7 4.86043C5.82026 4.86043 4.86043 5.82026 4.86043 7C4.86043 8.17974 5.82026 9.13957 7 9.13957Z"
+          fill="white"
+        />
+      </svg>
+      Advance Setting
+    </div>
+    <button (click)="onToggleAdvanceSetting()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L12.0526 12.0526M12.0526 1L1 12.0526" stroke="#BCC4D6" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <div [ngClass]="{ hidden: !toggleAdvanceSetting }" class="grid gap-4" formGroupName="advance">
+    <ng-container formGroupName="display">
+      <div class="grid gap-1">
+        <span class="font-light text-sm">Display</span>
+        <div class="grid grid-cols-3 gap-5">
+          <div class="flex items-center cursor-pointer" (click)="onToggleDisplayType(EContentManagementGeneralDisplay.NONE)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.display.displayType === EContentManagementGeneralDisplay.NONE"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">None</span>
+          </div>
+          <div class="flex items-center cursor-pointer" (click)="onToggleDisplayType(EContentManagementGeneralDisplay.TAB)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.display.displayType === EContentManagementGeneralDisplay.TAB"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">Tab</span>
+          </div>
+          <div class="flex items-center cursor-pointer" (click)="onToggleDisplayType(EContentManagementGeneralDisplay.LINK)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.display.displayType === EContentManagementGeneralDisplay.LINK"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">Link</span>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="contentManagementGeneralForm.value.advance.display.displayType === EContentManagementGeneralDisplay.TAB">
+        <ng-container formArrayName="array">
+          <ng-container *ngFor="let item of contentManagementGeneralForm['controls']['advance']['controls']['display']['controls']['array']['controls']; let index = index">
+            <ng-container [formGroupName]="index">
+              <div class="flex items-center">
+                <input placeholder="Tab Name" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" type="text" formControlName="title" />
+                <input placeholder="Tab Value" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" type="text" formControlName="value" />
+                <button (click)="onRemoveDisplayTab(index)">
+                  <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M4.11538 3.05097H4.19231H4.61538H7.38462H7.80769H7.88462H8.30769H10.8462C11.2048 3.05097 11.5 3.34395 11.5 3.71075V4.60249H0.5V3.71075C0.5 3.34395 0.795165 3.05097 1.15385 3.05097H3.69231H4.11538Z"
+                      stroke="#AAAFBA"
+                    />
+                    <path
+                      d="M1.2998 5.88281H10.6998V10.7588C10.6998 12.6918 9.1328 14.2588 7.1998 14.2588H4.79981C2.86681 14.2588 1.2998 12.6918 1.2998 10.7588V5.88281Z"
+                      stroke="#AAAFBA"
+                    />
+                    <path d="M4 7.72656L8 11.6332M4 11.6332L8 7.72656" stroke="#AAAFBA" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+          <button (click)="onAddDisplayTab()" class="bg-gray-700 px-4 py-2 font-light rounded">ADD NEW TAB</button>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="contentManagementGeneralForm.value.advance.display.displayType === EContentManagementGeneralDisplay.LINK">
+        <input placeholder="Link Title" type="text" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" formControlName="displayTitle" />
+        <ng-container formArrayName="array">
+          <ng-container *ngFor="let item of contentManagementGeneralForm['controls']['advance']['controls']['display']['controls']['array']['controls']; let index = index">
+            <ng-container [formGroupName]="index">
+              <div class="flex items-center">
+                <input placeholder="Link Name" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" type="text" formControlName="title" />
+                <input placeholder="Link Value" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" type="text" formControlName="value" />
+                <button (click)="onRemoveDisplayLink(index)">
+                  <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M4.11538 3.05097H4.19231H4.61538H7.38462H7.80769H7.88462H8.30769H10.8462C11.2048 3.05097 11.5 3.34395 11.5 3.71075V4.60249H0.5V3.71075C0.5 3.34395 0.795165 3.05097 1.15385 3.05097H3.69231H4.11538Z"
+                      stroke="#AAAFBA"
+                    />
+                    <path
+                      d="M1.2998 5.88281H10.6998V10.7588C10.6998 12.6918 9.1328 14.2588 7.1998 14.2588H4.79981C2.86681 14.2588 1.2998 12.6918 1.2998 10.7588V5.88281Z"
+                      stroke="#AAAFBA"
+                    />
+                    <path d="M4 7.72656L8 11.6332M4 11.6332L8 7.72656" stroke="#AAAFBA" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+          <button (click)="onAddDisplayLink()" class="bg-gray-700 px-4 py-2 font-light rounded">ADD NEW LINK</button>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <div class="grid gap-1">
+      <div class="font-light text-sm">Show Content Group</div>
+      <div>
+        <input type="checkbox" formControlName="isContentGroup" #isContentGroup class="hidden" />
+        <button
+          (click)="isContentGroup.click()"
+          class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none cursor-pointer"
+          [ngClass]="{ 'bg-green-500 border-green-500': contentManagementGeneralForm['controls']['advance']['controls']['isContentGroup'].value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !contentManagementGeneralForm['controls']['advance']['controls']['isContentGroup'].value,
+              'bg-white right-0 mr-2': contentManagementGeneralForm['controls']['advance']['controls']['isContentGroup'].value
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <ng-container formGroupName="bottom">
+      <div class="grid gap-1">
+        <span class="font-light text-sm">Bottom</span>
+        <div class="grid gap-2">
+          <div class="flex items-center cursor-pointer" (click)="onToggleBottomType(EContentManagementGeneralBottomType.NONE)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.bottom.bottomType === EContentManagementGeneralBottomType.NONE"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">None</span>
+          </div>
+          <div class="flex items-center cursor-pointer" (click)="onToggleBottomType(EContentManagementGeneralBottomType.BUTTON)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.bottom.bottomType === EContentManagementGeneralBottomType.BUTTON"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">Button</span>
+          </div>
+          <div class="flex items-center cursor-pointer" (click)="onToggleBottomType(EContentManagementGeneralBottomType.PAGINATION)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="5.65" fill="white" stroke="#BCC4D6" stroke-width="0.7" />
+              <circle
+                *ngIf="contentManagementGeneralForm.value.advance.bottom.bottomType === EContentManagementGeneralBottomType.PAGINATION"
+                cx="6"
+                cy="6"
+                r="2.65"
+                fill="#2EC639"
+                stroke="#2EC639"
+                stroke-width="0.7"
+              />
+            </svg>
+            <span class="pl-2">Pagination</span>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.bottomType === EContentManagementGeneralBottomType.BUTTON">
+        <div class="grid gap-1">
+          <span class="font-light text-sm">Button Name*</span>
+          <input placeholder="Button Name" class="bg-transparent px-4 py-1 rounded border mr-2 w-full" type="text" formControlName="name" />
+        </div>
+        <div class="grid gap-2" formGroupName="link">
+          <div class="text-sm font-light">Link Type</div>
+          <div class="select-options">
+            <mat-form-field appearance="fill">
+              <mat-select (selectionChange)="onLinkTypeChange($event)" formControlName="linkType">
+                <mat-option *ngFor="let linkType of linkTypeData" [value]="linkType.value">
+                  {{ linkType.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.URL">
+            <input placeholder="Enter URL..." type="text" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.PAGE">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.PRODUCT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Product Page" formControlName="linkValue">
+                  <mat-option *ngFor="let page of productPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.CONTENT">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Content" formControlName="linkValue">
+                  <mat-option *ngFor="let page of contentPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.POPUP">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Popup" formControlName="linkValue">
+                  <mat-option *ngFor="let page of popupPageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.ANCHOR">
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select A Page" formControlName="parentID">
+                  <mat-option *ngFor="let page of pageData" [value]="page.value">
+                    {{ page.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="select-options">
+              <mat-form-field appearance="fill">
+                <mat-select placeholder="Select An Anchor" formControlName="linkValue">
+                  <mat-option *ngFor="let anchor of anchorData" [value]="anchor.value">
+                    {{ anchor.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.link.linkType === ElinkType.EMAIL">
+            <input placeholder="Enter Email..." type="email" formControlName="linkValue" class="px-4 py-2 border border-gray-100 rounded-md focus:outline-none" />
+          </ng-container>
+        </div>
+        <div class="grid gap-1">
+          <div class="font-light text-sm">New Window?</div>
+          <div>
+            <input type="checkbox" formControlName="isNewWindow" #isNewWindow class="hidden" />
+            <button
+              (click)="isNewWindow.click()"
+              class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none cursor-pointer"
+              [ngClass]="{ 'bg-green-500 border-green-500': contentManagementGeneralForm.value.advance.bottom.isNewWindow }"
+            >
+              <div
+                class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+                [ngClass]="{
+                  'bg-gray-300': !contentManagementGeneralForm.value.advance.bottom.isNewWindow,
+                  'bg-white right-0 mr-2': contentManagementGeneralForm.value.advance.bottom.isNewWindow
+                }"
+              ></div>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.bottomType === EContentManagementGeneralBottomType.PAGINATION">
+        <div class="grid gap-4 grid-cols-2">
+          <div
+            (click)="onActiveBottomPagination(EContentManagementGeneralBottomPaginationType.TYPE_1)"
+            [ngClass]="{ ' border-green-500': contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_1 }"
+            class="bg-white rounded border-2 shadow p-4 flex items-end h-28 relative cursor-pointer"
+          >
+            <svg width="102" height="20" viewBox="0 0 102 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M38.13 13.15C37.4367 13.15 36.81 13 36.25 12.7C35.69 12.3933 35.25 11.9633 34.93 11.41C34.61 10.8567 34.45 10.2233 34.45 9.51C34.45 8.79667 34.61 8.16333 34.93 7.61C35.25 7.05667 35.69 6.62667 36.25 6.32C36.81 6.01333 37.4367 5.86 38.13 5.86C38.8233 5.86 39.45 6.01333 40.01 6.32C40.57 6.62667 41.01 7.05667 41.33 7.61C41.65 8.16333 41.81 8.79667 41.81 9.51C41.81 10.2233 41.65 10.8567 41.33 11.41C41.01 11.9633 40.57 12.3933 40.01 12.7C39.45 13 38.8233 13.15 38.13 13.15ZM38.13 12.23C38.6233 12.23 39.07 12.12 39.47 11.9C39.8767 11.6733 40.1967 11.3567 40.43 10.95C40.6633 10.5367 40.78 10.0567 40.78 9.51C40.78 8.97 40.6633 8.49667 40.43 8.09C40.2033 7.67667 39.89 7.36 39.49 7.14C39.09 6.91333 38.6433 6.8 38.15 6.8C37.65 6.8 37.1967 6.91 36.79 7.13C36.39 7.35 36.07 7.66667 35.83 8.08C35.5967 8.49333 35.48 8.97 35.48 9.51C35.48 10.0567 35.5967 10.5367 35.83 10.95C36.0633 11.3567 36.38 11.6733 36.78 11.9C37.1867 12.12 37.6367 12.23 38.13 12.23ZM43.0952 8.98H42.3652V8.2H43.0952V7.26C43.0952 6.70667 43.2519 6.28667 43.5652 6C43.8786 5.70667 44.2986 5.56 44.8252 5.56C45.0986 5.56 45.3552 5.6 45.5952 5.68V6.52C45.4086 6.43333 45.2152 6.39 45.0152 6.39C44.7019 6.39 44.4719 6.46667 44.3252 6.62C44.1786 6.76667 44.1052 7 44.1052 7.32V8.2H45.3052V8.98H44.1052V13H43.0952V8.98ZM51.3018 7.11L49.7918 8.2V7.23L51.4418 6.01H52.3218V13H51.3018V7.11ZM56.3346 13.15C55.7346 13.15 55.2146 13.0033 54.7746 12.71C54.3413 12.4167 54.0079 11.9967 53.7746 11.45C53.5413 10.9033 53.4246 10.2567 53.4246 9.51C53.4246 8.76333 53.5379 8.11667 53.7646 7.57C53.9979 7.01667 54.3313 6.59333 54.7646 6.3C55.2046 6.00667 55.7279 5.86 56.3346 5.86C56.9413 5.86 57.4613 6.00667 57.8946 6.3C58.3346 6.59333 58.6679 7.01667 58.8946 7.57C59.1279 8.11667 59.2446 8.76333 59.2446 9.51C59.2446 10.2567 59.1279 10.9033 58.8946 11.45C58.6613 11.9967 58.3246 12.4167 57.8846 12.71C57.4513 13.0033 56.9346 13.15 56.3346 13.15ZM56.3346 12.25C56.9279 12.25 57.3913 12.0067 57.7246 11.52C58.0646 11.0267 58.2346 10.36 58.2346 9.52C58.2346 8.68 58.0679 8.01333 57.7346 7.52C57.4013 7.02667 56.9346 6.78 56.3346 6.78C55.7346 6.78 55.2679 7.02667 54.9346 7.52C54.6013 8.01333 54.4346 8.68 54.4346 9.52C54.4346 10.36 54.6013 11.0267 54.9346 11.52C55.2746 12.0067 55.7413 12.25 56.3346 12.25Z"
+                fill="#484B52"
+              />
+              <path d="M82 0H100C101.105 0 102 0.895431 102 2V18C102 19.1046 101.105 20 100 20H82V0Z" fill="#2EC639" />
+              <path d="M90 14L94 10L90 6" stroke="white" stroke-linecap="round" />
+              <path d="M82 20L64 20C62.8954 20 62 19.1046 62 18V2C62 0.895431 62.8954 0 64 0L82 0V20Z" fill="#E2E3E7" />
+              <path d="M74 6L70 10L74 14" stroke="#484B52" stroke-linecap="round" />
+              <rect x="0.35" y="0.35" width="27.3" height="19.3" rx="1.65" stroke="#F4F4F9" stroke-width="0.7" />
+              <path
+                d="M14.58 14.15C14.1733 14.15 13.7833 14.1167 13.41 14.05C13.0433 13.99 12.7233 13.8967 12.45 13.77V12.93C13.07 13.21 13.7367 13.35 14.45 13.35C15.0633 13.35 15.5167 13.24 15.81 13.02C16.11 12.7933 16.26 12.4733 16.26 12.06C16.26 11.6333 16.1067 11.33 15.8 11.15C15.4933 10.9633 15.0267 10.87 14.4 10.87H13.58V10.05H14.38C14.88 10.05 15.2833 9.95 15.59 9.75C15.8967 9.54333 16.05 9.24333 16.05 8.85C16.05 8.46333 15.9233 8.17 15.67 7.97C15.4167 7.77 15.05 7.67 14.57 7.67C14.1967 7.67 13.86 7.71333 13.56 7.8C13.26 7.88667 12.95 8.03 12.63 8.23V7.39C13.2167 7.03667 13.9033 6.86 14.69 6.86C15.47 6.86 16.0633 7.03333 16.47 7.38C16.8767 7.72667 17.08 8.20667 17.08 8.82C17.08 9.19333 16.98 9.52 16.78 9.8C16.58 10.08 16.28 10.2967 15.88 10.45C16.3333 10.5567 16.68 10.75 16.92 11.03C17.1667 11.31 17.29 11.6633 17.29 12.09C17.29 12.7233 17.0733 13.2267 16.64 13.6C16.2067 13.9667 15.52 14.15 14.58 14.15Z"
+                fill="#484B52"
+              />
+            </svg>
+            <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_1">
+              <div class="w-full h-full absolute bg-green-500 bg-opacity-30 left-0 top-0"></div>
+              <div class="absolute flex items-center justify-center bg-white rounded-full w-6 h-6 bottom-2 right-2">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.86621 3.97041L6.07818 7.66641L12.1329 1.06641" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </ng-container>
+          </div>
+          <div
+            (click)="onActiveBottomPagination(EContentManagementGeneralBottomPaginationType.TYPE_2)"
+            [ngClass]="{ ' border-green-500': contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_2 }"
+            class="bg-white rounded border-2 shadow p-4 flex items-end h-28 relative cursor-pointer"
+          >
+            <svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" width="20" height="20" rx="2" fill="#2EC639" />
+              <path d="M29.96 8.11L28.45 9.2V8.23L30.1 7.01H30.98V14H29.96V8.11Z" fill="#484B52" />
+              <path
+                d="M47.45 13.33L48.96 11.88C49.0933 11.7467 49.28 11.5733 49.52 11.36C49.9 11.0133 50.19 10.7333 50.39 10.52C50.59 10.3067 50.7533 10.08 50.88 9.84C51.0067 9.59333 51.07 9.33 51.07 9.05C51.07 8.63667 50.95 8.32333 50.71 8.11C50.47 7.89 50.12 7.78 49.66 7.78C49.3467 7.78 49.0233 7.83667 48.69 7.95C48.3633 8.06333 48.0567 8.23 47.77 8.45V7.47C48.33 7.06333 49.0133 6.86 49.82 6.86C50.54 6.86 51.1 7.05333 51.5 7.44C51.9 7.82 52.1 8.34 52.1 9C52.1 9.32 52.03 9.62667 51.89 9.92C51.7567 10.2133 51.5667 10.5033 51.32 10.79C51.0733 11.07 50.74 11.4133 50.32 11.82L48.96 13.15H52.36V14H47.45V13.33Z"
+                fill="white"
+              />
+              <path
+                d="M69.58 14.15C69.1733 14.15 68.7833 14.1167 68.41 14.05C68.0433 13.99 67.7233 13.8967 67.45 13.77V12.93C68.07 13.21 68.7367 13.35 69.45 13.35C70.0633 13.35 70.5167 13.24 70.81 13.02C71.11 12.7933 71.26 12.4733 71.26 12.06C71.26 11.6333 71.1067 11.33 70.8 11.15C70.4933 10.9633 70.0267 10.87 69.4 10.87H68.58V10.05H69.38C69.88 10.05 70.2833 9.95 70.59 9.75C70.8967 9.54333 71.05 9.24333 71.05 8.85C71.05 8.46333 70.9233 8.17 70.67 7.97C70.4167 7.77 70.05 7.67 69.57 7.67C69.1967 7.67 68.86 7.71333 68.56 7.8C68.26 7.88667 67.95 8.03 67.63 8.23V7.39C68.2167 7.03667 68.9033 6.86 69.69 6.86C70.47 6.86 71.0633 7.03333 71.47 7.38C71.8767 7.72667 72.08 8.20667 72.08 8.82C72.08 9.19333 71.98 9.52 71.78 9.8C71.58 10.08 71.28 10.2967 70.88 10.45C71.3333 10.5567 71.68 10.75 71.92 11.03C72.1667 11.31 72.29 11.6633 72.29 12.09C72.29 12.7233 72.0733 13.2267 71.64 13.6C71.2067 13.9667 70.52 14.15 69.58 14.15Z"
+                fill="#484B52"
+              />
+              <path
+                d="M87.92 14C87.7867 14 87.6733 13.9567 87.58 13.87C87.4933 13.7767 87.45 13.6633 87.45 13.53C87.45 13.3967 87.4933 13.2833 87.58 13.19C87.6733 13.0967 87.7867 13.05 87.92 13.05C88.0533 13.05 88.1667 13.0967 88.26 13.19C88.3533 13.2833 88.4 13.3967 88.4 13.53C88.4 13.6633 88.3533 13.7767 88.26 13.87C88.1667 13.9567 88.0533 14 87.92 14ZM89.7657 14C89.6324 14 89.519 13.9567 89.4257 13.87C89.339 13.7767 89.2957 13.6633 89.2957 13.53C89.2957 13.3967 89.339 13.2833 89.4257 13.19C89.519 13.0967 89.6324 13.05 89.7657 13.05C89.899 13.05 90.0124 13.0967 90.1057 13.19C90.199 13.2833 90.2457 13.3967 90.2457 13.53C90.2457 13.6633 90.199 13.7767 90.1057 13.87C90.0124 13.9567 89.899 14 89.7657 14ZM91.6114 14C91.4781 14 91.3647 13.9567 91.2714 13.87C91.1847 13.7767 91.1414 13.6633 91.1414 13.53C91.1414 13.3967 91.1847 13.2833 91.2714 13.19C91.3647 13.0967 91.4781 13.05 91.6114 13.05C91.7447 13.05 91.8581 13.0967 91.9514 13.19C92.0447 13.2833 92.0914 13.3967 92.0914 13.53C92.0914 13.6633 92.0447 13.7767 91.9514 13.87C91.8581 13.9567 91.7447 14 91.6114 14Z"
+                fill="#484B52"
+              />
+              <path d="M108 14L112 10L108 6" stroke="#484B52" stroke-linecap="round" />
+              <path d="M12 6L8 10L12 14" stroke="#484B52" stroke-linecap="round" />
+            </svg>
+            <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_2">
+              <div class="w-full h-full absolute bg-green-500 bg-opacity-30 left-0 top-0"></div>
+              <div class="absolute flex items-center justify-center bg-white rounded-full w-6 h-6 bottom-2 right-2">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.86621 3.97041L6.07818 7.66641L12.1329 1.06641" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </ng-container>
+          </div>
+          <div
+            (click)="onActiveBottomPagination(EContentManagementGeneralBottomPaginationType.TYPE_3)"
+            [ngClass]="{ ' border-green-500': contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_3 }"
+            class="bg-white rounded border-2 shadow p-4 flex items-end h-28 relative cursor-pointer"
+          >
+            <svg width="103" height="20" viewBox="0 0 103 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" width="63" height="20" fill="#484B52" />
+              <path d="M2 0.5H19.5V19.5H2C1.17157 19.5 0.5 18.8284 0.5 18V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="#F4F4F9" stroke="#F4F4F9" />
+              <path d="M83 0H101C102.105 0 103 0.895431 103 2V18C103 19.1046 102.105 20 101 20H83V0Z" fill="#2EC639" />
+              <path
+                d="M35.58 14.15C35.1733 14.15 34.7833 14.1167 34.41 14.05C34.0433 13.99 33.7233 13.8967 33.45 13.77V12.93C34.07 13.21 34.7367 13.35 35.45 13.35C36.0633 13.35 36.5167 13.24 36.81 13.02C37.11 12.7933 37.26 12.4733 37.26 12.06C37.26 11.6333 37.1067 11.33 36.8 11.15C36.4933 10.9633 36.0267 10.87 35.4 10.87H34.58V10.05H35.38C35.88 10.05 36.2833 9.95 36.59 9.75C36.8967 9.54333 37.05 9.24333 37.05 8.85C37.05 8.46333 36.9233 8.17 36.67 7.97C36.4167 7.77 36.05 7.67 35.57 7.67C35.1967 7.67 34.86 7.71333 34.56 7.8C34.26 7.88667 33.95 8.03 33.63 8.23V7.39C34.2167 7.03667 34.9033 6.86 35.69 6.86C36.47 6.86 37.0633 7.03333 37.47 7.38C37.8767 7.72667 38.08 8.20667 38.08 8.82C38.08 9.19333 37.98 9.52 37.78 9.8C37.58 10.08 37.28 10.2967 36.88 10.45C37.3333 10.5567 37.68 10.75 37.92 11.03C38.1667 11.31 38.29 11.6633 38.29 12.09C38.29 12.7233 38.0733 13.2267 37.64 13.6C37.2067 13.9667 36.52 14.15 35.58 14.15ZM46.5734 14.15C45.88 14.15 45.2534 14 44.6934 13.7C44.1334 13.3933 43.6934 12.9633 43.3734 12.41C43.0534 11.8567 42.8934 11.2233 42.8934 10.51C42.8934 9.79667 43.0534 9.16333 43.3734 8.61C43.6934 8.05667 44.1334 7.62667 44.6934 7.32C45.2534 7.01333 45.88 6.86 46.5734 6.86C47.2667 6.86 47.8934 7.01333 48.4534 7.32C49.0134 7.62667 49.4534 8.05667 49.7734 8.61C50.0934 9.16333 50.2534 9.79667 50.2534 10.51C50.2534 11.2233 50.0934 11.8567 49.7734 12.41C49.4534 12.9633 49.0134 13.3933 48.4534 13.7C47.8934 14 47.2667 14.15 46.5734 14.15ZM46.5734 13.23C47.0667 13.23 47.5134 13.12 47.9134 12.9C48.32 12.6733 48.64 12.3567 48.8734 11.95C49.1067 11.5367 49.2234 11.0567 49.2234 10.51C49.2234 9.97 49.1067 9.49667 48.8734 9.09C48.6467 8.67667 48.3334 8.36 47.9334 8.14C47.5334 7.91333 47.0867 7.8 46.5934 7.8C46.0934 7.8 45.64 7.91 45.2334 8.13C44.8334 8.35 44.5134 8.66667 44.2734 9.08C44.04 9.49333 43.9234 9.97 43.9234 10.51C43.9234 11.0567 44.04 11.5367 44.2734 11.95C44.5067 12.3567 44.8234 12.6733 45.2234 12.9C45.63 13.12 46.08 13.23 46.5734 13.23ZM51.3551 7.01H55.9651V7.87H52.3751V10.1H55.0551V10.91H52.3751V14H51.3551V7.01ZM61.8741 8.11L60.3641 9.2V8.23L62.0141 7.01H62.8941V14H61.8741V8.11ZM66.9069 14.15C66.3069 14.15 65.7869 14.0033 65.3469 13.71C64.9135 13.4167 64.5802 12.9967 64.3469 12.45C64.1135 11.9033 63.9969 11.2567 63.9969 10.51C63.9969 9.76333 64.1102 9.11667 64.3369 8.57C64.5702 8.01667 64.9035 7.59333 65.3369 7.3C65.7769 7.00667 66.3002 6.86 66.9069 6.86C67.5135 6.86 68.0335 7.00667 68.4669 7.3C68.9069 7.59333 69.2402 8.01667 69.4669 8.57C69.7002 9.11667 69.8169 9.76333 69.8169 10.51C69.8169 11.2567 69.7002 11.9033 69.4669 12.45C69.2335 12.9967 68.8969 13.4167 68.4569 13.71C68.0235 14.0033 67.5069 14.15 66.9069 14.15ZM66.9069 13.25C67.5002 13.25 67.9635 13.0067 68.2969 12.52C68.6369 12.0267 68.8069 11.36 68.8069 10.52C68.8069 9.68 68.6402 9.01333 68.3069 8.52C67.9735 8.02667 67.5069 7.78 66.9069 7.78C66.3069 7.78 65.8402 8.02667 65.5069 8.52C65.1735 9.01333 65.0069 9.68 65.0069 10.52C65.0069 11.36 65.1735 12.0267 65.5069 12.52C65.8469 13.0067 66.3135 13.25 66.9069 13.25Z"
+                fill="white"
+              />
+              <path
+                d="M35.58 14.15C35.1733 14.15 34.7833 14.1167 34.41 14.05C34.0433 13.99 33.7233 13.8967 33.45 13.77V12.93C34.07 13.21 34.7367 13.35 35.45 13.35C36.0633 13.35 36.5167 13.24 36.81 13.02C37.11 12.7933 37.26 12.4733 37.26 12.06C37.26 11.6333 37.1067 11.33 36.8 11.15C36.4933 10.9633 36.0267 10.87 35.4 10.87H34.58V10.05H35.38C35.88 10.05 36.2833 9.95 36.59 9.75C36.8967 9.54333 37.05 9.24333 37.05 8.85C37.05 8.46333 36.9233 8.17 36.67 7.97C36.4167 7.77 36.05 7.67 35.57 7.67C35.1967 7.67 34.86 7.71333 34.56 7.8C34.26 7.88667 33.95 8.03 33.63 8.23V7.39C34.2167 7.03667 34.9033 6.86 35.69 6.86C36.47 6.86 37.0633 7.03333 37.47 7.38C37.8767 7.72667 38.08 8.20667 38.08 8.82C38.08 9.19333 37.98 9.52 37.78 9.8C37.58 10.08 37.28 10.2967 36.88 10.45C37.3333 10.5567 37.68 10.75 37.92 11.03C38.1667 11.31 38.29 11.6633 38.29 12.09C38.29 12.7233 38.0733 13.2267 37.64 13.6C37.2067 13.9667 36.52 14.15 35.58 14.15ZM46.5734 14.15C45.88 14.15 45.2534 14 44.6934 13.7C44.1334 13.3933 43.6934 12.9633 43.3734 12.41C43.0534 11.8567 42.8934 11.2233 42.8934 10.51C42.8934 9.79667 43.0534 9.16333 43.3734 8.61C43.6934 8.05667 44.1334 7.62667 44.6934 7.32C45.2534 7.01333 45.88 6.86 46.5734 6.86C47.2667 6.86 47.8934 7.01333 48.4534 7.32C49.0134 7.62667 49.4534 8.05667 49.7734 8.61C50.0934 9.16333 50.2534 9.79667 50.2534 10.51C50.2534 11.2233 50.0934 11.8567 49.7734 12.41C49.4534 12.9633 49.0134 13.3933 48.4534 13.7C47.8934 14 47.2667 14.15 46.5734 14.15ZM46.5734 13.23C47.0667 13.23 47.5134 13.12 47.9134 12.9C48.32 12.6733 48.64 12.3567 48.8734 11.95C49.1067 11.5367 49.2234 11.0567 49.2234 10.51C49.2234 9.97 49.1067 9.49667 48.8734 9.09C48.6467 8.67667 48.3334 8.36 47.9334 8.14C47.5334 7.91333 47.0867 7.8 46.5934 7.8C46.0934 7.8 45.64 7.91 45.2334 8.13C44.8334 8.35 44.5134 8.66667 44.2734 9.08C44.04 9.49333 43.9234 9.97 43.9234 10.51C43.9234 11.0567 44.04 11.5367 44.2734 11.95C44.5067 12.3567 44.8234 12.6733 45.2234 12.9C45.63 13.12 46.08 13.23 46.5734 13.23ZM51.3551 7.01H55.9651V7.87H52.3751V10.1H55.0551V10.91H52.3751V14H51.3551V7.01ZM61.8741 8.11L60.3641 9.2V8.23L62.0141 7.01H62.8941V14H61.8741V8.11ZM66.9069 14.15C66.3069 14.15 65.7869 14.0033 65.3469 13.71C64.9135 13.4167 64.5802 12.9967 64.3469 12.45C64.1135 11.9033 63.9969 11.2567 63.9969 10.51C63.9969 9.76333 64.1102 9.11667 64.3369 8.57C64.5702 8.01667 64.9035 7.59333 65.3369 7.3C65.7769 7.00667 66.3002 6.86 66.9069 6.86C67.5135 6.86 68.0335 7.00667 68.4669 7.3C68.9069 7.59333 69.2402 8.01667 69.4669 8.57C69.7002 9.11667 69.8169 9.76333 69.8169 10.51C69.8169 11.2567 69.7002 11.9033 69.4669 12.45C69.2335 12.9967 68.8969 13.4167 68.4569 13.71C68.0235 14.0033 67.5069 14.15 66.9069 14.15ZM66.9069 13.25C67.5002 13.25 67.9635 13.0067 68.2969 12.52C68.6369 12.0267 68.8069 11.36 68.8069 10.52C68.8069 9.68 68.6402 9.01333 68.3069 8.52C67.9735 8.02667 67.5069 7.78 66.9069 7.78C66.3069 7.78 65.8402 8.02667 65.5069 8.52C65.1735 9.01333 65.0069 9.68 65.0069 10.52C65.0069 11.36 65.1735 12.0267 65.5069 12.52C65.8469 13.0067 66.3135 13.25 66.9069 13.25Z"
+                fill="white"
+              />
+              <path d="M11 6L7 10L11 14" stroke="#484B52" stroke-linecap="round" />
+              <path d="M91 14L95 10L91 6" stroke="white" stroke-linecap="round" />
+              <line x1="83.5" y1="1" x2="83.5" y2="19" stroke="white" stroke-opacity="0.1" />
+            </svg>
+            <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_3">
+              <div class="w-full h-full absolute bg-green-500 bg-opacity-30 left-0 top-0"></div>
+              <div class="absolute flex items-center justify-center bg-white rounded-full w-6 h-6 bottom-2 right-2">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.86621 3.97041L6.07818 7.66641L12.1329 1.06641" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </ng-container>
+          </div>
+          <div
+            (click)="onActiveBottomPagination(EContentManagementGeneralBottomPaginationType.TYPE_4)"
+            [ngClass]="{ ' border-green-500': contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_4 }"
+            class="bg-white rounded border-2 shadow p-4 flex items-end h-28 relative cursor-pointer"
+          >
+            <svg width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 0.5H19.5V19.5H2C1.17157 19.5 0.5 18.8284 0.5 18V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="#F4F4F9" stroke="#F4F4F9" />
+              <path d="M20 0H38C39.1046 0 40 0.895431 40 2V18C40 19.1046 39.1046 20 38 20H20V0Z" fill="#484B52" />
+              <path d="M11 6L7 10L11 14" stroke="#484B52" stroke-linecap="round" />
+              <path d="M28 14L32 10L28 6" stroke="white" stroke-linecap="round" />
+            </svg>
+            <ng-container *ngIf="contentManagementGeneralForm.value.advance.bottom.type === EContentManagementGeneralBottomPaginationType.TYPE_4">
+              <div class="w-full h-full absolute bg-green-500 bg-opacity-30 left-0 top-0"></div>
+              <div class="absolute flex items-center justify-center bg-white rounded-full w-6 h-6 bottom-2 right-2">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.86621 3.97041L6.07818 7.66641L12.1329 1.06641" stroke="#2EC639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="grid gap-1">
+          <div class="text-sm font-light">Position</div>
+          <div class="flex items-center">
+            <button
+              (click)="onBottomPaginationPosition(ETextAlignment.LEFT)"
+              [ngClass]="{
+                'bg-green-500': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.LEFT,
+                'bg-gray-100 hover:bg-gray-200': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.LEFT
+              }"
+              class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+            >
+              <svg
+                [ngClass]="{
+                  'text-white': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.LEFT,
+                  'text-gray-400': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.LEFT
+                }"
+                class="fill-current"
+                width="16"
+                height="15"
+                viewBox="0 0 16 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="16" height="3" rx="1.5" />
+                <rect y="12" width="16" height="3" rx="1.5" />
+                <rect y="6" width="10" height="3" rx="1.5" />
+              </svg>
+            </button>
+            <button
+              (click)="onBottomPaginationPosition(ETextAlignment.CENTER)"
+              [ngClass]="{
+                'bg-green-500': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.CENTER,
+                'bg-gray-100 hover:bg-gray-200': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.CENTER
+              }"
+              class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+            >
+              <svg
+                [ngClass]="{
+                  'text-white': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.CENTER,
+                  'text-gray-400': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.CENTER
+                }"
+                class="fill-current"
+                width="16"
+                height="15"
+                viewBox="0 0 16 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="16" height="3" />
+                <rect y="12" width="16" height="3" />
+                <rect x="3" y="6" width="10" height="3" />
+              </svg>
+            </button>
+            <button
+              (click)="onBottomPaginationPosition(ETextAlignment.RIGHT)"
+              [ngClass]="{
+                'bg-green-500': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.RIGHT,
+                'bg-gray-100 hover:bg-gray-200': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.RIGHT
+              }"
+              class="flex items-center justify-center w-12 h-12 mr-2 transition rounded-md last:mr-0 focus:outline-none"
+            >
+              <svg
+                [ngClass]="{
+                  'text-white': contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.RIGHT,
+                  'text-gray-400': !contentManagementGeneralForm.value.advance.bottom.position === ETextAlignment.RIGHT
+                }"
+                class="fill-current"
+                width="16"
+                height="15"
+                viewBox="0 0 16 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="16" height="3" />
+                <rect y="12" width="16" height="3" />
+                <rect x="6" y="6" width="10" height="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,132 @@
+@import 'base';
+@import 'buttons';
+
+.quick-details {
+  overflow: auto;
+  position: relative;
+  z-index: 0;
+
+  .bank-disabled {
+    opacity: 30%;
+    pointer-events: none;
+  }
+  @include custom-scroll-bar();
+  .custom-table {
+    max-height: 200px !important;
+  }
+
+  .custom-table table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .custom-table table td {
+    word-wrap: break-word;
+  }
+
+  .quick-pay-details {
+    .text-secondary {
+      font-weight: 300;
+      color: #577083;
+    }
+
+    .payment-and-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      overflow-y: auto;
+
+      .payment {
+        display: grid;
+        gap: 5px;
+      }
+
+      .summary {
+        display: grid;
+        gap: 5px;
+        .summary-item {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 5px;
+          align-items: center;
+
+          .border-dotted {
+            border-bottom: 1px dotted $border-color;
+          }
+        }
+      }
+    }
+  }
+
+  .quick-pay-payment-method {
+    font-weight: 300;
+    color: #577083;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: start;
+    .method {
+      display: grid;
+      gap: 15px;
+      .datetime {
+        display: grid;
+        grid-template-columns: 7fr 3fr;
+        align-items: end;
+        gap: 5px;
+        .time {
+          height: 40px;
+        }
+      }
+    }
+    .payment-slip {
+      max-height: 365px;
+      img {
+        max-height: 280px;
+        width: 100%;
+      }
+    }
+  }
+
+  input {
+    box-shadow: none;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 0px 15px;
+    height: 35px;
+  }
+}
+
+.quickpay-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  align-items: flex-end;
+  .cancel-bill {
+    border-bottom: 1px solid $danger-color;
+  }
+  .buttons {
+    display: flex;
+
+    .btn-cancel {
+      margin-right: 10px;
+    }
+
+    .btn-save {
+      @include btn-active();
+
+      &.disabled {
+        @extend .btn-disabled;
+      }
+    }
+  }
+}
+
+.quickpay-cancel-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel-desc {
+  width: 200px;
+  word-break: break-all;
+}

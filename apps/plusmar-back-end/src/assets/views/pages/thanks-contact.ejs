@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <%- include ("../partials/head") %>
+    <script>
+    </script>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Prompt-Medium', sans-serif;
+        }
+
+        body {
+            background:#FFF;
+            margin: 15px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap');
+
+        form {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        label {
+            color: #343D46;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            height: 36px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            height: 71px;
+            resize: none;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        input,
+        textarea {
+            color: #333333;
+            border: 1px solid rgba(219, 218, 221, 1);
+        }
+
+        input,
+        textarea,
+        button {
+            border-radius: 4px;
+        }
+
+        button {
+            height: 40px;
+            border: none;
+            color: #343D46;
+            background-color: white;
+            padding: 0;
+        }
+
+        button span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .wrapper {
+            border: 1px solid rgba(227, 230, 234, 1);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f3f5f9;
+            display:flex;
+        }
+
+        .wrapper .title {
+            font-size: 16px;
+            color: #565E68;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            border: none;
+            padding: 0;
+            text-align:center;
+            margin:auto;
+            flex-flow:column;
+        }
+        .col1{
+            font-size: 22px;
+            margin-top:12px;
+            margin-bottom:6px
+        }
+        .col2{
+            font-size: 18px;
+            margin-bottom:12px
+        }
+
+        .payment {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+
+    <div id="main-process" class="wrapper">
+        <div class="wrapper title">
+            <div class="col1">Thank you</div>
+            <div class="col2">We have recieved your contact.</div>
+        </div>
+    </div>
+</body>
+
+</html>

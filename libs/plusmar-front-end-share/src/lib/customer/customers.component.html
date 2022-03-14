@@ -1,0 +1,27 @@
+<div class="customers" [ngStyle]="{ 'max-width': tabWidth }">
+  <reactor-room-heading [headingTitle]="'Customers'" [Route]="'Customers'">
+    <div class="heading-content"></div>
+  </reactor-room-heading>
+  <mat-tab-group class="mat-tab-customers" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <mat-tab [label]="'Customers' | translate">
+      <ng-container *matTabContent>
+        <reactor-room-customer-list *ngIf="selectedIndex === INDEXES.list"></reactor-room-customer-list>
+      </ng-container>
+    </mat-tab>
+    <mat-tab [label]="'Tag' | translate">
+      <ng-container *matTabContent>
+        <reactor-room-customer-tags *ngIf="selectedIndex === INDEXES.tags"></reactor-room-customer-tags>
+      </ng-container>
+    </mat-tab>
+    <mat-tab [label]="'Companies' | translate">
+      <ng-container *matTabContent>
+        <reactor-room-customer-companies *ngIf="selectedIndex === INDEXES.companies"></reactor-room-customer-companies>
+      </ng-container>
+    </mat-tab>
+    <mat-tab [label]="'Customer histories' | translate">
+      <ng-container *matTabContent>
+        <reactor-room-customer-audience-histories *ngIf="selectedIndex === INDEXES.histories"></reactor-room-customer-audience-histories>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</div>

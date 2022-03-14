@@ -1,0 +1,59 @@
+<cms-next-cms-popover-layout (popOverBtn)="popOverBtn($event)">
+  <ng-container class="popover-content">
+    <section class="grid gap-2" [formGroup]="labelRecommendedFormGroup">
+      <section class="grid gap-1">
+        <div class="flex justify-between">
+          <div class="text-sm layout-label flex items-center">Style</div>
+          <img class="cursor-pointer" (click)="onScrollAnimation()" src="assets/cms/icon/arrow-right.svg" alt="arrow-right" />
+        </div>
+        <div class="flex overflow-x-auto space-x-8" #animationSlider>
+          <ng-container *ngFor="let newLabel of productLabelRecommendedList; let index = index">
+            <img class="p-2 cursor-pointer" (click)="onActiveAnimationStyle(index)" [ngClass]="{ hidden: newLabel.selected }" [src]="newLabel.imgURL" alt="style" />
+            <img class="p-2" [ngClass]="{ hidden: !newLabel.selected }" (click)="onActiveAnimationStyle(index)" [src]="newLabel.activeImageURL" alt="style-active" />
+          </ng-container>
+        </div>
+      </section>
+
+      <section class="grid gap-2">
+        <div class="layout-label">Upload</div>
+        <div>
+          <input type="checkbox" formControlName="upload" #onUploadButton class="hidden" />
+          <button
+            (click)="onUploadButton.click()"
+            class="relative w-20 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+            [ngClass]="{ 'bg-green-500 border-green-500': labelRecommendedFormGroup['controls']['upload'].value }"
+          >
+            <div
+              class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+              [ngClass]="{
+                'bg-gray-300': !labelRecommendedFormGroup['controls']['upload'].value,
+                'bg-white right-0 mr-2': labelRecommendedFormGroup['controls']['upload'].value
+              }"
+            ></div>
+          </button>
+        </div>
+
+        <ng-container *ngIf="labelRecommendedFormGroup['controls']['upload'].value">
+          <img [src]="uploadIconPath" alt="upload" />
+
+          <div class="flex justify-center" (click)="onUploadImg()">
+            <img [src]="uploadBtnIconPath" alt="upload-btn" />
+          </div>
+        </ng-container>
+      </section>
+
+      <cms-next-cms-element-position [isRemoveJustify]="true"></cms-next-cms-element-position>
+
+      <mat-radio-group class="grid" formControlName="positionTopBottom">
+        <mat-radio-button class="text-one" [value]="'top'"> Top </mat-radio-button>
+        <mat-radio-button class="text-one" [value]="'bottom'"> Bottom </mat-radio-button>
+      </mat-radio-group>
+
+      <section class="flex justify-between">
+        <p><mat-checkbox formControlName="applyAll">Apply all</mat-checkbox></p>
+
+        <img [src]="deleteIconPath" alt="delete" class="cursor-pointer" (click)="onDelete()" />
+      </section>
+    </section>
+  </ng-container>
+</cms-next-cms-popover-layout>

@@ -1,0 +1,273 @@
+<div class="status" *ngIf="Selector == 'status'">
+  <div *ngIf="Status == 1" class="red"></div>
+  <div *ngIf="Status == 2" class="blue"></div>
+  <div *ngIf="Status == 3" class="green"></div>
+</div>
+<div class="comment" *ngIf="Selector == 'comment'">
+  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M10.5 0C4.69559 0 0 4.64922 0 10.3355C0 11.6275 0.241302 12.8936 0.718131 14.0981L0.719672 14.102C1.00915 14.8247 1.37366 15.5047 1.8092 16.1328L0.762217 18.5525C0.506904 19.1421 0.598705 19.8218 1.00458 20.3269C1.34792 20.7543 1.87125 21 2.4208 21C2.52011 21 2.62591 20.9921 2.73568 20.9728L2.7396 20.9721L7.31757 20.1847C8.33199 20.509 9.40104 20.6711 10.5 20.6711C16.3044 20.6711 21 16.0219 21 10.3355C21 4.64922 16.3044 0 10.5 0Z"
+      fill="#54B1FF"
+    />
+    <path
+      d="M13.8365 6.97626H7.16344C6.76854 6.97626 6.44849 7.29174 6.44849 7.681C6.44849 8.07025 6.76854 8.38573 7.16344 8.38573H13.8365C14.2314 8.38573 14.5515 8.07025 14.5515 7.681C14.5515 7.29174 14.2314 6.97626 13.8365 6.97626Z"
+      fill="white"
+    />
+    <path
+      d="M13.8365 9.79529H7.16344C6.76854 9.79529 6.44849 10.1108 6.44849 10.5C6.44849 10.8893 6.76854 11.2048 7.16344 11.2048H13.8365C14.2314 11.2048 14.5515 10.8893 14.5515 10.5C14.5515 10.1108 14.2314 9.79529 13.8365 9.79529Z"
+      fill="white"
+    />
+    <path
+      d="M13.8365 12.6143H7.16344C6.76854 12.6143 6.44849 12.9297 6.44849 13.319C6.44849 13.7083 6.76854 14.0237 7.16344 14.0237H13.8365C14.2314 14.0237 14.5515 13.7083 14.5515 13.319C14.5515 12.9297 14.2314 12.6143 13.8365 12.6143Z"
+      fill="white"
+    />
+  </svg>
+  <div class="text">{{ 'Chat' | translate }}</div>
+</div>
+<!-- <div class="leads-edit" *ngIf="Selector == 'leads-edit'">
+  <div class="icon">
+    <img src="assets/img/table/leads-edit.png" alt="Edit" />
+  </div>
+  <div class="text">Edit</div>
+</div> -->
+
+<div class="leads-history" *ngIf="Selector == 'leads-history'">
+  <div class="icon">
+    <img src="assets/img/table/leads-history.png" alt="History" />
+  </div>
+  <!-- <div class="text">History</div> -->
+</div>
+
+<div class="comment" *ngIf="Selector == 'detail'">
+  <a class="btn-comment">
+    <svg width="20" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M2.75599 0H12.4149C12.5056 0 12.5903 0.0252507 12.6514 0.0520152C12.6658 0.0559814 12.6788 0.0613117 12.6903 0.0673256H12.7141L12.7617 0.114103L12.7691 0.119322L12.7836 0.128904L12.784 0.129165L12.803 0.141765L12.8076 0.14487L12.8522 0.179605L16.7964 4.51896C16.8179 4.54114 16.8316 4.56339 16.8397 4.57814H16.9333V4.74447L16.9333 4.74484C16.9335 4.74667 16.9342 4.75406 16.9375 4.77103L16.9412 4.78932L16.9437 4.80129L16.9443 4.80467C16.9463 4.81489 16.9486 4.82653 16.9505 4.83845L16.9513 4.84358L16.9562 4.89373L16.956 14.3653L16.7897 14.3685C16.502 14.374 16.2189 14.3976 15.9416 14.4383L15.747 14.4669L15.7473 5.49428H12.4149C12.0858 5.49428 11.8425 5.24604 11.8134 4.95983L11.813 4.95572L11.8104 4.9057V1.163H2.75599C1.93253 1.163 1.24687 1.79512 1.21044 2.61119L1.20891 2.68158V18.2544C1.20891 19.0617 1.85352 19.7341 2.686 19.7698L2.75776 19.7713L10.4698 19.7714L10.4462 19.9582C10.4136 20.2167 10.3968 20.4801 10.3968 20.7475L10.3974 20.9567H2.75599C1.27286 20.9567 0.0489233 19.7851 0.00144963 18.3414L0.00136142 18.3388L0 18.2544L2.20125e-05 2.70226C2.20125e-05 1.24791 1.1951 0.0479419 2.66735 0.00139966L2.67007 0.00131328L2.75599 0ZM13.0194 2.13003V4.33129H15.013L13.0194 2.13003ZM2.89146 4.78398C3.00343 4.7017 3.1485 4.65704 3.29622 4.65704H7.13319C7.43546 4.65704 7.73794 4.83389 7.73794 5.15601C7.73794 5.31635 7.65086 5.44509 7.53795 5.52806C7.42598 5.61033 7.28091 5.65498 7.13319 5.65498H3.29622C3.1485 5.65498 3.00343 5.61033 2.89146 5.52806C2.77855 5.44509 2.69146 5.31635 2.69146 5.15601C2.69146 4.99569 2.77855 4.86694 2.89146 4.78398ZM3.28231 6.9856C3.13696 6.9856 2.99462 7.03102 2.88515 7.11409C2.7746 7.198 2.69146 7.32655 2.69146 7.48457C2.69146 7.77992 2.97634 7.98354 3.28231 7.98354H13.2029C13.3482 7.98354 13.4906 7.93812 13.6001 7.85505C13.7106 7.77114 13.7937 7.64259 13.7937 7.48457C13.7937 7.18922 13.5089 6.9856 13.2029 6.9856H3.28231ZM6.35861 14.665C6.35861 12.3565 8.25801 10.4784 10.5929 10.4784C12.9277 10.4784 14.8271 12.3565 14.8271 14.665C14.8271 15.6271 14.496 16.5135 13.9423 17.221L16.9053 20.1506C17.0315 20.2755 17.0315 20.4778 16.9053 20.6027L16.598 20.9064C16.4718 21.0312 16.2672 21.0312 16.141 20.9064L13.1779 17.9768C12.4624 18.5242 11.566 18.8517 10.5929 18.8517C8.25803 18.8517 6.35861 16.9737 6.35861 14.665ZM10.5838 11.5545C8.85413 11.5545 7.44698 12.9459 7.44698 14.656C7.44698 16.3661 8.85413 17.7575 10.5838 17.7575C12.3134 17.7575 13.7205 16.3661 13.7205 14.656C13.7205 12.9459 12.3134 11.5545 10.5838 11.5545Z"
+        fill="#53B1FF"
+      />
+    </svg>
+    <div class="text">{{ 'Detail' | translate }}</div>
+  </a>
+</div>
+
+<div class="not-allow-detail" *ngIf="Selector == 'not-allow-detail'">
+  <div class="icon">
+    <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M2.75599 0H12.4149C12.5056 0 12.5903 0.0252507 12.6514 0.0520152C12.6658 0.0559814 12.6788 0.0613117 12.6903 0.0673256H12.7141L12.7617 0.114103L12.7691 0.119322L12.7836 0.128904L12.784 0.129165L12.803 0.141765L12.8076 0.14487L12.8522 0.179605L16.7964 4.51896C16.8179 4.54114 16.8316 4.56339 16.8397 4.57814H16.9333V4.74447L16.9333 4.74484C16.9335 4.74667 16.9342 4.75406 16.9375 4.77103L16.9412 4.78932L16.9437 4.80129L16.9443 4.80467C16.9463 4.81489 16.9486 4.82653 16.9505 4.83845L16.9513 4.84358L16.9562 4.89373L16.956 14.3653L16.7897 14.3685C16.502 14.374 16.2189 14.3976 15.9416 14.4383L15.747 14.4669L15.7473 5.49428H12.4149C12.0858 5.49428 11.8425 5.24604 11.8134 4.95983L11.813 4.95572L11.8104 4.9057V1.163H2.75599C1.93253 1.163 1.24687 1.79512 1.21044 2.61119L1.20891 2.68158V18.2544C1.20891 19.0617 1.85352 19.7341 2.686 19.7698L2.75776 19.7713L10.4698 19.7714L10.4462 19.9582C10.4136 20.2167 10.3968 20.4801 10.3968 20.7475L10.3974 20.9567H2.75599C1.27286 20.9567 0.0489233 19.7851 0.00144963 18.3414L0.00136142 18.3388L0 18.2544L2.20125e-05 2.70226C2.20125e-05 1.24791 1.1951 0.0479419 2.66735 0.00139966L2.67007 0.00131328L2.75599 0ZM13.0194 2.13003V4.33129H15.013L13.0194 2.13003ZM2.89146 4.78398C3.00343 4.7017 3.1485 4.65704 3.29622 4.65704H7.13319C7.43546 4.65704 7.73794 4.83389 7.73794 5.15601C7.73794 5.31635 7.65086 5.44509 7.53795 5.52806C7.42598 5.61033 7.28091 5.65498 7.13319 5.65498H3.29622C3.1485 5.65498 3.00343 5.61033 2.89146 5.52806C2.77855 5.44509 2.69146 5.31635 2.69146 5.15601C2.69146 4.99569 2.77855 4.86694 2.89146 4.78398ZM3.28231 6.9856C3.13696 6.9856 2.99462 7.03102 2.88515 7.11409C2.7746 7.198 2.69146 7.32655 2.69146 7.48457C2.69146 7.77992 2.97634 7.98354 3.28231 7.98354H13.2029C13.3482 7.98354 13.4906 7.93812 13.6001 7.85505C13.7106 7.77114 13.7937 7.64259 13.7937 7.48457C13.7937 7.18922 13.5089 6.9856 13.2029 6.9856H3.28231ZM6.35861 14.665C6.35861 12.3565 8.25801 10.4784 10.5929 10.4784C12.9277 10.4784 14.8271 12.3565 14.8271 14.665C14.8271 15.6271 14.496 16.5135 13.9423 17.221L16.9053 20.1506C17.0315 20.2755 17.0315 20.4778 16.9053 20.6027L16.598 20.9064C16.4718 21.0312 16.2672 21.0312 16.141 20.9064L13.1779 17.9768C12.4624 18.5242 11.566 18.8517 10.5929 18.8517C8.25803 18.8517 6.35861 16.9737 6.35861 14.665ZM10.5838 11.5545C8.85413 11.5545 7.44698 12.9459 7.44698 14.656C7.44698 16.3661 8.85413 17.7575 10.5838 17.7575C12.3134 17.7575 13.7205 16.3661 13.7205 14.656C13.7205 12.9459 12.3134 11.5545 10.5838 11.5545Z"
+        fill="#dddfea"
+      />
+    </svg>
+  </div>
+  <div class="text">{{ 'Detail' | translate }}</div>
+</div>
+
+<div class="tracking" [ngClass]="{ disable: !isConfirmAddress }" *ngIf="Selector == 'tracking-number'">
+  <div class="icon">
+    <img src="assets/img/table/tracking-edit.svg" alt="Tracking Number" />
+  </div>
+  <div class="text">{{ 'Tracking No' | translate }}.</div>
+</div>
+
+<div class="flex items-center comment-by whitespace-nowrap" *ngIf="Selector == 'follow-customer'">
+  <div class="profile">
+    <img [src]="senderProfilePic" class="image" onerror="src='assets/img/customer/customer_error.svg'" />
+  </div>
+  <div class="flex content">
+    <div class="name">{{ senderName }}</div>
+    <div class="date">{{ createdAt }}</div>
+  </div>
+</div>
+<div class="flex items-center comment-by whitespace-nowrap" *ngIf="Selector == 'comment-by'">
+  <div class="relative profile">
+    <img [src]="image" class="image" onerror="src='assets/img/customer/customer_error.svg'" />
+    <img *ngIf="platformImg" class="absolute bottom-0 right-0 z-10" [src]="platformImg" [alt]="platform" />
+  </div>
+  <div class="flex flex-col content" *ngIf="firstName || lastName">
+    <div class="name" [matTooltip]="name" [matTooltipShowDelay]="1000">{{ name | textTrim: 50 }}</div>
+    <!-- {{ audience.tags | json }} -->
+
+    <div class="tags" *ngIf="audience?.tags?.length > 0">
+      <div [matTooltip]="tag.name" *ngFor="let tag of audience.tags; index as i">
+        <div *ngIf="i <= 2">
+          <div class="tag-color" [ngStyle]="{ background: customerTagEnum[tag.color] }"></div>
+        </div>
+      </div>
+      <div *ngIf="audience?.tags?.length - 3 > 0">
+        <div class="text flex">{{ audience.tags?.length - 3 }}+ Tags</div>
+      </div>
+    </div>
+    <!-- <div class="date">c{{ createdAt }}</div> -->
+  </div>
+</div>
+
+<div class="flex items-center comment-by whitespace-nowrap" *ngIf="Selector == 'follow-list-mobile'">
+  <div class="relative profile">
+    <img [src]="image" class="image" onerror="src='assets/img/customer/customer_error.svg'" />
+    <img *ngIf="platformImg" class="absolute bottom-0 right-0 z-10" [src]="platformImg" [alt]="platform" />
+  </div>
+  <div class="flex flex-col content" *ngIf="firstName || lastName">
+    <div class="name" [matTooltip]="name" [matTooltipShowDelay]="1000">
+      <ng-container *ngIf="audience.domain !== audienceDomainType.AUDIENCE">
+        <img [src]="'assets/img/menu/icon_follow.svg'" style="height: 12px" />
+      </ng-container>
+      <ng-container *ngIf="audience.domain === audienceDomainType.AUDIENCE">
+        <img
+          [src]="
+            audience.status === audienceDomainStatus.LEAD
+              ? 'assets/img/menu/icon_Leads.svg'
+              : audience.status === audienceDomainStatus.FOLLOW
+              ? 'assets/img/menu/icon_service.svg'
+              : '/assets/img/menu/icon_customer.svg'
+          "
+          style="height: 12px"
+        />
+      </ng-container>
+      {{ name | textTrim: 50 }} <span style="color: #8f9295"> : {{ audience.last_platform_activity_date | timeAgo }}</span>
+    </div>
+    <div>
+      <div>
+        <svg *ngIf="audience?.displayLatestActivity?.sentBy === 'PAGE'" width="10" height="10" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4.98306 11.1977V13.8531C4.98306 14.0386 5.11656 14.2029 5.31423 14.2613C5.36365 14.2756 5.41435 14.2825 5.46441 14.2825C5.61459 14.2825 5.75963 14.2195 5.85205 14.1073L7.59323 11.9935L4.98306 11.1977Z"
+            fill="#C4C4C4"
+          />
+          <path
+            d="M14.0504 0.366615C13.914 0.267987 13.7348 0.254675 13.5865 0.333941L0.239093 7.44366C0.0812973 7.52776 -0.011838 7.69961 0.00121282 7.88052C0.0148568 8.06205 0.132907 8.21695 0.300788 8.27564L4.01137 9.56931L11.9136 2.67742L5.79874 10.1919L12.0174 12.3599C12.0637 12.3757 12.1124 12.3842 12.161 12.3842C12.2417 12.3842 12.3218 12.3618 12.3924 12.3182C12.5051 12.248 12.5816 12.13 12.6012 11.9975L14.2325 0.803485C14.2568 0.634062 14.1868 0.465849 14.0504 0.366615Z"
+            fill="#C4C4C4"
+          />
+        </svg>
+        <span>&nbsp;{{ audience?.displayLatestActivity?.text | textTrim: 40 }}</span>
+      </div>
+    </div>
+    <!-- <div style="display: flex; height: 10px; align-items: flex-end">
+      <progress
+        [value]="audience.score"
+        [attr.title]="audience.score"
+        style="border-radius: 50%"
+        max="100"
+        [ngClass]="{
+          block: audience.score > 0 && audience.score < 21,
+          negative: audience.score > 20 && audience.score < 41,
+          normal: audience.score > 40 && audience.score < 61,
+          moderate: audience.score > 60 && audience.score < 81,
+          high: audience.score > 80 && audience.score < 101
+        }"
+      ></progress>
+    </div> -->
+  </div>
+  <!-- <div class="flex">
+    <progress
+        [value]="audience.score"
+        [attr.title]="audience.score"
+        style="border-radius: 50%"
+        max="100"
+        [ngClass]="{
+          block: audience.score > 0 && audience.score < 21,
+          negative: audience.score > 20 && audience.score < 41,
+          normal: audience.score > 40 && audience.score < 61,
+          moderate: audience.score > 60 && audience.score < 81,
+          high: audience.score > 80 && audience.score < 101
+        }"
+      ></progress>
+  </div> -->
+</div>
+
+<div class="flex items-center customer-profile" *ngIf="Selector == 'profile'">
+  <div class="profile">
+    <img [src]="profileUrl" class="image" alt="profile" onerror="src='assets/img/customer/customer_error.svg'" />
+  </div>
+  <div class="content">{{ profileName }}</div>
+</div>
+
+<div class="form-name" *ngIf="Selector == 'form-name'">
+  z
+  <div class="profile">
+    <div class="image"></div>
+  </div>
+  <div class="content">
+    <div class="name" *ngIf="formName">{{ formName }}</div>
+  </div>
+</div>
+
+<div class="payment-method" *ngIf="Selector == 'payment-method'">
+  <div class="payment-img">
+    <img [src]="paymentMethodUrl" alt="paymentMethodName" />
+  </div>
+  <div class="content">
+    <div class="name">{{ paymentMethodName | translate }}</div>
+    <div class="payment-status">{{ paymentMethodStatus }}</div>
+  </div>
+</div>
+
+<div class="order-info" *ngIf="Selector == 'order-info'">
+  <div class="order-icon">
+    <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M2.75599 0H12.4149C12.5056 0 12.5903 0.0252507 12.6514 0.0520152C12.6658 0.0559814 12.6788 0.0613117 12.6903 0.0673256H12.7141L12.7617 0.114103L12.7691 0.119322L12.7836 0.128904L12.784 0.129165L12.803 0.141765L12.8076 0.14487L12.8522 0.179605L16.7964 4.51896C16.8179 4.54114 16.8316 4.56339 16.8397 4.57814H16.9333V4.74447L16.9333 4.74484C16.9335 4.74667 16.9342 4.75406 16.9375 4.77103L16.9412 4.78932L16.9437 4.80129L16.9443 4.80467C16.9463 4.81489 16.9486 4.82653 16.9505 4.83845L16.9513 4.84358L16.9562 4.89373L16.956 14.3653L16.7897 14.3685C16.502 14.374 16.2189 14.3976 15.9416 14.4383L15.747 14.4669L15.7473 5.49428H12.4149C12.0858 5.49428 11.8425 5.24604 11.8134 4.95983L11.813 4.95572L11.8104 4.9057V1.163H2.75599C1.93253 1.163 1.24687 1.79512 1.21044 2.61119L1.20891 2.68158V18.2544C1.20891 19.0617 1.85352 19.7341 2.686 19.7698L2.75776 19.7713L10.4698 19.7714L10.4462 19.9582C10.4136 20.2167 10.3968 20.4801 10.3968 20.7475L10.3974 20.9567H2.75599C1.27286 20.9567 0.0489233 19.7851 0.00144963 18.3414L0.00136142 18.3388L0 18.2544L2.20125e-05 2.70226C2.20125e-05 1.24791 1.1951 0.0479419 2.66735 0.00139966L2.67007 0.00131328L2.75599 0ZM13.0194 2.13003V4.33129H15.013L13.0194 2.13003ZM2.89146 4.78398C3.00343 4.7017 3.1485 4.65704 3.29622 4.65704H7.13319C7.43546 4.65704 7.73794 4.83389 7.73794 5.15601C7.73794 5.31635 7.65086 5.44509 7.53795 5.52806C7.42598 5.61033 7.28091 5.65498 7.13319 5.65498H3.29622C3.1485 5.65498 3.00343 5.61033 2.89146 5.52806C2.77855 5.44509 2.69146 5.31635 2.69146 5.15601C2.69146 4.99569 2.77855 4.86694 2.89146 4.78398ZM3.28231 6.9856C3.13696 6.9856 2.99462 7.03102 2.88515 7.11409C2.7746 7.198 2.69146 7.32655 2.69146 7.48457C2.69146 7.77992 2.97634 7.98354 3.28231 7.98354H13.2029C13.3482 7.98354 13.4906 7.93812 13.6001 7.85505C13.7106 7.77114 13.7937 7.64259 13.7937 7.48457C13.7937 7.18922 13.5089 6.9856 13.2029 6.9856H3.28231ZM6.35861 14.665C6.35861 12.3565 8.25801 10.4784 10.5929 10.4784C12.9277 10.4784 14.8271 12.3565 14.8271 14.665C14.8271 15.6271 14.496 16.5135 13.9423 17.221L16.9053 20.1506C17.0315 20.2755 17.0315 20.4778 16.9053 20.6027L16.598 20.9064C16.4718 21.0312 16.2672 21.0312 16.141 20.9064L13.1779 17.9768C12.4624 18.5242 11.566 18.8517 10.5929 18.8517C8.25803 18.8517 6.35861 16.9737 6.35861 14.665ZM10.5838 11.5545C8.85413 11.5545 7.44698 12.9459 7.44698 14.656C7.44698 16.3661 8.85413 17.7575 10.5838 17.7575C12.3134 17.7575 13.7205 16.3661 13.7205 14.656C13.7205 12.9459 12.3134 11.5545 10.5838 11.5545Z"
+        fill="#53B1FF"
+      />
+    </svg>
+  </div>
+  <div class="comment">
+    <div class="icon">
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M10.5 0C4.69559 0 0 4.64922 0 10.3355C0 11.6275 0.241302 12.8936 0.718131 14.0981L0.719672 14.102C1.00915 14.8247 1.37366 15.5047 1.8092 16.1328L0.762217 18.5525C0.506904 19.1421 0.598705 19.8218 1.00458 20.3269C1.34792 20.7543 1.87125 21 2.4208 21C2.52011 21 2.62591 20.9921 2.73568 20.9728L2.7396 20.9721L7.31757 20.1847C8.33199 20.509 9.40104 20.6711 10.5 20.6711C16.3044 20.6711 21 16.0219 21 10.3355C21 4.64922 16.3044 0 10.5 0Z"
+          fill="#54B1FF"
+        />
+        <path
+          d="M13.8365 6.97626H7.16344C6.76854 6.97626 6.44849 7.29174 6.44849 7.681C6.44849 8.07025 6.76854 8.38573 7.16344 8.38573H13.8365C14.2314 8.38573 14.5515 8.07025 14.5515 7.681C14.5515 7.29174 14.2314 6.97626 13.8365 6.97626Z"
+          fill="white"
+        />
+        <path
+          d="M13.8365 9.79529H7.16344C6.76854 9.79529 6.44849 10.1108 6.44849 10.5C6.44849 10.8893 6.76854 11.2048 7.16344 11.2048H13.8365C14.2314 11.2048 14.5515 10.8893 14.5515 10.5C14.5515 10.1108 14.2314 9.79529 13.8365 9.79529Z"
+          fill="white"
+        />
+        <path
+          d="M13.8365 12.6143H7.16344C6.76854 12.6143 6.44849 12.9297 6.44849 13.319C6.44849 13.7083 6.76854 14.0237 7.16344 14.0237H13.8365C14.2314 14.0237 14.5515 13.7083 14.5515 13.319C14.5515 12.9297 14.2314 12.6143 13.8365 12.6143Z"
+          fill="white"
+        />
+      </svg>
+    </div>
+    <div class="text">{{ 'Chat' | translate }}</div>
+  </div>
+</div>
+
+<div class="logistic-tracking" *ngIf="Selector == 'logistic-tracking'">
+  <img [src]="logisticImgUrl" alt="Logistic" />
+  <a [href]="logisticTrackingfUrl">{{ 'Tracking No' | translate }}.</a>
+</div>
+
+<div class="logistic-info" *ngIf="Selector == 'logistic-info'">
+  <img [src]="logisticInfoImgUrl" [alt]="logisticInfoName" />
+  <div class="info">
+    <div class="label">{{ logisticInfoName | translate }}</div>
+    <div class="date-code">
+      <div class="date">{{ logisticInfoDate }}</div>
+      <div class="code">{{ logisticInfoCode }}</div>
+    </div>
+  </div>
+  <div class="details">
+    <div class="status-payment">{{ logisticInfoPayment }}</div>
+    <div class="values">
+      <div class="value-paid" *ngIf="logisticInfoPaid">฿{{ logisticInfoValue }} | Paid</div>
+      <div class="value-unpaid" *ngIf="!logisticInfoPaid">฿{{ logisticInfoValue }} | Unpaid</div>
+      <a [href]="logisticInfoChangeUrl" class="link">{{ 'Change' | translate }}</a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!Selector">
+  <ng-content></ng-content>
+</div>

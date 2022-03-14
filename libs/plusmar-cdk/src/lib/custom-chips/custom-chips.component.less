@@ -1,0 +1,99 @@
+@import '../assets/styles/properties';
+
+.custom-chips {
+  font-family: @font-family;
+  width: 100%;
+  position: relative;
+
+  .add-chip-custom {
+    background: @main-color;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 8px;
+    top: 8px;
+    //z-index: 999;
+    border: 0px;
+    color: white;
+  }
+
+  &.main {
+    .mat-chip-list-wrapper {
+      .mat-chip.mat-standard-chip {
+        background: #ef8456;
+      }
+    }
+  }
+
+  &.sub {
+    .mat-chip-list-wrapper {
+      .mat-chip.mat-standard-chip {
+        background: #e58e94;
+      }
+    }
+  }
+
+  .mat-chip-list-wrapper {
+    border: @default-border;
+    border-radius: 8px;
+    min-height: 40px;
+    transition: @transition;
+    padding: 0px 20px;
+    padding-left: 8px;
+
+    .mat-chip.mat-standard-chip {
+      background: @main-color;
+      color: white;
+      border-radius: 8px;
+
+      img {
+        width: 10px;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-color: @main-color;
+    }
+
+    input.mat-input-element {
+      outline: none;
+      border: 0px !important;
+      padding: 0px !important;
+
+      &.no-pointer {
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0px;
+
+    .mat-form-field-infix {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .mat-form-field-label-wrapper {
+      left: 15px;
+
+      .mat-form-field-label {
+        top: 23px;
+      }
+    }
+  }
+
+  &.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none;
+  }
+}

@@ -1,0 +1,46 @@
+@import 'base';
+
+.detail {
+  padding: 20px;
+
+  .title {
+    color: #ff7a24;
+    font-size: 20px;
+  }
+
+  .save-active {
+    background-color: #ff7a24;
+
+    &:hover {
+      background-color: #ff7a24;
+    }
+  }
+
+  .with-color {
+    color: #ff7a24;
+    margin-left: 8px;
+  }
+
+  .price {
+    font-weight: 500;
+    font-size: 42px;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+  line-height: 2rem;
+  color: #4f7186;
+
+  li {
+    .with-color {
+      color: #ff7a24;
+    }
+  }
+}
+
+img {
+  width: 15px;
+  margin-right: 10px;
+}

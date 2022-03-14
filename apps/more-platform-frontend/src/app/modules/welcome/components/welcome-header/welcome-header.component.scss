@@ -1,0 +1,24 @@
+@layer components {
+  .hamburger {
+    @apply mr-2 lg:hidden block cursor-pointer z-30;
+    .line {
+      @apply w-8 h-1 bg-white block my-2 transition-all duration-300;
+    }
+    &.is-active {
+      .line {
+        @apply bg-gray-700;
+      }
+    }
+    &.is-active .line:nth-child(2) {
+      @apply opacity-0;
+    }
+
+    &.is-active .line:nth-child(1) {
+      @apply transform rotate-45 translate-y-3;
+    }
+
+    &.is-active .line:nth-child(3) {
+      @apply transform -rotate-45 -translate-y-3;
+    }
+  }
+}

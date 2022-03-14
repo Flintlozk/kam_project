@@ -1,0 +1,284 @@
+<form [formGroup]="taskDetailForm">
+  <div class="header-title-dialog">
+    <div class="task-title-detail">
+      <div class="title-company-name">
+        <input matInput [value]="taskTitle" (change)="onUpdateTaskTitle(taskTitleInput)" #taskTitleInput type="text" required />
+      </div>
+    </div>
+
+    <div class="header-title-right">
+      <div class="create-detail-title">
+        <div>Created</div>
+        <div class="create-detail-date">
+          {{ cardDetailInput.createDate | date }}
+        </div>
+      </div>
+      <div class="button-save-dialog-task">
+        <button type="button" (click)="onClickMove()" mat-button class="button-move-state" color="primary" *ngIf="nextState">{{ nextState | translate }}</button>
+        <button type="button" (click)="onClickSave()" mat-button class="button-move-state" color="primary" *ngIf="typeOfAction === 'ADD'">{{ 'SAVE' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <mat-divider class="divider-mat-dialog"></mat-divider>
+  <div class="container">
+    <mat-card class="form-detail">
+      <mat-form-field *ngIf="typeOfAction === 'ADD'">
+        <mat-label>Select Workflow</mat-label>
+        <mat-select [formControl]="workflow">
+          <mat-option *ngFor="let workflow of userWorkflow" [value]="workflow.flowname">
+            {{ workflow.flowname }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <reactor-room-assign-form [groupAssignee]="groupAssignee" [allAssignee]="allAssignee" (addAssignee)="onAddAssignee($event)"></reactor-room-assign-form> -->
+      <div *ngIf="typeOfAction !== 'ADD'">
+        <div class="recent-title">Recent</div>
+        <div *ngFor="let comment of noteTask; trackBy: trackByIndex; let i = index">
+          <div class="add-noted" *ngIf="displayMoreComment || noteTask.length - 3 <= i">
+            <div class="profile-recent-comment">
+              <img class="img-comment" draggable="false" [src]="[comment.profilePic]" [matTooltip]="[comment.createBy]" />
+            </div>
+            <div>
+              <div [formGroup]="commentFormGroup" class="recent-comment">
+                <mat-card formArrayName="commentNote" [ngStyle]="{ 'background-color': comment.isInternalNote ? '#9DE5F9' : '#ffffff' }" class="card-recent-comment">
+                  <div class="same-row">
+                    <input matInput (keyup.enter)="onUpdateCommentTask(i)" [formControl]="getCommentList.controls[i]" />
+                    <mat-icon *ngIf="uuidTask === comment.uuidTask" [matMenuTriggerFor]="menu" class="matmunu">settings</mat-icon>
+                  </div>
+                  <mat-menu #menu="matMenu">
+                    <mat-icon (click)="onClickchangeNotetype(i, comment)" matTooltip="Toggle note type">settings_ethernet</mat-icon>
+                    <mat-icon (click)="onClickEditComment(i)" matTooltip="Edit note">edit</mat-icon>
+                    <mat-icon (click)="onClickDeleteCommentTask(i, comment)" matTooltip="Delete note">delete_forever</mat-icon>
+                  </mat-menu>
+                  <div class="attachment" *ngIf="comment.attachments.length > 0">Attachement:</div>
+                  <div class="group-attachment" *ngFor="let attachment of comment.attachments; trackBy: trackByIndex; let j = index">
+                    <div class="same-row">
+                      <a [href]="[attachment.attachmentLink]">{{ attachment.attachmentName }}</a>
+                      <mat-icon *ngIf="getCommentList.controls[i].valid" (click)="onClickRemoveFileAttach(i, j)"> clear</mat-icon>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+              <div class="timestamp-comment-dialog-task">
+                {{ comment.createDate | timeAgo }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <svg
+          *ngIf="noteTask.length > primaryDisplayNote"
+          (click)="displayMoreComment = !displayMoreComment"
+          width="65"
+          height="31"
+          viewBox="0 0 65 31"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.828 15.21C2.28667 15.21 1.764 15.1633 1.26 15.07C0.756 14.9767 0.354667 14.8507 0.056 14.692L0.28 13.656C1.07333 14.0387 1.974 14.23 2.982 14.23C3.822 14.23 4.466 14.0993 4.914 13.838C5.37133 13.5673 5.66067 13.1567 5.782 12.606C5.81933 12.382 5.838 12.2373 5.838 12.172C5.838 11.9107 5.76333 11.6913 5.614 11.514C5.46467 11.3273 5.25467 11.164 4.984 11.024C4.71333 10.8747 4.284 10.674 3.696 10.422C3.00533 10.1233 2.48733 9.78733 2.142 9.414C1.79667 9.04067 1.624 8.59733 1.624 8.084C1.624 7.888 1.64267 7.70133 1.68 7.524C1.848 6.74933 2.254 6.138 2.898 5.69C3.55133 5.23267 4.39133 5.004 5.418 5.004C6.35133 5.004 7.19133 5.172 7.938 5.508L7.728 6.502C7.01867 6.15667 6.23 5.984 5.362 5.984C3.85 5.984 2.98667 6.49733 2.772 7.524C2.744 7.67333 2.73 7.80867 2.73 7.93C2.73 8.30333 2.87467 8.61133 3.164 8.854C3.46267 9.09667 3.98067 9.36733 4.718 9.666C5.24067 9.88067 5.656 10.086 5.964 10.282C6.28133 10.4687 6.524 10.6927 6.692 10.954C6.86933 11.2153 6.958 11.5373 6.958 11.92C6.958 12.1253 6.93 12.354 6.874 12.606C6.68733 13.4647 6.27667 14.1133 5.642 14.552C5.01667 14.9907 4.07867 15.21 2.828 15.21ZM11.6016 15.21C10.5936 15.21 9.80029 14.9767 9.22163 14.51C8.65229 14.0433 8.36763 13.3853 8.36763 12.536C8.36763 12.2373 8.40029 11.9433 8.46563 11.654C8.70829 10.5433 9.19363 9.67067 9.92163 9.036C10.659 8.392 11.6156 8.07 12.7916 8.07C13.753 8.07 14.481 8.29867 14.9756 8.756C15.4703 9.21333 15.7176 9.82933 15.7176 10.604C15.7176 10.8933 15.685 11.1827 15.6196 11.472L15.4936 12.06H9.38963C9.36163 12.2373 9.34763 12.41 9.34763 12.578C9.34763 13.7633 10.197 14.356 11.8956 14.356C12.3343 14.356 12.773 14.3187 13.2116 14.244C13.6596 14.16 14.0656 14.048 14.4296 13.908L14.2336 14.818C13.935 14.93 13.5336 15.0233 13.0296 15.098C12.535 15.1727 12.059 15.21 11.6016 15.21ZM14.6536 11.29C14.7003 11.038 14.7236 10.8233 14.7236 10.646C14.7236 9.50733 14.0143 8.938 12.5956 8.938C11.7556 8.938 11.079 9.15267 10.5656 9.582C10.0616 10.0113 9.72563 10.5807 9.55763 11.29H14.6536ZM20.1192 15.21C19.1112 15.21 18.3179 14.9767 17.7392 14.51C17.1699 14.0433 16.8852 13.3853 16.8852 12.536C16.8852 12.2373 16.9179 11.9433 16.9832 11.654C17.2259 10.5433 17.7112 9.67067 18.4392 9.036C19.1765 8.392 20.1332 8.07 21.3092 8.07C22.2705 8.07 22.9985 8.29867 23.4932 8.756C23.9879 9.21333 24.2352 9.82933 24.2352 10.604C24.2352 10.8933 24.2025 11.1827 24.1372 11.472L24.0112 12.06H17.9072C17.8792 12.2373 17.8652 12.41 17.8652 12.578C17.8652 13.7633 18.7145 14.356 20.4132 14.356C20.8519 14.356 21.2905 14.3187 21.7292 14.244C22.1772 14.16 22.5832 14.048 22.9472 13.908L22.7512 14.818C22.4525 14.93 22.0512 15.0233 21.5472 15.098C21.0525 15.1727 20.5765 15.21 20.1192 15.21ZM23.1712 11.29C23.2179 11.038 23.2412 10.8233 23.2412 10.646C23.2412 9.50733 22.5319 8.938 21.1132 8.938C20.2732 8.938 19.5965 9.15267 19.0832 9.582C18.5792 10.0113 18.2432 10.5807 18.0752 11.29H23.1712ZM31.8271 8.28H32.8631L32.6391 9.33C33.4511 8.49 34.3378 8.07 35.2991 8.07C35.8125 8.07 36.2091 8.17267 36.4891 8.378C36.7785 8.58333 36.9605 8.87267 37.0351 9.246C37.4271 8.84467 37.8611 8.55067 38.3371 8.364C38.8225 8.168 39.2985 8.07 39.7651 8.07C40.3811 8.07 40.8431 8.224 41.1511 8.532C41.4685 8.83067 41.6271 9.246 41.6271 9.778C41.6271 10.0113 41.5991 10.254 41.5431 10.506L40.5911 15H39.5271L40.4511 10.632C40.5165 10.3053 40.5491 10.058 40.5491 9.89C40.5491 9.54467 40.4511 9.302 40.2551 9.162C40.0685 9.01267 39.7558 8.938 39.3171 8.938C38.5145 8.938 37.7725 9.29733 37.0911 10.016C37.0911 10.1747 37.0585 10.3893 36.9931 10.66L36.0831 15H35.0331L35.9431 10.66C36.0178 10.3333 36.0551 10.072 36.0551 9.876C36.0551 9.54933 35.9618 9.31133 35.7751 9.162C35.5885 9.01267 35.2851 8.938 34.8651 8.938C34.0625 8.938 33.2598 9.386 32.4571 10.282L31.4631 15H30.3991L31.8271 8.28ZM45.668 15.21C44.744 15.21 44.002 14.9673 43.442 14.482C42.882 13.9967 42.602 13.334 42.602 12.494C42.602 12.2793 42.6347 11.9993 42.7 11.654C42.9333 10.5433 43.4513 9.67067 44.254 9.036C45.066 8.392 46.046 8.07 47.194 8.07C48.118 8.07 48.8553 8.31733 49.406 8.812C49.966 9.30667 50.246 9.974 50.246 10.814C50.246 11.1033 50.2133 11.3833 50.148 11.654C49.9053 12.7927 49.3873 13.67 48.594 14.286C47.8007 14.902 46.8253 15.21 45.668 15.21ZM45.85 14.356C46.6527 14.356 47.3433 14.1133 47.922 13.628C48.51 13.1333 48.8927 12.4753 49.07 11.654C49.1353 11.3833 49.168 11.1127 49.168 10.842C49.168 10.2353 48.986 9.76867 48.622 9.442C48.258 9.106 47.7213 8.938 47.012 8.938C46.2093 8.938 45.514 9.18533 44.926 9.68C44.338 10.1653 43.9553 10.8233 43.778 11.654C43.722 11.934 43.694 12.2 43.694 12.452C43.694 13.0493 43.876 13.516 44.24 13.852C44.604 14.188 45.1407 14.356 45.85 14.356ZM52.5537 8.28H53.6037L53.3237 9.596C54.0424 8.71867 55.1484 8.28 56.6417 8.28L56.4457 9.148C54.831 9.148 53.7157 9.68467 53.0997 10.758L52.2037 15H51.1257L52.5537 8.28ZM59.7403 15.21C58.7323 15.21 57.939 14.9767 57.3603 14.51C56.791 14.0433 56.5063 13.3853 56.5063 12.536C56.5063 12.2373 56.539 11.9433 56.6043 11.654C56.847 10.5433 57.3323 9.67067 58.0603 9.036C58.7976 8.392 59.7543 8.07 60.9303 8.07C61.8916 8.07 62.6196 8.29867 63.1143 8.756C63.609 9.21333 63.8563 9.82933 63.8563 10.604C63.8563 10.8933 63.8236 11.1827 63.7583 11.472L63.6323 12.06H57.5283C57.5003 12.2373 57.4863 12.41 57.4863 12.578C57.4863 13.7633 58.3356 14.356 60.0343 14.356C60.473 14.356 60.9116 14.3187 61.3503 14.244C61.7983 14.16 62.2043 14.048 62.5683 13.908L62.3723 14.818C62.0736 14.93 61.6723 15.0233 61.1683 15.098C60.6736 15.1727 60.1976 15.21 59.7403 15.21ZM62.7923 11.29C62.839 11.038 62.8623 10.8233 62.8623 10.646C62.8623 9.50733 62.153 8.938 60.7343 8.938C59.8943 8.938 59.2176 9.15267 58.7043 9.582C58.2003 10.0113 57.8643 10.5807 57.6963 11.29H62.7923Z"
+            fill="#153342"
+          />
+          <path d="M28 25L32.5 29L37 25" stroke="#153342" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <div class="add-noted">
+          <div class="profile-recent-comment">
+            <img class="img-comment" draggable="false" [src]="myProfilePic" [matTooltip]="myName" />
+          </div>
+          <div class="center">
+            <div *ngIf="!showInputComment">
+              <div class="notetype">
+                <div class="link" (click)="onClickInternalNote()">Internal note</div>
+                <div class="space">/</div>
+                <div class="link" (click)="onClickSharingNote()">Sharing note</div>
+              </div>
+            </div>
+            <div *ngIf="showInputComment" class="recent-comment">
+              <mat-card class="card-recent-comment">
+                <div class="same-row">
+                  <div>
+                    <input matInput placeholder="Take Notes...." (keyup.enter)="onAddCommentTask(commentTask)" #commentTask class="comment-task" />
+                    <svg
+                      id="imgAttachment"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      (click)="attachFileTask.click()"
+                      class="img-attachment"
+                    >
+                      <rect width="24" height="24" rx="4" fill="#E3EDF2" />
+                      <path
+                        d="M14.1362 9.45784L10.9858 12.6083C10.7769 12.8172 10.6595 13.1005 10.6595 13.3959C10.6595 13.6913 10.7769 13.9747 10.9858 14.1835C11.1947 14.3924 11.478 14.5098 11.7734 14.5098C12.0688 14.5098 12.3521 14.3924 12.561 14.1835L15.7115 11.0331C16.1292 10.6153 16.3639 10.0487 16.3639 9.45784C16.3639 8.86701 16.1292 8.30038 15.7115 7.88261C15.2937 7.46483 14.7271 7.23012 14.1362 7.23012C13.5454 7.23012 12.9788 7.46483 12.561 7.88261L9.41053 11.0331C8.78386 11.6597 8.4318 12.5097 8.4318 13.3959C8.4318 14.2822 8.78386 15.1321 9.41053 15.7588C10.0372 16.3854 10.8871 16.7375 11.7734 16.7375C12.6596 16.7375 13.5096 16.3854 14.1362 15.7588L17.2867 12.6083"
+                        stroke="#153342"
+                        stroke-width="0.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M7.04778 9.30723V7.59295M7.04778 7.59295V5.87866M7.04778 7.59295H8.76207M7.04778 7.59295H5.3335"
+                        stroke="#153342"
+                        stroke-width="0.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <svg (click)="undoToSelectNote()" class="size_undo" height="512pt" viewBox="0 0 512 512.00241" width="512pt" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="m256 .00390625c-62.675781 0-123.605469 23.08203175-171.09375 62.26953175l-57.597656-57.597657c-4.585938-4.566406-11.457032-5.933593-17.429688-3.457031-5.972656 2.472656-9.878906 8.296875-9.878906 14.785156v138.664063c0 8.832031 7.167969 16 16 16h138.667969c6.484375 0 12.308593-3.902344 14.785156-9.875 2.472656-5.972657 1.109375-12.84375-3.480469-17.429688l-50.75-50.773437c39.445313-31.425782 89.363282-49.921875 140.777344-49.921875 117.632812 0 213.335938 95.703125 213.335938 213.335937 0 117.628906-95.703126 213.332032-213.335938 213.332032-56.9375 0-110.503906-22.207032-150.804688-62.527344-8.339843-8.34375-21.824218-8.34375-30.164062 0-8.34375 8.339844-8.34375 21.824218 0 30.164062 48.363281 48.382813 112.640625 75.03125 180.96875 75.03125 141.164062 0 256-114.839844 256-256 0-141.164062-114.835938-255.99999975-256-255.99999975zm0 0"
+                    />
+                  </svg>
+                </div>
+                <div class="group-attachment">
+                  <div *ngFor="let file of fileDataList; let i = index" class="attachment-file">
+                    {{ file.name }}
+                    <div (click)="onRemoveFileAttach(i)" class="attach-file-remove">X</div>
+                  </div>
+                </div>
+                <input type="file" (change)="onUploadFileAttach($event)" style="display: none" #attachFileTask />
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <reactor-room-form-appointment
+        *ngIf="typeOfAction !== 'ADD'"
+        [appointmentTask]="appointmentTask"
+        [displayDatePicker]="displayDatePicker"
+        (addAppointment)="onAddAppointment($event)"
+        (deleteAppointment)="onDeleteAppointment($event)"
+        (editAppointment)="onEditAppointment($event)"
+        (openAppointment)="onAppointment()"
+        [formGroup]="formAppoint"
+      ></reactor-room-form-appointment>
+      <div *ngIf="taskDepartment === '3'" class="column">
+        <mat-label *ngIf="typeOfAction !== 'ADD'" class="tagtask">Task Tag</mat-label>
+        <svg [matMenuTriggerFor]="searchTab" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#E3EDF2" />
+          <path d="M16 21V16M16 16V11M16 16H21M16 16H11" stroke="#153342" stroke-linecap="round" />
+        </svg>
+        <mat-chip-list *ngIf="typeOfAction !== 'ADD'" aria-label="tagTask" class="chip-tag-task">
+          <mat-chip *ngFor="let tag of tagTask; trackBy: trackByIndex" color="accent" (removed)="onDeleteTag(tag.tagId)">
+            {{ tag.tagname }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </mat-card>
+
+    <mat-card class="form-detail">
+      <div class="title-company-detail">
+        <div class="title-company-name">{{ companyName }}</div>
+        <mat-slide-toggle (change)="onChangeEdit()" [disabled]="disableEditContact" [checked]="editMode">{{ modeText }}</mat-slide-toggle>
+      </div>
+      <div class="lead-member">
+        <div class="task-owner" *ngFor="let owner of taskOwner; let i = index; trackBy: trackByContact">
+          <div class="short-name-contact">
+            <div class="text-short-name" [matTooltip]="owner.name" (click)="onChangeOwnerDetail(i)">{{ getShortName(owner.name) }}</div>
+          </div>
+        </div>
+        <svg
+          (click)="onAddContactTask()"
+          *ngIf="editMode"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="button-add-company-contact"
+          [matTooltip]="tooltipAddContactCompany"
+        >
+          <rect width="32" height="32" rx="10" fill="#E3EDF2" />
+          <path d="M16 20V16M16 16V12M16 16H20M16 16H12" stroke="#153342" stroke-linecap="round" />
+        </svg>
+        <div class="add-task-owner"></div>
+      </div>
+      <reactor-room-form-input-amount
+        class="profile-form-detail"
+        [formGroup]="formTask"
+        [editMode]="editMode"
+        [insertContactMode]="insertContactMode"
+        [updateMode]="updateMode"
+        (cancelContactCompany)="onCancelInsertContactTask()"
+        (saveContactCompany)="onInsertCompanyContact()"
+        (updateContactCompany)="onPreUpdateCompanyDetail()"
+      ></reactor-room-form-input-amount>
+      <reactor-room-form-addition-account-excecutive
+        [cardDetailInput]="cardDetailInput"
+        [uuidTask]="uuidTask"
+        *ngIf="taskDepartment === '3'"
+      ></reactor-room-form-addition-account-excecutive>
+      <div *ngIf="taskDepartment !== '3' && typeOfAction !== 'ADD'" class="column">
+        <mat-label class="tagtask">Task Tag</mat-label>
+        <svg [matMenuTriggerFor]="searchTab" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="16" fill="#E3EDF2" />
+          <path d="M16 21V16M16 16V11M16 16H21M16 16H11" stroke="#153342" stroke-linecap="round" />
+        </svg>
+        <mat-chip-list aria-label="tagTask" class="chip-tag-task">
+          <mat-chip *ngFor="let tag of tagTask; trackBy: trackByIndex" color="accent" (removed)="onDeleteTag(tag.tagId)">
+            {{ tag.tagname }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <div *ngIf="taskDepartment === '3' || taskDepartment === '6'">
+        <div class="button-add-appointment" [matMenuTriggerFor]="addDeal">
+          <mat-button class="form-appointment-detail"> + Create Deal </mat-button>
+        </div>
+        <reactor-room-deal-form-detail
+          class="card-deal-detail"
+          [taskItem]="cardDetailInput"
+          [uuidTask]="uuidTask"
+          [allAssignee]="allAssignee"
+          [taskDealList]="taskDealList"
+          (deleteDealFromList)="onDeleteDealFromList($event)"
+        ></reactor-room-deal-form-detail>
+      </div>
+      <div class="button-inactive-task">
+        <button type="button" *ngIf="typeOfAction !== 'ADD'" mat-flat-button (click)="onClickDeleteActiveTask()" color="warn">Delete</button>
+      </div>
+    </mat-card>
+  </div>
+</form>
+<mat-menu #searchTab="matMenu" yPosition="below" xPosition="before" class="mat-menu-search-tag">
+  <mat-form-field class="example-chip-list" appearance="standard" class="form-field-side-nav-menu">
+    <input
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="onAddTaskTag($event)"
+      (click)="$event.stopPropagation()"
+      placeholder="Type new tag.."
+    />
+
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let tag of tagTask; trackBy: trackByIndex" [selectable]="selectable">
+        {{ tag.tagname }}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-form-field>
+</mat-menu>
+<mat-menu #addDeal="matMenu" yPosition="below" xPosition="before" class="mat-menu-add-deal">
+  <div class="mat-menu-add-deal">
+    <fieldset>
+      <legend>Insert Deal</legend>
+      <mat-form-field style="width: 250px" class="example-chip-list" appearance="standard" class="form-field-side-nav-menu">
+        <mat-label>Type deal code</mat-label>
+        <input type="text" (click)="$event.stopPropagation()" placeholder="Pick one" aria-label="Number" matInput [formControl]="projectCode" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredDealOptions; let i = index">
+            <div style="display: flex" (click)="onClickAddDeal(i)">
+              <div style="padding-right: 20px">{{ option }}</div>
+              <div style="display: flex; flex-direction: column">
+                <div style="height: 15px; font-size: 10px">Deal title :{{ optionsWithUuid[i].dealTitle }}</div>
+                <div style="height: 15px; font-size: 10px">Company name :{{ optionsWithUuid[i].companyName }}</div>
+              </div>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </fieldset>
+    <button mat-button class="color" (click)="onClickOpenCreateDealDialog()">create deal</button>
+  </div>
+</mat-menu>

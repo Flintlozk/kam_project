@@ -1,0 +1,61 @@
+@import '../assets/styles/properties';
+@import '../assets/styles/buttons';
+
+.success-dialog {
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: @font-family;
+  max-width: 600px;
+  margin: auto;
+
+  .container {
+    padding: 20px;
+    min-height: 160px;
+    background: white;
+    background-image: url('../assets/images/confirm-bg.png');
+    background-size: auto 200px;
+    background-repeat: no-repeat;
+    background-position: right top;
+
+    .title {
+      font-weight: 500;
+      font-size: 1.5em;
+      padding-bottom: 30px;
+      padding-top: 10px;
+
+      span {
+        color: @main-color;
+      }
+    }
+
+    .copy {
+      input {
+        border: 0;
+        width: 60%;
+      }
+      button {
+        width: 30%;
+      }
+    }
+
+    .content {
+      font-weight: 200;
+    }
+  }
+
+  .footer {
+    background: #e2f1ff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-cancel {
+      .btn-secondary();
+      margin-right: 10px;
+    }
+
+    .btn-ok {
+      .btn-primary();
+    }
+  }
+}

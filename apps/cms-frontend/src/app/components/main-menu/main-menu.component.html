@@ -1,0 +1,17 @@
+<section class="grid gap-4 pb-10">
+  <ng-container *ngFor="let menuItem of mainMenu; trackBy: trackByIndex">
+    <div class="flex items-center cursor-pointer focus:outline-none" [routerLink]="'/' + [menuItem.route]" routerLinkActive #rla="routerLinkActive">
+      <div class="flex items-center w-10"><img class="w-6" [src]="rla.isActive ? menuItem.iconActive : menuItem.icon" [alt]="menuItem.title" /></div>
+      <div class="text-xl transition" [ngClass]="{ 'text-green-500': rla.isActive }">{{ menuItem.title }}</div>
+    </div>
+    <ng-container *ngIf="menuItem.child.length && rla.isActive">
+      <div class="grid gap-3 ml-10">
+        <ng-container *ngFor="let child of menuItem.child; trackBy: trackByIndex">
+          <div class="mr-4 font-light cursor-pointer focus:outline-none" [routerLink]="'/' + [menuItem.route + '/' + child.route]" routerLinkActive #crla="routerLinkActive">
+            <div class="text-lg" [ngClass]="{ 'text-green-500': crla.isActive }">{{ child.title }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

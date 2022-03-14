@@ -1,0 +1,30 @@
+<section class="grid gap-3">
+  <h4>Storage drive</h4>
+  <div class="flex items-center w-full h-3 bg-white rounded-full">
+    <ng-container *ngFor="let storage of AllStorage; trackBy: trackByIndex">
+      <div class="h-full bg-green-500 first:rounded-l-full last:rounded-r-full" [ngStyle]="{ 'background-color': storage.colorCode, flex: storage.usedByte / totalByte }"></div>
+    </ng-container>
+  </div>
+  <div class="text-sm font-light tracking-wide">
+    <span class="text-sm font-semibold tracking-wide text-gray-900">{{ totalUsedByte | filesize }}</span> of {{ totalByte | filesize }} Used
+  </div>
+  <div class="flex flex-wrap flex-col gap-2">
+    <div>Assets</div>
+    <ng-container *ngFor="let storage of storageUsage; trackBy: trackByIndex">
+      <div class="flex items-center mr-4">
+        <div class="flex-shrink-0 w-3 h-3 mr-1 rounded-full" [ngStyle]="{ 'background-color': storage.colorCode }"></div>
+        <div class="font-light text-gray-500 pr-1">{{ storage.name }}</div>
+        <div>({{ storage.usedByte | filesize }})</div>
+      </div>
+    </ng-container>
+    <div>System</div>
+    <ng-container *ngFor="let storage of storageSystemUsage; trackBy: trackByIndex">
+      <div class="flex items-center mr-4">
+        <div class="flex-shrink-0 w-3 h-3 mr-1 rounded-full" [ngStyle]="{ 'background-color': storage.colorCode }"></div>
+        <div class="font-light text-gray-500 pr-1">{{ storage.name }}</div>
+        <div>({{ storage.usedByte | filesize }})</div>
+      </div>
+    </ng-container>
+  </div>
+  <button class="text-sm font-light text-left text-green-500 focus:outline-none">Upgrade your store drive</button>
+</section>

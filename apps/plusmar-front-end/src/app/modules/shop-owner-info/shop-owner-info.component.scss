@@ -1,0 +1,50 @@
+@import 'base';
+@import 'buttons';
+
+.heading-content {
+  &.owner-info {
+    .buttons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      //gap: 10px;
+      .cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+  }
+}
+.setting {
+  .mat-tab-setting {
+    @extend .custom-tabs;
+  }
+  .setting-log {
+    .mat-tab-body-wrapper {
+      margin-top: 0px;
+    }
+  }
+}
+.setting-shop-owner-info {
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
+
+    .text {
+      padding-right: 15px;
+
+      a {
+        color: $main-color;
+      }
+    }
+
+    .btn-edit {
+      @extend .btn-inactive;
+    }
+  }
+}

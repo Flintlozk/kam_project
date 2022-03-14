@@ -1,0 +1,79 @@
+<section>
+  <div *ngIf="isWelcomeScene" class="relative p-4 my-4 bg-opacity-30 bg-green-200 roudnded rounded-md">
+    <div class="flex items-center">
+      <img [src]="currentTheme?.thumbnail" [alt]="currentTheme?.name" onerror="src='assets/shared/default-theme.svg'" class="rounded-xl h-28 border" />
+      <div class="pl-6">
+        <div class="text-2xl">{{ currentTheme?.name }}</div>
+        <div class="font-light">Current Using Theme</div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isWelcomeScene" class="border rounded bg-white px-4 py-6 relative mb-6">
+    <svg class="absolute right-0 top-0" width="146" height="149" viewBox="0 0 146 149" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="63.2898" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="83.5192" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="63.2898" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="83.5192" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="63.2898" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="83.5192" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="103.748" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="66.6099" cy="104.61" r="3.60986" fill="#F5F5F5" />
+      <circle cx="86.8391" cy="104.61" r="3.60986" fill="#F5F5F5" />
+      <circle cx="107.069" cy="104.61" r="3.60986" fill="#F5F5F5" />
+      <circle cx="66.6099" cy="124.839" r="3.60986" fill="#F5F5F5" />
+      <circle cx="86.8391" cy="124.839" r="3.60986" fill="#F5F5F5" />
+      <circle cx="107.069" cy="124.839" r="3.60986" fill="#F5F5F5" />
+      <circle cx="66.6099" cy="145.068" r="3.60986" fill="#F5F5F5" />
+      <circle cx="86.8391" cy="145.069" r="3.60986" fill="#F5F5F5" />
+      <circle cx="107.069" cy="145.069" r="3.60986" fill="#F5F5F5" />
+      <circle cx="3.60986" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="43.6099" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="63.8394" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="84.0684" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="104.298" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="104.297" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="104.297" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="124.527" r="3.60986" fill="#92E898" />
+      <circle cx="3.60986" cy="144.756" r="3.60986" fill="#92E898" />
+      <circle cx="23.8392" cy="144.756" r="3.60986" fill="#92E898" />
+      <circle cx="44.0685" cy="144.756" r="3.60986" fill="#92E898" />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M146 75.2157C136.831 82.5882 125.181 87 112.5 87C82.9528 87 59 63.0472 59 33.5C59 20.8192 63.4118 9.16877 70.7843 0H58.5454C52.4948 9.72431 49 21.204 49 33.5C49 68.5701 77.4299 97 112.5 97C124.796 97 136.276 93.5051 146 87.4546V75.2157Z"
+        fill="#E1FCDF"
+      />
+    </svg>
+    <div class="flex items-center">
+      <img [src]="currentTheme?.html[0]?.thumbnail?.path" [alt]="currentTheme?.name" onerror="src='assets/shared/default-theme.svg'" class="rounded-xl h-44 border" />
+      <div class="pl-6">
+        <div class="text-2xl">{{ currentTheme?.name }}</div>
+        <div class="font-light">Current Theme</div>
+        <div class="py-4 flex items-center">
+          <cms-next-edit-site-button></cms-next-edit-site-button>
+        </div>
+        <button *ngIf="false" class="flex items-center focus:outline-none previous">
+          <svg class="text-gray-300 stroke-current mr-2" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.5 6.44444C11.5 8.77778 9.48077 11.5 6.25 11.5C3.01923 11.5 1 8.77778 1 6.44444C1 4.11111 3.01923 1.38889 6.25 1.38889C8.26923 1.38889 9.88462 2.55556 10.6923 3.72222M10.6923 3.72222L7.86538 4.11111M10.6923 3.72222L11.0962 1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="font-light text-gray-300">Use Previous Theme</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <cms-next-page-pagination [allPagesNumber]="allPages" (changePage)="onPageChange($event)"></cms-next-page-pagination>
+  <cms-next-theme-list [themes]="themes" (themeIndexEmitter)="onSelectTemplate($event)"></cms-next-theme-list>
+</section>

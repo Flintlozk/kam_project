@@ -1,0 +1,184 @@
+* {
+  font-family: Prompt;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  .drawer {
+    position: fixed;
+    height: 100vh;
+    min-width: 25%;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgba(249, 249, 249, 1);
+    .container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      .container1 {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        width: 100%;
+        .header {
+          display: flex;
+          flex-direction: row;
+          background-color: white;
+          font-weight: bold;
+          height: 100px;
+          align-items: center;
+          h1 {
+            width: 100%;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 30px;
+
+            color: #153342;
+          }
+          .container_botton {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            width: 100%;
+          }
+        }
+        .container_searchbox {
+          display: flex;
+          padding: 0px 0px 0px 50px;
+          height: auto;
+          .searchbox {
+            display: flex;
+            width: 100%;
+            background: #efefef;
+            border-radius: 6px;
+            margin: 20px 30px 20px 0px;
+            height: 40px;
+            align-items: center;
+            .seachbox_bar {
+              background: #efefef;
+              border-radius: 30px;
+              border: none;
+              outline-width: 0;
+              width: 100%;
+            }
+          }
+        }
+        h1 {
+          padding-left: 40px;
+          color: rgba(165, 165, 165, 1);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+        .inactive {
+          table {
+            .mat-cell {
+              color: rgba(165, 165, 165, 1);
+            }
+            tr {
+              height: 0px;
+            }
+
+            margin: 10px 30px 10px 30px;
+            background-color: rgba(249, 249, 249, 1);
+            width: 100%;
+            .mat-cell,
+            .mat-header-cell {
+              border: none !important;
+            }
+          }
+        }
+        .importor {
+          display: flex;
+          align-self: center;
+          align-items: center;
+          .img-importor {
+            height: 40px;
+            padding: 16px;
+            border-radius: 25px;
+          }
+        }
+        .table_header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        table {
+          tr {
+            th {
+              color: #153342;
+            }
+          }
+          ::ng-deep .mat-checkbox .mat-checkbox-frame {
+            border: 1px solid #0ec2f2;
+            background: #ffffff;
+            box-sizing: border-box;
+            size: 20px;
+            border-radius: 6px;
+          }
+          ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+            background-color: #0ec2f2 !important;
+            border-radius: 6px;
+          }
+
+          margin: 10px 30px 10px 30px;
+          background-color: rgba(249, 249, 249, 1);
+          width: 100%;
+          ng-container:hover {
+            border: none;
+            cursor: pointer;
+          }
+          .mat-cell,
+          .mat-header-cell {
+            border: none !important;
+          }
+          .inactive {
+            height: 0px;
+          }
+          .mat-row:hover {
+            transform: scale(1);
+            box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+          }
+        }
+        table:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    ::ng-deep .mat-checkbox .mat-checkbox-background .mat-checkbox-frame {
+      background-color: rgb(240, 248, 255);
+    }
+  }
+
+  button {
+    height: 30px;
+    align-self: center;
+    font-size: 14px;
+    margin: 0px 10px 0px 10px;
+  }
+  svg {
+    margin: 20px;
+  }
+  mat-drawer {
+    background-color: rgba(249, 249, 249, 1);
+  }
+}
+.remove {
+  background-color: white;
+  color: red;
+}
+.color {
+  background-color: rgba(14, 194, 242, 1);
+}
+
+mat-drawer-content {
+  display: contents;
+}
+::ng-deep .mat-paginator-container {
+  background-color: rgba(249, 249, 249, 1);
+}

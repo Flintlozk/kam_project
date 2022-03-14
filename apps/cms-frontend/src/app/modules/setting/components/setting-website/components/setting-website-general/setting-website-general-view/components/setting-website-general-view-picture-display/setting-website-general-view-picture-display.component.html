@@ -1,0 +1,130 @@
+<div class="relative" reactorRoomClickOutside (outside)="onClickOutside($event)">
+  <a class="underline setting-text" (click)="toggle()">Setting</a>
+  <div class="setting-dialog" [@translateY] *ngIf="toggleStatus" [formGroup]="dialogForm">
+    <div class="flex w-full justify-between mb-4">
+      <div class="self-start items-center">
+        <span class="mr-2">
+          <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M13.6706 5.40595L12.5946 5.17203C12.501 4.88556 12.3851 4.60614 12.2483 4.33698L12.844 3.41039C12.9504 3.24483 12.927 3.02747 12.7879 2.8884L11.1116 1.2121C10.9725 1.07303 10.7552 1.04964 10.5896 1.15602L9.66302 1.75171C9.39386 1.61488 9.11444 1.49899 8.82797 1.40543L8.59406 0.329407C8.55229 0.137146 8.38203 0 8.18529 0H5.81471C5.61797 0 5.44771 0.137146 5.40595 0.329407L5.17203 1.40543C4.88556 1.49899 4.60614 1.61488 4.33698 1.75171L3.41039 1.15602C3.24483 1.04964 3.02747 1.07303 2.8884 1.2121L1.2121 2.8884C1.07303 3.02747 1.04964 3.24483 1.15602 3.41039L1.75171 4.33698C1.61488 4.60614 1.49899 4.88556 1.40543 5.17203L0.329407 5.40595C0.137146 5.44782 0 5.61797 0 5.81471V8.18529C0 8.38203 0.137146 8.55219 0.329407 8.59406L1.40543 8.82797C1.49899 9.11444 1.61488 9.39386 1.75171 9.66302L1.15602 10.5896C1.04964 10.7552 1.07303 10.9725 1.2121 11.1116L2.8884 12.7879C3.02747 12.927 3.24483 12.9504 3.41039 12.844L4.33698 12.2483C4.60614 12.3851 4.88556 12.501 5.17203 12.5946L5.40595 13.6706C5.44771 13.8629 5.61797 14 5.81471 14H8.18529C8.38203 14 8.55229 13.8629 8.59406 13.6706L8.82797 12.5946C9.11444 12.501 9.39386 12.3851 9.66302 12.2483L10.5896 12.844C10.7552 12.9504 10.9725 12.9271 11.1116 12.7879L12.7879 11.1116C12.927 10.9725 12.9504 10.7552 12.844 10.5896L12.2483 9.66302C12.3851 9.39386 12.501 9.11444 12.5946 8.82797L13.6706 8.59406C13.8629 8.55219 14 8.38203 14 8.18529V5.81471C14 5.61797 13.8629 5.44782 13.6706 5.40595ZM9.50996 7C9.50996 8.38396 8.38396 9.50996 7 9.50996C5.61604 9.50996 4.49004 8.38396 4.49004 7C4.49004 5.61604 5.61604 4.49004 7 4.49004C8.38396 4.49004 9.50996 5.61604 9.50996 7Z"
+              fill="#BCC4D6"
+            />
+          </svg>
+        </span>
+        <span class=""> Settings</span>
+      </div>
+      <div class="self-end">
+        <!-- <button class="mr-2">
+          <img src="assets/cms/setting/website/general/btn-cancel.svg" alt="" />
+        </button>
+        <button>
+          <img src="assets/cms/setting/website/general/btn-accept.svg" alt="" />
+        </button> -->
+      </div>
+    </div>
+
+    <div class="flex">
+      <div class="mr-4">
+        <small class="text-gray-500">Width</small>
+        <input type="number" formControlName="width" class="w-16 rounded py-1 pl-2 border border-gray-300 focus:outline-none block" />
+      </div>
+      <div class="mr-4">
+        <small class="text-gray-500">Height</small>
+        <input type="number" formControlName="height" class="w-16 rounded py-1 pl-2 border border-gray-300 focus:outline-none block" />
+      </div>
+    </div>
+    <div formGroupName="end_time">
+      <div class="my-4"><small class="text-gray-500">End Time</small></div>
+      <div class="my-2">
+        <input type="checkbox" formControlName="is_active" #end_time name="" class="hidden" id="" />
+        <button
+          (click)="end_time.click()"
+          type="checkbox"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': this.getEndTimeActive }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !this.getEndTimeActive,
+              'bg-white right-0 mr-2': this.getEndTimeActive
+            }"
+          ></div>
+        </button>
+      </div>
+
+      <div [ngClass]="{ hidden: !this.getEndTimeActive }" class="mt-2">
+        <div class="my-2"><small class="text-gray-500">Turn off duration (1000/1 second)</small></div>
+        <input type="number" formControlName="duration" class="w-16 rounded py-1 pl-2 border border-gray-300 focus:outline-none block" />
+      </div>
+    </div>
+    <div class="mt-2" formGroupName="display_on_mobile">
+      <div class="my-4"><small class="text-gray-500 mb-4">Display on Mobile</small></div>
+      <div>
+        <input type="checkbox" formControlName="is_active" #display_on_mobile name="" class="hidden" id="" />
+        <button
+          (click)="display_on_mobile.click()"
+          type="checkbox"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': this.getDisplayMobileActive }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{
+              'bg-gray-300': !this.getDisplayMobileActive,
+              'bg-white right-0 mr-2': this.getDisplayMobileActive
+            }"
+          ></div>
+        </button>
+      </div>
+    </div>
+    <div class="mt-4">
+      <small class="text-gray-500">Upload</small>
+      <div class="grid grid-cols-4 my-2">
+        <label class="radio">
+          <input type="radio" name="selected_upload" formControlName="selected_upload" value="Image" /><span class="radio-item"></span><small>Image</small></label
+        >
+        <label class="radio">
+          <input type="radio" name="selected_upload" formControlName="selected_upload" value="Flash" /><span class="radio-item"></span><small>Flash</small></label
+        >
+      </div>
+      <div class="logo-thumbnail rounded border border-gray-300" (click)="uploadfile.click()">
+        <input type="file" class="hidden" #uploadfile id="" (change)="onFileSelected($event)" />
+      </div>
+    </div>
+    <ng-container *ngIf="dialogForm.get('selected_upload').value === 'Image'" formGroupName="image">
+      <div formGroupName="link_type" [@fade]>
+        <div class="my-4">
+          <small class="text-gray-500">Link Type</small>
+          <div class="select-options">
+            <mat-form-field class="w-full" appearance="none">
+              <mat-select [value]="getSelectedLinkType" formControlName="selected_link_type">
+                <mat-option *ngFor="let linktype of getLinktypes" [value]="linktype">{{ linktype }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <small class="text-gray-500">Link</small>
+          <input
+            formControlName="target_url"
+            class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400"
+            type="text"
+            placeholder="Link..."
+          />
+        </div>
+
+        <div formGroupName="target_href">
+          <small class="text-gray-500">Open</small>
+          <ng-container *ngFor="let target_href of getTargetHref">
+            <label class="radio">
+              <input type="radio" name="selected_target_href" formControlName="selected_target_href" [value]="target_href" /><span class="radio-item"></span
+              ><small>{{ target_href }}</small></label
+            >
+          </ng-container>
+          <!-- <label class="radio"> <input type="radio" name="selected_target_href" formControlName="selected_target_href" [value]="EnumConfigTargetHref.CURRENT_WINDOW"/><span class="radio-item"></span><small>Current window</small></label> -->
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

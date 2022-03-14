@@ -1,0 +1,63 @@
+<div class="setting-lead-pipeline-message-container">
+  <mat-accordion>
+    <mat-expansion-panel style="border-radius: 15px">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="card-content">
+            <div class="content">
+              <div class="icon">
+                <svg width="31px" height="34px" viewBox="0 0 67 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+                  <title>Group</title>
+                  <desc>Created with Sketch.</desc>
+                  <g id="More-commerce" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Artboard" transform="translate(-55.000000, -58.000000)">
+                      <g id="Group" transform="translate(57.000000, 60.000000)">
+                        <path
+                          d="M32.3,36 C34.959275,36 37.5563826,36.4288942 40.01613,37.2547992 C35.1736715,40.5921704 32,46.1754598 32,52.5 C32,56.3996907 33.2066029,60.0175641 35.2668398,63.0006514 L1.9,63 C0.850693333,63 0,62.1446604 0,61.0896226 C0,54.4457123 2.56563333,48.1677028 7.22430667,43.4116274 C11.9059067,38.6321179 18.11232,36 24.7,36 L24.7,36 Z M27.5,28 C20.0561,28 14,21.7196 14,14 C14,6.2804 20.0561,0 27.5,0 C34.9439,0 41,6.2804 41,14 C41,21.7196 34.9439,28 27.5,28 Z"
+                          id="Shape"
+                          stroke="#9AA6B2"
+                          stroke-width="3"
+                          fill-rule="nonzero"
+                        ></path>
+                        <circle id="Oval" stroke="#54b1ff" stroke-width="3" cx="47.5" cy="51.5" r="16"></circle>
+                        <path
+                          d="M53.6904138,54.0131422 L47.6191723,54.0131422 L47.6191723,44.4934289 C47.6191723,43.6686309 47.0328506,43 46.3095862,43 C45.5863217,43 45,43.6686309 45,44.4934289 L45,55.4767025 C45.0070339,56.3118092 45.5970992,56.9879573 46.3293609,57 L53.6904138,57 C54.4136783,57 55,56.3313691 55,55.5065711 C55,54.6817731 54.4136783,54.0131422 53.6904138,54.0131422 L53.6904138,54.0131422 Z"
+                          id="Path"
+                          fill="#54b1ff"
+                          fill-rule="nonzero"
+                        ></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div class="ml-15">Direct Message for Leads Form</div>
+            </div>
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="setting-lead-pipeline-message-content">
+        <div *ngIf="isAllowed" class="edit-message">
+          <div class="text-edit-message">Terms and condition</div>
+          <div class="save-button">
+            <button type="submit" class="btn-save" [ngClass]="{ disabled: leadPipelineMessage.pristine }" (click)="saveSetting()">
+              <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+                  fill="white"
+                />
+              </svg>
+              <span>{{ 'Save' | translate }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <textarea></textarea>
+          <!-- <reactor-room-quill-editor [controlName]="'termENG'"></reactor-room-quill-editor> -->
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

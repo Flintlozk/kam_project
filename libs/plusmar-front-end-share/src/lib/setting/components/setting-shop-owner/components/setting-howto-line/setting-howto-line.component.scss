@@ -1,0 +1,147 @@
+@import 'base';
+@import 'radio-button';
+@import 'buttons';
+
+.setting-shop-howto-line-dialog {
+  .head {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #53b2ff;
+  }
+
+  .content {
+    .image-step-0 {
+      width: 270px;
+      margin: 10px auto;
+      margin-bottom: 10px;
+      img {
+        width: 100%;
+      }
+    }
+
+    .image-step-1 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      align-content: stretch;
+      width: 70%;
+      margin: 20px auto;
+      margin-bottom: 20px;
+      img {
+        width: 100%;
+      }
+    }
+
+    .image-step {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: flex-start;
+      align-content: stretch;
+      width: 70%;
+      margin: 20px auto;
+      margin-bottom: 20px;
+      img {
+        width: 100%;
+      }
+    }
+
+    .image-step-one-img {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-content: stretch;
+      width: 70%;
+      margin: 20px auto;
+      margin-bottom: 20px;
+    }
+
+    .small-img {
+      img {
+        width: 50%;
+      }
+    }
+
+    .fit-img {
+      img {
+        width: 100%;
+      }
+    }
+
+    .line-link {
+      width: 70%;
+      margin: 20px auto;
+      margin-bottom: 20px;
+      color: #6a7f8e;
+      a {
+        color: #53b2ff;
+      }
+    }
+
+    .step-bar {
+      color: #6a7f8e;
+      text-align: center;
+      background-color: #e2f2ff;
+      line-height: 2.5;
+      font-size: 18px;
+      width: 70%;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      font-family: 'Prompt';
+      span {
+        color: #58bfff;
+      }
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 400;
+      margin: 0 auto;
+      width: 70%;
+      color: #6f7f8e;
+
+      span {
+        font-size: 16px;
+        color: #58bfff;
+      }
+    }
+
+    .detail {
+      margin: 0 auto;
+      width: 70%;
+      color: #404354;
+      font-size: 14px;
+      margin-bottom: 20px;
+      span {
+        color: #58bfff;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: flex;
+
+      .btn-cancel {
+        @extend .btn-inactive;
+        margin-right: 10px;
+      }
+
+      .btn-save {
+        img {
+          width: 26px !important;
+        }
+        @include btn-active();
+      }
+    }
+  }
+}

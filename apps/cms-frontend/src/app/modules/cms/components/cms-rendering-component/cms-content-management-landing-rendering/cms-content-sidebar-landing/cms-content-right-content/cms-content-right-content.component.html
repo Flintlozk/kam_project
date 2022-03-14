@@ -1,0 +1,16 @@
+<ng-container *ngIf="rightContentType === RightContentType.TYPE_1">
+  <div class="grid gap-1">
+    <div class="text-lg">{{ displayContentLanguage.title }}</div>
+    <img [src]="content?.coverImage" [alt]="displayContentLanguage?.title" width="100%" onerror="src='assets/shared/no-image.svg'" />
+    <div>{{ displayContentLanguage.subTitle }}</div>
+  </div>
+</ng-container>
+<ng-container *ngIf="rightContentType === RightContentType.TYPE_2">
+  <div class="flex">
+    <img [src]="content?.coverImage" [alt]="displayContentLanguage?.title" onerror="src='assets/shared/no-image.svg'" class="w-40" />
+    <div class="grid gap-1 ml-4">
+      <div class="text-lg">{{ displayContentLanguage.title }}</div>
+      <div>{{ displayContentLanguage.subTitle }}</div>
+    </div>
+  </div>
+</ng-container>

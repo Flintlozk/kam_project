@@ -1,0 +1,34 @@
+<script>
+  <%if (facebookAppId) { %>
+      var facebookAppId = <%- JSON.stringify(facebookAppId); %>
+  <% } %>
+
+  <%if (valuepsid) { %>
+      var _psid = <%-valuepsid%>
+  <% }else{ %>
+      var _psid = null
+  <% } %>
+
+
+  window.extAsyncInit = function () {
+      if(typeof MessengerExtensions !== 'function'){
+          if(_psid) document.getElementById("psid").value = _psid;
+      }else{
+          MessengerExtensions.getSupportedFeatures(function (result) {
+              const { supported_features } = result;
+              if (supported_features.includes("context")) {
+                  MessengerExtensions.getContext(facebookAppId,
+                      function (thread_context) {
+                          if (thread_context?.psid) {
+                              document.getElementById("psid").value = thread_context.psid;
+                          }else{
+                              document.getElementById("psid").value = payload.psid;
+                          }
+                      },
+                  );
+              }
+          });
+
+      }
+  };
+</script>

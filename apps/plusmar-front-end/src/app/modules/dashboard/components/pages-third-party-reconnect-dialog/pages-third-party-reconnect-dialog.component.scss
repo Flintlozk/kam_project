@@ -1,0 +1,29 @@
+@import 'base';
+@import 'buttons';
+.pages-reconnect {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+
+  .page-reconnect-item {
+    display: flex;
+    img {
+      margin-right: 10px;
+    }
+  }
+}
+
+.footer {
+  float: right;
+
+  .buttons {
+    display: flex;
+    align-items: center;
+
+    .btn-cancel {
+      @extend .btn-inactive;
+      margin-right: 10px;
+    }
+  }
+}

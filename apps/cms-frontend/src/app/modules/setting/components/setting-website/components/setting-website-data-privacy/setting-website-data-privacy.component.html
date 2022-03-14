@@ -1,0 +1,52 @@
+<section>
+  <div [formGroup]="dataPrivacyForm">
+    <div class="bg-white shadow-md my-1 p-8">
+      <span>
+        <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="68" height="45" viewBox="0 0 68 45" fill="none">
+          <rect x="0.5" y="0.5" width="67" height="44" rx="1.5" stroke="#D6DBE3" />
+          <rect x="8" y="8" width="21" height="29" rx="2" fill="#D6DBE3" />
+          <rect x="32" y="16" width="27" height="4" fill="#8591AA" />
+          <rect x="32" y="23" width="27" height="2" fill="#B1B8C6" />
+          <rect x="32" y="27" width="27" height="2" fill="#B1B8C6" />
+          <circle cx="18.5" cy="18.5" r="3.5" fill="#8591AA" />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M24.8261 30H12.1739C12.0602 29.5185 12 29.0163 12 28.5C12 24.9101 14.9101 22 18.5 22C22.0899 22 25 24.9101 25 28.5C25 29.0163 24.9398 29.5185 24.8261 30Z"
+            fill="#8591AA"
+          />
+        </svg>
+        Data & Privacy policy setting
+      </span>
+
+      <label>
+        <input type="checkbox" #data_is_active class="hidden" id="" formControlName="is_active" />
+        <button
+          (click)="data_is_active.click()"
+          type="checkbox"
+          class="relative w-18 p-2 transition duration-500 border border-gray-300 rounded-xl h-9 focus:outline-none"
+          [ngClass]="{ 'bg-green-500 border-green-500': this.getDataStatus.value }"
+        >
+          <div
+            class="absolute top-0 w-5 h-5 mt-2 transition duration-700 rounded"
+            [ngClass]="{ 'bg-gray-300': !this.getDataStatus.value, 'bg-white right-0 mr-2': this.getDataStatus.value }"
+          ></div>
+        </button>
+      </label>
+    </div>
+
+    <div *ngIf="this.getDataStatus.value">
+      <div class="bg-white shadow-sm p-8">
+        <ng-container *ngIf="dataPrivacySettings">
+          <cms-next-title-underline [title]="'Privacy policy'"></cms-next-title-underline>
+          <quill-editor class="quill-editor" formControlName="privacy_policy"> </quill-editor>
+          <div style="margin: 10px 0"></div>
+        </ng-container>
+      </div>
+      <div class="bg-white shadow-md p-8">
+        <cms-next-title-underline [title]="'Data used policy'"></cms-next-title-underline>
+        <quill-editor *ngIf="dataPrivacySettings" class="quill-editor" formControlName="data_use"> </quill-editor>
+      </div>
+    </div>
+  </div>
+</section>

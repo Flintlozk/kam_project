@@ -1,0 +1,30 @@
+<section class="bg-white rounded shadow-md">
+  <div class="p-8" [formGroup]="cssSettingForm">
+    <p class="text-gray-500">CSS Global</p>
+
+    <ngx-monaco-editor (keyup)="onUserTypeGlobal()" formControlName="global" [options]="editorOptions"> </ngx-monaco-editor>
+
+    <!-- <input formControlName = "global" type="text" class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400" /> -->
+
+    <p class="text-gray-500">CSS For</p>
+    <div class="select-options w-64 py-4">
+      <mat-form-field appearance="none">
+        <mat-select [value]="selectedOptionValue" (selectionChange)="selectedLang($event)">
+          <mat-select-trigger>
+            <img class="inline w-8 h-8 my-1" [src]="selectedOption?.icon" [alt]="selectedOption?.name" /> {{ selectedOption?.cultureUI }} -
+            {{ selectedOption?.name }}
+          </mat-select-trigger>
+          <mat-option *ngFor="let language of languages" [value]="language.cultureUI">
+            <!-- {{ language.valueString }} -->
+            <img class="inline-block" [src]="language?.icon" [alt]="language?.name" /> {{ language?.cultureUI }} -
+            {{ language?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <label for="">
+      <!-- <input formControlName="css_field" (keyup.enter) = "addCSSLanguage()" type="text" class="w-full py-2 pl-4 pr-10 font-light border border-gray-200 rounded-md focus:outline-none focus:border-gray-400" /> -->
+      <ngx-monaco-editor (keyup)="onUserTypeField()" formControlName="css_field" [options]="editorOptions"></ngx-monaco-editor>
+    </label>
+  </div>
+</section>

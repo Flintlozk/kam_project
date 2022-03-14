@@ -1,0 +1,22 @@
+<reactor-room-heading [headingTitle]="'Lead Info' | translate" [Route]="'Leads / Lead Info' | translate">
+  <div class="heading-content"></div>
+</reactor-room-heading>
+<div class="Leads">
+  <div class="steps-container" id="lead-steps-container">
+    <div class="steps">
+      <ng-container *ngFor="let item of steps; let idx = index">
+        <reactor-room-step
+          (cardStepOffsetLeft)="cardStepOffsetLeft($event)"
+          [Step]="item"
+          [routerLink]="item.route"
+          routerLinkActive
+          #route="routerLinkActive"
+          [RouteStatus]="route.isActive"
+          [isLast]="idx === steps.length - 1"
+        >
+        </reactor-room-step>
+      </ng-container>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

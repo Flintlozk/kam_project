@@ -1,0 +1,50 @@
+<section class="flex items-stretch">
+  <div
+    class="left relative mr-2 btn-prev-next-group overflow-hidden flex-shrink-0"
+    [ngClass]="{ 'hidden mr-0': !loopLength || !pageSliderControl?.isPageSlide || !pageSliderControl?.isPageArrow }"
+  >
+    <button class="focus:outline-none btn-prev-next rounded-full flex items-center justify-center transition" [disabled]="currentSlideIndex === 0" (click)="onSlide('prev')">
+      <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 1L2 8L8 15" stroke="white" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <ng-content></ng-content>
+  <div
+    class="right relative ml-2 btn-prev-next-group overflow-hidden flex-shrink-0"
+    [ngClass]="{ 'hidden ml-0': !loopLength || !pageSliderControl?.isPageSlide || !pageSliderControl?.isPageArrow }"
+  >
+    <button
+      class="focus:outline-none btn-prev-next rounded-full flex items-center justify-center transition"
+      [disabled]="currentSlideIndex === loopLength - 1"
+      (click)="onSlide('next')"
+    >
+      <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 15L7 8L0.999999 1" stroke="white" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+</section>
+<section [ngClass]="{ 'hidden pt-0': !loopLength || !pageSliderControl?.isPageSlide || !pageSliderControl?.isPageButton }" class="w-full relative pt-4 bottom overflow-hidden">
+  <div class="flex items-center btn-nums-group">
+    <div class="btn-group flex items-center">
+      <button class="arrow-prev-next mr-2 focus:outline-none transition" (click)="onSlide('prev')">
+        <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 1L2 6.5L7 12" stroke="#484B52" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="flex items-center" *ngIf="loopLength">
+        <ng-container *ngFor="let mediaGalleryLoopItem of loopLength | arrayOfLength; trackBy: trackByIndex; let index = index">
+          <button (click)="onSlide('current', index)" class="btn-num mx-1 first:ml-0 last:mr-0 rounded-full focus:outline-none transition">
+            {{ index + 1 }}
+          </button>
+        </ng-container>
+      </div>
+      <button class="arrow-prev-next ml-2 focus:outline-none transition" (click)="onSlide('next')">
+        <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 12L6 6.5L1 1" stroke="#484B52" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

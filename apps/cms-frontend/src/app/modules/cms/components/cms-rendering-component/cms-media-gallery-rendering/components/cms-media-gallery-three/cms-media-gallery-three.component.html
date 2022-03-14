@@ -1,0 +1,60 @@
+<section #mediaGallery>
+  <cms-next-cms-grid-slider-control [loopLength]="mediaGalleryLoop.length" [elementRef]="mediaGalleryRef ? mediaGalleryRef : null" [pageSliderControl]="mediaGalleryInput.control">
+    <section [ngStyle]="columnStyle" class="center w-full">
+      <ng-container *ngFor="let mediaGalleryLoopItem of mediaGalleryLoop; let firstIndex = index; trackBy: trackByIndex">
+        <section class="w-full row-style media-fade" [ngStyle]="rowStyle">
+          <div class="grid grid-rows-6-4" [ngStyle]="{ gap: rowStyle.gap }">
+            <cms-next-cms-media-gallery-item-rendering
+              *ngIf="mediaGalleryLoopItem[0]"
+              (generalTextSettingEvent)="generalTextSettingEvent($event)"
+              (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+              [itemIndex]="firstIndex + 0"
+              [generalTextAllSetting]="generalTextAllSetting"
+              [generalTextAllSettingTrigger]="generalTextAllSettingTrigger"
+              [galleryListItem]="mediaGalleryLoopItem[0]"
+            ></cms-next-cms-media-gallery-item-rendering>
+            <div class="grid grid-cols-2" [ngStyle]="{ gap: rowStyle.gap }">
+              <cms-next-cms-media-gallery-item-rendering
+                *ngIf="mediaGalleryLoopItem[1]"
+                (generalTextSettingEvent)="generalTextSettingEvent($event)"
+                (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+                [itemIndex]="firstIndex + 1"
+                [generalTextAllSetting]="generalTextAllSetting"
+                [generalTextAllSettingTrigger]="generalTextAllSettingTrigger"
+                [galleryListItem]="mediaGalleryLoopItem[1]"
+              ></cms-next-cms-media-gallery-item-rendering>
+              <cms-next-cms-media-gallery-item-rendering
+                *ngIf="mediaGalleryLoopItem[2]"
+                (generalTextSettingEvent)="generalTextSettingEvent($event)"
+                (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+                [itemIndex]="firstIndex + 2"
+                [generalTextAllSetting]="generalTextAllSetting"
+                [galleryListItem]="mediaGalleryLoopItem[2]"
+              ></cms-next-cms-media-gallery-item-rendering>
+            </div>
+          </div>
+          <div class="grid grid-rows-4-6" [ngStyle]="{ gap: rowStyle.gap }">
+            <cms-next-cms-media-gallery-item-rendering
+              *ngIf="mediaGalleryLoopItem[3]"
+              (generalTextSettingEvent)="generalTextSettingEvent($event)"
+              (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+              [itemIndex]="firstIndex + 3"
+              [generalTextAllSetting]="generalTextAllSetting"
+              [generalTextAllSettingTrigger]="generalTextAllSettingTrigger"
+              [galleryListItem]="mediaGalleryLoopItem[3]"
+            ></cms-next-cms-media-gallery-item-rendering>
+            <cms-next-cms-media-gallery-item-rendering
+              *ngIf="mediaGalleryLoopItem[4]"
+              (generalTextSettingEvent)="generalTextSettingEvent($event)"
+              (mediaGalleryItemEvent$)="mediaGalleryItemEvent($event)"
+              [itemIndex]="firstIndex + 4"
+              [generalTextAllSetting]="generalTextAllSetting"
+              [generalTextAllSettingTrigger]="generalTextAllSettingTrigger"
+              [galleryListItem]="mediaGalleryLoopItem[4]"
+            ></cms-next-cms-media-gallery-item-rendering>
+          </div>
+        </section>
+      </ng-container>
+    </section>
+  </cms-next-cms-grid-slider-control>
+</section>

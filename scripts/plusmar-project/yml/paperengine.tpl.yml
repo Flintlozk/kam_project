@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plusmar-paperengine-_ENV_
+  namespace: plusmar
+spec:
+  replicas: _SIZE_
+  selector:
+    matchLabels:
+      app: plusmar-paperengine-_ENV_
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: plusmar-paperengine-_ENV_
+      annotations:
+        'cluster-autoscaler.kubernetes.io/safe-to-evict': 'false'
+    spec:
+      containers:
+        - name: plusmar-paperengine-_ENV_
+          image: git.itopplus.com:5000/plusmar/paperengine:_TAG_
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3214
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 3214
+          readinessProbe:
+            tcpSocket:
+              port: 3214
+          resources:
+            requests:
+              cpu: '125m'
+              memory: '128Mi'
+          env:
+            - name: NODE_ENV
+              value: '_ENV_'
+            - name: MONGODB
+              value: '_MONGODB_'
+            - name: PG_URL_READ
+              value: '_PG_URL_READ_'
+            - name: PG_URL_WRITE
+              value: '_PG_URL_WRITE_'
+            - name: REDIS_HOST
+              value: '_REDIS_HOST_'
+            - name: ORIGIN
+              value: '_ORIGIN_'
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: './assets/static/AUTH.json'
+      imagePullSecrets:
+        - name: gitlabsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: plusmar-paperengine-_ENV_-service
+  name: plusmar-paperengine-_ENV_-service
+  namespace: plusmar
+  annotations:
+    cloud.google.com/load-balancer-type: 'Internal'
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3214
+  selector:
+    app: plusmar-paperengine-_ENV_

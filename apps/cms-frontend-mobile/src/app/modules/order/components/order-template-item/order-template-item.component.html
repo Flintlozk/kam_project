@@ -1,0 +1,27 @@
+<div class="w-full p-4 bg-white border-gray-200 rounded-md border">
+  <div class="flex items-center justify-between" (click)="toggleContent()">
+    <div class="flex items-center">
+      <img [src]="imgUrl" [alt]="fullName" class="w-12 h-12 rounded-full" onerror="this.src='assets/images/shared/no-profile.svg'" />
+      <div class="pl-4">
+        <div class="text-lg text-gray-700">{{ fullName }}</div>
+        <div class="text-sm font-light text-gray-700">
+          {{ orderCode }}
+          <span class="pl-1 text-sm font-light text-gray-500">
+            {{ hhmm }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!contentToggleStatus">
+      <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0.66863 0.255743L0.221885 0.779844C0.082367 0.944789 0.00550533 1.16424 0.00550534 1.39878C0.00550535 1.63318 0.082367 1.85289 0.221885 2.01784L5.28308 7.99642L0.21627 13.9819C0.0767515 14.1466 -7.14115e-08 14.3663 -6.11652e-08 14.6007C-5.09188e-08 14.8351 0.0767516 15.055 0.21627 15.2198L0.660262 15.744C0.948988 16.0853 1.4193 16.0853 1.70802 15.744L7.76237 8.61757C7.90177 8.45288 8 8.23343 8 7.99694L8 7.99421C8 7.75967 7.90166 7.54022 7.76237 7.37554L1.72443 0.255743C1.58502 0.0907983 1.39364 0.000260292 1.19521 -5.22443e-08C0.996668 -4.35658e-08 0.807928 0.0907983 0.66863 0.255743Z"
+          fill="#BCBFC8"
+        />
+      </svg>
+    </div>
+  </div>
+  <div [@scaleYAnimation] class="pt-4" *ngIf="contentToggleStatus">
+    <ng-content select=".template-item-content"></ng-content>
+  </div>
+</div>

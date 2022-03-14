@@ -1,0 +1,59 @@
+<div class="cms-admin-navbar-container">
+  <div class="nav-item1">
+    <reactor-room-logo> </reactor-room-logo>
+  </div>
+  <div class="nav-item2">
+    <div style="padding-left: 25px">
+      <button class="invite-btn" (click)="onClickSaveTheme()">
+        <div>Update</div>
+      </button>
+    </div>
+    <div *ngIf="!isPreviewMode" (click)="onActivePreviewMode()" class="preview">Preview</div>
+    <div *ngIf="isPreviewMode" (click)="onInActivePreviewMode()" class="preview">Back</div>
+    <mat-form-field appearance="fill" *ngIf="isPreviewMode">
+      <mat-label></mat-label>
+      <mat-select [value]="fileName">
+        <mat-option *ngFor="let file of htmlFils; let i = index" [value]="file.name" (click)="selectedHtmlFileName(i)">
+          {{ file.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button *ngIf="isPreviewMode" (click)="onClickLightTheme()" [ngClass]="{ selected: !this.selectedDarkTheme }" class="change-theme">Light Theme</button>
+    <button *ngIf="isPreviewMode" (click)="onClickDarkTheme()" [ngClass]="{ selected: this.selectedDarkTheme }" class="change-theme" style="padding-left: 20px">Dark Theme</button>
+    <div></div>
+    <reactor-room-devices-list
+      *ngIf="isPreviewMode"
+      [devices]="devices"
+      [mode]="selectedTab"
+      [selectedIndex]="selectedIndex"
+      (parentHandler)="onClickDevices($event)"
+    ></reactor-room-devices-list>
+    <div class="redo">
+      <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M24.4275 27.9925C20.9275 27.9925 17.4275 27.9925 13.9887 27.9925C11.2412 27.9925 8.15247 27.94 5.96497 26.0238C3.64622 24.0288 1.62497 20.7388 1.62497 17.58C1.62798 15.402 2.39954 13.2949 3.80372 11.63C6.22747 8.75127 8.88747 7.10627 12.6937 7.05377C18.3987 6.97502 24.1212 7.15877 29.835 7.15877H30.22"
+          stroke="#B2B9C7"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path d="M30.99 7.15876L22.5025 1.76001" stroke="#B2B9C7" stroke-width="2" stroke-linecap="round" />
+        <path d="M30.99 7.15875L22.5025 12.5663" stroke="#B2B9C7" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div class="undo">
+      <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7.57253 27.9925C11.0725 27.9925 14.5725 27.9925 18.0113 27.9925C20.7588 27.9925 23.8475 27.94 26.035 26.0238C28.3538 24.0288 30.375 20.7388 30.375 17.58C30.372 15.402 29.6005 13.2949 28.1963 11.63C25.7725 8.75127 23.1125 7.10627 19.3063 7.05377C13.6013 6.97502 7.87878 7.15877 2.16503 7.15877H1.78003"
+          stroke="#484B52"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path d="M1.01001 7.15876L9.49751 1.76001" stroke="#484B52" stroke-width="2" stroke-linecap="round" />
+        <path d="M1.01001 7.15875L9.49751 12.5663" stroke="#484B52" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+    <a [routerLink]="['/layout/theme']" style="padding-right: 25px">Back to admin System</a>
+  </div>
+</div>

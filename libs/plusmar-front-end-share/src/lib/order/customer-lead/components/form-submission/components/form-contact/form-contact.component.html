@@ -1,0 +1,8 @@
+<form [formGroup]="contactForm" *ngIf="contactForm">
+  <div class="form">
+    <div class="item" *ngFor="let task of getFormControls(); let i = index">
+      <div class="label" [innerText]="task.options.label"></div>
+      <input class="input" [type]="task.type" [formControlName]="task.name" />
+    </div>
+  </div>
+</form>

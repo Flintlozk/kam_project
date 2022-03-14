@@ -1,0 +1,15 @@
+<div class="flex justify-between">
+  <div class="label">{{ 'Customer company' | translate }}</div>
+  <div class="link" (click)="editCompaniesDialog()">{{ 'Edit' | translate }}</div>
+</div>
+
+<div class="flex flex-col item justify-start mt-10 pl-20">
+  <div *ngFor="let company of updated || selected; trackBy: trackBy" class="mr-10 mt-5">
+    {{ company.company_name }}
+  </div>
+</div>
+<ng-container *ngIf="!selected?.length && !updated?.length">
+  <div class="flex no-data mt-10">
+    {{ 'No companies associated' | translate }}
+  </div>
+</ng-container>

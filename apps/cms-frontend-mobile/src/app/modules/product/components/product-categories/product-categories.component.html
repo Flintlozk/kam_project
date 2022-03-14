@@ -1,0 +1,20 @@
+<section class="bg-white">
+  <h3 class="p-4 text-xl font-light text-gray-700">{{ 'Product Categories' | translate }}</h3>
+  <div id="product-categories-container" class="flex items-center justify-between p-4 pt-0 overflow-scroll border-b border-gray-200 no-scroll-bar">
+    <ng-container *ngFor="let productCategory of productCategories; let productCategoryIndex = index; trackBy: trackByIndex">
+      <div
+        [id]="productCategory.routeLink"
+        [routerLink]="prefixCategories + '/' + [productCategory.routeLink]"
+        routerLinkActive="router-link-active"
+        #rla="routerLinkActive"
+        (click)="scrollToActiveProductCategory(productCategory.routeLink)"
+        class="relative px-6 pb-2 whitespace-no-wrap cursor-pointer focus:outline-none first:pl-0"
+      >
+        <div class="text-lg font-light text-gray-700 transition duration-300 ease-in-out whitespace-nowrap" [ngClass]="{ 'text-green-500': rla.isActive }">
+          {{ productCategory.title }}
+        </div>
+        <div [@fadeLeftAnimation]="rla.isActive" *ngIf="rla.isActive" class="absolute bottom-0 w-5/12 h-1 rounded-full bg-green-500"></div>
+      </div>
+    </ng-container>
+  </div>
+</section>

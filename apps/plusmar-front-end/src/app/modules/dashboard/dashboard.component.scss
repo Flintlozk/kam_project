@@ -1,0 +1,62 @@
+@import 'base';
+
+.dashboard {
+  font-size: 1em;
+  color: $text-darker-color;
+  .container {
+    padding: 10px 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    @media #{$mobilemax} {
+      grid-gap: 10px;
+    }
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    reactor-room-total-revenue {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    @media #{$mobilemax} {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+      reactor-room-total-revenue {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+    }
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    @media #{$tabletmax} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media #{$mobilemax} {
+      grid-gap: 10px;
+    }
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    @media #{$tabletmax} {
+      grid-template-columns: 1fr;
+    }
+    @media #{$mobilemax} {
+      grid-gap: 10px;
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  @media #{$mobilemax} {
+    grid-gap: 10px;
+  }
+}

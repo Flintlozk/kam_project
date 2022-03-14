@@ -1,0 +1,221 @@
+@import 'base';
+@import 'buttons';
+@import 'radio-button';
+
+.leads-info-fail {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
+
+.leads-info {
+  .form {
+    //min-height: 726px;
+    border-radius: 8px;
+    background: white;
+
+    @media #{$mobilemax} {
+      &.collapsecontent {
+        width: 100%;
+        //height: 50%;
+        height: calc(100% - 140px);
+      }
+    }
+    .head {
+      height: 60px;
+      padding: 0px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgb(221, 223, 234);
+
+      // span:nth-of-type(1) {
+      //   font-size: 18px;
+      // }
+
+      .change-form {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 18px;
+          height: 18px;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        span {
+          font-weight: 200;
+          font-size: 14px;
+          color: #484b52;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    input {
+      width: calc(100% - 30px);
+      border-radius: 8px;
+      padding: 11.5px 15px;
+      border: 1px solid $border-color;
+
+      &:disabled {
+        background-color: rgba(243, 245, 249, 1);
+      }
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-bottom: 5px;
+
+      .func {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: calc(100% + 10px);
+        width: 100%;
+
+        img {
+          margin-right: 10px;
+          width: 15px;
+          cursor: pointer;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        .add-icon {
+          background: $main-color;
+          width: 15px;
+          height: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          border-radius: 50%;
+          margin-right: 10px;
+          cursor: pointer;
+
+          img {
+            margin: 0px;
+            width: 10px;
+            image-rendering: -webkit-optimize-contrast;
+          }
+        }
+      }
+    }
+
+    .label {
+      color: #576f83;
+      padding-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .names {
+      display: inherit;
+      padding: 30px;
+      min-height: calc(100vh - 390px);
+      .item {
+        margin-bottom: 30px;
+
+        // input {
+        //   height: 38px;
+        //   max-width: 558px;
+        // }
+        input {
+          height: 18px;
+          max-width: 558px;
+        }
+      }
+
+      .radio-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .title {
+          width: 100%;
+          margin-bottom: 10px;
+          color: rgb(87, 112, 131);
+          font-size: 12px;
+        }
+
+        .radio-grouped {
+          flex-direction: row;
+          display: flex;
+
+          .radio-group {
+            display: flex;
+            margin-right: 10px;
+            @extend .custom-radio-button;
+
+            input[type='radio'] {
+              width: max-content;
+              margin-right: 10px;
+
+              &:hover {
+                cursor: pointer;
+              }
+
+              &:disabled {
+                cursor: not-allowed;
+                pointer-events: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .footer {
+      width: 100%;
+
+      button {
+        width: 100%;
+        height: 33px;
+        color: white;
+        border: none;
+        background-color: #54b1ff;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .editor {
+      padding-top: 20px;
+    }
+  }
+}
+
+@keyframes anim-glow {
+  0% {
+    box-shadow: 0 0 rgba(#53b1ff, 1);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 20px transparent;
+    //border-width: 2px;
+  }
+}
+
+.btn-reject {
+  @include btn-active();
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  &.disabled {
+    @extend .btn-disabled;
+  }
+}
+.btn-reject {
+  color: #dc493d;
+  background: #fde8df;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  &:hover {
+    background: rgb(230, 208, 199);
+  }
+}

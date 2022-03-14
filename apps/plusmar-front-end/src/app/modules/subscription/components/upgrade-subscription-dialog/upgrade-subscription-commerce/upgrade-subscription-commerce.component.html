@@ -1,0 +1,120 @@
+<div class="content">
+  <div class="detail starter">
+    <div class="title">STARTER</div>
+    <div>
+      <span class="price">33,500</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 1 เพจ
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> ผู้ดูแลระบบไม่เกิน 3 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> เก็บรายชื่อลูกค้าไม่เกิน 2,000 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนออเดอร์สั่งซื้อไม่เกิน 10,000
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนสินค้าไม่เกิน 200 ชิ้น
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนโปรโมชั่นไม่เกิน 10 รายการ
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 5" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="currentPlanID > 5 || isSubscriptionBusiness" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID === 1" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(5)">Subscribe</button>
+    </div>
+  </div>
+  <div class="detail pro-plus">
+    <div class="title">PRO+</div>
+    <div>
+      <span class="price">33,900</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 1 เพจ
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> ผู้ดูแลระบบไม่เกิน 5 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> เก็บรายชื่อลูกค้าไม่เกิน 5,000 คน
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> จำนวนออเดอร์สั่งซื้อไม่เกิน 30,000
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> จำนวนสินค้าไม่เกิน 400 ชิ้น
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> จำนวนโปรโมชั่นไม่เกิน 30 รายการ
+      </li>
+      <li>
+        <span><img src="/assets/img/step-icon-close-sales-bright.svg" /></span> เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 6" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="currentPlanID > 6 || isSubscriptionBusiness" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID < 6 && !isSubscriptionBusiness" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(6)">Subscribe</button>
+    </div>
+  </div>
+
+  <div class="detail commerce">
+    <div class="title">COMMERCE</div>
+    <div>
+      <span class="price">43,900</span>
+      /yr
+    </div>
+    <ul>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> สิทธิ์จัดการเพจเฟชบุ๊ก 2 เพจ
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> ผู้ดูแลระบบ <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> เก็บรายชื่อลูกค้า <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนออเดอร์สั่งซื้อ <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนสินค้า <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> จำนวนโปรโมชั่น <span class="with-color">Unlimited</span>
+      </li>
+      <li>
+        <span><img src="/assets/img/check-blue.svg" /></span> เวิร์คชอปการใช้งาน และกลยุทธการตลาดดิจิตอล <span class="with-color">Unlimited</span>
+      </li>
+    </ul>
+    <div *ngIf="currentPlanID === 7" class="features with-color">
+      {{ 'Current package' | translate }}
+    </div>
+    <div *ngIf="isSubscriptionBusiness" class="features with-color">
+      {{ 'Contact Us' | translate }}
+    </div>
+    <div *ngIf="currentPlanID < 7 && !isSubscriptionBusiness" class="button">
+      <button type="button" class="btn-active save-active" (click)="selectSubscriptionPlan(7)">Subscribe</button>
+    </div>
+  </div>
+</div>

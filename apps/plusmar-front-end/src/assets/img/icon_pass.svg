@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="85px" height="67px" viewBox="0 0 85 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>icon_pass</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Plusmar-Inbox" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-50.000000, -1186.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="icon_pass" transform="translate(50.000000, 1186.000000)">
+                <path d="M32.548102,65.7092579 C31.736724,66.5377531 30.6297214,67 29.4798055,67 C28.3298896,67 27.2228871,66.5377531 26.411509,65.7092579 L1.90725505,40.8302048 C-0.635751683,38.2487207 -0.635751683,34.0626829 1.90725505,31.4860392 L4.97555156,28.3705104 C7.51935313,25.7890263 11.6382292,25.7890263 14.1812359,28.3705104 L29.4798055,43.9013642 L70.8187641,1.93611309 C73.3625654,-0.645371029 77.4854151,-0.645371029 80.0244484,1.93611309 L83.092745,5.05164183 C85.6357517,7.63312594 85.6357517,11.8183569 83.092745,14.3958075 L32.548102,65.7092579 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

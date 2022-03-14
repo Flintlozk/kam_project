@@ -1,0 +1,30 @@
+<section class="px-6 py-8">
+  <cms-next-heading [heading]="heading">
+    <div class="btn-group flex items-center">
+      <button (click)="onCancelWebsiteSetting()" class="px-6 py-2 rounded-lg bg-white custom-shadow font-light text-green-500 mr-2 text-lg">Cancel</button>
+      <button (click)="onSaveWebsiteSetting()" class="px-6 py-2 rounded-lg custom-shadow font-light bg-green-500 text-white text-lg">Save</button>
+    </div>
+  </cms-next-heading>
+  <mat-tab-group #tabgroup class="general-tab" [formGroup]="webisteSettingForm" [selectedIndex]="selectedIndex">
+    <!-- (selectedTabChange)="onTabChanged($event)" -->
+    <mat-tab label="General Setting">
+      <cms-next-setting-website-general *matTabContent></cms-next-setting-website-general>
+    </mat-tab>
+    <mat-tab label="SEO Setting">
+      <cms-next-setting-website-seo *matTabContent></cms-next-setting-website-seo>
+    </mat-tab>
+    <mat-tab label="META Tag(GTM,Pixel,Script)">
+      <cms-next-setting-website-metatag *matTabContent></cms-next-setting-website-metatag>
+    </mat-tab>
+    <mat-tab label="CSS Setting">
+      <cms-next-setting-website-css *matTabContent></cms-next-setting-website-css>
+    </mat-tab>
+    <mat-tab label="Data & Privacy policy Setting">
+      <cms-next-setting-website-data-privacy *matTabContent></cms-next-setting-website-data-privacy>
+    </mat-tab>
+
+    <mat-tab label="*Autodigi Setting">
+      <cms-next-setting-website-autodigi-link *matTabContent></cms-next-setting-website-autodigi-link>
+    </mat-tab>
+  </mat-tab-group>
+</section>

@@ -1,0 +1,133 @@
+.workhour-notify-list-container {
+  padding: 15px 0 20px 0;
+
+  .label {
+    font-weight: 300;
+    color: #577083;
+    margin: 10px 0;
+  }
+  .workhour-notify-list-content {
+    position: relative;
+    .assginee-name {
+      cursor: pointer;
+      box-shadow: none;
+      border: 1px solid #dddfea;
+      border-radius: 8px;
+      padding: 2px 15px;
+      width: 100%;
+      height: 35px;
+      outline: none;
+      display: flex;
+      &.invalid {
+        border: 1px solid #ef5350;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
+
+      &.assigned {
+        background: #f3f5f9;
+      }
+
+      .interactive-input {
+        height: 100%;
+        width: 100%;
+        border: none;
+        text-decoration: none;
+        outline: none;
+      }
+
+      .assginee-detail {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        img {
+          max-width: 35px;
+          border-radius: 50%;
+        }
+        .assginee-person {
+          display: flex;
+          margin-left: 10px;
+          color: #4a4c63;
+          justify-content: space-between;
+          width: 100%;
+        }
+        .assginee-person-empty {
+          color: #dddfea;
+
+          input {
+            border: none;
+          }
+        }
+      }
+    }
+
+    .user-list-container {
+      display: flex;
+      flex-flow: column;
+      position: absolute;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0px 0px 8px 0px rgb(0 0 0 / 30%);
+      width: 100%;
+      top: 50px;
+      z-index: 1;
+
+      .user-list-top {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px;
+
+        .user-size {
+          color: #484b52;
+        }
+
+        .user-search {
+          display: flex;
+          input {
+            box-shadow: none;
+            border: 1px solid #dddfea;
+            border-radius: 8px;
+            padding: 0px 15px;
+            width: 100%;
+            height: 35px;
+            outline: none;
+          }
+        }
+      }
+      .user-detail-list {
+        max-height: 370px;
+        overflow-y: auto;
+        margin: 10px 0;
+        color: #363951;
+
+        .user-detail {
+          display: flex;
+          flex-flow: row;
+          padding: 5px 10px;
+          align-items: center;
+          cursor: pointer;
+
+          img {
+            width: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+          .user-person {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+          }
+          &:hover {
+            background: #e2f2ff;
+          }
+        }
+      }
+    }
+  }
+}

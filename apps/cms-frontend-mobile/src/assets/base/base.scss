@@ -1,0 +1,144 @@
+$font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+$font-size: 14px;
+
+.wrapword {
+  white-space: -moz-pre-wrap !important;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  white-space: pre-wrap;
+  /* css-3 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap;
+  /* Newer versions of Chrome/Safari*/
+  word-break: break-all;
+  white-space: normal;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin no-scroll-bar() {
+  scroll-behavior: smooth;
+  -ms-scroll-behavior: smooth;
+  -moz-scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  -o-scroll-behavior: smooth;
+  /* width */
+  &::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  }
+}
+
+.no-scroll-bar {
+  @include no-scroll-bar();
+}
+.animated,
+.animated * {
+  transition: all 0.2s ease-in-out;
+}
+
+//custom mat select option
+@layer components {
+  .mat-form-field {
+    font-family: $font-family;
+    .mat-form-field-wrapper {
+      @apply pb-0;
+      .mat-form-field-flex {
+        @apply w-full px-3 py-3 text-lg font-light text-gray-700 border border-gray-200 rounded-md bg-white;
+        .mat-form-field-infix {
+          @apply border-none p-0 m-0;
+          select.mat-input-element:not(:disabled) {
+            @apply p-0 m-0 top-0 text-lg;
+          }
+          &::after {
+            @apply border-none m-0 flex bg-no-repeat;
+            content: '';
+            width: 11px;
+            height: 6px;
+            background-image: url('/assets/images/shared/down-icon.svg');
+            background-size: 11px 6px;
+            top: calc(50% - 3px);
+          }
+        }
+      }
+      .mat-form-field-underline {
+        @apply hidden;
+      }
+    }
+  }
+}
+
+//custom quill editor
+@layer components {
+  .ql-container.ql-snow,
+  .ql-container.ql-bubble {
+    @apply border-none;
+    .ql-editor {
+      @apply p-0 text-gray-700;
+      @include no-scroll-bar();
+      &.ql-blank::before {
+        @apply left-0 top-0;
+      }
+    }
+    .ql-tooltip {
+      &:not(.ql-flip) .ql-tooltip-arrow {
+        border-bottom: 6px solid #4a5568;
+      }
+      .ql-toolbar {
+        .ql-formats {
+          @apply flex items-center justify-center flex-wrap m-0 bg-gray-700 p-2;
+          .ql-picker {
+            @apply font-light text-sm;
+            .ql-picker-options {
+              @apply bg-gray-700;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//invalid Validations
+@layer components {
+  .invalid-message {
+    @apply hidden;
+  }
+  .invalid-validation {
+    @apply relative z-10;
+    .invalid-title {
+      @apply text-red-500;
+    }
+    .invalid-message {
+      @apply flex absolute left-0 px-2 text-xs font-light text-white rounded bg-red-500 mt-1;
+      top: 100%;
+      &::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(100% - 1px);
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #f56565 transparent;
+      }
+    }
+    .invalid-input {
+      @apply border-red-500 !important;
+    }
+    input {
+      @apply border-red-500 !important;
+    }
+    .mat-form-field .mat-form-field-wrapper .mat-form-field-flex {
+      @apply border-red-500 !important;
+    }
+  }
+}

@@ -1,0 +1,79 @@
+<div class="container-row">
+  <reactor-room-sidebar-nav></reactor-room-sidebar-nav>
+  <div class="container-column" style="margin-left: 70px">
+    <reactor-room-top-tool-bar-component></reactor-room-top-tool-bar-component>
+    <div class="container-column" style="padding-left: 20px">
+      <div class="container-row">
+        <mat-card
+          ><svg width="34" height="26" viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M27.4288 6.4C27.2195 9.45025 25.0645 11.8 22.7145 11.8C20.3644 11.8 18.2058 9.451 18.0001 6.4C17.7858 3.22675 19.8837 1 22.7145 1C25.5452 1 27.6431 3.2845 27.4288 6.4Z"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M22.7145 16.6001C18.0594 16.6001 13.583 19.0278 12.4615 23.7558C12.313 24.3813 12.6865 25.0001 13.2987 25.0001H32.131C32.7431 25.0001 33.1146 24.3813 32.9681 23.7558C31.8467 18.9521 27.3702 16.6001 22.7145 16.6001Z"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-miterlimit="10"
+            />
+            <path
+              d="M13.0001 7.7454C12.8329 10.1814 11.0915 12.0999 9.21434 12.0999C7.33718 12.0999 5.59288 10.1822 5.42859 7.7454C5.25788 5.21115 6.95289 3.3999 9.21434 3.3999C11.4758 3.3999 13.1708 5.25765 13.0001 7.7454Z"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M13.4294 16.2587C12.1401 15.6384 10.7201 15.3999 9.21505 15.3999C5.50074 15.3999 1.92213 17.3387 1.0257 21.1149C0.907841 21.6144 1.20641 22.1087 1.69499 22.1087H9.71506"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+            />
+          </svg>
+          <div>User Roles</div>
+        </mat-card>
+        <mat-card container-column
+          ><svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.9841 6.5C16.7628 9.60674 14.4845 12 12 12C9.51551 12 7.2334 9.6075 7.01592 6.5C6.78937 3.26799 9.00728 1 12 1C14.9927 1 17.2106 3.32681 16.9841 6.5Z"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 17C7.02159 17 2.23417 19.6012 1.03484 24.6669C0.875944 25.3371 1.27547 26 1.93014 26H22.0706C22.7253 26 23.1225 25.3371 22.9659 24.6669C21.7666 19.52 16.9791 17 12 17Z"
+              stroke="#153342"
+              stroke-width="1.8"
+              stroke-miterlimit="10"
+            />
+          </svg>
+          <div>Contact</div>
+        </mat-card>
+        <mat-card container-column
+          ><svg width="57" height="37" viewBox="0 0 57 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.8" y="15.8" width="32.4" height="20.4" rx="2.2" stroke="#153342" stroke-width="1.6" />
+            <rect x="23.8" y="0.8" width="32.4" height="20.4" rx="2.2" stroke="#153342" stroke-width="1.6" />
+          </svg>
+
+          <div>Task</div>
+        </mat-card>
+      </div>
+      <div>
+        <mat-card (click)="onClickTag()">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M27.4241 14.9247L13.0885 0.589131C12.9078 0.404746 12.6925 0.257805 12.455 0.156715C12.2174 0.0556253 11.9622 0.00237113 11.7041 0H1.96377C1.44295 0 0.943453 0.206897 0.575175 0.575175C0.206897 0.943453 0 1.44295 0 1.96377V11.7041C0.00219234 12.2241 0.210528 12.7219 0.579312 13.0885L14.9148 27.4241C15.0972 27.6066 15.3138 27.7515 15.5522 27.8503C15.7906 27.9491 16.0461 28 16.3042 28C16.5623 28 16.8178 27.9491 17.0562 27.8503C17.2946 27.7515 17.5112 27.6066 17.6936 27.4241L27.4142 17.7034C27.5975 17.5217 27.7431 17.3056 27.8427 17.0675C27.9424 16.8295 27.9942 16.5741 27.9951 16.3161C27.996 16.058 27.946 15.8023 27.8481 15.5635C27.7501 15.3248 27.606 15.1077 27.4241 14.9247ZM16.3189 26.0396L1.96377 11.6943V1.96377H11.7041L26.0396 16.3189L16.3189 26.0396Z"
+              fill="black"
+            />
+          </svg>
+          Tags
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<ng-container *ngIf="!isCustom">
+  <form [formGroup]="timeForm">
+    <input
+      [id]="customID1"
+      #hour
+      type="text"
+      (keypress)="isNumberKey($event)"
+      (keyup)="isMoreThanLength($event, 'hour')"
+      maxlength="2"
+      formControlName="hour"
+      style="font-size: 16px; font-weight: 400"
+      (wheel)="onScrollTimer($event, 'hour')"
+      [matTooltip]="'Scrollable'"
+    />&nbsp;:&nbsp;<input
+      [id]="customID2"
+      #minute
+      (wheel)="onScrollTimer($event, 'minute')"
+      [matTooltip]="'Scrollable'"
+      (keypress)="isNumberKey($event)"
+      (keyup)="isMoreThanLength($event, 'minute')"
+      maxlength="2"
+      type="text"
+      formControlName="minute"
+      style="font-size: 16px; font-weight: 400"
+    />
+  </form>
+</ng-container>
+<ng-container *ngIf="isCustom">
+  <form [formGroup]="timeForm">
+    <input
+      type="number"
+      [id]="customID1"
+      #hour
+      type="text"
+      (keypress)="isNumberKey($event)"
+      (keyup)="isMoreThanLength($event)"
+      maxlength="2"
+      [formControlName]="selector"
+      style="font-size: 16px; font-weight: 400"
+      (wheel)="onScrollTimer($event)"
+      [matTooltip]="'Scrollable'"
+    />
+  </form>
+</ng-container>

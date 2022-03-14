@@ -1,0 +1,74 @@
+@import 'base';
+@import 'buttons';
+@import 'custom-checkbox';
+
+.peekbox-audience-control-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 5px;
+  margin-bottom: 5px;
+  background: #fff;
+  border-radius: 8px;
+
+  button {
+    margin: 5px 10px;
+  }
+
+  .btn-back {
+    @extend .btn-inactive;
+    background: transparent;
+  }
+
+  .btn-close,
+  .btn-reject {
+    @extend .btn-inactive;
+    background: transparent;
+
+    border-color: #f9813d !important;
+    color: #f9813d !important;
+
+    &.reject {
+      border-color: #dc493d !important;
+      color: #dc493d !important;
+      background: #fde8df;
+    }
+  }
+
+  .btn-close-follow {
+    @extend .btn-inactive;
+    background: transparent;
+
+    border-color: #2ec639 !important;
+    color: #2ec639 !important;
+  }
+
+  .btn-add-lead {
+    @extend .btn-inactive;
+
+    background: rgba(106, 127, 142, 1) !important;
+    border-color: rgba(106, 127, 142, 1) !important;
+    color: #fff;
+  }
+
+  .btn-move {
+    @extend .btn-active;
+    position: relative;
+    transition: none;
+    transform: none;
+
+    .menu-toggle {
+      position: absolute;
+      right: 0px;
+      top: 55px;
+      border-top: 2px solid $main-color;
+      background: white;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0px 6px 0 rgba(32, 33, 36, 0.28);
+      min-width: 200px;
+      z-index: 99;
+    }
+  }
+}

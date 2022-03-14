@@ -1,0 +1,160 @@
+<div class="customer-new">
+  <div [formGroup]="customerForm">
+    <reactor-room-heading *ngIf="headerActive" [headingTitle]="'Create New Customer'" [Route]="'Customer / Create New Customer'">
+      <div class="heading-content">
+        <div class="buttons">
+          <button type="reset" class="cancel" (click)="cancelCreateAction()">{{ 'Cancel' | translate }}</button>
+          <button (click)="saveCustomerForm()" class="save-active">
+            <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+                fill="white"
+              />
+            </svg>
+
+            <span class="label">
+              {{ 'Save' | translate }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </reactor-room-heading>
+    <div class="information-head" *ngIf="!headerActive">
+      <div class="text">{{ 'Start date' | translate }}: {{ startDate | timeAgo: 'utc' }}</div>
+      <div class="save buttons">
+        <button type="reset" class="cancel" (click)="previousUrl()">{{ 'Cancel' | translate }}</button>
+        <button class="btn-active" (click)="saveCustomerForm()">
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.5881 2.67522L13.3248 0.411875C13.0592 0.14625 12.7061 0 12.3304 0C12.0511 0 4.55519 0 4.21875 0H1.40625C0.630844 0 0 0.630844 0 1.40625V14.5938C0 15.3692 0.630844 16 1.40625 16C2.099 16 14.0495 16 14.5938 16C15.3692 16 16 15.3692 16 14.5938V3.66956C16 3.29397 15.8537 2.94081 15.5881 2.67522ZM4.6875 0.9375H9.4375V3.65625C9.4375 3.91513 9.64738 4.125 9.90625 4.125C10.1651 4.125 10.375 3.91513 10.375 3.65625V0.9375H11.3125V4.59375C11.3125 4.85222 11.1022 5.0625 10.8438 5.0625H5.15625C4.89778 5.0625 4.6875 4.85222 4.6875 4.59375V0.9375ZM12.25 15.0625H3.75V11H12.25V15.0625ZM12.25 10.0625H3.75V8.5C3.75 8.24153 3.96028 8.03125 4.21875 8.03125H11.7812C12.0397 8.03125 12.25 8.24153 12.25 8.5V10.0625ZM15.0625 14.5938C15.0625 14.8522 14.8522 15.0625 14.5938 15.0625H13.1875V8.5C13.1875 7.72459 12.5567 7.09375 11.7812 7.09375H4.21875C3.44334 7.09375 2.8125 7.72459 2.8125 8.5V15.0625H1.40625C1.14778 15.0625 0.9375 14.8522 0.9375 14.5938V1.40625C0.9375 1.14778 1.14778 0.9375 1.40625 0.9375H3.75V4.59375C3.75 5.36916 4.38084 6 5.15625 6H10.8438C11.6192 6 12.25 5.36916 12.25 4.59375V0.9375H12.3304C12.4556 0.9375 12.5733 0.98625 12.6619 1.07478L14.9252 3.33813C15.0137 3.42666 15.0625 3.54438 15.0625 3.66956V14.5938Z"
+              fill="white"
+            />
+          </svg>
+
+          <span class="label">
+            {{ 'Save' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <reactor-room-card class="main">
+        <div class="card-content">
+          <div class="form">
+            <div class="form-item one-line profile">
+              <div class="img">
+                <img [src]="imagePath" onerror="src='assets/img/customer/customer_error.svg'" />
+              </div>
+            </div>
+            <div class="form-item-col3">
+              <div class="form-item" [ngClass]="{ invalid: !customerForm.get('first_name').valid && first_nameValidationMessage }">
+                <div class="label">{{ 'First name' | translate }}*</div>
+                <input type="text" formControlName="first_name" (keyup)="eventLookUpOnFocus('first_name')" [placeholder]="'First name' | translate" />
+                <mat-error *ngIf="!customerForm.get('first_name').valid" [innerHTML]="first_nameValidationMessage"> </mat-error>
+              </div>
+              <div class="form-item" [ngClass]="{ invalid: !customerForm.get('aliases').valid && aliasesValidationMessage }">
+                <div class="label">{{ 'Aliases' | translate }}</div>
+                <input type="text" formControlName="aliases" (keyup)="eventLookUpOnFocus('aliases')" [placeholder]="'Aliases' | translate" />
+                <mat-error *ngIf="!customerForm.get('aliases').valid" [innerHTML]="aliasesValidationMessage"> </mat-error>
+              </div>
+              <div class="form-item" [ngClass]="{ invalid: !customerForm.get('last_name').valid && last_nameValidationMessage }">
+                <div class="label">{{ 'Last name' | translate }}</div>
+                <input type="text" formControlName="last_name" (keyup)="eventLookUpOnFocus('last_name')" [placeholder]="'Last name' | translate" />
+                <mat-error *ngIf="!customerForm.get('last_name').valid" [innerHTML]="last_nameValidationMessage"> </mat-error>
+              </div>
+            </div>
+            <div class="form-item" [ngClass]="{ invalid: !customerForm.get('phone_number').valid && phone_numberValidationMessage }">
+              <div class="label">{{ 'Mobile no' | translate }}</div>
+              <input type="text" formControlName="phone_number" inputmode="tel" (keyup)="eventLookUpOnFocus('phone_number')" [placeholder]="'0000000000'" />
+              <mat-error *ngIf="!customerForm.get('phone_number').valid" [innerHTML]="phone_numberValidationMessage"> </mat-error>
+            </div>
+            <div class="form-item" [ngClass]="{ invalid: !customerForm.get('email').valid && emailValidationMessage }">
+              <div class="label">{{ 'Email' | translate }}</div>
+              <input type="text" formControlName="email" inputmode="email" (keyup)="eventLookUpOnFocus('email')" [placeholder]="'Email' | translate" />
+              <mat-error *ngIf="!customerForm.get('email').valid" [innerHTML]="emailValidationMessage"></mat-error>
+            </div>
+            <div class="form-item one-line" [ngClass]="{ invalid: !customerForm.get('address').valid && addressValidationMessage }">
+              <div class="label">{{ 'Address' | translate }}</div>
+              <input type="text" formControlName="address" (keyup)="eventLookUpOnFocus('address')" [placeholder]="'Address' | translate" />
+              <mat-error *ngIf="!customerForm.get('address').valid" [innerHTML]="addressValidationMessage"></mat-error>
+            </div>
+
+            <reactor-room-address [isRequired]="false" [fields]="addressFields" (handleValue)="handleAddressValue($event)"> </reactor-room-address>
+
+            <!-- <div class="form-item" [ngClass]="{ invalid: !customerForm.get('country').valid && countryValidationMessage }" [ngStyle]="{ visibility: 'hidden' }">
+              <div class="label">{{ 'Country' | translate }}</div>
+              <input type="text" formControlName="country" (keyup)="eventLookUpOnFocus('country')" [placeholder]="'Country' | translate" />
+              <mat-error *ngIf="!customerForm.get('country').valid" [innerHTML]="countryValidationMessage"></mat-error>
+            </div> -->
+          </div>
+        </div>
+      </reactor-room-card>
+
+      <div class="sidebar">
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="flex justify-between">
+              <div class="label">{{ 'Customer Platform' | translate }}</div>
+            </div>
+            <div class="customer-tag-content flex">
+              <div class="platform" *ngIf="customerForm.get('platform').value === audiencePlatformType.FACEBOOKFANPAGE">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#0075FB" />
+                  <path
+                    d="M9.84372 4.39307H10.8475V2.67584C10.6743 2.65244 10.0787 2.59979 9.38511 2.59979C6.20919 2.59979 7.07327 6.13236 6.94682 6.64987H5.34924V8.5696H6.94636V13.4H8.9045V8.57005H10.437L10.6803 6.65032H8.90405C8.99018 5.37949 8.55539 4.39307 9.84372 4.39307Z"
+                    fill="white"
+                  />
+                </svg>
+                <span>Facebook Fanpage</span>
+              </div>
+              <div class="platform" *ngIf="customerForm.get('platform').value === audiencePlatformType.LINEOA">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#00B900" />
+                  <path
+                    d="M8.00001 3.79102C5.28272 3.79102 3.07068 5.59195 3.07068 7.80524C3.07068 9.78758 4.8247 11.4485 7.19284 11.7642C7.35345 11.7982 7.57198 11.8706 7.62744 12.0074C7.67673 12.1315 7.65989 12.3231 7.64305 12.4525L7.57568 12.8727C7.5572 12.9967 7.47709 13.3612 8.00659 13.1384C8.5369 12.9165 10.8475 11.4579 11.8827 10.2642C12.5909 9.48619 12.9294 8.68892 12.9294 7.80524C12.9294 5.59195 10.7173 3.79102 8.00001 3.79102ZM6.07059 9.12134H5.09047C4.94876 9.12134 4.83168 9.00381 4.83168 8.86213V6.89617C4.83168 6.75408 4.94876 6.63656 5.09047 6.63656C5.23342 6.63656 5.34926 6.75408 5.34926 6.89617V8.60251H6.07059C6.21354 8.60251 6.32897 8.71922 6.32897 8.86213C6.32897 9.00381 6.21313 9.12134 6.07059 9.12134ZM7.08357 8.86213C7.08357 9.00381 6.96773 9.12134 6.82437 9.12134C6.68265 9.12134 6.56681 9.00381 6.56681 8.86213V6.89617C6.56681 6.75408 6.68265 6.63656 6.8256 6.63656C6.96773 6.63656 7.08357 6.75408 7.08357 6.89617V8.86213ZM9.44185 8.86213C9.44185 8.97351 9.37037 9.0722 9.26439 9.10782C9.2381 9.11642 9.20976 9.12052 9.18264 9.12052C9.09597 9.12052 9.02203 9.08325 8.97315 9.01733L7.96962 7.65045V8.86172C7.96962 9.0034 7.85501 9.12093 7.71042 9.12093C7.56829 9.12093 7.45327 9.0034 7.45327 8.86172V6.89617C7.45327 6.78479 7.52433 6.6861 7.6299 6.65089C7.65455 6.64147 7.68577 6.63738 7.70959 6.63738C7.7897 6.63738 7.86364 6.68037 7.91293 6.7422L8.92427 8.1144V6.89617C8.92427 6.75408 9.0401 6.63656 9.18306 6.63656C9.32477 6.63656 9.44185 6.75408 9.44185 6.89617V8.86213ZM11.0254 7.61933C11.1688 7.61933 11.2842 7.73685 11.2842 7.87936C11.2842 8.02145 11.1688 8.13897 11.0254 8.13897H10.3045V8.60251H11.0254C11.1688 8.60251 11.2842 8.71922 11.2842 8.86213C11.2842 9.00381 11.1688 9.12134 11.0254 9.12134H10.0453C9.90356 9.12134 9.78772 9.00381 9.78772 8.86213V6.89617C9.78772 6.75408 9.90356 6.63656 10.0465 6.63656H11.0266C11.1688 6.63656 11.2842 6.75408 11.2842 6.89617C11.2842 7.0399 11.1688 7.15579 11.0254 7.15579H10.3045V7.61933H11.0254Z"
+                    fill="white"
+                  />
+                </svg>
+                <span>Line OA</span>
+              </div>
+            </div>
+          </div>
+        </reactor-room-card>
+        <reactor-room-card>
+          <div class="card-content">
+            <div class="flex justify-between">
+              <div class="label">{{ 'Customer Tags' | translate }}</div>
+              <div class="link" (click)="openCustomerTagDialog()">{{ 'Edit' | translate }}</div>
+            </div>
+            <div class="customer-tag-content flex">
+              <div *ngIf="!customerTags" class="tag-no-data">No Tags associated</div>
+              <div id="customerTagExpandID" class="expand-item" *ngIf="customerTags?.length > 0">
+                <div class="items">
+                  <ng-container *ngFor="let tag of customerTags; let index = index">
+                    <div class="item" [ngStyle]="{ 'background-color': customerTagColorEnum[tag.color] }" [ngClass]="{ 'item-nodisplay': index > 5 }">
+                      {{ tag.name }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </reactor-room-card>
+
+        <ng-container *ngIf="customer">
+          <reactor-room-card>
+            <div class="card-content">
+              <reactor-room-customer-company [customerId]="customer.id"></reactor-room-customer-company>
+            </div>
+          </reactor-room-card>
+
+          <reactor-room-card>
+            <div class="card-content">
+              <reactor-room-customer-notes [customerId]="customer.id"></reactor-room-customer-notes>
+            </div>
+          </reactor-room-card>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

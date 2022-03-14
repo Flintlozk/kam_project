@@ -1,0 +1,18 @@
+<reactor-room-heading [headingTitle]="'Settings' | translate" [Route]="'Settings / Credit' | translate">
+  <div class="heading-content owner-info">
+    <div class="buttons">
+      <div class="cancel" (click)="onClickBack()">{{ 'Back' | translate }}</div>
+    </div>
+  </div>
+</reactor-room-heading>
+
+<div class="setting" [ngStyle]="{ 'max-width': tabWidth }">
+  <mat-tab-group class="mat-tab-setting" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="handleIndexChange($event)">
+    <!-- <mat-tab [label]="'Info'" #info>
+      <reactor-room-setting-shop-owner-detail></reactor-room-setting-shop-owner-detail>
+    </mat-tab> -->
+    <mat-tab [label]="'Credit'" #credit>
+      <reactor-room-topup-history *matTabContent></reactor-room-topup-history>
+    </mat-tab>
+  </mat-tab-group>
+</div>

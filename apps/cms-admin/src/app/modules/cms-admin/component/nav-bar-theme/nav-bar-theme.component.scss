@@ -1,0 +1,84 @@
+.cms-admin-navbar-container {
+  z-index: 2;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: 30% 70% auto;
+  min-height: 54px;
+  align-items: center;
+  background-color: #ffffff;
+  .nav-item1 {
+    margin-left: 20px;
+  }
+  .nav-item2 {
+    color: black;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+  .invite-btn {
+    border: none;
+    border-radius: 14px;
+    height: 40px;
+    width: 120px;
+    background: #2fc639;
+    box-shadow: 1px 2px 12px 0px #2fc63980;
+    color: white;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  .preview {
+    padding-left: 25px;
+    border-left: 1px solid #eaeaec;
+  }
+  .preview:hover {
+    cursor: pointer;
+  }
+  .redo {
+    padding: 0 20px;
+    border-right: 1px solid #eaeaec;
+  }
+  .undo {
+    padding: 0 20px;
+    border-left: 1px solid #eaeaec;
+  }
+  .change-theme {
+    tab-size: 4;
+    -webkit-text-size-adjust: 100%;
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    --tw-shadow: 0 0 #0000;
+    --tw-ring-inset: var(--tw-empty, /*!*/ /*!*/);
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgba(59, 130, 246, 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+    text-transform: none;
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: inherit;
+    padding-right: 1.5rem;
+    color: black;
+  }
+  .change-theme:hover {
+    text-decoration: underline;
+  }
+  .selected {
+    color: rgba(51, 180, 98, 1);
+  }
+}

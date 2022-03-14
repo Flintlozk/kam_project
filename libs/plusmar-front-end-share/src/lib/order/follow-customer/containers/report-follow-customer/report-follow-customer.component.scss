@@ -1,0 +1,228 @@
+@import 'base';
+@import 'buttons';
+$main-color: #54b1ff;
+$mobilemax: 'screen and (max-width: 768px)';
+
+.paper-control-unit {
+  display: flex;
+  justify-content: space-between;
+
+  @media #{$mobilemax} {
+    flex-flow: column;
+    flex-direction: column-reverse;
+  }
+  .select-option {
+    width: 100%;
+    display: flex;
+
+    @media #{$mobilemax} {
+      flex-flow: column;
+    }
+
+    &.mat-form-field {
+      width: 200px;
+    }
+    .paper-type {
+      width: 30%;
+      margin-right: 8px;
+
+      @media #{$mobilemax} {
+        width: 95%;
+        margin: 5px;
+      }
+      //
+    }
+
+    .paper-size {
+      width: 100%;
+      display: flex;
+
+      @media #{$mobilemax} {
+        margin: 5px;
+        justify-content: center;
+      }
+      .size {
+        margin: 0 8px;
+        background: white;
+        border: 1px solid #54b1ff;
+        color: #54b1ff;
+        border-radius: 5px;
+        transition: all ease-in-out 0.3s, transform 0.1s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 130px;
+        height: 35px;
+        cursor: pointer;
+        font-size: 12px;
+
+        &.active {
+          background: #54b1ff;
+          border: 1px solid #54b1ff;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    @media #{$mobilemax} {
+      justify-content: space-between;
+    }
+
+    .btn-cancel {
+      margin-right: 10px;
+      min-width: 130px;
+      height: 35px;
+    }
+    .btn-save {
+      @media #{$mobilemax} {
+        margin-right: 0px;
+      }
+      background: #54b1ff;
+      color: white;
+      padding: 0px 20px;
+      border: none;
+      transition: all ease-in-out 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 130px;
+      height: 35px;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.button-back-print {
+  display: inline-block;
+}
+.button-default {
+  transition: all ease-in-out 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 143px;
+  height: 46px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.button-hover {
+  transition: all ease-in-out 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 143px;
+  height: 46px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: #53b1ff;
+}
+.width-of-button {
+  top: 10px;
+  position: relative;
+  display: inline-block;
+}
+.printing-group-tool {
+  width: 30%;
+  display: inline-block;
+}
+.width-of-button-mobile {
+  top: 0px;
+  position: relative;
+  width: 50%;
+  display: inline-block;
+}
+.check-action {
+  margin-left: 50px;
+  display: inline-block;
+  width: 20%;
+}
+.text-size {
+  width: 20px;
+  position: relative;
+  padding-left: 85px;
+  height: 20px;
+  top: 10px;
+}
+
+.report-width {
+  width: 1000px;
+  height: 800px;
+  padding-top: 20px;
+}
+
+.select-option-mobile {
+  width: 70%;
+  padding-top: 5px;
+  display: inline-block;
+}
+.print-picture {
+  width: 18px;
+  height: 17px;
+  padding-right: 13px;
+}
+.button {
+  background: #bdc3c7;
+  color: white;
+  padding: 0px 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  border: none;
+  transition: all ease-in-out 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 143px;
+  height: 46px;
+}
+
+.back {
+  background: none;
+  border: 1px solid #89a5bb;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+  flex-shrink: 0;
+
+  svg {
+    height: 14px;
+  }
+}
+.buttonNew-click-mobile {
+  background: #54b1ff;
+  border: 1px solid white;
+  color: white;
+  transition: all ease-in-out 0.3s, transform 0.1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 0px 20px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.print-layout {
+  margin-top: 15px;
+  height: 100vh;
+}
+.error-response {
+  margin: 20px 0px;
+  border-radius: 10px;
+  padding: 20px 16px;
+  background: #fff;
+}

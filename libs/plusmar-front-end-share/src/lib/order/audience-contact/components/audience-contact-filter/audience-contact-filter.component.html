@@ -1,0 +1,138 @@
+<div class="search-tools">
+  <input *ngIf="enabledSearch" type="search" placeholder="{{ 'Search' | translate }}" [formControl]="searchField" />
+
+  <div class="more" matTooltip="{{ 'Pin off-time' | translate }}" *ngIf="enabledOfftime" [ngClass]="{ 'off-time': showOfftime }">
+    <button mat-icon-button (click)="toggleOfftime()">
+      <img src="../../../../../assets/img/setting/workhour.png" />
+    </button>
+  </div>
+  <div class="more" reactorRoomClickOutside (outside)="clickOutsideEvent($event)" *ngIf="enabledFilter">
+    <div class="amount" (click)="toggleFilter()" *ngIf="totalTagCheck > 0" [@slideInOut]>
+      <div class="number">{{ totalTagCheck }}</div>
+    </div>
+    <button matTooltip="{{ 'Filter' | translate }}" mat-icon-button (click)="toggleFilter()">
+      <svg width="4" height="16" viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg">
+        <circle cy="2" cx="2" r="2" />
+        <circle cy="8" cx="2" r="2" />
+        <circle cy="14" cx="2" r="2" />
+      </svg>
+    </button>
+
+    <div class="more-menu filter-menu" *ngIf="showFilter">
+      <ng-container *ngIf="enabledStatusFilter">
+        <div class="filter-by-status">
+          <div class="filter-title">
+            <span>
+              {{ 'Filter by status' | translate }}
+            </span>
+          </div>
+          <div class="filter-customer-status">
+            <label class="custom-checkbox">
+              <input
+                class="input-checkbox"
+                name="audienceStatus"
+                (click)="onDoSelectStatus(audienceContactStatus.ALL)"
+                [(ngModel)]="filters.contactStatus"
+                type="radio"
+                value="ALL"
+                [id]="'ALL'"
+              />
+              <span class="checkmark"></span>
+              <label class="title" [for]="'ALL'">
+                <div>{{ 'All' | translate }}</div>
+              </label>
+            </label>
+            <label class="custom-checkbox">
+              <input
+                class="input-checkbox"
+                name="audienceStatus"
+                (click)="onDoSelectStatus(audienceContactStatus.ACTIVE)"
+                [(ngModel)]="filters.contactStatus"
+                type="radio"
+                value="ACTIVE"
+                [id]="'ACTIVE'"
+              />
+              <span class="checkmark"></span>
+              <label class="title" [for]="'ACTIVE'">
+                <div>{{ 'ACTIVE' | translate }}</div>
+              </label>
+            </label>
+            <label class="custom-checkbox">
+              <input
+                class="input-checkbox"
+                name="audienceStatus"
+                (click)="onDoSelectStatus(audienceContactStatus.INACTIVE)"
+                [(ngModel)]="filters.contactStatus"
+                type="radio"
+                value="INACTIVE"
+                [id]="'INACTIVE'"
+              />
+              <span class="checkmark"></span>
+              <label class="title" [for]="'INACTIVE'">
+                <div>{{ 'INACTIVE' | translate }}</div>
+              </label>
+            </label>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="enabledTagFilter">
+        <div class="filter-by-tag">
+          <div class="filter-title">
+            <span>
+              {{ 'Filter by tags' | translate }}
+            </span>
+            <button
+              (click)="tagSearchCollapsed = !tagSearchCollapsed"
+              [ngClass]="{ collapsed: tagSearchCollapsed }"
+              class="interactive animated cursor-pointer ml-20 border-none transparent flex items-center justify-center"
+            >
+              <svg width="18" height="8" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.03 8.10635L1.92365 0L0 1.92365L10.03 11.9537L20.06 1.92365L18.1364 0L10.03 8.10635Z" fill="#54b1ff"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="filter-customer-tag">
+            <!-- <div>{{ 'Customer Tags' }}</div> -->
+            <div class="checkbox-group">
+              <label *ngIf="tagSearchCollapsed" class="custom-checkbox">
+                <input class="input-checkbox" type="checkbox" (change)="onSelectUntagged()" [checked]="selectUntag" />
+                <span class="checkmark"></span>
+                <label class="title">
+                  <div>No tag</div>
+                </label>
+              </label>
+
+              <input *ngIf="tagSearchCollapsed" type="search" placeholder="{{ 'Search tag' | translate }}" [formControl]="tagSearchField" />
+
+              <div *ngIf="tagSearchCollapsed" class="seperator"></div>
+              <ng-container *ngIf="tags; else tagNotFound">
+                <ng-container *ngFor="let tag of tags; let index = index">
+                  <label class="custom-checkbox" [ngStyle]="{ display: tagsInputSearch(tag.name) ? 'flex' : 'none' }">
+                    <input class="input-checkbox" type="checkbox" (change)="onSelectTag($event, tag)" value="{{ tag.id }}" #tagCheckboxes [id]="'tag' + index" />
+                    <span class="checkmark"></span>
+                    <label class="title" [for]="'tag' + index">
+                      <div class="tag-color" [ngStyle]="{ background: customerTagEnum[tag.color] }"></div>
+                      <div>{{ tag.name }}</div>
+                    </label>
+                  </label>
+                </ng-container>
+              </ng-container>
+              <ng-template #tagNotFound
+                ><div class="tag-not-found"><i>No tag avaliable</i></div></ng-template
+              >
+            </div>
+
+            <div class="create-tag" (click)="openTagManageDialog()">
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.2969 8.29688H9.70313V0.703125C9.70313 0.314789 9.38834 0 9 0C8.61166 0 8.29688 0.314789 8.29688 0.703125V8.29688H0.703125C0.314789 8.29688 0 8.61166 0 9C0 9.38834 0.314789 9.70313 0.703125 9.70313H8.29688V17.2969C8.29688 17.6852 8.61166 18 9 18C9.38834 18 9.70313 17.6852 9.70313 17.2969V9.70313H17.2969C17.6852 9.70313 18 9.38834 18 9C18 8.61166 17.6852 8.29688 17.2969 8.29688Z"
+                ></path>
+              </svg>
+              {{ 'Create new tags' | translate }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

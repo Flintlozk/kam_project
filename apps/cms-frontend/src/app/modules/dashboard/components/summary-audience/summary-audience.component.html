@@ -1,0 +1,36 @@
+<section class="bg-white border border-gray-200 rounded-md">
+  <div class="flex justify-between p-4 text-lg shadow-md">Audience</div>
+  <div class="grid grid-cols-4 overflow-hidden bg-white border border-gray-200 rounded-b-md">
+    <div class="col-span-1 flex flex-col justify-between items-center p-6 border border-gray-50">
+      <h3 *ngIf="summaryDataToday" class="text-lg">{{ summaryDataToday.Type }}</h3>
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-top: 10px">
+        <circle cx="11.057" cy="7.37143" r="7.37143" fill="#CCCCD4" />
+        <path d="M0 26C0 20.4772 4.47715 16 10 16H12C17.5228 16 22 20.4772 22 26V29H0V26Z" fill="#CCCCD4" />
+        <circle cx="30.5" cy="12.5" r="5.5" fill="#CCCCD4" />
+        <path d="M22 27.5C22 22.8056 25.8056 19 30.5 19C35.1944 19 39 22.8056 39 27.5V29H22V27.5Z" fill="#CCCCD4" />
+      </svg>
+      <div *ngIf="summaryDataToday" class="pt-3 text-6xl">{{ summaryDataToday.Result.Date.Visitor }}</div>
+    </div>
+    <ng-container *ngFor="let summaryDataItem of summaryDataRange; let subtitle = index; trackBy: trackByIndex">
+      <div class="col-span-1 flex flex-col justify-between items-center p-6 border border-gray-50">
+        <h3 class="text-lg">{{ summaryDataItem.Type }}</h3>
+        <h6 class="text-sm font-extralight">{{ summarySubtitle[subtitle] }}</h6>
+        <div class="pt-3 text-4xl">{{ summaryDataItem.Result.Date.Visitor }}</div>
+        <div
+          class="flex items-center px-2 text-sm font-light leading-none text-white transform bg-red-500 h-7"
+          [ngClass]="{ 'bg-green-500': summaryDataItem.Result.Status !== 'decrease' }"
+        >
+          <svg *ngIf="summaryDataItem.Result.Status === 'decrease'" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.5748 1L6.5748 11" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+            <path d="M11.6714 6.71436L6.57481 11.7144L1.47827 6.71436" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+          </svg>
+          <svg *ngIf="summaryDataItem.Result.Status === 'increase'" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.88965 11.7144V1.71436" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+            <path d="M0.792984 6L5.88953 1L10.9861 6" stroke="#F8F8FB" stroke-linecap="round" stroke-linejoin="bevel" />
+          </svg>
+          {{ summaryDataItem.Result.Diff }} ({{ summaryDataItem.Result.Percentage }})
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

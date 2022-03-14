@@ -1,0 +1,51 @@
+@layer components {
+  ::ng-deep .cdk-overlay-container {
+    @apply bg-black bg-opacity-50;
+    .cdk-overlay-pane {
+      @apply bottom-0 w-full left-0 !important;
+      top: unset !important;
+      .mat-datepicker-content {
+        @apply rounded-b-none rounded-t-lg w-full;
+        .mat-calendar {
+          @apply w-full h-auto;
+          .mat-calendar-header {
+            .mat-calendar-controls {
+              button {
+                &:focus {
+                  @apply outline-none;
+                }
+                &.mat-icon-button {
+                  &:after {
+                    @apply border-green-500 m-4;
+                  }
+                }
+                &.mat-button-base {
+                  .mat-button-wrapper {
+                    @apply text-2xl font-normal;
+                    .mat-calendar-arrow {
+                      @apply w-0 h-0 -mt-2;
+                      border-left: 8px solid transparent;
+                      border-right: 8px solid transparent;
+                      border-top: 8px solid #2fc639;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .mat-calendar-content {
+            .mat-calendar-body-today {
+              @apply bg-green-500 text-white border-none;
+            }
+            .mat-calendar-body-selected {
+              @apply bg-green-500 text-white border-none rounded-md;
+            }
+            .mat-calendar-body-in-range::before {
+              @apply bg-green-100;
+            }
+          }
+        }
+      }
+    }
+  }
+}

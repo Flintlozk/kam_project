@@ -1,0 +1,12 @@
+<div class="container-column" *ngIf="conditionUpdate === 'assign'">
+  <div>{{ cardDetail.title }}</div>
+  <mat-divider></mat-divider>
+  <div>
+    <p>Send & Assign Task to Team : {{ newTeam }} at Status : {{ newState }}</p>
+  </div>
+  <reactor-room-assign-form [groupAssignee]="groupAssignee" [allAssignee]="allAssignee" (addAssignee)="onAddAssignee($event)"></reactor-room-assign-form>
+  <div>
+    <button style="margin-bottom: 10px" class="button-confirm-move" mat-raised-button color="primary" (click)="onSubmit()">Confirm to create new task</button>
+    <button class="button-confirm-move" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div
+  class="setting-log"
+  [ngClass]="{
+    'cms-theme': theme === themeType.CMS
+  }"
+>
+  <reactor-room-filter
+    *ngIf="modifiedByData"
+    [customFilterLabel]="'Modified by' | translate"
+    [customDropdown]="modifiedByData.length > 2 ? modifiedByData : null"
+    [yesterdayActive]="false"
+    [customActive]="true"
+    [isOnlyExportAll]="true"
+    (handleFilterUpdate)="handleFilterUpdate($event)"
+  ></reactor-room-filter>
+
+  <div class="table w-full">
+    <reactor-room-custom-table
+      [tableColSpan]="6"
+      [isNoVerticalScroll]="true"
+      [tableData]="tableData"
+      [tableHeader]="tableHeader"
+      [orderMethod]="tableFilters.orderMethod"
+      [currentIndex]="4"
+      (sortTableMetaData)="sortTableData($event)"
+    >
+      <tr *ngFor="let item of tableData; trackBy: trackBy" class="table-content">
+        <td>{{ item.created_at | timeAgo: 'utc' }}</td>
+        <td>{{ item.user_name }}</td>
+        <td>
+          {{ item.action | logDescriptionTranslate: item.description }}
+          <span *ngIf="item.subject">{{ item.audience_name }}</span>
+          <span *ngIf="!item.subject">{{ item.description }}</span>
+        </td>
+      </tr>
+    </reactor-room-custom-table>
+    <reactor-room-pagination #paginator [pageSize]="tableFilters.pageSize" [length]="totalRows" (changePage)="changePage($event)"></reactor-room-pagination>
+  </div>
+</div>

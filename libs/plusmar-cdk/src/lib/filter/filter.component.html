@@ -1,0 +1,175 @@
+<div [formGroup]="filterForm" class="filter">
+  <div class="date-tabs" *ngIf="!isDatePickerHidden && !isForExpireDate">
+    <div class="select-option">
+      <mat-form-field>
+        <mat-select (valueChange)="handleIntervalChange($event)" formControlName="interval" #tooltip="matTooltip" [matTooltip]="'Select range interval' | translate">
+          <mat-option *ngFor="let data of intervals" [value]="data.key">
+            {{ data.label | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="date-pickers">
+      <div class="date-pickup custom">
+        <div class="title" *ngIf="isLabel">{{ 'Start date' | translate }}</div>
+        <mat-form-field class="example-full-width" [matTooltip]="'Start date' | translate">
+          <input matInput [matDatepicker]="pickerstart" (dateChange)="dateChanged($event)" formControlName="startDate" [max]="filterForm.value.endDate" readonly />
+          <mat-datepicker-toggle matSuffix [for]="pickerstart">
+            <mat-icon matDatepickerToggleIcon>
+              <svg class="datepicker-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M3.85718 4C3.62061 4 3.42859 3.776 3.42859 3.5V2.42212H1.83337C1.37402 2.42212 1 2.79358 1 3.24994V5.42859H15V3.24994C15 2.79358 14.626 2.42212 14.1666 2.42212H12.5714V3.5C12.5714 3.776 12.3795 4 12.1429 4C11.9063 4 11.7143 3.776 11.7143 3.5V2.42212H4.28571V3.5C4.28571 3.776 4.09375 4 3.85718 4ZM11.7143 1.42859H4.28571V0.5C4.28571 0.223999 4.09375 0 3.85718 0C3.62061 0 3.42859 0.223999 3.42859 0.5V1.42859H1.83337C0.822021 1.42859 0 2.24518 0 3.24994V5.85718V14.1785C0 15.1833 0.822021 16 1.83337 16H14.1666C15.178 16 16 15.1833 16 14.1785V5.85718V3.24994C16 2.24518 15.178 1.42859 14.1666 1.42859H12.5714V0.5C12.5714 0.223999 12.3795 0 12.1429 0C11.9063 0 11.7143 0.223999 11.7143 0.5V1.42859ZM1 6.28571H15V14.1785C15 14.6349 14.626 15.0065 14.1666 15.0065H1.83337C1.37402 15.0065 1 14.6349 1 14.1785V6.28571Z"
+                />
+              </svg>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerstart disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="text">{{ 'To' | translate }}</div>
+      <div class="date-pickup custom">
+        <div class="title" *ngIf="isLabel">{{ 'End date' | translate }}</div>
+        <mat-form-field class="example-full-width" [matTooltip]="'End date' | translate">
+          <input matInput [matDatepicker]="pickerend" (dateChange)="dateChanged($event)" formControlName="endDate" [max]="today" [min]="filterForm.value.startDate" readonly />
+          <mat-datepicker-toggle matSuffix [for]="pickerend">
+            <mat-icon matDatepickerToggleIcon>
+              <svg class="datepicker-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M3.85718 4C3.62061 4 3.42859 3.776 3.42859 3.5V2.42212H1.83337C1.37402 2.42212 1 2.79358 1 3.24994V5.42859H15V3.24994C15 2.79358 14.626 2.42212 14.1666 2.42212H12.5714V3.5C12.5714 3.776 12.3795 4 12.1429 4C11.9063 4 11.7143 3.776 11.7143 3.5V2.42212H4.28571V3.5C4.28571 3.776 4.09375 4 3.85718 4ZM11.7143 1.42859H4.28571V0.5C4.28571 0.223999 4.09375 0 3.85718 0C3.62061 0 3.42859 0.223999 3.42859 0.5V1.42859H1.83337C0.822021 1.42859 0 2.24518 0 3.24994V5.85718V14.1785C0 15.1833 0.822021 16 1.83337 16H14.1666C15.178 16 16 15.1833 16 14.1785V5.85718V3.24994C16 2.24518 15.178 1.42859 14.1666 1.42859H12.5714V0.5C12.5714 0.223999 12.3795 0 12.1429 0C11.9063 0 11.7143 0.223999 11.7143 0.5V1.42859ZM1 6.28571H15V14.1785C15 14.6349 14.626 15.0065 14.1666 15.0065H1.83337C1.37402 15.0065 1 14.6349 1 14.1785V6.28571Z"
+                />
+              </svg>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerend disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-tabs" *ngIf="!isDatePickerHidden && isForExpireDate">
+    <div class="date-pickers for-expire">
+      <div class="date-pickup custom for-expire-date">
+        <div class="title" *ngIf="isLabel">{{ 'Expired date' | translate }}</div>
+        <mat-form-field class="example-full-width for-expire-date" [matTooltip]="'Expired date' | translate">
+          <input matInput [matDatepicker]="pickerstart" (dateChange)="dateChanged($event)" formControlName="endDate" [min]="today" [max]="nextYear" readonly />
+          <mat-datepicker-toggle matSuffix [for]="pickerstart">
+            <mat-icon matDatepickerToggleIcon>
+              <svg class="datepicker-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M3.85718 4C3.62061 4 3.42859 3.776 3.42859 3.5V2.42212H1.83337C1.37402 2.42212 1 2.79358 1 3.24994V5.42859H15V3.24994C15 2.79358 14.626 2.42212 14.1666 2.42212H12.5714V3.5C12.5714 3.776 12.3795 4 12.1429 4C11.9063 4 11.7143 3.776 11.7143 3.5V2.42212H4.28571V3.5C4.28571 3.776 4.09375 4 3.85718 4ZM11.7143 1.42859H4.28571V0.5C4.28571 0.223999 4.09375 0 3.85718 0C3.62061 0 3.42859 0.223999 3.42859 0.5V1.42859H1.83337C0.822021 1.42859 0 2.24518 0 3.24994V5.85718V14.1785C0 15.1833 0.822021 16 1.83337 16H14.1666C15.178 16 16 15.1833 16 14.1785V5.85718V3.24994C16 2.24518 15.178 1.42859 14.1666 1.42859H12.5714V0.5C12.5714 0.223999 12.3795 0 12.1429 0C11.9063 0 11.7143 0.223999 11.7143 0.5V1.42859ZM1 6.28571H15V14.1785C15 14.6349 14.626 15.0065 14.1666 15.0065H1.83337C1.37402 15.0065 1 14.6349 1 14.1785V6.28571Z"
+                />
+              </svg>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerstart disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom dropdown -->
+  <div class="select-option" *ngIf="customDropdown">
+    <mat-form-field>
+      <mat-label *ngIf="!filterForm.value.customDropdown">{{ customFilterLabel | translate }}</mat-label>
+      <mat-select formControlName="customDropdown">
+        <mat-option *ngFor="let data of customDropdown" [value]="data?.value">
+          <ng-container *ngIf="data?.color"><span [ngStyle]="{ 'background-color': data?.color }"> &nbsp;</span></ng-container>
+          {{ data.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Custom dropdown -->
+
+  <!-- Custom dropdown with optgroups-->
+  <!-- TODO: Add handlers -->
+  <div class="select-option" *ngIf="customDropdownNested">
+    <mat-form-field>
+      <mat-label *ngIf="!filterForm.value.customDropdownNested">{{ customDropdownNestedLabel | translate }}</mat-label>
+      <mat-select formControlName="customDropdownNested">
+        <mat-optgroup *ngFor="let data of customDropdownNested">
+          {{ data.name | translate }}
+          <mat-option *ngFor="let option of data.options" [value]="option.value">
+            {{ option.label | translate }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- Custom dropdown with optgroups -->
+
+  <!-- Search -->
+  <div class="search" *ngIf="searchActive" [ngClass]="{ collapse: (!isOnlyExportAll && isExportAvailable) || (isOnlyExportAll && isExportAvailable) }">
+    <input autofocus type="text" id="Search" name="Search" [placeholder]="'Search' | translate" formControlName="search" />
+  </div>
+  <!-- Search -->
+
+  <!-- Export -->
+  <div class="export pb-20" *ngIf="!isOnlyExportAll && isExportAvailable">
+    <reactor-room-table-action [isExport]="true">
+      <div class="export-menu">
+        <div (click)="exportSelectedHandler.next(null)" mat-menu-item class="item" [disabled]="isExportSelectedDisabled">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H0V0H15V1Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 5H0V4H12V5Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 9H0V8H5V9Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 13H0V12H15V13Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5107 9.85298L17.3667 3.37788L18 3.97595L10.5628 11L6.35295 7.02403L6.93417 6.4751L10.5107 9.85298Z" />
+          </svg>
+
+          <span class="ml-5">{{ 'Export selected' | translate }} {{ exportSelectedTotal ? ' (' + exportSelectedTotal + ')' : '' }}</span>
+        </div>
+        <div (click)="exportAllHandler.next(null)" mat-menu-item class="item">
+          <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9804 7.02716H2.01953V6.02716H15.9804V7.02716Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9804 4.0061H2.01953V3.0061H15.9804V4.0061Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9804 13.0693H2.01953V12.0693H15.9804V13.0693Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9804 10.0482H2.01953V9.04822H15.9804V10.0482Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17 1H1V15H17V1ZM0 0V16H18V0H0Z" />
+          </svg>
+
+          <span class="ml-5">{{ 'Export All' | translate }}</span>
+        </div>
+      </div>
+    </reactor-room-table-action>
+  </div>
+  <div class="export pb-20" *ngIf="isOnlyExportAll && isExportAvailable">
+    <button class="btn-secondary small">
+      <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0 2.32222C0 1.04544 1.06029 0 2.35097 0H9.35453C9.57819 0 9.78328 0.0980123 9.92283 0.235796L9.93251 0.245351L12.7892 3.41025C12.9225 3.54777 13 3.731 13 3.92806V13.6778C13 14.9546 11.9397 16 10.649 16H2.35097C1.06029 16 0 14.9546 0 13.6778V2.32222ZM2.35097 0.941177C1.58373 0.941177 0.951219 1.56712 0.951219 2.32222V13.6778C0.951219 14.4329 1.58373 15.0588 2.35097 15.0588H10.649C11.4163 15.0588 12.0488 14.4329 12.0488 13.6778V4.0029L11.9754 3.92156H9.35362V1.01695L9.28522 0.941177H2.35097ZM7.38807 5.0719L10.1992 8.10252L7.38807 11.1332V9.32502H7.2189C5.88001 9.32502 4.60295 9.87899 3.70039 10.8512L3.43493 11.1373V10.1791C3.43493 8.35703 4.9372 6.88003 6.79041 6.88003H7.38807V5.0719Z"
+        />
+      </svg>
+
+      <span class="ml-5">
+        {{ 'Export to Excel' | translate }}
+      </span>
+    </button>
+  </div>
+  <!-- Export -->
+  <!-- <div *ngIf="!isOnlyExportAll && !isForExpireDate" class="export pb-20">
+    <reactor-room-table-action [isPrintReport]="true">
+      <div class="report-menu">
+        <div (click)="reportPrintReceipt()" mat-menu-item class="item" [disabled]="isExportSelectedDisabled">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H0V0H15V1Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 5H0V4H12V5Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 9H0V8H5V9Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 13H0V12H15V13Z" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5107 9.85298L17.3667 3.37788L18 3.97595L10.5628 11L6.35295 7.02403L6.93417 6.4751L10.5107 9.85298Z" />
+          </svg>
+
+          <span class="ml-5">print selected {{ exportSelectedTotal ? ' (' + exportSelectedTotal + ')' : '' }}</span>
+        </div>
+      </div>
+    </reactor-room-table-action>
+  </div> -->
+</div>

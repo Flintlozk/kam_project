@@ -1,0 +1,43 @@
+@import 'base';
+.card-content {
+  cursor: pointer;
+  height: 100%;
+  // width: calc(100% - 40px);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  @media #{$mobilemax} {
+    padding: 0px;
+  }
+  svg {
+    padding-top: 30px;
+    max-width: 68px;
+    height: 68px;
+    @media #{$mobilemax} {
+      padding-top: 5px;
+      max-width: 20px;
+      height: 30px;
+    }
+  }
+  .title {
+    font-weight: 300;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @media #{$mobilemax} {
+      padding-top: 0px;
+      padding-bottom: 5px;
+    }
+    .val {
+      font-weight: 400;
+      font-size: 2.5em;
+      @media #{$mobilemax} {
+        font-size: 1.2em;
+      }
+    }
+  }
+}

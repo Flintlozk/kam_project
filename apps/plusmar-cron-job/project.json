@@ -1,0 +1,61 @@
+{
+  "root": "apps/plusmar-cron-job",
+  "sourceRoot": "apps/plusmar-cron-job/src",
+  "projectType": "application",
+  "prefix": "plusmar-cron-job",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/plusmar-cron-job",
+        "main": "apps/plusmar-cron-job/src/main.ts",
+        "tsConfig": "apps/plusmar-cron-job/tsconfig.app.json",
+        "assets": [
+          "apps/plusmar-cron-job/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./libs/shared-assets/mail-html-formatter/",
+            "output": "./assets-html"
+          }
+        ],
+        "maxWorkers": 1,
+        "memoryLimit": 1024
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/plusmar-cron-job/src/environments/environment.ts",
+              "with": "apps/plusmar-cron-job/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "plusmar-cron-job:build",
+        "port": 9233
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/plusmar-cron-job/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/plusmar-cron-job/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

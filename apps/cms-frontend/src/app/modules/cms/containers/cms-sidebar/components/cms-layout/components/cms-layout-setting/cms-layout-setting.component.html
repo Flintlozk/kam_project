@@ -1,0 +1,42 @@
+<section class="grid gap-4" [formGroup]="layoutSettingForm">
+  <ng-container *ngFor="let toggleItem of toggleData; let toggleIndex = index">
+    <button
+      *ngIf="settingLayout === toggleItem.belongTo || !toggleItem.belongTo"
+      (click)="onToggleItem(toggleItem.title)"
+      class="flex items-center justify-between px-4 py-3 bg-gray-400 rounded focus:outline-none"
+    >
+      <span class="font-light text-white">{{ toggleItem.title }}</span>
+      <svg class="transition transform" [ngClass]="{ ' -rotate-90': toggleItem.status }" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="10" fill="white" />
+        <circle cx="10" cy="10" r="9.5" stroke="white" stroke-opacity="0.8" />
+        <path d="M8 15L13 10L8 5" stroke="#797F8C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <ng-container *ngTemplateOutlet="toggleContent; context: { selector: toggleItem.title, status: toggleItem.status, belongTo: toggleItem.belongTo }"> </ng-container>
+  </ng-container>
+  <ng-template #toggleContent let-status="status" let-selector="selector" let-belongto="belongto">
+    <div [ngClass]="{ hidden: !status }">
+      <ng-container *ngIf="selector === ESidebarElement.ADVANCE">
+        <cms-next-cms-layout-setting-advance></cms-next-cms-layout-setting-advance>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.BORDER">
+        <cms-next-cms-layout-setting-border></cms-next-cms-layout-setting-border>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.SHADOW">
+        <cms-next-cms-layout-setting-shadow></cms-next-cms-layout-setting-shadow>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.HOVER">
+        <cms-next-cms-layout-setting-hover-text></cms-next-cms-layout-setting-hover-text>
+      </ng-container>
+      <!-- <ng-container *ngIf="selector === ESidebarElement.EFFECT">
+        <cms-next-cms-layout-setting-layout-effect></cms-next-cms-layout-setting-layout-effect>
+      </ng-container> -->
+      <ng-container *ngIf="selector === ESidebarElement.BACKGROUND">
+        <cms-next-cms-layout-setting-background></cms-next-cms-layout-setting-background>
+      </ng-container>
+      <ng-container *ngIf="selector === ESidebarElement.CUSTOMIZE">
+        <cms-next-cms-layout-setting-customize></cms-next-cms-layout-setting-customize>
+      </ng-container>
+    </div>
+  </ng-template>
+</section>

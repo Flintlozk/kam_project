@@ -1,0 +1,32 @@
+<section class="relative">
+  <div class="no-select select-options text-white">
+    <mat-form-field appearance="fill">
+      <mat-select #selectOption [(value)]="pageSelectDefault">
+        <mat-option (click)="onChangePage(page)" *ngFor="let page of pages" [value]="page._id">
+          <div class="flex items-center">
+            <img *ngIf="page?.isHomepage" class="w-4 mr-2" [src]="EPageIcons.HOME_ACTIVE_ICON" />
+            <img *ngIf="!page?.isHomepage" class="w-4 mr-2" [src]="EPageIcons.PAGE_ACTIVE_ICON" />
+            <span>{{ page.name }}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div (click)="selectOption.open()" class="flex items-center justify-between cursor-pointer">
+      <div class="flex items-center">
+        <img *ngIf="currentPage?.isHomepage" class="w-4 mr-2" [src]="EPageIcons.HOME_ACTIVE_ICON" />
+        <img *ngIf="!currentPage?.isHomepage" class="w-4 mr-2" [src]="EPageIcons.PAGE_ACTIVE_ICON" />
+        <div class="font-light" *ngIf="!landingMode">
+          <span class="font-medium">Page: </span>
+          {{ currentPage?.name }}
+        </div>
+        <div class="font-light" *ngIf="landingMode">
+          <span class="font-medium" *ngIf="landingMode === ELandingMode.CONTENT">Content Landing</span>
+        </div>
+      </div>
+      <svg class="ml-6" width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7.5 7L14 1" stroke="#BCC4D6" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+  <div *ngIf="isBorder" class="absolute bottom-0 w-full h-1 -mb-5 bg-green-500"></div>
+</section>

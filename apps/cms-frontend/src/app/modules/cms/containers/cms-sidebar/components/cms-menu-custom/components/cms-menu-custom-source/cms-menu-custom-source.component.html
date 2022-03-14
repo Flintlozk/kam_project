@@ -1,0 +1,39 @@
+<section [formGroup]="menuSourceForm" class="grid gap-4 pt-6">
+  <div class="grid gap-1">
+    <div class="text-sm font-light">Menu From</div>
+    <div class="select-options">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="sourceType">
+          <mat-option *ngFor="let source of menuSourceOption" [value]="source.value">
+            {{ source.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <ng-container *ngIf="menuSourceForm['controls']['sourceType'].value === EMenuSourceType.ROOT_MENU">
+    <cms-next-cms-site-menu-page></cms-next-cms-site-menu-page>
+  </ng-container>
+  <ng-container *ngIf="menuSourceForm['controls']['sourceType'].value === EMenuSourceType.CHILD_MENU">
+    <cms-next-cms-site-menu-page
+      (parentMenuIdEvent)="parentMenuIdEvent($event)"
+      [parentMenuId]="menuSourceForm['controls']['parentMenuId'].value"
+      [isFromMegaChild]="true"
+    ></cms-next-cms-site-menu-page>
+  </ng-container>
+  <ng-container *ngIf="menuSourceForm['controls']['sourceType'].value === EMenuSourceType.CUSTOM_MENU">
+    <div class="grid gap-1">
+      <div class="text-sm font-light">Menu Group</div>
+      <div class="select-options">
+        <mat-form-field appearance="fill">
+          <mat-select placeholder="Select Menu Group" formControlName="menuGroupId">
+            <mat-option *ngFor="let group of menuGroupOption" [value]="group._id">
+              {{ group.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <cms-next-cms-site-menu-page [menuGroupId]="menuSourceForm['controls']['menuGroupId'].value"></cms-next-cms-site-menu-page>
+  </ng-container>
+</section>

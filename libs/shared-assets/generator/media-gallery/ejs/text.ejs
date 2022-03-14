@@ -1,0 +1,72 @@
+<% getFontStyle = function(){ switch (generalText.text.fontStyle) { case "REGULAR" : return''; case "BOLD": return 'font-weight:bold;'; case "ITALIC": return 'font-style:italic;';}
+}
+getOverLayBackgroundColor = function(){
+  if(generalText?.overlay?.isOverlay){
+    return `background-color:${generalText?.overlay?.overlayColor}`
+  } else {
+    return ''
+  }
+} 
+getOverLayBackgroundOpacity = function(){
+  return `opacity:${generalText?.overlay?.overlayOpacity}`
+} 
+getOverLayFullWidth = function(){
+  if (generalText?.overlay?.isOverlayFullWidth){
+    return 'width:100%';
+  } else {
+    return '';
+  } 
+} 
+getAlignText = function(){
+    return `text-align:${generalText.text.textAlignment}`;
+} 
+getFontFamily = function(){
+    return `font-family:${generalText.text.fontFamily}`;
+} %>
+
+<div
+  style="
+    line-height: inherit;
+    font-family: 'Prompt-Light', 'Prompt Light', 'Prompt', sans-serif;
+    font-size: 16px;
+    color: inherit;
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  "
+>
+  <section
+    style=<%-`
+      tab-size:4;
+      line-height:inherit;
+      font-family:'Prompt-Light','Prompt Light','Prompt',sans-serif;
+      font-size:16px;
+      box-sizing:border-box;
+      border-width:0;
+      border-style:solid;
+      border-color:rgba(229, 231, 235, var(--tw-border-opacity));
+      position:relative;
+      display:flex;
+      height:100%;
+      width:100%;
+      overflow:hidden; 
+      justify-content:${generalText.horizontalPosition};
+      align-items:${generalText.verticalPosition};
+    `.replace(/\s+/g, '')%>
+  >
+    <div
+    class="<%= generalText?.overlay?.overlayAnimation %>"
+      style=<%-`
+        font-size:16px;color:inherit;box-sizing:border-box;border-width:0;border-style:solid;padding:0.5rem;line-height:unset;letter-spacing:unset;font-weight:unset;font-style:normal;` 
+        + getOverLayBackgroundColor() + ';' + getOverLayBackgroundOpacity() + ';' + getOverLayFullWidth() + ';' + getAlignText() + ';' + getFontFamily()%> 
+    >
+      <div style=<%-`font-size:${generalText.text.titleFontSize};color:${generalText.text.textColor};opacity:${generalText.text.textOpacity}` %> ><%-text?.title%></div>
+      <div style=<%-`font-size:${generalText.text.descriptionFontSize};color:${generalText.text.textColor};opacity:${generalText.text.textOpacity}` %>><%-text?.description%></div>
+    </div>
+  </section>
+</div>
+ 

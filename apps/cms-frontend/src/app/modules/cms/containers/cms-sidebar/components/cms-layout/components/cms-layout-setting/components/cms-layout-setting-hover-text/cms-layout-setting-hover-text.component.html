@@ -1,0 +1,16 @@
+<section class="grid grid-cols-2 gap-4" [formGroup]="layoutSettingHoverForm">
+  <ng-container *ngFor="let style of textHoverStyles; let index = index">
+    <div
+      (click)="onActiveStyle(index)"
+      [ngClass]="{ 'bg-gray-100 hover:bg-gray-300': !style.status, 'bg-green-100': style.status }"
+      class="relative flex items-center justify-center h-32 transition rounded-md"
+    >
+      <img *ngIf="style.status" [src]="style.iconActive" [alt]="style.style" />
+      <img *ngIf="!style.status" [src]="style.icon" [alt]="style.style" />
+      <svg *ngIf="style.status" class="absolute top-0 right-0 mt-2 mr-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.35" y="0.35" width="13.3" height="13.3" rx="2.65" fill="white" stroke="#2FC639" stroke-width="0.7" />
+        <path d="M3.5 7L6 9.5L11 4" stroke="#2FC639" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </ng-container>
+</section>
